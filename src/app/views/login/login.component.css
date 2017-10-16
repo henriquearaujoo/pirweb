@@ -1,0 +1,29 @@
+.jumbotron{
+    background: white;
+    margin: 80px;    
+    padding-top: 10px;
+    padding-bottom: 30px;
+    width: 400px;
+}
+
+.content {
+    background: #6497f5;  
+   /* padding-top: 100px;  */
+}
+
+.form-group, .form-control{
+    color: grey;
+}
+
+.btn{
+    height: 50px;
+    background: #6497f5;
+}
+
+.img-logo{
+    height: 100px;
+}
+
+p{
+    color: grey;
+}

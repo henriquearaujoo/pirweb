@@ -1,0 +1,31 @@
+<aside class="main-sidebar">
+    <section class="sidebar">
+      <ul class="sidebar-menu" data-widget="tree">
+        <li [class.active]="isActive(['/','/dashboard'])">
+          <a class="menu" (click)="toDashboard()">
+            <i class="fa fa-dashboard"></i>
+            <span>Dashboard de Desempenho</span>
+          </a>
+        </li>
+        <li [class.active]="isActive(['/','/agent'])">
+          <a class="menu" (click)="toAgent()">
+            <i class="fa fa-users"></i>
+            <span>Agentes</span>
+          </a>
+        </li>
+        <li [class.active]="isActive(['/','/maps'])">
+          <a class="menu" (click)="toMaps()">
+            <i class="fa fa-map-marker" aria-hidden="true"></i>
+            <span>Mapa dos Clientes</span>
+          </a>
+        </li>
+        
+        <li [class.active]="isActive(['/','/templateForms'])">
+          <a class="menu" (click)="toTemplateForms()">
+            <i class="fa fa-file" aria-hidden="true"></i>
+            <span>Formulários</span>
+          </a>
+        </li>
+      </ul>
+    </section>
+  </aside>
