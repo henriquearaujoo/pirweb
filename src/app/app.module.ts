@@ -45,6 +45,7 @@ import { AppComponent } from './app.component';
 import { RestService } from './services/rest/rest.service';
 import { CostumerService } from './services/costumer/costumer.service';
 import { PageService } from './services/pagenate/page.service';
+import { AuthenticationService } from './services/login/authentication.service';
 import { HeaderBarComponent } from './components/header-bar/header-bar.component';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { CostumerComponent } from './views/costumer/costumer.component';
@@ -58,6 +59,8 @@ import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { AgentComponent } from './views/agent/agent.component';
 import { TemplateFormsComponent } from './views/template-forms/template-forms.component';
 import { TemplateItemComponent } from './components/template-item/template-item.component';
+import { HomeComponent } from './views/home/home.component';
+
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
 
@@ -73,7 +76,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     AgentComponent,
     TemplateFormsComponent,
     LoginComponent,
-    TemplateItemComponent
+    TemplateItemComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -123,7 +127,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
   providers: [
     RestService,
     PageService,
-    CostumerService
+    CostumerService,
+    AuthenticationService
   ],
   bootstrap: [AppComponent]
 })

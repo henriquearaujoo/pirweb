@@ -8,12 +8,15 @@ import { LoginComponent } from './views/login/login.component';
 import { AgentComponent} from  './views/agent/agent.component';
 import { DashboardComponent } from  './views/dashboard/dashboard.component';
 import { TemplateFormsComponent } from  './views/template-forms/template-forms.component';
+import { AppComponent } from './app.component';
+import { HomeComponent } from './views/home/home.component';
 
 const App_Router: Routes = [
     { path: 'maps', component: MapsComponent },
     { path: 'agent', component: AgentComponent },
     { path: 'dashboard', component: DashboardComponent },
     { path: 'login', component: LoginComponent },
+    { path: '', component: HomeComponent },
     { path: 'templateForms', component: TemplateFormsComponent }
 ];
 
