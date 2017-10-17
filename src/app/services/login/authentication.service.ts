@@ -2,6 +2,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { User } from '../../views/login/user';
 import { Router } from '@angular/router';
 
+
 @Injectable()
 export class AuthenticationService {
 
@@ -17,11 +18,16 @@ export class AuthenticationService {
 
         this.authenticatedUser = true
         this.showMenuEmitter.emit(true)
-        this.router.navigate(['dashboard'])
+        this.router.navigate(['/'])
         
       } else {
+        this.router.navigate(['/login'])
         this.authenticatedUser = false
         this.showMenuEmitter.emit(false)
       }
+  }
+
+  userAuthenticated(){
+    return this.authenticatedUser
   }
 }
