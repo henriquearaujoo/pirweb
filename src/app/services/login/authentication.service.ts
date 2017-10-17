@@ -20,8 +20,7 @@ export class AuthenticationService {
         this.showMenuEmitter.emit(true)
         this.router.navigate(['/'])
         
-      } else {
-        this.router.navigate(['/login'])
+      } else {      
         this.authenticatedUser = false
         this.showMenuEmitter.emit(false)
       }
