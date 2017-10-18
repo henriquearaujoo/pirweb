@@ -1,3 +1,4 @@
+import { UserService } from './services/login/user.service';
 import { AuthGuard } from './guards/auth.guard';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -135,7 +136,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     PageService,
     CostumerService,
     AuthenticationService,
-    AuthGuard
+    AuthGuard,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

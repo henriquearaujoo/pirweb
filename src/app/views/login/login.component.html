@@ -24,16 +24,16 @@
           
           <div class="row">
             <div class="col">
-              <div class="form-group">
+              <div class="form-group" id="username">
                 <label for="user">Usuário</label>
-                <input [(ngModel)]="user.name" name = "user" type="text" class="form-control" placeholder="Nome de usuário">          
+                <input [(ngModel)]="user.username" name = "username" type="text" class="form-control" placeholder="Nome de usuário">          
               </div>
             </div>
           </div>
 
           <div class="row">
               <div class="col">
-                  <div class="form-group">
+                  <div class="form-group" id="password">
                       <label for="psw">Senha</label>
                       <input [(ngModel)]="user.password" name="password" type="password" class="form-control" placeholder="Senha">
                   </div>
@@ -52,7 +52,7 @@
               <div class="col">
                   <div class="form-group">
                       <div class="d-flex justify-content-center">
-                        <button class="btn btn-primary btn-block" (click)="login()"  name="submit">ENTRAR</button>
+                        <button class="btn btn-primary btn-md btn-block" (click)="login()"  name="submit">ENTRAR</button>
                       </div>  
                   </div>                    
               </div>

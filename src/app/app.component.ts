@@ -8,16 +8,13 @@ import { AuthenticationService } from './services/login/authentication.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  showMenu: boolean = false
-  
-    constructor( private authenticationService: AuthenticationService ){
+ 
+  constructor( ){
       
     }
   
     ngOnInit(){
-      this.authenticationService.showMenuEmitter.subscribe(
-        show => this.showMenu = show
-      )
+   
     }
   
 }

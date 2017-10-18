@@ -7,17 +7,14 @@ import { AuthenticationService } from '../../services/login/authentication.servi
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
-  showMenu: boolean = false
   
-    constructor( private authenticationService: AuthenticationService ){
+    constructor(  ){
       
     }
   
     ngOnInit(){
-      this.authenticationService.showMenuEmitter.subscribe(
-        show => this.showMenu = show
-      )
+     
+     
     }
 
 }

@@ -24,18 +24,22 @@ const App_Router: Routes = [
             path: '',
             component: HomeComponent
           },
+
           {
             path: 'dashboard',
             component: DashboardComponent
           },
+
           {
             path: 'agent',
             component: AgentComponent
           },
+
           {
             path: 'maps',
             component: MapsComponent
           },
+          
           {
             path: 'templateForms',
             component: TemplateFormsComponent
