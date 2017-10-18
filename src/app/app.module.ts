@@ -55,12 +55,15 @@ import { routing } from './app.router';
 import { MapsComponent } from './views/maps/maps.component';
 
 import { LoginComponent } from './views/login/login.component';
+import { HomeComponent } from './components/home/home.component';
 import { AgmCoreModule } from '@agm/core';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { AgentComponent } from './views/agent/agent.component';
 import { TemplateFormsComponent } from './views/template-forms/template-forms.component';
 import { TemplateItemComponent } from './components/template-item/template-item.component';
-import { HomeComponent } from './views/home/home.component';
+import { HomeLayoutComponent } from './components/layout/home-layout.component';
+import { LoginLayoutComponent } from './components/layout/login-layout.component';
+
 
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
@@ -78,7 +81,9 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     TemplateFormsComponent,
     LoginComponent,
     TemplateItemComponent,
-    HomeComponent
+    HomeComponent,
+    HomeLayoutComponent,
+    LoginLayoutComponent,
   ],
   imports: [
     BrowserModule,
