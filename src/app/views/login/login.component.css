@@ -1,14 +1,14 @@
 .jumbotron{
-    background: white;
-    margin: 80px;    
+    background: white;   
+    width: 360px;
+    margin: 7% auto;
     padding-top: 10px;
     padding-bottom: 30px;
-    width: 400px;
 }
 
-.content {
+.container {
     background: #6497f5;  
-   /* padding-top: 100px;  */
+    width: 100%;
 }
 
 .form-group, .form-control{
@@ -21,10 +21,18 @@
 }
 
 .img-logo{
-    height: 100px;
+    height: 130px;
+    margin-left: 25%;
+    padding-bottom: 20px;
 }
 
 p{
     color: grey;
     font-size: 14px;
+    text-align: center;
+}
+label{
+    color: grey;
+    font-size: 14px;
+    font-weight: normal;
 }

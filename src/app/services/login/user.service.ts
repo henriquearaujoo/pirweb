@@ -9,7 +9,7 @@ import 'rxjs/add/operator/do'
 
 @Injectable()
 export class UserService    {
-  private apiurl = 'http://localhost:3000/users';
+  public apiurl = 'http://localhost:3000/users';
 
   constructor(private http : Http) {
    // super(http);
@@ -20,12 +20,8 @@ export class UserService    {
         return this.http.get(this.apiurl)
         .map((response: Response) => <User>response.json())
         .do(data => console.log('All: ' + JSON.stringify(data)))
-        .catch(this.handleError);
+        .catch(this.handleError);    
     
-    
-    //Requisição http
-   
-    //return this.http.get('http://localhost:3000/users')User
   }
 
   private handleError(error: Response) {
