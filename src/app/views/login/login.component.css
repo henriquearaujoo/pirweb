@@ -36,3 +36,8 @@ label{
     font-size: 14px;
     font-weight: normal;
 }
+
+.help-block {
+    font-size: 12px;
+    color: rgb(129, 21, 21);
+}

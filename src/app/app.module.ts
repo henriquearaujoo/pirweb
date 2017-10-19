@@ -1,3 +1,4 @@
+import { AlertService } from './services/alert/alert.service';
 import { UserService } from './services/login/user.service';
 import { AuthGuard } from './guards/auth.guard';
 import { BrowserModule } from '@angular/platform-browser';
@@ -41,6 +42,7 @@ import {
   MatTooltipModule,
   MatStepperModule,
 } from '@angular/material';
+import { NgForm } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 
@@ -64,6 +66,7 @@ import { TemplateFormsComponent } from './views/template-forms/template-forms.co
 import { TemplateItemComponent } from './components/template-item/template-item.component';
 import { HomeLayoutComponent } from './components/layout/home-layout.component';
 import { LoginLayoutComponent } from './components/layout/login-layout.component';
+import { AlertComponent } from './components/alert/alert.component';
 
 
 
@@ -85,6 +88,7 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     HomeComponent,
     HomeLayoutComponent,
     LoginLayoutComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
@@ -137,7 +141,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     CostumerService,
     AuthenticationService,
     AuthGuard,
-    UserService
+    UserService,
+    AlertService
   ],
   bootstrap: [AppComponent]
 })
