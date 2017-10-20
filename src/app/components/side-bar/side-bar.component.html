@@ -26,13 +26,34 @@
             <span>Formulários</span>
           </a>
         </li>
-        
-        <li [class.active]="isActive(['/','/user'])">
-          <a class="menu" (click)="toUser()">
-            <i class="fa fa-user" aria-hidden="true"></i>
-            <span>Usuários</span>
-          </a>
-        </li>
+
+        <li class="treeview">
+            <a href="#">
+              <i class="fa fa-user"></i> <span>Usuários</span>
+              <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+              <li [class.active]="isActive(['/','/user-list'])">
+                <a class="menu" (click)="toUserList()">
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                    <span>Registros</span>
+                </a>
+              </li>
+              <li [class.active]="isActive(['/','/user'])">
+                <a class="menu" (click)="toUser()">
+                  <i class="fa fa-plus" aria-hidden="true"></i>
+                  <span>Novo</span>
+                </a>
+              </li>
+              <li>
+                <a href="#"><i class="fa fa-circle-o"></i> Profile <i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                    <li><a href="#"><i class="fa fa-list"></i>Registros</a></li>
+                    <li><a href="#"><i class="fa fa-plus"></i>Novo</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
       </ul>
     </section>
   </aside>

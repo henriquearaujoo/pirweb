@@ -13,6 +13,8 @@ import { TemplateFormsComponent } from  './views/template-forms/template-forms.c
 import { HomeLayoutComponent } from './components/layout/home-layout.component';
 import { LoginLayoutComponent } from './components/layout/login-layout.component';
 import {UserComponent} from  './views/user/user.component';
+import {UserListComponent} from './views/user-list/user-list.component';
+
 const App_Router: Routes = [
 
     {
@@ -44,6 +46,10 @@ const App_Router: Routes = [
           {
             path: 'user',
             component: UserComponent
+          },
+          {
+            path:'user-list',
+            component:UserListComponent
           }
 
         ]
