@@ -12,19 +12,18 @@ import { DashboardComponent } from  './views/dashboard/dashboard.component';
 import { TemplateFormsComponent } from  './views/template-forms/template-forms.component';
 import { HomeLayoutComponent } from './components/layout/home-layout.component';
 import { LoginLayoutComponent } from './components/layout/login-layout.component';
-
+import {UserComponent} from  './views/user/user.component';
 const App_Router: Routes = [
 
     {
         path: '',
         component: HomeLayoutComponent,
         canActivate: [AuthGuard],
-        children: [
+        children: [  
           {
             path: '',
             component: HomeComponent
           },
-
           {
             path: 'dashboard',
             component: DashboardComponent
@@ -34,15 +33,17 @@ const App_Router: Routes = [
             path: 'agent',
             component: AgentComponent
           },
-
           {
             path: 'maps',
             component: MapsComponent
           },
-          
           {
             path: 'templateForms',
             component: TemplateFormsComponent
+          },   
+          {
+            path: 'user',
+            component: UserComponent
           }
 
         ]

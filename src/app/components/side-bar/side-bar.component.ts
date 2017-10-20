@@ -37,4 +37,8 @@ export class SideBarComponent implements OnInit {
   toTemplateForms(){
     this.router.navigate(['templateForms']);
   }
+
+  toUser(){
+    this.router.navigate(['users']);
+  }
 }

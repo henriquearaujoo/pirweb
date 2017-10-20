@@ -67,6 +67,7 @@ import { TemplateItemComponent } from './components/template-item/template-item.
 import { HomeLayoutComponent } from './components/layout/home-layout.component';
 import { LoginLayoutComponent } from './components/layout/login-layout.component';
 import { AlertComponent } from './components/alert/alert.component';
+import { UserComponent } from './views/user/user.component';
 
 
 
@@ -89,6 +90,7 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     HomeLayoutComponent,
     LoginLayoutComponent,
     AlertComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,
