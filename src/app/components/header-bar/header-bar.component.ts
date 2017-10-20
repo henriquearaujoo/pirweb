@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../../services/login/authentication.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -11,5 +12,7 @@ export class HeaderBarComponent implements OnInit {
 
   ngOnInit() {
   }
+
+ 
 
 }

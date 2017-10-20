@@ -13,18 +13,23 @@ export class AuthenticationService {
   //private users2: User
   //private userService: UserServices
 
-  constructor( private router: Router, private http: Http, private userService: UserService) { }
+  constructor( private router: Router, private http: Http, private userService: UserService) { 
+    var currentUser = JSON.parse(localStorage.getItem('currentUser'))
+  }
 
   
   login( user: User) {  
   
     var authenticatedUser = this.users.find(u => u.username === user.username)
-    if (authenticatedUser && authenticatedUser.password === user.password) {       
-        this.isAuthenticated = true          
-      
-        this.router.navigate(['/'])
+    if (authenticatedUser && authenticatedUser.password === user.password) {      
         
-      } else {      
+      this.isAuthenticated = true                 
+      localStorage.setItem('currentUser', JSON.stringify({ username: user.username, password: user.password}));
+       
+      this.router.navigate(['/'])
+      console.log(localStorage.getItem('currentUser'))
+        
+      } else {
         this.isAuthenticated = false
       }
       
@@ -32,5 +37,9 @@ export class AuthenticationService {
 
   userAuthenticated(){
     return this.isAuthenticated
+  }
+
+  logout(): void{
+    localStorage.removeItem('currentUser')
   }
 }

@@ -6,6 +6,23 @@
   <span class="logo-lg">Pir</span>
   </a>
   <nav class="navbar navbar-static-top" role="navigation">
-      
+   
+      <!-- navbar right menu -->
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- messages-->
+          <li class="dropdown messages-menu">
+           
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-envelope-o"></i>
+              <span class="label label-danger">2</span>
+            </a>             
+          </li>   
+          <!-- end messages-->   
+          <li>         
+            <a [routerLink]="['/login']"  data-toggle="control-sidebar" ><i class="fa fa-sign-out"></i></a>
+          </li>
+        </ul>
+      </div>      
   </nav>
 </header>

@@ -18,6 +18,9 @@ export class LoginComponent implements OnInit {
       private restService: RestService) { }
 
   ngOnInit() {
+   // reset login
+    this.authenticationService.logout()
+    console.log(localStorage.getItem('currentUser'))
   }
 
   login() {
