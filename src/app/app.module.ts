@@ -68,7 +68,12 @@ import { HomeLayoutComponent } from './components/layout/home-layout.component';
 import { LoginLayoutComponent } from './components/layout/login-layout.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { UserComponent } from './views/user/user.component';
+
 import { UserListComponent } from './views/user-list/user-list.component';
+
+import { ResetPasswordComponent } from './views/login/reset-password/reset-password.component';
+import { ProfileComponent } from './views/profile/profile.component';
+
 
 
 
@@ -92,7 +97,12 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     LoginLayoutComponent,
     AlertComponent,
     UserComponent,
+<<<<<<< HEAD
     UserListComponent,
+=======
+    ResetPasswordComponent,
+    ProfileComponent,
+>>>>>>> [RS_02] Create profile page
   ],
   imports: [
     BrowserModule,

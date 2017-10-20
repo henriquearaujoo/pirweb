@@ -1,3 +1,4 @@
+import { ProfileComponent } from './views/profile/profile.component';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { ModuleWithProviders } from '@angular/core';
@@ -12,8 +13,12 @@ import { DashboardComponent } from  './views/dashboard/dashboard.component';
 import { TemplateFormsComponent } from  './views/template-forms/template-forms.component';
 import { HomeLayoutComponent } from './components/layout/home-layout.component';
 import { LoginLayoutComponent } from './components/layout/login-layout.component';
+
 import {UserComponent} from  './views/user/user.component';
 import {UserListComponent} from './views/user-list/user-list.component';
+
+import { ResetPasswordComponent } from './views/login/reset-password/reset-password.component';
+
 
 const App_Router: Routes = [
 
@@ -48,8 +53,13 @@ const App_Router: Routes = [
             component: UserComponent
           },
           {
+
             path:'user-list',
             component:UserListComponent
+          },
+          {
+            path: 'profile',
+            component: ProfileComponent
           }
 
         ]
@@ -62,10 +72,11 @@ const App_Router: Routes = [
           {
             path: 'login',
             component: LoginComponent
-          }
+          }         
         ]
       },
-      { path: '**', redirectTo: '' }
+      { path: '**', redirectTo: '' },
+      { path: 'resetPassword', component: ResetPasswordComponent}
     
     
 ];
