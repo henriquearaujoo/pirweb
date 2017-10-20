@@ -14,7 +14,7 @@ import 'rxjs/add/operator/map';
 })
 export class ProfileComponent{
 
-  displayedColumns = ['profileId', 'profileName', 'rule'];
+  displayedColumns = ['userId', 'userName', 'color'];
   exampleDatabase = new ExampleDatabase();
   dataSource: ExampleDataSource | null;
 
@@ -31,32 +31,32 @@ const NAMES = ['Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack',
   'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 'Jasper',
   'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'];
 
-export interface ProfileData {
+export interface UserData {
   id: string;
   name: string;
-  rule: string;
+  color: string;
 }
 
 /** An example database that the data source uses to retrieve data for the table. */
 export class ExampleDatabase {
   /** Stream that emits whenever the data has been modified. */
-  dataChange: BehaviorSubject<ProfileData[]> = new BehaviorSubject<ProfileData[]>([]);
-  get data(): ProfileData[] { return this.dataChange.value; }
+  dataChange: BehaviorSubject<UserData[]> = new BehaviorSubject<UserData[]>([]);
+  get data(): UserData[] { return this.dataChange.value; }
 
   constructor() {
     // Fill up the database with 100 users.
-    for (let i = 0; i < 100; i++) { this.addProfile(); }
+    //for (let i = 0; i < 10; i++) { this.addUser(); }
   }
 
   /** Adds a new user to the database. */
-  addProfile() {
+  addUser() {
     const copiedData = this.data.slice();
-    //copiedData.push(this.createNewProfile());
+    copiedData.push(this.createNewUser());
     this.dataChange.next(copiedData);
   }
 
   /** Builds and returns a new User. */
-  private createNewProfile() {
+  private createNewUser() {
     const name =
         NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
         NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
@@ -82,7 +82,7 @@ export class ExampleDataSource extends DataSource<any> {
   }
 
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<ProfileData[]> {
+  connect(): Observable<UserData[]> {
     const displayDataChanges = [
       this._exampleDatabase.dataChange,
       this._paginator.page,

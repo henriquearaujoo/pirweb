@@ -45,4 +45,8 @@ export class SideBarComponent implements OnInit {
   toUserList(){
     this.router.navigate(['user-list']);
   }
+
+  toProfile(){
+    this.router.navigate(['profile']);
+  }
 }

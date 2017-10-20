@@ -46,10 +46,23 @@
                 </a>
               </li>
               <li>
-                <a href="#"><i class="fa fa-circle-o"></i> Profile <i class="fa fa-angle-left pull-right"></i></a>
+                <a href="#"><i class="fa fa-circle-o"></i> 
+                  <span>Perfil</span> 
+                  <i class="fa fa-angle-left pull-right"></i>
+                </a>
                 <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-list"></i>Registros</a></li>
-                    <li><a href="#"><i class="fa fa-plus"></i>Novo</a></li>
+                    <li>
+                      <a href="#">
+                        <i class="fa fa-list"></i>
+                        Registros
+                      </a>
+                    </li>
+                    <li [class.active]="isActive(['/','/profile'])">
+                      <a class="menu" (click)="toProfile()">
+                        <i class="fa fa-plus"></i>
+                        <span>Novo</span>
+                      </a>
+                    </li>
                 </ul>
               </li>
             </ul>
