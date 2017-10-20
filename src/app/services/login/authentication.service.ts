@@ -9,12 +9,16 @@ import { Router } from '@angular/router';
 export class AuthenticationService {
 
   private isAuthenticated: boolean = false
-  private users = [new User('admin','adm'), new User('user1','123')]
-  //private users2: User
+  private users:User[];
   //private userService: UserServices
 
   constructor( private router: Router, private http: Http, private userService: UserService) { 
-    var currentUser = JSON.parse(localStorage.getItem('currentUser'))
+    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    var user2 = new User();    
+    user2.username = "admin";
+    user2.password = "adm";
+    this.users = [user2];
+    
   }
 
   

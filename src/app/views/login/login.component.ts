@@ -12,7 +12,7 @@ import { RestService } from '../../services/rest/rest.service'
 })
 export class LoginComponent implements OnInit {
 
-  private user: User = new User('', '')
+  private user: User = new User()
 
   constructor(private authenticationService: AuthenticationService,
       private restService: RestService) { }
