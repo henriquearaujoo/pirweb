@@ -97,12 +97,9 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     LoginLayoutComponent,
     AlertComponent,
     UserComponent,
-<<<<<<< HEAD
     UserListComponent,
-=======
     ResetPasswordComponent,
     ProfileComponent,
->>>>>>> [RS_02] Create profile page
   ],
   imports: [
     BrowserModule,
