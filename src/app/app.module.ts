@@ -8,6 +8,7 @@ import { Http, XHRBackend, RequestOptions, HttpModule, ConnectionBackend } from 
 import { Router } from '@angular/router';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
+
 import { CdkTableModule } from '@angular/cdk/table';
 import {
   MatAutocompleteModule,
@@ -73,8 +74,7 @@ import { UserListComponent } from './views/user-list/user-list.component';
 
 import { ResetPasswordComponent } from './views/login/reset-password/reset-password.component';
 import { ProfileComponent } from './views/profile/profile.component';
-
-
+import { ProfileService } from './services/profile/profile.service';
 
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
@@ -99,7 +99,7 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     UserComponent,
     UserListComponent,
     ResetPasswordComponent,
-    ProfileComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -153,7 +153,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     AuthenticationService,
     AuthGuard,
     UserService,
-    AlertService
+    AlertService,
+    ProfileService
   ],
   bootstrap: [AppComponent]
 })

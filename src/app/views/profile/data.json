@@ -1,0 +1,13 @@
+{
+  "rule": [
+    { "id": 1, "name": "editar" },
+    { "id": 2, "name": "criar" },
+    { "id": 3, "name": "visualizar" }
+  ],
+  "profile": [
+    { "id": 1, "name": "administrador", "ruleId": 1 },
+    { "id": 2, "name": "agente", "ruleId": 3 },
+    { "id": 3, "name": "usuario1", "ruleId": 2 }
+  ]
+
+}
