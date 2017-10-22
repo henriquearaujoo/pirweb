@@ -15,7 +15,9 @@
             <h3 class="box-title">Perfis cadastrados</h3>
           </div>
         <div class="col-sm-6">
-              <div id="example1_filter" class="dataTables_filter"><label>Pesquisar:<input type="text" class="form-control form-border " [(ngModel)]="profileFilter.name" placeholder="Descrição do perfil">
+              <div id="example1_filter" class="dataTables_filter">
+                <label>
+                  Pesquisar:<input type="text" class="form-control form-border " [(ngModel)]="profileFilter.name" placeholder="Descrição do perfil">
               </label></div>
             </div>
         </div>
@@ -70,18 +72,15 @@
           <h4 class="modal-title">Selecionar Regras</h4>
         </div>
         <div class="modal-body">
+          <div *ngFor="let item of pagedItems">>
             <div class="checkbox">
                 <label>
                   <input type="checkbox" value="">
-                  Create
+                  {{ item.ruleId }}
                 </label>
               </div>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" value="" >
-                  Edit
-                </label>
-              </div>
+              
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
