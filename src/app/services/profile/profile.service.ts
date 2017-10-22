@@ -1,23 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { RestService } from '../rest/rest.service';
-import { Profile } from '../../models/Profile';
+import { Profile } from '../../models/profile';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ProfileService extends RestService{
-  apiurl = 'http://localhost:3000/profile';
+  apiurl = 'http://localhost:3000/';
   
     constructor(http : Http) {
       super(http);
     }
   
-    public getProfiles() {
-      return this.get(this.apiurl);
+    public getProfiles() {      
+      const currentURL = this.apiurl.concat('profile');
+      return this.get(currentURL);
     }
 
     public updateProfile(profiles: Profile): Observable<Profile> {
-      const saveProfileUrl = this.apiurl.concat('');
+      const saveProfileUrl = this.apiurl.concat('profile');
       return this.post(saveProfileUrl, profiles);
     }
 }

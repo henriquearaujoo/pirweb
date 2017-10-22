@@ -1,0 +1,105 @@
+<div class="content">
+<!-- when there's not record -->
+<div *ngIf="!hasdata">
+    <section class="content">
+      <div class="feedback-icon fa fa-user"></div><br><br>
+      <span class="feedback-message">Não há dados cadastrados</span>
+    </section>
+  </div>
+  
+  <div *ngIf="hasdata">
+    <section class="content padding-content">
+      <div class="box">
+        <div class="box-header row" style="padding-bottom: 0px;">
+          <div class="col-sm-6">
+            <h3 class="box-title">Perfis cadastrados</h3>
+          </div>
+        <div class="col-sm-6">
+              <div id="example1_filter" class="dataTables_filter"><label>Pesquisar:<input type="text" class="form-control form-border " [(ngModel)]="profileFilter.name" placeholder="Descrição do perfil">
+              </label></div>
+            </div>
+        </div>
+        <div class="box-body">
+          <table id="example1" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th (click)="sort('id')">ID
+                  <span class="glyphicon" *ngIf="key =='id'" [ngClass]="{'glyphicon-triangle-top':reverse,'glyphicon-triangle-bottom':!reverse}"></span>
+                 </th>
+                <th (click)="sort('name')">Descrição
+                  <span class="glyphicon" *ngIf="key =='name'" [ngClass]="{'glyphicon-triangle-top':reverse,'glyphicon-triangle-bottom':!reverse}"></span>
+                </th>
+                <th>Regras</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of pagedItems">
+                <th>{{ item.id }}</th>
+                <td>{{ item.name }}</td> 
+                <td>
+                  <button class="btn btn-primary btn-xs fa fa-ellipsis-h" data-toggle="modal" data-target="#modal-default">
+                      
+                  </button>
+                </td>                
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <ul *ngIf="pager.pages && pager.pages.length" class="pagination stylepage">
+        <li [ngClass]="{disabled:pager.currentPage === 1}">
+          <a (click)="setPage(pager.currentPage - 1)">Anterior</a>
+        </li>
+        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+          <a (click)="setPage(page)">{{page}}</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <a (click)="setPage(pager.currentPage + 1)">Próxima</a>
+        </li>
+      </ul>
+    </section>
+  </div>
+</div>
+
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Selecionar Regras</h4>
+        </div>
+        <div class="modal-body">
+            <div class="checkbox">
+                <label>
+                  <input type="checkbox" value="">
+                  Create
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" value="" >
+                  Edit
+                </label>
+              </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary">Salvar</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
+  <script>
+      $(document).ready(function(){
+        $('input').iCheck({
+          checkboxClass: 'icheckbox_square-blue',
+          radioClass: 'iradio_square-blue',
+          increaseArea: '20%' // optional
+        });
+      });
+  </script>

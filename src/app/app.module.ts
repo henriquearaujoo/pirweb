@@ -75,6 +75,7 @@ import { UserListComponent } from './views/user-list/user-list.component';
 import { ResetPasswordComponent } from './views/login/reset-password/reset-password.component';
 import { ProfileComponent } from './views/profile/profile.component';
 import { ProfileService } from './services/profile/profile.service';
+import { ProfileListComponent } from './views/profile/profile-list/profile-list.component';
 
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
@@ -99,7 +100,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     UserComponent,
     UserListComponent,
     ResetPasswordComponent,
-    ProfileComponent
+    ProfileComponent,
+    ProfileListComponent
   ],
   imports: [
     BrowserModule,

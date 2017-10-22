@@ -1,13 +1,49 @@
 {
   "rule": [
-    { "id": 1, "name": "editar" },
-    { "id": 2, "name": "criar" },
-    { "id": 3, "name": "visualizar" }
+    {
+      "id": 1,
+      "name": "editar"
+    },
+    {
+      "id": 2,
+      "name": "criar"
+    },
+    {
+      "id": 3,
+      "name": "visualizar"
+    }
   ],
   "profile": [
-    { "id": 1, "name": "administrador", "ruleId": 1 },
-    { "id": 2, "name": "agente", "ruleId": 3 },
-    { "id": 3, "name": "usuario1", "ruleId": 2 }
+    {
+      "id": 1,
+      "name": "administrador",
+      "ruleId": 1
+    },
+    {
+      "id": 2,
+      "name": "agente",
+      "ruleId": 3
+    },
+    {
+      "id": 3,
+      "name": "usuario1",
+      "ruleId": 2
+    },
+    {
+      "name": "tttt",
+      "id": 4
+    },
+    {
+      "name": "usuário2",
+      "id": 5
+    },
+    {
+      "name": "usuário3",
+      "id": 6
+    },
+    {
+      "name": "user1",
+      "id": 7
+    }
   ]
-
 }

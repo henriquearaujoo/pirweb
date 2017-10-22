@@ -51,8 +51,8 @@
                   <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li>
-                      <a href="#">
+                    <li [class.active]="isActive(['/','/profile-list'])">
+                      <a class="menu" (click)="toProfileList()">
                         <i class="fa fa-list"></i>
                         Registros
                       </a>
