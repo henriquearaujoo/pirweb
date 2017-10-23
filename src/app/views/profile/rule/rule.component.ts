@@ -16,7 +16,7 @@ import { PagenateComponent } from '../../../components/pagenate/pagenate.compone
 })
 export class RuleComponent extends PagenateComponent implements OnInit {
 
-  @Input() selectedProfile :any;
+  @Input() selectedPage :any;
   @Input() pk: any;
   @Input() lg: boolean = false;
 
@@ -36,7 +36,7 @@ export class RuleComponent extends PagenateComponent implements OnInit {
     }
 
   ngOnInit() {
-    console.log(this.selectedProfile);   
+    console.log(this.selectedPage);   
     
     this.getRules();
     
@@ -55,13 +55,13 @@ export class RuleComponent extends PagenateComponent implements OnInit {
   }
 
   onClicked(option, $event){
-    this.selectedProfile.rule = option.id
+    this.selectedPage.rule = option.id
   }
 
   saveRules(form){
-    this.profileService.saveEditRule(this.selectedProfile).subscribe(
+    this.profileService.saveEditRule(this.selectedPage).subscribe(
       success => {
-        this.selectedProfile = success
+        this.selectedPage = success
       },
       error => <any>error
     ); 

@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="content">
+      <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Permissões de Acesso </h3>
+            <small> {{ selectedProfile }}</small>
+          </div>
+          <div class="box-body">
+            <div class="row">
+
+              <div class="col-md-6">         
+                <div class="panel panel-primary" >  
+                  <div class="panel-heading">
+                  <h3 class="panel-title">Páginas Permitidas</h3>
+                  </div>
+                  <div class="panel-body" >
+                    <div class="list-group" *ngFor="let item of pageAllowed">  
+                        <a class="list-group-item"> {{ item.name }}</a>              
+                    </div>  
+                  </div>
+                </div>     
+              </div>
+              <div class="col-md-6" >   
+                <div class="panel panel-primary" >  
+                  <div class="panel-heading">
+                      <h3 class="panel-title">Páginas sem permissão</h3>
+                  </div>
+                  <div class="panel-body" >
+                   <app-rule *ngFor="let item of pagedItems" [selectedPage]="item" [pk]='item.id'>
+                    <div class="list-group" >  
+                      <a class="list-group-item" (click)= "addPage(item)">                 
+                           {{ item.name }}
+                      </a>                                  
+                    </div>  
+                  </app-rule>    
+                  </div>
+                </div>              
+              </div>
+            </div>
+          </div>    
+        </div>
+      </div>
+  </div>
+  

@@ -39,8 +39,8 @@
                 <th>{{ item.id }}</th>
                 <td>{{ item.name }}</td> 
                 <td>
-                
-                  <app-rule [selectedProfile]="item" [pk]='item.id'></app-rule>    
+                  <button class="btn btn-default " (click)="viewPage(item)" [routerLink]="['/page-list']" > view </button>
+                  <!-- <app-rule [selectedProfile]="item" [pk]='item.id'></app-rule>   --> 
                 
                 </td>                
               </tr>

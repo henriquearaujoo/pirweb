@@ -80,6 +80,8 @@ import { ProfileListComponent } from './views/profile/profile-list/profile-list.
 import { ProfilePipe } from './views/profile/profile-list/profile.pipe';
 import { RuleService } from './services/rule/rule.service';
 import { RuleComponent } from './views/profile/rule/rule.component';
+import { PageComponent } from './views/profile/page/page.component';
+import { AccessPageService } from './services/page/access-page.service';
 
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
@@ -107,7 +109,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ProfileComponent,
     ProfileListComponent,
     ProfilePipe,
-    RuleComponent
+    RuleComponent,
+    PageComponent
   ],
   imports: [
     BrowserModule,
@@ -163,7 +166,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     AlertService,
     CreateUserService,
     ProfileService,
-    RuleService
+    RuleService,
+    AccessPageService
   ],
   bootstrap: [AppComponent]
 })

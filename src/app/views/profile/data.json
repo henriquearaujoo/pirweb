@@ -27,15 +27,25 @@
       "id": 2,
       "name": "agente",
       "rule": 3
+    }
+  ],
+
+  "page": [
+    {
+      "id": 1,
+      "name": "Dasboard"
     },
     {
-      "name": "User1",
+      "id": 2,
+      "name": "Mapa"
+    },
+    {
       "id": 3,
-      "rule": 2
+      "name": "Formulários"
     },
     {
-      "name": "User2",
-      "id": 4
+      "id": 4,
+      "name": "Agentes"
     }
   ]
 }

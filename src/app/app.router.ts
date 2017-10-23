@@ -1,3 +1,4 @@
+import { PageComponent } from './views/profile/page/page.component';
 import { ProfileComponent } from './views/profile/profile.component';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
@@ -65,6 +66,10 @@ const App_Router: Routes = [
           {
             path: 'profile-list',
             component: ProfileListComponent
+          },
+          {
+            path: 'page-list',
+            component: PageComponent
           }
 
         ]

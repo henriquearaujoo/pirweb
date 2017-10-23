@@ -21,6 +21,8 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
 
     @Input() newProfile :Profile[] = new Array(); 
 
+    selectedProfile: Profile[] = new Array();
+
     hasdata: boolean;
 
     @Input() profileFilter: any = { name: '' };    
@@ -63,7 +65,12 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
           },
           error => this.hasdata = false
         );
-        console.log(this.profiles)
+        //console.log(this.profiles)
+      }
+
+      viewPage(item){
+        this.selectedProfile = item;
+        console.log(this.selectedProfile);
       }
 
   
