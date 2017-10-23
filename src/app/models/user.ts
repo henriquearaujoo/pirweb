@@ -10,7 +10,8 @@ export class User {
 	public ie: string;
 	public cnpj: string;
 	public social_reason: string;
-	public nickname : string;
+    public nickname : string;
+    public profile_id: number;
 	public login: string;
 	public password: string;
 	public type: string;

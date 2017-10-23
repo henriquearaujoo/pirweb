@@ -1,5 +1,6 @@
 import { AlertService } from './services/alert/alert.service';
 import { UserService } from './services/login/user.service';
+import {CreateUserService} from './services/user-create/create-user.service'
 import { AuthGuard } from './guards/auth.guard';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -153,7 +154,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     AuthenticationService,
     AuthGuard,
     UserService,
-    AlertService
+    AlertService,
+    CreateUserService
   ],
   bootstrap: [AppComponent]
 })
