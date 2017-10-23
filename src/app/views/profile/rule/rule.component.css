@@ -1,0 +1,17 @@
+ .modal-header, h4{
+    background-color: hsl(202, 52%, 49%);
+    color:white !important;   
+}
+
+.modal-header{
+    padding:15px!important;  
+} 
+
+.modal-body {
+    padding:5px 50px!important;
+    text-align: left;
+}
+
+small {
+    color: #dcd9d9!important;
+}

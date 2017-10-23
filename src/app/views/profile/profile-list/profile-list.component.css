@@ -1,0 +1,12 @@
+th{   
+    padding: 12px!important;
+}
+
+thead {
+    background: #21466d;
+    color: white;
+}
+.table th, td {
+    vertical-align: middle;
+    text-align: center;
+}

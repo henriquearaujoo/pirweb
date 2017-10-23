@@ -40,11 +40,11 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
     }
 
     ngOnChanges(){
-     
+      this.profiles = new Array();
     }
     
-    save(form){
-      this.profileService.updateProfile(this.profile).subscribe(
+    save(){
+      this.profileService.saveProfile(this.profile).subscribe(
         success => {
           this.profile = success
         },

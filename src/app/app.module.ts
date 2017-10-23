@@ -78,6 +78,7 @@ import { ProfileService } from './services/profile/profile.service';
 import { ProfileListComponent } from './views/profile/profile-list/profile-list.component';
 import { ProfilePipe } from './views/profile/profile-list/profile.pipe';
 import { RuleService } from './services/rule/rule.service';
+import { RuleComponent } from './views/profile/rule/rule.component';
 
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
@@ -104,7 +105,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ResetPasswordComponent,
     ProfileComponent,
     ProfileListComponent,
-    ProfilePipe
+    ProfilePipe,
+    RuleComponent
   ],
   imports: [
     BrowserModule,

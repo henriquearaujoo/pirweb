@@ -10,24 +10,25 @@
               </h3>
             </div>
             <div class="box-body">
-              <form role="form" #f="ngForm" (ngSubmit)="save(f)">
+              <form role="form" name="form" (ngSubmit)="f.form.valid && save()" #f="ngForm" novalidate>
                 
-                <div class="form-group">
+                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
                   <label>Descrição:</label>                  
                   <input type="text" class="form-control form-border" id="name" name="name"
-                    placeholder="Descrição do perfil" 
+                    placeholder="Descrição do perfil de usuário" 
                     [(ngModel)]="profile.name"
                     #name="ngModel" required>
+                  <div *ngIf="f.submitted && !name.valid" class="help-block">Digite uma descrição para perfil</div>
                 </div>                
-                <div class="box-footer">                 
-                    <button type="submit" class="btn btn-primary">Adicionar</button>
-                </div>
-              </form>              
+                <div class="form-group box-footer">                 
+                    <button class="btn btn-primary" >Salvar</button>   
+                  </div>
+              </form>                      
             </div>
           </div>
         </div>
       </div>
     </section>
   </div>
-<app-profile-list></app-profile-list>
+<app-profile-list [newProfile]="profile"></app-profile-list>
 </div>

@@ -1,4 +1,4 @@
-import {Component, OnInit, OnChanges} from '@angular/core';
+import {Component, OnInit, OnChanges, Input, Output, EventEmitter} from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ProfileService } from '../../../services/profile/profile.service';
@@ -17,11 +17,13 @@ import { Rule } from '../../../models/rule';
 })
 export class ProfileListComponent extends PagenateComponent implements OnInit, OnChanges{
   
-    profiles: Profile[] = new Array();
-    rules: Rule[] = new Array();
+    profiles: Profile[] = new Array();    
+
+    @Input() newProfile :Profile[] = new Array(); 
 
     hasdata: boolean;
-    profileFilter: any = { name: '' };
+
+    @Input() profileFilter: any = { name: '' };    
   
     key = 'name';
     reverse = false;
@@ -41,12 +43,14 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
       }
     
       ngOnInit() {
-        this.getProfile();
-        
+        //console.log(this.newProfile);  
+        this.hasdata = false;        
+        this.getProfile();        
       }
   
       ngOnChanges(){
-        this.pagedItems
+        this.profiles = this.newProfile;
+        this.getProfile();        
       }
   
       getProfile(){
@@ -61,27 +65,6 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
         );
         console.log(this.profiles)
       }
-
-      getRules(){
-        this.ruleService.getRules().subscribe(
-          success => {
-            this.rules = success;
-            this.allItems = this.rules;
-            this.setPage(1);
-            this.hasdata = true;
-          },
-          error => this.hasdata = false
-        );
-        console.log(this.rules)
-      }
-
-      // filterby(){
-      //   if (this.profiles.length === 0 || this.profileFilter === undefined
-      //     || this.profileFilter.trim() === '') {
-      //       return this.profiles
-      //     }          
-      // }
-      
 
   
 }

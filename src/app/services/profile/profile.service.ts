@@ -17,8 +17,13 @@ export class ProfileService extends RestService{
       return this.get(currentURL);
     }
 
-    public updateProfile(profiles: Profile): Observable<Profile> {
+    public saveProfile(profiles: Profile): Observable<Profile> {
       const saveProfileUrl = this.apiurl.concat('profile');
       return this.post(saveProfileUrl, profiles);
+    }
+
+    public saveEditRule(profiles: Profile): Observable<Profile> {
+      const saveProfileUrl = this.apiurl.concat('profile/' + profiles.id);
+      return this.put(saveProfileUrl, profiles);
     }
 }

@@ -2,56 +2,53 @@
   "rule": [
     {
       "id": 1,
-      "name": "editar"
+      "name": "Visualizar"
     },
     {
       "id": 2,
-      "name": "criar"
+      "name": "Criar"
     },
     {
       "id": 3,
-      "name": "visualizar"
+      "name": "Editar"
+    },
+    {
+      "id": 4,
+      "name": "Desabilitar"
     }
   ],
   "profile": [
     {
       "id": 1,
-      "name": "administrador",
-      "ruleId": 1
+      "name": "Administrador",
+      "rule": 4
     },
     {
       "id": 2,
       "name": "agente",
-      "ruleId": 3
+      "rule": 3
     },
     {
+      "name": "User1",
       "id": 3,
-      "name": "usuario1",
-      "ruleId": 2
+      "rule": 2
     },
     {
-      "name": "tttt",
-      "id": 4
+      "name": "User2",
+      "id": 4,
+      "rule": 4
     },
     {
-      "name": "usuário2",
+      "name": "User5",
       "id": 5
     },
     {
-      "name": "usuário3",
+      "name": "User3",
       "id": 6
     },
     {
-      "name": "user1",
+      "name": "User4",
       "id": 7
-    },
-    {
-      "name": "xxx",
-      "id": 8
-    },
-    {
-      "name": "\\\\\\\\\\\\\\\\sdcdcd",
-      "id": 9
     }
   ]
 }
