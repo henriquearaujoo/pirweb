@@ -24,6 +24,8 @@
     "@angular/platform-browser": "^4.4.5",
     "@angular/platform-browser-dynamic": "^4.4.5",
     "@angular/router": "^4.4.5",
+    "angular-2-data-table": "^0.1.2",
+    "angular2-data-table": "^3.0.0",
     "angular2-notifications": "^0.7.7",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",

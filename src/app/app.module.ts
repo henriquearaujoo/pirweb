@@ -7,7 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { Http, XHRBackend, RequestOptions, HttpModule, ConnectionBackend } from '@angular/http';
 import { Router } from '@angular/router';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 import { CdkTableModule } from '@angular/cdk/table';
 import {
@@ -74,8 +75,11 @@ import { UserListComponent } from './views/user-list/user-list.component';
 
 import { ResetPasswordComponent } from './views/login/reset-password/reset-password.component';
 import { ProfileComponent } from './views/profile/profile.component';
-
-
+import { ProfileService } from './services/profile/profile.service';
+import { ProfileListComponent } from './views/profile/profile-list/profile-list.component';
+import { ProfilePipe } from './views/profile/profile-list/profile.pipe';
+import { RuleService } from './services/rule/rule.service';
+import { RuleComponent } from './views/profile/rule/rule.component';
 
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
@@ -101,6 +105,9 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     UserListComponent,
     ResetPasswordComponent,
     ProfileComponent,
+    ProfileListComponent,
+    ProfilePipe,
+    RuleComponent
   ],
   imports: [
     BrowserModule,
@@ -140,7 +147,6 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    //MatTableModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
@@ -155,7 +161,9 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     AuthGuard,
     UserService,
     AlertService,
-    CreateUserService
+    CreateUserService,
+    ProfileService,
+    RuleService
   ],
   bootstrap: [AppComponent]
 })

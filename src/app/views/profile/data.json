@@ -1,0 +1,54 @@
+{
+  "rule": [
+    {
+      "id": 1,
+      "name": "Visualizar"
+    },
+    {
+      "id": 2,
+      "name": "Criar"
+    },
+    {
+      "id": 3,
+      "name": "Editar"
+    },
+    {
+      "id": 4,
+      "name": "Desabilitar"
+    }
+  ],
+  "profile": [
+    {
+      "id": 1,
+      "name": "Administrador",
+      "rule": 4
+    },
+    {
+      "id": 2,
+      "name": "agente",
+      "rule": 3
+    },
+    {
+      "name": "User1",
+      "id": 3,
+      "rule": 2
+    },
+    {
+      "name": "User2",
+      "id": 4,
+      "rule": 4
+    },
+    {
+      "name": "User5",
+      "id": 5
+    },
+    {
+      "name": "User3",
+      "id": 6
+    },
+    {
+      "name": "User4",
+      "id": 7
+    }
+  ]
+}

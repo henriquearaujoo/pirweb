@@ -18,6 +18,7 @@ import {UserComponent} from  './views/user/user.component';
 import {UserListComponent} from './views/user-list/user-list.component';
 
 import { ResetPasswordComponent } from './views/login/reset-password/reset-password.component';
+import { ProfileListComponent } from './views/profile/profile-list/profile-list.component';
 
 
 const App_Router: Routes = [
@@ -60,6 +61,10 @@ const App_Router: Routes = [
           {
             path: 'profile',
             component: ProfileComponent
+          },
+          {
+            path: 'profile-list',
+            component: ProfileListComponent
           }
 
         ]
