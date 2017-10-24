@@ -1,128 +1,128 @@
 <div class="content">
-    <section class="content">
-        <form >
-      <div class="box-header with-border">
-        <h3 class="box-title">Cadastro</h3>
-      </div>
-      <div class="row">
-          
-            <div class="col-md-6">
-              <div class="box box-primary">
-                <div class="box-body">
-                  <!-- select profile-->
-                  <div class="form-group">
-                    <label>Perfil</label>
-                    <select class="form-control" name="profile" required [(ngModel)]="user.profile_id">
+        <section class="content">
+            <form >
+          <div class="box-header with-border">
+            <h3 class="box-title">Cadastro</h3>
+          </div>
+          <div class="row">
+              
+                <div class="col-md-6">
+                  <div class="box box-primary">
+                    <div class="box-body">
+                      <!-- select profile-->
+                      <div class="form-group">
+                        <label>Perfil</label>
+                        <select class="form-control" name="profile" required [(ngModel)]="user.profile_id">
+                          
+                        </select>
+                      </div>
+                      <!-- select profile-->
+                      <div class="form-group">
+                        <label>Tipo de usuÃ¡rio</label>
+                        <select class="form-control" name="type" required [(ngModel)]="user.type">
+                          <option *ngFor="let type of types" [value]="type.id">{{type.description}}</option>
+                       </select>
+                      </div>
+                      <div class="form-group">
+                        <label>Login</label>
+                        <input type="text" [(ngModel)]="user.username" name="login" class="form-control" placeholder="Inserir Login ...">
+                        <!-- <div *ngIf="f.submitted && !username.valid" class="help-block">Digite um usuÃ¡rio</div> -->
+                      </div>
+                      <div class="form-group">
+                        <label>Senha</label>
+                        <input type="password" [(ngModel)]="user.password" name="password" class="form-control" placeholder="Inserir Senha ...">
+                      </div>
+                      <div class="form-group">
+                        <label>Nome Completo</label>
+                        <input type="text" [(ngModel)]="user.full_name" name="full_name" class="form-control" placeholder="Inserir Nome Completo ...">
+                      </div>
+                      <div class="form-group">
+                        <label>CPF</label>
+                        <input type="text" [(ngModel)]="user.cpf" name="cpf" class="form-control" placeholder="Inserir CPF ...">
+                      </div>
+                      <div class="form-group">
+                        <label>RG</label>
+                        <input type="text" [(ngModel)]="user.rg" name="rg" class="form-control" placeholder="Inserir RG ...">
+                      </div>
+                      <div class="form-group">
+                        <label>InscriÃ§Ã£o Estadual</label>
+                        <input type="text" [(ngModel)]="user.ie" name="ie" class="form-control" placeholder="Inserir InscriÃ§Ã£o Estadual ...">
+                      </div>
+                      <div class="form-group">
+                        <label>CNPJ</label>
+                        <input type="text" [(ngModel)]="user.cnpj" name="cnpj" class="form-control" placeholder="Inserir CNPJ ...">
+                      </div>
+                      <div class="form-group">
+                        <label>RasÃ£o Social</label>
+                        <input type="text" [(ngModel)]="user.social_reason" name="social_reason" class="form-control" placeholder="Inserir RasÃ£o Social ...">
+                      </div>
+                      <div class="form-group">
+                        <label>Nome Fantasia</label>
+                        <input type="text" [(ngModel)]="user.nickname" name="nickname" class="form-control" placeholder="Inserir Fantasia ...">
+                      </div>
+                      <!-- select profile-->
+                      <div class="form-group">
+                        <label>Status</label>
+                        <select class="form-control">
+                          <option>Ativo</option>
+                          <option>InatÃ­vo</option>
+                        </select>
+                      </div>
                       
-                    </select>
+                    </div>
                   </div>
-                  <!-- select profile-->
-                  <div class="form-group">
-                    <label>Tipo de usuário</label>
-                    <select class="form-control" name="type" required [(ngModel)]="user.type">
-                      <option *ngFor="let type of types" [value]="type.id">{{type.description}}</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Login</label>
-                    <input type="text" [(ngModel)]="user.username" name="login" class="form-control" placeholder="Inserir Login ...">
-                    <!-- <div *ngIf="f.submitted && !username.valid" class="help-block">Digite um usuário</div> -->
-                  </div>
-                  <div class="form-group">
-                    <label>Senha</label>
-                    <input type="password" [(ngModel)]="user.password" name="password" class="form-control" placeholder="Inserir Senha ...">
-                  </div>
-                  <div class="form-group">
-                    <label>Nome Completo</label>
-                    <input type="text" [(ngModel)]="user.full_name" name="full_name" class="form-control" placeholder="Inserir Nome Completo ...">
-                  </div>
-                  <div class="form-group">
-                    <label>CPF</label>
-                    <input type="text" [(ngModel)]="user.cpf" name="cpf" class="form-control" placeholder="Inserir CPF ...">
-                  </div>
-                  <div class="form-group">
-                    <label>RG</label>
-                    <input type="text" [(ngModel)]="user.rg" name="rg" class="form-control" placeholder="Inserir RG ...">
-                  </div>
-                  <div class="form-group">
-                    <label>Inscrição Estadual</label>
-                    <input type="text" [(ngModel)]="user.ie" name="ie" class="form-control" placeholder="Inserir Inscrição Estadual ...">
-                  </div>
-                  <div class="form-group">
-                    <label>CNPJ</label>
-                    <input type="text" [(ngModel)]="user.cnpj" name="cnpj" class="form-control" placeholder="Inserir CNPJ ...">
-                  </div>
-                  <div class="form-group">
-                    <label>Rasão Social</label>
-                    <input type="text" [(ngModel)]="user.social_reason" name="social_reason" class="form-control" placeholder="Inserir Rasão Social ...">
-                  </div>
-                  <div class="form-group">
-                    <label>Nome Fantasia</label>
-                    <input type="text" [(ngModel)]="user.nickname" name="nickname" class="form-control" placeholder="Inserir Fantasia ...">
-                  </div>
-                  <!-- select profile-->
-                  <div class="form-group">
-                    <label>Status</label>
-                    <select class="form-control">
-                      <option>Ativo</option>
-                      <option>Inatívo</option>
-                    </select>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="box box-primary">
+                    <div class="box-body">
+                        <div class="form-group">
+                          <label>CEP</label>
+                          <input type="text" [(ngModel)]="user.cep" name="cep" class="form-control" placeholder="Inserir CEP ...">
+                        </div>
+                        <!-- select state -->
+                        <div class="form-group">
+                          <label>Estado</label>
+                          <select class="form-control">
+                            <option>option 1</option>
+                            <option>option 2</option>
+                          </select>
+                        </div>
+                        <!-- select city-->
+                        <div class="form-group">
+                          <label>Cidade</label>
+                          <select class="form-control">
+                            <option>option 1</option>
+                            <option>option 2</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label>Bairro</label>
+                          <input type="text" [(ngModel)]="user.neighborhood" name="neighborhood" class="form-control" placeholder="Inserir Bairro ...">
+                        </div>
+                        <div class="form-group">
+                          <label>Rua</label>
+                          <input type="text" [(ngModel)]="user.street" name="street" class="form-control" placeholder="Inserir Rua ...">
+                        </div>
+                        <div class="form-group">
+                          <label>NÃºmero</label>
+                          <input type="text" [(ngModel)]="user.number" name="number" class="form-control" placeholder="Inserir NÃºmero ...">
+                        </div>
+                        <div class="form-group">
+                          <label>Complemento</label>
+                          <input type="text" [(ngModel)]="user.complement" name="complement" class="form-control" placeholder="Inserir Complemento ...">
+                        </div>
+                    </div>
                   </div>
                   
                 </div>
-              </div>
-            </div>
             
-            <div class="col-md-6">
-              <div class="box box-primary">
-                <div class="box-body">
-                    <div class="form-group">
-                      <label>CEP</label>
-                      <input type="text" [(ngModel)]="user.cep" name="cep" class="form-control" placeholder="Inserir CEP ...">
-                    </div>
-                    <!-- select state -->
-                    <div class="form-group">
-                      <label>Estado</label>
-                      <select class="form-control">
-                        <option>option 1</option>
-                        <option>option 2</option>
-                      </select>
-                    </div>
-                    <!-- select city-->
-                    <div class="form-group">
-                      <label>Cidade</label>
-                      <select class="form-control">
-                        <option>option 1</option>
-                        <option>option 2</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label>Bairro</label>
-                      <input type="text" [(ngModel)]="user.neighborhood" name="neighborhood" class="form-control" placeholder="Inserir Bairro ...">
-                    </div>
-                    <div class="form-group">
-                      <label>Rua</label>
-                      <input type="text" [(ngModel)]="user.street" name="street" class="form-control" placeholder="Inserir Rua ...">
-                    </div>
-                    <div class="form-group">
-                      <label>Número</label>
-                      <input type="text" [(ngModel)]="user.number" name="number" class="form-control" placeholder="Inserir Número ...">
-                    </div>
-                    <div class="form-group">
-                      <label>Complemento</label>
-                      <input type="text" [(ngModel)]="user.complement" name="complement" class="form-control" placeholder="Inserir Complemento ...">
-                    </div>
-                </div>
-              </div>
-              
-            </div>
-        
-      </div>
-      <div class="row">
-          <div class="form-group">
-              <button class="btn btn-primary btn-md btn-block" name="submit">SALVAR</button>
           </div>
+          <div class="row">
+              <div class="form-group">
+                  <button class="btn btn-primary btn-md btn-block" name="submit">SALVAR</button>
+              </div>
+          </div>
+        </form>
+        </section>
       </div>
-    </form>
-    </section>
-  </div>

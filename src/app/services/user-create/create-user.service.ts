@@ -7,12 +7,12 @@ import { User } from '../../models/user';
 export class CreateUserService extends RestService {
 
   apiurl = 'http://10.30.1.47:2020/';
-  
-    constructor(http : Http) {
+
+    constructor(http: Http) {
       super(http);
     }
-    
-    public createUser(user:User){
-        return this.post(this.apiurl + '/users',user);
+
+    public createUser(user: User) {
+        return this.post(this.apiurl + '/users', user);
     }
 }
