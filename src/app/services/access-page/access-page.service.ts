@@ -7,7 +7,7 @@ import { Profile } from '../../models/profile';
 export class AccessPageService extends RestService implements OnInit{
   
 
-  public profile: Profile[] = [];
+  public profile: Profile = new Profile();
 
   constructor(http: Http) {
     super(http);
@@ -16,20 +16,22 @@ export class AccessPageService extends RestService implements OnInit{
   apiurl = 'http://localhost:3000/';
 
   ngOnInit(){
-    this.profile = []
+    //this.profile = []
   }
   getPages(){
     const currentURL = this.apiurl.concat('pages');
     return this.get(currentURL);
   }
 
-  profileSelected(profile: Profile){
-    let profileSelected: Profile = profile;
-    this.profile = [];
-    this.profile.push(profileSelected);
+  profileSelected(profile: Profile): void{
+    // let profileSelected: Profile = profile;
+    // this.profile = [];
+    // this.profile.push(profileSelected);
+    console.log("perfil retornado so service", profile)
+    this.profile = profile;
   }
 
-  showProfile(): Profile[]{
+  getProfile(): Profile{
     return this.profile;
   }
   

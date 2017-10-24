@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import { RestService } from '../rest/rest.service';
 import { Profile } from '../../models/profile';
 import { Observable } from 'rxjs/Observable';
+import { RuleProfile } from '../../models/rule-profile';
 
 @Injectable()
 export class ProfileService extends RestService{
@@ -22,8 +23,8 @@ export class ProfileService extends RestService{
       return this.post(saveProfileUrl, profiles);
     }
 
-    public saveEditRule(profiles: Profile): Observable<Profile> {
-      const saveProfileUrl = this.apiurl.concat('profiles/' + profiles.id);
-      return this.put(saveProfileUrl, profiles);
+    public saveEditRule(profiles: RuleProfile): Observable<Profile> {
+      const saveProfileUrl = this.apiurl.concat('profile');
+      return this.post(saveProfileUrl, profiles);
     }
 }

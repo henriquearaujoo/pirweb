@@ -7,6 +7,8 @@ import { Profile } from '../../../models/profile';
 import { Router } from '@angular/router';
 import { PageService } from '../../../services/pagenate/page.service';
 import { PagenateComponent } from '../../../components/pagenate/pagenate.component';
+import { RuleProfile } from '../../../models/rule-profile';
+import { AccessPageService } from '../../../services/access-page/access-page.service';
 
 @Component({
   selector: 'app-rule',
@@ -21,6 +23,10 @@ export class RuleComponent extends PagenateComponent implements OnInit {
   @Input() lg: boolean = false;
 
   rules: Rule[] = new Array();
+  checked: Rule[] = new Array();
+
+  ruleProfile: RuleProfile = new RuleProfile();
+
   profile: Profile = new Profile();
   hasdata: boolean;
 
@@ -29,6 +35,7 @@ export class RuleComponent extends PagenateComponent implements OnInit {
     private http: Http,
     private ruleService: RuleService,
     private profileService: ProfileService,
+    private accessPageService: AccessPageService,
     private router: Router
   ) {    
       super(pagerService);
@@ -36,12 +43,10 @@ export class RuleComponent extends PagenateComponent implements OnInit {
     }
 
   ngOnInit() {
-    console.log(this.selectedPage);   
-    
-    this.getRules();
+    console.log(this.selectedPage);       
+    this.getRules();   
     
   }
-
   
   getRules(){
     this.ruleService.getRules().subscribe(
@@ -53,15 +58,36 @@ export class RuleComponent extends PagenateComponent implements OnInit {
     );
     console.log(this.rules)
   }
-
-  onChecked(option, $event){
-    this.selectedPage.rules = option.id
+  
+  updateChecked(option, event) {
+    console.log('event.target.value ' + event.target.value);
+    var index = this.checked.indexOf(option);
+    if(event.target.checked) {
+      console.log('add');
+      if(index === -1) {
+        this.checked.push(option);
+      }
+    } else {
+      console.log('remove');
+      if(index !== -1) {
+        this.checked.splice(index, 1);
+      }
+    }
+    
+    console.log(this.checked);
   }
 
-  saveRules(form){
-    this.profileService.saveEditRule(this.selectedPage).subscribe(
+
+  saveRules(options: Rule[]){    
+    this.profile = this.accessPageService.getProfile();
+
+    this.ruleProfile.rules= this.checked;
+    this.ruleProfile.idPage = this.selectedPage;
+    this.ruleProfile.idProfile = this.profile;
+
+    this.profileService.saveEditRule(this.ruleProfile).subscribe(
       success => {
-        this.selectedPage = success
+        
       },
       error => <any>error
     ); 

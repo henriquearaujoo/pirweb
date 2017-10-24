@@ -17,7 +17,8 @@ export class AccessPageComponent extends PagenateComponent implements OnInit {
   pages: AccessPage[] = new Array();
   pageAllowed: AccessPage[] = new Array();
 
-  public selectedProfile: Profile[] = new Array();
+  public selectedProfile: Profile = new Profile();
+  public nameProfile: string;
 
   hasdata: boolean;
 
@@ -32,13 +33,14 @@ export class AccessPageComponent extends PagenateComponent implements OnInit {
 
   ngOnInit() {
     this.hasdata = false;
-    this.getPages();
-    this.selectedProfile = this.accessPageService.showProfile();
+    this.getPagesDenied();
+    this.selectedProfile = this.accessPageService.getProfile();
+    this.nameProfile = this.selectedProfile.name;
     console.log("Perfil retornado do serviço",this.selectedProfile)
   }
   
 
-  getPages(){
+  getPagesDenied(){
     this.accessPageService.getPages().subscribe(
       sucess => {
         this.pages = sucess;
@@ -49,13 +51,12 @@ export class AccessPageComponent extends PagenateComponent implements OnInit {
       error => this.hasdata = false
     );
     //console.log(this.pages)
-      
     
   }
 
-  addPage (item){
-    this.pageAllowed.push(item)
-   // console.log(this.pageAllowed)
-  }
+  // addPage (item){
+  //   this.pageAllowed.push(item)
+  //  // console.log(this.pageAllowed)
+  // }
 
 }
