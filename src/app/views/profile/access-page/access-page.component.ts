@@ -1,23 +1,23 @@
 import { Headers } from '@angular/http';
 import { PagenateComponent } from './../../../components/pagenate/pagenate.component';
-import { AccessPageService } from './../../../services/page/access-page.service';
+import { AccessPageService } from './../../../services/access-page/access-page.service';
 import { Component, OnInit, Input, Output } from '@angular/core';
-import { Page } from '../../../models/page';
+import { AccessPage } from '../../../models/access-page';
 import { PageService } from '../../../services/pagenate/page.service';
 import { Router } from '@angular/router';
 import { Profile } from '../../../models/profile';
 
 @Component({
   selector: 'app-page',
-  templateUrl: './page.component.html',
-  styleUrls: ['./page.component.css']
+  templateUrl: './access-page.component.html',
+  styleUrls: ['./access-page.component.css']
 })
-export class PageComponent extends PagenateComponent implements OnInit {
+export class AccessPageComponent extends PagenateComponent implements OnInit {
 
-  pages: Page[] = new Array();
-  pageAllowed: Page[] = new Array();
+  pages: AccessPage[] = new Array();
+  pageAllowed: AccessPage[] = new Array();
 
-  @Input() selectedProfile: any;
+  public selectedProfile: Profile[] = new Array();
 
   hasdata: boolean;
 
@@ -33,7 +33,8 @@ export class PageComponent extends PagenateComponent implements OnInit {
   ngOnInit() {
     this.hasdata = false;
     this.getPages();
-    console.log(this.selectedProfile)
+    this.selectedProfile = this.accessPageService.showProfile();
+    console.log("Perfil retornado do serviço",this.selectedProfile)
   }
   
 

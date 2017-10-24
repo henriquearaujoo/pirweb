@@ -8,6 +8,7 @@ import { PageService } from '../../../services/pagenate/page.service';
 import { ProfilePipe } from './profile.pipe';
 import { RuleService } from '../../../services/rule/rule.service';
 import { Rule } from '../../../models/rule';
+import { AccessPageService } from '../../../services/access-page/access-page.service';
 
 
 @Component({
@@ -39,13 +40,14 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
       pagerService: PageService,
       private profileService: ProfileService,
       private ruleService: RuleService,
+      private accessPageService: AccessPageService,
       private router: Router) {
         super(pagerService);
         this.hasdata = false;
       }
     
       ngOnInit() {
-        //console.log(this.newProfile);  
+        console.log(this.newProfile);  
         this.hasdata = false;        
         this.getProfile();        
       }
@@ -68,9 +70,8 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
         //console.log(this.profiles)
       }
 
-      viewPage(item){
-        this.selectedProfile = item;
-        console.log(this.selectedProfile);
+      setProfile(profile: Profile){
+        this.accessPageService.profileSelected(profile);
       }
 
   

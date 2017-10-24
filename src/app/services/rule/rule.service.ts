@@ -11,7 +11,7 @@ export class RuleService extends RestService {
   }
 
   public getRules() {      
-    const currentURL = this.apiurl.concat('rule');
+    const currentURL = this.apiurl.concat('rules');
     return this.get(currentURL);
   }
 

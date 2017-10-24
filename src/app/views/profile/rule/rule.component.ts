@@ -54,8 +54,8 @@ export class RuleComponent extends PagenateComponent implements OnInit {
     console.log(this.rules)
   }
 
-  onClicked(option, $event){
-    this.selectedPage.rule = option.id
+  onChecked(option, $event){
+    this.selectedPage.rules = option.id
   }
 
   saveRules(form){

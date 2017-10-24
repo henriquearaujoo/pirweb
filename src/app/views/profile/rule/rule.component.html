@@ -22,7 +22,7 @@
                 <div *ngFor=" let option of rules"  class="checkbox">
                   <label>
                     <input type="checkbox" 
-                      (change)="onClicked(option, $event)"
+                      (change)="onChecked(option, $event)"
                       [checked]="selectedPage.rule === option.id">
                           {{ option.name }}
                   </label>                

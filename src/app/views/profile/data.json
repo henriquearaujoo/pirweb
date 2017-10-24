@@ -1,5 +1,5 @@
 {
-  "rule": [
+  "rules": [
     {
       "id": 1,
       "name": "Visualizar"
@@ -17,20 +17,17 @@
       "name": "Desabilitar"
     }
   ],
-  "profile": [
+  "profiles": [
     {
       "id": 1,
-      "name": "Administrador",
-      "rule": 2
+      "name": "Administrador"
     },
     {
       "id": 2,
-      "name": "agente",
-      "rule": 3
+      "name": "Mapa"
     }
   ],
-
-  "page": [
+  "pages": [
     {
       "id": 1,
       "name": "Dasboard"

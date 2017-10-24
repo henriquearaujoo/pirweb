@@ -1,4 +1,4 @@
-import { PageComponent } from './views/profile/page/page.component';
+import { AccessPageComponent } from './views/profile/access-page/access-page.component';
 import { ProfileComponent } from './views/profile/profile.component';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
@@ -69,7 +69,7 @@ const App_Router: Routes = [
           },
           {
             path: 'page-list',
-            component: PageComponent
+            component: AccessPageComponent
           }
 
         ]
