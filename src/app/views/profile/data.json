@@ -1,35 +1,56 @@
 {
   "rules": [
     {
-      "id": 1,
-      "name": "Visualizar"
+      "view": true,
+      "id_page": 1,
+      "id_profile": 1,
+      "id": 1
     },
     {
-      "id": 2,
-      "name": "Criar"
+      "disable": true,
+      "id_page": 2,
+      "id_profile": 2,
+      "id": 2
     },
     {
-      "id": 3,
-      "name": "Editar"
+      "edit": true,
+      "disable": true,
+      "id_page": 4,
+      "id_profile": 3,
+      "id": 3
     },
     {
-      "id": 4,
-      "name": "Desabilitar"
+      "view": true,
+      "insert": true,
+      "id_page": 1,
+      "id_profile": 1,
+      "id": 4
     }
   ],
   "profiles": [
     {
-      "id": 1,
       "name": "Administrador",
-      "ruleProfile": []
+      "id": 1,
+      "rule": {
+        "view": true,
+        "insert": true,
+        "id_page": 1,
+        "id_profile": 1,
+        "id": 4
+      }
     },
     {
-      "id": 2,
       "name": "Agente",
-      "ruleProfile": []
+      "id": 2
     },
     {
-      "ruleProfile": [],
+      "rule": {
+        "edit": true,
+        "disable": true,
+        "id_page": 4,
+        "id_profile": 3,
+        "id": 3
+      },
       "name": "Terceiro",
       "id": 3
     }
@@ -52,21 +73,5 @@
       "name": "Agentes"
     }
   ],
-  "rulespage": [
-    {
-      "rules": [
-        "Visualizar"
-      ],
-      "idPage": {
-        "id": 3,
-        "name": "Formulários"
-      },
-      "idProfile": {
-        "id": 2,
-        "name": "Agente",
-        "ruleProfile": []
-      },
-      "id": 1
-    }
-  ]
+  "rulespage": []
 }

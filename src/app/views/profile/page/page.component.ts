@@ -1,8 +1,8 @@
 import { Headers } from '@angular/http';
 import { PagenateComponent } from './../../../components/pagenate/pagenate.component';
-import { AccessPageService } from './../../../services/access-page/access-page.service';
+import { AccessPageService } from './../../../services/page/page.service';
 import { Component, OnInit, Input, Output } from '@angular/core';
-import { AccessPage } from '../../../models/access-page';
+import { Page } from '../../../models/page';
 import { PageService } from '../../../services/pagenate/page.service';
 import { Router } from '@angular/router';
 import { Profile } from '../../../models/profile';
@@ -11,13 +11,13 @@ import { ProfileService } from '../../../services/profile/profile.service';
 
 @Component({
   selector: 'app-page',
-  templateUrl: './access-page.component.html',
-  styleUrls: ['./access-page.component.css']
+  templateUrl: './page.component.html',
+  styleUrls: ['./page.component.css']
 })
-export class AccessPageComponent extends PagenateComponent implements OnInit {
+export class PageComponent extends PagenateComponent implements OnInit {
 
-  pages: AccessPage[] = new Array();
-  pageAllowed: AccessPage[] = new Array();
+  pages: Page[] = new Array();
+  pageAllowed: Page[] = new Array();
 
   public rulesProfile: any[] = new Array();
 
@@ -47,7 +47,7 @@ export class AccessPageComponent extends PagenateComponent implements OnInit {
   }
   
 
-  getPagesDenied(){
+  getPagesDenied() {
     this.accessPageService.getPages().subscribe(
       sucess => {
         this.pages = sucess;
@@ -61,9 +61,9 @@ export class AccessPageComponent extends PagenateComponent implements OnInit {
     
   }
 
-  getPagesAllowed(){    
-     this.rulesProfile = this.selectedProfile.ruleProfile;
-    console.log("Regras do perfil", this.rulesProfile)
+  getPagesAllowed(){ 
+     //this.rulesProfile = this.selectedProfile.ruleProfile;
+     console.log("Regras do perfil", this.rulesProfile)
     // this.accessPageService.getPagesAllowed(this.selectedProfile).subscribe(
     //   sucess => {
     //     this.rulesProfile = sucess;
@@ -73,14 +73,14 @@ export class AccessPageComponent extends PagenateComponent implements OnInit {
     // );
   }
 
-   saveRules (){
-    this.profileService.saveRuleProfile(this.accessPageService.getRulesProfile()).subscribe(
-      success => {
-        // this.profile.ruleProfile.push(success);
-        // this.profileService.saveEditProfile(this.profile);
-      },
-      error => <any>error
-    ); 
-  }
+  //  saveRules (){
+  //   this.profileService.saveRuleProfile(this.accessPageService.getRulesProfile()).subscribe(
+  //     success => {
+  //       // this.profile.ruleProfile.push(success);
+  //       // this.profileService.saveEditProfile(this.profile);
+  //     },
+  //     error => <any>error
+  //   ); 
+  // }
 
 }

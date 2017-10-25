@@ -8,7 +8,7 @@ import { PageService } from '../../../services/pagenate/page.service';
 import { ProfilePipe } from './profile.pipe';
 import { RuleService } from '../../../services/rule/rule.service';
 import { Rule } from '../../../models/rule';
-import { AccessPageService } from '../../../services/access-page/access-page.service';
+import { AccessPageService } from '../../../services/page/page.service';
 
 
 @Component({

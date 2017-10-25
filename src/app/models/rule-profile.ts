@@ -1,5 +1,5 @@
 import { Profile } from "./profile";
-import { AccessPage } from "./access-page";
+import { Page } from "./page";
 import { Rule } from "./rule";
 
 export class RuleProfile {

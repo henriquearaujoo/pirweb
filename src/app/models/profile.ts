@@ -6,7 +6,7 @@ export class Profile {
     public dt_register: Date;
     public status: number;
     public user_who_was_register: number;
-    public rule: Array<Rule>;
+    rule    :Rule = new Rule();
 
     constructor(id?: number, name?: string){
         this.id = id;

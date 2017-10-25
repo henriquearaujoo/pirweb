@@ -51,7 +51,7 @@ import { UserService } from './services/login/user.service';
 import { CreateUserService } from './services/user-create/create-user.service';
 import { ProfileService } from './services/profile/profile.service';
 import { RuleService } from './services/rule/rule.service';
-import { AccessPageService } from './services/access-page/access-page.service';
+import { AccessPageService } from './services/page/page.service';
 
 import { routing } from './app.router';
 import { AuthGuard } from './guards/auth.guard';
@@ -77,7 +77,7 @@ import { ResetPasswordComponent } from './views/login/reset-password/reset-passw
 import { ProfileComponent } from './views/profile/profile.component';
 import { ProfileListComponent } from './views/profile/profile-list/profile-list.component';
 import { RuleComponent } from './views/profile/rule/rule.component';
-import { AccessPageComponent } from './views/profile/access-page/access-page.component';
+import { PageComponent } from './views/profile/page/page.component';
 
 import { ProfilePipe } from './views/profile/profile-list/profile.pipe';
 
@@ -107,7 +107,7 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ProfileListComponent,
     ProfilePipe,
     RuleComponent,
-    AccessPageComponent
+    PageComponent
   ],
   imports: [
     BrowserModule,

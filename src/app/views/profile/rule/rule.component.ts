@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
 import { PageService } from '../../../services/pagenate/page.service';
 import { PagenateComponent } from '../../../components/pagenate/pagenate.component';
 import { RuleProfile } from '../../../models/rule-profile';
-import { AccessPageService } from '../../../services/access-page/access-page.service';
+import { AccessPageService } from '../../../services/page/page.service';
+import { Page } from '../../../models/page';
 
 @Component({
   selector: 'app-rule',
@@ -18,15 +19,16 @@ import { AccessPageService } from '../../../services/access-page/access-page.ser
 })
 export class RuleComponent extends PagenateComponent implements OnInit {
 
-  @Input() selectedPage :any;
+  @Input() selectedPage :Page;
   @Input() pk: any;
   @Input() lg: boolean = false;
 
   //rules: Rule[] = new Array();
-  rules: any[] = ['Visualizar', 'Criar', 'Editar', 'Desabilitar']
+  options: any[] = ['Visualizar', 'Criar', 'Editar', 'Desabilitar']
+  
   checked: any[] = new Array();
 
-  ruleProfile: RuleProfile = new RuleProfile();
+  rule: Rule = new Rule();
 
   profile: Profile = new Profile();
   hasdata: boolean;
@@ -36,6 +38,7 @@ export class RuleComponent extends PagenateComponent implements OnInit {
     private http: Http,
    // private ruleService: RuleService,
     private profileService: ProfileService,
+    private ruleService: RuleService,
     private accessPageService: AccessPageService,
     private router: Router) {    
       super(pagerService);
@@ -45,7 +48,7 @@ export class RuleComponent extends PagenateComponent implements OnInit {
   ngOnInit() {
     console.log(this.selectedPage);       
     //this.getRules()     
-    this.rules
+    this.options
     
   }
   
@@ -68,7 +71,7 @@ export class RuleComponent extends PagenateComponent implements OnInit {
     if(event.target.checked) {
       console.log('add');
       if(index === -1) {
-        this.checked.push(option);
+        this.checked.push(option);        
       }
     } else {
       console.log('remove');
@@ -80,22 +83,47 @@ export class RuleComponent extends PagenateComponent implements OnInit {
     console.log(this.checked);
   }
 
+  verifyRules() {
+    for(let i = 0; i < this.checked.length; i++){
+      if (this.checked[i] === this.options[0]){
+        this.rule.view = true;
+      } 
+      if (this.checked[i] === this.options[1]){
+        this.rule.insert = true;
+      } 
+      if (this.checked[i] === this.options[2]){
+        this.rule.edit = true;
+      } 
+      if (this.checked[i] === this.options[3]){
+        this.rule.disable = true;
+      } 
+    }
+    console.log("view", this.rule.view)
+  }
 
-  confirmRules(){    
-    this.profile = this.accessPageService.getProfile();
 
-    this.ruleProfile.rules= this.checked;
-    this.ruleProfile.idPage = this.selectedPage;
-    this.ruleProfile.idProfile = this.profile;
+  confirmRules() {    
+    this.verifyRules();
+    this.profile = this.accessPageService.getProfile();    
+   
+    this.rule.id_page = this.selectedPage.id;
+    this.rule.id_profile = this.profile.id;
 
-    this.accessPageService.setRules(this.ruleProfile);
+    //this.accessPageService.setRules(this.rule);
 
-    // this.profileService.saveRuleProfile(this.ruleProfile).subscribe(
-    //   success => {
-    //     this.profile.ruleProfile.push(success);
-    //     this.profileService.saveEditProfile(this.profile);
-    //   },
-    //   error => <any>error
-    // ); 
+    this.ruleService.saveRule(this.rule).subscribe(
+      success => {
+        this.profile.rule = success;
+        console.log("Regra salva:", success)
+        console.log("Regra adicionada ao perfil:", this.profile.rule)
+        this.profileService.saveEditProfile(this.profile).subscribe(
+          success => {
+            console.log("perfil editado:",success)
+          },
+          error => <any>error
+        );
+      },
+      error => <any>error
+    ); 
   }
 }

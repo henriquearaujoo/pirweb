@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { RestService } from '../rest/rest.service';
 import { Http } from '@angular/http';
+import { Rule } from '../../models/rule';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class RuleService extends RestService {
@@ -15,5 +17,9 @@ export class RuleService extends RestService {
     return this.get(currentURL);
   }
 
+  public saveRule(rules: Rule): Observable<Rule> {
+    const saveRuleUrl = this.apiurl.concat('rules');
+    return this.post(saveRuleUrl, rules);
+  }
 
 }

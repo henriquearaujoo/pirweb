@@ -2,16 +2,17 @@ import { RestService } from './../rest/rest.service';
 import { Injectable, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { Profile } from '../../models/profile';
-import { AccessPage } from '../../models/access-page';
+import { Page } from '../../models/page';
 import { Observable } from 'rxjs/Observable';
 import { RuleProfile } from '../../models/rule-profile';
+import { Rule } from '../../models/rule';
 
 @Injectable()
 export class AccessPageService extends RestService implements OnInit{
   
 
   public profile: Profile = new Profile();
-  public rule: RuleProfile = new RuleProfile();
+  public rule: Rule = new Rule();
 
   constructor(http: Http) {
     super(http);
@@ -37,15 +38,15 @@ export class AccessPageService extends RestService implements OnInit{
     this.profile = profile;
   }
 
-  setRules(rulesProfile: RuleProfile) {
-    this.rule = rulesProfile;
+  setRules(rules: Rule) {
+    this.rule = rules;
   }
 
   getProfile(): Profile{
     return this.profile;
   }
   
-  getRulesProfile(): RuleProfile {
+  getRulesProfile(): Rule {
     return this.rule;
   }
 

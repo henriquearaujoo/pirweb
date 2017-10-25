@@ -1,4 +1,4 @@
-export class AccessPage {
+export class Page {
     id:     number;
     name:   string;
 }
