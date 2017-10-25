@@ -80,6 +80,7 @@ import { RuleComponent } from './views/profile/rule/rule.component';
 import { PageComponent } from './views/profile/page/page.component';
 
 import { ProfilePipe } from './views/profile/profile-list/profile.pipe';
+import { DefineRulesComponent } from './views/define-rules/define-rules.component';
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
 
@@ -107,14 +108,14 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ProfileListComponent,
     ProfilePipe,
     RuleComponent,
-    PageComponent
+    PageComponent,
+    DefineRulesComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
     routing,
     FormsModule,
-    //CdkTableModule,
     CdkTableModule,
     MatAutocompleteModule,
     MatButtonModule,
