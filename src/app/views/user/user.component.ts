@@ -11,27 +11,56 @@ import { CreateUserService } from '../../services/user-create/create-user.servic
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
+
   private user: User;
   private types: Types[] = [new Types(1, 'Pessoa Fi­sica'), new Types(1, 'Pessoa Jurídica')];
+  private states = new Array();
+  private cities = new Array();
+  private profile = ['Administrador', 'Agente', 'Terceiro'];
+  private hasdata: boolean;
 
-  profile = ['Administrador', 'Agente', 'Terceiro'];
-
-  constructor(private mCreateUserService: CreateUserService) {
+  constructor(private userService: CreateUserService) {
       this.user = new User();
   }
 
   saveData() {
-    this.mCreateUserService.createUser(this.user).subscribe(
+    this.userService.createUser(this.user).subscribe(
       success => {
 
       },
       error => console.log(error)
-    )
+    );
     console.log(this.user);
   }
 
   ngOnInit() {
-  
+    this.loadStates();
   }
 
+  public loadStates(id?: number) {
+    this.userService.getStates(id).subscribe(
+      success => {
+        if (success == null) {
+          this.hasdata = false;
+        }
+        this.states = success;
+        console.log(this.states);
+        this.hasdata = true;
+      },
+      error => console.log(error)
+    );
+  }
+
+  public loadCities(state_id: number) {
+    this.userService.getCities(state_id).subscribe(
+      success => {
+        if (success == null) {
+          this.hasdata = false;
+        }
+        this.cities = success;
+        this.hasdata = true;
+      },
+      error => console.log(error)
+    );
+  }
 }

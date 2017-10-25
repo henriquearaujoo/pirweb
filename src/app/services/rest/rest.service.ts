@@ -14,8 +14,8 @@ import 'rxjs/add/operator/switchMap';
 
 @Injectable()
 export class RestService {
-  headers   : Headers;
-  options   : RequestOptions;
+  headers: Headers;
+  options: RequestOptions;
 
   constructor(private http: Http) {
     this.headers = new Headers({ 'Content-Type': 'application/json' });
@@ -24,7 +24,7 @@ export class RestService {
 
   getApiTest() {
     return this.http
-    .get("https://jsonplaceholder.typicode.com/posts/1", this.options)
+    .get('https://jsonplaceholder.typicode.com/posts/1', this.options)
     .map(this.extractData)
     .catch(this.handleError);
   }
@@ -47,7 +47,14 @@ export class RestService {
   }
 
   post(url: string, param: any): Observable<any> {
-    const body = JSON.stringify(param);
+    const body = JSON.parse(JSON.stringify(param), function(k, v){
+      if (Array.isArray(v)) {
+          const fArr = v.filter(e => e);
+          return fArr.length && fArr || undefined;
+      } else if ( typeof(v) === 'object' && !Object.keys(v).length) {
+          return undefined;
+      } else {return v; }
+    });
     return this.http
       .post(url, body, this.optionsHeader())
       .map(this.extractData)
@@ -55,7 +62,14 @@ export class RestService {
   }
 
   put(url: string, param: any): Observable<any> {
-    const body = JSON.stringify(param);
+    const body = JSON.parse(JSON.stringify(param), function(k, v){
+      if (Array.isArray(v)) {
+          const fArr = v.filter(e => e);
+          return fArr.length && fArr || undefined;
+      } else if ( typeof(v) === 'object' && !Object.keys(v).length) {
+          return undefined;
+      } else {return v; }
+    });
     return this.http
       .put(url, body, this.options)
       .map(this.extractData)
