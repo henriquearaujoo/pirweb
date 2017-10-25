@@ -35,35 +35,16 @@
             <ul class="treeview-menu">
               <li [class.active]="isActive(['/','/user-list'])">
                 <a class="menu" (click)="toUserList()">
-                    <i class="fa fa-list" aria-hidden="true"></i>
+                    <i class="fa fa-circle-o" aria-hidden="true"></i>
                     <span>Registros</span>
                 </a>
-              </li>
-              <li [class.active]="isActive(['/','/user'])">
-                <a class="menu" (click)="toUser()">
-                  <i class="fa fa-plus" aria-hidden="true"></i>
-                  <span>Novo</span>
-                </a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-circle-o"></i> 
-                  <span>Perfil</span> 
-                  <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li [class.active]="isActive(['/','/profile-list'])">
-                      <a class="menu" (click)="toProfileList()">
-                        <i class="fa fa-list"></i>
-                        Registros
-                      </a>
-                    </li>
-                    <li [class.active]="isActive(['/','/profile'])">
-                      <a class="menu" (click)="toProfile()">
-                        <i class="fa fa-plus"></i>
-                        <span>Novo</span>
-                      </a>
-                    </li>
-                </ul>
+              </li>  
+
+              <li [class.active]="isActive(['/','/profile'])">
+                <a class="menu" (click)="toProfile()">
+                    <i class="fa fa-circle-o" aria-hidden="true"></i> 
+                    <span>Perfil</span>                   
+                </a>             
               </li>
             </ul>
           </li>

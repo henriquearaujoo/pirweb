@@ -1,12 +1,51 @@
-th{   
-    padding: 12px!important;
+table {
+    border: 1px solid #ddd;
+}
+
+th {   
+    padding: 12px;
+    height: 50px;
 }
 
 thead {
-    background: #21466d;
-    color: white;
+    border-top: 6px solid #337ab7;
 }
-.table th, td {
+
+/* .table th, td {
     vertical-align: middle;
     text-align: center;
+} */
+
+div.dataTables_filter {
+    text-align: left;
+    margin-left: 10px;
+}
+
+.box-header {
+    padding-top: 20px;
+    /* padding-bottom: 92px!important; */
+}
+.box {
+    border-top: 0;
+}
+
+.box-header > .fa, .box-header > .glyphicon, .box-header > .ion, .box-header .box-title {    
+    font-size: 22px;
+}
+
+.box-footer {
+    text-align: center;
+}
+
+.btn-col {
+    text-align: right;
+    padding-right: 28px;
+}
+
+.btn {
+    width: 100px;
+}
+
+i.fa {
+    font-size: 20px;
 }
