@@ -23,8 +23,13 @@ export class ProfileService extends RestService{
       return this.post(saveProfileUrl, profiles);
     }
 
-    public saveEditRule(profiles: RuleProfile): Observable<Profile> {
-      const saveProfileUrl = this.apiurl.concat('profile');
-      return this.post(saveProfileUrl, profiles);
+    public saveRuleProfile(rulesProfile: RuleProfile): Observable<RuleProfile> {
+      const saveRuleProfileUrl = this.apiurl.concat('rulespage');
+      return this.post(saveRuleProfileUrl, rulesProfile);
+    }
+
+    public saveEditProfile(profile: Profile): Observable<Profile> {
+      const saveProfileUrl = this.apiurl.concat('profiles/' + profile.id);
+      return this.put(saveProfileUrl, profile);
     }
 }

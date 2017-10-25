@@ -21,16 +21,18 @@
 
                 <div *ngFor=" let option of rules"  class="checkbox">
                   <label>
-                    <input type="checkbox" [attr.name]="oprions" 
-                      [value]="option" (change)="updateChecked(option, $event)">
-                          {{ option.name }}
+                    <input type="checkbox" [attr.name]="options" 
+                      [value]="option" 
+                      (change)="updateChecked(option, $event)"
+                      >
+                          {{ option }}
                   </label>                
                 </div>
               
 						</div>
 						<div class="modal-footer">							
 								<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
-								<button type="button" class="btn btn-primary" (click)='saveRules(option)' data-dismiss="modal">Salvar</button>							
+								<button type="button" class="btn btn-primary" (click)='confirmRules()' data-dismiss="modal"> Ok   </button>							
             </div>
             </form>
 					</div>

@@ -22,8 +22,9 @@ export class RuleComponent extends PagenateComponent implements OnInit {
   @Input() pk: any;
   @Input() lg: boolean = false;
 
-  rules: Rule[] = new Array();
-  checked: Rule[] = new Array();
+  //rules: Rule[] = new Array();
+  rules: any[] = ['Visualizar', 'Criar', 'Editar', 'Desabilitar']
+  checked: any[] = new Array();
 
   ruleProfile: RuleProfile = new RuleProfile();
 
@@ -33,31 +34,33 @@ export class RuleComponent extends PagenateComponent implements OnInit {
   constructor(
     pagerService: PageService,
     private http: Http,
-    private ruleService: RuleService,
+   // private ruleService: RuleService,
     private profileService: ProfileService,
     private accessPageService: AccessPageService,
-    private router: Router
-  ) {    
+    private router: Router) {    
       super(pagerService);
       this.hasdata = false;
     }
 
   ngOnInit() {
     console.log(this.selectedPage);       
-    this.getRules();   
+    //this.getRules()     
+    this.rules
     
   }
   
-  getRules(){
-    this.ruleService.getRules().subscribe(
-      success => {
-        this.rules = success;
-        this.hasdata = true;
-      },
-      error => this.hasdata = false
-    );
-    console.log(this.rules)
-  }
+ // getRules(){
+
+    
+    // this.ruleService.getRules().subscribe(
+    //   success => {
+    //     this.rules = success;
+    //     this.hasdata = true;
+    //   },
+    //   error => this.hasdata = false
+    // );
+    // console.log(this.rules)
+//  }
   
   updateChecked(option, event) {
     console.log('event.target.value ' + event.target.value);
@@ -78,18 +81,21 @@ export class RuleComponent extends PagenateComponent implements OnInit {
   }
 
 
-  saveRules(options: Rule[]){    
+  confirmRules(){    
     this.profile = this.accessPageService.getProfile();
 
     this.ruleProfile.rules= this.checked;
     this.ruleProfile.idPage = this.selectedPage;
     this.ruleProfile.idProfile = this.profile;
 
-    this.profileService.saveEditRule(this.ruleProfile).subscribe(
-      success => {
-        
-      },
-      error => <any>error
-    ); 
+    this.accessPageService.setRules(this.ruleProfile);
+
+    // this.profileService.saveRuleProfile(this.ruleProfile).subscribe(
+    //   success => {
+    //     this.profile.ruleProfile.push(success);
+    //     this.profileService.saveEditProfile(this.profile);
+    //   },
+    //   error => <any>error
+    // ); 
   }
 }

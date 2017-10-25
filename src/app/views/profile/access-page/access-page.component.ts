@@ -6,6 +6,8 @@ import { AccessPage } from '../../../models/access-page';
 import { PageService } from '../../../services/pagenate/page.service';
 import { Router } from '@angular/router';
 import { Profile } from '../../../models/profile';
+import { RuleProfile } from '../../../models/rule-profile';
+import { ProfileService } from '../../../services/profile/profile.service';
 
 @Component({
   selector: 'app-page',
@@ -17,6 +19,8 @@ export class AccessPageComponent extends PagenateComponent implements OnInit {
   pages: AccessPage[] = new Array();
   pageAllowed: AccessPage[] = new Array();
 
+  public rulesProfile: any[] = new Array();
+
   public selectedProfile: Profile = new Profile();
   public nameProfile: string;
 
@@ -25,6 +29,7 @@ export class AccessPageComponent extends PagenateComponent implements OnInit {
 
   constructor(
     pagerService: PageService,
+    private profileService: ProfileService,
     private accessPageService: AccessPageService,
     private router: Router) {
       super(pagerService);
@@ -32,10 +37,12 @@ export class AccessPageComponent extends PagenateComponent implements OnInit {
      }
 
   ngOnInit() {
-    this.hasdata = false;
+    this.hasdata = false;    
+    this.rulesProfile=[]
     this.getPagesDenied();
     this.selectedProfile = this.accessPageService.getProfile();
     this.nameProfile = this.selectedProfile.name;
+    this.getPagesAllowed();
     console.log("Perfil retornado do serviço",this.selectedProfile)
   }
   
@@ -54,9 +61,26 @@ export class AccessPageComponent extends PagenateComponent implements OnInit {
     
   }
 
-  // addPage (item){
-  //   this.pageAllowed.push(item)
-  //  // console.log(this.pageAllowed)
-  // }
+  getPagesAllowed(){    
+     this.rulesProfile = this.selectedProfile.ruleProfile;
+    console.log("Regras do perfil", this.rulesProfile)
+    // this.accessPageService.getPagesAllowed(this.selectedProfile).subscribe(
+    //   sucess => {
+    //     this.rulesProfile = sucess;
+    //     //console.log
+    //   },
+    //   error => this.hasdata = false
+    // );
+  }
+
+   saveRules (){
+    this.profileService.saveRuleProfile(this.accessPageService.getRulesProfile()).subscribe(
+      success => {
+        // this.profile.ruleProfile.push(success);
+        // this.profileService.saveEditProfile(this.profile);
+      },
+      error => <any>error
+    ); 
+  }
 
 }
