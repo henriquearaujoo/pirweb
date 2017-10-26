@@ -30,6 +30,7 @@
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
     "jquery": "^3.2.1",
+    "materialize-css": "^0.100.2",
     "ng2-filter-pipe": "^0.1.10",
     "ng2-order-pipe": "^0.1.5",
     "ng2-search-filter": "^0.3.1",

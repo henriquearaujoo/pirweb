@@ -1,13 +1,10 @@
 <div class="container-fluid">
     <section class="content">
-      <div class="row">
-        <div class="col">
-          <div class="box">
+      <div class="row">       
+        <div class="box box-solid">
             <div class="box-header ">
               <h3 class="box-title">Lista de Perfis</h3>
-            </div>          
-          </div>
-        </div>
+            </div>  
             <div class="box-body">
               <form role="form" name="form" class="form-horizontal" (ngSubmit)="f.form.valid && save()" #f="ngForm" novalidate>
                 
@@ -19,17 +16,14 @@
                     [(ngModel)]="profile.name"
                     #name="ngModel" required>
                   <div *ngIf="f.submitted && !name.valid" class="help-block">Escrever um novo tipo de perfil</div>
-                  </div>
-                  
+                  </div>                  
                     <div class="control-button col-sm-2">                 
                       <button class="btn btn-primary btn-block" >Salvar</button>   
-                    </div>
-                  
+                    </div>                  
                 </div> 
               </form>                      
             </div>
-          
-       
+          </div>   
       </div>
     </section>
 <app-profile-list [newProfile]="profile"></app-profile-list>

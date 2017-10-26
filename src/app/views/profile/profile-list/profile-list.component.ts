@@ -17,7 +17,7 @@ import { AccessPageService } from '../../../services/page/page.service';
   styleUrls: ['./profile-list.component.css'],
 })
 export class ProfileListComponent extends PagenateComponent implements OnInit, OnChanges {
-  profiles: Profile[] = new Array();
+    profiles: Profile[] = new Array();
 
     @Input() newProfile: Profile[] = new Array();
 
@@ -25,27 +25,28 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
 
     hasdata: boolean;
 
-    profileFilter: any = {name: ''};
+    filter: Profile = new Profile();
+
     key = 'name';
     reverse = false;
 
-    // search() {
-    //   if (this.pagedItems.length === 0 ||
-    //     this.pagedItems === undefined ||
-    //     this.profileFilter.name === null ||
-    //     this.profileFilter.name === undefined
-    //     || this.profileFilter.name === '') {
-    //     return this.pagedItems;
-    //   }
-    //   if (this.profileFilter !== '') {
-    //   return this.pagedItems.filter((v) => {
-    //     if (v.indexOf(this.profileFilter.name) >= 0) {
-    //       return true;
-    //     }
-    //     return false;
-    //   });
-    // }
-    // }
+  //   filter() {
+  //     if (this.pagedItems.length === 0 ||
+  //       this.pagedItems === undefined ||
+  //       this.filter.name === null ||
+  //       this.filter.name === undefined
+  //       || this.filter.name === '') {
+  //       return this.pagedItems;
+  //     }
+  //     if ((this.filter.name !== '') && (typeof this.filter.name === 'string')) {
+  //     return this.pagedItems.filter((v) => {
+  //       if (v.indexOf(this.filter.name) >= 0) {
+  //         return true;
+  //       }
+  //       return false;
+  //     });
+  //   }
+  // }
 
     sort(key) {
       this.key = key;
@@ -90,7 +91,9 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
 
       deleteProfile(profileId: number) {
         this.profileService.deleteProfile(profileId.toString()).subscribe(
-          success => {}
+          success => {
+            this.getProfile();
+          }
         );
       }
 }

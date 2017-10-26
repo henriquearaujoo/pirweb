@@ -11,7 +11,7 @@
         <div class="col-sm-6">
           <div id="_filter" class="dataTables_filter">
             <label>
-              Filtrar:<input type="text" class="form-control form-border " [(ngModel)]="profileFilter.name" placeholder="Tipo de Perfil">
+              Filtrar:<input type="text" class="form-control form-border " name="name"  [(ngModel)]="filter.name"placeholder="Tipo de Perfil">
             </label>
           </div>
         </div>
@@ -30,17 +30,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let p of pagedItems">
+          <tr *ngFor="let p of pagedItems | filterBy: filter">
             <th class="tbl-center">{{ p.id }}</th>
               <td>{{ p.name }}</td> 
               <td class="tbl-right">
                 <a (click)="setProfile(p)" [routerLink]="['/page-list']" title="Permissões">
-                  <i class="fa fa-lock" aria-hidden="true" ></i>
+                  <i class="large material-icons">lock</i>
                 </a>
               </td>
               <td class="tbl-center">
                 <a (click)="deleteProfile(p.id)" [routerLink]="['/profile']" title="Excluir">
-                  <i class="fa fa-trash" aria-hidden="true" ></i>
+                  <i class="large material-icons">delete</i>
                 </a>                  
               </td>              
           </tr>

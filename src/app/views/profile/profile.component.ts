@@ -12,43 +12,34 @@ import { PageService } from '../../services/pagenate/page.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent extends PagenateComponent implements OnInit, OnChanges{
+export class ProfileComponent extends PagenateComponent implements OnInit, OnChanges {
 
   profiles: Profile[] = new Array();
   profile: Profile = new Profile();
   hasdata: boolean;
-  profileFilter: any = { name: '' };
 
-  key = 'name';
-  reverse = false;
-  sort(key) {
-    this.key = key;
-    this.reverse = !this.reverse;
-  }
-
-  constructor(    
+  constructor (
     pagerService: PageService,
     private profileService: ProfileService,
     private router: Router) {
       super(pagerService);
       this.hasdata = false;
     }
-  
-    ngOnInit() {
-     
-      
+
+    ngOnInit() { }
+
+    ngOnChanges() {
+      this.profiles = new Array();
+      this.hasdata = false;
     }
 
-    ngOnChanges(){
-      this.profiles = new Array();
-    }
-    
-    save(){
+    save() {
       this.profileService.saveProfile(this.profile).subscribe(
         success => {
-          this.profile = success
+          this.profile = success;
+          this.hasdata = false;
         },
         error => <any>error
-      ); 
+      );
     }
 }

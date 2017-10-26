@@ -14,7 +14,7 @@ th {
 }
 
 thead {
-    border-top: 6px solid #337ab7;
+    border-top: 6px solid #373d40;
 }
 
 .table>tbody>tr>td, 
@@ -52,8 +52,18 @@ div.dataTables_filter {
 
 .btn {
     width: 100px;
+    background-color:#373d40;
 }
 
 i.fa {
     font-size: 20px;
+}
+
+a {
+    color: #373d40;
+}
+
+.pagination>.active>a {
+    background-color: #373d40;
+    border-color:  #373d40;
 }
