@@ -38,8 +38,13 @@
                     <i class="fa fa-circle-o" aria-hidden="true"></i>
                     <span>Registros</span>
                 </a>
-              </li>  
-
+              </li>
+              <li [class.active]="isActive(['/','/user'])">
+                <a class="menu" (click)="toUser()">
+                  <i class="fa fa-plus" aria-hidden="true"></i>
+                  <span>Novo</span>
+                </a>
+              </li>
               <li [class.active]="isActive(['/','/profile'])">
                 <a class="menu" (click)="toProfile()">
                     <i class="fa fa-circle-o" aria-hidden="true"></i> 

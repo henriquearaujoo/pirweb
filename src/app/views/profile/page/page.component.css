@@ -1,3 +1,36 @@
+.title{
+    display: inline-block;
+    font-size: 18px;
+    margin: 0;
+    line-height: 1;
+    font-size: 24px;
+    font-family: unset;
+    color: #373d40;
+}
+.profile_name{
+    display: inline-block;
+    font-size: 18px;
+    margin: 0;
+    line-height: 1;
+    font-size: 24px;
+    color: #373d40;
+    font-family: unset;
+}
+.box-content-permission{
+    border: 1px solid rgb(68, 66, 66);
+    border-radius: 10px;
+    height: 500px;
+}
+.panel-title-permission{
+    background: rgb(68, 66, 66); 
+    height: 40px; 
+    color: white; border-radius:10px 9px 0px 0px; 
+}
+.panel-title-permission h2{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+}
 .panel.panel-primary {
     height: 500px;
 }

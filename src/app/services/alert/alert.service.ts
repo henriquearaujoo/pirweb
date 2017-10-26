@@ -6,8 +6,8 @@ import { Subject } from 'rxjs/Subject';
 @Injectable()
 export class AlertService {
 
-  private subject = new Subject<any>()
-  private keepAfterNavigationChange = false
+  private subject = new Subject<any>();
+  private keepAfterNavigationChange = false;
 
   constructor(private router: Router) {
       // clear alert message on route change
@@ -18,7 +18,7 @@ export class AlertService {
                   this.keepAfterNavigationChange = false;
               } else {
                   // clear alert
-                  this.subject.next()
+                  this.subject.next();
               }
           }
       });

@@ -7,15 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./alert.component.css']
 })
 export class AlertComponent implements OnInit {
-  message: any
+  message: any;
 
   constructor(private alertService: AlertService) { }
 
   ngOnInit() {
     this.alertService.getMessage().subscribe(
-      message =>{
-        this.message = message
-      })
+      message => {
+        this.message = message;
+      });
   }
 
 }

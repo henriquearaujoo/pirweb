@@ -1,45 +1,64 @@
 <div class="content">
-  <section class="content">
-    <div class="row">
-      <div class="box box-primary">
+    <section class="content">
+      <div class="row">
           <div class="box-header with-border" >
-            <h3 class="box-title" >Permissões de Acesso :: </h3>
-          <small >{{ nameProfile }} </small>
-          </div>
-          <div class="box-body">           
-
-              <div class="col-xs-6">         
-                <div class="panel panel-primary" >  
-                  <div class="panel-heading">
-                  <h3 class="panel-title">Páginas Permitidas</h3>
+            <h3 class="title" >Perfil - </h3>
+            <span class="profile_name">{{ nameProfile }}</span>
+            </div>
+            <div class="box-body" >
+                <div class="col-xs-3" >         
+                  <div class="box-content-permission">
+                      <div class="panel-title-permission">
+                          <h2 class="panel-title">Páginas sem permissão</h2>
+                      </div>  
+                      <ul class="list-group">
+                          <li class="list-group-item">Cras justo odio</li>
+                          <li class="list-group-item">Dapibus ac facilisis in</li>
+                          <li class="list-group-item">Morbi leo risus</li>
+                          <li class="list-group-item">Porta ac consectetur ac</li>
+                          <li class="list-group-item">Vestibulum at eros</li>
+                        </ul>
+                  </div>     
+                </div>
+                <div class="col-xs-1" >  
+                  <div class="row">
+                      <button type="button" class="btn btn-default btn-lg">
+                          <span class="glyphicon glyphicon-menu-left"></span>
+                      </button>
                   </div>
-                  <div class="panel-body" *ngFor="let item of rulesProfile">
-                    <div class="list-group" >  
-                        <a class="list-group-item"> {{ item  }}</a>              
-                    </div>  
-                  </div>
-                </div>     
-              </div>
-              <div class="col-xs-6" >   
-                <div class="panel panel-primary" >  
-                  <div class="panel-heading">
-                      <h3 class="panel-title">Páginas sem permissão</h3>
-                  </div>
-                  <div class="panel-body" >
-                   <app-rule *ngFor="let item of pagedItems" [selectedPage]="item" [pk]='item.id'>
-                    <div class="list-group" >  
+                  <div class="row">
+                      <button type="button" class="btn btn-default btn-lg">
+                          <span class="glyphicon glyphicon-menu-right"></span>
+                      </button>
+                  </div>                    
+                </div>
+                <div class="col-xs-3" >   
+                  <div class="panel panel-primary" >  
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Páginas sem permissão</h2>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item">Cras justo odio</li>
+                        <li class="list-group-item">Dapibus ac facilisis in</li>
+                        <li class="list-group-item">Morbi leo risus</li>
+                        <li class="list-group-item">Porta ac consectetur ac</li>
+                        <li class="list-group-item">Vestibulum at eros</li>
+                      </ul>
+                    <div class="panel-body" >
                       
-                    </div>  
-                  </app-rule>    
-                  </div>
-                </div>              
-              </div>            
-          </div>    
-          <div class="box-footer">
-            <button class="btn btn-primary" (click)="saveRules()"> Salvar</button>
-          </div>
+                     <!-- <app-rule *ngFor="let item of pagedItems" [selectedPage]="item" [pk]='item.id'>
+                      <div class="list-group" >  
+                        
+                      </div>  
+                    </app-rule>     -->
+                    </div>
+                  </div>              
+                </div>            
+            </div>    
+            <!-- <div class="box-footer">
+              <button class="btn btn-primary" (click)="saveRules()"> Salvar</button>
+            </div> -->
         </div>
-      </div>
-    </section>
-  </div>
-  
+      </section>
+    </div>
+    

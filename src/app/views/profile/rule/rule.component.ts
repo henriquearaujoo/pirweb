@@ -19,13 +19,11 @@ import { Page } from '../../../models/page';
 })
 export class RuleComponent extends PagenateComponent implements OnInit {
 
-  @Input() selectedPage :Page;
+  @Input() selectedPage: Page;
   @Input() pk: any;
-  @Input() lg: boolean = false;
+  @Input() lg = false;
 
-  //rules: Rule[] = new Array();
   options: any[] = ['Visualizar', 'Criar', 'Editar', 'Desabilitar']
-  
   checked: any[] = new Array();
 
   rule: Rule = new Rule();
@@ -40,90 +38,71 @@ export class RuleComponent extends PagenateComponent implements OnInit {
     private profileService: ProfileService,
     private ruleService: RuleService,
     private accessPageService: AccessPageService,
-    private router: Router) {    
+    private router: Router) {
       super(pagerService);
       this.hasdata = false;
     }
 
   ngOnInit() {
-    console.log(this.selectedPage);       
-    //this.getRules()     
-    this.options
-    
+    console.log(this.selectedPage);
   }
-  
- // getRules(){
 
-    
-    // this.ruleService.getRules().subscribe(
-    //   success => {
-    //     this.rules = success;
-    //     this.hasdata = true;
-    //   },
-    //   error => this.hasdata = false
-    // );
-    // console.log(this.rules)
-//  }
-  
   updateChecked(option, event) {
     console.log('event.target.value ' + event.target.value);
-    var index = this.checked.indexOf(option);
+    const index = this.checked.indexOf(option);
     if(event.target.checked) {
       console.log('add');
-      if(index === -1) {
-        this.checked.push(option);        
+      if ( index === -1) {
+        this.checked.push(option);
       }
     } else {
       console.log('remove');
-      if(index !== -1) {
+      if ( index !== -1) {
         this.checked.splice(index, 1);
       }
     }
-    
     console.log(this.checked);
   }
 
   verifyRules() {
-    for(let i = 0; i < this.checked.length; i++){
-      if (this.checked[i] === this.options[0]){
+    for (let i = 0; i < this.checked.length; i++) {
+      if (this.checked[i] === this.options[0]) {
         this.rule.view = true;
-      } 
-      if (this.checked[i] === this.options[1]){
+      }
+      if (this.checked[i] === this.options[1]) {
         this.rule.insert = true;
-      } 
-      if (this.checked[i] === this.options[2]){
+      }
+      if (this.checked[i] === this.options[2]) {
         this.rule.edit = true;
-      } 
-      if (this.checked[i] === this.options[3]){
+      }
+      if (this.checked[i] === this.options[3]) {
         this.rule.disable = true;
-      } 
+      }
     }
-    console.log("view", this.rule.view)
+    console.log('view', this.rule.view);
   }
 
 
-  confirmRules() {    
+  confirmRules() {
     this.verifyRules();
-    this.profile = this.accessPageService.getProfile();    
-   
+    this.profile = this.accessPageService.getProfile();
+
     this.rule.id_page = this.selectedPage.id;
     this.rule.id_profile = this.profile.id;
-
-    //this.accessPageService.setRules(this.rule);
 
     this.ruleService.saveRule(this.rule).subscribe(
       success => {
         this.profile.rule = success;
-        console.log("Regra salva:", success)
-        console.log("Regra adicionada ao perfil:", this.profile.rule)
+        console.log('Regra salva:', success);
+        console.log('Regra adicionada ao perfil:', this.profile.rule);
         this.profileService.saveEditProfile(this.profile).subscribe(
           success => {
-            console.log("perfil editado:",success)
+            console.log('perfil editado:', success);
           },
           error => <any>error
         );
       },
       error => <any>error
-    ); 
+    );
   }
 }

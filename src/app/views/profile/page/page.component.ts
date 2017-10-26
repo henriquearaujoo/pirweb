@@ -37,15 +37,14 @@ export class PageComponent extends PagenateComponent implements OnInit {
      }
 
   ngOnInit() {
-    this.hasdata = false;    
-    this.rulesProfile=[]
+    this.hasdata = false;
+    this.rulesProfile = [];
     this.getPagesDenied();
     this.selectedProfile = this.accessPageService.getProfile();
-    this.nameProfile = this.selectedProfile.name;
+    this.nameProfile = 'teste';//this.selectedProfile.name;
     this.getPagesAllowed();
     console.log("Perfil retornado do serviço",this.selectedProfile)
   }
-  
 
   getPagesDenied() {
     this.accessPageService.getPages().subscribe(
@@ -57,8 +56,6 @@ export class PageComponent extends PagenateComponent implements OnInit {
       },
       error => this.hasdata = false
     );
-    //console.log(this.pages)
-    
   }
 
   getPagesAllowed(){ 
@@ -83,4 +80,7 @@ export class PageComponent extends PagenateComponent implements OnInit {
   //   ); 
   // }
 
+  public removePermission() {
+
+  }
 }

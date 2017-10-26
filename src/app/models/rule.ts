@@ -1,10 +1,10 @@
 export class Rule{
-    id          :number;
-    id_profile  :number;
-    id_page     :number;
-    insert      :boolean;
-    edit        :boolean;
-    view        :boolean;
-    disable     :boolean;       
+    public id          :number;
+    public id_profile  :number;
+    public id_page     :number;
+    public insert      :boolean;
+    public edit        :boolean;
+    public view        :boolean;
+    public disable     :boolean;       
 
 }

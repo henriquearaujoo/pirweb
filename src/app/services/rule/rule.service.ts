@@ -8,11 +8,11 @@ import { Observable } from 'rxjs/Observable';
 export class RuleService extends RestService {
   apiurl = 'http://localhost:3000/';
 
-  constructor(http: Http) { 
-    super(http)
+  constructor(http: Http) {
+    super(http);
   }
 
-  public getRules() {      
+  public getRules() {
     const currentURL = this.apiurl.concat('rules');
     return this.get(currentURL);
   }
