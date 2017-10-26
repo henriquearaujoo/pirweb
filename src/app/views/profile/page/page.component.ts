@@ -14,18 +14,18 @@ import { ProfileService } from '../../../services/profile/profile.service';
   templateUrl: './page.component.html',
   styleUrls: ['./page.component.css']
 })
+
 export class PageComponent extends PagenateComponent implements OnInit {
 
   pages: Page[] = new Array();
   pageAllowed: Page[] = new Array();
 
   public rulesProfile: any[] = new Array();
-
+  public page_allowed = new Array();
+  public page_not_allowed = new Array();
   public selectedProfile: Profile = new Profile();
   public nameProfile: string;
-
   hasdata: boolean;
-
 
   constructor(
     pagerService: PageService,
@@ -41,9 +41,8 @@ export class PageComponent extends PagenateComponent implements OnInit {
     this.rulesProfile = [];
     this.getPagesDenied();
     this.selectedProfile = this.accessPageService.getProfile();
-    this.nameProfile = 'teste';//this.selectedProfile.name;
-    this.getPagesAllowed();
-    console.log("Perfil retornado do serviço",this.selectedProfile)
+    this.nameProfile = this.selectedProfile.name;
+    console.log('Perfil retornado do serviço', this.selectedProfile);
   }
 
   getPagesDenied() {
@@ -57,29 +56,6 @@ export class PageComponent extends PagenateComponent implements OnInit {
       error => this.hasdata = false
     );
   }
-
-  getPagesAllowed(){ 
-     //this.rulesProfile = this.selectedProfile.ruleProfile;
-     console.log("Regras do perfil", this.rulesProfile)
-    // this.accessPageService.getPagesAllowed(this.selectedProfile).subscribe(
-    //   sucess => {
-    //     this.rulesProfile = sucess;
-    //     //console.log
-    //   },
-    //   error => this.hasdata = false
-    // );
-  }
-
-  //  saveRules (){
-  //   this.profileService.saveRuleProfile(this.accessPageService.getRulesProfile()).subscribe(
-  //     success => {
-  //       // this.profile.ruleProfile.push(success);
-  //       // this.profileService.saveEditProfile(this.profile);
-  //     },
-  //     error => <any>error
-  //   ); 
-  // }
-
   public removePermission() {
 
   }

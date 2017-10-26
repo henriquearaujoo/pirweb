@@ -5,22 +5,25 @@
             <h3 class="title" >Perfil - </h3>
             <span class="profile_name">{{ nameProfile }}</span>
             </div>
-            <div class="box-body" >
-                <div class="col-xs-3" >         
+            <div class="box-body col-centered">
+                <div class="col-xs-4" >         
                   <div class="box-content-permission">
                       <div class="panel-title-permission">
-                          <h2 class="panel-title">Páginas sem permissão</h2>
+                          <h2 class="panel-title">Permissões Ativadas</h2>
                       </div>  
-                      <ul class="list-group">
-                          <li class="list-group-item">Cras justo odio</li>
-                          <li class="list-group-item">Dapibus ac facilisis in</li>
-                          <li class="list-group-item">Morbi leo risus</li>
-                          <li class="list-group-item">Porta ac consectetur ac</li>
-                          <li class="list-group-item">Vestibulum at eros</li>
-                        </ul>
+                     <select multiple class="form-control" [(ngModel)]='page_allowed' name="pg_allowed" >
+                        <option class="list-group-item">Dashboard/*</option>
+                        <option class="list-group-item">Agente/*</option>
+                        <option class="list-group-item">Agente/listar</option>
+                        <option class="list-group-item">Agente/performace-individual</option>
+                        <option class="list-group-item">Agente/detalhes</option>
+                        <option class="list-group-item">Mapa/mostrar-agentes</option>
+                        <option class="list-group-item">Formulários/*</option>
+                        <option class="list-group-item">Formulários/criar-template</option>
+                    </select>
                   </div>     
                 </div>
-                <div class="col-xs-1" >  
+                <div class="col-xs-1">  
                   <div class="row">
                       <button type="button" class="btn btn-default btn-lg">
                           <span class="glyphicon glyphicon-menu-left"></span>
@@ -32,28 +35,23 @@
                       </button>
                   </div>                    
                 </div>
-                <div class="col-xs-3" >   
-                  <div class="panel panel-primary" >  
-                    <div class="panel-heading">
-                        <h2 class="panel-title">Páginas sem permissão</h2>
-                    </div>
-                    <ul class="list-group">
-                        <li class="list-group-item">Cras justo odio</li>
-                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                        <li class="list-group-item">Morbi leo risus</li>
-                        <li class="list-group-item">Porta ac consectetur ac</li>
-                        <li class="list-group-item">Vestibulum at eros</li>
-                      </ul>
-                    <div class="panel-body" >
-                      
-                     <!-- <app-rule *ngFor="let item of pagedItems" [selectedPage]="item" [pk]='item.id'>
-                      <div class="list-group" >  
-                        
-                      </div>  
-                    </app-rule>     -->
-                    </div>
-                  </div>              
-                </div>            
+                <div class="col-xs-4" >         
+                    <div class="box-content-permission">
+                        <div class="panel-title-permission">
+                            <h2 class="panel-title">Sessões</h2>
+                        </div>  
+                        <select multiple class="form-control" [(ngModel)]='page_not_allowed' name="pg_not_allowed">
+                            <option class="list-group-item" ></option>
+                            <!-- <option class="list-group-item">Agente/*</option>
+                            <option class="list-group-item">Agente/listar</option>
+                            <option class="list-group-item">Agente/performace-individual</option>
+                            <option class="list-group-item">Agente/detalhes</option>
+                            <option class="list-group-item">Mapa/mostrar-agentes</option>
+                            <option class="list-group-item">Formulários/*</option>
+                            <option class="list-group-item">Formulários/criar-template</option> -->
+                        </select>
+                    </div>     
+                </div>           
             </div>    
             <!-- <div class="box-footer">
               <button class="btn btn-primary" (click)="saveRules()"> Salvar</button>
