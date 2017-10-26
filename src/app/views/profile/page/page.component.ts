@@ -9,6 +9,8 @@ import { Profile } from '../../../models/profile';
 import { RuleProfile } from '../../../models/rule-profile';
 import { ProfileService } from '../../../services/profile/profile.service';
 
+import * as _ from 'underscore';
+
 @Component({
   selector: 'app-page',
   templateUrl: './page.component.html',
@@ -26,6 +28,8 @@ export class PageComponent extends PagenateComponent implements OnInit {
   public selectedProfile: Profile = new Profile();
   public nameProfile: string;
   hasdata: boolean;
+
+  private modals: any[] = [];
 
   constructor(
     pagerService: PageService,
@@ -46,10 +50,10 @@ export class PageComponent extends PagenateComponent implements OnInit {
   }
 
   getPagesDenied() {
-    this.accessPageService.getPages().subscribe(
+    this.accessPageService.getPagesDenied().subscribe(
       sucess => {
-        this.pages = sucess;
-        this.allItems = this.pages;
+        this.page_not_allowed = sucess;
+        this.allItems = this.page_not_allowed;
         this.setPage(1);
         this.hasdata = true;
       },
@@ -59,4 +63,6 @@ export class PageComponent extends PagenateComponent implements OnInit {
   public removePermission() {
 
   }
+
+  public openModal(id: string) {}
 }

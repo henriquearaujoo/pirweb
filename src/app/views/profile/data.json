@@ -48,22 +48,38 @@
       "id": 5
     }
   ],
-  "pages": [
+  "pagesdenied": [
     {
       "id": 1,
       "name": "Dasboard"
     },
     {
       "id": 2,
-      "name": "Mapa"
+      "name": "Agente"
     },
     {
       "id": 3,
-      "name": "Formulários"
+      "name": "Agente/listar"
     },
     {
       "id": 4,
-      "name": "Agentes"
+      "name": "Agente/performace-individual"
+    },
+    {
+      "id": 5,
+      "name": "Agente/detalhes"
+    },
+    {
+      "id": 6,
+      "name": "Mapa/mostrar-agentes"
+    },
+    {
+      "id": 7,
+      "name": "Formulários/*"
+    },
+    {
+      "id": 8,
+      "name": "Formulários/criar-template"
     }
   ],
   "rulespage": []

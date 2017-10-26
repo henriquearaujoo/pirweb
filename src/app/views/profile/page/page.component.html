@@ -1,10 +1,14 @@
-<div class="content">
+<div class="container">
     <section class="content">
       <div class="row">
-          <div class="box-header with-border" >
-            <h3 class="title" >Perfil - </h3>
-            <span class="profile_name">{{ nameProfile }}</span>
-            </div>
+        <div class="box-header with-border" >
+            <h4 class="title" > Perfil 
+                <small>Permissões</small>
+            </h4><br/>
+            <h4 class="title">Tipo:
+                <small>{{ nameProfile }}</small>
+            </h4>
+        </div>
             <div class="box-body col-centered">
                 <div class="col-xs-4" >         
                   <div class="box-content-permission">
@@ -12,21 +16,14 @@
                           <h2 class="panel-title">Permissões Ativadas</h2>
                       </div>  
                      <select multiple class="form-control" [(ngModel)]='page_allowed' name="pg_allowed" >
-                        <option class="list-group-item">Dashboard/*</option>
-                        <option class="list-group-item">Agente/*</option>
-                        <option class="list-group-item">Agente/listar</option>
-                        <option class="list-group-item">Agente/performace-individual</option>
-                        <option class="list-group-item">Agente/detalhes</option>
-                        <option class="list-group-item">Mapa/mostrar-agentes</option>
-                        <option class="list-group-item">Formulários/*</option>
-                        <option class="list-group-item">Formulários/criar-template</option>
+                       
                     </select>
                   </div>     
                 </div>
                 <div class="col-xs-1">  
-                  <div class="row">
+                  <div class="row"> 
                       <button type="button" class="btn btn-default btn-lg">
-                          <span class="glyphicon glyphicon-menu-left"></span>
+                          <app-rule></app-rule>
                       </button>
                   </div>
                   <div class="row">
@@ -40,16 +37,14 @@
                         <div class="panel-title-permission">
                             <h2 class="panel-title">Sessões</h2>
                         </div>  
-                        <select multiple class="form-control" [(ngModel)]='page_not_allowed' name="pg_not_allowed">
-                            <option class="list-group-item" ></option>
-                            <!-- <option class="list-group-item">Agente/*</option>
-                            <option class="list-group-item">Agente/listar</option>
-                            <option class="list-group-item">Agente/performace-individual</option>
-                            <option class="list-group-item">Agente/detalhes</option>
-                            <option class="list-group-item">Mapa/mostrar-agentes</option>
-                            <option class="list-group-item">Formulários/*</option>
-                            <option class="list-group-item">Formulários/criar-template</option> -->
-                        </select>
+                        <select multiple class="form-control"                           
+                            name="pg_not_allowed" >                             
+                            <option class="list-group-item" 
+                                *ngFor="let item of page_not_allowed">                                    
+                                    {{ item.name}}
+                            </option>                          
+                           
+                        </select>                      
                     </div>     
                 </div>           
             </div>    

@@ -1,9 +1,9 @@
 .title{
     display: inline-block;
-    font-size: 18px;
+   /* font-size: 18px; */
     margin: 0;
     line-height: 1;
-    font-size: 24px;
+    /* font-size: 24px; */
     font-family: unset;
     color: #373d40;
 }
@@ -18,13 +18,14 @@
 }
 .box-content-permission{
     border: 1px solid rgb(68, 66, 66);
-    border-radius: 10px;
+    /* border-radius: 10px; */
     height: 500px;
 }
 .panel-title-permission{
-    background: rgb(68, 66, 66); 
-    height: 40px; 
-    color: white; border-radius:10px 9px 0px 0px; 
+    border-top: 5px solid rgb(68, 66, 66); 
+    height: 50px; 
+    font-weight: bold;
+    border-bottom: 1px solid #b5aeae;
 }
 .panel-title-permission h2{
     padding-top: 10px;

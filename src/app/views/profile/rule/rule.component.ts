@@ -19,7 +19,7 @@ import { Page } from '../../../models/page';
 })
 export class RuleComponent extends PagenateComponent implements OnInit {
 
-  @Input() selectedPage: Page;
+  @Input() selectedPage: Page = new Page();
   @Input() pk: any;
   @Input() lg = false;
 
@@ -44,7 +44,7 @@ export class RuleComponent extends PagenateComponent implements OnInit {
     }
 
   ngOnInit() {
-    console.log(this.selectedPage);
+    console.log('saída selectedPage', this.selectedPage);
   }
 
   updateChecked(option, event) {

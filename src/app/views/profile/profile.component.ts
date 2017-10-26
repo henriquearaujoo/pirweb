@@ -37,7 +37,6 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
       this.profileService.saveProfile(this.profile).subscribe(
         success => {
           this.profile = success;
-          this.hasdata = false;
         },
         error => <any>error
       );

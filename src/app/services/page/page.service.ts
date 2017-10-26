@@ -9,7 +9,6 @@ import { Rule } from '../../models/rule';
 
 @Injectable()
 export class AccessPageService extends RestService implements OnInit{
-  
 
   public profile: Profile = new Profile();
   public rule: Rule = new Rule();
@@ -20,21 +19,20 @@ export class AccessPageService extends RestService implements OnInit{
 
   apiurl = 'http://localhost:3000/';
 
-  ngOnInit(){
-    //this.profile = []
-  }
-  getPages(){
-    const currentURL = this.apiurl.concat('pages');
+  ngOnInit() { }
+
+  getPagesDenied() {
+    const currentURL = this.apiurl.concat('pagesdenied');
     return this.get(currentURL);
   }
 
-  public getPagesAllowed(profile: Profile){
+  public getPagesAllowed(profile: Profile) {
     const getPageURL = this.apiurl.concat('profiles/' + profile.id);
     return this.get(getPageURL);
   }
 
-  profileSelected(profile: Profile): void{  
-    console.log("perfil retornado so service", profile)
+  profileSelected(profile: Profile): void{
+    console.log('perfil retornado so service: ', profile);
     this.profile = profile;
   }
 
@@ -45,7 +43,7 @@ export class AccessPageService extends RestService implements OnInit{
   getProfile(): Profile{
     return this.profile;
   }
-  
+
   getRulesProfile(): Rule {
     return this.rule;
   }
