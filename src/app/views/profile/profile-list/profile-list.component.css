@@ -6,15 +6,23 @@ th {
     padding: 12px;
     height: 50px;
 }
+.tbl-center {
+    text-align: center;
+}
+.tbl-right {
+    text-align: right;  
+}
 
 thead {
     border-top: 6px solid #337ab7;
 }
 
-/* .table th, td {
-    vertical-align: middle;
-    text-align: center;
-} */
+.table>tbody>tr>td, 
+.table>tbody>tr>th, 
+.table>thead>tr>td, 
+.table>thead>tr>th{
+    vertical-align: middle; 
+}
 
 div.dataTables_filter {
     text-align: left;

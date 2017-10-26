@@ -1,71 +1,64 @@
-<div class="content">
 <!-- when there's not record -->
 <div *ngIf="!hasdata">
-    <section class="content">
+  <section class="content">
       <div class="feedback-icon fa fa-users"></div><br><br>
       <span class="feedback-message">Não há dados cadastrados</span>
-    </section>
-  </div>
-  
-  <div *ngIf="hasdata">
-    <section class="content padding-content">
-      <div class="box">             
-        <div class="row">
-          <div class="col-sm-6">
-            <div id="_filter" class="dataTables_filter">
-              <label>
-                  Filtrar:<input type="text" class="form-control form-border " [(ngModel)]="profileFilter.name" placeholder="Tipo de Perfil">
-              </label>
-            </div>
+  </section>
+</div>  
+<div *ngIf="hasdata">  
+  <div class="box">             
+    <div class="row">
+        <div class="col-sm-6">
+          <div id="_filter" class="dataTables_filter">
+            <label>
+              Filtrar:<input type="text" class="form-control form-border " [(ngModel)]="profileFilter.name" placeholder="Tipo de Perfil">
+            </label>
           </div>
         </div>
-        <div class="box-body with-border">
-          <table id="example2" class="table table-hover">
-            <thead>
-              <tr>
-                <th>ID
-                  <span class="glyphicon" ></span>
-                 </th>
-                <th>Tipo
-                  <span class="glyphicon"></span>
-                </th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let p of pagedItems">
-                <th>{{ p.id }}</th>
-                <td>{{ p.name }}</td> 
-                <td>
-                  <a (click)="setProfile(p)" [routerLink]="['/page-list']">
-                    <i class="fa fa-lock" aria-hidden="true" ></i>
-                  </a>
-                </td>
-                <td>
-                  <a (click)="setProfile(p)" [routerLink]="['/page-list']">
-                    <i class="fa fa-trash" aria-hidden="true" ></i>
-                  </a>                  
-                </td>
-                               
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="box-footer">
-        <ul *ngIf="pager.pages && pager.pages.length" class="pagination stylepage">
-          <li [ngClass]="{disabled:pager.currentPage === 1}">
-            <a (click)="setPage(pager.currentPage - 1)">Anterior</a>
-          </li>
-          <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-            <a (click)="setPage(page)">{{page}}</a>
-          </li>
-          <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-            <a (click)="setPage(pager.currentPage + 1)">Próxima</a>
-          </li>
-        </ul>
-      </div>
-    </section>
+    </div>
+    <div class="box-body with-border">
+      <table id="example2" class="table table-hover ">
+        <thead>
+          <tr>
+            <th class="tbl-center">ID
+              <span class="glyphicon" ></span>
+            </th>
+            <th>Tipo
+              <span class="glyphicon"></span>
+            </th>
+            <th colspan="2"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of pagedItems">
+            <th class="tbl-center">{{ p.id }}</th>
+              <td>{{ p.name }}</td> 
+              <td class="tbl-right">
+                <a (click)="setProfile(p)" [routerLink]="['/page-list']" title="Permissões">
+                  <i class="fa fa-lock" aria-hidden="true" ></i>
+                </a>
+              </td>
+              <td class="tbl-center">
+                <a (click)="deleteProfile(p.id)" [routerLink]="['/profile']" title="Excluir">
+                  <i class="fa fa-trash" aria-hidden="true" ></i>
+                </a>                  
+              </td>              
+          </tr>
+        </tbody>
+      </table>
+    </div>        
+    <div class="box-footer">
+      <ul *ngIf="pager.pages && pager.pages.length" class="pagination stylepage">
+        <li [ngClass]="{disabled:pager.currentPage === 1}">
+          <a (click)="setPage(pager.currentPage - 1)">Anterior</a>
+        </li>
+        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+          <a (click)="setPage(page)">{{page}}</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <a (click)="setPage(pager.currentPage + 1)">Próxima</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

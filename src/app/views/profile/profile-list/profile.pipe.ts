@@ -6,11 +6,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ProfilePipe implements PipeTransform {
 
   transform(profiles: any, searchText: any): any {
-    if(searchText == null) return profiles;
+    if (searchText == null) { return profiles; }
 
-   return profiles.filter(function(category){
-     return category.CategoryName.toLowerCase().indexOf(searchText) > -1;
-   })
+   return profiles.filter (function(category){
+     return category.CategoryName.toUpperCase().indexOf(searchText) > -1;
+   });
  }
 
 }

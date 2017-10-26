@@ -16,27 +16,42 @@ import { AccessPageService } from '../../../services/page/page.service';
   templateUrl: './profile-list.component.html',
   styleUrls: ['./profile-list.component.css'],
 })
-export class ProfileListComponent extends PagenateComponent implements OnInit, OnChanges{
-  
-    profiles: Profile[] = new Array();    
+export class ProfileListComponent extends PagenateComponent implements OnInit, OnChanges {
+  profiles: Profile[] = new Array();
 
-    @Input() newProfile :Profile[] = new Array(); 
+    @Input() newProfile: Profile[] = new Array();
 
     selectedProfile: Profile[] = new Array();
 
     hasdata: boolean;
 
-    @Input() profileFilter: any = { name: '' };    
-  
+    profileFilter: any = {name: ''};
     key = 'name';
     reverse = false;
+
+    // search() {
+    //   if (this.pagedItems.length === 0 ||
+    //     this.pagedItems === undefined ||
+    //     this.profileFilter.name === null ||
+    //     this.profileFilter.name === undefined
+    //     || this.profileFilter.name === '') {
+    //     return this.pagedItems;
+    //   }
+    //   if (this.profileFilter !== '') {
+    //   return this.pagedItems.filter((v) => {
+    //     if (v.indexOf(this.profileFilter.name) >= 0) {
+    //       return true;
+    //     }
+    //     return false;
+    //   });
+    // }
+    // }
 
     sort(key) {
       this.key = key;
       this.reverse = !this.reverse;
     }
-  
-    constructor(    
+    constructor(
       pagerService: PageService,
       private profileService: ProfileService,
       private ruleService: RuleService,
@@ -45,19 +60,19 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
         super(pagerService);
         this.hasdata = false;
       }
-    
+
       ngOnInit() {
-        console.log(this.newProfile);  
-        this.hasdata = false;        
-        this.getProfile();        
+        console.log(this.newProfile);
+        this.hasdata = false;
+        this.getProfile();
       }
-  
-      ngOnChanges(){
+
+      ngOnChanges() {
         this.profiles = this.newProfile;
-        this.getProfile();        
+        this.getProfile();
       }
-  
-      getProfile(){
+
+      getProfile() {
         this.profileService.getProfiles().subscribe(
           success => {
             this.profiles = success;
@@ -67,12 +82,15 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
           },
           error => this.hasdata = false
         );
-        //console.log(this.profiles)
       }
 
-      setProfile(profile: Profile){
+      setProfile(profile: Profile) {
         this.accessPageService.profileSelected(profile);
       }
 
-  
+      deleteProfile(profileId: number) {
+        this.profileService.deleteProfile(profileId.toString()).subscribe(
+          success => {}
+        );
+      }
 }
