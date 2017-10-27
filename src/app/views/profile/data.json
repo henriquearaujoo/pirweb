@@ -2,45 +2,41 @@
   "rules": [
     {
       "view": true,
-      "insert": true,
-      "edit": true,
-      "disable": true,
       "id_profile": 1,
+      "id_page": 1,
       "id": 1
-    },
-    {
-      "view": true,
-      "insert": true,
-      "edit": true,
-      "disable": true,
-      "id_profile": 1,
-      "id": 2
-    },
-    {
-      "view": true,
-      "insert": true,
-      "id": 3
     }
   ],
   "profiles": [
     {
       "name": "Administrador",
-      "id": 1
+      "id": 1,
+      "rule": [
+        {
+          "view": true,
+          "id_profile": 1,
+          "id_page": 1,
+          "id": 1
+        }
+      ]
     },
     {
       "name": "Agente",
-      "id": 2
+      "id": 2,
+      "rule": []
     },
     {
       "name": "Terceiro",
-      "id": 3
+      "id": 3,
+      "rule": []
     },
     {
       "name": "teste",
-      "id": 4
+      "id": 4,
+      "rule": []
     }
   ],
-  "pagesdenied": [
+  "pages": [
     {
       "id": 1,
       "name": "Dasboard"

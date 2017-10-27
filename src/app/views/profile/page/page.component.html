@@ -14,13 +14,15 @@
                           <h2 class="panel-title">Permissões Ativadas</h2>
                       </div>  
                      <select multiple class="form-control" [(ngModel)]='page_allowed' name="pg_allowed" >
-                       
+                        <option class="list-group-item" *ngFor="let item of page_allowed">
+                            {{ item.name }}
+                        </option>
                     </select>
                   </div>     
                 </div>
                 <div class="col-xs-1">  
                   <div class="row btn-left"> 
-                      <button type="button" class="btn btn-default btn-lg">
+                      <button type="button" (click)="setPages()"class="btn btn-default btn-lg">
                           <app-rule></app-rule>
                       </button>
                   </div>
@@ -36,9 +38,11 @@
                             <h2 class="panel-title">Sessões</h2>
                         </div>  
                         <select multiple class="form-control"                           
-                            name="pg_not_allowed" >                             
-                            <option class="list-group-item" 
-                                *ngFor="let item of page_not_allowed">                                    
+                            name="pg_not_allowed" 
+                            [(ngModel)] = 'pg_not_allowed'>                             
+                            <option class="list-group-item"                                 
+                                *ngFor="let item of page_not_allowed"
+                                (click) = "updatePages(item, $event)" >
                                     {{ item.name}}
                             </option>                          
                            

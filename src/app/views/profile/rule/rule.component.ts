@@ -18,7 +18,6 @@ import { Page } from '../../../models/page';
 })
 export class RuleComponent extends PagenateComponent implements OnInit {
 
-  @Input() selectedPage: Page = new Page();
   @Input() pk: any;
   @Input() lg = false;
 
@@ -26,6 +25,8 @@ export class RuleComponent extends PagenateComponent implements OnInit {
   checked: any[] = new Array();
 
   rule: Rule = new Rule();
+
+  pageSelected: Page[] = new Array();
 
   profile: Profile = new Profile();
   hasdata: boolean;
@@ -43,7 +44,6 @@ export class RuleComponent extends PagenateComponent implements OnInit {
     }
 
   ngOnInit() {
-    console.log('saída selectedPage', this.selectedPage);
   }
 
   updateChecked(option, event) {
@@ -84,25 +84,30 @@ export class RuleComponent extends PagenateComponent implements OnInit {
 
   confirmRules() {
     this.verifyRules();
-    console.log('saída selectedPage', this.selectedPage);
     this.profile = this.accessPageService.getProfile();
+    this.pageSelected = this.accessPageService.getPages();
 
-    this.rule.id_page = this.selectedPage.id;
     this.rule.id_profile = this.profile.id;
 
-    this.ruleService.saveRule(this.rule).subscribe(
-      success => {
-        this.profile.rule = success;
-        console.log('Regra salva:', success);
-        console.log('Regra adicionada ao perfil:', this.profile.rule);
-        this.profileService.saveEditProfile(this.profile).subscribe(
+    if (this.pageSelected.length > 0) {
+      for (let i = 0; i < this.pageSelected.length; i++) {
+        this.rule.id_page = this.pageSelected[i].id;
+        this.ruleService.saveRule(this.rule);
+
+        this.ruleService.saveRule(this.rule).subscribe(
           success => {
-            console.log('perfil editado:', success);
+            this.profile.rule.push(success);
+            console.log('Regra adicionada ao perfil:', this.profile.rule);
+            this.profileService.saveEditProfile(this.profile).subscribe(
+              success => {
+                console.log('Perfil editado:', success);
+              },
+              error => <any>error
+            );
           },
           error => <any>error
         );
-      },
-      error => <any>error
-    );
+      }
+    }
   }
 }

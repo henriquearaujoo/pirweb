@@ -12,6 +12,7 @@ export class AccessPageService extends RestService implements OnInit{
 
   public profile: Profile = new Profile();
   public rule: Rule = new Rule();
+  public pages: Page[] = new Array();
 
   constructor(http: Http) {
     super(http);
@@ -21,13 +22,18 @@ export class AccessPageService extends RestService implements OnInit{
 
   ngOnInit() { }
 
-  getPagesDenied() {
-    const currentURL = this.apiurl.concat('pagesdenied');
-    return this.get(currentURL);
+  getAllPages() {
+    const getPageURL = this.apiurl.concat('pages');
+    return this.get(getPageURL);
   }
 
-  public getPagesAllowed(profile: Profile) {
-    const getPageURL = this.apiurl.concat('profiles/' + profile.id);
+  getPagesDenied(rule: Rule) {
+    const getPageURL = this.apiurl.concat('pages/' + rule.id_page);
+    return this.get(getPageURL);
+  }
+
+  public getPagesAllowed(rule: Rule) {
+    const getPageURL = this.apiurl.concat('pages/' + rule.id_page);
     return this.get(getPageURL);
   }
 
@@ -40,12 +46,20 @@ export class AccessPageService extends RestService implements OnInit{
     this.rule = rules;
   }
 
-  getProfile(): Profile{
+  setPages (pages: Page[]) {
+    this.pages = pages;
+  }
+
+  getProfile(): Profile {
     return this.profile;
   }
 
   getRulesProfile(): Rule {
     return this.rule;
+  }
+
+  getPages(): Page[] {
+    return this.pages;
   }
 
 }

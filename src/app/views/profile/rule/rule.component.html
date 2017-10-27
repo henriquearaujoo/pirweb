@@ -1,47 +1,59 @@
 
 <div class="modal fade" id="rules{{pk}}" role="dialog">
-
 	<div class="modal-dialog">
 		<div class="modal-content">
-
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Com as permissões ativadas o usuário poderá: </h4>
-        
-    </div>
-
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Com as permissões ativadas o usuário poderá: </h4>          
+      </div>
 			<div class="modal-body">
 				<div class="row margin_both">
 					<div class="col-md-12">
-          <form>
-						<div class="row form-group ">             
-              <!-- checkbox -->
-
-                <div *ngFor=" let option of options"  class="checkbox">
-                  <label>
-                    <input type="checkbox" [attr.name]="options" 
-                      [value]="option" 
-                      (change)="updateChecked(option, $event)">
-                          {{ option }}
-                  </label>                
-                </div>
-              
-						</div>
-						
+            <form>
+              <div class="row form-group ">             
+                <!-- checkbox -->
+                  <div *ngFor=" let option of options"  class="checkbox">
+                    <label>
+                      <input type="checkbox" [attr.name]="options" 
+                        [value]="option" 
+                        (change)="updateChecked(option, $event)">
+                            {{ option }}
+                    </label>                
+                  </div>              
+              </div>						
             </form>
 					</div>
 				</div>
       </div>
       <div class="modal-footer">							
         <!-- <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button> -->
-        <button type="button" class="btn btn-primary btn-md" (click)='confirmRules()' data-dismiss="modal"> Salvar   </button>							
-    </div>
+        <button type="button" class="btn btn-primary btn-md" (click)='confirmRules()' data-dismiss="modal" > Salvar </button>							
+      </div>
 		</div>
 	</div>
 </div>
 
-
+<!-- Modal confirm rules -->
+<div class="modal fade" id="modal-confirm">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"></span></button>
+        <h4 class="modal-title">Deseja realmente salvar seus dados?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" [routerLink]="['profile']">Cancelar</button>
+        <button type="button" class="btn btn-default pull-left"  data-dismiss="modal"> Voltar </button>
+        <button type="button" (click)='confirmRules()' class="btn btn-primary" data-dismiss="modal">Confirmar</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 <span class="glyphicon glyphicon-menu-left" data-toggle="modal" attr.data-target="#rules{{pk}}" *ngIf='!lg'></span>
 
