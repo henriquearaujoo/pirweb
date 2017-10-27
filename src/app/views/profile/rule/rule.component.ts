@@ -13,7 +13,6 @@ import { Page } from '../../../models/page';
 
 @Component({
   selector: 'app-rule',
-  inputs: ['pk', 'header'],
   templateUrl: './rule.component.html',
   styleUrls: ['./rule.component.css']
 })
@@ -23,7 +22,7 @@ export class RuleComponent extends PagenateComponent implements OnInit {
   @Input() pk: any;
   @Input() lg = false;
 
-  options: any[] = ['Visualizar', 'Criar', 'Editar', 'Desabilitar']
+  options: any[] = ['Visualizar', 'Criar', 'Editar', 'Desabilitar'];
   checked: any[] = new Array();
 
   rule: Rule = new Rule();
@@ -50,13 +49,13 @@ export class RuleComponent extends PagenateComponent implements OnInit {
   updateChecked(option, event) {
     console.log('event.target.value ' + event.target.value);
     const index = this.checked.indexOf(option);
-    if(event.target.checked) {
-      console.log('add');
+    if (event.target.checked) {
+      console.log('insert');
       if ( index === -1) {
         this.checked.push(option);
       }
     } else {
-      console.log('remove');
+      console.log('delete');
       if ( index !== -1) {
         this.checked.splice(index, 1);
       }
@@ -85,6 +84,7 @@ export class RuleComponent extends PagenateComponent implements OnInit {
 
   confirmRules() {
     this.verifyRules();
+    console.log('saída selectedPage', this.selectedPage);
     this.profile = this.accessPageService.getProfile();
 
     this.rule.id_page = this.selectedPage.id;

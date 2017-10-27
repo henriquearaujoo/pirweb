@@ -39,10 +39,32 @@
                 </a>
               </td>
               <td class="tbl-center">
-                <a (click)="deleteProfile(p.id)" [routerLink]="['/profile']" title="Excluir">
+                <a href="" title="Excluir"
+                  data-toggle="modal" data-target="#modal-default">
                   <i class="large material-icons">delete</i>
                 </a>                  
-              </td>              
+              </td>
+              <!-- Modal Delete -->
+              <div class="modal fade" id="modal-default">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"></span></button>
+                      <h4 class="modal-title">Deseja realmente excluir seus dados?</h4>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+                      <button type="button" (click)="deleteProfile(p.id)" class="btn btn-primary" data-dismiss="modal">Confirmar</button>
+                    </div>
+                  </div>
+                  <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+              </div>
+              <!-- /.modal -->
+              
+
           </tr>
         </tbody>
       </table>
@@ -62,3 +84,4 @@
     </div>
   </div>
 </div>
+

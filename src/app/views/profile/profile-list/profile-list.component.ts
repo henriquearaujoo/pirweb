@@ -92,6 +92,7 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
       deleteProfile(profileId: number) {
         this.profileService.deleteProfile(profileId.toString()).subscribe(
           success => {
+            this.router.navigate(['profile']);
             this.getProfile();
           }
         );
