@@ -17,41 +17,20 @@ import { AccessPageService } from '../../../services/page/page.service';
   styleUrls: ['./profile-list.component.css'],
 })
 export class ProfileListComponent extends PagenateComponent implements OnInit, OnChanges {
-    profiles: Profile[] = new Array();
+   profiles: Profile[] = new Array();
 
-    @Input() newProfile: Profile[] = new Array();
+    @Input() profile: Profile = new Profile();
 
-    selectedProfile: Profile[] = new Array();
+    @Input() profile_id: number;
+
+    public edit: boolean;
+
+    selectedProfile: Profile = new Profile();
 
     hasdata: boolean;
 
     filter: Profile = new Profile();
 
-    key = 'name';
-    reverse = false;
-
-  //   filter() {
-  //     if (this.pagedItems.length === 0 ||
-  //       this.pagedItems === undefined ||
-  //       this.filter.name === null ||
-  //       this.filter.name === undefined
-  //       || this.filter.name === '') {
-  //       return this.pagedItems;
-  //     }
-  //     if ((this.filter.name !== '') && (typeof this.filter.name === 'string')) {
-  //     return this.pagedItems.filter((v) => {
-  //       if (v.indexOf(this.filter.name) >= 0) {
-  //         return true;
-  //       }
-  //       return false;
-  //     });
-  //   }
-  // }
-
-    sort(key) {
-      this.key = key;
-      this.reverse = !this.reverse;
-    }
     constructor(
       pagerService: PageService,
       private profileService: ProfileService,
@@ -60,17 +39,15 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
       private router: Router) {
         super(pagerService);
         this.hasdata = false;
+        this.edit = false;
       }
 
       ngOnInit() {
-        console.log(this.newProfile);
         this.hasdata = false;
         this.getProfile();
       }
 
       ngOnChanges() {
-        this.profiles = this.newProfile;
-        this.getProfile();
       }
 
       getProfile() {
@@ -89,12 +66,31 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
         this.accessPageService.profileSelected(profile);
       }
 
-      deleteProfile(profileId: number) {
-        this.profileService.deleteProfile(profileId.toString()).subscribe(
+      setIdProfile(id_profile: number) {
+        this.profile_id = id_profile;
+      }
+      deleteProfile() {
+        this.profileService.deleteProfile(this.profile_id.toString()).subscribe(
           success => {
-            this.router.navigate(['profile']);
+            this.router.navigate(['profile-list']);
             this.getProfile();
           }
         );
+      }
+
+      onInsertValue(evento: Profile) {
+        this.profiles.push(evento);
+        this.getProfile();
+        this.filter.name = '';
+        this.edit = false;
+      }
+
+      onFilter(evento) {
+        this.filter.name = evento.name;
+      }
+
+      editProfile(profile: Profile) {
+        this.edit = true;
+        this.selectedProfile = profile;
       }
 }

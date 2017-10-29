@@ -1,3 +1,9 @@
+<app-profile (insertValue)="onInsertValue($event)" 
+  (filterValue)="onFilter($event)"
+  [edit]="edit"
+  [selectedProfile]="selectedProfile"
+  [profiles]="profiles">
+</app-profile>
 <!-- when there's not record -->
 <div *ngIf="!hasdata">
   <section class="content">
@@ -11,7 +17,7 @@
         <div class="col-sm-6">
           <div id="_filter" class="dataTables_filter">
             <label>
-              Filtrar:<input type="text" class="form-control form-border " name="name"  [(ngModel)]="filter.name"placeholder="Tipo de Perfil">
+              Filtrar:<input type="text" class="form-control form-border " name="name" [(ngModel)]="filter.name" placeholder="Tipo de Perfil">
             </label>
           </div>
         </div>
@@ -30,41 +36,27 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let p of pagedItems | filterBy: filter">
-            <th class="tbl-center">{{ p.id }}</th>
-              <td>{{ p.name }}</td> 
-              <td class="tbl-right">
-                <a (click)="setProfile(p)" [routerLink]="['/page-list']" title="Permissões">
-                  <i class="large material-icons">lock</i>
-                </a>
-              </td>
-              <td class="tbl-center">
-                <a href="" title="Excluir"
-                  data-toggle="modal" data-target="#modal-default">
-                  <i class="large material-icons">delete</i>
-                </a>                  
-              </td>
-              <!-- Modal Delete -->
-              <div class="modal fade" id="modal-default">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"></span></button>
-                      <h4 class="modal-title">Deseja realmente excluir seus dados?</h4>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
-                      <button type="button" (click)="deleteProfile(p.id)" class="btn btn-primary" data-dismiss="modal">Confirmar</button>
-                    </div>
-                  </div>
-                  <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
+          <tr *ngFor="let profile of pagedItems | filterBy: filter">
+            <th class="tbl-center">    
+              <div class="edit">          
+                <a (click)="editProfile(profile)">{{ profile.id }}
+                    <i class="fa fa-pencil fa-fw show-icon"></i>
+                </a>              
               </div>
-              <!-- /.modal -->
-              
-
+            </th>
+            <td>{{ profile.name }}</td> 
+            <td class="tbl-right">              
+              <a (click)="setProfile(profile)" [routerLink]="['/page-list']" title="Permissões">
+                  <i class="large material-icons">lock</i>
+              </a>
+            </td>
+            <td class="tbl-center">
+                <a href="" title="Excluir"
+                  data-toggle="modal" data-target="#modal-default"
+                  (click)="setIdProfile(profile.id)">              
+                  <i class="large material-icons">delete </i> 
+                </a>      
+            </td>
           </tr>
         </tbody>
       </table>
@@ -85,3 +77,22 @@
   </div>
 </div>
 
+ <!-- Modal Delete -->
+ <div class="modal fade" id="modal-default">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"></span></button>
+        <h4 class="modal-title">Deseja realmente excluir seus dados? </h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+        <button type="button" (click)="deleteProfile()" class="btn btn-primary" data-dismiss="modal">Confirmar</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

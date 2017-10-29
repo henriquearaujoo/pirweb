@@ -8,6 +8,7 @@ th {
 }
 .tbl-center {
     text-align: center;
+    width: 150px;
 }
 .tbl-right {
     text-align: right;  
@@ -66,4 +67,16 @@ a {
 .pagination>.active>a {
     background-color: #373d40;
     border-color:  #373d40;
+}
+
+.edit .show-icon {
+    cursor: pointer;
+    display: none;
+}
+.edit:hover .show-icon {
+    display: inline;
+}
+
+a {
+    cursor: pointer;
 }

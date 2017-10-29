@@ -10,6 +10,7 @@ import { Rule } from '../../models/rule';
 export class ProfileService extends RestService {
 
   apiurl = 'http://localhost:3000/';
+
   constructor(http: Http) {
     super(http);
   }
@@ -17,6 +18,11 @@ export class ProfileService extends RestService {
   public getProfiles() {
     const currentURL = this.apiurl.concat('profiles');
     return this.get(currentURL);
+  }
+
+  public getProfileWithParam(profiles: string): Observable<Profile> {
+    const getProfileURL = this.apiurl.concat('profiles/' + profiles);
+    return this.get(getProfileURL);
   }
 
   public saveProfile(profiles: Profile): Observable<Profile> {

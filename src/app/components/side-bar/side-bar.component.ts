@@ -34,23 +34,23 @@ export class SideBarComponent implements OnInit {
   toMaps() {
     this.router.navigate(['maps']);
   }
-  toTemplateForms(){
+  toTemplateForms() {
     this.router.navigate(['templateForms']);
   }
 
-  toUser(){
+  toUser() {
     this.router.navigate(['user']);
   }
 
-  toUserList(){
+  toUserList() {
     this.router.navigate(['user-list']);
   }
 
-  toProfile(){
+  toProfile() {
     this.router.navigate(['profile']);
   }
 
-  toProfileList(){
+  toProfileList() {
     this.router.navigate(['profile-list']);
   }
 }

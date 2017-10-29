@@ -7,15 +7,15 @@ import { ModuleWithProviders } from '@angular/core';
 // view components
 import { HomeComponent } from './components/home/home.component';
 import { CostumerComponent } from './views/costumer/costumer.component';
-import { MapsComponent } from  './views/maps/maps.component';
+import { MapsComponent } from './views/maps/maps.component';
 import { LoginComponent } from './views/login/login.component';
-import { AgentComponent} from  './views/agent/agent.component';
-import { DashboardComponent } from  './views/dashboard/dashboard.component';
-import { TemplateFormsComponent } from  './views/template-forms/template-forms.component';
+import { AgentComponent} from './views/agent/agent.component';
+import { DashboardComponent } from './views/dashboard/dashboard.component';
+import { TemplateFormsComponent } from './views/template-forms/template-forms.component';
 import { HomeLayoutComponent } from './components/layout/home-layout.component';
 import { LoginLayoutComponent } from './components/layout/login-layout.component';
 
-import {UserComponent} from  './views/user/user.component';
+import {UserComponent} from './views/user/user.component';
 import {UserListComponent} from './views/user-list/user-list.component';
 
 import { ResetPasswordComponent } from './views/login/reset-password/reset-password.component';
@@ -28,10 +28,10 @@ const App_Router: Routes = [
         path: '',
         component: HomeLayoutComponent,
         canActivate: [AuthGuard],
-        children: [  
+        children: [
           {
             path: '',
-            component: HomeComponent
+            component: DashboardComponent
           },
           {
             path: 'dashboard',
@@ -49,15 +49,15 @@ const App_Router: Routes = [
           {
             path: 'templateForms',
             component: TemplateFormsComponent
-          },   
+          },
           {
             path: 'user',
             component: UserComponent
           },
           {
 
-            path:'user-list',
-            component:UserListComponent
+            path: 'user-list',
+            component: UserListComponent
           },
           {
             path: 'profile',
@@ -82,13 +82,11 @@ const App_Router: Routes = [
           {
             path: 'login',
             component: LoginComponent
-          }         
+          }
         ]
       },
       { path: '**', redirectTo: '' },
       { path: 'resetPassword', component: ResetPasswordComponent}
-    
-    
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(App_Router);

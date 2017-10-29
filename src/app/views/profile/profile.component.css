@@ -36,3 +36,7 @@
     border-color:   #373d40;
     max-width: 110px;
   }
+
+  .fa-times{
+    color: red;
+  }
