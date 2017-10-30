@@ -66,27 +66,34 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
         this.accessPageService.profileSelected(profile);
       }
 
-      setIdProfile(id_profile: number) {
-        this.profile_id = id_profile;
+      deleteProfile(profile: Profile) {
+        this.profile = profile;
       }
-      deleteProfile() {
-        this.profileService.deleteProfile(this.profile_id.toString()).subscribe(
+
+      disableProfile() {
+        this.profile.description = '';
+        this.profile.status = false;
+        this.profile.created_by = '';
+        this.profile.modified_by = '';
+        console.log('Disable:', this.profile);
+        this.profileService.disableProfile(this.profile).subscribe(
           success => {
             this.router.navigate(['profile-list']);
             this.getProfile();
-          }
+          },
+          error => <any>error
         );
       }
 
       onInsertValue(evento: Profile) {
         this.profiles.push(evento);
         this.getProfile();
-        this.filter.description = '';
+        this.filter.title = '';
         this.edit = false;
       }
 
       onFilter(evento) {
-        this.filter.description = evento.description;
+        this.filter.title = evento.title;
       }
 
       editProfile(profile: Profile) {

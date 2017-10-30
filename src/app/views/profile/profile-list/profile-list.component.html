@@ -1,7 +1,7 @@
 <app-profile (insertValue)="onInsertValue($event)" 
   (filterValue)="onFilter($event)"
   [edit]="edit"
-  [selectedProfile]="selectedProfile"
+  [profile]="selectedProfile"
   [profiles]="profiles">
 </app-profile>
 <!-- when there's not record -->
@@ -17,7 +17,7 @@
         <div class="col-sm-6">
           <div id="_filter" class="dataTables_filter">
             <label>
-              Filtrar:<input type="text" class="form-control form-border " name="name" [(ngModel)]="filter.name" placeholder="Tipo de Perfil">
+              Filtrar:<input type="text" class="form-control form-border " name="title" [(ngModel)]="filter.title" placeholder="Tipo de Perfil">
             </label>
           </div>
         </div>
@@ -26,7 +26,7 @@
       <table id="example2" class="table table-hover ">
         <thead>
           <tr>
-            <th class="tbl-center">Tipo
+            <th class="tbl-left">Título
               <span class="glyphicon" ></span>
             </th>
             <th colspan="3"></th>
@@ -34,13 +34,9 @@
         </thead>
         <tbody>
           <tr *ngFor="let item of pagedItems | filterBy: filter">
-            <th class="tbl-center">    
-              <div class="edit">          
-                <a (click)="editProfile(item)">{{ item.title }}
-                    <i class="fa fa-pencil fa-fw show-icon"></i>
-                </a>              
-              </div>
-            </th>
+            <td class="tbl-left">  
+                {{ item.title }}
+            </td>
             <td class="tbl-right">              
               <a (click)="setProfile(item)" [routerLink]="['/page-list']" title="Permissões">
                   <i class="large material-icons">lock</i>
@@ -54,7 +50,7 @@
             <td class="tbl-right">
                 <a href="" title="Excluir"
                   data-toggle="modal" data-target="#modal-default"
-                  (click)="setIdProfile(item.id)">              
+                  (click)="deleteProfile(item)">              
                   <i class="large material-icons">delete </i> 
                 </a>      
             </td>
@@ -89,7 +85,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
-        <button type="button" (click)="deleteProfile()" class="btn btn-primary" data-dismiss="modal">Confirmar</button>
+        <button type="button" (click)="disableProfile()" class="btn btn-primary" data-dismiss="modal">Confirmar</button>
       </div>
     </div>
     <!-- /.modal-content -->

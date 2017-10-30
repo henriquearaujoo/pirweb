@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { Http, XHRBackend, RequestOptions, HttpModule, ConnectionBackend } from '@angular/http';
 import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import { CdkTableModule } from '@angular/cdk/table';
 import {
@@ -81,6 +82,7 @@ import { PageComponent } from './views/profile/page/page.component';
 
 import { ProfilePipe } from './views/profile/profile-list/profile.pipe';
 import { DefineRulesComponent } from './views/define-rules/define-rules.component';
+import { ToastService } from './services/toast/toast.service';
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
 
@@ -165,7 +167,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     CreateUserService,
     ProfileService,
     RuleService,
-    AccessPageService
+    AccessPageService,
+    ToastService
   ],
   bootstrap: [AppComponent]
 })

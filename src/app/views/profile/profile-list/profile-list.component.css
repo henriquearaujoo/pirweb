@@ -8,10 +8,11 @@ th {
 }
 .tbl-center {
     text-align: center;
-    width: 150px;
+    /* width: 150px; */
 }
 .tbl-right {
     text-align: right;  
+    width: 50px;
 }
 
 thead {
@@ -41,6 +42,10 @@ div.dataTables_filter {
 
 .box-header > .fa, .box-header > .glyphicon, .box-header > .ion, .box-header .box-title {    
     font-size: 22px;
+}
+
+.box-body {
+    padding-right: 50px;
 }
 
 .box-footer {

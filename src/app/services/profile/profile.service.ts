@@ -9,14 +9,15 @@ import { Rule } from '../../models/rule';
 @Injectable()
 export class ProfileService extends RestService {
 
-  apiurl = 'http://localhost:2020/pir/';
+  apiurl = 'http://10.10.1.150:2020/pir/';
+  //apiurl = 'http://localhost:3000/';
 
   constructor(http: Http) {
     super(http);
   }
 
   public getProfiles() {
-    const currentURL = this.apiurl.concat('profiles');
+    const currentURL = this.apiurl.concat('profiles/active');
     console.log(currentURL);
     return this.get(currentURL);
   }
@@ -32,12 +33,17 @@ export class ProfileService extends RestService {
   }
 
   public saveEditProfile(profile: Profile): Observable<Profile> {
-    const saveProfileUrl = this.apiurl.concat('profiles/' + profile.id);
+    const saveProfileUrl = this.apiurl.concat('profiles');
     return this.put(saveProfileUrl, profile);
   }
 
   public deleteProfile(profile: string): Observable<Profile> {
     const deleteProfileURL = this.apiurl.concat('profiles');
     return this.deleteServiceWithId(deleteProfileURL, 'id', profile);
+  }
+
+  public disableProfile(profile: Profile): Observable<Profile> {
+    const saveProfileUrl = this.apiurl.concat('profiles');
+    return this.put(saveProfileUrl, profile);
   }
 }

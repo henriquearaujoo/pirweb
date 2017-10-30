@@ -43,10 +43,11 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
     }
 
     save() {
-      const filter = this.profiles.filter(
-        el => this.profile.name.toLowerCase() === el.name.toLowerCase());
-      if (filter.length === 0) {
-        console.log('Perfil não encontrado');
+      // const filter = this.profiles.filter(
+      //   el => this.profile.title.toLowerCase() === el.title.toLowerCase());
+      // if (filter.length === 0) {
+       // console.log('Perfil não encontrado');
+       this.profile.status = true;
         this.profile.rule = new Array();
         this.profileService.saveProfile(this.profile).subscribe(
           success => {
@@ -55,9 +56,9 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
           },
           error => <any>error
         );
-      } else {
-        console.log('Perfil Encontrado!');
-      }
+      // } else {
+      //   console.log('Perfil Encontrado!');
+      // }
     }
 
     onFilter() {
@@ -65,23 +66,28 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
     }
 
     saveEdit() {
-      const filter = this.profiles.filter(
-        el => this.selectedProfile.name.toLowerCase() === el.name.toLowerCase());
-      if (filter.length === 0) {
-        console.log('Perfil não encontrado');
-        this.profileService.saveEditProfile(this.selectedProfile).subscribe(
+      // const filter = this.profiles.filter(
+      //   el => this.selectedProfile.title.toLowerCase() === el.title.toLowerCase());
+      // if (filter.length === 0) {
+      //   console.log('Perfil não encontrado');
+      console.log('perfi editado:', this.profile);
+        this.profile.description = '';
+        this.profile.status = true;
+        this.profile.created_by = '';
+        this.profile.modified_by = '';
+        this.profileService.saveEditProfile(this.profile).subscribe(
           success => {
             this.profile = success;
             this.edit = false;
-            this.profile.name = '';
             this.insertValue.emit(this.profile);
+            this.profile.title = '';
           },
-          error => <any>error
+          error => console.log('Erro ao editar: ', error)
         );
-      } else {
-        console.log('Perfil Encontrado!');
-        this.insertValue.emit(this.profile);
-      }
+      // } else {
+      //   console.log('Perfil Encontrado!');
+      //   this.insertValue.emit(this.profile);
+      // }
     }
 
     cancelEdit() {

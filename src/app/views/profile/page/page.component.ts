@@ -49,7 +49,7 @@ export class PageComponent extends PagenateComponent implements OnInit {
     this.getPagesAllowed();
     this.getPages();
     this.selectedProfile = this.accessPageService.getProfile();
-    this.nameProfile = this.selectedProfile.name;
+    this.nameProfile = this.selectedProfile.description;
   }
 
   ngOnChange() {
