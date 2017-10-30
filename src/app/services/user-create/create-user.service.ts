@@ -6,7 +6,7 @@ import { User } from '../../models/user';
 @Injectable()
 export class CreateUserService extends RestService {
 
-  private apiurl = 'http://localhost:2020/';//'http://10.30.1.47:2020/';
+  private apiurl = 'http://localhost:2020/pir';//'http://10.30.1.47:2020/';
 
   constructor(http: Http) {
     super(http);

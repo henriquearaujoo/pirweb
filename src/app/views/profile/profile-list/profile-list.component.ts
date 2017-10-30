@@ -81,12 +81,12 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
       onInsertValue(evento: Profile) {
         this.profiles.push(evento);
         this.getProfile();
-        this.filter.name = '';
+        this.filter.description = '';
         this.edit = false;
       }
 
       onFilter(evento) {
-        this.filter.name = evento.name;
+        this.filter.description = evento.description;
       }
 
       editProfile(profile: Profile) {

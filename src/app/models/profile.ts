@@ -2,13 +2,14 @@ import { Rule } from './rule';
 
 export class Profile {
     public id: number;
-    public name: string;
+    public title: string;
+    public description: string;
     public dt_register: Date;
     public status: number;
     public user_who_was_register: number;
     public rule: Rule[] = new Array();
-    constructor(id?: number, name?: string) {
+    constructor(id?: number, description?: string) {
         this.id = id;
-        this.name = name;
+        this.description = description;
     }
 }

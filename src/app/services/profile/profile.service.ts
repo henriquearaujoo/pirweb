@@ -9,7 +9,7 @@ import { Rule } from '../../models/rule';
 @Injectable()
 export class ProfileService extends RestService {
 
-  apiurl = 'http://localhost:3000/';
+  apiurl = 'http://localhost:2020/pir/';
 
   constructor(http: Http) {
     super(http);
@@ -17,6 +17,7 @@ export class ProfileService extends RestService {
 
   public getProfiles() {
     const currentURL = this.apiurl.concat('profiles');
+    console.log(currentURL);
     return this.get(currentURL);
   }
 
