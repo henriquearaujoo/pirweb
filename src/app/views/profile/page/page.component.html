@@ -52,7 +52,7 @@
                         [(ngModel)] = 'selectedPages'
                         (change) = "insertOnQueueToSave($event.target)">                             
                         <option class="list-group-item" *ngFor="let item of pageFromServer" [value]='item'>
-                            {{ item.endpoint }}
+                            {{ item.route }}
                         </option>
                     </select>                      
                 </div>     
