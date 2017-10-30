@@ -75,16 +75,16 @@ const App_Router: Routes = [
         ]
       },
 
-      {
-        path: '',
-        component: LoginLayoutComponent,
-        children: [
-          {
-            path: 'login',
-            component: LoginComponent
-          }
-        ]
-      },
+      // {
+      //   path: '',
+      //   component: LoginLayoutComponent,
+      //   children: [
+      //     {
+      //       path: 'login',
+      //       component: LoginComponent
+      //     }
+      //   ]
+      // },
       { path: '**', redirectTo: '' },
       { path: 'resetPassword', component: ResetPasswordComponent}
 ];

@@ -16,7 +16,7 @@ import { Rule } from '../../models/rule';
 export class ProfileComponent extends PagenateComponent implements OnInit, OnChanges {
 
   @Input() profiles: Profile[] = new Array();
-  profile: Profile = new Profile();
+  @Input() profile: Profile = new Profile();
   hasdata: boolean;
 
   @Output() insertValue = new EventEmitter();

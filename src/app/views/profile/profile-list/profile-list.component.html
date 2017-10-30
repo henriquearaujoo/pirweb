@@ -36,24 +36,24 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let profile of pagedItems | filterBy: filter">
+          <tr *ngFor="let item of pagedItems | filterBy: filter">
             <th class="tbl-center">    
               <div class="edit">          
-                <a (click)="editProfile(profile)">{{ profile.id }}
+                <a (click)="editProfile(item)">{{ item.id }}
                     <i class="fa fa-pencil fa-fw show-icon"></i>
                 </a>              
               </div>
             </th>
-            <td>{{ profile.name }}</td> 
+            <td>{{ item.name }}</td> 
             <td class="tbl-right">              
-              <a (click)="setProfile(profile)" [routerLink]="['/page-list']" title="Permissões">
+              <a (click)="setProfile(item)" [routerLink]="['/page-list']" title="Permissões">
                   <i class="large material-icons">lock</i>
               </a>
             </td>
             <td class="tbl-center">
                 <a href="" title="Excluir"
                   data-toggle="modal" data-target="#modal-default"
-                  (click)="setIdProfile(profile.id)">              
+                  (click)="setIdProfile(item.id)">              
                   <i class="large material-icons">delete </i> 
                 </a>      
             </td>
