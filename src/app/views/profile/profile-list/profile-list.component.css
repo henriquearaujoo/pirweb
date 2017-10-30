@@ -36,6 +36,7 @@ div.dataTables_filter {
 }
 .box {
     border-top: 0;
+    margin-left: 20px;
 }
 
 .box-header > .fa, .box-header > .glyphicon, .box-header > .ion, .box-header .box-title {    

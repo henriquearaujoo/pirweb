@@ -76,3 +76,9 @@
 option.list-group-item {
     border: 0;
 }
+
+.btn-primary {
+    width: 100px;
+    background-color:#373d40;
+    border-color: #373d40;
+}

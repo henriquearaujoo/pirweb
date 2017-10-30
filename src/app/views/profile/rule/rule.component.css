@@ -30,12 +30,15 @@ small {
     height: 91%;
     margin: 0px;    
 }
-
 .btn {
     width: 98px;
-    background-color:#373d40;
-    border-color:   #373d40;
     max-width: 110px;
+}
+
+.btn-primary {
+    
+    background-color:#373d40;
+    border-color:   #373d40;    
   }
 
   .checkbox {
@@ -44,4 +47,10 @@ small {
 
   .modal-footer {
       border-top: 1px solid #d2d6de;
+  }
+
+  .modal-footer-confirm {
+    border-top: 1px solid #d2d6de;
+    text-align: center;
+    padding: 30px;
   }

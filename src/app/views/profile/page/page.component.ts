@@ -27,7 +27,7 @@ export class PageComponent extends PagenateComponent implements OnInit {
   pageSelected: Page[] = new Array();
 
   public rulesProfile: Rule[] = new Array();
-  page_allowed: Page[] = new Array();
+  public page_allowed: Page[] = new Array();
   public page_not_allowed: Page[] = new Array();
   public pages: Page[] = new Array();
 
@@ -48,14 +48,14 @@ export class PageComponent extends PagenateComponent implements OnInit {
     this.hasdata = false;
     this.getPagesAllowed();
     this.getPages();
-   // this.getPagesDenied();
     this.selectedProfile = this.accessPageService.getProfile();
     this.nameProfile = this.selectedProfile.name;
   }
 
   ngOnChange() {
-    console.log(this.page_not_allowed);
-    this.getPagesAllowed();
+    console.log('aqui OnChanges', this.page_not_allowed);
+    // this.getPagesAllowed();
+    // this.getPagesDenied();
   }
 
   getPagesAllowed() {
@@ -65,9 +65,6 @@ export class PageComponent extends PagenateComponent implements OnInit {
         this.accessPageService.getPagesAllowed(this.rulesProfile[i]).subscribe(
           sucess => {
             this.page_allowed.push(sucess);
-            this.allItems = this.page_allowed;
-            this.setPage(1);
-            this.hasdata = true;
           },
           error => this.hasdata = false
         );
@@ -79,37 +76,29 @@ export class PageComponent extends PagenateComponent implements OnInit {
     this.accessPageService.getAllPages().subscribe(
       sucess => {
         this.page_not_allowed = sucess;
-        console.log('Permissões ativas', this.page_allowed.length);
-        console.log('sessões', this.page_not_allowed.length);
+        console.log('Permissões ativas', this.page_allowed);
+        console.log('sessões', this.page_not_allowed);
+
         for (let i = 0; i < this.page_allowed.length; i++) {
-          for ( let j = 0; j < this.page_not_allowed.length; j++) {
-            if (this.page_allowed[i].name === this.page_not_allowed[j].name) {
-              console.log(this.page_not_allowed.splice(j));
-              console.log('remove page', this.page_not_allowed);
-            }
-          }
+          this.page_not_allowed = this.page_not_allowed.filter(
+            (el) => this.page_allowed[i].id !== el.id);
+          console.log('sessões filter', this.page_not_allowed);
         }
-        this.allItems = this.page_not_allowed;
-        this.setPage(1);
-        this.hasdata = true;
       },
       error => this.hasdata = false
     );
   }
 
-//  getPagesDenied() {
-//     console.log('length page_allowed', this.page_allowed.length);
-//     console.log('length page_not_allowed', this.page_not_allowed.length);
+  // getPagesDenied() {
+  //   console.log('Permissões ativas', this.page_allowed);
+  //   console.log('sessões', this.pages);
 
-//     for (let i = 0; i < 8; i++) {
-//       for ( let j = 0; j < 8; j++) {
-//         if (this.page_allowed[i].name === this.page_not_allowed[j].name) {
-//           this.page_not_allowed.splice(j);
-//           console.log('remove page', this.page_not_allowed);
-//         }
-//       }
-//     }
-//   }
+  //   for (let i = 0; i < this.page_allowed.length; i++) {
+  //     this.page_not_allowed = this.page_not_allowed.filter(
+  //       (el) => this.page_allowed[i].id !== el.id);
+  //     console.log('sessões filter', this.page_not_allowed);
+  //   }
+  // }
 
   updatePages(item, event) {
     console.log('event.target.value ' + event.target.value);

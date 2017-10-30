@@ -28,7 +28,7 @@
       </div>
       <div class="modal-footer">							
         <!-- <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button> -->
-        <button type="button" class="btn btn-primary btn-md" (click)='confirmRules()' data-dismiss="modal" > Salvar </button>							
+        <button type="button" class="btn btn-primary btn-md" data-dismiss="modal" (click)='confirmRules()' > Salvar </button>
       </div>
 		</div>
 	</div>
@@ -43,10 +43,10 @@
           <span aria-hidden="true"></span></button>
         <h4 class="modal-title">Deseja realmente salvar seus dados?</h4>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default pull-left" [routerLink]="['profile']">Cancelar</button>
-        <button type="button" class="btn btn-default pull-left"  data-dismiss="modal"> Voltar </button>
-        <button type="button" (click)='confirmRules()' class="btn btn-primary" data-dismiss="modal">Confirmar</button>
+      <div class="modal-footer-confirm">
+        <button type="button" class="btn btn-default" data-dismiss="modal" [routerLink]="['profile-list']">Cancelar</button>
+        <button type="button" class="btn btn-default"  data-dismiss="modal"> Voltar </button>
+        <button type="button" (click)='confirmRules()' class="btn btn-primary" data-dismiss="modal" [routerLink]="['profile-list']">Salvar</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -55,5 +55,5 @@
 </div>
 <!-- /.modal -->
 
-<span class="glyphicon glyphicon-menu-left" data-toggle="modal" attr.data-target="#rules{{pk}}" *ngIf='!lg'></span>
+<a class="glyphicon glyphicon-menu-left" data-toggle="modal" href="#rules{{pk}}" *ngIf='!lg'></a>
 
