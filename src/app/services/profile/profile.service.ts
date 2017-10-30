@@ -10,8 +10,6 @@ import { Rule } from '../../models/rule';
 export class ProfileService extends RestService {
 
   apiurl = 'http://10.10.1.150:2020/pir/';
-  //apiurl = 'http://localhost:3000/';
-
   constructor(http: Http) {
     super(http);
   }

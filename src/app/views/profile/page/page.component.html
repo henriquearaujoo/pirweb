@@ -1,60 +1,69 @@
 <div class="container">
     <section class="content">
       <div class="row">
+        <!-- Load profile title -->
         <div class="box-header with-border" >
             <h4 class="title" > Perfil 
                 <small>Permissões</small>
             </h4><br/>
-            <h5 class="title">Tipo: {{ nameProfile }}</h5>
+            <h5 class="title">Tipo: {{ currentProfile.title }}</h5>
         </div>
-            <div class="box-body col-centered">
-                <div class="col-xs-4" >         
-                  <div class="box-content-permission">
-                      <div class="panel-title-permission">
-                          <h2 class="panel-title">Permissões Ativadas</h2>
-                      </div>  
-                     <select multiple class="form-control" [(ngModel)]='page_allowed' name="pg_allowed" >
-                        <option class="list-group-item" *ngFor="let item of page_allowed">
-                            {{ item.name }}
+        <!-- /Load profile title -->
+
+        <div class="box-body col-centered">
+            <!-- List with all profile permission -->
+            <div class="col-xs-4" >         
+                <div class="box-content-permission">
+                    <div class="panel-title-permission">
+                        <h2 class="panel-title">Permissões Ativadas</h2>
+                    </div>  
+                    <select multiple class="form-control" [(ngModel)]='page_allowed' name="pg_allowed" >
+                    <option class="list-group-item" *ngFor="let item of page_allowed">
+                        {{ item.endpoint }}
+                    </option>
+                </select>
+                </div>     
+            </div>
+            <!--/List with all profile permission -->
+            
+            <!-- Actions -->
+            <div class="col-xs-1">  
+                <div class="row btn-left"> 
+                    <button type="button" (click)="setPages()"class="btn btn-default btn-lg">
+                        <app-rule></app-rule>
+                    </button>
+                </div>
+                <div class="row btn-right">
+                    <button type="button" class="btn btn-default btn-lg">
+                        <span class="glyphicon glyphicon-menu-right"></span>
+                    </button>
+                </div>                    
+            </div>
+            <!-- / Actions -->
+            
+            <!-- List all pages -->
+            <div class="col-xs-4" >         
+                <div class="box-content-permission">
+                    <div class="panel-title-permission">
+                        <h2 class="panel-title">Sessões</h2>
+                    </div>  
+                    <select multiple class="form-control"                           
+                        name="pg_not_allowed" 
+                        [(ngModel)] = 'selectedPages'
+                        (change) = "insertOnQueueToSave($event.target)">                             
+                        <option class="list-group-item" *ngFor="let item of pageFromServer" [value]='item'>
+                            {{ item.endpoint }}
                         </option>
-                    </select>
-                  </div>     
-                </div>
-                <div class="col-xs-1">  
-                  <div class="row btn-left"> 
-                      <button type="button" (click)="setPages()"class="btn btn-default btn-lg">
-                          <app-rule></app-rule>
-                      </button>
-                  </div>
-                  <div class="row btn-right">
-                      <button type="button" class="btn btn-default btn-lg">
-                          <span class="glyphicon glyphicon-menu-right"></span>
-                      </button>
-                  </div>                    
-                </div>
-                <div class="col-xs-4" >         
-                    <div class="box-content-permission">
-                        <div class="panel-title-permission">
-                            <h2 class="panel-title">Sessões</h2>
-                        </div>  
-                        <select multiple class="form-control"                           
-                            name="pg_not_allowed" 
-                            [(ngModel)] = 'pg_not_allowed'>                             
-                            <option class="list-group-item"                                 
-                                *ngFor="let item of page_not_allowed"
-                                (click) = "updatePages(item, $event)" >
-                                    {{ item.name}}
-                            </option>                          
-                           
-                        </select>                      
-                    </div>     
-                </div>           
-            </div>    
-            <div class="box-footer ">
-                <div class="col-md-10">
-                    <button class="btn btn-primary" [routerLink]="['/profile-list']"> Voltar</button>
-                </div>
+                    </select>                      
+                </div>     
             </div>  
+            <!-- / List all pages -->
+        </div>    
+        <div class="box-footer ">
+            <div class="col-md-10">
+                <button class="btn btn-primary" [routerLink]="['/profile-list']"> Voltar</button>
+            </div>
+        </div>  
         </div>        
       </section>
 </div>

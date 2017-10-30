@@ -48,6 +48,7 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
       // if (filter.length === 0) {
        // console.log('Perfil não encontrado');
        this.profile.status = true;
+
         this.profile.rule = new Array();
         this.profileService.saveProfile(this.profile).subscribe(
           success => {

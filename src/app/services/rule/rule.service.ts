@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class RuleService extends RestService {
-  apiurl = 'http://localhost:3000/';
+  apiurl = 'http://10.10.1.150:2020/pir/';
 
   constructor(http: Http) {
     super(http);

@@ -18,7 +18,7 @@ export class AccessPageService extends RestService implements OnInit{
     super(http);
  }
 
-  apiurl = 'http://localhost:3000/';
+  apiurl = 'http://10.10.1.150:2020/pir/';
 
   ngOnInit() { }
 
@@ -28,12 +28,12 @@ export class AccessPageService extends RestService implements OnInit{
   }
 
   getPagesDenied(rule: Rule) {
-    const getPageURL = this.apiurl.concat('pages/' + rule.id_page);
+    const getPageURL = this.apiurl.concat('pages/' + rule.page_id);
     return this.get(getPageURL);
   }
 
   public getPagesAllowed(rule: Rule) {
-    const getPageURL = this.apiurl.concat('pages/' + rule.id_page);
+    const getPageURL = this.apiurl.concat('pages/' + rule.page_id);
     return this.get(getPageURL);
   }
 

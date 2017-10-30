@@ -66,19 +66,19 @@ export class RuleComponent extends PagenateComponent implements OnInit {
   verifyRules() {
     for (let i = 0; i < this.checked.length; i++) {
       if (this.checked[i] === this.options[0]) {
-        this.rule.view = true;
+        this.rule.read = true;
       }
       if (this.checked[i] === this.options[1]) {
-        this.rule.insert = true;
+        this.rule.create = true;
       }
       if (this.checked[i] === this.options[2]) {
-        this.rule.edit = true;
+        this.rule.update = true;
       }
       if (this.checked[i] === this.options[3]) {
-        this.rule.disable = true;
+        this.rule.delete = true;
       }
     }
-    console.log('view', this.rule.view);
+    console.log('view', this.rule.read);
   }
 
 
@@ -87,19 +87,17 @@ export class RuleComponent extends PagenateComponent implements OnInit {
     this.profile = this.accessPageService.getProfile();
     this.pageSelected = this.accessPageService.getPages();
 
-    this.rule.id_profile = this.profile.id;
+    this.rule.profile_id = this.profile.id;
 
     if (this.pageSelected.length > 0) {
       for (let i = 0; i < this.pageSelected.length; i++) {
-        this.rule.id_page = this.pageSelected[i].id;
-        this.ruleService.saveRule(this.rule);
-
+        this.rule.page_id = this.pageSelected[i].id;
         this.ruleService.saveRule(this.rule).subscribe(
           success => {
             this.profile.rule.push(success);
             console.log('Regra adicionada ao perfil:', this.profile.rule);
             this.profileService.saveEditProfile(this.profile).subscribe(
-              success => {
+              succe2s => {
                 console.log('Perfil editado:', success);
               },
               error => <any>error
