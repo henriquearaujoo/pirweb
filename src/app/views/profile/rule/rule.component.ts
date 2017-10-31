@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Http } from '@angular/http';
 import { RuleService } from '../../../services/rule/rule.service';
 import { Rule } from '../../../models/rule';
@@ -20,6 +20,9 @@ export class RuleComponent extends PagenateComponent implements OnInit {
 
   @Input() pk: any;
   @Input() lg = false;
+
+  @Output() reloadFatherComponent = new EventEmitter();
+
 
   options: any[] = ['Visualizar', 'Criar', 'Editar', 'Desabilitar'];
   checked: any[] = new Array();
@@ -83,10 +86,10 @@ export class RuleComponent extends PagenateComponent implements OnInit {
 
 
   confirmRules() {
+
     this.verifyRules();
     this.profile = this.accessPageService.getProfile();
     this.pageSelected = this.accessPageService.getPages();
-
     this.rule.profile_id = this.profile.id;
 
     if (this.pageSelected.length > 0) {
@@ -96,14 +99,20 @@ export class RuleComponent extends PagenateComponent implements OnInit {
           success => {
             this.profile.rule.push(success);
             console.log('Regra adicionada ao perfil:', this.profile.rule);
+            this.reloadFatherComponent.emit({result: true});
             this.profileService.saveEditProfile(this.profile).subscribe(
               succe2s => {
                 console.log('Perfil editado:', success);
+                this.reloadFatherComponent.emit({result: true});
               },
-              error => <any>error
+              error => {
+                this.reloadFatherComponent.emit({result: true});
+              }
             );
           },
-          error => <any>error
+          error => {
+            this.reloadFatherComponent.emit({result: true});
+          }
         );
       }
     }

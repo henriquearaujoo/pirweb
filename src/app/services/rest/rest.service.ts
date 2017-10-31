@@ -93,10 +93,18 @@ export class RestService {
       }
     }
     this.options = new RequestOptions({ headers: this.headers, search: params });
+    console.log(url);
     return this.http
       .delete(url, this.options)
       .map(this.extractData)
       .catch(this.handleError);
+  }
+
+  deleteR(url: string) {
+    return this.http
+    .delete(url)
+    .map(this.extractData)
+    .catch(this.handleError);
   }
 
   deleteServiceWithId(url: string, key: string, val: string): Observable<any> {

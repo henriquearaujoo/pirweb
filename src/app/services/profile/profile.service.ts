@@ -20,6 +20,12 @@ export class ProfileService extends RestService {
     return this.get(currentURL);
   }
 
+  public getPages(profileid: string) {
+    const currentURL = this.apiurl + 'profiles/' + profileid + '/pages';
+    console.log(currentURL);
+    return this.get(currentURL);
+  }
+
   public getProfileWithParam(profiles: string): Observable<Profile> {
     const getProfileURL = this.apiurl.concat('profiles/' + profiles);
     return this.get(getProfileURL);

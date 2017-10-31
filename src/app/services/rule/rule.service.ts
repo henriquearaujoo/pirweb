@@ -22,4 +22,8 @@ export class RuleService extends RestService {
     return this.post(saveRuleUrl, rules);
   }
 
+  public deleteRule(id: string) {
+    const deleteRuleUrl = this.apiurl + 'rules' + '/' + id;
+    return this.deleteR(deleteRuleUrl);
+  }
 }

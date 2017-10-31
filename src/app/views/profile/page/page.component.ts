@@ -1,3 +1,4 @@
+import { RuleService } from './../../../services/rule/rule.service';
 import { Headers } from '@angular/http';
 import { PagenateComponent } from './../../../components/pagenate/pagenate.component';
 import { AccessPageService } from './../../../services/page/page.service';
@@ -26,41 +27,54 @@ export class PageComponent extends PagenateComponent implements OnInit {
 
   public selectedPages = new Array();
   private pageFromServer = new Array();
-  // public rulesProfile: Rule[] = new Array();
-  // public page_allowed: Page[] = new Array();
-  // public page_not_allowed: Page[] = new Array();
-  // public pages: Page[] = new Array();
-
+  private pagesFromProfile = new Array();
   public currentProfile: Profile = new Profile();
-  // public nameProfile: string;
-  // hasdata: boolean;
+  public page_allowed = new Array();
 
   constructor(
     pagerService: PageService,
     private profileService: ProfileService,
     private accessPageService: AccessPageService,
+    private ruleService: RuleService,
     private router: Router) {
       super(pagerService);
      }
 
   ngOnInit() {
-    this.loadPages();
+    this.loadPageFromProfile();
     this.currentProfile = this.accessPageService.getProfile();
   }
 
   ngOnChange() {
-
+    this.loadPageFromProfile();
   }
 
-  loadPages() {
-    this.accessPageService.getAllPages().subscribe(
+  loadPageFromProfile() {
+    this.profileService.getPages(this.accessPageService.getProfile().id).subscribe(
       s => {
-        this.pageFromServer = s;
+        this.pagesFromProfile = s;
+        this.accessPageService.getAllPages().subscribe(
+          s2 => {
+            this.pageFromServer = s2;
+            for ( let i = 0 ; i < this.pagesFromProfile.length; i++) {
+              for (let j = 0 ; j < this.pageFromServer.length; j++) {
+                if ( this.pagesFromProfile[i].route === this.pageFromServer[j].route) {
+                  this.pageFromServer.splice(j, 1);
+                }
+              }
+            }
+          },
+          e2 => {
+            console.log(e2);
+          }
+        );
       },
-      e => {
-        console.log(e);
-      }
+      e => console.log(e)
     );
+  }
+  onReloadPage(event) {
+    this.loadPageFromProfile();
+    console.log(event);
   }
 
   setPages() {
@@ -72,8 +86,12 @@ export class PageComponent extends PagenateComponent implements OnInit {
     // console.log('Páginas selecionadas service', this.accessPageService.getPages());
   }
 
-  public removePermission() {
-
+  public removePages() {
+    for (let i = 0; i < this.page_allowed.length ; i++) {
+      //console.log(this.page_allowed[i].rules[0].id);
+      this.ruleService.deleteRule(this.page_allowed[i].rules[0].id);
+    }
+    this.loadPageFromProfile();
   }
 
 }

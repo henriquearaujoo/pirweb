@@ -1,7 +1,7 @@
 import { Rule } from './rule';
 
 export class Profile {
-    public id: number;
+    public id: any;
     public title: string;
     public description: string;
     public created_by: string;
