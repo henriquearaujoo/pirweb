@@ -1,3 +1,4 @@
+import { ToastService } from './../../../services/toast-notification/toast.service';
 import {Component, OnInit, OnChanges, Input, Output, EventEmitter} from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -36,6 +37,7 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
       private profileService: ProfileService,
       private ruleService: RuleService,
       private accessPageService: AccessPageService,
+      private toastService: ToastService,
       private router: Router) {
         super(pagerService);
         this.hasdata = false;
@@ -81,6 +83,7 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
           success => {
             this.router.navigate(['profile-list']);
             this.getProfile();
+            this.toastService.toastSuccess();
           },
           error => <any>error
         );
