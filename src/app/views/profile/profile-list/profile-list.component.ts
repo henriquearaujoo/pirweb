@@ -25,7 +25,7 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
 
     public edit: boolean;
 
-    selectedProfile: Profile = new Profile();
+    @Input() selectedProfile: Profile = new Profile();
 
     hasdata: boolean;
 

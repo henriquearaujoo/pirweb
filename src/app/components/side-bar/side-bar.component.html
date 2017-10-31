@@ -1,45 +1,47 @@
 <aside class="main-sidebar">
     <section class="sidebar">
       <ul class="sidebar-menu" data-widget="tree">
-        <li [class.active]="isActive(['/','/dashboard'])">
+        <!--
+        <li [class]="isActive(['/','/dashboard'])">
           <a class="menu" (click)="toDashboard()">
             <i class="fa fa-dashboard"></i>
             <span>Dashboard de Desempenho</span>
           </a>
         </li>
-        <li [class.active]="isActive(['/','/agent'])">
+        <li [class]="isActive(['/','/agent'])">
           <a class="menu" (click)="toAgent()">
             <i class="fa fa-users"></i>
             <span>Agentes</span>
           </a>
         </li>
-        <li [class.active]="isActive(['/','/maps'])">
+        <li [class]="isActive(['/','/maps'])">
           <a class="menu" (click)="toMaps()">
             <i class="fa fa-map-marker" aria-hidden="true"></i>
             <span>Mapa dos Clientes</span>
           </a>
         </li>
         
-        <li [class.active]="isActive(['/','/templateForms'])">
+        <li [class]="isActive(['/','/templateForms'])">
           <a class="menu" (click)="toTemplateForms()">
             <i class="fa fa-file" aria-hidden="true"></i>
             <span>Formulários</span>
           </a>
         </li>
-
+      -->
         <li class="treeview">
             <a href="#">
               <i class="fa fa-user"></i> <span>Usuários</span>
               <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
-              <li [class.active]="isActive(['/','/user-list'])">
+              <!--
+              <li [class]="isActive(['/','/user-list'])">
                 <a class="menu" (click)="toUserList()">
                     <i class="fa fa-circle-o" aria-hidden="true"></i>
                     <span>Registros</span>
                 </a>
-              </li>              
-              <li [class.active]="isActive(['/','/profile-list'])">
+              </li>   -->           
+              <li [class]="isActive(['/','/profile-list'])">
                 <a class="menu" (click)="toProfileList()">
                     <i class="fa fa-circle-o" aria-hidden="true"></i> 
                     <span>Perfil</span>                   

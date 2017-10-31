@@ -82,7 +82,7 @@ import { PageComponent } from './views/profile/page/page.component';
 
 import { ProfilePipe } from './views/profile/profile-list/profile.pipe';
 import { DefineRulesComponent } from './views/define-rules/define-rules.component';
-import { ToastService } from './services/toast/toast.service';
+import { ToastService } from './services/toast-notification/toast.service';
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
 
@@ -154,7 +154,9 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDo5LxyVUv5EwGQBwaveIF4d0MaIVD_Dd8'
-    })
+    }),
+    BrowserAnimationsModule,
+    SimpleNotificationsModule.forRoot()
   ],
   providers: [
     RestService,

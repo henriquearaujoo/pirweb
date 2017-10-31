@@ -26,7 +26,7 @@
     "@angular/router": "^4.4.5",
     "angular-2-data-table": "^0.1.2",
     "angular2-data-table": "^3.0.0",
-    "angular2-notifications": "^0.7.7",
+    "angular2-notifications": "^0.7.8",
     "core-js": "^2.4.1",
     "materialize-css": "^0.100.2",
     "ng2-filter-pipe": "^0.1.10",

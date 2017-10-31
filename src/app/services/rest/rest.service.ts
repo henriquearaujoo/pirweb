@@ -115,8 +115,10 @@ export class RestService {
   }
 
   private extractData(res: Response) {
-    const body = res.json();
-    return body;
+    if (res.json() === null) {
+      return '{}';
+    }
+    return res.json();
   }
 
   private handleError(error: Response | any) {

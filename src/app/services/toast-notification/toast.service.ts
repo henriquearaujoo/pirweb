@@ -13,8 +13,8 @@ export class ToastService {
       });
     }
 
-    toastError() {
-      this.toastService.error('Erro!', 'Ação não realizada', {
+    toastError(error) {
+      this.toastService.error('Erro!', 'Ação não realizada' + error, {
         timeOut: 3000,
         showProgressBar: true,
         pauseOnHover: true,

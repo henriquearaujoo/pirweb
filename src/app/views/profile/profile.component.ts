@@ -1,3 +1,4 @@
+import { ToastService } from './../../services/toast-notification/toast.service';
 import {Component, OnInit, OnChanges, EventEmitter, Output, Input} from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
@@ -16,7 +17,7 @@ import { Rule } from '../../models/rule';
 export class ProfileComponent extends PagenateComponent implements OnInit, OnChanges {
 
   @Input() profiles: Profile[] = new Array();
-  @Input() profile: Profile = new Profile();
+  profile: Profile = new Profile();
   hasdata: boolean;
 
   @Output() insertValue = new EventEmitter();
@@ -25,10 +26,13 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
   @Input() edit: boolean;
   @Input() selectedProfile: Profile = new Profile();
 
+  editProfile: string;
+
   constructor (
     pagerService: PageService,
     private profileService: ProfileService,
     private activeRoute: ActivatedRoute,
+    private toastService: ToastService,
     private router: Router) {
       super(pagerService);
       this.hasdata = false;
@@ -40,13 +44,10 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
 
     ngOnChanges() {
       this.hasdata = false;
+      this.editProfile = this.selectedProfile.title;
     }
 
     save() {
-      // const filter = this.profiles.filter(
-      //   el => this.profile.title.toLowerCase() === el.title.toLowerCase());
-      // if (filter.length === 0) {
-       // console.log('Perfil não encontrado');
        this.profile.status = true;
 
         this.profile.rule = new Array();
@@ -54,12 +55,11 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
           success => {
             this.profile = success;
             this.insertValue.emit(this.profile);
+            this.toastService.toastSuccess();
           },
-          error => <any>error
+          error => this.toastService.toastError(error)
         );
-      // } else {
-      //   console.log('Perfil Encontrado!');
-      // }
+       // location.reload();
     }
 
     onFilter() {
@@ -67,31 +67,27 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
     }
 
     saveEdit() {
-      // const filter = this.profiles.filter(
-      //   el => this.selectedProfile.title.toLowerCase() === el.title.toLowerCase());
-      // if (filter.length === 0) {
-      //   console.log('Perfil não encontrado');
-      console.log('perfi editado:', this.profile);
-        this.profile.description = '';
-        this.profile.status = true;
-        this.profile.created_by = '';
-        this.profile.modified_by = '';
-        this.profileService.saveEditProfile(this.profile).subscribe(
+        console.log('perfi editado:', this.selectedProfile);
+        this.selectedProfile.title = this.editProfile;
+        this.selectedProfile.description = '';
+        this.selectedProfile.status = true;
+        this.selectedProfile.created_by = '';
+        this.selectedProfile.modified_by = '';
+        this.profileService.saveEditProfile(this.selectedProfile).subscribe(
           success => {
             this.profile = success;
             this.edit = false;
             this.insertValue.emit(this.profile);
-            this.profile.title = '';
+            this.toastService.toastSuccess();
+            //this.profile.title = '';
           },
-          error => console.log('Erro ao editar: ', error)
+          error => this.toastService.toastError(error)
         );
-      // } else {
-      //   console.log('Perfil Encontrado!');
-      //   this.insertValue.emit(this.profile);
-      // }
+       // location.reload();
     }
 
     cancelEdit() {
       this.insertValue.emit(this.profile);
+      this.profile.title = '';
     }
 }
