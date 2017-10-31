@@ -57,7 +57,13 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
             this.insertValue.emit(this.profile);
             this.toastService.toastSuccess();
           },
-          error => this.toastService.toastError(error)
+          error => {
+            if ( error === 'profile.title.exists') {
+              this.toastService.toastErrorExist();
+            } else {
+              this.toastService.toastError();
+            }
+          },
         );
        // location.reload();
     }
@@ -79,9 +85,14 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
             this.edit = false;
             this.insertValue.emit(this.profile);
             this.toastService.toastSuccess();
-            //this.profile.title = '';
           },
-          error => this.toastService.toastError(error)
+          error => {
+            if ( error === 'profile.title.exists') {
+              this.toastService.toastErrorExist();
+            } else {
+              this.toastService.toastError();
+            }
+          }
         );
        // location.reload();
     }

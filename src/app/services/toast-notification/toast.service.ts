@@ -13,8 +13,17 @@ export class ToastService {
       });
     }
 
-    toastError(error) {
-      this.toastService.error('Erro!', 'Ação não realizada' + error, {
+    toastError() {
+      this.toastService.error('Erro!', 'Ação não realizada', {
+        timeOut: 3000,
+        showProgressBar: true,
+        pauseOnHover: true,
+        clickToClose: true
+      });
+    }
+
+    toastErrorExist() {
+      this.toastService.error('Erro!', 'Perfil já cadastrado!', {
         timeOut: 3000,
         showProgressBar: true,
         pauseOnHover: true,

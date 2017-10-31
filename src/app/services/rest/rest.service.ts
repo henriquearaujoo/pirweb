@@ -1,3 +1,4 @@
+import { ToastService } from './../toast/toast.service';
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -115,20 +116,20 @@ export class RestService {
   }
 
   private extractData(res: Response) {
-    if (res.json() === null) {
-      return '{}';
-    }
-    return res.json();
+    return res.text() ? res.json() : {};
   }
 
   private handleError(error: Response | any) {
     console.log(error);
     let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      errMsg = body.message;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
+    try {
+      if (error instanceof Response) {
+        errMsg = error.text() ? error.json() : {};
+      } else {
+        errMsg = error.message ? error.message : error.toString();
+      }
+    } catch (e) {
+      errMsg = error.text();
     }
     return Observable.throw(errMsg);
   }
