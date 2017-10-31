@@ -97,6 +97,7 @@ export class RuleComponent extends PagenateComponent implements OnInit {
         this.rule.page_id = this.pageSelected[i].id;
         this.ruleService.saveRule(this.rule).subscribe(
           success => {
+            this.profile.rule = new Array();
             this.profile.rule.push(success);
             console.log('Regra adicionada ao perfil:', this.profile.rule);
             this.reloadFatherComponent.emit({result: true});

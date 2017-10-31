@@ -1,4 +1,4 @@
-import { ToastService } from './../toast/toast.service';
+import { ToastService } from './../toast-notification/toast.service';
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -116,7 +116,11 @@ export class RestService {
   }
 
   private extractData(res: Response) {
-    return res.text() ? res.json() : {};
+    try {
+      return res.json()
+    } catch (e) {
+      return res;
+    }
   }
 
   private handleError(error: Response | any) {
