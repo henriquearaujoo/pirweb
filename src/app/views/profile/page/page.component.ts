@@ -88,10 +88,17 @@ export class PageComponent extends PagenateComponent implements OnInit {
 
   public removePages() {
     for (let i = 0; i < this.page_allowed.length ; i++) {
-      //console.log(this.page_allowed[i].rules[0].id);
-      this.ruleService.deleteRule(this.page_allowed[i].rules[0].id);
+      this.ruleService.deleteRule(this.page_allowed[i].rules[0].id).subscribe(
+        s => {
+          this.loadPageFromProfile();
+          console.log('removed:' + this.page_allowed[i].rules[0].id)
+        },
+        e => {
+          this.loadPageFromProfile();
+          console.log('can`t remove the register' + this.page_allowed[i].rules[0].id)
+        }
+      );
     }
-    this.loadPageFromProfile();
   }
 
 }
