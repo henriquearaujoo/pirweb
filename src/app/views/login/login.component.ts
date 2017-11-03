@@ -24,19 +24,8 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log(this.user);
     this.authenticationService.login(this.user);
   }
 
-  apiTest() {
-    this.restService.getApiTest().toPromise()
-    .then(
-      (response) => {
-        console.log(response);
-      },
-      (error) => {
-        console.error(error);
-      });
-  }
 
 }

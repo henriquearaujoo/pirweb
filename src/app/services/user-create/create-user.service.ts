@@ -1,3 +1,4 @@
+import { Constant } from './../../constant/constant';
 import { Injectable } from '@angular/core';
 import { RestService } from '../rest/rest.service';
 import { Http } from '@angular/http';
@@ -6,7 +7,7 @@ import { User } from '../../models/user';
 @Injectable()
 export class CreateUserService extends RestService {
 
-  private apiurl = 'http://localhost:2020/pir';//'http://10.30.1.47:2020/';
+  private apiurl = Constant.BASE_URL;
 
   constructor(http: Http) {
     super(http);

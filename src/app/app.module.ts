@@ -48,7 +48,7 @@ import { CostumerService } from './services/costumer/costumer.service';
 import { PageService } from './services/pagenate/page.service';
 import { AuthenticationService } from './services/login/authentication.service';
 import { AlertService } from './services/alert/alert.service';
-import { UserService } from './services/login/user.service';
+import { UserService } from './services/user/user.service';
 import { CreateUserService } from './services/user-create/create-user.service';
 import { ProfileService } from './services/profile/profile.service';
 import { RuleService } from './services/rule/rule.service';

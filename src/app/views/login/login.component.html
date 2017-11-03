@@ -1,67 +1,48 @@
 <div class="container">
-  <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
-    <div class="d-flex justify-content-md-center">
-      <div class="jumbotron">
-        <div class="row">
-          <div class="col">
-            <div class="d-flex justify-content-center">
-              <img class="img-logo" src="/assets/pir.png">
+  <div class="box">
+    <div class="box-body">
+      <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>       
+          <div class="row">
+            <div class="col">
+                <img class="img-logo" src="/assets/pir.png">
             </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col">
-            <div class="form-group">
-              <label for=userType>Tipo de Usuário</label>
-              <select class="form-control">
-                <option>Administrador1</option>
-                <option>Administrador2</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col">
-            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-              <label for="user">Usuário</label>
-              <input [(ngModel)]="user.username" name="username" #username="ngModel" class="form-control" placeholder="Nome de usuário" required>
-              <div *ngIf="f.submitted && !username.valid" class="help-block">Digite um usuário</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col">
-            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-              <label for="psw">Senha</label>
-              <input [(ngModel)]="user.password" name="password" #password="ngModel"  type="password" class="form-control" placeholder="Senha" required>
-              <div *ngIf="f.submitted && !password.valid" class="help-block"> Digite uma senha</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col">
-            <div class="d-flex justify-content-center">
-              <p>Esqueci minha
-                <a [routerLink]="['/resetPassword']">senha</a>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col">
-            <div class="form-group">
-              <div class="d-flex justify-content-center">
-                <button class="btn btn-primary btn-md btn-block" name="submit">ENTRAR</button>
+          </div>     
+          <div class="row">
+            <div class="col">
+              <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+                <label for="user">Usuário</label>
+                <input [(ngModel)]="user.username" name="username" #username="ngModel" class="form-control" placeholder="Nome de usuário" required>
+                <div *ngIf="f.submitted && !username.valid" class="help-block">Digite um usuário</div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+
+          <div class="row">
+            <div class="col">
+              <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                <label for="psw">Senha</label>
+                <input [(ngModel)]="user.password" name="password" #password="ngModel"  type="password" class="form-control" placeholder="Senha" required>
+                <div *ngIf="f.submitted && !password.valid" class="help-block"> Digite uma senha</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">            
+                <p>Esqueci minha
+                  <a [routerLink]="['/resetPassword']">senha</a>
+                </p>            
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <div class="form-group">              
+                  <button class="btn btn-primary btn-md btn-block" name="submit">ENTRAR</button>              
+              </div>
+            </div>
+          </div>      
+        </form>
     </div>
-  </form>
+  </div>
 </div>

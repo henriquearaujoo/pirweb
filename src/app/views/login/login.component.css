@@ -1,14 +1,16 @@
-.jumbotron{
+.box{
     background: white;   
     width: 360px;
     margin: 7% auto;
     padding-top: 10px;
     padding-bottom: 30px;
+    padding: 40px;
 }
 
 .container {
-    background: #6497f5;  
+    background: #6497f5;
     width: 100%;
+    padding-bottom: 80px;
 }
 
 .form-group, .form-control{

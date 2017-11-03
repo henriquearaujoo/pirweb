@@ -1,3 +1,4 @@
+import { Constant } from './../../constant/constant';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { RestService } from '../rest/rest.service';
@@ -9,7 +10,7 @@ import { Rule } from '../../models/rule';
 @Injectable()
 export class ProfileService extends RestService {
 
-  apiurl = 'http://10.10.1.150:2020/pir/';
+  apiurl = Constant.BASE_URL;
   constructor(http: Http) {
     super(http);
   }

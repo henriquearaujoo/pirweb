@@ -23,13 +23,6 @@ export class RestService {
     this.options = new RequestOptions({ headers: this.headers });
   }
 
-  getApiTest() {
-    return this.http
-    .get('https://jsonplaceholder.typicode.com/posts/1', this.options)
-    .map(this.extractData)
-    .catch(this.handleError);
-  }
-
   get(url: string): Observable<any> {
     return this.http
       .get(url, this.options)

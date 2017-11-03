@@ -1,8 +1,8 @@
-import { UserService } from './user.service';
 import { Http } from '@angular/http';
 import { Injectable, EventEmitter } from '@angular/core';
 import { User } from '../../models/user';
 import { Router } from '@angular/router';
+import { UserService } from '../user/user.service';
 
 
 @Injectable()
@@ -13,21 +13,22 @@ export class AuthenticationService {
 
   constructor( private router: Router, private http: Http, private userService: UserService) {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    const user2 = new User();
-    user2.username =  'admin';
-    user2.password = 'adm';
-    this.users = [user2];
+    const user = new User();
+    user.username =  'admin';
+    user.password = 'adm';
+    this.users = [user];
 
   }
 
   login( user: User) {
 
-    let authenticatedUser = this.users.find(u => u.username === user.username);
-    if (authenticatedUser && authenticatedUser.password === user.password) {
+    let userAuthenticated = this.users.find(u => u.username === user.username);
+    if (userAuthenticated && userAuthenticated.password === user.password) {
       this.isAuthenticated = true;
       localStorage.setItem('currentUser', JSON.stringify({ username: user.username, password: user.password}));
 
-      this.router.navigate(['/']);
+      location.reload();
+      this.router.navigate(['']);
       console.log(localStorage.getItem('currentUser'));
       } else {
         this.isAuthenticated = false;
