@@ -1,5 +1,4 @@
-{
-  "rules": [],
+{  
   "profiles": [
     {
       "title": "Administrador2333",
@@ -67,6 +66,5 @@
       "id": 8,
       "name": "Formulários/criar-template"
     }
-  ],
-  "rulespage": []
+  ]
 }

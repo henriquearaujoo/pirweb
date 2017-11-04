@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-home-layout',
   template: `
-  <div class="wrapper" >
+  <div>
     <app-header-bar ></app-header-bar>
     <app-side-bar ></app-side-bar>
     <div class="content-wrapper" style="background-color: #ffffff">

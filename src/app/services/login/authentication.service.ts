@@ -27,7 +27,7 @@ export class AuthenticationService {
       this.isAuthenticated = true;
       localStorage.setItem('currentUser', JSON.stringify({ username: user.username, password: user.password}));
 
-      location.reload();
+     // location.reload();
       this.router.navigate(['']);
       console.log(localStorage.getItem('currentUser'));
       } else {

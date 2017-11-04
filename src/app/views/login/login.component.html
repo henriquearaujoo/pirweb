@@ -1,48 +1,41 @@
-<div class="container">
-  <div class="box">
-    <div class="box-body">
-      <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>       
-          <div class="row">
-            <div class="col">
-                <img class="img-logo" src="/assets/pir.png">
-            </div>
-          </div>     
-          <div class="row">
-            <div class="col">
-              <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-                <label for="user">Usuário</label>
-                <input [(ngModel)]="user.username" name="username" #username="ngModel" class="form-control" placeholder="Nome de usuário" required>
-                <div *ngIf="f.submitted && !username.valid" class="help-block">Digite um usuário</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col">
-              <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-                <label for="psw">Senha</label>
-                <input [(ngModel)]="user.password" name="password" #password="ngModel"  type="password" class="form-control" placeholder="Senha" required>
-                <div *ngIf="f.submitted && !password.valid" class="help-block"> Digite uma senha</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col">            
-                <p>Esqueci minha
-                  <a [routerLink]="['/resetPassword']">senha</a>
-                </p>            
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col">
-              <div class="form-group">              
-                  <button class="btn btn-primary btn-md btn-block" name="submit">ENTRAR</button>              
-              </div>
-            </div>
-          </div>      
-        </form>
+<body class="hold-transition login-page">
+<div class="login-box">
+    <div class="login-logo">
+      <img src="/assets/pir.png">
     </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+  
+      <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+
+        <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+            <label for="user">Usuário</label>
+            <input [(ngModel)]="user.username" name="username" #username="ngModel" class="form-control" placeholder="Nome de usuário" required>
+            <div *ngIf="f.submitted && !username.valid" class="help-block">Digite um usuário</div>
+        </div>
+        
+        <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+            <label for="psw">Senha</label>
+            <input [(ngModel)]="user.password" name="password" #password="ngModel"  type="password" class="form-control" placeholder="Senha" required>
+            <div *ngIf="f.submitted && !password.valid" class="help-block"> Digite uma senha</div>
+          </div>
+
+        <div class="row">
+          
+          <!-- /.col -->
+          <div class="col-xs-12">
+              <p>Esqueci minha
+                  <a [routerLink]="['/resetPassword']">senha</a><br>
+              </p>                  
+            <button type="submit" class="btn btn-primary btn-md btn-block">ENTRAR</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+      
+  
+    </div>
+    <!-- /.login-box-body -->
   </div>
-</div>
+  <!-- /.login-box -->
+</body>  
