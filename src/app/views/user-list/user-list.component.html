@@ -1,71 +1,98 @@
-<div class="content">
-    <section class="content">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="box box-primary">
-              <div class="box-header with-border">
-                <h3 class="box-title">Registros</h3>
-              </div>
-              <div class="box-body">
-                <form role="form">
-                  <!-- select -->
-                  <div class="form-group">
-                      <label>Selecione o Perfil</label>
-                      <select class="form-control">
-                        <option>option 1</option>
-                        <option>option 2</option>
-                      </select>
-                    </div>
-                  <div class="form-group">
-                    <label>Text</label>
-                    <input type="text" class="form-control" placeholder="Enter ...">
-                  </div>
-                  <div class="box-footer">
-                    <button type="submit" class="btn btn-primary">Pesquisar</button>
-                  </div>
-                </form>
-              </div>
-            </div>
+<simple-notifications></simple-notifications>
+
+<!-- when there's not record -->
+<div *ngIf="!hasdata">
+  <section class="content">
+      <div class="feedback-icon fa fa-users"></div><br><br>
+      <span class="feedback-message">Não há dados cadastrados</span>
+  </section>
+</div>  
+<div *ngIf="hasdata">  
+  <div class="box">             
+    <div class="row">
+        <div class="col-sm-6">
+          <div id="_filter" class="dataTables_filter">
+            <label>
+              Filtrar:<input type="text" class="form-control form-border " name="name" [(ngModel)]="filter.name" placeholder="Nome do usuário">
+            </label>
           </div>
         </div>
-      </section>
-    <!-- Main content -->
-    <section classgit="content" style="border:1px solid red">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example2" class="table table-bordered table-hover">
-                <thead>
-                <tr>
-                  <th>Rendering engine</th>
-                  <th>Browser</th>
-                  <th>Platform(s)</th>
-                  <th>Engine version</th>
-                  <th>CSS grade</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td>Trident</td>
-                  <td>Internet
-                    Explorer 4.0
-                  </td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-    </section>
-    <!-- /.content -->
+    </div>
+    <div class="box-body with-border">
+      <table id="example2" class="table table-hover ">
+        <thead>
+          <tr>
+            <th class="tbl-left">Nome
+              <span class="glyphicon" ></span>
+            </th>
+            <th class="tbl-left">Tipo de usuário
+               <span class="glyphicon" ></span>
+            </th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of pagedItems | filterBy: filter">
+            <td class="tbl-left">  
+                {{ item.name }}
+            </td>
+            <td class="tbl-left">  
+                {{ item.profile_id }}
+            </td>
+            <td class="tbl-right">              
+              <a (click)="setProfile(item)" [routerLink]="['/page-list']" title="Ver detalhes">
+                  <i class="large material-icons">visibility</i>
+              </a>
+            </td>
+            <td class="tbl-right">          
+              <a title="Editar" 
+                (click)="editProfile(item)">
+                <i class="fa fa-pencil fa-fw show-icon"></i>
+              </a>
+            </td>
+            <td class="tbl-right">
+                <a href="" title="Excluir"
+                  data-toggle="modal" data-target="#modal-default"
+                  (click)="deleteProfile(item)">              
+                  <i class="large material-icons">delete </i> 
+                </a>      
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>        
+    <div class="box-footer">
+      <ul *ngIf="pager.pages && pager.pages.length" class="pagination stylepage">
+        <li [ngClass]="{disabled:pager.currentPage === 1}">
+          <a (click)="setPage(pager.currentPage - 1)">Anterior</a>
+        </li>
+        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+          <a (click)="setPage(page)">{{page}}</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <a (click)="setPage(pager.currentPage + 1)">Próxima</a>
+        </li>
+      </ul>
+    </div>
   </div>
+</div>
+
+ <!-- Modal Delete -->
+ <div class="modal fade" id="modal-default">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"></span></button>
+        <h4 class="modal-title">Deseja realmente excluir seus dados? </h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+        <button type="button" (click)="disableProfile()" class="btn btn-primary" data-dismiss="modal">Confirmar</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

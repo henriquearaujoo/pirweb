@@ -1,15 +1,11 @@
 .login-page {
-    background: #373d40
-}
-.login-box{
-    background: white;  
-    padding: 10px;
+    background: #373d40;
 }
 
-.container {
-    background: #6497f5;
-    width: 100%;
-    padding-bottom: 80px;
+body .login-box{
+    background: white;  
+    width: 360px;
+    margin: 7% auto;
 }
 
 .form-group, .form-control{

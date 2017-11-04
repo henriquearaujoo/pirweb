@@ -1,43 +1,35 @@
-import { Http } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { Injectable, EventEmitter } from '@angular/core';
 import { User } from '../../models/user';
 import { Router } from '@angular/router';
 import { UserService } from '../user/user.service';
+import { Constant } from '../../constant/constant';
 
 
 @Injectable()
 export class AuthenticationService {
 
-  private isAuthenticated: boolean = false;
+  apiurl = Constant.BASE_URL;
   private users: User[];
 
   constructor( private router: Router, private http: Http, private userService: UserService) {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    const user = new User();
-    user.username =  'admin';
-    user.password = 'adm';
-    this.users = [user];
 
   }
 
-  login( user: User) {
+  login(username: string, password: string) {
+    const loginUrl = this.apiurl.concat('authenticate');
+    // tslint:disable-next-line:comment-format
+    //return this.http.post(loginUrl, JSON.stringify({ username: username, password: password }))
+    return this.http.get(loginUrl)
+        .map((response: Response) => {
+            const user = response.json();
+            if (user) {
+                localStorage.setItem('currentUser', JSON.stringify(user));
+            }
 
-    let userAuthenticated = this.users.find(u => u.username === user.username);
-    if (userAuthenticated && userAuthenticated.password === user.password) {
-      this.isAuthenticated = true;
-      localStorage.setItem('currentUser', JSON.stringify({ username: user.username, password: user.password}));
-
-     // location.reload();
-      this.router.navigate(['']);
-      console.log(localStorage.getItem('currentUser'));
-      } else {
-        this.isAuthenticated = false;
-      }
-  }
-
-  userAuthenticated() {
-    return this.isAuthenticated;
-  }
+            return user;
+        });
+}
 
   logout(): void {
     localStorage.removeItem('currentUser');

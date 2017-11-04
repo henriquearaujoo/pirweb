@@ -27,11 +27,11 @@ const App_Router: Routes = [
     {
         path: '',
         component: HomeLayoutComponent,
-        canActivate: [AuthGuard],
+        //canActivate: [AuthGuard],
         children: [
           {
             path: '',
-            component: DashboardComponent
+            component: HomeComponent
           },
           {
             path: 'dashboard',

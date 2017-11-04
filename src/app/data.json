@@ -66,5 +66,17 @@
       "id": 8,
       "name": "Formulários/criar-template"
     }
+  ],
+  "users": [
+    {
+      "username": "admin",
+      "password": "adm"
+    }
+  ],
+  "authenticate": [
+    {
+      "username": "admin",
+      "password": "adm"
+    }
   ]
 }
