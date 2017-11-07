@@ -12,7 +12,12 @@
     </section>
   </div>
 
-  <div *ngIf="hasdata">            
+  <div *ngIf="hasdata">   
+      <div class="row">
+        <div class="btn-col">
+          <button class="btn btn-primary" [routerLink]="['/user']"> Novo </button>
+        </div>
+      </div>         
       <div class="row">
           <div class="col-sm-6">
             <div id="_filter" class="dataTables_filter">
@@ -44,7 +49,7 @@
                   {{ item.profile }}
               </td>
               <td class="tbl-right">              
-                <a (click)="setProfile(item)" [routerLink]="['/']" title="Ver detalhes">
+                <a (click)="setUser(item)" [routerLink]="['/user-details']" title="Ver detalhes">
                     <i class="large material-icons">visibility</i>
                 </a>
               </td>

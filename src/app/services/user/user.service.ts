@@ -7,7 +7,8 @@ import { User } from '../../models/user';
 @Injectable()
 export class UserService extends RestService {
 
-  apiurl = Constant.BASE_URL;
+  private apiurl = Constant.BASE_URL;
+  private user: User;
 
   constructor(http: Http) {
     super(http);
@@ -17,6 +18,32 @@ export class UserService extends RestService {
     const currentURL = this.apiurl.concat('users');
     console.log(currentURL);
     return this.get(currentURL);
+  }
+
+  public createUser(user: User) {
+    return this.post(this.apiurl + 'users', user);
+  }
+
+  public getStates(state_id?: number) {
+    if ( state_id === undefined ) {
+      return this.get(this.apiurl + 'states/');
+    }
+    return this.get(this.apiurl + 'states/' + state_id + `/`);
+  }
+
+  public getCities(state_id?: number) {
+    if ( state_id === undefined ) {
+      return this.get(this.apiurl + 'states/');
+    }
+    return this.get(this.apiurl + 'states/' + state_id + `/`);
+  }
+
+  setUser(user: User) {
+    this.user = user;
+  }
+
+  getUser(): User {
+    return this.user;
   }
 
 }

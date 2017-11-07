@@ -71,7 +71,14 @@
     {
       "id": 1,
       "name": "Fabricia",
-      "profile_id": 1,
+      "profile": 1,
+      "username": "admin",
+      "password": "adm"
+    },
+    {
+      "id": 2,
+      "name": "Maria",
+      "profile": 2,
       "username": "admin",
       "password": "adm"
     }

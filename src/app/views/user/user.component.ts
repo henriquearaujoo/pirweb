@@ -6,7 +6,7 @@ import { User } from '../../models/user';
 import { Profile } from '../../models/profile';
 import { Types } from '../../models/types';
 
-import { CreateUserService } from '../../services/user-create/create-user.service';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-user',
@@ -23,10 +23,10 @@ export class UserComponent implements OnInit {
   private org: Org;
   private person: Person;
   private hasdata: boolean;
-  show_org: boolean;
+  show_pjur: boolean;
 
   constructor(
-    private userService: CreateUserService,
+    private userService: UserService,
     private profileService: ProfileService) {
       this.user = new User();
       this.org = new Org();
@@ -36,7 +36,7 @@ export class UserComponent implements OnInit {
   ngOnInit() {
     this.loadStates();
     this.loadProfiles();
-    this.show_org = false;
+    this.show_pjur = false;
   }
 
   ngOnChange() {
@@ -96,14 +96,14 @@ export class UserComponent implements OnInit {
     switch (this.user.type) {
       case 'PFIS':
       {
-        this.show_org = false;
+        this.show_pjur = false;
         this.person = new Person();
         break;
       }
 
       case 'PJUR':
       {
-        this.show_org = true;
+        this.show_pjur = true;
         this.org = new Org();
         break;
       }
@@ -114,22 +114,21 @@ export class UserComponent implements OnInit {
     switch (this.user.type) {
       case 'PFIS':
       {
-        this.user.person = this.person;
+        this.user.pfis = this.person;
         this.org = null;
         console.log('Tipo:', this.user.type);
-        console.log('Org:', this.user.org);
-        console.log('Person:', this.user.person);
+        console.log('Org:', this.user.pjur);
+        console.log('Person:', this.user.pfis);
         break;
       }
 
       case 'PJUR':
       {
-        this.user.org = this.org;
+        this.user.pjur = this.org;
         this.person = null;
         console.log('Tipo:', this.user.type);
-        console.log('Org:', this.user.org);
-        console.log('CNPJ:', this.user.org.cnpj);
-        console.log('Person:', this.user.person);
+        console.log('Org:', this.user.pjur);
+        console.log('Person:', this.user.pfis);
         break;
       }
     }

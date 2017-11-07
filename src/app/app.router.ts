@@ -1,3 +1,4 @@
+import { UserDetailsComponent } from './views/user/user-details/user-details.component';
 import { PageComponent } from './views/profile/page/page.component';
 import { ProfileComponent } from './views/profile/profile.component';
 import { Routes, RouterModule } from '@angular/router';
@@ -16,7 +17,7 @@ import { HomeLayoutComponent } from './components/layout/home-layout.component';
 import { LoginLayoutComponent } from './components/layout/login-layout.component';
 
 import {UserComponent} from './views/user/user.component';
-import {UserListComponent} from './views/user-list/user-list.component';
+import {UserListComponent} from './views/user/user-list/user-list.component';
 
 import { ResetPasswordComponent } from './views/login/reset-password/reset-password.component';
 import { ProfileListComponent } from './views/profile/profile-list/profile-list.component';
@@ -55,9 +56,12 @@ const App_Router: Routes = [
             component: UserComponent
           },
           {
-
             path: 'user-list',
             component: UserListComponent
+          },
+          {
+            path: 'user-details',
+            component: UserDetailsComponent
           },
           {
             path: 'profile',

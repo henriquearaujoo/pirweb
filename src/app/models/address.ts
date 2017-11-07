@@ -6,5 +6,6 @@ export class Address {
     public complement: string;
     public postalcode: string;
     public city: number;
+    public state: number;
 
 }
