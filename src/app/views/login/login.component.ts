@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.loading = true;
     console.log(this.user);
-    this.authenticationService.login(this.user.username, this.user.password)
+    this.authenticationService.login(this.user.login, this.user.password)
         .subscribe(
             data => {
                 this.router.navigate([this.returnUrl]);

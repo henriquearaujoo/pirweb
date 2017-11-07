@@ -1,9 +1,9 @@
 export class Types {
 
-    public id: number;
+    public id: string;
     public description: string;
 
-    constructor(id: number, description: string ) {
+    constructor(id: string, description: string ) {
         this.description = description;
         this.id = id;
     }

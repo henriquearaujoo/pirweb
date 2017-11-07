@@ -1,3 +1,6 @@
+import { Person } from './../../models/person';
+import { Org } from './../../models/org';
+import { ProfileService } from './../../services/profile/profile.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user';
 import { Profile } from '../../models/profile';
@@ -13,17 +16,35 @@ import { CreateUserService } from '../../services/user-create/create-user.servic
 export class UserComponent implements OnInit {
 
   private user: User;
-  private types: Types[] = [new Types(1, 'Pessoa Fi­sica'), new Types(1, 'Pessoa Jurídica')];
+  private types: Types[] = [new Types('PFIS', 'Pessoa Fi­sica'), new Types('PJUR', 'Pessoa Jurídica')];
   private states = new Array();
   private cities = new Array();
-  private profile = ['Administrador', 'Agente', 'Terceiro'];
+  private profiles: Profile[] = new Array();
+  private org: Org;
+  private person: Person;
   private hasdata: boolean;
+  show_org: boolean;
 
-  constructor(private userService: CreateUserService) {
+  constructor(
+    private userService: CreateUserService,
+    private profileService: ProfileService) {
       this.user = new User();
+      this.org = new Org();
+      this.person = new Person();
+  }
+
+  ngOnInit() {
+    this.loadStates();
+    this.loadProfiles();
+    this.show_org = false;
+  }
+
+  ngOnChange() {
   }
 
   saveData() {
+    this.verifyType();
+    console.log(this.user.profile);
     this.userService.createUser(this.user).subscribe(
       success => {
 
@@ -33,8 +54,15 @@ export class UserComponent implements OnInit {
     console.log(this.user);
   }
 
-  ngOnInit() {
-    this.loadStates();
+  public loadProfiles() {
+    this.profileService.getProfiles().subscribe(
+      success => {
+          this.profiles = success;
+          console.log(this.profiles);
+          this.hasdata = true;
+      },
+      error => console.log('Error Profile:', error)
+    );
   }
 
   public loadStates(id?: number) {
@@ -63,4 +91,48 @@ export class UserComponent implements OnInit {
       error => console.log(error)
     );
   }
+
+  selectType() {
+    switch (this.user.type) {
+      case 'PFIS':
+      {
+        this.show_org = false;
+        this.person = new Person();
+        break;
+      }
+
+      case 'PJUR':
+      {
+        this.show_org = true;
+        this.org = new Org();
+        break;
+      }
+    }
+  }
+
+  verifyType() {
+    switch (this.user.type) {
+      case 'PFIS':
+      {
+        this.user.person = this.person;
+        this.org = null;
+        console.log('Tipo:', this.user.type);
+        console.log('Org:', this.user.org);
+        console.log('Person:', this.user.person);
+        break;
+      }
+
+      case 'PJUR':
+      {
+        this.user.org = this.org;
+        this.person = null;
+        console.log('Tipo:', this.user.type);
+        console.log('Org:', this.user.org);
+        console.log('CNPJ:', this.user.org.cnpj);
+        console.log('Person:', this.user.person);
+        break;
+      }
+    }
+  }
+
 }

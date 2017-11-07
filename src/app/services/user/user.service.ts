@@ -7,7 +7,7 @@ import { User } from '../../models/user';
 @Injectable()
 export class UserService extends RestService {
 
-  private apiurl = Constant.BASE_URL;
+  apiurl = Constant.BASE_URL;
 
   constructor(http: Http) {
     super(http);

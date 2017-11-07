@@ -14,20 +14,20 @@ export class CreateUserService extends RestService {
   }
 
   public createUser(user: User) {
-      return this.post(this.apiurl + '/users', user);
+      return this.post(this.apiurl + 'users', user);
   }
 
   public getStates(state_id?: number) {
     if ( state_id === undefined ) {
-      return this.get(this.apiurl + '/states/');
+      return this.get(this.apiurl + 'states/');
     }
-    return this.get(this.apiurl + '/states/' + state_id + `/`);
+    return this.get(this.apiurl + 'states/' + state_id + `/`);
   }
 
   public getCities(state_id?: number) {
     if ( state_id === undefined ) {
-      return this.get(this.apiurl + '/states/');
+      return this.get(this.apiurl + 'states/');
     }
-    return this.get(this.apiurl + '/states/' + state_id + `/`);
+    return this.get(this.apiurl + 'states/' + state_id + `/`);
   }
 }
