@@ -174,7 +174,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ProfileService,
     RuleService,
     AccessPageService,
-    ToastService
+    ToastService,
+    UserDetailsComponent
   ],
   bootstrap: [AppComponent]
 })

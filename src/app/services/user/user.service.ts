@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { RestService } from '../rest/rest.service';
 import { Http } from '@angular/http';
 import { User } from '../../models/user';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class UserService extends RestService {
@@ -24,6 +25,16 @@ export class UserService extends RestService {
     return this.post(this.apiurl + 'users', user);
   }
 
+  public saveEditUser(user: User): Observable<User> {
+    const saveUserUrl = this.apiurl.concat('users');
+    return this.put(saveUserUrl, user);
+  }
+
+  public disableUser(user: User): Observable<User> {
+    const saveUserUrl = this.apiurl.concat('users');
+    return this.put(saveUserUrl, user);
+  }
+
   public getStates(state_id?: number) {
     if ( state_id === undefined ) {
       return this.get(this.apiurl + 'states/');
@@ -35,7 +46,7 @@ export class UserService extends RestService {
     if ( state_id === undefined ) {
       return this.get(this.apiurl + 'states/');
     }
-    return this.get(this.apiurl + 'states/' + state_id + `/`);
+    return this.get(this.apiurl + 'states/state/' + state_id + `/`);
   }
 
   setUser(user: User) {

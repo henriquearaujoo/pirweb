@@ -6,6 +6,7 @@ import { PagenateComponent } from '../../../components/pagenate/pagenate.compone
 import { Profile } from '../../../models/profile';
 import { ProfileService } from '../../../services/profile/profile.service';
 import { Subscription } from 'rxjs/Subscription';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -20,14 +21,15 @@ export class UserListComponent extends PagenateComponent implements OnInit, OnDe
   private profiles: Profile[] = new Array();
   hasdata: boolean;
 
-  private user_details = new EventEmitter();
+  private user: User = new User();
 
   filter: User = new User();
 
   constructor(
     pagerService: PageService,
     private userService: UserService,
-    private profileService: ProfileService) {
+    private profileService: ProfileService,
+    private router: Router) {
       super(pagerService);
       this.hasdata = false;
      }
@@ -79,6 +81,25 @@ export class UserListComponent extends PagenateComponent implements OnInit, OnDe
 
   setUser(user: User) {
     this.userService.setUser(user);
+  }
+
+  editUser(user: User) {
+    this.setUser(user);
+    this.router.navigate(['user-edit']);
+  }
+
+  deleteUser(user: User) {
+    this.user = user;
+  }
+
+  disableUser() {
+    this.user.status = false;
+    this.userService.disableUser(this.user).subscribe(
+      success => {
+
+      },
+      error => console.log(error)
+    );
   }
 
   ngOnDestroy() {

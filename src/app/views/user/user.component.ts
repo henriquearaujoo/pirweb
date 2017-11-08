@@ -1,3 +1,5 @@
+import { ToastService } from './../../services/toast-notification/toast.service';
+import { UserDetailsComponent } from './user-details/user-details.component';
 import { Person } from './../../models/person';
 import { Org } from './../../models/org';
 import { ProfileService } from './../../services/profile/profile.service';
@@ -27,7 +29,8 @@ export class UserComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private profileService: ProfileService) {
+    private profileService: ProfileService,
+    private toastService: ToastService) {
       this.user = new User();
       this.org = new Org();
       this.person = new Person();
@@ -47,11 +50,10 @@ export class UserComponent implements OnInit {
     console.log(this.user.profile);
     this.userService.createUser(this.user).subscribe(
       success => {
-
+        this.toastService.toastSuccess();
       },
-      error => console.log(error)
+      error => this.toastService.toastError()
     );
-    console.log(this.user);
   }
 
   public loadProfiles() {

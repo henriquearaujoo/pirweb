@@ -1,6 +1,7 @@
 import { UserService } from './../../../services/user/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { User } from '../../../models/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-details',
@@ -12,7 +13,12 @@ export class UserDetailsComponent implements OnInit {
   private user: User;
   show_pjur: boolean;
 
-  constructor( private userService: UserService) {
+ // tslint:disable-next-line:comment-format
+ //static eventEdit = new EventEmitter<boolean>();
+
+  constructor(
+    private userService: UserService,
+    private router: Router ) {
     this.user = new User();
   }
 
@@ -49,4 +55,8 @@ export class UserDetailsComponent implements OnInit {
     }
   }
 
+  editUser() {
+   // UserDetailsComponent.eventEdit.emit(true);
+    this.router.navigate(['user-edit']);
+  }
 }

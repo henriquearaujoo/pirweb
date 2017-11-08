@@ -1,4 +1,4 @@
-{  
+{
   "profiles": [
     {
       "title": "Administrador",
@@ -67,20 +67,27 @@
       "name": "Formulários/criar-template"
     }
   ],
-  "users": [
-    {
-      "id": 1,
+  "users": [  
+     {
+      "pfis": {
+        "cpf": "85584258253",
+        "rg": "19308493",
+        "emitter": "ssp"
+      },
+      "address": {
+        "postalcode": "69078460",
+        "neighborhood": "Japiim",
+        "street": "s4",
+        "number": "215",
+        "complement": "ap 03"
+      },
+      "profile": "1",
+      "type": "PFIS",
+      "login": "fabriciasimoes",
+      "password": "12345678",
       "name": "Fabricia",
-      "profile": 1,
-      "username": "admin",
-      "password": "adm"
-    },
-    {
-      "id": 2,
-      "name": "Maria",
-      "profile": 2,
-      "username": "admin",
-      "password": "adm"
+      "status": "true",
+      "id": 3
     }
   ],
   "authenticate": [

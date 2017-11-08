@@ -21,6 +21,7 @@ import {UserListComponent} from './views/user/user-list/user-list.component';
 
 import { ResetPasswordComponent } from './views/login/reset-password/reset-password.component';
 import { ProfileListComponent } from './views/profile/profile-list/profile-list.component';
+import { UserEditComponent } from './views/user/user-edit/user-edit.component';
 
 
 const App_Router: Routes = [
@@ -62,6 +63,10 @@ const App_Router: Routes = [
           {
             path: 'user-details',
             component: UserDetailsComponent
+          },
+          {
+            path: 'user-edit',
+            component: UserEditComponent
           },
           {
             path: 'profile',

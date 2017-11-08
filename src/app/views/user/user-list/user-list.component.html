@@ -4,6 +4,11 @@
   <div class="box-header ">
     <h3 class="box-title">Lista de Usuários</h3>
   </div>  
+  <div class="row">
+    <div class="btn-col">
+      <button class="btn btn-primary" [routerLink]="['/user']"> Novo </button>
+    </div>
+  </div>  
   <!-- when there's not record -->
   <div *ngIf="!hasdata">
     <section class="content">
@@ -12,12 +17,7 @@
     </section>
   </div>
 
-  <div *ngIf="hasdata">   
-      <div class="row">
-        <div class="btn-col">
-          <button class="btn btn-primary" [routerLink]="['/user']"> Novo </button>
-        </div>
-      </div>         
+  <div *ngIf="hasdata">             
       <div class="row">
           <div class="col-sm-6">
             <div id="_filter" class="dataTables_filter">
@@ -55,14 +55,14 @@
               </td>
               <td class="tbl-right">          
                 <a title="Editar" 
-                  (click)="editProfile(item)">
-                  <i class="fa fa-pencil fa-fw show-icon"></i>
+                  (click)="editUser(item)">
+                  <i class="fa fa-pencil fa-fw"></i>
                 </a>
               </td>
               <td class="tbl-right">
                   <a href="" title="Excluir"
                     data-toggle="modal" data-target="#modal-default"
-                    (click)="deleteProfile(item)">              
+                    (click)="deleteUser(item)">              
                     <i class="large material-icons">delete </i> 
                   </a>      
               </td>
@@ -97,7 +97,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
-        <button type="button" (click)="disableProfile()" class="btn btn-primary" data-dismiss="modal">Confirmar</button>
+        <button type="button" (click)="disableUser()" class="btn btn-primary" data-dismiss="modal">Confirmar</button>
       </div>
     </div>
     <!-- /.modal-content -->
