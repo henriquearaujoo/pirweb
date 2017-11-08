@@ -46,3 +46,11 @@ label{
     font-size: 12px;
     color: rgb(129, 21, 21);
 }
+
+.form-control[readonly] {
+    background-color: #f5f5f5;
+    border: 0;
+}
+i.material-icons {
+    font-size: 18px;
+}

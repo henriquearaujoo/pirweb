@@ -1,0 +1,125 @@
+<div class="content">
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-1 col-sm-1 col-lg-1 col-xs-offset-10 col-sm-offset-10">
+          <button class="btn btn-primary" (click)="editUser()"> <i class="material-icons">edit</i></button>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-lg-1">
+          <button class="btn btn-primary"> <i class="material-icons">delete </i></button>
+        </div>
+      </div>
+        <form (ngSubmit)="saveData()" #f="ngForm">
+          <div class="box-header with-border">
+            <h3 class="box-title"> Usuário
+              <small> Detalhes </small>
+            </h3>
+          </div>
+          <div class="row">          
+            <div class="col-md-6">
+              <div class="box box-primary">
+                <div class="box-body">                  
+                  <div class="form-group">
+                    <label>Perfil</label>
+                    <input type="text" name="profile" class="form-control" value="{{ user.profile }}" readonly>
+                  </div>                  
+                  <div class="form-group">
+                    <label>Tipo de usuário</label>                    
+                    <input type="text" name="type" class="form-control" value="{{ user.type === PFIS ? 'Pessoa Física': 'Pessoa Jurídica'}}" readonly>
+                  </div>
+                  <div class="form-group">
+                    <label>Login</label>
+                    <input type="text" name="login" class="form-control" value="{{ user.login }}" readonly>
+                    <!-- <div *ngIf="f.submitted && !username.valid" class="help-block">Digite um usuÃ¡rio</div> -->
+                  </div>
+                  <!--div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" name="password" class="form-control" [value]="user.password" readonly>
+                  </div-->
+                  <div class="form-group">
+                    <label>Nome Completo</label>
+                    <input type="text" name="full_name" class="form-control" value="{{ user.name }}" readonly>
+                  </div>
+                  <div class="form-group" *ngIf="!show_pjur">
+                    <label>CPF</label>
+                    <input type="text" name="cpf" class="form-control" value="{{ user.pfis?.cpf }}" readonly>
+                  </div>
+                  <div class="form-group" *ngIf="!show_pjur">
+                    <label>RG</label>
+                    <input type="text" name="rg" class="form-control" value="{{ user.pfis?.rg }}" readonly>
+                  </div>
+                  <div class="form-group" *ngIf="!show_pjur">
+                      <label>Orgão Emissor</label>
+                      <input type="text" name="rg_emitter" class="form-control" value="{{ user.pfis?.emitter }}" readonly>
+                    </div>
+                  <div class="form-group" *ngIf="show_pjur">
+                    <label>Inscrição Estadual</label>
+                    <input type="text" name="ie" class="form-control" value="{{ user.pjur?.ie }}" readonly>
+                  </div>
+                  <div class="form-group" *ngIf="show_pjur">
+                    <label>CNPJ</label>
+                    <input type="text" name="cnpj" class="form-control" value="{{ user.pjur?.cnpj }}" readonly>
+                  </div>
+                  <div class="form-group" *ngIf="show_pjur">
+                    <label>Razão Social</label>
+                    <input type="text" name="social_name" class="form-control"  value="{{ user.pjur?.social_name }}">
+                  </div>
+                  <div class="form-group" *ngIf="show_pjur">
+                    <label>Nome Fantasia</label>
+                    <input type="text" name="fantasy_name" class="form-control" value="{{ user.pjur?.fantasy_name }}">
+                  </div>                   
+                  <div class="form-group">
+                    <label>Status</label>
+                    <input type="text" name="status" class="form-control" value="{{ user.status === true ? 'Ativo': 'Inativo' }}" readonly>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+               <!-- address -->
+            <div class="col-md-6">
+              <div class="box box-primary">
+                <div class="box-body">
+                    <div class="form-group">
+                      <label>CEP</label>
+                      <input type="text" name="cep" class="form-control" value="{{ user.address.postalcode }}" readonly>
+                    </div>                 
+                    <div class="form-group">
+                      <label>Estado</label>
+                      <input type="text" name="state" class="form-control" value="{{ user.address.state }}" readonly>
+                    </div>                   
+                    <div class="form-group">
+                      <label>Cidade</label>                      
+                      <input type="text" name="city" class="form-control" value="{{ user.address.city }}" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label>Bairro</label>
+                      <input type="text" name="neighborhood" class="form-control" value="{{ user.address.neighborhood }}" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label>Rua</label>
+                      <input type="text" name="street" class="form-control" value="{{ user.address.street }}" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label>Número</label>
+                      <input type="text" name="number" class="form-control" value="{{ user.address.number }}" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label>Complemento</label>
+                      <input type="text" name="complement" class="form-control" value="{{ user.address?.complement }}" readonly>
+                    </div>
+                </div>
+              </div>
+              
+            </div>
+        
+      </div>
+      <div class="row">        
+        <div class="col-md-3 col-md-offset-9">
+          <div class="form-group">               
+              <button class="btn btn-default btn-md btn-block" [routerLink]="['/user-list']"> Voltar</button>
+           </div>
+        </div>
+      </div>
+    </form>
+    </section>
+  </div>

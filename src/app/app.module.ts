@@ -73,7 +73,7 @@ import { HomeLayoutComponent } from './components/layout/home-layout.component';
 import { LoginLayoutComponent } from './components/layout/login-layout.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { UserComponent } from './views/user/user.component';
-import { UserListComponent } from './views/user-list/user-list.component';
+import { UserListComponent } from './views/user/user-list/user-list.component';
 import { ResetPasswordComponent } from './views/login/reset-password/reset-password.component';
 import { ProfileComponent } from './views/profile/profile.component';
 import { ProfileListComponent } from './views/profile/profile-list/profile-list.component';
@@ -83,6 +83,8 @@ import { PageComponent } from './views/profile/page/page.component';
 import { ProfilePipe } from './views/profile/profile-list/profile.pipe';
 import { DefineRulesComponent } from './views/define-rules/define-rules.component';
 import { ToastService } from './services/toast-notification/toast.service';
+import { UserEditComponent } from './views/user/user-edit/user-edit.component';
+import { UserDetailsComponent } from './views/user/user-details/user-details.component';
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
 
@@ -111,7 +113,9 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ProfilePipe,
     RuleComponent,
     PageComponent,
-    DefineRulesComponent
+    DefineRulesComponent,
+    UserEditComponent,
+    UserDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -170,7 +174,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ProfileService,
     RuleService,
     AccessPageService,
-    ToastService
+    ToastService,
+    UserDetailsComponent
   ],
   bootstrap: [AppComponent]
 })

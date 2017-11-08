@@ -54,12 +54,13 @@ div.dataTables_filter {
 
 .btn-col {
     text-align: right;
-    padding-right: 28px;
+    padding-right: 68px;
 }
 
 .btn-primary {
     width: 100px;
     background-color:#373d40;
+    border-color: #373d40;
 }
 
 i.fa {

@@ -1,21 +1,19 @@
-import { ToastService } from './../../services/toast-notification/toast.service';
-import { UserDetailsComponent } from './user-details/user-details.component';
-import { Person } from './../../models/person';
-import { Org } from './../../models/org';
-import { ProfileService } from './../../services/profile/profile.service';
+import { ToastService } from './../../../services/toast-notification/toast.service';
 import { Component, OnInit } from '@angular/core';
-import { User } from '../../models/user';
-import { Profile } from '../../models/profile';
-import { Types } from '../../models/types';
-
-import { UserService } from '../../services/user/user.service';
+import { User } from '../../../models/user';
+import { Types } from '../../../models/types';
+import { Profile } from '../../../models/profile';
+import { Org } from '../../../models/org';
+import { Person } from '../../../models/person';
+import { UserService } from '../../../services/user/user.service';
+import { ProfileService } from '../../../services/profile/profile.service';
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  selector: 'app-user-edit',
+  templateUrl: './user-edit.component.html',
+  styleUrls: ['./user-edit.component.css']
 })
-export class UserComponent implements OnInit {
+export class UserEditComponent implements OnInit {
 
   private user: User;
   private types: Types[] = [new Types('PFIS', 'Pessoa Fi­sica'), new Types('PJUR', 'Pessoa Jurídica')];
@@ -26,34 +24,42 @@ export class UserComponent implements OnInit {
   private person: Person;
   private hasdata: boolean;
   show_pjur: boolean;
+  edit: boolean;
 
   constructor(
     private userService: UserService,
     private profileService: ProfileService,
-    private toastService: ToastService) {
-      this.user = new User();
-      this.org = new Org();
-      this.person = new Person();
-  }
+    private toastService: ToastService) { }
 
   ngOnInit() {
     this.loadStates();
     this.loadProfiles();
     this.show_pjur = false;
+    this.user = this.userService.getUser();
+
+    if (this.user !== undefined) {
+        this.person = this.user.pfis;
+        this.org = this.user.pjur;
+    } else {
+        this.user = new User();
+        this.org = new Org();
+        this.person = new Person();
+    }
   }
 
   ngOnChange() {
   }
 
-  saveData() {
+  editData() {
     this.verifyType();
-    console.log(this.user.profile);
-    this.userService.createUser(this.user).subscribe(
+    console.log(this.user);
+    this.userService.saveEditUser(this.user).subscribe(
       success => {
         this.toastService.toastSuccess();
       },
       error => this.toastService.toastError()
     );
+    console.log(this.user);
   }
 
   public loadProfiles() {
@@ -62,6 +68,15 @@ export class UserComponent implements OnInit {
           this.profiles = success;
           console.log(this.profiles);
           this.hasdata = true;
+          this.profiles.forEach( profile => {
+            if (this.user !== undefined) {
+              if (profile.title === this.user.profile) {
+                this.user.profile = profile.id;
+              }
+            }
+          }
+
+          );
       },
       error => console.log('Error Profile:', error)
     );

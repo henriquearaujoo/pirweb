@@ -2,7 +2,9 @@
         <section class="content">
             <form (ngSubmit)="saveData()" #f="ngForm">
           <div class="box-header with-border">
-            <h3 class="box-title">Cadastro</h3>
+            <h3 class="box-title"> Usuário
+              <small> Cadastrar </small>
+            </h3>
           </div>
           <div class="row">
               
@@ -36,40 +38,40 @@
                         <label>Nome Completo</label>
                         <input type="text" [(ngModel)]="user.name" name="full_name" class="form-control" placeholder="Inserir Nome Completo ...">
                       </div>
-                      <div class="form-group" *ngIf="!show_org">
+                      <div class="form-group" *ngIf="!show_pjur">
                         <label>CPF</label>
                         <input type="text" [(ngModel)]="person.cpf" name="cpf" class="form-control" placeholder="Inserir CPF ...">
                       </div>
-                      <div class="form-group" *ngIf="!show_org">
+                      <div class="form-group" *ngIf="!show_pjur">
                         <label>RG</label>
                         <input type="text" [(ngModel)]="person.rg" name="rg" class="form-control" placeholder="Inserir RG ...">
                       </div>
-                      <div class="form-group" *ngIf="!show_org">
+                      <div class="form-group" *ngIf="!show_pjur">
                           <label>Orgão Emissor</label>
                           <input type="text" [(ngModel)]="person.emitter" name="rg_emitter" class="form-control" placeholder="Inserir RG ...">
                         </div>
-                      <div class="form-group" *ngIf="show_org">
+                      <div class="form-group" *ngIf="show_pjur">
                         <label>Inscrição Estadual</label>
                         <input type="text" [(ngModel)]="org.ie" name="ie" class="form-control" placeholder="Inserir Inscrição Estadual ...">
                       </div>
-                      <div class="form-group" *ngIf="show_org">
+                      <div class="form-group" *ngIf="show_pjur">
                         <label>CNPJ</label>
                         <input type="text" [(ngModel)]="org.cnpj" name="cnpj" class="form-control" placeholder="Inserir CNPJ ...">
                       </div>
-                      <!-- <div class="form-group">
+                      <div class="form-group" *ngIf="show_pjur">
                         <label>Razão Social</label>
-                        <input type="text" [(ngModel)]="user.social_reason" name="social_reason" class="form-control" placeholder="Inserir Razão Social ...">
+                        <input type="text" [(ngModel)]="org.social_name" name="social_name" class="form-control" placeholder="Inserir Razão Social ...">
                       </div>
-                      <div class="form-group">
+                      <div class="form-group" *ngIf="show_pjur">
                         <label>Nome Fantasia</label>
-                        <input type="text" [(ngModel)]="user.nickname" name="nickname" class="form-control" placeholder="Inserir Fantasia ...">
-                      </div> -->
+                        <input type="text" [(ngModel)]="org.fantasy_name" name="fantasy_name" class="form-control" placeholder="Inserir Fantasia ...">
+                      </div>
                       <!-- select profile-->
                       <div class="form-group">
                         <label>Status</label>
-                        <select class="form-control">
-                          <option>Ativo</option>
-                          <option>Inatí­vo</option>
+                        <select class="form-control" name="status" required [(ngModel)]="user.status">
+                          <option value="true">Ativo</option>
+                          <option value="false">Inatí­vo</option>
                         </select>
                       </div>
                       
@@ -123,10 +125,15 @@
             
           </div>
           <div class="row">
-            <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-3">
               <div class="form-group">
-                  <button class="btn btn-primary btn-md btn-block" name="submit">SALVAR</button>
+                <button class="btn btn-default btn-md btn-block" [routerLink]="['/user-list']"> Voltar</button>
               </div>
+            </div>
+            <div class="col-md-3 col-md-offset-6">
+              <div class="form-group">               
+                <button class="btn btn-primary btn-md btn-block" name="submit">Salvar</button>
+               </div>
             </div>
           </div>
         </form>
