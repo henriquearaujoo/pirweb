@@ -2,7 +2,7 @@
     <section class="content">
       <div class="row">
         <div class="col-xs-1 col-sm-1 col-lg-1 col-xs-offset-10 col-sm-offset-10">
-          <button class="btn btn-primary" (click)="editUser()"> <i class="material-icons">edit</i></button>
+          <button class="btn btn-primary" [routerLink]="['/user-edit']"> <i class="material-icons">edit</i></button>
         </div>
         <div class="col-xs-1 col-sm-1 col-lg-1">
           <button class="btn btn-primary"> <i class="material-icons">delete </i></button>
@@ -24,7 +24,7 @@
                   </div>                  
                   <div class="form-group">
                     <label>Tipo de usuário</label>                    
-                    <input type="text" name="type" class="form-control" value="{{ user.type === PFIS ? 'Pessoa Física': 'Pessoa Jurídica'}}" readonly>
+                    <input type="text" name="type" class="form-control" value="{{ user.type === 'PFIS' ? 'Pessoa Física': 'Pessoa Jurídica'}}" readonly>
                   </div>
                   <div class="form-group">
                     <label>Login</label>
@@ -61,11 +61,11 @@
                   </div>
                   <div class="form-group" *ngIf="show_pjur">
                     <label>Razão Social</label>
-                    <input type="text" name="social_name" class="form-control"  value="{{ user.pjur?.social_name }}">
+                    <input type="text" name="social_name" class="form-control"  value="{{ user.pjur?.social_name }}" readonly>
                   </div>
                   <div class="form-group" *ngIf="show_pjur">
                     <label>Nome Fantasia</label>
-                    <input type="text" name="fantasy_name" class="form-control" value="{{ user.pjur?.fantasy_name }}">
+                    <input type="text" name="fantasy_name" class="form-control" value="{{ user.pjur?.fantasy_name }}" readonly>
                   </div>                   
                   <div class="form-group">
                     <label>Status</label>

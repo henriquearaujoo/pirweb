@@ -89,7 +89,10 @@
                     <!-- select state -->
                     <div class="form-group">
                       <label>Estado</label>
-                      <select class="form-control" name="state" (change)="loadCities($event.target.value)">
+                      <select class="form-control" name="state" 
+                        (change)="loadCities($event.target.value)"
+                        [(ngModel)]="user.address.state"
+                        >
                           <option>--Selecione o estado--</option>
                         <option *ngFor='let s of states' [value]='s.id'>{{s.name}}</option>
                       </select>

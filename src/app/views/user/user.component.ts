@@ -67,7 +67,7 @@ export class UserComponent implements OnInit {
     );
   }
 
-  public loadStates(id?: number) {
+  public loadStates(id?: string) {
     this.userService.getStates(id).subscribe(
       success => {
         if (success == null) {
@@ -81,7 +81,7 @@ export class UserComponent implements OnInit {
     );
   }
 
-  public loadCities(state_id: number) {
+  public loadCities(state_id: string) {
     this.userService.getCities(state_id).subscribe(
       success => {
         if (success == null) {

@@ -29,13 +29,18 @@ export class UserEditComponent implements OnInit {
   constructor(
     private userService: UserService,
     private profileService: ProfileService,
-    private toastService: ToastService) { }
+    private toastService: ToastService) {
+      this.user = new User();
+      this.org = new Org();
+      this.person = new Person();
+    }
 
   ngOnInit() {
-    this.loadStates();
-    this.loadProfiles();
     this.show_pjur = false;
     this.user = this.userService.getUser();
+    this.selectType();
+    this.loadStates();
+    this.loadProfiles();
 
     if (this.user !== undefined) {
         this.person = this.user.pfis;
@@ -45,6 +50,7 @@ export class UserEditComponent implements OnInit {
         this.org = new Org();
         this.person = new Person();
     }
+
   }
 
   ngOnChange() {
@@ -57,7 +63,7 @@ export class UserEditComponent implements OnInit {
       success => {
         this.toastService.toastSuccess();
       },
-      error => this.toastService.toastError()
+      error => console.log('Erro editar', error)
     );
     console.log(this.user);
   }
@@ -82,7 +88,7 @@ export class UserEditComponent implements OnInit {
     );
   }
 
-  public loadStates(id?: number) {
+  public loadStates(id?: string) {
     this.userService.getStates(id).subscribe(
       success => {
         if (success == null) {
@@ -90,19 +96,29 @@ export class UserEditComponent implements OnInit {
         }
         this.states = success;
         console.log(this.states);
+        this.states.forEach( state => {
+          if (state.name === this.user.address.state) {
+            this.user.address.state = state.id;
+          }
+        });
         this.hasdata = true;
       },
       error => console.log(error)
     );
   }
 
-  public loadCities(state_id: number) {
+  public loadCities(state_id: string) {
     this.userService.getCities(state_id).subscribe(
       success => {
         if (success == null) {
           this.hasdata = false;
         }
         this.cities = success;
+        this.cities.forEach( city => {
+          if (city.name === this.user.address.city) {
+            this.user.address.city = city.id;
+          }
+        });
         this.hasdata = true;
       },
       error => console.log(error)
@@ -128,27 +144,28 @@ export class UserEditComponent implements OnInit {
   }
 
   verifyType() {
-    switch (this.user.type) {
-      case 'PFIS':
-      {
-        this.user.pfis = this.person;
-        this.org = null;
-        console.log('Tipo:', this.user.type);
-        console.log('Org:', this.user.pjur);
-        console.log('Person:', this.user.pfis);
-        break;
-      }
+    if (this.user !== undefined) {
+      switch (this.user.type) {
+        case 'PFIS':
+        {
+          this.user.pfis = this.person;
+          this.org = null;
+          console.log('Tipo:', this.user.type);
+          console.log('Org:', this.user.pjur);
+          console.log('Person:', this.user.pfis);
+          break;
+        }
 
-      case 'PJUR':
-      {
-        this.user.pjur = this.org;
-        this.person = null;
-        console.log('Tipo:', this.user.type);
-        console.log('Org:', this.user.pjur);
-        console.log('Person:', this.user.pfis);
-        break;
+        case 'PJUR':
+        {
+          this.user.pjur = this.org;
+          this.person = null;
+          console.log('Tipo:', this.user.type);
+          console.log('Org:', this.user.pjur);
+          console.log('Person:', this.user.pfis);
+          break;
+        }
       }
     }
   }
-
 }

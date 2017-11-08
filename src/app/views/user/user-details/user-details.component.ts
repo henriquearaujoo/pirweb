@@ -13,9 +13,6 @@ export class UserDetailsComponent implements OnInit {
   private user: User;
   show_pjur: boolean;
 
- // tslint:disable-next-line:comment-format
- //static eventEdit = new EventEmitter<boolean>();
-
   constructor(
     private userService: UserService,
     private router: Router ) {
@@ -27,6 +24,7 @@ export class UserDetailsComponent implements OnInit {
     this.user = this.userService.getUser();
     console.log(this.user);
     this.verifyType();
+    this.loadCityState();
   }
 
   verifyType() {
@@ -36,9 +34,6 @@ export class UserDetailsComponent implements OnInit {
         {
           this.show_pjur = false;
           this.user.pjur = null;
-          console.log('Tipo:', this.user.type);
-          console.log('Org:', this.user.pjur);
-          console.log('Person:', this.user.pfis);
           break;
         }
 
@@ -46,13 +41,28 @@ export class UserDetailsComponent implements OnInit {
         {
           this.show_pjur = true;
           this.user.pfis = null;
-          console.log('Tipo:', this.user.type);
-          console.log('Org:', this.user.pjur);
-          console.log('Person:', this.user.pfis);
           break;
         }
       }
     }
+  }
+
+  loadCityState() {
+    this.userService.getCity(this.user.address.city).subscribe(
+      success_city => {
+        this.user.address.city = success_city.name;
+        console.log('Cidade:', success_city);
+        this.userService.getStates(success_city.state_id).subscribe(
+          success_state => {
+            this.user.address.state = success_state.name;
+            console.log('Estado:', success_state);
+          },
+          error => console.log('Error Estado:', error)
+        );
+      },
+      error => console.log('Erro Cidade:', error)
+    );
+
   }
 
   editUser() {

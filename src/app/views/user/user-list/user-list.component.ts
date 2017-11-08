@@ -83,11 +83,6 @@ export class UserListComponent extends PagenateComponent implements OnInit, OnDe
     this.userService.setUser(user);
   }
 
-  editUser(user: User) {
-    this.setUser(user);
-    this.router.navigate(['user-edit']);
-  }
-
   deleteUser(user: User) {
     this.user = user;
   }
