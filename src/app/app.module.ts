@@ -68,7 +68,7 @@ import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { AgentComponent } from './views/agent/agent.component';
 import { TemplateFormsComponent } from './views/template-forms/template-forms.component';
-import { TemplateItemComponent } from './components/template-item/template-item.component';
+import { TemplateItemComponent } from './views/template-forms/template-item/template-item.component';
 import { HomeLayoutComponent } from './components/layout/home-layout.component';
 import { LoginLayoutComponent } from './components/layout/login-layout.component';
 import { AlertComponent } from './components/alert/alert.component';
