@@ -7,6 +7,7 @@ import { Org } from '../../../models/org';
 import { Person } from '../../../models/person';
 import { UserService } from '../../../services/user/user.service';
 import { ProfileService } from '../../../services/profile/profile.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-edit',
@@ -30,6 +31,7 @@ export class UserEditComponent implements OnInit {
   constructor(
     private userService: UserService,
     private profileService: ProfileService,
+    private router: Router,
     private toastService: ToastService) {
       this.user = new User();
       this.org = new Org();
@@ -65,9 +67,9 @@ export class UserEditComponent implements OnInit {
       success => {
         this.toastService.toastSuccess();
       },
-      error => console.log(error)
+      error => this.toastService.toastError()
     );
-    console.log(this.user);
+    this.router.navigate(['/user-list']);
   }
 
   public loadProfiles() {
@@ -82,8 +84,7 @@ export class UserEditComponent implements OnInit {
                 this.user.profile = profile.id;
               }
             }
-          }
-          );
+          });
       },
       error => console.log(error)
     );

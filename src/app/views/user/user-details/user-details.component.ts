@@ -3,6 +3,9 @@ import { UserService } from './../../../services/user/user.service';
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { User } from '../../../models/user';
 import { Router } from '@angular/router';
+import { ProfileService } from '../../../services/profile/profile.service';
+import { Profile } from '../../../models/profile';
+import { ToastService } from '../../../services/toast-notification/toast.service';
 
 @Component({
   selector: 'app-user-details',
@@ -13,12 +16,15 @@ export class UserDetailsComponent implements OnInit {
 
   private user: User;
   show_pjur: boolean;
+  private profiles: Profile[] = new Array();
   private cities: City[];
   private city_id: string;
   private state_id: string;
 
   constructor(
     private userService: UserService,
+    private profileService: ProfileService,
+    private toastService: ToastService,
     private router: Router ) {
     this.user = new User();
   }
@@ -67,5 +73,36 @@ export class UserDetailsComponent implements OnInit {
 
   editUser() {
     this.user.address.city = this.city_id;
+  }
+
+  deleteUser(user: User) {
+    //this.user = user;
+    console.log(this.user);
+  }
+
+  disableUser() {
+    console.log(this.user.status);
+    this.user.status = false;
+    console.log(this.user.status);
+
+    this.profileService.getProfiles().subscribe(
+      success_profiles => {
+        this.profiles = success_profiles;
+        this.profiles.forEach( profile => {
+          if (this.user.profile === profile.title) {
+            this.user.profile = profile.id;
+          }
+        });
+
+        this.userService.disableUser(this.user).subscribe(
+          success => {
+            this.toastService.toastSuccess();
+          },
+          error => console.log(error)
+        );
+      }
+    );
+    this.router.navigate(['/user-list']);
+    console.log(this.user);
   }
 }

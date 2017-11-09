@@ -1,3 +1,4 @@
+import { ToastService } from './../../../services/toast-notification/toast.service';
 import { PageService } from './../../../services/pagenate/page.service';
 import { User } from './../../../models/user';
 import { UserService } from './../../../services/user/user.service';
@@ -29,6 +30,7 @@ export class UserListComponent extends PagenateComponent implements OnInit, OnDe
     pagerService: PageService,
     private userService: UserService,
     private profileService: ProfileService,
+    private toastService: ToastService,
     private router: Router) {
       super(pagerService);
       this.hasdata = false;
@@ -72,16 +74,32 @@ export class UserListComponent extends PagenateComponent implements OnInit, OnDe
 
   deleteUser(user: User) {
     this.user = user;
+    console.log(this.user);
   }
 
   disableUser() {
+    console.log(this.user.status);
     this.user.status = false;
-    this.userService.disableUser(this.user).subscribe(
-      success => {
+    console.log(this.user.status);
 
-      },
-      error => console.log(error)
+    this.profileService.getProfiles().subscribe(
+      success_profiles => {
+        this.profiles = success_profiles;
+        this.profiles.forEach( profile => {
+          if (this.user.profile === profile.title) {
+            this.user.profile = profile.id;
+          }
+        });
+
+        this.userService.disableUser(this.user).subscribe(
+          success => {
+            this.toastService.toastSuccess();
+          },
+          error => console.log(error)
+        );
+      }
     );
+    console.log(this.user);
   }
 
   ngOnDestroy() {
