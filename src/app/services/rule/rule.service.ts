@@ -1,3 +1,4 @@
+import { Constant } from './../../constant/constant';
 import { Injectable } from '@angular/core';
 import { RestService } from '../rest/rest.service';
 import { Http } from '@angular/http';
@@ -6,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class RuleService extends RestService {
-  apiurl = 'http://10.10.1.150:2020/pir/';
+  apiurl = Constant.BASE_URL;
 
   constructor(http: Http) {
     super(http);

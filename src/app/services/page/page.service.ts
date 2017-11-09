@@ -1,3 +1,4 @@
+import { Constant } from './../../constant/constant';
 import { RestService } from './../rest/rest.service';
 import { Injectable, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
@@ -18,7 +19,7 @@ export class AccessPageService extends RestService implements OnInit{
     super(http);
  }
 
-  apiurl = 'http://10.10.1.150:2020/pir/';
+ apiurl = Constant.BASE_URL;
 
   ngOnInit() { }
 
