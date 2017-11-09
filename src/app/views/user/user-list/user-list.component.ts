@@ -39,35 +39,22 @@ export class UserListComponent extends PagenateComponent implements OnInit, OnDe
     this.getUsers();
   }
 
-  // getUsers() {
-  //   this.userService.getUsers().subscribe(
-  //     success => {
-  //       this.users = success;
-  //       this.allItems = this.users;
-  //       this.setPage(1);
-  //       this.hasdata = true;
-  //     },
-  //     error => this.hasdata = false
-  //   );
-  // }
-
   getUsers() {
     this.userService.getUsers().subscribe(
-      success => {
-        this.users = success;
+      success_users => {
+        this.users = success_users;
         this.profileService.getProfiles().subscribe(
-          success2 => {
-            this.profiles = success2;
+          success_profiles => {
+            this.profiles = success_profiles;
             this.users.forEach( user => {
               this.profiles.forEach( profile => {
                 if ( user.profile === profile.id) {
                   user.profile = profile.title;
                 }
               });
-              this.users2.push(user);
               }
             );
-            this.allItems = this.users2;
+            this.allItems = this.users;
             this.setPage(1);
             this.hasdata = true;
            },
@@ -79,7 +66,7 @@ export class UserListComponent extends PagenateComponent implements OnInit, OnDe
     );
   }
 
-  setUser(user: User) {
+  setUser(user) {
     this.userService.setUser(user);
   }
 

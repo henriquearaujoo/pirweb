@@ -24,7 +24,8 @@ export class UserEditComponent implements OnInit {
   private person: Person;
   private hasdata: boolean;
   show_pjur: boolean;
-  edit: boolean;
+  private city_id: string;
+  private state_id: string;
 
   constructor(
     private userService: UserService,
@@ -38,8 +39,9 @@ export class UserEditComponent implements OnInit {
   ngOnInit() {
     this.show_pjur = false;
     this.user = this.userService.getUser();
+    this.city_id = this.user.address.city;
     this.selectType();
-    this.loadStates();
+    this.getState();
     this.loadProfiles();
 
     if (this.user !== undefined) {
@@ -63,7 +65,7 @@ export class UserEditComponent implements OnInit {
       success => {
         this.toastService.toastSuccess();
       },
-      error => console.log('Erro editar', error)
+      error => console.log(error)
     );
     console.log(this.user);
   }
@@ -81,10 +83,9 @@ export class UserEditComponent implements OnInit {
               }
             }
           }
-
           );
       },
-      error => console.log('Error Profile:', error)
+      error => console.log(error)
     );
   }
 
@@ -96,33 +97,37 @@ export class UserEditComponent implements OnInit {
         }
         this.states = success;
         console.log(this.states);
-        this.states.forEach( state => {
-          if (state.name === this.user.address.state) {
-            this.user.address.state = state.id;
-          }
-        });
         this.hasdata = true;
       },
       error => console.log(error)
     );
   }
 
-  public loadCities(state_id: string) {
+  public loadCities(state_id?: string) {
     this.userService.getCities(state_id).subscribe(
       success => {
         if (success == null) {
           this.hasdata = false;
         }
         this.cities = success;
-        this.cities.forEach( city => {
-          if (city.name === this.user.address.city) {
-            this.user.address.city = city.id;
-          }
-        });
         this.hasdata = true;
       },
       error => console.log(error)
     );
+  }
+
+  getState() {
+    this.userService.getCity(this.city_id).subscribe(
+      success => {
+        this.state_id = success.state_id;
+        this.loadCities(this.state_id);
+        this.loadStates();
+        this.user.address.state = this.state_id;
+
+      },
+      error => console.log(error)
+    );
+
   }
 
   selectType() {
@@ -150,9 +155,6 @@ export class UserEditComponent implements OnInit {
         {
           this.user.pfis = this.person;
           this.org = null;
-          console.log('Tipo:', this.user.type);
-          console.log('Org:', this.user.pjur);
-          console.log('Person:', this.user.pfis);
           break;
         }
 
@@ -160,9 +162,6 @@ export class UserEditComponent implements OnInit {
         {
           this.user.pjur = this.org;
           this.person = null;
-          console.log('Tipo:', this.user.type);
-          console.log('Org:', this.user.pjur);
-          console.log('Person:', this.user.pfis);
           break;
         }
       }

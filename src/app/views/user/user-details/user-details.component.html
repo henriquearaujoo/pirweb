@@ -2,13 +2,13 @@
     <section class="content">
       <div class="row">
         <div class="col-xs-1 col-sm-1 col-lg-1 col-xs-offset-10 col-sm-offset-10">
-          <button class="btn btn-primary" [routerLink]="['/user-edit']"> <i class="material-icons">edit</i></button>
+          <button class="btn btn-primary" (click)="editUser()" [routerLink]="['/user-edit']"> <i class="material-icons">edit</i></button>
         </div>
         <div class="col-xs-1 col-sm-1 col-lg-1">
           <button class="btn btn-primary"> <i class="material-icons">delete </i></button>
         </div>
       </div>
-        <form (ngSubmit)="saveData()" #f="ngForm">
+        <form #f="ngForm">
           <div class="box-header with-border">
             <h3 class="box-title"> Usuário
               <small> Detalhes </small>

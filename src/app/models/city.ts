@@ -1,5 +1,5 @@
 export class City {
-    constructor(public id: number,
-        public state_id: number,
+    constructor(public id: string,
+        public state_id: string,
         public name: string) { }
 }

@@ -1,3 +1,4 @@
+import { City } from './../../../models/city';
 import { UserService } from './../../../services/user/user.service';
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { User } from '../../../models/user';
@@ -12,6 +13,9 @@ export class UserDetailsComponent implements OnInit {
 
   private user: User;
   show_pjur: boolean;
+  private cities: City[];
+  private city_id: string;
+  private state_id: string;
 
   constructor(
     private userService: UserService,
@@ -22,7 +26,7 @@ export class UserDetailsComponent implements OnInit {
   ngOnInit() {
     this.show_pjur = false;
     this.user = this.userService.getUser();
-    console.log(this.user);
+    this.city_id = this.user.address.city;
     this.verifyType();
     this.loadCityState();
   }
@@ -33,14 +37,12 @@ export class UserDetailsComponent implements OnInit {
         case 'PFIS':
         {
           this.show_pjur = false;
-          this.user.pjur = null;
           break;
         }
 
         case 'PJUR':
         {
           this.show_pjur = true;
-          this.user.pfis = null;
           break;
         }
       }
@@ -51,22 +53,19 @@ export class UserDetailsComponent implements OnInit {
     this.userService.getCity(this.user.address.city).subscribe(
       success_city => {
         this.user.address.city = success_city.name;
-        console.log('Cidade:', success_city);
         this.userService.getStates(success_city.state_id).subscribe(
           success_state => {
             this.user.address.state = success_state.name;
-            console.log('Estado:', success_state);
           },
-          error => console.log('Error Estado:', error)
+          error => console.log(error)
         );
       },
-      error => console.log('Erro Cidade:', error)
+      error => console.log(error)
     );
 
   }
 
   editUser() {
-   // UserDetailsComponent.eventEdit.emit(true);
-    this.router.navigate(['user-edit']);
+    this.user.address.city = this.city_id;
   }
 }
