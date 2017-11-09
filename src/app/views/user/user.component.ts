@@ -9,6 +9,7 @@ import { Profile } from '../../models/profile';
 import { Types } from '../../models/types';
 
 import { UserService } from '../../services/user/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -30,6 +31,7 @@ export class UserComponent implements OnInit {
   constructor(
     private userService: UserService,
     private profileService: ProfileService,
+    private router: Router,
     private toastService: ToastService) {
       this.user = new User();
       this.org = new Org();
@@ -54,6 +56,7 @@ export class UserComponent implements OnInit {
       },
       error => this.toastService.toastError()
     );
+    this.router.navigate(['/user-list']);
   }
 
   public loadProfiles() {
