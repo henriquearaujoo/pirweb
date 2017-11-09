@@ -63,7 +63,7 @@ export class UserComponent implements OnInit {
           console.log(this.profiles);
           this.hasdata = true;
       },
-      error => console.log('Error Profile:', error)
+      error => console.log(error)
     );
   }
 
@@ -118,9 +118,6 @@ export class UserComponent implements OnInit {
       {
         this.user.pfis = this.person;
         this.org = null;
-        console.log('Tipo:', this.user.type);
-        console.log('Org:', this.user.pjur);
-        console.log('Person:', this.user.pfis);
         break;
       }
 
@@ -128,9 +125,6 @@ export class UserComponent implements OnInit {
       {
         this.user.pjur = this.org;
         this.person = null;
-        console.log('Tipo:', this.user.type);
-        console.log('Org:', this.user.pjur);
-        console.log('Person:', this.user.pfis);
         break;
       }
     }
