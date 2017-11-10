@@ -17,7 +17,6 @@ import { Router } from '@angular/router';
 export class UserListComponent extends PagenateComponent implements OnInit, OnDestroy {
 
   private users: User[] = new Array();
-  private users2: User[] = new Array();
   private profile: Profile = new Profile();
   private profiles: Profile[] = new Array();
   hasdata: boolean;
@@ -38,6 +37,17 @@ export class UserListComponent extends PagenateComponent implements OnInit, OnDe
 
   ngOnInit() {
     this.hasdata = false;
+    this.getUsers();
+    this.userService.disable.subscribe(
+      success => {
+        console.log('Desabilitado: ', success);
+        this.users = this.users.filter( user => user.id !== success.id);
+        this.getUsers();
+      }
+    );
+  }
+
+  ngOnChange() {
     this.getUsers();
   }
 
@@ -93,6 +103,7 @@ export class UserListComponent extends PagenateComponent implements OnInit, OnDe
 
         this.userService.disableUser(this.user).subscribe(
           success => {
+            this.getUsers();
             this.toastService.toastSuccess();
           },
           error => console.log(error)

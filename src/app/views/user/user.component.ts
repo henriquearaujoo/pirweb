@@ -53,10 +53,21 @@ export class UserComponent implements OnInit {
     this.userService.createUser(this.user).subscribe(
       success => {
         this.toastService.toastSuccess();
+        this.router.navigate(['/user-list']);
       },
-      error => this.toastService.toastError()
+      error => {
+        const msg: string = error;
+        let er = new Array<string>();
+        if ( (error === 'user.login.exists') ||
+          (error === 'user.type.pfis.cpf.exists') ||
+          (error === 'user.type.pjur.cnpj.exists') ) {
+            er = msg.toUpperCase().split('.');
+            this.toastService.toastErrorExists(er[er.length - 2]);
+        } else {
+            console.log(error);
+        }
+      }
     );
-    this.router.navigate(['/user-list']);
   }
 
   public loadProfiles() {

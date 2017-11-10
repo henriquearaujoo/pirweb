@@ -3,10 +3,10 @@ import { Person } from './person';
 import { Org } from './org';
 
 export class User {
-    private email: string;
     public login: string;
     public id: string;
     public name: string;
+    public email: string;
     public pfis: Person = new Person();
     public pjur: Org = new Org();
     public profile: string;

@@ -1,3 +1,4 @@
+
 import { ToastService } from './../../../services/toast-notification/toast.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../../models/user';
@@ -66,10 +67,10 @@ export class UserEditComponent implements OnInit {
     this.userService.saveEditUser(this.user).subscribe(
       success => {
         this.toastService.toastSuccess();
+        this.router.navigate(['/user-list']);
       },
       error => this.toastService.toastError()
     );
-    this.router.navigate(['/user-list']);
   }
 
   public loadProfiles() {
@@ -136,14 +137,22 @@ export class UserEditComponent implements OnInit {
       case 'PFIS':
       {
         this.show_pjur = false;
-        this.person = new Person();
+        if (this.user.pfis !== undefined) {
+          this.person = this.user.pfis;
+        } else {
+          this.person = new Person();
+        }
         break;
       }
 
       case 'PJUR':
       {
         this.show_pjur = true;
-        this.org = new Org();
+        if (this.user.pjur !== undefined) {
+          this.org = this.user.pjur;
+        } else {
+          this.org = new Org();
+        }
         break;
       }
     }
@@ -154,15 +163,27 @@ export class UserEditComponent implements OnInit {
       switch (this.user.type) {
         case 'PFIS':
         {
-          this.user.pfis = this.person;
-          this.org = null;
+          this.show_pjur = false;
+          if (this.user.pjur !== undefined) {
+            this.user.pfis = this.person;
+            this.user.pjur = null;
+            delete this.user.pjur;
+          } else {
+            this.user.pfis = this.person;
+          }
           break;
         }
 
         case 'PJUR':
         {
-          this.user.pjur = this.org;
-          this.person = null;
+          this.show_pjur = true;
+          if (this.user.pfis !== undefined) {
+            this.user.pjur = this.org;
+            this.user.pfis = null;
+            delete this.user.pfis;
+          } else {
+            this.user.pjur = this.org;
+          }
           break;
         }
       }

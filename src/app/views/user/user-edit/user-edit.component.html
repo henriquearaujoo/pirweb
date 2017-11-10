@@ -2,7 +2,7 @@
 
 <div class="content">
     <section class="content">
-    <form (ngSubmit)="editData()" #f="ngForm">
+    <form name="form" (ngSubmit)="f.form.valid && editData()" #f="ngForm" novalidate>
       <div class="box-header with-border">
         <h3 class="box-title"> Usuário
           <small> Editar </small>
@@ -10,123 +10,144 @@
       </div>
       <div class="row">
           
-            <div class="col-md-6">
-              <div class="box box-primary">
-                <div class="box-body">
-                  <!-- select profile-->
-                  <div class="form-group">
-                    <label>Perfil</label>
-                    <select class="form-control" name="profile" required [(ngModel)]="user.profile">
-                        <option *ngFor="let profile of profiles" [value]="profile.id">{{profile.title}}</option>
-                    </select>
-                  </div>
-                  <!-- select profile-->
-                  <div class="form-group">
-                    <label>Tipo de usuário</label>
-                    <select class="form-control" name="type" required [(ngModel)]="user.type" (change)="selectType()">
-                      <option *ngFor="let type of types" [value]="type.id">{{type.description}}</option>
-                   </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Login</label>
-                    <input type="text" [(ngModel)]="user.login" name="login" class="form-control" placeholder="Inserir Login ...">
-                    <!-- <div *ngIf="f.submitted && !username.valid" class="help-block">Digite um usuÃ¡rio</div> -->
-                  </div>
-                  <div class="form-group">
-                    <label>Senha</label>
-                    <input type="password" [(ngModel)]="user.password" name="password" class="form-control" placeholder="Inserir Senha ...">
-                  </div>
-                  <div class="form-group">
-                    <label>Nome Completo</label>
-                    <input type="text" [(ngModel)]="user.name" name="full_name" class="form-control" placeholder="Inserir Nome Completo ...">
-                  </div>
-                  <div class="form-group" *ngIf="!show_pjur">
-                    <label>CPF</label>
-                    <input type="text" [(ngModel)]="person.cpf" name="cpf" class="form-control" placeholder="Inserir CPF ...">
-                  </div>
-                  <div class="form-group" *ngIf="!show_pjur">
-                    <label>RG</label>
-                    <input type="text" [(ngModel)]="person.rg" name="rg" class="form-control" placeholder="Inserir RG ...">
-                  </div>
-                  <div class="form-group" *ngIf="!show_pjur">
-                      <label>Orgão Emissor</label>
-                      <input type="text" [(ngModel)]="person.emitter" name="rg_emitter" class="form-control" placeholder="Inserir RG ...">
-                    </div>
-                  <div class="form-group" *ngIf="show_pjur">
-                    <label>Inscrição Estadual</label>
-                    <input type="text" [(ngModel)]="org.ie" name="ie" class="form-control" placeholder="Inserir Inscrição Estadual ...">
-                  </div>
-                  <div class="form-group" *ngIf="show_pjur">
-                    <label>CNPJ</label>
-                    <input type="text" [(ngModel)]="org.cnpj" name="cnpj" class="form-control" placeholder="Inserir CNPJ ...">
-                  </div>
-                  <div class="form-group" *ngIf="show_pjur">
-                    <label>Razão Social</label>
-                    <input type="text" [(ngModel)]="org.social_name" name="social_name" class="form-control" placeholder="Inserir Razão Social ...">
-                  </div>
-                  <div class="form-group" *ngIf="show_pjur">
-                    <label>Nome Fantasia</label>
-                    <input type="text" [(ngModel)]="org.fantasy_name" name="nickname" class="form-control" placeholder="Inserir Fantasia ...">
-                  </div>
-                  <!-- select profile-->
-                  <div class="form-group">
-                    <label>Status</label>
-                    <select class="form-control" name="status" required [(ngModel)]="user.status">
-                      <option value="true">Ativo</option>
-                      <option value="false">Inatí­vo</option>
-                    </select>
-                  </div>
-                  
-                </div>
+        <div class="col-md-6">
+          <div class="box box-primary">
+            <div class="box-body">
+              <!-- select profile-->
+              <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !profile.valid }">
+                <label>Perfil</label>
+                <select class="form-control" name="profile" 
+                  [(ngModel)]="user.profile" #profile="ngModel" required>
+                    <option *ngFor="let profile of profiles" [value]="profile.id">{{profile.title}}</option>
+                </select>
+                <div *ngIf="f.submitted && !profile.valid" class="help-block">Selecione um perfil</div>
               </div>
-            </div>
-            
-            <div class="col-md-6">
-              <div class="box box-primary">
-                <div class="box-body">
-                    <div class="form-group">
-                      <label>CEP</label>
-                      <input type="text" [(ngModel)]="user.address.postalcode" name="cep" class="form-control" placeholder="Inserir CEP ...">
-                    </div>
-                    <!-- select state -->
-                    <div class="form-group">
-                      <label>Estado</label>
-                      <select class="form-control" name="state" 
-                        (change)="loadCities($event.target.value)"
-                        [(ngModel)]="user.address.state"
-                        >
-                          <option>--Selecione o estado--</option>
-                        <option *ngFor='let s of states' [value]='s.id'>{{s.name}}</option>
-                      </select>
-                    </div>
-                    <!-- select city-->
-                    <div class="form-group">
-                      <label>Cidade</label>
-                      <select class="form-control" name="city_id_fk" [(ngModel)]="user.address.city">
-                          <option>--Selecione a cidade--</option>
-                        <option *ngFor="let c of cities" [value]="c.id">{{c.name}}</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label>Bairro</label>
-                      <input type="text" [(ngModel)]="user.address.neighborhood" name="neighborhood" class="form-control" placeholder="Inserir Bairro ...">
-                    </div>
-                    <div class="form-group">
-                      <label>Rua</label>
-                      <input type="text" [(ngModel)]="user.address.street" name="street" class="form-control" placeholder="Inserir Rua ...">
-                    </div>
-                    <div class="form-group">
-                      <label>Número</label>
-                      <input type="text" [(ngModel)]="user.address.number" name="number" class="form-control" placeholder="Inserir Número ...">
-                    </div>
-                    <div class="form-group">
-                      <label>Complemento</label>
-                      <input type="text" [(ngModel)]="user.address.complement" name="complement" class="form-control" placeholder="Inserir Complemento ...">
-                    </div>
-                </div>
+              <!-- select profile-->
+              <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !type.valid }">
+                <label>Tipo de usuário</label>
+                <select class="form-control" name="type" 
+                  [(ngModel)]="user.type" #type="ngModel" (change)="selectType()" required>
+                  <option *ngFor="let type of types" [value]="type.id">{{type.description}}</option>
+               </select>
+               <div *ngIf="f.submitted && !type.valid" class="help-block">Selecione um tipo de usuário</div>
+              </div>
+              <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !login.valid }">
+                <label>Login</label>
+                <input type="text" [(ngModel)]="user.login" #login="ngModel" name="login" class="form-control" placeholder="Inserir Login ..." required>
+                <div *ngIf="f.submitted && !login.valid" class="help-block">Digite um login</div>
+              </div>
+              <div class="form-group">
+                <label>Senha</label>
+                <input type="password" [(ngModel)]="user.password"name="password" class="form-control" placeholder="Inserir Senha ...">                
+              </div>
+              <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
+                <label>Nome Completo</label>
+                <input type="text" #name ="ngModel"[(ngModel)]="user.name" name="full_name" class="form-control" placeholder="Inserir Nome Completo ..." required>
+                <div *ngIf="f.submitted && !name.valid" class="help-block">Digite um nome</div>
+              </div>
+              <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+                <label>E-mail</label>
+                <input type="email" [(ngModel)]="user.email" #email="ngModel" name="email" class="form-control" placeholder="Inserir E-mail ..." required>
+                <div *ngIf="f.submitted && !email.valid" class="help-block">Digite um E-mail</div>
+              </div>
+              <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !cpf.valid }" *ngIf="!show_pjur">
+                <label>CPF</label>
+                <input type="text" [(ngModel)]="person.cpf" #cpf="ngModel" name="cpf" class="form-control" placeholder="Inserir CPF ..." required>
+                <div *ngIf="f.submitted && !cpf.valid" class="help-block">Digite um CPF</div>
+              </div>
+              <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !rg.valid }" *ngIf="!show_pjur">
+                <label>RG</label>
+                <input type="text" [(ngModel)]="person.rg" #rg="ngModel" name="rg" class="form-control" placeholder="Inserir RG ..." required>
+                <div *ngIf="f.submitted && !rg.valid" class="help-block">Digite um RG</div>
+              </div>
+              <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !emitter.valid }" *ngIf="!show_pjur">
+                  <label>Orgão Emissor</label>
+                  <input type="text" #emitter="ngModel" [(ngModel)]="person.emitter" name="rg_emitter" class="form-control" placeholder="Inserir Orgão Emissor ..." required>
+                  <div *ngIf="f.submitted && !emitter.valid" class="help-block">Digite um orgão emissor</div>
+              </div>
+              <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !ie.valid }" *ngIf="show_pjur">
+                <label>Inscrição Estadual</label>
+                <input type="text" #ie="ngModel" [(ngModel)]="org.ie" name="ie" class="form-control" placeholder="Inserir Inscrição Estadual ..." required>
+                <div *ngIf="f.submitted && !ie.valid" class="help-block">Digite uma inscrição estadual</div>
+              </div>
+              <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !cnpj.valid }" *ngIf="show_pjur">
+                <label>CNPJ</label>
+                <input type="text" [(ngModel)]="org.cnpj" #cnpj="ngModel" name="cnpj" class="form-control" placeholder="Inserir CNPJ ..." required>
+                <div *ngIf="f.submitted && !cnpj.valid" class="help-block">Digite um CNPJ</div>
+              </div>
+              <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !socialname.valid }" *ngIf="show_pjur">
+                <label>Razão Social</label>
+                <input type="text" #socialname="ngModel" [(ngModel)]="org.social_name" name="social_name" class="form-control" placeholder="Inserir Razão Social ..." required>
+                <div *ngIf="f.submitted && !socialname.valid" class="help-block">Digite uma razão social</div>
+              </div>
+              <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !fantasyname.valid }" *ngIf="show_pjur">
+                <label>Nome Fantasia</label>
+                <input type="text" #fantasyname="ngModel" [(ngModel)]="org.fantasy_name" name="fantasy_name" class="form-control" placeholder="Inserir Nome Fantasia ..." required>
+                <div *ngIf="f.submitted && !fantasyname.valid" class="help-block">Digite um nome fantasia</div>
+              </div>
+              <!-- select status-->
+              <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !status.valid }">
+                <label>Status</label>
+                <select class="form-control" #status="ngModel" name="status" required [(ngModel)]="user.status">
+                  <option value="true">Ativo</option>
+                  <option value="false">Inatí­vo</option>
+                </select>
+                <div *ngIf="f.submitted && !status.valid" class="help-block">Selecione o status do usuário</div>
               </div>
               
             </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="box box-primary">
+            <div class="box-body">
+                <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !cep.valid }">
+                  <label>CEP</label>
+                  <input type="text" #cep="ngModel" [(ngModel)]="user.address.postalcode" name="cep" class="form-control" placeholder="Inserir CEP ..." required>
+                  <div *ngIf="f.submitted && !cep.valid" class="help-block">Digite um CEP</div>                       
+                </div>
+                <!-- select state -->
+                <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !state.valid }">
+                  <label>Estado</label>
+                  <select class="form-control" #state="ngModel" [(ngModel)]="user.address.state" name="state" (change)="loadCities($event.target.value)" required>
+                      <option>--Selecione o estado--</option>
+                    <option *ngFor='let s of states' [value]='s.id'>{{s.name}}</option>
+                  </select>  
+                  <div *ngIf="f.submitted && !state.valid" class="help-block">Selecione um estado</div>                       
+                </div>
+                <!-- select city-->
+                <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !city.valid }">
+                  <label>Cidade</label>
+                  <select class="form-control" #city="ngModel" name="city_id_fk" [(ngModel)]="user.address.city" required>
+                      <option>--Selecione a cidade--</option>
+                    <option *ngFor="let c of cities" [value]="c.id">{{c.name}}</option>
+                  </select>
+                  <div *ngIf="f.submitted && !city.valid" class="help-block">Selecione uma cidade</div>
+                </div>
+                <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !neighborhood.valid }">
+                  <label>Bairro</label>
+                  <input type="text" #neighborhood="ngModel" [(ngModel)]="user.address.neighborhood" name="neighborhood" class="form-control" placeholder="Inserir Bairro ..." required>
+                  <div *ngIf="f.submitted && !neighborhood.valid" class="help-block">Digite um bairro</div>
+                </div>
+                <div class="form-group form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !street.valid }">
+                  <label>Rua</label>
+                  <input type="text" #street="ngModel" [(ngModel)]="user.address.street" name="street" class="form-control" placeholder="Inserir Rua ..." required>
+                  <div *ngIf="f.submitted && !street.valid" class="help-block">Digite uma rua</div>
+                </div>
+                <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !number.valid }">
+                  <label>Número</label>
+                  <input type="text" #number="ngModel" [(ngModel)]="user.address.number" name="number" class="form-control" placeholder="Inserir Número ..." required>
+                  <div *ngIf="f.submitted && !number.valid" class="help-block">Digite um número</div>
+                </div>
+                <div class="form-group">
+                  <label>Complemento</label>
+                  <input type="text" [(ngModel)]="user.address.complement" name="complement" class="form-control" placeholder="Inserir Complemento ...">
+                </div>
+            </div>
+          </div>
+          
+        </div>
         
       </div>
       <div class="row">

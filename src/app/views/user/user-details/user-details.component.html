@@ -31,8 +31,7 @@
                   </div>
                   <div class="form-group">
                     <label>Login</label>
-                    <input type="text" name="login" class="form-control" value="{{ user.login }}" readonly>
-                    <!-- <div *ngIf="f.submitted && !username.valid" class="help-block">Digite um usuÃ¡rio</div> -->
+                    <input type="text" name="login" class="form-control" value="{{ user.login }}" readonly>                    
                   </div>
                   <!--div class="form-group">
                     <label>Senha</label>
@@ -41,6 +40,10 @@
                   <div class="form-group">
                     <label>Nome Completo</label>
                     <input type="text" name="full_name" class="form-control" value="{{ user.name }}" readonly>
+                  </div>
+                  <div class="form-group">
+                    <label>E-mail</label>
+                    <input type="text" name="email" class="form-control" value="{{ user.email }}" readonly>
                   </div>
                   <div class="form-group" *ngIf="!show_pjur">
                     <label>CPF</label>

@@ -33,6 +33,7 @@ export class UserDetailsComponent implements OnInit {
     this.show_pjur = false;
     this.user = this.userService.getUser();
     this.city_id = this.user.address.city;
+    console.log(this.city_id);
     this.verifyType();
     this.loadCityState();
   }
@@ -76,8 +77,10 @@ export class UserDetailsComponent implements OnInit {
   }
 
   deleteUser(user: User) {
-    //this.user = user;
     console.log(this.user);
+    this.user.address.city = this.city_id;
+    console.log(this.user.address.city);
+
   }
 
   disableUser() {
@@ -97,12 +100,12 @@ export class UserDetailsComponent implements OnInit {
         this.userService.disableUser(this.user).subscribe(
           success => {
             this.toastService.toastSuccess();
+            this.router.navigate(['/user-list']);
           },
           error => console.log(error)
         );
       }
     );
-    this.router.navigate(['/user-list']);
     console.log(this.user);
   }
 }
