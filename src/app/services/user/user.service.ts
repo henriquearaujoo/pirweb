@@ -1,5 +1,5 @@
 import { Constant } from './../../constant/constant';
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { RestService } from '../rest/rest.service';
 import { Http } from '@angular/http';
 import { User } from '../../models/user';
@@ -10,6 +10,7 @@ export class UserService extends RestService {
 
   private apiurl = Constant.BASE_URL;
   private user: User;
+  disable = new EventEmitter();
 
   constructor(http: Http) {
     super(http);
@@ -32,6 +33,7 @@ export class UserService extends RestService {
 
   public disableUser(user: User): Observable<User> {
     const saveUserUrl = this.apiurl.concat('users');
+    this.disable.emit(user);
     return this.put(saveUserUrl, user);
   }
 

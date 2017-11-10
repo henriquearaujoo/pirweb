@@ -31,4 +31,13 @@ export class ToastService {
       });
     }
 
+    toastErrorExists(msg) {
+      this.toastService.warn('Atenção!', msg + ' já cadastrado.', {
+        timeOut: 3000,
+        showProgressBar: true,
+        pauseOnHover: true,
+        clickToClose: true
+      });
+    }
+
 }
