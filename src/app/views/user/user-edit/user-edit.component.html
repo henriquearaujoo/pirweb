@@ -22,7 +22,8 @@
                 </select>
                 <div *ngIf="f.submitted && !profile.valid" class="help-block">Selecione um perfil</div>
               </div>
-              <!-- select profile-->
+               <!-- end select profile-->
+              <!-- select type-->
               <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !type.valid }">
                 <label>Tipo de usuário</label>
                 <select class="form-control" name="type" 
@@ -31,11 +32,13 @@
                </select>
                <div *ngIf="f.submitted && !type.valid" class="help-block">Selecione um tipo de usuário</div>
               </div>
+               <!-- end select type-->
               <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !login.valid }">
                 <label>Login</label>
                 <input type="text" [(ngModel)]="user.login" #login="ngModel" name="login" class="form-control" placeholder="Inserir Login ..." required>
                 <div *ngIf="f.submitted && !login.valid" class="help-block">Digite um login</div>
               </div>
+               <!-- end select type-->
               <div class="form-group">
                 <label>Senha</label>
                 <input type="password" [(ngModel)]="user.password"name="password" class="form-control" placeholder="Inserir Senha ...">                
@@ -94,7 +97,7 @@
                 </select>
                 <div *ngIf="f.submitted && !status.valid" class="help-block">Selecione o status do usuário</div>
               </div>
-              
+              <!-- end select status-->
             </div>
           </div>
         </div>
@@ -116,6 +119,7 @@
                   </select>  
                   <div *ngIf="f.submitted && !state.valid" class="help-block">Selecione um estado</div>                       
                 </div>
+                <!-- end select state -->
                 <!-- select city-->
                 <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !city.valid }">
                   <label>Cidade</label>
@@ -125,6 +129,7 @@
                   </select>
                   <div *ngIf="f.submitted && !city.valid" class="help-block">Selecione uma cidade</div>
                 </div>
+                <!-- end select city-->
                 <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !neighborhood.valid }">
                   <label>Bairro</label>
                   <input type="text" #neighborhood="ngModel" [(ngModel)]="user.address.neighborhood" name="neighborhood" class="form-control" placeholder="Inserir Bairro ..." required>

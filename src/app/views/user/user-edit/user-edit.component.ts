@@ -69,7 +69,25 @@ export class UserEditComponent implements OnInit {
         this.toastService.toastSuccess();
         this.router.navigate(['/user-list']);
       },
-      error => this.toastService.toastError()
+      error => {
+        const res: string = error;
+        let er = new Array<string>();
+        if ( (error === 'user.login.exists') ||
+          (error === 'user.type.pfis.cpf.exists') ||
+          (error === 'user.type.pjur.cnpj.exists') ||
+          (error === 'user.email.exists')) {
+            er = res.toUpperCase().split('.');
+            this.toastService.toastErrorExists(er[er.length - 2]);
+         } else {
+         if ( (error === 'user.type.pfis.cpf.invalid') ||
+            (error === 'user.type.pjur.cnpj.invalid') ) {
+              er = res.toUpperCase().split('.');
+              this.toastService.toastErrorValid(er[er.length - 2]);
+          } else {
+              console.log(error);
+          }
+        }
+      }
     );
   }
 

@@ -31,8 +31,17 @@ export class ToastService {
       });
     }
 
-    toastErrorExists(msg) {
-      this.toastService.warn('Atenção!', msg + ' já cadastrado.', {
+    toastErrorExists(res) {
+      this.toastService.warn('Atenção!', res + ' já cadastrado.', {
+        timeOut: 3000,
+        showProgressBar: true,
+        pauseOnHover: true,
+        clickToClose: true
+      });
+    }
+
+    toastErrorValid(res) {
+      this.toastService.warn('Atenção!', res + ' informado não é válido.', {
         timeOut: 3000,
         showProgressBar: true,
         pauseOnHover: true,

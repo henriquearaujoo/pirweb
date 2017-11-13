@@ -56,15 +56,22 @@ export class UserComponent implements OnInit {
         this.router.navigate(['/user-list']);
       },
       error => {
-        const msg: string = error;
+        const res: string = error;
         let er = new Array<string>();
         if ( (error === 'user.login.exists') ||
           (error === 'user.type.pfis.cpf.exists') ||
-          (error === 'user.type.pjur.cnpj.exists') ) {
-            er = msg.toUpperCase().split('.');
+          (error === 'user.type.pjur.cnpj.exists') ||
+          (error === 'user.email.exists')) {
+            er = res.toUpperCase().split('.');
             this.toastService.toastErrorExists(er[er.length - 2]);
-        } else {
-            console.log(error);
+         } else {
+         if ( (error === 'user.type.pfis.cpf.valid') ||
+            (error === 'user.type.pjur.cnpj.valid') ) {
+              er = res.toUpperCase().split('.');
+              this.toastService.toastErrorValid(er[er.length - 2]);
+          } else {
+              console.log(error);
+          }
         }
       }
     );
