@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { TemplateItem } from './../../models/templateItem';
 import { Component, OnInit } from '@angular/core';
 import { TemplateItemComponent } from './template-item/template-item.component';
@@ -11,10 +12,10 @@ export class TemplateFormsComponent implements OnInit {
 
   templates: TemplateItem[] = new Array();
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
-    for (let i = 0 ; i < 30 ; i++) {
+    for (let i = 0 ; i < 10 ; i++) {
       const t = new TemplateItem();
       t.description = 'description test:' + i;
       t.title = 'title test';
@@ -25,6 +26,6 @@ export class TemplateFormsComponent implements OnInit {
   }
 
   createNewForm() {
-
+    this.router.navigate(['newTemplate']);
   }
 }
