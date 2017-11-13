@@ -26,6 +26,6 @@ export class TemplateFormsComponent implements OnInit {
   }
 
   createNewForm() {
-    this.router.navigate(['newTemplate']);
+    this.router.navigate(['selectModel']);
   }
 }

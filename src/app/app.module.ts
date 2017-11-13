@@ -85,8 +85,12 @@ import { DefineRulesComponent } from './views/define-rules/define-rules.componen
 import { ToastService } from './services/toast-notification/toast.service';
 import { UserEditComponent } from './views/user/user-edit/user-edit.component';
 import { UserDetailsComponent } from './views/user/user-details/user-details.component';
-import { NewTemplateComponent } from './views/template-forms/new-template/new-template.component';
-import { TemplateModelsItemComponent } from './views/template-forms/template-models-item/template-models-item.component';
+import { TemplateSelectModelComponent } from './views/template-forms/template-select-model/template-select-model.component';
+import { TemplateOptionCardComponent } from './views/template-forms/template-option-card/template-option-card.component';
+import { ChapterInformationComponent } from './views/template-forms/chapter-information/chapter-information.component';
+import { ReceptionComponent } from './views/template-forms/reception/reception.component';
+import { TaskComponent } from './views/template-forms/task/task.component';
+import { CreateFormComponent } from './views/template-forms/create-form/create-form.component';
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
 
@@ -118,8 +122,12 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     DefineRulesComponent,
     UserEditComponent,
     UserDetailsComponent,
-    NewTemplateComponent,
-    TemplateModelsItemComponent
+    TemplateSelectModelComponent,
+    TemplateOptionCardComponent,
+    ChapterInformationComponent,
+    ReceptionComponent,
+    TaskComponent,
+    CreateFormComponent
   ],
   imports: [
     BrowserModule,
