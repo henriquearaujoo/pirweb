@@ -1,0 +1,40 @@
+<div class="content">
+    <div class="row">
+        <h4 class="title_component"> ADICIONAR INFORMAÇÕES</h4>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <div class="card">
+                <mat-card (click)="goToChapterInformation()">
+                    <mat-card-title>INFORMAÇÕES DO CAPÍTULO</mat-card-title>
+                </mat-card>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card">
+                <mat-card (click)="goToReception()">
+                    <mat-card-title>RECEPÇÃO</mat-card-title>
+                </mat-card>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card" (click)="goToTask()">
+                <mat-card>
+                    <mat-card-title>TAREFA</mat-card-title>
+                </mat-card>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card">
+                <mat-card (click)="goToCreateForm()">
+                    <mat-card-title>FORMULÁRIO</mat-card-title>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="col-md-1">
+        <button class="btn btn-default btn-md btn-block" [routerLink]="[ '/selectModel']"> Voltar</button>
+    </div>
+</div>
