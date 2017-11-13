@@ -86,6 +86,8 @@ import { DefineRulesComponent } from './views/define-rules/define-rules.componen
 import { ToastService } from './services/toast-notification/toast.service';
 import { UserEditComponent } from './views/user/user-edit/user-edit.component';
 import { UserDetailsComponent } from './views/user/user-details/user-details.component';
+import { NewTemplateComponent } from './views/template-forms/new-template/new-template.component';
+import { TemplateModelsItemComponent } from './views/template-forms/template-models-item/template-models-item.component';
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
 
@@ -117,7 +119,9 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     PageComponent,
     DefineRulesComponent,
     UserEditComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    NewTemplateComponent,
+    TemplateModelsItemComponent
   ],
   imports: [
     BrowserModule,
