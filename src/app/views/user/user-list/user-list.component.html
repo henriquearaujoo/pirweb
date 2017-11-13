@@ -6,7 +6,7 @@
   </div>  
   <div class="row">
     <div class="btn-col">
-      <button class="btn btn-primary" [routerLink]="['/user']"> Novo </button>
+      <button class="btn btn-primary" [routerLink]="['/user']" id="btn_new"> Novo </button>
     </div>
   </div>  
   <!-- when there's not record -->
@@ -22,7 +22,7 @@
           <div class="col-sm-6">
             <div id="_filter" class="dataTables_filter">
               <label>
-                Filtrar:<input type="text" class="form-control form-border " name="name" [(ngModel)]="filter.name" placeholder="Nome do usuário">
+                Filtrar:<input type="text" class="form-control form-border " name="name" id="filter" [(ngModel)]="filter.name" placeholder="Nome do usuário">
               </label>
             </div>
           </div>
@@ -49,12 +49,12 @@
                   {{ item.profile }}
               </td>
               <td class="tbl-right">              
-                <a (click)="setUser(item)" [routerLink]="['/user-details']" title="Ver detalhes">
+                <a (click)="setUser(item)" id="btn_details" [routerLink]="['/user-details']" title="Ver detalhes">
                     <i class="large material-icons">visibility</i>
                 </a>
               </td>
               <td class="tbl-right">          
-                <a title="Editar" 
+                <a title="Editar" id="btn_edit"
                   (click)="setUser(item)" [routerLink]="['/user-edit']">
                   <i class="fa fa-pencil fa-fw"></i>
                 </a>
@@ -62,7 +62,7 @@
               <td class="tbl-right">
                   <a href="" title="Excluir"
                     data-toggle="modal" data-target="#modal-default"
-                    (click)="deleteUser(item)">              
+                    (click)="deleteUser(item)" id="btn_delete">              
                     <i class="large material-icons">delete </i> 
                   </a>      
               </td>
@@ -91,13 +91,13 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_close">
           <span aria-hidden="true"></span></button>
         <h4 class="modal-title">Deseja realmente excluir seus dados? </h4>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
-        <button type="button" (click)="disableUser()" class="btn btn-primary" data-dismiss="modal">Confirmar</button>
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal" id="btn_cancel">Cancelar</button>
+        <button type="button" (click)="disableUser()" class="btn btn-primary" data-dismiss="modal" id="btn_confirm">Confirmar</button>
       </div>
     </div>
     <!-- /.modal-content -->

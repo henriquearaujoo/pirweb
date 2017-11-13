@@ -2,10 +2,10 @@
     <section class="content">
       <div class="row">
         <div class="col-xs-1 col-sm-1 col-lg-1 col-xs-offset-10 col-sm-offset-10">
-          <button class="btn btn-primary" (click)="editUser()" [routerLink]="['/user-edit']"> <i class="material-icons">edit</i></button>
+          <button class="btn btn-primary" (click)="editUser()" [routerLink]="['/user-edit']" id="btn_edit"> <i class="material-icons">edit</i></button>
         </div>
         <div class="col-xs-1 col-sm-1 col-lg-1">
-          <button class="btn btn-primary" data-toggle="modal" data-target="#modal-default"
+          <button class="btn btn-primary" data-toggle="modal" data-target="#modal-default" id="btn_delete"
             (click)="deleteUser(item)"> 
             <i class="material-icons">delete </i>
           </button>
@@ -122,7 +122,7 @@
       <div class="row">        
         <div class="col-md-3 col-md-offset-9">
           <div class="form-group">               
-              <button class="btn btn-default btn-md btn-block" [routerLink]="['/user-list']"> Voltar</button>
+              <button class="btn btn-default btn-md btn-block" [routerLink]="['/user-list']" id="btn_return"> Voltar</button>
            </div>
         </div>
       </div>
@@ -135,13 +135,13 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_close">
             <span aria-hidden="true"></span></button>
           <h4 class="modal-title">Deseja realmente excluir seus dados? </h4>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
-          <button type="button" (click)="disableUser()" class="btn btn-primary" data-dismiss="modal">Confirmar</button>
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal" id="btn_cancel">Cancelar</button>
+          <button type="button" (click)="disableUser()" class="btn btn-primary" data-dismiss="modal" id="btn_confirm">Confirmar</button>
         </div>
       </div>
       <!-- /.modal-content -->
