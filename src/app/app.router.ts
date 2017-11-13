@@ -30,6 +30,8 @@ import {UserListComponent} from './views/user/user-list/user-list.component';
 import { ResetPasswordComponent } from './views/login/reset-password/reset-password.component';
 import { ProfileListComponent } from './views/profile/profile-list/profile-list.component';
 import { UserEditComponent } from './views/user/user-edit/user-edit.component';
+import { NewTemplateComponent } from './views/template-forms/new-template/new-template.component';
+
 
 const App_Router: Routes = [
 
