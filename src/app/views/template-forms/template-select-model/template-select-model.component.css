@@ -1,0 +1,21 @@
+.card {
+    width: 250px;
+    height: 350px;
+    float: left;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.card mat-card {
+    width: 250px;
+    height: 350px;
+    float: left;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.title_component {
+    margin-left: 30px;
+}

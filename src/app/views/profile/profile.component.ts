@@ -39,8 +39,7 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
      // this.edit = false;
     }
 
-    ngOnInit() {
-    }
+    ngOnInit() { }
 
     ngOnChanges() {
       this.hasdata = false;
