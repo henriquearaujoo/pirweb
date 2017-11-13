@@ -23,7 +23,8 @@ export class UserListComponent extends PagenateComponent implements OnInit, OnDe
 
   private user: User = new User();
 
-  filter: User = new User();
+  //filter: User = new User();
+  filter: any = {name: ''};
 
   constructor(
     pagerService: PageService,

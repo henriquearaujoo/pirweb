@@ -81,6 +81,7 @@ import { RuleComponent } from './views/profile/rule/rule.component';
 import { PageComponent } from './views/profile/page/page.component';
 
 import { ProfilePipe } from './views/profile/profile-list/profile.pipe';
+import { UserPipe } from './views/user/user-list/user.pipe';
 import { DefineRulesComponent } from './views/define-rules/define-rules.component';
 import { ToastService } from './services/toast-notification/toast.service';
 import { UserEditComponent } from './views/user/user-edit/user-edit.component';
@@ -110,6 +111,7 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ResetPasswordComponent,
     ProfileComponent,
     ProfileListComponent,
+    UserPipe,
     ProfilePipe,
     RuleComponent,
     PageComponent,
