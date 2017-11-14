@@ -1,3 +1,4 @@
+import { Paginate } from './../../../models/paginate';
 import { ToastService } from './../../../services/toast-notification/toast.service';
 import { PageService } from './../../../services/pagenate/page.service';
 import { User } from './../../../models/user';
@@ -22,6 +23,7 @@ export class UserListComponent extends PagenateComponent implements OnInit, OnDe
   hasdata: boolean;
 
   private user: User = new User();
+  private paginate: Paginate = new Paginate();
 
   //filter: User = new User();
   filter: any = {name: ''};
@@ -54,8 +56,10 @@ export class UserListComponent extends PagenateComponent implements OnInit, OnDe
 
   getUsers() {
     this.userService.getUsers().subscribe(
-      success_users => {
-        this.users = success_users;
+      success => {
+        this.paginate = success;
+        this.users = this.paginate.content;
+        console.log(this.users);
         this.profileService.getProfiles().subscribe(
           success_profiles => {
             this.profiles = success_profiles;
