@@ -55,10 +55,10 @@ export class UserListComponent extends PagenateComponent implements OnInit, OnDe
   }
 
   getUsers() {
+    console.log('filtro:', this.filter.name);
     this.userService.getUsers().subscribe(
       success => {
-        this.paginate = success;
-        this.users = this.paginate.content;
+        this.users = success;
         console.log(this.users);
         this.profileService.getProfiles().subscribe(
           success_profiles => {

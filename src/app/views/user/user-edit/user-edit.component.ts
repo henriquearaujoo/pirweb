@@ -58,9 +58,6 @@ export class UserEditComponent implements OnInit {
 
   }
 
-  ngOnChange() {
-  }
-
   editData() {
     this.verifyType();
     console.log(this.user);
