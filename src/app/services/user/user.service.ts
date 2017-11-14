@@ -17,7 +17,7 @@ export class UserService extends RestService {
   }
 
   public getUsers() {
-    const currentURL = this.apiurl.concat('users/search/page?status=true');
+    const currentURL = this.apiurl.concat('users/search/page/?status=true');
     console.log(currentURL);
     return this.get(currentURL);
   }
