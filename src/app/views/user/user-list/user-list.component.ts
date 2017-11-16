@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
-export class UserListComponent extends PagenateComponent implements OnInit, OnDestroy {
+export class UserListComponent implements OnInit, OnDestroy {
 
   private users: User[] = new Array();
   private profile: Profile = new Profile();
@@ -24,18 +24,18 @@ export class UserListComponent extends PagenateComponent implements OnInit, OnDe
 
   private user: User = new User();
   private paginate: Paginate = new Paginate();
-
-  //filter: User = new User();
+  private paginate2: Paginate[] = new Array();
+  private page: number;
   filter: any = {name: ''};
 
   constructor(
-    pagerService: PageService,
+    private pagerService: PageService,
     private userService: UserService,
     private profileService: ProfileService,
     private toastService: ToastService,
     private router: Router) {
-      super(pagerService);
       this.hasdata = false;
+      this.page = 0;
      }
 
   ngOnInit() {
@@ -48,6 +48,8 @@ export class UserListComponent extends PagenateComponent implements OnInit, OnDe
         this.getUsers();
       }
     );
+    // this.paginate.number = 0;
+    // this.paginate.totalPages = 3;
   }
 
   ngOnChange() {
@@ -56,10 +58,14 @@ export class UserListComponent extends PagenateComponent implements OnInit, OnDe
 
   getUsers() {
     console.log('filtro:', this.filter.name);
-    this.userService.getUsers().subscribe(
+    console.log('Page:', this.page);
+    if ( this.filter.name !== '') { this.page = 0; }
+    this.userService.getUsers(this.filter.name, this.page).subscribe(
       success => {
-        this.users = success;
-        console.log(this.users);
+        this.paginate = success;
+        this.users = success.content;
+        console.log('Users:', this.users);
+        console.log('Paginate', this.paginate);
         this.profileService.getProfiles().subscribe(
           success_profiles => {
             this.profiles = success_profiles;
@@ -71,8 +77,6 @@ export class UserListComponent extends PagenateComponent implements OnInit, OnDe
               });
               }
             );
-            this.allItems = this.users;
-            this.setPage(1);
             this.hasdata = true;
            },
            error => console.log(error)
@@ -81,6 +85,13 @@ export class UserListComponent extends PagenateComponent implements OnInit, OnDe
       },
       error => this.hasdata = false
     );
+  }
+
+  setPage(page: number) {
+    this.page = page;
+    console.log('Página:', this.page);
+    console.log('Filtro:', this.filter.name);
+    this.getUsers();
   }
 
   setUser(user) {

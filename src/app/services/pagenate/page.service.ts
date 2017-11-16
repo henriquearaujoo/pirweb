@@ -7,6 +7,14 @@ import { Constant } from '../../constant/constant';
 export class PageService extends RestService {
   private apiurl = Constant.BASE_URL;
 
+ getPage(param?: any) {
+  if ( param === undefined ) {
+    return this.get(this.apiurl + 'users/search/page/?status=true&size=1&page=0');
+  } else {
+    return this.get(this.apiurl + 'users/search/page/?status=true&size=1&page=0&name=' + param);
+  }
+ }
+
   getPager(totalItems: number, currentPage: number = 1, pageSize: number = 10) {
     const totalPages = Math.ceil(totalItems / pageSize);
 

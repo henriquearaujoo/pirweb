@@ -11,15 +11,19 @@ export class UserService extends RestService {
   private apiurl = Constant.BASE_URL;
   private user: User;
   disable = new EventEmitter();
+  private size: number;
 
   constructor(http: Http) {
     super(http);
+    this.size = 1;
   }
 
-  public getUsers() {
-    const currentURL = this.apiurl.concat('users/search/?status=true');
-    console.log(currentURL);
-    return this.get(currentURL);
+  public getUsers(filter?: any, page?: number) {
+    if ( filter === undefined ) {
+      return this.get(this.apiurl + 'users/search/page/?status=true&size=' + this.size + '&page=' + page);
+    } else {
+      return this.get(this.apiurl + 'users/search/page/?status=true&size=' + this.size + '&page=' + page + '&name=' + filter);
+    }
   }
 
   public createUser(user: User) {

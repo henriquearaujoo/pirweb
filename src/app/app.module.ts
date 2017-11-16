@@ -5,6 +5,7 @@ import { Http, XHRBackend, RequestOptions, HttpModule, ConnectionBackend } from 
 import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 import { CdkTableModule } from '@angular/cdk/table';
 import {
@@ -174,7 +175,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
       apiKey: 'AIzaSyDo5LxyVUv5EwGQBwaveIF4d0MaIVD_Dd8'
     }),
     BrowserAnimationsModule,
-    SimpleNotificationsModule.forRoot()
+    SimpleNotificationsModule.forRoot(),
+    NgxPaginationModule
   ],
   providers: [
     RestService,
