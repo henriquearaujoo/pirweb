@@ -96,14 +96,18 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.userService.setUser(user);
   }
 
-  deleteUser(user: User) {
+  changeStatus(user: User) {
     this.user = user;
     console.log(this.user);
+    console.log(this.user.status);
   }
 
   disableUser() {
-    console.log(this.user.status);
-    this.user.status = false;
+    if (this.user.status === true) {
+      this.user.status = false;
+    } else {
+      this.user.status = true;
+    }
     console.log(this.user.status);
 
     this.profileService.getProfiles().subscribe(

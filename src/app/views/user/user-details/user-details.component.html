@@ -2,12 +2,12 @@
     <section class="content">
       <div class="row">
         <div class="col-xs-1 col-sm-1 col-lg-1 col-xs-offset-10 col-sm-offset-10">
-          <button class="btn btn-primary" (click)="editUser()" [routerLink]="['/user-edit']" id="btn_edit"> <i class="material-icons">edit</i></button>
+          <button class="btn btn-default" (click)="editUser()" [routerLink]="['/user-edit']" id="btn_edit"> <i class="fa fa-pencil" aria-hidden="true"></i></button>
         </div>
         <div class="col-xs-1 col-sm-1 col-lg-1">
-          <button class="btn btn-primary" data-toggle="modal" data-target="#modal-default" id="btn_delete"
+          <button class="btn btn-default" data-toggle="modal" data-target="#modal-default" id="btn_delete"
             (click)="deleteUser(item)"> 
-            <i class="material-icons">delete </i>
+            <i [ngClass]="user.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
           </button>
         </div>
       </div>
