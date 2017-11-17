@@ -38,7 +38,7 @@ export class UserEditComponent implements OnInit {
       this.user = new User();
       this.org = new Org();
       this.person = new Person();
-      this.success = true;
+      this.success = false;
     }
 
   ngOnInit() {
@@ -79,23 +79,26 @@ export class UserEditComponent implements OnInit {
             er = res.toUpperCase().split('.');
             this.toastService.toastErrorExists(er[er.length - 2]);
             this.success = false;
-         } else {
+         }
          if ( (error === 'user.type.pfis.cpf.invalid') ||
             (error === 'user.type.pjur.cnpj.invalid') ) {
               er = res.toUpperCase().split('.');
               this.toastService.toastErrorValid(er[er.length - 2]);
               this.success = false;
-          } else {
-              console.log(error);
           }
+         if ( ( error === 'user.type.pfis.cpf.size.error') ||
+          ( error === 'user.type.pfis.cpf.size.error') ) {
+              er = res.toUpperCase().split('.');
+              this.toastService.toastErrorValid(er[er.length - 3]);
+              this.success = false;
         }
         this.success = false;
       }
     );
     console.log('success2:', this.success);
-    if (this.success) {
-      this.router.navigate(['/user-list']);
-    }
+    // if (this.success) {
+    //   this.router.navigate(['/user-list']);
+    // }
   }
 
   public loadProfiles() {
