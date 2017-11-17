@@ -16,7 +16,7 @@ export class ProfileService extends RestService {
   }
 
   public getProfiles() {
-    const currentURL = this.apiurl.concat('profiles/active');
+    const currentURL = this.apiurl.concat('profiles/');
     console.log(currentURL);
     return this.get(currentURL);
   }

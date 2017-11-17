@@ -76,7 +76,7 @@ export class UserDetailsComponent implements OnInit {
     this.user.address.city = this.city_id;
   }
 
-  deleteUser(user: User) {
+  changeStatus(user: User) {
     console.log(this.user);
     this.user.address.city = this.city_id;
     console.log(this.user.address.city);
@@ -84,8 +84,11 @@ export class UserDetailsComponent implements OnInit {
   }
 
   disableUser() {
-    console.log(this.user.status);
-    this.user.status = false;
+    if (this.user.status === true) {
+      this.user.status = false;
+    } else {
+      this.user.status = true;
+    }
     console.log(this.user.status);
 
     this.profileService.getProfiles().subscribe(

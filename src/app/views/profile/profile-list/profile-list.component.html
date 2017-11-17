@@ -30,15 +30,15 @@
           <tr>
             <th class="tbl-left">Título
               <span class="glyphicon" ></span>
-            </th>
-            <th colspan="3"></th>
+            </th>           
+            <th colspan="3" class="tbl-center"> Ações</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of pagedItems | filterBy: filter">
             <td class="tbl-left">  
                 {{ item.title }}
-            </td>
+            </td>         
             <td class="tbl-right">              
               <a (click)="setProfile(item)" [routerLink]="['/page-list']" title="Permissões">
                   <i class="large material-icons">lock</i>
@@ -49,13 +49,13 @@
                   <i class="fa fa-pencil fa-fw show-icon"></i>
               </a>
             </td>
-            <td class="tbl-right">
-                <a href="" title="Excluir"
+            <td class="tbl-right">  
+                <a href="" title="Mudar status"
                   data-toggle="modal" data-target="#modal-default"
-                  (click)="deleteProfile(item)">              
-                  <i class="large material-icons">delete </i> 
-                </a>      
-            </td>
+                  (click)="changeStatus(item)">              
+                  <i [ngClass]="item.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
+                </a>  
+            </td>         
           </tr>
         </tbody>
       </table>
@@ -83,7 +83,8 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true"></span></button>
-        <h4 class="modal-title">Deseja realmente excluir seus dados? </h4>
+          <h4 class="modal-title" *ngIf="profile.status"> Deseja realmente Desativar seus dados?</h4>
+          <h4 class="modal-title" *ngIf="!profile.status"> Deseja realmente Ativar seus dados?</h4>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>

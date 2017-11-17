@@ -69,13 +69,19 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
         this.accessPageService.profileSelected(profile);
       }
 
-      deleteProfile(profile: Profile) {
+      changeStatus(profile: Profile) {
         this.profile = profile;
       }
 
       disableProfile() {
+        if (this.profile.status === true) {
+          this.profile.status = false;
+        } else {
+          this.profile.status = true;
+        }
+        console.log(this.profile.status);
+
         this.profile.description = '';
-        this.profile.status = false;
         this.profile.created_by = '';
         this.profile.modified_by = '';
         console.log('Disable:', this.profile);

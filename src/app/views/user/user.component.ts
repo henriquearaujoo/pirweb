@@ -9,7 +9,7 @@ import { Profile } from '../../models/profile';
 import { Types } from '../../models/types';
 
 import { UserService } from '../../services/user/user.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -27,21 +27,25 @@ export class UserComponent implements OnInit {
   private person: Person;
   private hasdata: boolean;
   show_pjur: boolean;
+  private success: boolean;
 
   constructor(
     private userService: UserService,
     private profileService: ProfileService,
     private router: Router,
+    private route: ActivatedRoute,
     private toastService: ToastService) {
       this.user = new User();
       this.org = new Org();
       this.person = new Person();
+      this.success = false;
   }
 
   ngOnInit() {
     this.loadStates();
     this.loadProfiles();
     this.show_pjur = false;
+    this.success = true;
   }
 
   ngOnChange() {
@@ -52,8 +56,9 @@ export class UserComponent implements OnInit {
     console.log(this.user.profile);
     this.userService.createUser(this.user).subscribe(
       success => {
+        console.log('success1:', this.success);
         this.toastService.toastSuccess();
-        this.router.navigate(['/user-list']);
+        this.success = true;
       },
       error => {
         const res: string = error;
@@ -73,8 +78,14 @@ export class UserComponent implements OnInit {
               console.log(error);
           }
         }
+        console.log('success2:', this.success);
+        this.success = false;
       }
     );
+    console.log('success3:', this.success);
+    if (this.success) {
+      this.router.navigate(['/user-list']);
+    }
   }
 
   public loadProfiles() {
