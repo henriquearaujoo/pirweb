@@ -13,5 +13,7 @@ export class TemplateSelectModelComponent implements OnInit {
 
   ngOnInit() {
   }
+  template1() {
 
+  }
 }

@@ -17,7 +17,7 @@ export class TemplateFormsComponent implements OnInit {
   ngOnInit() {
     for (let i = 0 ; i < 10 ; i++) {
       const t = new TemplateItem();
-      t.description = 'description test:' + i;
+      t.description = 'title' + i;
       t.title = 'title test';
       t.content = 'content test';
       t.id = i;

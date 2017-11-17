@@ -31,6 +31,6 @@ export class TemplateItemComponent implements OnInit {
    }
 
    public removeTemplate() {
-     console.log(this.id);
+    console.log(this.id);
    }
 }

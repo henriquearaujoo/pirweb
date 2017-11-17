@@ -1,3 +1,25 @@
-<p>
-  reception works!
-</p>
+<form class="content">
+    <div class="row">
+        <div class="col-md-6">
+            <label for="exampleInputEmail1">Descrição</label>
+            <input type="text" class="form-control" id="rec_description" aria-describedby="rec_description" placeholder="Descrição...">
+            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label for="exampleTextarea">Intervenção</label>
+            <textarea placeholder="Intervenção..." class="form-control" id="rec_intervention" rows="8"></textarea>
+        </div>
+    </div>
+    <div class="row_">
+        <div class="row">
+            <div class="col-md-1">
+                <button class="btn btn-default btn-md btn-block" [routerLink]="[ '/template-option-card']"> Voltar</button>
+            </div>
+            <div class="col-md-1 col-md-offset-4">
+                <button class="btn btn-primary btn-md btn-block" [routerLink]="[ '/template-option-card']">Salvar</button>
+            </div>
+        </div>
+    </div>
+</form>
