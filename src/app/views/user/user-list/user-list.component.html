@@ -85,35 +85,7 @@
       </div -->
 
       <div class="box-footer">
-        <ul *ngIf="paginate.totalPages" class="pagination stylepage">
-          <li [ngClass]="{disabled:paginate.first}" >
-            <a (click)="setPage(0)">Primeiro</a>
-          </li>
-          <li [ngClass]="{disabled:paginate.first}" *ngIf="!paginate.first" >
-            <a (click)="setPage(paginate.number - 1)">Anterior</a>
-          </li>
-          <li [ngClass]="{disabled:paginate.first}" *ngIf="paginate.first" >
-            <a>Anterior</a>
-          </li>
-          <li [ngClass]="{active:paginate.number + 1}" *ngIf="paginate.number < paginate.totalPages " >
-            <a (click)="setPage(paginate.number)">{{paginate.number + 1}}</a>
-          </li>          
-          <li [ngClass]="{active:paginate.number + 1 === page}"  *ngIf="paginate.number + 1 < paginate.totalPages ">
-            <a (click)="setPage(paginate.number + 1 )">{{paginate.number + 2}}</a>
-          </li>
-          <li [ngClass]="{active:paginate.number + 1 === page}"  *ngIf="paginate.number + 2 < paginate.totalPages ">
-            <a (click)="setPage(paginate.number + 2 )">{{paginate.number + 3}}</a>
-          </li>
-          <li [ngClass]="{disabled:paginate.last}"  *ngIf="!paginate.last">
-            <a (click)="setPage(paginate.number + 1)">Próxima</a>
-          </li>          
-          <li [ngClass]="{disabled:paginate.last}"  *ngIf="paginate.last">
-            <a >Próxima</a>
-          </li>
-          <li [ngClass]="{disabled:paginate.last}" >
-              <a (click)="setPage(paginate.totalPages-1)">Última</a>
-            </li>
-        </ul>
+        <app-paginate [paginate]="paginate" (eventPage)="setPage($event)"></app-paginate>
       </div>
   </div>
 </div>

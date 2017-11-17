@@ -15,7 +15,7 @@ export class UserService extends RestService {
 
   constructor(http: Http) {
     super(http);
-    this.size = 1;
+    this.size = 10;
   }
 
   public getUsers(filter?: any, page?: number) {
@@ -27,16 +27,16 @@ export class UserService extends RestService {
   }
 
   public createUser(user: User) {
-    return this.post(this.apiurl + 'users', user);
+    return this.post(this.apiurl + 'users/', user);
   }
 
   public saveEditUser(user: User): Observable<User> {
-    const saveUserUrl = this.apiurl.concat('users');
+    const saveUserUrl = this.apiurl.concat('users/');
     return this.put(saveUserUrl, user);
   }
 
   public disableUser(user: User): Observable<User> {
-    const saveUserUrl = this.apiurl.concat('users');
+    const saveUserUrl = this.apiurl.concat('users/');
     this.disable.emit(user);
     return this.put(saveUserUrl, user);
   }

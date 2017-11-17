@@ -93,6 +93,7 @@ import { ChapterInformationComponent } from './views/template-forms/chapter-info
 import { ReceptionComponent } from './views/template-forms/reception/reception.component';
 import { TaskComponent } from './views/template-forms/task/task.component';
 import { CreateFormComponent } from './views/template-forms/create-form/create-form.component';
+import { PaginateComponent } from './components/paginate/paginate.component';
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
 
@@ -130,7 +131,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ChapterInformationComponent,
     ReceptionComponent,
     TaskComponent,
-    CreateFormComponent
+    CreateFormComponent,
+    PaginateComponent
   ],
   imports: [
     BrowserModule,

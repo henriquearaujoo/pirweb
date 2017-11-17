@@ -1,0 +1,8 @@
+.pagination>.active>a {
+    background-color: #373d40;
+    border-color:  #373d40;
+}
+
+.pagination {
+    cursor: pointer;
+}

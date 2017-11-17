@@ -1,9 +1,10 @@
+import { element } from 'protractor';
 import { Paginate } from './../../../models/paginate';
 import { ToastService } from './../../../services/toast-notification/toast.service';
 import { PageService } from './../../../services/pagenate/page.service';
 import { User } from './../../../models/user';
 import { UserService } from './../../../services/user/user.service';
-import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { PagenateComponent } from '../../../components/pagenate/pagenate.component';
 import { Profile } from '../../../models/profile';
 import { ProfileService } from '../../../services/profile/profile.service';
@@ -24,8 +25,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   private user: User = new User();
   private paginate: Paginate = new Paginate();
-  private paginate2: Paginate[] = new Array();
-  private page: number;
+  @Output() page: number;
   filter: any = {name: ''};
 
   constructor(
@@ -48,8 +48,6 @@ export class UserListComponent implements OnInit, OnDestroy {
         this.getUsers();
       }
     );
-    // this.paginate.number = 0;
-    // this.paginate.totalPages = 3;
   }
 
   ngOnChange() {
