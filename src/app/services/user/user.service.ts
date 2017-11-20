@@ -56,7 +56,7 @@ export class UserService extends RestService {
   }
 
   public getCity(city_id?: string) {
-    return this.get(this.apiurl + 'states/city/' + city_id + '/');
+     return this.get(this.apiurl + 'states/city/' + city_id + '/');
   }
 
   setUser(user: User) {

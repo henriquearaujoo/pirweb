@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, ActivatedRouteSnapshot, RouterStateSnapshot, RouterState } from '@angular/router';
 
 @Component({
   selector: 'app-side-bar',
@@ -8,9 +8,19 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 
 export class SideBarComponent implements OnInit {
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
+  private url: string;
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+    const state: RouterState = router.routerState;
+    const snapshot: RouterStateSnapshot = state.snapshot;
+    const root: ActivatedRouteSnapshot = snapshot.root;
+    console.log('state', state);
+    console.log('snapshot', snapshot.url);
+    this.url = snapshot.url;
+    console.log('root', root);
+  }
 
   ngOnInit() {
+    this.isActive([this.url, '/']);
   }
 
   isActive(instruction: String[]): boolean {

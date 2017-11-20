@@ -67,27 +67,88 @@
       "name": "Formulários/criar-template"
     }
   ],
-  "users": [  
-     {
+  "users": [
+    {
       "pfis": {
         "cpf": "85584258253",
-        "rg": "19308493",
-        "emitter": "ssp"
+        "rg": "433434",
+        "emitter": "sp"
+      },
+      "address": {
+        "state": "1",
+        "city": "1",
+        "postalcode": "43443",
+        "neighborhood": "sesds",
+        "street": "edeee",
+        "number": "2"
+      },
+      "login": "admin",
+      "password": "adm343434434",
+      "profile": "1",
+      "type": "PFIS",
+      "name": "Fabrícia Moreira Galibi",
+      "email": "fabriciasimoes@gmail.com",
+      "status": "true",
+      "id": 1
+    },
+    {
+      "pfis": {
+        "cpf": "85584258253",
+        "rg": "dedede",
+        "emitter": "sss"
+      },
+      "address": {
+        "postalcode": "33333",
+        "state": "1",
+        "city": "1",
+        "neighborhood": "sssss",
+        "street": "sede",
+        "number": "2"
+      },
+      "login": "admin",
+      "password": "admedffrefreferef",
+      "profile": "1",
+      "type": "PFIS",
+      "name": "Deuza Maria Alves de Lima",
+      "email": "fabriciasimoes@gmail.com",
+      "status": "true",
+      "id": 2
+    },
+    {
+      "pfis": {
+        "cpf": "767676",
+        "rg": "7676",
+        "emitter": "hb"
       },
       "address": {
         "postalcode": "69078460",
-        "neighborhood": "Japiim",
-        "street": "s4",
-        "number": "215",
-        "complement": "ap 03"
+        "state": "1",
+        "city": "1",
+        "neighborhood": "mm",
+        "street": "km",
+        "number": "m"
       },
-      "profile": "1",
+      "login": "admin",
+      "password": "sddddddddddefe",
+      "profile": "2",
       "type": "PFIS",
-      "login": "fabriciasimoes",
-      "password": "12345678",
-      "name": "Fabricia",
+      "name": "m",
+      "email": "kknkm@GMAIL.COM",
       "status": "true",
       "id": 3
+    }
+  ],
+  "states": [
+    {
+      "id": 1,
+      "name": "Amazonas"
+    }
+  ],
+  "cities": [
+    {
+      "id": 1,
+      "name": "Manaus",
+      "state_id": 1
     }
   ],
   "authenticate": [

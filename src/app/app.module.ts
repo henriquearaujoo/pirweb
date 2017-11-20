@@ -94,6 +94,7 @@ import { ReceptionComponent } from './views/template-forms/reception/reception.c
 import { TaskComponent } from './views/template-forms/task/task.component';
 import { CreateFormComponent } from './views/template-forms/create-form/create-form.component';
 import { PaginateComponent } from './components/paginate/paginate.component';
+import { ControlFieldErrorComponent } from './components/control-field-error/control-field-error.component';
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
 
@@ -132,7 +133,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ReceptionComponent,
     TaskComponent,
     CreateFormComponent,
-    PaginateComponent
+    PaginateComponent,
+    ControlFieldErrorComponent
   ],
   imports: [
     BrowserModule,

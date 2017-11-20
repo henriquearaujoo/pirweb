@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { NotificationsService } from 'angular2-notifications';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class ToastService {
+  private subject = new Subject<any>();
+
   constructor(
     private toastService: NotificationsService,
     private router: Router) { }

@@ -28,6 +28,7 @@ export class UserComponent implements OnInit {
   private hasdata: boolean;
   show_pjur: boolean;
   private success: boolean;
+  private error: string;
 
   constructor(
     private userService: UserService,
@@ -46,6 +47,7 @@ export class UserComponent implements OnInit {
     this.loadProfiles();
     this.show_pjur = false;
     this.success = true;
+    this.error = 'user.type.pfis.cpf.valid';
   }
 
   ngOnChange() {
@@ -57,8 +59,9 @@ export class UserComponent implements OnInit {
     this.userService.createUser(this.user).subscribe(
       success => {
         console.log('success1:', this.success);
-        this.toastService.toastSuccess();
+        //this.toastService.toastSuccess();
         this.success = true;
+        this.router.navigate(['/user-list']);
       },
       error => {
         const res: string = error;
@@ -83,9 +86,9 @@ export class UserComponent implements OnInit {
       }
     );
     console.log('success3:', this.success);
-    if (this.success) {
-      this.router.navigate(['/user-list']);
-    }
+    // if (this.success) {
+    //   this.router.navigate(['/user-list']);
+    // }
   }
 
   public loadProfiles() {
@@ -160,6 +163,22 @@ export class UserComponent implements OnInit {
         break;
       }
     }
+  }
+
+  verifyValidSubmitted(form, field) {
+    return form.submitted && !field.valid;
+  }
+
+  verifyCpfCnpj(form, field) {
+    // tslint:disable-next-line:comment-format
+    //return form.submitted && !field.valid;
+  }
+
+  applyCssError(form, field) {
+    return {
+      'has-error': this.verifyValidSubmitted(form, field),
+      'has-feedback': this.verifyValidSubmitted(form, field)
+    };
   }
 
 }

@@ -1,4 +1,4 @@
-<simple-notifications></simple-notifications>
+<simple-notifications  (onCreate)="created($event)"></simple-notifications>
 
 <div class="content">
     <section class="content">
@@ -13,88 +13,115 @@
                   <div class="box box-primary">
                     <div class="box-body">
                       <!-- select profile-->
-                      <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !profile.valid }">
-                        <label>Perfil</label>
+                      <div class="form-group" [ngClass]="applyCssError(f, profile)">
+                        <label class="control-label">Perfil</label>
                         <select class="form-control" name="profile" id="user_profile"
                           [(ngModel)]="user.profile" #profile="ngModel" required>
                             <option *ngFor="let profile of profiles" [value]="profile.id">{{profile.title}}</option>
                         </select>
-                        <div *ngIf="f.submitted && !profile.valid" class="help-block">Selecione um perfil</div>
+                        <app-control-field-error [showError]="verifyValidSubmitted(f, profile)" msgError="Selecione um perfil">                          
+                        </app-control-field-error>                        
                       </div>
                        <!-- end select profile-->
+
                       <!-- select type-->
-                      <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !type.valid }">
-                        <label>Tipo de usuário</label>
+                      <div class="form-group" [ngClass]="applyCssError(f, type)">
+                        <label class="control-label">Tipo de usuário</label>
                         <select class="form-control" name="type" id="user_type"
                           [(ngModel)]="user.type" #type="ngModel" (change)="selectType()" required>
                           <option *ngFor="let type of types" [value]="type.id">{{type.description}}</option>
                        </select>
-                       <div *ngIf="f.submitted && !type.valid" class="help-block">Selecione um tipo de usuário</div>
+                       <app-control-field-error [showError]="verifyValidSubmitted(f, type)" msgError="Selecione um tipo de usuário">                          
+                       </app-control-field-error>
                       </div>
                       <!-- end select type-->
-                      <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !login.valid }">
-                        <label>Login</label>
+
+                      <div class="form-group" [ngClass]="applyCssError(f, login)">
+                        <label class="control-label">Login</label>
                         <input type="text" [(ngModel)]="user.login" #login="ngModel" name="login" id="user_login" class="form-control" placeholder="Inserir Login ..." required>
-                        <div *ngIf="f.submitted && !login.valid" class="help-block">Digite um login</div>
+                        <app-control-field-error [showError]="verifyValidSubmitted(f, login)" msgError="Digite um login">                          
+                        </app-control-field-error>                        
                       </div>
-                      <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-                        <label>Senha</label>
+
+                      <div class="form-group" [ngClass]="applyCssError(f, password)">
+                        <label class="control-label">Senha</label>
                         <input type="password" [(ngModel)]="user.password" #password="ngModel" name="password" id="user_password" class="form-control" required minlength="8" placeholder="Inserir Senha ...">
-                        <div *ngIf="f.submitted && !password.valid" class="help-block">Digite uma senha. Mínimo 8 caracteres</div>
+                        <app-control-field-error [showError]="verifyValidSubmitted(f, password)" msgError="Digite uma senha. Mínimo 8 caracteres">                          
+                        </app-control-field-error>
                       </div>
-                      <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
-                        <label>Nome Completo</label>
+
+                      <div class="form-group" [ngClass]="applyCssError(f, name)">
+                        <label class="control-label">Nome Completo</label>
                         <input type="text" #name ="ngModel"[(ngModel)]="user.name" name="full_name" id="user_name" class="form-control" placeholder="Inserir Nome Completo ..." required>
-                        <div *ngIf="f.submitted && !name.valid" class="help-block">Digite um nome</div>
+                        <app-control-field-error [showError]="verifyValidSubmitted(f, name)" msgError="Digite um nome">                          
+                        </app-control-field-error>                        
                       </div>
-                      <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
-                        <label>E-mail</label>
+
+                      <div class="form-group" [ngClass]="applyCssError(f, email)">
+                        <label class="control-label">E-mail</label>
                         <input type="email" [(ngModel)]="user.email" #email="ngModel" name="email" id="user_email" class="form-control" placeholder="Inserir E-mail ..." ngModel email required>
-                        <div *ngIf="f.submitted && !email.valid" class="help-block">Digite um E-mail válido</div>
+                        <app-control-field-error [showError]="verifyValidSubmitted(f, email)" msgError="Digite um e-mail válido">                          
+                        </app-control-field-error> 
                       </div>
-                      <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !cpf.valid }" *ngIf="!show_pjur">
-                        <label>CPF</label>
+
+                      <div class="form-group" [ngClass]="applyCssError(f, cpf)" *ngIf="!show_pjur">
+                        <label class="control-label">CPF</label>
                         <input type="text" [(ngModel)]="person.cpf" #cpf="ngModel" name="cpf" id="user_cpf" class="form-control" placeholder="Inserir CPF ..." required>
-                        <div *ngIf="f.submitted && !cpf.valid" class="help-block">Digite um CPF</div>
+                        <app-control-field-error [showError]="verifyValidSubmitted(f, cpf)" msgError="Digite um CPF">                          
+                        </app-control-field-error>
                       </div>
-                      <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !rg.valid }" *ngIf="!show_pjur">
-                        <label>RG</label>
+
+                      <div class="form-group" [ngClass]="applyCssError(f, rg)" *ngIf="!show_pjur">
+                        <label class="control-label">RG</label>
                         <input type="text" [(ngModel)]="person.rg" #rg="ngModel" name="rg" id="user_rg" class="form-control" placeholder="Inserir RG ..." required>
-                        <div *ngIf="f.submitted && !rg.valid" class="help-block">Digite um RG</div>
+                        <app-control-field-error [showError]="verifyValidSubmitted(f, rg)" msgError="Digite um RG">                          
+                        </app-control-field-error>
                       </div>
-                      <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !emitter.valid }" *ngIf="!show_pjur">
-                          <label>Orgão Emissor</label>
+
+                      <div class="form-group" [ngClass]="applyCssError(f, emitter)" *ngIf="!show_pjur">
+                          <label class="control-label">Orgão Emissor</label>
                           <input type="text" #emitter="ngModel" [(ngModel)]="person.emitter" name="rg_emitter" id="user_rgemitter" class="form-control" placeholder="Inserir Orgão Emissor ..." required>
-                          <div *ngIf="f.submitted && !emitter.valid" class="help-block">Digite um orgão emissor</div>
+                          <app-control-field-error [showError]="verifyValidSubmitted(f, emitter)" msgError="Digite um orgão emissor">                          
+                          </app-control-field-error>
                       </div>
-                      <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !ie.valid }" *ngIf="show_pjur">
-                        <label>Inscrição Estadual</label>
+
+                      <div class="form-group" [ngClass]="applyCssError(f, ie)" *ngIf="show_pjur">
+                        <label class="control-label">Inscrição Estadual</label>
                         <input type="text" #ie="ngModel" [(ngModel)]="org.ie" name="ie" id="user_ie" class="form-control" placeholder="Inserir Inscrição Estadual ..." required>
-                        <div *ngIf="f.submitted && !ie.valid" class="help-block">Digite uma inscrição estadual</div>
+                        <app-control-field-error [showError]="verifyValidSubmitted(f, ie)" msgError="Digite uma inscrição estadual">                          
+                        </app-control-field-error>
                       </div>
-                      <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !cnpj.valid }" *ngIf="show_pjur">
-                        <label>CNPJ</label>
+
+                      <div class="form-group" [ngClass]="applyCssError(f, cnpj)" *ngIf="show_pjur">
+                        <label class="control-label">CNPJ</label>
                         <input type="text" [(ngModel)]="org.cnpj" #cnpj="ngModel" name="cnpj" id="user_cnpj" class="form-control" placeholder="Inserir CNPJ ..." required>
-                        <div *ngIf="f.submitted && !cnpj.valid" class="help-block">Digite um CNPJ</div>
+                        <app-control-field-error [showError]="verifyValidSubmitted(f, cnpj)" msgError="Digite um CNPJ">                          
+                        </app-control-field-error>
                       </div>
-                      <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !socialname.valid }" *ngIf="show_pjur">
-                        <label>Razão Social</label>
+
+                      <div class="form-group" [ngClass]="applyCssError(f, socialname)" *ngIf="show_pjur">
+                        <label class="control-label">Razão Social</label>
                         <input type="text" #socialname="ngModel" [(ngModel)]="org.social_name" name="social_name" id="user_socialname" class="form-control" placeholder="Inserir Razão Social ..." required>
-                        <div *ngIf="f.submitted && !socialname.valid" class="help-block">Digite uma razão social</div>
+                        <app-control-field-error [showError]="verifyValidSubmitted(f, socialname)" msgError="Digite uma razão social">                          
+                        </app-control-field-error>
                       </div>
-                      <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !fantasyname.valid }" *ngIf="show_pjur">
-                        <label>Nome Fantasia</label>
+
+                      <div class="form-group" [ngClass]="applyCssError(f, fantasyname)" *ngIf="show_pjur">
+                        <label class="control-label">Nome Fantasia</label>
                         <input type="text" #fantasyname="ngModel" [(ngModel)]="org.fantasy_name" name="fantasy_name" id="user_fantasyname" class="form-control" placeholder="Inserir Nome Fantasia ..." required>
-                        <div *ngIf="f.submitted && !fantasyname.valid" class="help-block">Digite um nome fantasia</div>
+                        <app-control-field-error [showError]="verifyValidSubmitted(f, fantasyname)" msgError="Digite um nome fantasia">                          
+                        </app-control-field-error>
                       </div>
+
                       <!-- select status-->
-                      <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !status.valid }">
-                        <label>Status</label>
+                      <div class="form-group" [ngClass]="applyCssError(f, status)">
+                        <label class="control-label">Status</label>
                         <select class="form-control" #status="ngModel" name="status" id="user_status" required [(ngModel)]="user.status">
                           <option value="true">Ativo</option>
                           <option value="false">Inatí­vo</option>
                         </select>
-                        <div *ngIf="f.submitted && !status.valid" class="help-block">Selecione o status do usuário</div>
+                        <app-control-field-error [showError]="verifyValidSubmitted(f, status)" msgError="Selecione o status do usuário">                          
+                        </app-control-field-error>
                       </div>
                        <!-- end select status-->
                     </div>
@@ -104,48 +131,60 @@
                 <div class="col-md-6">
                   <div class="box box-primary">
                     <div class="box-body">
-                        <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !cep.valid }">
-                          <label>CEP</label>
+                        <div class="form-group" [ngClass]="applyCssError(f, cep)">
+                          <label class="control-label">CEP</label>
                           <input type="text" #cep="ngModel" [(ngModel)]="user.address.postalcode" name="cep" id="user_cep" class="form-control" placeholder="Inserir CEP ..." required>
-                          <div *ngIf="f.submitted && !cep.valid" class="help-block">Digite um CEP</div>                       
+                          <app-control-field-error [showError]="verifyValidSubmitted(f, cep)" msgError="Digite um CEP">                          
+                          </app-control-field-error>
                         </div>
+
                         <!-- select state -->
-                        <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !state.valid }">
-                          <label>Estado</label>
+                        <div class="form-group" [ngClass]="applyCssError(f, state)">
+                          <label class="control-label">Estado</label>
                           <select class="form-control" #state="ngModel" [(ngModel)]="user.address.state" name="state" id="user_state" (change)="loadCities($event.target.value)" required>
                               <option>--Selecione o estado--</option>
                             <option *ngFor='let s of states' [value]='s.id'>{{s.name}}</option>
                           </select>  
-                          <div *ngIf="f.submitted && !state.valid" class="help-block">Selecione um estado</div>                       
+                          <app-control-field-error [showError]="verifyValidSubmitted(f, state)" msgError="Selecione um estado">                          
+                          </app-control-field-error>
                         </div> 
                         <!-- end select state -->
+
                         <!-- select city-->
-                        <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !city.valid }">
-                          <label>Cidade</label>
+                        <div class="form-group" [ngClass]="applyCssError(f, city)">
+                          <label class="control-label">Cidade</label>
                           <select class="form-control" #city="ngModel" name="city_id_fk" id="user_city" [(ngModel)]="user.address.city" required>
                               <option>--Selecione a cidade--</option>
                             <option *ngFor="let c of cities" [value]="c.id">{{c.name}}</option>
                           </select>
-                          <div *ngIf="f.submitted && !city.valid" class="help-block">Selecione uma cidade</div>
+                          <app-control-field-error [showError]="verifyValidSubmitted(f, city)" msgError="Selecione uma cidade">                          
+                          </app-control-field-error>
                         </div>
+
                         <!-- end select city-->
-                        <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !neighborhood.valid }">
-                          <label>Bairro</label>
+                        <div class="form-group" [ngClass]="applyCssError(f, neighborhood)">
+                          <label class="control-label">Bairro</label>
                           <input type="text" #neighborhood="ngModel" [(ngModel)]="user.address.neighborhood" name="neighborhood" id="user_neighborhood" class="form-control" placeholder="Inserir Bairro ..." required>
-                          <div *ngIf="f.submitted && !neighborhood.valid" class="help-block">Digite um bairro</div>
+                          <app-control-field-error [showError]="verifyValidSubmitted(f, neighborhood)" msgError="Digite um bairro">                          
+                          </app-control-field-error> 
                         </div>
-                        <div class="form-group form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !street.valid }">
-                          <label>Rua</label>
+
+                        <div class="form-group" [ngClass]="applyCssError(f, street)">
+                          <label class="control-label">Rua</label>
                           <input type="text" #street="ngModel" [(ngModel)]="user.address.street" name="street" id="user_street" class="form-control" placeholder="Inserir Rua ..." required>
-                          <div *ngIf="f.submitted && !street.valid" class="help-block">Digite uma rua</div>
+                          <app-control-field-error [showError]="verifyValidSubmitted(f, street)" msgError="Digite uma rua">                          
+                          </app-control-field-error>
                         </div>
-                        <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !number.valid }">
-                          <label>Número</label>
+
+                        <div class="form-group" [ngClass]="applyCssError(f, number)">
+                          <label class="control-label">Número</label>
                           <input type="text" #number="ngModel" [(ngModel)]="user.address.number" name="number" id="user_number" class="form-control" placeholder="Inserir Número ..." required>
-                          <div *ngIf="f.submitted && !number.valid" class="help-block">Digite um número</div>
+                          <app-control-field-error [showError]="verifyValidSubmitted(f, number)" msgError="Digite um número">                          
+                          </app-control-field-error>
                         </div>
+
                         <div class="form-group">
-                          <label>Complemento</label>
+                          <label class="control-label">Complemento</label>
                           <input type="text" [(ngModel)]="user.address.complement" name="complement" id="user_complement" class="form-control" placeholder="Inserir Complemento ...">
                         </div>
                     </div>

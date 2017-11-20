@@ -5,10 +5,10 @@ import { Component } from '@angular/core';
   template: `
     <app-header-bar ></app-header-bar>
     <app-side-bar ></app-side-bar>
-    <div class="content-wrapper" style="background-color: #ffffff; min-height: 587px;">
+    <div class="content-wrapper">
         <router-outlet></router-outlet>
     </div>
   `,
-  styles: []
+  styleUrls: ['home-layout.component.css']
 })
 export class HomeLayoutComponent {}

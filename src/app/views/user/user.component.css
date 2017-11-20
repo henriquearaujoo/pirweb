@@ -42,7 +42,13 @@ label{
     font-weight: normal;
 }
 
-.help-block {
-    font-size: 12px;
-    color: rgb(129, 21, 21);
+.form-group.has-error .form-control, .form-group.has-error .input-group-addon {
+    border-color: #a94442;
+}
+.form-group.has-error label {
+    color: #a94442;
+    font-weight: bold;
+}
+.form-group.has-error .help-block {
+    color: #a94442;
 }

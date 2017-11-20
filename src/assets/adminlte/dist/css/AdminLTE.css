@@ -1275,15 +1275,15 @@ a:focus {
   color: #f39c12;
 }
 .form-group.has-error label {
-  color: #dd4b39;
+  color: #a94442;
 }
 .form-group.has-error .form-control,
 .form-group.has-error .input-group-addon {
-  border-color: #dd4b39;
+  border-color: #a94442;
   box-shadow: none;
 }
 .form-group.has-error .help-block {
-  color: #dd4b39;
+  color: #a94442;
 }
 /* Input group */
 .input-group .input-group-addon {
