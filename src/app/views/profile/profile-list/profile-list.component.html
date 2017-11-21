@@ -62,6 +62,9 @@
     </div>        
     <div class="box-footer">
       <ul *ngIf="pager.pages && pager.pages.length" class="pagination stylepage">
+          <li [ngClass]="{disabled:pager.currentPage === 1}">
+              <a (click)="setPage(1)">Primeiro</a>
+          </li>
         <li [ngClass]="{disabled:pager.currentPage === 1}">
           <a (click)="setPage(pager.currentPage - 1)">Anterior</a>
         </li>
@@ -69,7 +72,10 @@
           <a (click)="setPage(page)">{{page}}</a>
         </li>
         <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-          <a (click)="setPage(pager.currentPage + 1)">Próxima</a>
+          <a (click)="setPage(pager.currentPage + 1)">Próximo</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+            <a (click)="setPage(pager.totalPages)">Último</a>
         </li>
       </ul>
     </div>

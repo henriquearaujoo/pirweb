@@ -55,8 +55,6 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   getUsers() {
-    console.log('filtro:', this.filter.name);
-    console.log('Page:', this.page);
     if ( this.filter.name !== '') { this.page = 0; }
     this.userService.getUsers(this.filter.name, this.page).subscribe(
       success => {
@@ -67,8 +65,6 @@ export class UserListComponent implements OnInit, OnDestroy {
           this.toastService.toastSuccess();
           this.userService.show_msg = false;
         }
-        console.log('Users:', this.users);
-        console.log('Paginate', this.paginate);
         this.profileService.getProfiles().subscribe(
           success_profiles => {
             this.profiles = success_profiles;

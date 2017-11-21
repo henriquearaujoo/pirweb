@@ -58,15 +58,12 @@ export class UserComponent implements OnInit {
     console.log(this.user.profile);
     this.userService.createUser(this.user).subscribe(
       success => {
-        console.log('success after:', this.success);
         this.userService.show_msg = true;
-        console.log('Salvo:', this.success);
         this.router.navigate(['/user-list']);
       },
       error => {
         this.error_list = error;
         this.verifyError();
-        console.log('Success Erro:', this.success);
       }
     );
   }
@@ -205,6 +202,12 @@ export class UserComponent implements OnInit {
           break;
         }
         case 'user.type.pfis.cpf.invalid': {
+          this.error_item = er.toUpperCase().split('.');
+          console.log(this.error_item);
+          this.toastService.toastErrorValid(this.error_item[this.error_item.length - 2]);
+          break;
+        }
+        case 'user.type.pjur.cnpj.invalid': {
           this.error_item = er.toUpperCase().split('.');
           console.log(this.error_item);
           this.toastService.toastErrorValid(this.error_item[this.error_item.length - 2]);

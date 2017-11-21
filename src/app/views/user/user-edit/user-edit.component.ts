@@ -28,7 +28,6 @@ export class UserEditComponent implements OnInit {
   show_pjur: boolean;
   private city_id: string;
   private state_id: string;
-  private success: boolean;
   private error_list = new Array();
   private error_item = new Array<string>();
 
@@ -40,7 +39,6 @@ export class UserEditComponent implements OnInit {
       this.user = new User();
       this.org = new Org();
       this.person = new Person();
-      this.success = false;
     }
 
   ngOnInit() {
@@ -67,21 +65,14 @@ export class UserEditComponent implements OnInit {
     console.log(this.user);
     this.userService.saveEditUser(this.user).subscribe(
       success => {
-        console.log('success1:', this.success);
         this.userService.show_msg = true;
-        console.log('Salvo:', this.success);
         this.router.navigate(['/user-list']);
       },
       error => {
         this.error_list = error;
         this.verifyError();
-        console.log('Success Erro:', this.success);
       }
     );
-    console.log('success2:', this.success);
-    // if (this.success) {
-    //   this.router.navigate(['/user-list']);
-    // }
   }
 
   public loadProfiles() {
@@ -272,7 +263,7 @@ export class UserEditComponent implements OnInit {
           this.toastService.toastErrorValid(this.error_item[this.error_item.length - 2]);
           break;
         }
-        case 'user.type.pfis.cnpj.invalid': {
+        case 'user.type.pjur.cnpj.invalid': {
           this.error_item = er.toUpperCase().split('.');
           console.log(this.error_item);
           this.toastService.toastErrorValid(this.error_item[this.error_item.length - 2]);
