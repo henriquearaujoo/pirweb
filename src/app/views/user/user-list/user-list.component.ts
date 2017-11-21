@@ -4,7 +4,7 @@ import { ToastService } from './../../../services/toast-notification/toast.servi
 import { PageService } from './../../../services/pagenate/page.service';
 import { User } from './../../../models/user';
 import { UserService } from './../../../services/user/user.service';
-import { Component, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter, Output, Input } from '@angular/core';
 import { PagenateComponent } from '../../../components/pagenate/pagenate.component';
 import { Profile } from '../../../models/profile';
 import { ProfileService } from '../../../services/profile/profile.service';
@@ -62,6 +62,11 @@ export class UserListComponent implements OnInit, OnDestroy {
       success => {
         this.paginate = success;
         this.users = success.content;
+        console.log('show_msg', this.userService.show_msg);
+        if (this.userService.show_msg) {
+          this.toastService.toastSuccess();
+          this.userService.show_msg = false;
+        }
         console.log('Users:', this.users);
         console.log('Paginate', this.paginate);
         this.profileService.getProfiles().subscribe(

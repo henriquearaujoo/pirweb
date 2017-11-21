@@ -35,13 +35,13 @@
             </a>
             <ul class="treeview-menu">
               
-              <li [class.active]="isActive(['/user-list'])">
+              <li [class.active]="isActive(['/user-list', '/user', '/user-edit', '/user-details'])">
                 <a class="menu" (click)="toUserList()">
                     <i class="fa fa-circle-o" aria-hidden="true"></i>
                     <span>Registros</span>
                 </a>
               </li>         
-              <li [class.active]="isActive(['/profile-list'])">
+              <li [class.active]="isActive(['/profile-list', '/page-list'])">
                 <a class="menu" (click)="toProfileList()">
                     <i class="fa fa-circle-o" aria-hidden="true"></i> 
                     <span>Perfil</span>                   

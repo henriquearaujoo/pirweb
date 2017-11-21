@@ -50,7 +50,7 @@
               </a>
             </td>
             <td class="tbl-right">  
-                <a href="" title="Mudar status"
+                <a href="" [title]="item.status === true ? 'Desativar': 'Ativar'"
                   data-toggle="modal" data-target="#modal-default"
                   (click)="changeStatus(item)">              
                   <i [ngClass]="item.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
@@ -83,8 +83,8 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true"></span></button>
-          <h4 class="modal-title" *ngIf="profile.status"> Deseja realmente Desativar seus dados?</h4>
-          <h4 class="modal-title" *ngIf="!profile.status"> Deseja realmente Ativar seus dados?</h4>
+          <h4 class="modal-title" *ngIf="profile.status"> Deseja realmente Desativar o perfil {{ profile.title | uppercase}}?</h4>
+          <h4 class="modal-title" *ngIf="!profile.status"> Deseja realmente Ativar o perfil {{ profile.title | uppercase}}?</h4>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>

@@ -54,5 +54,12 @@ export class ToastService {
         clickToClose: true
       });
     }
-
+    toastErrorPassword() {
+      this.toastService.warn('Atenção!', 'SENHA informada não é válida.', {
+        timeOut: 3000,
+        showProgressBar: true,
+        pauseOnHover: true,
+        clickToClose: true
+      });
+    }
 }

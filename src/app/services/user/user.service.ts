@@ -11,11 +11,13 @@ export class UserService extends RestService {
   private apiurl = Constant.BASE_URL;
   private user: User;
   disable = new EventEmitter();
+  show_msg: boolean;
   private size: number;
 
   constructor(http: Http) {
     super(http);
     this.size = 10;
+    this.show_msg = false;
   }
 
   public getUsers(filter?: any, page?: number) {
@@ -67,4 +69,7 @@ export class UserService extends RestService {
     return this.user;
   }
 
+  setShowMsg(msg: boolean) {
+    this.show_msg = msg;
+  }
 }

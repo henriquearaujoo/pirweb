@@ -28,7 +28,8 @@ export class UserComponent implements OnInit {
   private hasdata: boolean;
   show_pjur: boolean;
   private success: boolean;
-  private error: string;
+  private error_list = new Array();
+  private error_item = new Array<string>();
 
   constructor(
     private userService: UserService,
@@ -39,15 +40,14 @@ export class UserComponent implements OnInit {
       this.user = new User();
       this.org = new Org();
       this.person = new Person();
-      this.success = false;
   }
 
   ngOnInit() {
     this.loadStates();
     this.loadProfiles();
     this.show_pjur = false;
-    this.success = true;
-    this.error = 'user.type.pfis.cpf.valid';
+    this.success = false;
+    this.error_list = [];
   }
 
   ngOnChange() {
@@ -58,37 +58,17 @@ export class UserComponent implements OnInit {
     console.log(this.user.profile);
     this.userService.createUser(this.user).subscribe(
       success => {
-        console.log('success1:', this.success);
-        //this.toastService.toastSuccess();
-        this.success = true;
+        console.log('success after:', this.success);
+        this.userService.show_msg = true;
+        console.log('Salvo:', this.success);
         this.router.navigate(['/user-list']);
       },
       error => {
-        const res: string = error;
-        let er = new Array<string>();
-        if ( (error === 'user.login.exists') ||
-          (error === 'user.type.pfis.cpf.exists') ||
-          (error === 'user.type.pjur.cnpj.exists') ||
-          (error === 'user.email.exists')) {
-            er = res.toUpperCase().split('.');
-            this.toastService.toastErrorExists(er[er.length - 2]);
-         } else {
-         if ( (error === 'user.type.pfis.cpf.valid') ||
-            (error === 'user.type.pjur.cnpj.valid') ) {
-              er = res.toUpperCase().split('.');
-              this.toastService.toastErrorValid(er[er.length - 2]);
-          } else {
-              console.log(error);
-          }
-        }
-        console.log('success2:', this.success);
-        this.success = false;
+        this.error_list = error;
+        this.verifyError();
+        console.log('Success Erro:', this.success);
       }
     );
-    console.log('success3:', this.success);
-    // if (this.success) {
-    //   this.router.navigate(['/user-list']);
-    // }
   }
 
   public loadProfiles() {
@@ -169,10 +149,74 @@ export class UserComponent implements OnInit {
     return form.submitted && !field.valid;
   }
 
-  verifyCpfCnpj(form, field) {
-    // tslint:disable-next-line:comment-format
-    //return form.submitted && !field.valid;
-  }
+  verifyError() {
+    if (this.error_list.length < 7) {
+      this.error_list.forEach( er => {
+        switch (er) {
+          case 'user.type.pfis.cpf.valid': {
+            this.error_item = er.toUpperCase().split('.');
+            console.log(this.error_item);
+            this.toastService.toastErrorExists(this.error_item[this.error_item.length - 2]);
+            break;
+          }
+          case 'user.type.pjur.cnpj.valid': {
+            this.error_item = er.toUpperCase().split('.');
+            console.log(this.error_item);
+            this.toastService.toastErrorExists(this.error_item[this.error_item.length - 2]);
+            break;
+          }
+          case 'user.type.pfis.rg.short': {
+            this.error_item = er.toUpperCase().split('.');
+            console.log(this.error_item);
+            this.toastService.toastErrorValid(this.error_item[this.error_item.length - 2]);
+            break;
+          }
+          default: {
+            this.toastService.toastError();
+            console.log(this.error_list);
+          }
+        }
+      });
+    } else {
+      const er  = this.error_list.toString();
+      switch (er) {
+        case 'user.login.exists': {
+          this.error_item = er.toUpperCase().split('.');
+          console.log(this.error_item);
+          this.toastService.toastErrorExists(this.error_item[this.error_item.length - 2]);
+          break;
+        }
+        case 'user.type.pfis.cpf.exists': {
+          this.error_item = er.toUpperCase().split('.');
+          console.log(this.error_item);
+          this.toastService.toastErrorExists(this.error_item[this.error_item.length - 2]);
+          break;
+        }
+        case 'user.type.pjur.cnpj.exists': {
+          this.error_item = er.toUpperCase().split('.');
+          console.log(this.error_item);
+          this.toastService.toastErrorExists(this.error_item[this.error_item.length - 2]);
+          break;
+        }
+        case 'user.email.exists': {
+          this.error_item = er.toUpperCase().split('.');
+          console.log(this.error_item);
+          this.toastService.toastErrorExists(this.error_item[this.error_item.length - 2]);
+          break;
+        }
+        case 'user.type.pfis.cpf.invalid': {
+          this.error_item = er.toUpperCase().split('.');
+          console.log(this.error_item);
+          this.toastService.toastErrorValid(this.error_item[this.error_item.length - 2]);
+          break;
+        }
+        default: {
+          this.toastService.toastError();
+          console.log(this.error_list);
+        }
+      }
+    }
+   }
 
   applyCssError(form, field) {
     return {
