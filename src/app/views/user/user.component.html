@@ -66,7 +66,7 @@
 
                       <div class="form-group" [ngClass]="applyCssError(f, cpf)" *ngIf="!show_pjur">
                         <label class="control-label">CPF</label>
-                        <input type="text" [(ngModel)]="person.cpf" #cpf="ngModel" name="cpf" id="user_cpf" minlength="11" maxlength="11" class="form-control" placeholder="Inserir CPF ..." required> 
+                        <input type="text" [(ngModel)]="person.cpf" #cpf="ngModel" name="cpf" pattern="[0-9]{11}" id="user_cpf" minlength="11" maxlength="11" class="form-control" placeholder="Inserir CPF ..." required> 
                         <app-control-field-error [showError]="verifyValidSubmitted(f, cpf)" msgError="CPF Inválido">                          
                         </app-control-field-error>
                       </div>
@@ -94,7 +94,7 @@
 
                       <div class="form-group" [ngClass]="applyCssError(f, cnpj)" *ngIf="show_pjur">
                         <label class="control-label">CNPJ</label>
-                        <input type="text" [(ngModel)]="org.cnpj" #cnpj="ngModel" name="cnpj" id="user_cnpj" minlength="14" maxlength="14" class="form-control" placeholder="Inserir CNPJ ..." required>
+                        <input type="text" [(ngModel)]="org.cnpj" #cnpj="ngModel" name="cnpj" pattern="[0-9]{14}" id="user_cnpj" minlength="14" maxlength="14" class="form-control" placeholder="Inserir CNPJ ..." required>
                         <app-control-field-error [showError]="verifyValidSubmitted(f, cnpj)" msgError="CNPJ Inválido">                          
                         </app-control-field-error>
                       </div>

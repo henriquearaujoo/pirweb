@@ -142,35 +142,29 @@ export class UserComponent implements OnInit {
     }
   }
 
-  verifyValidSubmitted(form, field) {
-    return form.submitted && !field.valid;
-  }
-
   verifyError() {
     if (this.error_list.length < 7) {
       this.error_list.forEach( er => {
         switch (er) {
           case 'user.type.pfis.cpf.valid': {
-            this.error_item = er.toUpperCase().split('.');
-            console.log(this.error_item);
-            this.toastService.toastErrorExists(this.error_item[this.error_item.length - 2]);
+            console.log(er);
+            this.toastService.toastErrorValid('CPF');
             break;
           }
           case 'user.type.pjur.cnpj.valid': {
-            this.error_item = er.toUpperCase().split('.');
-            console.log(this.error_item);
-            this.toastService.toastErrorExists(this.error_item[this.error_item.length - 2]);
+            console.log(er);
+            this.toastService.toastErrorValid('CPF');
             break;
           }
           case 'user.type.pfis.rg.short': {
-            this.error_item = er.toUpperCase().split('.');
-            console.log(this.error_item);
-            this.toastService.toastErrorValid(this.error_item[this.error_item.length - 2]);
+            console.log(er);
+            this.toastService.toastErrorValid('RG');
             break;
           }
           default: {
             this.toastService.toastError();
             console.log(this.error_list);
+            console.log(er);
           }
         }
       });
@@ -178,48 +172,47 @@ export class UserComponent implements OnInit {
       const er  = this.error_list.toString();
       switch (er) {
         case 'user.login.exists': {
-          this.error_item = er.toUpperCase().split('.');
-          console.log(this.error_item);
-          this.toastService.toastErrorExists(this.error_item[this.error_item.length - 2]);
+          console.log(er);
+          this.toastService.toastErrorExists('LOGIN');
           break;
         }
         case 'user.type.pfis.cpf.exists': {
-          this.error_item = er.toUpperCase().split('.');
-          console.log(this.error_item);
-          this.toastService.toastErrorExists(this.error_item[this.error_item.length - 2]);
+          console.log(er);
+          this.toastService.toastErrorExists('CPF');
           break;
         }
         case 'user.type.pjur.cnpj.exists': {
-          this.error_item = er.toUpperCase().split('.');
-          console.log(this.error_item);
-          this.toastService.toastErrorExists(this.error_item[this.error_item.length - 2]);
+          console.log(er);
+          this.toastService.toastErrorExists('CNPJ');
           break;
         }
         case 'user.email.exists': {
-          this.error_item = er.toUpperCase().split('.');
-          console.log(this.error_item);
-          this.toastService.toastErrorExists(this.error_item[this.error_item.length - 2]);
+          console.log(er);
+          this.toastService.toastErrorExists('EMAIL');
           break;
         }
         case 'user.type.pfis.cpf.invalid': {
-          this.error_item = er.toUpperCase().split('.');
-          console.log(this.error_item);
-          this.toastService.toastErrorValid(this.error_item[this.error_item.length - 2]);
+          console.log(er);
+          this.toastService.toastErrorValid('CPF');
           break;
         }
         case 'user.type.pjur.cnpj.invalid': {
-          this.error_item = er.toUpperCase().split('.');
-          console.log(this.error_item);
-          this.toastService.toastErrorValid(this.error_item[this.error_item.length - 2]);
+          console.log(er);
+          this.toastService.toastErrorValid('CNPJ');
           break;
         }
         default: {
           this.toastService.toastError();
+          console.log(er);
           console.log(this.error_list);
         }
       }
     }
    }
+
+  verifyValidSubmitted(form, field) {
+    return form.submitted && !field.valid;
+  }
 
   applyCssError(form, field) {
     return {

@@ -33,12 +33,12 @@ export class ProfileService extends RestService {
   }
 
   public saveProfile(profiles: Profile): Observable<Profile> {
-    const saveProfileUrl = this.apiurl.concat('profiles');
+    const saveProfileUrl = this.apiurl.concat('profiles/');
     return this.post(saveProfileUrl, profiles);
   }
 
   public saveEditProfile(profile: Profile): Observable<Profile> {
-    const saveProfileUrl = this.apiurl.concat('profiles');
+    const saveProfileUrl = this.apiurl.concat('profiles/');
     return this.put(saveProfileUrl, profile);
   }
 
@@ -48,7 +48,7 @@ export class ProfileService extends RestService {
   }
 
   public disableProfile(profile: Profile): Observable<Profile> {
-    const saveProfileUrl = this.apiurl.concat('profiles');
+    const saveProfileUrl = this.apiurl.concat('profiles/');
     return this.put(saveProfileUrl, profile);
   }
 }
