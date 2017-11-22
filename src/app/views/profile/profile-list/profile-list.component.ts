@@ -10,6 +10,7 @@ import { ProfilePipe } from './profile.pipe';
 import { RuleService } from '../../../services/rule/rule.service';
 import { Rule } from '../../../models/rule';
 import { AccessPageService } from '../../../services/page/page.service';
+import { Paginate } from '../../../models/paginate';
 
 
 @Component({
@@ -21,8 +22,11 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
    profiles: Profile[] = new Array();
 
     @Input() profile: Profile = new Profile();
+    private paginate: Paginate = new Paginate();
 
     @Input() profile_id: number;
+
+    @Output() page: number;
 
     public edit: boolean;
 
@@ -30,7 +34,7 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
 
     hasdata: boolean;
 
-    filter: Profile = new Profile();
+    filter: any = {title: ''};
 
     constructor(
       pagerService: PageService,
@@ -42,6 +46,7 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
         super(pagerService);
         this.hasdata = false;
         this.edit = false;
+        this.page = 0;
       }
 
       ngOnInit() {
@@ -53,15 +58,26 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
       }
 
       getProfile() {
-        this.profileService.getProfiles().subscribe(
+        if ( this.filter.title !== '') { this.page = 0; }
+        this.profileService.getProfile(this.filter.title, this.page).subscribe(
           success => {
-            this.profiles = success;
-            this.allItems = this.profiles;
-            this.setPage(1);
+            this.paginate = success;
+            this.profiles = this.paginate.content;
+            console.log('Paginate:', this.paginate);
+            // this.allItems = this.profiles;
+            // this.setPage(1);
             this.hasdata = true;
           },
           error => this.hasdata = false
         );
+      }
+
+      setPage(page: number) {
+        this.page = page;
+        console.log('Página:', this.page);
+        console.log('Paginate:', this.paginate);
+        console.log('Filtro:', this.filter.title);
+        this.getProfile();
       }
 
       setProfile(profile: Profile) {

@@ -11,12 +11,21 @@ import { Rule } from '../../models/rule';
 export class ProfileService extends RestService {
 
   apiurl = Constant.BASE_URL;
+  private SIZE = 10;
   constructor(http: Http) {
     super(http);
   }
 
+  public getProfile(filter?: any, page?: number) {
+    if ( filter === undefined ) {
+      return this.get(this.apiurl + 'profiles/search/page/?size=' + this.SIZE + '&page=' + page + '&sort=title,asc');
+    } else {
+      return this.get(this.apiurl + 'profiles/search/page/?size=' + this.SIZE + '&page=' + page + '&title=' + filter + '&sort=title,asc');
+    }
+  }
+
   public getProfiles() {
-    const currentURL = this.apiurl.concat('profiles/');
+    const currentURL = this.apiurl + '/profiles/search/?status=true';
     console.log(currentURL);
     return this.get(currentURL);
   }

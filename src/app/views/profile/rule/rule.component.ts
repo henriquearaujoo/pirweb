@@ -70,15 +70,19 @@ export class RuleComponent extends PagenateComponent implements OnInit {
     for (let i = 0; i < this.checked.length; i++) {
       if (this.checked[i] === this.options[0]) {
         this.rule.read = true;
+        console.log(this.rule.read);
       }
       if (this.checked[i] === this.options[1]) {
         this.rule.create = true;
+        console.log(this.rule.create);
       }
       if (this.checked[i] === this.options[2]) {
         this.rule.update = true;
+        console.log(this.rule.update);
       }
       if (this.checked[i] === this.options[3]) {
         this.rule.delete = true;
+        console.log(this.rule.delete);
       }
     }
     console.log('view', this.rule.read);
@@ -88,10 +92,11 @@ export class RuleComponent extends PagenateComponent implements OnInit {
   confirmRules() {
 
     this.verifyRules();
+    this.rule.read = true;
     this.profile = this.accessPageService.getProfile();
     this.pageSelected = this.accessPageService.getPages();
     this.rule.profile_id = this.profile.id;
-
+    console.log('Regra:', this.rule);
     if (this.pageSelected.length > 0) {
       for (let i = 0; i < this.pageSelected.length; i++) {
         this.rule.page_id = this.pageSelected[i].id;

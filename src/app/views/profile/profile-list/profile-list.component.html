@@ -19,10 +19,18 @@
         <div class="col-sm-6">
           <div id="_filter" class="dataTables_filter">
             <label>
-              Filtrar:<input type="text" class="form-control form-border " name="title" [(ngModel)]="filter.title" placeholder="Tipo de Perfil">
+              Filtrar:<input type="text" class="form-control form-border " name="title" (keyup)="getProfile()" [(ngModel)]="filter.title" placeholder="Tipo de Perfil">
             </label>
           </div>
         </div>
+        <div class="col-sm-6 show_dates">
+            <span *ngIf="paginate.totalElements">
+              Exibindo {{ paginate.first ? 1 : (paginate.number * paginate.size) + 1 }} a {{ paginate.last ? paginate.totalElements : ((paginate.number * paginate.size)  +  paginate.size) }} de {{ paginate.totalElements }} registros 
+            </span>
+            <span *ngIf="!paginate.totalElements">
+                Exibindo 0 a 0 de registros
+            </span>
+        </div>        
     </div>
     <div class="box-body with-border">
       <table id="example2" class="table table-hover ">
@@ -35,7 +43,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of pagedItems | filterBy: filter">
+          <tr *ngFor="let item of profiles">
             <td class="tbl-left">  
                 {{ item.title }}
             </td>         
@@ -61,23 +69,7 @@
       </table>
     </div>        
     <div class="box-footer">
-      <ul *ngIf="pager.pages && pager.pages.length" class="pagination stylepage">
-          <li [ngClass]="{disabled:pager.currentPage === 1}">
-              <a (click)="setPage(1)">Primeiro</a>
-          </li>
-        <li [ngClass]="{disabled:pager.currentPage === 1}">
-          <a (click)="setPage(pager.currentPage - 1)">Anterior</a>
-        </li>
-        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-          <a (click)="setPage(page)">{{page}}</a>
-        </li>
-        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-          <a (click)="setPage(pager.currentPage + 1)">Próximo</a>
-        </li>
-        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-            <a (click)="setPage(pager.totalPages)">Último</a>
-        </li>
-      </ul>
+        <app-paginate [paginate]="paginate" (eventPage)="setPage($event)"></app-paginate>     
     </div>
   </div>
 </div>

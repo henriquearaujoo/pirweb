@@ -55,6 +55,7 @@ div.dataTables_filter {
 .btn-col {
     text-align: right;
     padding-right: 68px;
+    padding-bottom: 40px;
 }
 
 .btn-primary {
@@ -86,4 +87,10 @@ a {
 
 a {
     cursor: pointer;
+}
+
+.show_dates {
+    padding-top: 20px;
+    padding-right: 65px;
+    text-align: right;
 }

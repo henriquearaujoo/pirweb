@@ -1,7 +1,7 @@
 import { User } from './user';
 
 export class Paginate {
-    public content: User[] = new Array();
+    public content: any[] = new Array();
     public totalElements: number;
     public last: boolean;
     public totalPages: number;

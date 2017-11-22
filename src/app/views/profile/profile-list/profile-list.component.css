@@ -86,3 +86,8 @@ a {
 a {
     cursor: pointer;
 }
+.show_dates {
+    padding-top: 20px;
+    padding-right: 65px;
+    text-align: right;
+}

@@ -17,7 +17,9 @@
                     <label>
                       <input type="checkbox" [attr.name]="options" 
                         [value]="option" 
-                        (change)="updateChecked(option, $event)">
+                        (change)="updateChecked(option, $event)" 
+                        [checked]="option === 'Visualizar'" 
+                        [disabled]="option === 'Visualizar'">
                             {{ option }}
                     </label>                
                   </div>              
