@@ -14,17 +14,17 @@ export class RuleService extends RestService {
   }
 
   public getRules() {
-    const currentURL = this.apiurl.concat('rules');
+    const currentURL = this.apiurl.concat('rules/');
     return this.get(currentURL);
   }
 
   public saveRule(rules: Rule): Observable<Rule> {
-    const saveRuleUrl = this.apiurl.concat('rules');
+    const saveRuleUrl = this.apiurl.concat('rules/');
     return this.post(saveRuleUrl, rules);
   }
 
   public deleteRule(id: string) {
-    const deleteRuleUrl = this.apiurl + 'rules' + '/' + id;
+    const deleteRuleUrl = this.apiurl + 'rules' + '/' + id + '/';
     return this.deleteR(deleteRuleUrl);
   }
 }

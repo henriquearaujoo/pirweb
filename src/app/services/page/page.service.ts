@@ -29,12 +29,12 @@ export class AccessPageService extends RestService implements OnInit{
   }
 
   getPagesDenied(rule: Rule) {
-    const getPageURL = this.apiurl.concat('pages/' + rule.page_id);
+    const getPageURL = this.apiurl.concat('rules/search/?page=' + rule.page_id);
     return this.get(getPageURL);
   }
 
   public getPagesAllowed(rule: Rule) {
-    const getPageURL = this.apiurl.concat('pages/' + rule.page_id);
+    const getPageURL = this.apiurl.concat('rules/search/?page=' + rule.page_id);
     return this.get(getPageURL);
   }
 
