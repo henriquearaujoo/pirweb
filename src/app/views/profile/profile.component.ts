@@ -73,7 +73,6 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
         console.log('perfi editado:', this.selectedProfile);
         this.selectedProfile.title = this.editProfile;
         this.selectedProfile.description = '';
-        this.selectedProfile.status = true;
         this.selectedProfile.created_by = '';
         this.selectedProfile.modified_by = '';
         this.profileService.saveEditProfile(this.selectedProfile).subscribe(

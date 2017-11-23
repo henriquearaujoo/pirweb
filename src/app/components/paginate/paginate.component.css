@@ -6,3 +6,13 @@
 .pagination {
     cursor: pointer;
 }
+
+.col-sm-4 {
+    padding-top: 30px;
+    text-align: left;
+}
+
+.col-sm-8 {
+    text-align: right;
+    padding-right: 58px;
+}

@@ -26,14 +26,6 @@
               </label>
             </div>
           </div>
-          <div class="col-sm-6 show_dates">
-              <span *ngIf="paginate.totalElements">
-                Exibindo {{ paginate.first ? 1 : (paginate.number * paginate.size) + 1 }} a {{ paginate.last ? paginate.totalElements : ((paginate.number * paginate.size)  +  paginate.size) }} de {{ paginate.totalElements }} registros 
-              </span>
-              <span *ngIf="!paginate.totalElements">
-                  Exibindo 0 a 0 de registros
-              </span>
-          </div> 
       </div>
       <div class="box-body with-border">
         <table id="example2" class="table table-hover ">
