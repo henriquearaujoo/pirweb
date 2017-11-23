@@ -36,7 +36,6 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
     private router: Router) {
       super(pagerService);
       this.hasdata = false;
-     // this.edit = false;
     }
 
     ngOnInit() { }
@@ -64,7 +63,6 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
             }
           },
         );
-       // location.reload();
     }
 
     onFilter() {

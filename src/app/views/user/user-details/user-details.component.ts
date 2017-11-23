@@ -83,7 +83,7 @@ export class UserDetailsComponent implements OnInit {
 
   }
 
-  disableUser() {
+  disableAbleUser() {
     if (this.user.status === true) {
       this.user.status = false;
     } else {

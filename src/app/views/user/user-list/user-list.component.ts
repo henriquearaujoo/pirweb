@@ -103,7 +103,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     console.log(this.user.status);
   }
 
-  disableUser() {
+  disableAbleUser() {
     if (this.user.status === true) {
       this.user.status = false;
     } else {

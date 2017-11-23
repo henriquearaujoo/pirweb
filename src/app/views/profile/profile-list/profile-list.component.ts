@@ -64,8 +64,6 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
             this.paginate = success;
             this.profiles = this.paginate.content;
             console.log('Paginate:', this.paginate);
-            // this.allItems = this.profiles;
-            // this.setPage(1);
             this.hasdata = true;
           },
           error => this.hasdata = false
