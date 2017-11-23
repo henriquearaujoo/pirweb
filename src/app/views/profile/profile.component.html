@@ -49,14 +49,14 @@
                     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !title.valid}">
                       <label class="control-label col-sm-1" > Título: </label>   
                       <div class="col-sm-9">          
-                      <div class="input-group">
-                        <input type="text" class="form-control" id="title" name="title"
-                          placeholder="Descrição do perfil de usuário" 
-                          [(ngModel)]="editProfile"
-                          #title="ngModel" required>
-                          <span class="input-group-addon" title="Cancelar edição do perfil" (click)="cancelEdit()"><i class="fa fa-times"></i></span>
-                        <div *ngIf="f.submitted && !title.valid" class="help-block">Escrever um tipo de perfil</div>
-                      </div>    
+                        <div class="input-group">
+                          <input type="text" class="form-control" id="title" name="title"
+                            placeholder="Descrição do perfil de usuário" 
+                            [(ngModel)]="editProfile"
+                            #title="ngModel" required>
+                            <span class="input-group-addon" title="Cancelar edição do perfil" (click)="cancelEdit()"><i class="fa fa-times"></i></span>
+                        </div>   
+                        <div *ngIf="f.submitted && !title.valid" class="help-block">Escrever um tipo de perfil</div>                       
                       </div>              
                         <div class="control-button col-sm-2">                 
                           <button class="btn btn-primary btn-block" >Alterar</button>   
