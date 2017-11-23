@@ -30,6 +30,7 @@
     "angular2-notifications": "^0.7.8",
     "core-js": "^2.4.1",
     "materialize-css": "^0.100.2",
+    "ng-cpf-cnpj-validate": "^1.0.2",
     "ng2-filter-pipe": "^0.1.10",
     "ng2-input-mask": "0.0.7",
     "ng2-order-pipe": "^0.1.5",

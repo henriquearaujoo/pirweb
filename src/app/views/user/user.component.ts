@@ -220,5 +220,4 @@ export class UserComponent implements OnInit {
       'has-feedback': this.verifyValidSubmitted(form, field)
     };
   }
-
 }
