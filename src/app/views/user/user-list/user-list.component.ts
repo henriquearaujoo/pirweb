@@ -65,7 +65,7 @@ export class UserListComponent implements OnInit, OnDestroy {
           this.toastService.toastSuccess();
           this.userService.show_msg = false;
         }
-        this.profileService.getProfiles().subscribe(
+        this.profileService.getAllProfiles().subscribe(
           success_profiles => {
             this.profiles = success_profiles;
             this.users.forEach( user => {

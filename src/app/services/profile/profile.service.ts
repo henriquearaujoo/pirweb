@@ -30,6 +30,12 @@ export class ProfileService extends RestService {
     return this.get(currentURL);
   }
 
+  public getAllProfiles() {
+    const currentURL = this.apiurl + '/profiles/search/';
+    console.log(currentURL);
+    return this.get(currentURL);
+  }
+
   public getPages(profileid: string) {
     const currentURL = this.apiurl + 'profiles/' + profileid + '/pages';
     console.log(currentURL);
