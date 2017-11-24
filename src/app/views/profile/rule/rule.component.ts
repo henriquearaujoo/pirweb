@@ -22,6 +22,7 @@ export class RuleComponent extends PagenateComponent implements OnInit {
   @Input() lg = false;
 
   @Output() reloadFatherComponent = new EventEmitter();
+  @Output() confirm = new EventEmitter();
 
 
   options: any[] = ['Visualizar', 'Criar', 'Editar', 'Desabilitar'];
@@ -104,6 +105,7 @@ export class RuleComponent extends PagenateComponent implements OnInit {
           success => {
             this.profile.rule = new Array();
             this.profile.rule.push(success);
+            this.confirm.emit(true);
             console.log('Regra adicionada ao perfil:', this.profile.rule);
             this.reloadFatherComponent.emit({result: true});
             this.profileService.saveEditProfile(this.profile).subscribe(

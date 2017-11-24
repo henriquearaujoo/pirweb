@@ -12,6 +12,7 @@ import { ProfileService } from '../../../services/profile/profile.service';
 
 import * as _ from 'underscore';
 import { Rule } from '../../../models/rule';
+import { AlertsService, AlertType } from '@jaspero/ng2-alerts';
 
 @Component({
   selector: 'app-page',
@@ -21,15 +22,15 @@ import { Rule } from '../../../models/rule';
 
 export class PageComponent extends PagenateComponent implements OnInit {
 
- // pages: Page[] = new Array();
-
-  // pageAllowed: Page[] = new Array();
-
   public selectedPages = new Array();
   private pageFromServer = new Array();
   private pagesFromProfile = new Array();
   public currentProfile: Profile = new Profile();
   public page_allowed = new Array();
+
+  private selected: any[] = new Array();
+  private allowed_selected: any[] = new Array();
+  private confirm_rules: boolean;
 
   constructor(
     pagerService: PageService,
@@ -77,13 +78,67 @@ export class PageComponent extends PagenateComponent implements OnInit {
     console.log(event);
   }
 
+  updateSelected(option, event) {
+    console.log('event.target.value ' + event.target.value);
+    const index = this.selected.indexOf(option);
+    if (event.target.selected) {
+      console.log('insert');
+      if ( index === -1) {
+        this.selected.push(option);
+      }
+    } else {
+      console.log('delete');
+      if ( index !== -1) {
+        if ( ((index === 0) && (this.selected.length === 1))  ||
+        ((index >= 1) && (this.selected.length >= 1)) ) {
+          console.log('index delete []:', index);
+          console.log('selected.length:', this.selected.length);
+          this.selected = [];
+        }
+        this.selected.splice(index, 1);
+        console.log('index delete', index);
+      }
+    }
+    console.log('Selected', this.selected);
+  }
+
+  updateAllowedSelected(option, event) {
+    const index = this.allowed_selected.indexOf(option);
+    console.log('i index:', index);
+    if (event.target.selected) {
+      console.log('insert');
+      if ( index === -1) {
+        this.allowed_selected.push(option);
+      }
+    } else {
+      console.log('delete');
+      if ( index !== -1) {
+        if ( ((index === 0) && (this.allowed_selected.length === 1))  ||
+           ((index >= 1) && (this.allowed_selected.length >= 1)) ) {
+          console.log('index delete []:', index);
+          console.log('allowed_selected.length:', this.allowed_selected.length);
+          this.allowed_selected = [];
+        }
+        this.allowed_selected.splice(index, 1);
+        console.log('index delete', index);
+      }
+    }
+    console.log('Allowed Selected', this.allowed_selected);
+  }
+
+  confirmRules(confirm: boolean) {
+    this.confirm_rules = confirm;
+    if ( this.confirm_rules) {
+      this.selected = [];
+      this.allowed_selected = [];
+      this.confirm_rules = false;
+    }
+  }
+
   setPages() {
     if ( this.selectedPages.length > 0) {
       this.accessPageService.setPages(this.selectedPages);
-    }else {
-
     }
-    // console.log('Páginas selecionadas service', this.accessPageService.getPages());
   }
 
   public removePages() {
@@ -91,14 +146,16 @@ export class PageComponent extends PagenateComponent implements OnInit {
       this.ruleService.deleteRule(this.page_allowed[i].rules[0].id).subscribe(
         s => {
           this.loadPageFromProfile();
-          console.log('removed:' + this.page_allowed[i].rules[0].id)
+          console.log('removed:' + this.page_allowed[i].rules[0].id);
         },
         e => {
           this.loadPageFromProfile();
-          console.log('can`t remove the register' + this.page_allowed[i].rules[0].id)
+          console.log('can`t remove the register' + this.page_allowed[i].rules[0].id);
         }
       );
     }
+    this.allowed_selected = [];
+    this.selected = [];
   }
 
 }

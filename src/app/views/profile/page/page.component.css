@@ -82,3 +82,9 @@ option.list-group-item {
     background-color:#373d40;
     border-color: #373d40;
 }
+
+.warning {
+    background: #444;
+    color: #fff;
+    text-align: center;
+}

@@ -1,3 +1,4 @@
+<jaspero-alerts [defaultSettings]="options"></jaspero-alerts>
 <div class="container">
     <section class="content">
       <div class="row">
@@ -18,7 +19,8 @@
                         <h2 class="panel-title">Permissões Ativadas</h2>
                     </div>  
                     <select multiple class="form-control" [(ngModel)]='page_allowed' name="pg_allowed" >
-                    <option class="list-group-item" *ngFor="let item of pagesFromProfile" [value]='item'>
+                    <option class="list-group-item" *ngFor="let item of pagesFromProfile" 
+                        [value]='item' (click)="updateAllowedSelected(item, $event)">
                         {{ item.route }}
                     </option>
                 </select>
@@ -29,16 +31,25 @@
             <!-- Actions -->
             <div class="col-xs-1">  
                 <div class="row btn-left" > 
-                    <button type="button" (click)="setPages()" class="btn btn-default btn-lg">
-                        <app-rule (reloadFatherComponent)="onReloadPage($event)"></app-rule>                        
+                    <button type="button" class="btn btn-default btn-lg"  
+                       *ngIf="selected.length === 0" disabled>
+                        <i class="glyphicon glyphicon-menu-left"></i>
+                    </button>
+                    <button type="button" (click)="setPages()" class="btn btn-default btn-lg" *ngIf="selected.length !== 0">
+                        <app-rule (reloadFatherComponent)="onReloadPage($event)" (confirm)="confirmRules($event)"></app-rule>                        
                     </button>
                 </div>
                 <div class="row btn-right">
+                    <button type="button" class="btn btn-default btn-lg"  
+                        *ngIf="allowed_selected.length === 0" disabled>
+                        <span class="glyphicon glyphicon-menu-right"></span>
+                    </button>
                     <button
                     data-toggle="modal"
                     data-target="#modal-default"
-                    type="button"  class="btn btn-default btn-lg">
-                        <span class="glyphicon glyphicon-menu-right"></span>
+                    type="button"  class="btn btn-default btn-lg"
+                    *ngIf="allowed_selected.length !== 0">
+                        <a class="glyphicon glyphicon-menu-right"></a>
                     </button>
                 </div>                    
             </div>
@@ -53,7 +64,8 @@
                     <select multiple class="form-control"                           
                         name="pg_not_allowed" 
                         [(ngModel)] = 'selectedPages'>                             
-                        <option class="list-group-item" *ngFor="let item of pageFromServer" [value]='item'>
+                        <option class="list-group-item" *ngFor="let item of pageFromServer"
+                         [value]='item' (click)="updateSelected(item, $event)">
                             {{ item.route }}
                         </option>
                     </select>                      
@@ -69,7 +81,8 @@
     </div>        
   </section>
 </div>
-     <!-- Modal Delete -->
+
+<!-- Modal Delete -->
  <div class="modal fade" id="modal-default">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -88,4 +101,26 @@
     <!-- /.modal-dialog -->
   </div>
   <!-- /.modal -->
+
+  <!-- Modal Select Page -->
+ <div class="modal fade" id="modal-warning">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header warning">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"></span></button>
+                <h4 class="modal-title">ATENÇÃO</h4>
+            </div>
+            <div class="modal-body">
+                    <h4 class="modal-title">Selecione uma ou mais páginas! </h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
   
