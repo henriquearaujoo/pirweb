@@ -1,0 +1,53 @@
+<simple-notifications></simple-notifications>
+
+<div class="content">
+    <section class="content">
+      <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+          <div class="box-header with-border">
+            <h3 class="box-title"> Intervenção
+              <small> Capítulo </small>
+            </h3>
+          </div>
+          <div class="row">              
+              <div class="col-sm-12">
+                  <div class="box box-primary">
+                    <div class="box-body">
+                      <div class="form-group">
+                        <label class="control-label">Descrição</label>                       
+                          <div class="box-body pad">
+                            <form>
+                              <textarea class="textarea" placeholder="Digite uma Descrição"
+                                        style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                            </form>
+                          </div>
+                     </div>
+
+                     <div class="form-group">
+                      <label class="control-label">Atividades para a família</label>                       
+                        <div class="box-body pad">
+                          <form>
+                            <textarea class="textarea" placeholder="Digite uma(s) atividade(s) para a família "
+                            ></textarea>
+                          </form>
+                        </div>
+                   </div>
+                  </div>
+                </div>
+              </div>                           
+          </div>
+          <div class="row">
+            <div class="col-sm-6 cancel">
+              <div class="form-group">
+                <button class="btn btn-default btn-md" [routerLink]="['/chapter-add']" id="btn_return"> Cancelar</button>
+              </div>
+            </div>
+            <div class="col-sm-6 save">
+              <div class="form-group">               
+                <button class="btn btn-primary btn-md" name="submit" id="btn_save">Salvar</button>
+               </div>
+            </div>
+          </div>
+        </form>
+        </section>
+      </div>
+

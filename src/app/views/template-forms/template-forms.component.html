@@ -1,5 +1,7 @@
 <div class="example-container">
-    <mat-card class="card_add" (click)="createNewForm()"></mat-card>
+    <mat-card class="card_add" (click)="createNewChapter()">       
+        <i class="fa fa-plus fa-5x" aria-hidden="true"></i>    
+    </mat-card>
     <div *ngFor="let item of templates">
         <app-template-item [templateItem]="item"></app-template-item>
     </div>

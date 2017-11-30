@@ -1,5 +1,6 @@
 .card {
     width: 230px;
+    min-width: 200px;
     height: 280px;
     float: left;
     margin: 10px;
@@ -8,6 +9,14 @@
     border-radius: 10px;
 }
 
+mat-card-title.mat-card-title {
+    font-weight: bold;
+}
+
 i.large.material-icons {
     font-size: 50px;
+}
+
+mat-card-content.mat-card-content {
+    padding-top: 50px;
 }

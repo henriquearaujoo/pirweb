@@ -15,7 +15,7 @@ export class TemplateFormsComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    for (let i = 0 ; i < 10 ; i++) {
+    for (let i = 0 ; i < 5 ; i++) {
       const t = new TemplateItem();
       t.description = 'description test:' + i;
       t.title = 'title test';
@@ -25,7 +25,7 @@ export class TemplateFormsComponent implements OnInit {
     }
   }
 
-  createNewForm() {
-    this.router.navigate(['selectModel']);
+  createNewChapter() {
+    this.router.navigate(['chapterInformation']);
   }
 }

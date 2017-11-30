@@ -1,0 +1,107 @@
+<simple-notifications></simple-notifications>
+
+<div class="content">
+    <section class="content">
+      <form name="form" (ngSubmit)="f.form.valid && saveData()" #f="ngForm" novalidate>
+          <div class="box-header with-border">
+            <h3 class="box-title"> Informaçoes básicas
+              <small> Capítulo </small>
+            </h3>
+          </div>
+          <div class="row">              
+              <div class="col-md-6">
+                  <div class="box box-primary">
+                    <div class="box-body">
+                      <div class="form-group" [ngClass]="applyCssError(f, title)">
+                        <label class="control-label">Título</label>
+                        <input type="text" id="chapter_title" class="form-control" placeholder="Inserir Título..." required>
+                        <app-control-field-error [showError]="verifyValidSubmitted(f, title)" msgError="Digite um título">                          
+                        </app-control-field-error>                        
+                      </div>
+
+                      <div class="form-group" [ngClass]="applyCssError(f, subtitle)">
+                        <label class="control-label">Subtítulo</label>
+                        <input type="text" id="chapter_subtitle" class="form-control" placeholder="Inserir Subtítulo..." required>
+                        <app-control-field-error [showError]="verifyValidSubmitted(f, subtitle)" msgError="Digite um subtítulo">                          
+                        </app-control-field-error>                        
+                      </div>
+
+                      <div class="form-group" [ngClass]="applyCssError(f, subtitle)">
+                        <label class="control-label">Descrição</label>                       
+                          <div class="box-body pad">
+                            <form>
+                              <textarea class="textarea" placeholder="Digite uma Descrição">                                
+                              </textarea>
+                            </form>
+                          </div>
+                     </div>
+
+                     <div class="form-group" [ngClass]="applyCssError(f, subtitle)">
+                      <label class="control-label">Conteúdo</label>                      
+                        <div class="box-body pad">
+                          <form>
+                            <textarea class="textarea" placeholder="Digite um Conteúdo">                              
+                            </textarea>
+                          </form>
+                        </div>
+                   </div>
+                  </div>
+                </div>
+              </div>
+                
+              <div class="col-md-6">
+                  <div class="box box-primary">
+                    <div class="box-body">
+                      <div class="form-group" [ngClass]="applyCssError(f, title)">
+                        <label class="control-label">Recursos da Visita</label>
+                        <input type="text" id="chapter_resource" class="form-control" placeholder="Inserir Recursos da Visita..." required>
+                        <app-control-field-error [showError]="verifyValidSubmitted(f, title)" msgError="Digite os Recursos da Visita">                          
+                        </app-control-field-error>                        
+                      </div>
+
+                      <div class="form-group" [ngClass]="applyCssError(f, time)">
+                        <label class="control-label">Estimativa de Tempo</label>
+                        <input type="text" id="chapter_time" class="form-control" placeholder="Inserir Estimativa de Tempo..." required>
+                        <app-control-field-error [showError]="verifyValidSubmitted(f, time)" msgError="Digite uma Estimativa de Tempo">                          
+                        </app-control-field-error>                        
+                      </div>
+
+                      <div class="form-group" [ngClass]="applyCssError(f, objective)">
+                        <label class="control-label">Objetivo</label>                      
+                          <div class="box-body pad">
+                            <form>
+                              <textarea class="textarea" placeholder="Digite um Objetivo">                                
+                              </textarea>
+                            </form>
+                          </div>
+                     </div>
+
+                     <div class="form-group" [ngClass]="applyCssError(f, conclusion)">
+                      <label class="control-label">Conclusão</label>                    
+                        <div class="box-body pad">
+                          <form>
+                            <textarea class="textarea" placeholder="Digite uma Conclusao">                              
+                            </textarea>
+                          </form>
+                        </div>
+                   </div>
+                </div>
+              </div>                  
+            </div>            
+          </div>
+          <div class="row">
+            <div class="col-md-3 cancel">
+              <div class="form-group">
+                <button class="btn btn-default btn-md" [routerLink]="['/chapter-add']" id="btn_return"> Cancelar</button>
+              </div>
+            </div>
+            <div class="col-md-3 col-md-offset-6 save">
+              <div class="form-group">               
+                <button class="btn btn-primary btn-md" name="submit" id="btn_save">Salvar</button>
+               </div>
+            </div>
+          </div>
+        </form>
+        </section>
+      </div>
+

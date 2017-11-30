@@ -16,9 +16,9 @@ import { AgentComponent} from './views/agent/agent.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { TemplateFormsComponent } from './views/template-forms/template-forms.component';
 
-import { ChapterInformationComponent } from './views/template-forms/chapter-information/chapter-information.component';
-import { ReceptionComponent } from './views/template-forms/reception/reception.component';
-import { TaskComponent } from './views/template-forms/task/task.component';
+import { ChapterInformationComponent } from './views/template-forms/chapter/chapter-information/chapter-information.component';
+import { ReceptionComponent } from './views/template-forms/chapter/reception/reception.component';
+import { TaskComponent } from './views/template-forms/chapter/task/task.component';
 import { CreateFormComponent } from './views/template-forms/create-form/create-form.component';
 
 import { HomeLayoutComponent } from './components/layout/home-layout.component';
@@ -30,13 +30,15 @@ import {UserListComponent} from './views/user/user-list/user-list.component';
 import { ResetPasswordComponent } from './views/login/reset-password/reset-password.component';
 import { ProfileListComponent } from './views/profile/profile-list/profile-list.component';
 import { UserEditComponent } from './views/user/user-edit/user-edit.component';
+import { ChapterAddComponent } from './views/template-forms/chapter/chapter-add/chapter-add.component';
+import { InterventionComponent } from './views/template-forms/chapter/intervention/intervention.component';
 
 const App_Router: Routes = [
 
     {
         path: '',
         component: HomeLayoutComponent,
-        //canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         children: [
           {
             path: '',
@@ -68,12 +70,20 @@ const App_Router: Routes = [
             component: TemplateOptionCardComponent
           },
           {
+            path: 'chapter-add',
+            component: ChapterAddComponent
+          },
+          {
             path: 'chapterInformation',
             component: ChapterInformationComponent
           },
           {
             path: 'reception',
             component: ReceptionComponent
+          },
+          {
+            path: 'intervention',
+            component: InterventionComponent
           },
           {
             path: 'task',

@@ -20,17 +20,11 @@
             <span>Mapa dos Clientes</span>
           </a>
         </li>
-        
-        <li [class]="isActive(['/','/templateForms'])">
-          <a class="menu" (click)="toTemplateForms()">
-            <i class="fa fa-file" aria-hidden="true"></i>
-            <span>Formulários</span>
-          </a>
-        </li>
-      -->
-        <li class="treeview">
+        -->      
+      
+        <li class="treeview" [class.active]="isActive(['/','/user-list', '/user', '/user-edit', '/user-details', '/profile-list', '/page-list'])">
             <a href="#">
-              <i class="fa fa-user"></i> <span>Usuários</span>
+              <i class="fa fa-users"></i> <span>Usuários</span>
               <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
@@ -49,6 +43,14 @@
               </li>
             </ul>
           </li>
+          
+          <li [class.active]="isActive(['/','/templateForms'])">
+            <a class="menu" (click)="toTemplateForms()">
+              <i class="fa fa-file-text" aria-hidden="true"></i>
+              <span>Formulários</span>
+            </a>
+          </li>
+        
       </ul>
     </section>
   </aside>

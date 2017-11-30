@@ -90,12 +90,15 @@ import { UserEditComponent } from './views/user/user-edit/user-edit.component';
 import { UserDetailsComponent } from './views/user/user-details/user-details.component';
 import { TemplateSelectModelComponent } from './views/template-forms/template-select-model/template-select-model.component';
 import { TemplateOptionCardComponent } from './views/template-forms/template-option-card/template-option-card.component';
-import { ChapterInformationComponent } from './views/template-forms/chapter-information/chapter-information.component';
-import { ReceptionComponent } from './views/template-forms/reception/reception.component';
-import { TaskComponent } from './views/template-forms/task/task.component';
+import { ChapterInformationComponent } from './views/template-forms/chapter/chapter-information/chapter-information.component';
+import { ReceptionComponent } from './views/template-forms/chapter/reception/reception.component';
+import { TaskComponent } from './views/template-forms/chapter/task/task.component';
 import { CreateFormComponent } from './views/template-forms/create-form/create-form.component';
 import { PaginateComponent } from './components/paginate/paginate.component';
 import { ControlFieldErrorComponent } from './components/control-field-error/control-field-error.component';
+import { ChapterAddComponent } from './views/template-forms/chapter/chapter-add/chapter-add.component';
+import { InterventionComponent } from './views/template-forms/chapter/intervention/intervention.component';
+import { TaskListComponent } from './views/template-forms/chapter/task/task-list/task-list.component';
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
 
@@ -135,7 +138,10 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     TaskComponent,
     CreateFormComponent,
     PaginateComponent,
-    ControlFieldErrorComponent
+    ControlFieldErrorComponent,
+    ChapterAddComponent,
+    InterventionComponent,
+    TaskListComponent
   ],
   imports: [
     BrowserModule,
