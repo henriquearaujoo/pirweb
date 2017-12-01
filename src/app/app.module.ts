@@ -17,7 +17,6 @@ import {
   MatCheckboxModule,
   MatChipsModule,
   MatDatepickerModule,
-  MatDialogModule,
   MatExpansionModule,
   MatGridListModule,
   MatIconModule,
@@ -41,6 +40,7 @@ import {
   MatToolbarModule,
   MatTooltipModule,
   MatStepperModule,
+  MatDialogModule
 } from '@angular/material';
 import { NgForm } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
@@ -98,6 +98,9 @@ import { ControlFieldErrorComponent } from './components/control-field-error/con
 import { InterventionComponent } from './views/template-forms/chapter/intervention/intervention.component';
 import { TaskListComponent } from './views/template-forms/chapter/task/task-list/task-list.component';
 import { TemplateOptionCardComponent } from './views/template-forms/template-option-card/template-option-card.component';
+import { QuestionComponent } from './views/template-forms/create-form/question/question.component';
+import { TemplateFormItemComponent } from './views/template-forms/template-form-item/template-form-item.component';
+import { AnswerListComponent } from './views/template-forms/create-form/question/answer-list/answer-list.component';
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
 
@@ -139,7 +142,10 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     PaginateComponent,
     ControlFieldErrorComponent,
     InterventionComponent,
-    TaskListComponent
+    TaskListComponent,
+    QuestionComponent,
+    TemplateFormItemComponent,
+    AnswerListComponent
   ],
   imports: [
     BrowserModule,

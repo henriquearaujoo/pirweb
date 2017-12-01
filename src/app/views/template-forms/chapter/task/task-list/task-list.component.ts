@@ -10,7 +10,7 @@ export class TaskListComponent implements OnInit {
   private tasks = new Array();
 
   constructor() {
-    this.tasks = ['task1', 'task2', 'task3'];
+    this.tasks = ['Tarefa 1', 'Tarefa 2', 'Tarefa 3'];
    }
 
   ngOnInit() {

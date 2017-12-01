@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TemplateItem } from '../../../models/templateItem';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-form',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateFormComponent implements OnInit {
 
-  constructor() { }
+  templates: TemplateItem[] = new Array();
+  constructor( private router: Router ) { }
 
   ngOnInit() {
+    for (let i = 0 ; i < 5 ; i++) {
+      const t = new TemplateItem();
+      t.description = 'Questao:' + i;
+      t.title = 'title test';
+      t.content = 'content test';
+      t.id = i;
+      this.templates.push(t);
+    }
+  }
+
+  selectModel() {
+    this.router.navigate(['selectModel']);
   }
 
 }

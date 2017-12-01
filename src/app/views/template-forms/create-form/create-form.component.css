@@ -1,0 +1,32 @@
+.card {
+    width: 230px;
+    height: 280px;
+    float: left;
+    margin: 10px;
+    cursor: pointer;
+    cursor: hand;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.card_add {
+    background-color: #22457c;
+    width: 230px;
+    height: 280px;
+    float: left;
+    margin: 10px;
+    cursor: pointer;
+    cursor: hand;
+    text-align: center;
+    border-radius: 10px;    
+    vertical-align: middle;
+    padding-top: 110px;
+    color: white;    
+}
+
+.example-container {
+    display: table;
+    flex-direction: column;
+    min-width: 100%;
+    min-height: 100%;
+}

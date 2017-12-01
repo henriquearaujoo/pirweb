@@ -1,0 +1,80 @@
+<simple-notifications></simple-notifications>
+
+<div class="content">
+    <section class="content">
+      <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+          <div class="box-header with-border">
+            <h3 class="box-title"> Questão
+              <small> x </small>
+            </h3>
+          </div>
+          <div class="row">              
+              <div class="col-sm-12">
+                  <div class="box box-primary">
+                    <div class="box-body">
+                      <div class="form-group">
+                        <label class="control-label">Descrição</label>                       
+                          <div class="box-body pad">
+                            <form>
+                              <textarea class="editor" placeholder="Digite uma Descrição">                                
+                              </textarea>
+                            </form>
+                          </div>
+                     </div>
+                     <div class="form-group">
+                        <button class="btn btn-primary btn-md" name="submit" id="btn_save">
+                            <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                            Salvar                            
+                        </button>
+                     </div>
+                  </div>
+                </div>
+              </div>                           
+          </div>
+     
+          <div class="row">
+              <div class="col-sm-12">   
+                  <app-answer-list></app-answer-list>               
+                  <div class="form-group">                    
+                    <button class="btn btn-primary btn-md" name="submit" id="btn_add" data-toggle="modal" data-target="#modal-answer">
+                      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                        Adicionar resposta                        
+                    </button>
+                 </div>                 
+              </div>
+          </div>          
+
+          <div class="row">
+            <div class="col-sm-12 cancel">
+              <div class="form-group">
+                <button class="btn btn-default btn-md" [routerLink]="['/createForm']" id="btn_return"> Voltar</button>
+              </div>
+            </div>            
+          </div>
+      </form>
+  </section>
+</div>
+
+<!-- Modal Answer -->
+<div class="modal fade" id="modal-answer">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Resposta</h4>
+          </div>
+          <div class="modal-body">
+            <textarea class="textarea" placeholder="Digite uma Resposta">                                
+            </textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary">Adicionar</button>
+          </div>
+      </div>
+        <!-- /.modal-content -->   
+  </div> 
+</div>
+<!-- /.modal -->
+

@@ -33,6 +33,6 @@ export class TemplateOptionCardComponent implements OnInit {
   }
 
   goToCreateForm() {
-
+    this.router.navigate(['/createForm']);
   }
 }

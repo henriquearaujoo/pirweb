@@ -31,6 +31,7 @@ import { ProfileListComponent } from './views/profile/profile-list/profile-list.
 import { UserEditComponent } from './views/user/user-edit/user-edit.component';
 import { InterventionComponent } from './views/template-forms/chapter/intervention/intervention.component';
 import { TemplateOptionCardComponent } from './views/template-forms/template-option-card/template-option-card.component';
+import { QuestionComponent } from './views/template-forms/create-form/question/question.component';
 
 const App_Router: Routes = [
 
@@ -87,6 +88,10 @@ const App_Router: Routes = [
           {
             path: 'createForm',
             component: CreateFormComponent
+          },
+          {
+            path: 'question',
+            component: QuestionComponent
           },
           {
             path: 'user',
