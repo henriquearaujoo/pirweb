@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-chapter-information',
@@ -13,13 +13,15 @@ export class ChapterInformationComponent implements OnInit {
     subtitle: ''
   };
 
-  constructor( private router: Router) { }
+  constructor( private router: Router) {
+
+  }
 
   ngOnInit() {
   }
 
   saveData() {
-    this.router.navigate(['/chapter-add']);
+    this.router.navigate(['/template-option-card']);
   }
 
   verifyValidSubmitted(form, field) {

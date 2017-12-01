@@ -1,5 +1,5 @@
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-template-option-card',
@@ -8,24 +8,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TemplateOptionCardComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  imgSource: string;
+
+  constructor( private router: Router) {
+    this.imgSource = 'https://avatars2.githubusercontent.com/u/139426?s=400&v=4';
+  }
 
   ngOnInit() {
   }
 
-  goToChapterInformation() {
-    this.router.navigate(['chapterInformation']);
+  goToReception() {
+    // location.reload();
+     this.router.navigate(['/reception']);
   }
 
-  goToReception() {
-    this.router.navigate(['reception']);
+  gotToIntervention() {
+    // location.reload();
+    this.router.navigate(['/intervention']);
   }
 
   goToTask() {
-    this.router.navigate(['task']);
+   // location.reload();
+    this.router.navigate(['/task']);
   }
 
   goToCreateForm() {
-    this.router.navigate(['createForm']);
+
   }
 }

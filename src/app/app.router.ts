@@ -1,4 +1,3 @@
-import { TemplateOptionCardComponent } from './views/template-forms/template-option-card/template-option-card.component';
 import { TemplateSelectModelComponent } from './views/template-forms/template-select-model/template-select-model.component';
 import { UserDetailsComponent } from './views/user/user-details/user-details.component';
 import { PageComponent } from './views/profile/page/page.component';
@@ -30,8 +29,8 @@ import {UserListComponent} from './views/user/user-list/user-list.component';
 import { ResetPasswordComponent } from './views/login/reset-password/reset-password.component';
 import { ProfileListComponent } from './views/profile/profile-list/profile-list.component';
 import { UserEditComponent } from './views/user/user-edit/user-edit.component';
-import { ChapterAddComponent } from './views/template-forms/chapter/chapter-add/chapter-add.component';
 import { InterventionComponent } from './views/template-forms/chapter/intervention/intervention.component';
+import { TemplateOptionCardComponent } from './views/template-forms/template-option-card/template-option-card.component';
 
 const App_Router: Routes = [
 
@@ -68,10 +67,6 @@ const App_Router: Routes = [
           {
             path: 'template-option-card',
             component: TemplateOptionCardComponent
-          },
-          {
-            path: 'chapter-add',
-            component: ChapterAddComponent
           },
           {
             path: 'chapterInformation',
