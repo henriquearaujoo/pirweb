@@ -21,7 +21,7 @@ export class ChapterInformationComponent implements OnInit {
   }
 
   saveData() {
-    this.router.navigate(['/template-option-card']);
+    this.router.navigate(['/template-chapter-option']);
   }
 
   verifyValidSubmitted(form, field) {

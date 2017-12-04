@@ -44,8 +44,8 @@ export class SideBarComponent implements OnInit {
   toMaps() {
     this.router.navigate(['maps']);
   }
-  toTemplateForms() {
-    this.router.navigate(['templateForms']);
+  toTemplateChapter() {
+    this.router.navigate(['template-chapter']);
   }
 
   toUser() {

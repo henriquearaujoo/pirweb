@@ -2,11 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { TemplateItem } from '../../../models/templateItem';
 
 @Component({
-  selector: 'app-template-form-item',
-  templateUrl: './template-form-item.component.html',
-  styleUrls: ['./template-form-item.component.css']
+  selector: 'app-template-collect-data-item',
+  templateUrl: './template-collect-data-item.component.html',
+  styleUrls: ['./template-collect-data-item.component.css']
 })
-export class TemplateFormItemComponent implements OnInit {
+export class TemplateCollectDataItemComponent implements OnInit {
 
   @Input() templateItem: TemplateItem;
 

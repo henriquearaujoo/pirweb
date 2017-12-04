@@ -69,8 +69,7 @@ import { LoginComponent } from './views/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { AgentComponent } from './views/agent/agent.component';
-import { TemplateFormsComponent } from './views/template-forms/template-forms.component';
-import { TemplateItemComponent } from './views/template-forms/template-item/template-item.component';
+import { TemplateChapterComponent } from './views/template-chapter/template-chapter.component';
 import { HomeLayoutComponent } from './components/layout/home-layout.component';
 import { LoginLayoutComponent } from './components/layout/login-layout.component';
 import { AlertComponent } from './components/alert/alert.component';
@@ -88,19 +87,20 @@ import { DefineRulesComponent } from './views/define-rules/define-rules.componen
 import { ToastService } from './services/toast-notification/toast.service';
 import { UserEditComponent } from './views/user/user-edit/user-edit.component';
 import { UserDetailsComponent } from './views/user/user-details/user-details.component';
-import { TemplateSelectModelComponent } from './views/template-forms/template-select-model/template-select-model.component';
-import { ChapterInformationComponent } from './views/template-forms/chapter/chapter-information/chapter-information.component';
-import { ReceptionComponent } from './views/template-forms/chapter/reception/reception.component';
-import { TaskComponent } from './views/template-forms/chapter/task/task.component';
-import { CreateFormComponent } from './views/template-forms/create-form/create-form.component';
+import { TemplateSelectModelComponent } from './views/template-chapter/template-select-model/template-select-model.component';
+import { ChapterInformationComponent } from './views/template-chapter/chapter/chapter-information/chapter-information.component';
+import { ReceptionComponent } from './views/template-chapter/chapter/reception/reception.component';
+import { TaskComponent } from './views/template-chapter/chapter/task/task.component';
+import { TemplateCollectDataComponent } from './views/template-chapter/template-collect-data/template-collect-data.component';
 import { PaginateComponent } from './components/paginate/paginate.component';
 import { ControlFieldErrorComponent } from './components/control-field-error/control-field-error.component';
-import { InterventionComponent } from './views/template-forms/chapter/intervention/intervention.component';
-import { TaskListComponent } from './views/template-forms/chapter/task/task-list/task-list.component';
-import { TemplateOptionCardComponent } from './views/template-forms/template-option-card/template-option-card.component';
-import { QuestionComponent } from './views/template-forms/create-form/question/question.component';
-import { TemplateFormItemComponent } from './views/template-forms/template-form-item/template-form-item.component';
-import { AnswerListComponent } from './views/template-forms/create-form/question/answer-list/answer-list.component';
+import { InterventionComponent } from './views/template-chapter/chapter/intervention/intervention.component';
+import { TaskListComponent } from './views/template-chapter/chapter/task/task-list/task-list.component';
+import { TemplateChapterOptionComponent } from './views/template-chapter/template-chapter-option/template-chapter-option.component';
+import { QuestionComponent } from './views/template-chapter/template-collect-data/question/question.component';
+import { TemplateChapterItemComponent } from './views/template-chapter/template-chapter-item/template-chapter-item.component';
+import { AnswerListComponent } from './views/template-chapter/template-collect-data/question/answer-list/answer-list.component';
+import { TemplateCollectDataItemComponent } from './views/template-chapter/template-collect-data-item/template-collect-data-item.component';
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
 
@@ -114,9 +114,9 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     PagenateComponent,
     DashboardComponent,
     AgentComponent,
-    TemplateFormsComponent,
+    TemplateChapterComponent,
     LoginComponent,
-    TemplateItemComponent,
+    TemplateChapterItemComponent,
     HomeComponent,
     HomeLayoutComponent,
     LoginLayoutComponent,
@@ -134,17 +134,18 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     UserEditComponent,
     UserDetailsComponent,
     TemplateSelectModelComponent,
-    TemplateOptionCardComponent,
+    TemplateChapterOptionComponent,
     ChapterInformationComponent,
     ReceptionComponent,
     TaskComponent,
-    CreateFormComponent,
+    TemplateCollectDataComponent,
+    TemplateCollectDataItemComponent,
     PaginateComponent,
     ControlFieldErrorComponent,
     InterventionComponent,
     TaskListComponent,
     QuestionComponent,
-    TemplateFormItemComponent,
+    TemplateChapterItemComponent,
     AnswerListComponent
   ],
   imports: [

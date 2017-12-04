@@ -3,11 +3,11 @@ import { TemplateItem } from '../../../models/templateItem';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-create-form',
-  templateUrl: './create-form.component.html',
-  styleUrls: ['./create-form.component.css']
+  selector: 'app-template-collect-data',
+  templateUrl: './template-collect-data.component.html',
+  styleUrls: ['./template-collect-data.component.css']
 })
-export class CreateFormComponent implements OnInit {
+export class TemplateCollectDataComponent implements OnInit {
 
   templates: TemplateItem[] = new Array();
   constructor( private router: Router ) { }
@@ -23,8 +23,8 @@ export class CreateFormComponent implements OnInit {
     }
   }
 
-  selectModel() {
-    this.router.navigate(['selectModel']);
+  createNewQuestion() {
+    this.router.navigate(['/question']);
   }
 
 }

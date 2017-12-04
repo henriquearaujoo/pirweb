@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-template-option-card',
-  templateUrl: './template-option-card.component.html',
-  styleUrls: ['./template-option-card.component.css']
+  templateUrl: './template-chapter-option.component.html',
+  styleUrls: ['./template-chapter-option.component.css']
 })
-export class TemplateOptionCardComponent implements OnInit {
+export class TemplateChapterOptionComponent implements OnInit {
 
   imgSource: string;
 
@@ -32,7 +32,7 @@ export class TemplateOptionCardComponent implements OnInit {
     this.router.navigate(['/task']);
   }
 
-  goToCreateForm() {
-    this.router.navigate(['/createForm']);
+  goToCollectData() {
+    this.router.navigate(['/collect-data']);
   }
 }

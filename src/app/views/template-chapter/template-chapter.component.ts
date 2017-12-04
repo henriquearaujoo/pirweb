@@ -1,14 +1,14 @@
 import { Router } from '@angular/router';
 import { TemplateItem } from './../../models/templateItem';
 import { Component, OnInit } from '@angular/core';
-import { TemplateItemComponent } from './template-item/template-item.component';
+import { TemplateChapterItemComponent } from './template-chapter-item/template-chapter-item.component';
 
 @Component({
-  selector: 'app-template-forms',
-  templateUrl: './template-forms.component.html',
-  styleUrls: ['./template-forms.component.css']
+  selector: 'app-template-chapter',
+  templateUrl: './template-chapter.component.html',
+  styleUrls: ['./template-chapter.component.css']
 })
-export class TemplateFormsComponent implements OnInit {
+export class TemplateChapterComponent implements OnInit {
 
   templates: TemplateItem[] = new Array();
 

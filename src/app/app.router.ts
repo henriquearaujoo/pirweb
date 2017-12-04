@@ -1,4 +1,4 @@
-import { TemplateSelectModelComponent } from './views/template-forms/template-select-model/template-select-model.component';
+import { TemplateSelectModelComponent } from './views/template-chapter/template-select-model/template-select-model.component';
 import { UserDetailsComponent } from './views/user/user-details/user-details.component';
 import { PageComponent } from './views/profile/page/page.component';
 import { ProfileComponent } from './views/profile/profile.component';
@@ -13,12 +13,12 @@ import { MapsComponent } from './views/maps/maps.component';
 import { LoginComponent } from './views/login/login.component';
 import { AgentComponent} from './views/agent/agent.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
-import { TemplateFormsComponent } from './views/template-forms/template-forms.component';
+import { TemplateChapterComponent } from './views/template-chapter/template-chapter.component';
 
-import { ChapterInformationComponent } from './views/template-forms/chapter/chapter-information/chapter-information.component';
-import { ReceptionComponent } from './views/template-forms/chapter/reception/reception.component';
-import { TaskComponent } from './views/template-forms/chapter/task/task.component';
-import { CreateFormComponent } from './views/template-forms/create-form/create-form.component';
+import { ChapterInformationComponent } from './views/template-chapter/chapter/chapter-information/chapter-information.component';
+import { ReceptionComponent } from './views/template-chapter/chapter/reception/reception.component';
+import { TaskComponent } from './views/template-chapter/chapter/task/task.component';
+import { TemplateCollectDataComponent } from './views/template-chapter/template-collect-data/template-collect-data.component';
 
 import { HomeLayoutComponent } from './components/layout/home-layout.component';
 import { LoginLayoutComponent } from './components/layout/login-layout.component';
@@ -29,9 +29,9 @@ import {UserListComponent} from './views/user/user-list/user-list.component';
 import { ResetPasswordComponent } from './views/login/reset-password/reset-password.component';
 import { ProfileListComponent } from './views/profile/profile-list/profile-list.component';
 import { UserEditComponent } from './views/user/user-edit/user-edit.component';
-import { InterventionComponent } from './views/template-forms/chapter/intervention/intervention.component';
-import { TemplateOptionCardComponent } from './views/template-forms/template-option-card/template-option-card.component';
-import { QuestionComponent } from './views/template-forms/create-form/question/question.component';
+import { InterventionComponent } from './views/template-chapter/chapter/intervention/intervention.component';
+import { TemplateChapterOptionComponent } from './views/template-chapter/template-chapter-option/template-chapter-option.component';
+import { QuestionComponent } from './views/template-chapter/template-collect-data/question/question.component';
 
 const App_Router: Routes = [
 
@@ -58,16 +58,16 @@ const App_Router: Routes = [
             component: MapsComponent
           },
           {
-            path: 'templateForms',
-            component: TemplateFormsComponent
+            path: 'template-chapter',
+            component: TemplateChapterComponent
           },
           {
             path: 'selectModel',
             component: TemplateSelectModelComponent
           },
           {
-            path: 'template-option-card',
-            component: TemplateOptionCardComponent
+            path: 'template-chapter-option',
+            component: TemplateChapterOptionComponent
           },
           {
             path: 'chapterInformation',
@@ -86,8 +86,8 @@ const App_Router: Routes = [
             component: TaskComponent
           },
           {
-            path: 'createForm',
-            component: CreateFormComponent
+            path: 'collect-data',
+            component: TemplateCollectDataComponent
           },
           {
             path: 'question',

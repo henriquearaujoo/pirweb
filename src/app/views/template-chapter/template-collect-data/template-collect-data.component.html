@@ -1,0 +1,13 @@
+<div class="example-container">
+  <mat-card class="card_add" (click)="createNewQuestion()">       
+      <i class="fa fa-plus fa-5x" aria-hidden="true"></i>    
+  </mat-card>
+  <div *ngFor="let item of templates">
+      <app-template-collect-data-item [templateItem]="item"></app-template-collect-data-item>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 cancel">
+        <button class="btn btn-default btn-md" [routerLink]="['/template-chapter-option']" id="btn_return"> Voltar</button>    
+    </div>            
+  </div>
+</div>
