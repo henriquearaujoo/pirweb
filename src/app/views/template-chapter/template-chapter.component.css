@@ -1,3 +1,17 @@
+.form-group, .form-control{
+    color: grey;
+}
+
+.btn-primary {
+    /* width: 100px; */
+    background-color:#373d40;
+    border-color: #373d40;
+}
+
+.box.box-primary {
+    border-top-color: #373d40;
+}
+
 .card {
     width: 230px;
     height: 280px;
@@ -24,7 +38,7 @@
     color: white;    
 }
 
-.example-container {
+.container {
     display: table;
     flex-direction: column;
     min-width: 100%;
