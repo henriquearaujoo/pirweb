@@ -32,6 +32,7 @@ import { UserEditComponent } from './views/user/user-edit/user-edit.component';
 import { InterventionComponent } from './views/template-chapter/chapter/intervention/intervention.component';
 import { TemplateChapterOptionComponent } from './views/template-chapter/template-chapter-option/template-chapter-option.component';
 import { QuestionComponent } from './views/template-chapter/template-collect-data/question/question.component';
+import { ChapterDetailsComponent } from './views/template-chapter/chapter/chapter-details/chapter-details.component';
 
 const App_Router: Routes = [
 
@@ -92,6 +93,10 @@ const App_Router: Routes = [
           {
             path: 'question',
             component: QuestionComponent
+          },
+          {
+            path: 'chapter-details',
+            component: ChapterDetailsComponent
           },
           {
             path: 'user',

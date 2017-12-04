@@ -101,6 +101,8 @@ import { QuestionComponent } from './views/template-chapter/template-collect-dat
 import { TemplateChapterItemComponent } from './views/template-chapter/template-chapter-item/template-chapter-item.component';
 import { AnswerListComponent } from './views/template-chapter/template-collect-data/question/answer-list/answer-list.component';
 import { TemplateCollectDataItemComponent } from './views/template-chapter/template-collect-data-item/template-collect-data-item.component';
+import { ChapterService } from './services/chapter/chapter.service';
+import { ChapterDetailsComponent } from './views/template-chapter/chapter/chapter-details/chapter-details.component';
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
 
@@ -146,7 +148,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     TaskListComponent,
     QuestionComponent,
     TemplateChapterItemComponent,
-    AnswerListComponent
+    AnswerListComponent,
+    ChapterDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -208,6 +211,7 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     RuleService,
     AccessPageService,
     ToastService,
+    ChapterService,
     UserDetailsComponent
   ],
   bootstrap: [AppComponent]

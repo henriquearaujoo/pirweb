@@ -12,12 +12,12 @@
     border-top-color: #373d40;
 }
 
-.col-sm-6.save {
+.col-md-3.col-md-offset-6.save {
     text-align: right;
     padding-right: 35px;
 }
 
-.col-sm-6.cancel {
+.col-md-3.cancel {
     padding-left: 35px;
 }
 

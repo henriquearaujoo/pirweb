@@ -9,11 +9,22 @@
             <div class="col-sm-12">
                 <div class="box box-primary">
                     <div class="box-body">
-                        <mat-card class="card_add" (click)="createNewChapter()">       
+                        <a href="/chapterInformation">
+                        <mat-card class="card_add" >       
                             <i class="fa fa-plus fa-5x" aria-hidden="true"></i>    
-                        </mat-card>
-                        <div *ngFor="let item of templates">
-                            <app-template-chapter-item [templateItem]="item"></app-template-chapter-item>
+                        </mat-card> 
+                        </a>
+                        <div *ngIf="hasdata">
+                            <div *ngFor="let item of chapters">
+                                <app-template-chapter-item [chapter]="item" (click)="setChapter(item)"></app-template-chapter-item>
+                            </div>
+                        </div>
+                        <div *ngIf="!hasdata">
+                            <section class="content">
+                                <div class="feedback-icon"></div>
+                                <i class="large material-icons">library_books</i>                            
+                                <span class="feedback-message">Não há capítulos cadastrados</span>
+                            </section>
                         </div>
                     </div>
                 </div>

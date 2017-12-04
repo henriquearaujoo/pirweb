@@ -1,12 +1,13 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-chapter-information',
   templateUrl: './chapter-information.component.html',
   styleUrls: ['./chapter-information.component.css']
 })
-export class ChapterInformationComponent implements OnInit {
+export class ChapterInformationComponent implements OnInit, AfterViewInit {
 
   private chapter = {
     title: '',
@@ -18,6 +19,11 @@ export class ChapterInformationComponent implements OnInit {
   }
 
   ngOnInit() {
+    // $('.editor').wysihtml5();
+  }
+
+  ngAfterViewInit() {
+    // $('.editor').data('wysihtml5').editor.setValue('new content');
   }
 
   saveData() {
