@@ -1,6 +1,9 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { ToastService } from './../../../../services/toast-notification/toast.service';
+import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import * as $ from 'jquery';
+import { Chapter } from '../../../../models/chapter';
+import { ChapterService } from '../../../../services/chapter/chapter.service';
 
 @Component({
   selector: 'app-chapter-information',
@@ -9,25 +12,40 @@ import * as $ from 'jquery';
 })
 export class ChapterInformationComponent implements OnInit, AfterViewInit {
 
-  private chapter = {
-    title: '',
-    subtitle: ''
-  };
+  private chapter: Chapter = new Chapter();
+  private estimated_time: number;
 
-  constructor( private router: Router) {
 
+  constructor(
+    private router: Router,
+    private chapterService: ChapterService,
+    private toastService: ToastService) {
   }
 
   ngOnInit() {
-    // $('.editor').wysihtml5();
   }
 
   ngAfterViewInit() {
-    // $('.editor').data('wysihtml5').editor.setValue('new content');
+  }
+
+  getTextarea() {
+    this.chapter.description = $('#chapter_description').val();
+    this.chapter.content = $('#chapter_content').val();
+    this.chapter.goal =  $('#chapter_goal').val();
   }
 
   saveData() {
-    this.router.navigate(['/template-chapter-option']);
+    this.getTextarea();
+    this.chapter.family_tasks = 'test family tasks';
+    this.chapter.estimated_time = this.estimated_time * 60000;
+    this.chapter.time_next_visit = 86400000;
+    this.chapterService.saveChapter(this.chapter).subscribe(
+      success => {
+        this.chapter = success;
+        this.toastService.toastSuccess();
+      }
+    );
+    // this.router.navigate(['/template-chapter-option']);
   }
 
   verifyValidSubmitted(form, field) {

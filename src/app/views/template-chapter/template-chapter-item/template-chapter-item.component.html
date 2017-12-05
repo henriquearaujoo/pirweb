@@ -2,8 +2,7 @@
     <mat-card-title> N° {{ chapter.number }}</mat-card-title>
     <mat-card-subtitle>{{ chapter.title }}</mat-card-subtitle>
     <i class="large material-icons">library_books</i>   
-    <mat-card-content>
-        <p>{{ chapter.description }}</p>
+    <mat-card-content [innerHtml]="chapter.description">
     </mat-card-content>
 
     <mat-card-actions>

@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { RestService } from './../rest/rest.service';
 import { Injectable } from '@angular/core';
 import { Constant } from '../../constant/constant';
@@ -17,6 +18,11 @@ export class ChapterService extends RestService {
   public getChapters() {
     const currentUrl = this.apiurl + 'chapters/';
     return this.get(currentUrl);
+  }
+
+  public saveChapter(chapter: Chapter): Observable<Chapter> {
+    const saveChapterUrl = this.apiurl + 'chapters/';
+    return this.post(saveChapterUrl, chapter);
   }
 
   public setChapter(chapter: Chapter) {

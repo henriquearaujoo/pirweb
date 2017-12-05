@@ -10,11 +10,15 @@
                   </h3>                  
                 </div>
           </div>          
+          <div class="form-group" [ngClass]="applyCssError(f, number)">
               <label class="control-label col-md-2">Capítulo N°: </label>
               <div class="col-md-4">
-                <input type="text" id="chapter_number" class="form-control" placeholder="N°" required>
-              </div>          
-        </div>
+                <input type="text" id="chapter_number" name="chapter_number" #number="ngModel" class="form-control" [(ngModel)]="chapter.number" placeholder="N°" required>
+              </div>     
+              <app-control-field-error [showError]="verifyValidSubmitted(f, number)" msgError="Digite um N°">                          
+              </app-control-field-error>                        
+          </div>     
+          </div>
           
           <div class="row">              
               <div class="col-md-6">
@@ -22,35 +26,37 @@
                     <div class="box-body">
                       <div class="form-group" [ngClass]="applyCssError(f, title)">
                         <label class="control-label">Título</label>
-                        <input type="text" id="chapter_title" class="form-control" placeholder="Inserir Título..." required>
+                        <input type="text" id="chapter_title" name="chapter_title" #title="ngModel" [(ngModel)]="chapter.title" class="form-control" placeholder="Inserir Título..." required>
                         <app-control-field-error [showError]="verifyValidSubmitted(f, title)" msgError="Digite um título">                          
                         </app-control-field-error>                        
                       </div>
-
-                      <div class="form-group" [ngClass]="applyCssError(f, subtitle)">
+                      <div class="form-group">
                         <label class="control-label">Subtítulo</label>
-                        <input type="text" id="chapter_subtitle" class="form-control" placeholder="Inserir Subtítulo..." required>
-                        <app-control-field-error [showError]="verifyValidSubmitted(f, subtitle)" msgError="Digite um subtítulo">                          
-                        </app-control-field-error>                        
+                        <input type="text" id="chapter_subtitle" name="chapter_subtitle" class="form-control" placeholder="Inserir Subtítulo..." required>
+                                              
                       </div>
 
-                      <div class="form-group" [ngClass]="applyCssError(f, subtitle)">
+                      <div class="form-group" [ngClass]="applyCssError(f, description)">
                         <label class="control-label">Descrição</label>                       
                           <div class="box-body pad">
-                            <form>
-                              <textarea class="editor" placeholder="Digite uma Descrição">                                
-                              </textarea>
-                            </form>
+                              <textarea id="chapter_description" name="chapter_description" 
+                              #description="ngModel" [(ngModel)]="chapter.description"
+                              (ngModelChange)="update($event)"
+                              placeholder="Digite uma Descrição"
+                              class="editor" >                             
+                              </textarea>                             
+                              <app-control-field-error [showError]="verifyValidSubmitted(f, description)" msgError="Digite uma descrição">                          
+                              </app-control-field-error> 
                           </div>
                      </div>
 
-                     <div class="form-group" [ngClass]="applyCssError(f, subtitle)">
+                     <div class="form-group" [ngClass]="applyCssError(f, content)">
                       <label class="control-label">Conteúdo</label>                      
-                        <div class="box-body pad">
-                          <form>
-                            <textarea class="editor" placeholder="Digite um Conteúdo">                              
+                        <div class="box-body pad">                          
+                            <textarea id="chapter_content" name="chapter_content" #content="ngModel" [(ngModel)]="chapter.content" class="editor" placeholder="Digite um Conteúdo">                              
                             </textarea>
-                          </form>
+                            <app-control-field-error [showError]="verifyValidSubmitted(f, content)" msgError="Digite um conteúdo">                          
+                            </app-control-field-error>  
                         </div>
                    </div>
                   </div>
@@ -60,37 +66,34 @@
               <div class="col-md-6">
                   <div class="box box-primary">
                     <div class="box-body">
-                      <div class="form-group" [ngClass]="applyCssError(f, title)">
+                      <div class="form-group">
                         <label class="control-label">Recursos da Visita</label>
-                        <input type="text" id="chapter_resource" class="form-control" placeholder="Inserir Recursos da Visita..." required>
-                        <app-control-field-error [showError]="verifyValidSubmitted(f, title)" msgError="Digite os Recursos da Visita">                          
-                        </app-control-field-error>                        
+                        <input type="text" id="chapter_resource" name="chapter_resource" class="form-control" placeholder="Inserir Recursos da Visita..." required>
+                                            
                       </div>
 
                       <div class="form-group" [ngClass]="applyCssError(f, time)">
                         <label class="control-label">Estimativa de Tempo</label>
-                        <input type="text" id="chapter_time" class="form-control" placeholder="Inserir Estimativa de Tempo..." required>
+                        <input type="text"  id="chapter_estimated_time"  name="chapter_estimated_time" #time="ngModel" [(ngModel)]="estimated_time" class="form-control" placeholder="Inserir Estimativa de Tempo..." required>
                         <app-control-field-error [showError]="verifyValidSubmitted(f, time)" msgError="Digite uma Estimativa de Tempo">                          
                         </app-control-field-error>                        
                       </div>
 
-                      <div class="form-group" [ngClass]="applyCssError(f, objective)">
+                      <div class="form-group" [ngClass]="applyCssError(f, goal)">
                         <label class="control-label">Objetivo</label>                      
                           <div class="box-body pad">
-                            <form>
-                              <textarea class="editor" placeholder="Digite um Objetivo">                                
+                              <textarea id="chapter_goal" name="chapter_goal" #goal="ngModel" [(ngModel)]="chapter.goal" class="editor" placeholder="Digite um Objetivo">                                
                               </textarea>
-                            </form>
+                              <app-control-field-error [showError]="verifyValidSubmitted(f, goal)" msgError="Digite um objetivo">                          
+                              </app-control-field-error>   
                           </div>
                      </div>
 
-                     <div class="form-group" [ngClass]="applyCssError(f, conclusion)">
+                     <div class="form-group">
                       <label class="control-label">Conclusão</label>                    
                         <div class="box-body pad">
-                          <form>
-                            <textarea class="editor" placeholder="Digite uma Conclusao">                              
+                            <textarea id="chapter_conclusion" name="chapter_conclusion" class="editor" placeholder="Digite uma Conclusao">                              
                             </textarea>
-                          </form>
                         </div>
                    </div>
                 </div>
@@ -112,6 +115,3 @@
     </form>
   </section>
 </div>
-<script type="text/javascript">
-	$('.editor').data('wysihtml5').editor.setValue('new content');
-</script>

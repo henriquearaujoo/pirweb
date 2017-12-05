@@ -2,45 +2,52 @@
 
 <div class="content">
     <section class="content">
-      <form name="form" #f="ngForm" novalidate>
-          <div class="box-header with-border">
-            <h3 class="box-title"> Informaçoes do Capítulo
-              <small> x </small>
-            </h3>
+      <form name="form" #f="ngForm">
+        <div class="row">
+          <div class="col-md-6">
+              <div class="box-header with-border">
+                  <h3 class="box-title"> Informaçoes básicas                
+                  </h3>                  
+              </div>
+          </div>          
+          <div class="form-group">
+              <label class="control-label col-md-2">Capítulo N°: </label>
+              <div class="col-md-4">
+                <input type="text" id="chapter_number" name="chapter_number" #number="ngModel" class="form-control" [(ngModel)]="chapter.number" readonly>
+              </div>                                       
+          </div>     
           </div>
+          
           <div class="row">              
               <div class="col-md-6">
                   <div class="box box-primary">
                     <div class="box-body">
-                      <div class="form-group">
+                      <div class="form-group" >
                         <label class="control-label">Título</label>
-                        <input type="text" id="chapter_title" class="form-control" placeholder="Inserir Título..." required>
-                                               
+                        <input type="text" id="chapter_title" name="chapter_title" #title="ngModel" [(ngModel)]="chapter.title" class="form-control" readonly>
+                                             
                       </div>
-
                       <div class="form-group">
                         <label class="control-label">Subtítulo</label>
-                        <input type="text" id="chapter_subtitle" class="form-control" placeholder="Inserir Subtítulo..." required>
-                                                
+                        <input type="text" id="chapter_subtitle" name="chapter_subtitle" class="form-control" readonly>
+                                              
                       </div>
 
                       <div class="form-group">
                         <label class="control-label">Descrição</label>                       
-                          <div class="box-body pad">
-                            <form>
-                              <textarea class="editor" placeholder="Digite uma Descrição">                                
-                              </textarea>
-                            </form>
+                          <div class="box-body">
+                            <div id="description" name="chapter_description" 
+                               [innerHTML]="chapter.description"  class="editor" readonly>                             
+                            </div>
                           </div>
                      </div>
 
                      <div class="form-group">
                       <label class="control-label">Conteúdo</label>                      
-                        <div class="box-body pad">
-                          <form>
-                            <textarea class="editor" placeholder="Digite um Conteúdo">                              
-                            </textarea>
-                          </form>
+                        <div class="box-body pad">   
+                          <div id="content" name="chapter_description" 
+                            [innerHTML]="chapter.content"  class="editor" readonly>                             
+                          </div>                                                                           
                         </div>
                    </div>
                   </div>
@@ -52,33 +59,30 @@
                     <div class="box-body">
                       <div class="form-group">
                         <label class="control-label">Recursos da Visita</label>
-                        <input type="text" id="chapter_resource" class="form-control" placeholder="Inserir Recursos da Visita..." required>
-                                             
+                        <input type="text" id="chapter_resource" name="chapter_resource" class="form-control" readonly>
+                                            
                       </div>
 
                       <div class="form-group">
                         <label class="control-label">Estimativa de Tempo</label>
-                        <input type="text" id="chapter_time" class="form-control" placeholder="Inserir Estimativa de Tempo..." required>
-                                               
+                        <input type="text"  id="chapter_estimated_time"  name="chapter_estimated_time" #time="ngModel" [(ngModel)]="estimated_time" class="form-control" readonly>                                   
                       </div>
 
                       <div class="form-group">
                         <label class="control-label">Objetivo</label>                      
-                          <div class="box-body pad">
-                            <form>
-                              <textarea class="editor" placeholder="Digite um Objetivo">                                
-                              </textarea>
-                            </form>
+                          <div class="box-body pad">                              
+                              <div id="goal" name="chapter_goal" 
+                                [innerHTML]="chapter.goal"  class="editor" readonly>                             
+                              </div>
                           </div>
                      </div>
 
                      <div class="form-group">
                       <label class="control-label">Conclusão</label>                    
                         <div class="box-body pad">
-                          <form>
-                            <textarea class="editor" placeholder="Digite uma Conclusao">                              
-                            </textarea>
-                          </form>
+                            <div id="conclusion" name="chapter_conclusion" 
+                              [innerHTML]="chapter.conclusion"  class="editor" readonly>                             
+                            </div>                            
                         </div>
                    </div>
                 </div>

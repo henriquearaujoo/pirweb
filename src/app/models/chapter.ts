@@ -6,7 +6,7 @@ export class Chapter {
     public content: string;
     public goal: string;
     public family_tasks: string;
-    public estimated_time: string;
-    public time_next_visit: string;
+    public estimated_time: number;
+    public time_next_visit: number;
     public valid: boolean;
 }
