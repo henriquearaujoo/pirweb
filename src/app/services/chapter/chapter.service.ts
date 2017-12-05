@@ -25,6 +25,11 @@ export class ChapterService extends RestService {
     return this.post(saveChapterUrl, chapter);
   }
 
+  public saveEditChapter(chapter: Chapter): Observable<Chapter> {
+    const saveChapterUrl = this.apiurl + 'chapters/';
+    return this.put(saveChapterUrl, chapter);
+  }
+
   public setChapter(chapter: Chapter) {
     this.chapter = chapter;
   }

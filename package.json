@@ -32,6 +32,7 @@
     "angular2-notifications": "^0.7.8",
     "bootstrap-wysiwyg": "^2.0.1",
     "core-js": "^2.4.1",
+    "froala-editor": "^2.7.2",
     "materialize-css": "^0.100.2",
     "ng-cpf-cnpj-validate": "^1.0.2",
     "ng2-filter-pipe": "^0.1.10",

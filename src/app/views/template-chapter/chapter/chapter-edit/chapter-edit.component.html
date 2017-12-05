@@ -2,7 +2,7 @@
 
 <div class="content">
     <section class="content">
-      <form name="form" (ngSubmit)="f.form.valid && saveData()" #f="ngForm" novalidate>
+      <form name="form" (ngSubmit)="f.form.valid && editData()" #f="ngForm" novalidate>
         <div class="row">
           <div class="col-md-6">
               <div class="box-header with-border">
@@ -41,8 +41,10 @@
                           <div class="box-body pad">
                               <textarea id="chapter_description" name="chapter_description" 
                               #description="ngModel" [(ngModel)]="chapter.description"
+                              (ngModelChange)="update($event)"
                               placeholder="Digite uma Descrição"
-                              class="editor" >                             
+                              class="editor" 
+                              [innerHTML]="chapter.description">                             
                               </textarea>                             
                               <app-control-field-error [showError]="verifyValidSubmitted(f, description)" msgError="Digite uma descrição">                          
                               </app-control-field-error> 

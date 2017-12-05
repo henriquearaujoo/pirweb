@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {JasperoAlertsModule} from '@jaspero/ng2-alerts';
+// import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 import { CdkTableModule } from '@angular/cdk/table';
 import {
@@ -103,6 +104,7 @@ import { AnswerListComponent } from './views/template-chapter/template-collect-d
 import { TemplateCollectDataItemComponent } from './views/template-chapter/template-collect-data-item/template-collect-data-item.component';
 import { ChapterService } from './services/chapter/chapter.service';
 import { ChapterDetailsComponent } from './views/template-chapter/chapter/chapter-details/chapter-details.component';
+import { ChapterEditComponent } from './views/template-chapter/chapter/chapter-edit/chapter-edit.component';
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
 
@@ -149,7 +151,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     QuestionComponent,
     TemplateChapterItemComponent,
     AnswerListComponent,
-    ChapterDetailsComponent
+    ChapterDetailsComponent,
+    ChapterEditComponent
   ],
   imports: [
     BrowserModule,
@@ -197,6 +200,7 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     SimpleNotificationsModule.forRoot(),
     NgxPaginationModule,
     JasperoAlertsModule
+    // FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
   ],
   providers: [
     RestService,
