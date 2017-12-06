@@ -30,14 +30,7 @@ export class ChapterEditComponent implements OnInit {
     }
   }
 
-  getTextarea() {
-    this.chapter.description = $('#chapter_description').val();
-    this.chapter.content = $('#chapter_content').val();
-    this.chapter.goal =  $('#chapter_goal').val();
-  }
-
   editData() {
-    this.getTextarea();
     this.chapter.family_tasks = 'test family tasks';
     this.chapter.estimated_time = this.estimated_time * 60000;
     this.chapter.time_next_visit = 86400000;

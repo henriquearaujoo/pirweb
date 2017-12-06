@@ -7,6 +7,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {JasperoAlertsModule} from '@jaspero/ng2-alerts';
+import { NgxEditorModule } from 'ngx-editor';
+import { CKEditorModule } from 'ngx-ckeditor';
 // import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 import { CdkTableModule } from '@angular/cdk/table';
@@ -199,7 +201,9 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     BrowserAnimationsModule,
     SimpleNotificationsModule.forRoot(),
     NgxPaginationModule,
-    JasperoAlertsModule
+    JasperoAlertsModule,
+    NgxEditorModule,
+    CKEditorModule
     // FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
   ],
   providers: [

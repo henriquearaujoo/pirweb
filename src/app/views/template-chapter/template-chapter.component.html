@@ -9,11 +9,11 @@
             <div class="col-sm-12">
                 <div class="box box-primary">
                     <div class="box-body">
-                        <a href="/chapterInformation">
+                        <!-- <a href="/chapterInformation"> -->
                         <mat-card class="card_add" (click)="createNewChapter()">       
                             <i class="fa fa-plus fa-5x" aria-hidden="true"></i>    
                         </mat-card> 
-                        </a>
+                        <!-- </a> -->
                         <div *ngIf="hasdata">
                             <div *ngFor="let item of chapters">
                                 <app-template-chapter-item [chapter]="item" (click)="setChapter(item)"></app-template-chapter-item>

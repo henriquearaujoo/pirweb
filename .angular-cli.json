@@ -21,9 +21,9 @@
       "styles": [
         "styles.css"       
       ],
-      "scripts": [       
-        "./assets/adminlte/plugins/ckeditor/ckeditor.js",
-        "./assets/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"
+      "scripts": [      
+          "./assets/adminlte/plugins/ckeditor/ckeditor.js",
+          "./assets/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

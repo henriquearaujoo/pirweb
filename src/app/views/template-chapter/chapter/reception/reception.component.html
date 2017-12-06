@@ -14,12 +14,7 @@
                     <div class="box-body">
                       <div class="form-group">
                         <label class="control-label">Descrição</label>                       
-                          <div class="box-body pad">
-                            <form>
-                              <textarea class="editor" placeholder="Digite uma Descrição">                                
-                              </textarea>
-                            </form>
-                          </div>
+                        <ck-editor id="reception_description" name="reception_description" #description="ngModel" [(ngModel)]="reception.description" skin="moono-lisa" [fullPage]="false"></ck-editor>
                      </div>
                   </div>
                 </div>

@@ -52,7 +52,7 @@ export class TemplateChapterComponent implements OnInit {
 
   }
   createNewChapter() {
-    // this.router.navigate(['chapterInformation']);
+    this.router.navigate(['chapterInformation']);
   }
 
   setChapter(chapter: Chapter) {

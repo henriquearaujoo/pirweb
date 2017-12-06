@@ -1,3 +1,4 @@
+import { Reception } from './../../../../models/reception';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reception.component.css']
 })
 export class ReceptionComponent implements OnInit {
+
+  private reception: Reception =  new Reception();
 
   constructor() { }
 

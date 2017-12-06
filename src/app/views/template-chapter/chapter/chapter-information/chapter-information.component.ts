@@ -10,11 +10,10 @@ import { ChapterService } from '../../../../services/chapter/chapter.service';
   templateUrl: './chapter-information.component.html',
   styleUrls: ['./chapter-information.component.css']
 })
-export class ChapterInformationComponent implements OnInit, AfterViewInit {
+export class ChapterInformationComponent implements OnInit {
 
   private chapter: Chapter = new Chapter();
   private estimated_time: number;
-
 
   constructor(
     private router: Router,
@@ -25,20 +24,11 @@ export class ChapterInformationComponent implements OnInit, AfterViewInit {
   ngOnInit() {
   }
 
-  ngAfterViewInit() {
-  }
-
-  getTextarea() {
-    this.chapter.description = $('#chapter_description').val();
-    this.chapter.content = $('#chapter_content').val();
-    this.chapter.goal =  $('#chapter_goal').val();
-  }
-
   saveData() {
-    this.getTextarea();
     this.chapter.family_tasks = 'test family tasks';
     this.chapter.estimated_time = this.estimated_time * 60000;
     this.chapter.time_next_visit = 86400000;
+    console.log(this.chapter);
     this.chapterService.saveChapter(this.chapter).subscribe(
       success => {
         this.chapter = success;

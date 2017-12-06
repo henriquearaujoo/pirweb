@@ -37,26 +37,17 @@
                       </div>
 
                       <div class="form-group" [ngClass]="applyCssError(f, description)">
-                        <label class="control-label">Descrição</label>                       
-                          <div class="box-body pad">
-                              <textarea id="chapter_description" name="chapter_description" 
-                              #description="ngModel" [(ngModel)]="chapter.description"
-                              placeholder="Digite uma Descrição"
-                              class="editor" >                             
-                              </textarea>                             
-                              <app-control-field-error [showError]="verifyValidSubmitted(f, description)" msgError="Digite uma descrição">                          
-                              </app-control-field-error> 
-                          </div>
+                        <label class="control-label">Descrição</label>
+                        <ck-editor id="chapter_description" name="editor" #description="ngModel" [(ngModel)]="chapter.description" skin="moono-lisa" [fullPage]="false"></ck-editor>
+                        <app-control-field-error [showError]="verifyValidSubmitted(f, description)" msgError="Digite uma descrição">                          
+                        </app-control-field-error> 
                      </div>
 
                      <div class="form-group" [ngClass]="applyCssError(f, content)">
-                      <label class="control-label">Conteúdo</label>                      
-                        <div class="box-body pad">                          
-                            <textarea id="chapter_content" name="chapter_content" #content="ngModel" [(ngModel)]="chapter.content" class="editor" placeholder="Digite um Conteúdo">                              
-                            </textarea>
-                            <app-control-field-error [showError]="verifyValidSubmitted(f, content)" msgError="Digite um conteúdo">                          
-                            </app-control-field-error>  
-                        </div>
+                        <label class="control-label">Conteúdo</label>  
+                        <ck-editor id="chapter_content" name="editor" #content="ngModel"  [(ngModel)]="chapter.content" skin="moono-lisa" [fullPage]="false"></ck-editor>
+                        <app-control-field-error [showError]="verifyValidSubmitted(f, content)" msgError="Digite um conteúdo">                          
+                        </app-control-field-error> 
                    </div>
                   </div>
                 </div>
@@ -79,21 +70,15 @@
                       </div>
 
                       <div class="form-group" [ngClass]="applyCssError(f, goal)">
-                        <label class="control-label">Objetivo</label>                      
-                          <div class="box-body pad">
-                              <textarea id="chapter_goal" name="chapter_goal" #goal="ngModel" [(ngModel)]="chapter.goal" class="editor" placeholder="Digite um Objetivo">                                
-                              </textarea>
-                              <app-control-field-error [showError]="verifyValidSubmitted(f, goal)" msgError="Digite um objetivo">                          
-                              </app-control-field-error>   
-                          </div>
+                        <label class="control-label">Objetivo</label>                       
+                        <ck-editor id="chapter_goal" name="editor" #goal="ngModel"  [(ngModel)]="chapter.goal" skin="moono-lisa" [fullPage]="false"></ck-editor>
+                        <app-control-field-error [showError]="verifyValidSubmitted(f, goal)" msgError="Digite um objetivo">                          
+                        </app-control-field-error>                           
                      </div>
 
                      <div class="form-group">
-                      <label class="control-label">Conclusão</label>                    
-                        <div class="box-body pad">
-                            <textarea id="chapter_conclusion" name="chapter_conclusion" class="editor" placeholder="Digite uma Conclusao">                              
-                            </textarea>
-                        </div>
+                      <label class="control-label">Conclusão</label>
+                      <ck-editor id="chapter_conclusion" name="editor" #conclusion="ngModel"  [(ngModel)]="chapter.conclusion" skin="moono-lisa" [fullPage]="false"></ck-editor>                   
                    </div>
                 </div>
               </div>                  
