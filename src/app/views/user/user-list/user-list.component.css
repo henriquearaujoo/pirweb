@@ -1,6 +1,27 @@
 table {
     border: 1px solid #ddd;
 }
+/* .content {
+    padding: 0;
+} */
+
+.content-top {
+    height: 64px;
+    background-color: #e8e6e6;
+}
+
+i.fa.fa-user {
+    margin-top: 18px;
+    margin-left: 34px;
+    margin-right: 10px;
+    color: white;
+    background-color: #373d40;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 0.2em;
+}
 
 th {   
     padding: 12px;
@@ -16,7 +37,10 @@ th {
 }
 
 thead {
-    border-top: 6px solid #373d40;
+    border-top: 0;
+    color: #777;
+    font-size: 11px;
+    background-color: #e8e6e6;
 }
 
 .table>tbody>tr>td, 
@@ -33,28 +57,48 @@ div.dataTables_filter {
 
 .box-header {
     padding-top: 20px;
+    background-color: #e8e6e6;
+    height: 64px;
+    padding: 25px
     /* padding-bottom: 92px!important; */
 }
 .box {
     border-top: 0;
-    margin-left: 20px;
+    margin-left: 10px;
+    background-color: #f4f4f4;
+    margin-top: 5px;
 }
 
 .box-header > .fa, .box-header > .glyphicon, .box-header > .ion, .box-header .box-title {    
-    font-size: 22px;
+    font-size: 14px;
 }
 
 .box-body {
-    padding-right: 50px;
+    /* padding-right: 50px; */
 }
 
-.box-footer {
+section.content {
+    margin-right: 15px;
+}
+
+div.box-footer {
     text-align: center;
+    padding: 0!important;
+    background-color: #f4f4f4;
+}
+
+.modal-footer {
+    padding: 0;
+    margin-top: 90px;
+}
+
+.modal-content {
+    height: 200px;
 }
 
 .btn-col {
     text-align: right;
-    padding-right: 68px;
+    padding-right: 20px;
     padding-bottom: 40px;
 }
 
@@ -93,4 +137,52 @@ a {
     padding-top: 20px;
     padding-right: 65px;
     text-align: right;
+}
+
+div#_filter {
+    text-align: right;
+    margin-right: 12px;
+    margin-top: 24px;
+    margin-bottom: 8px;
+}
+
+input#filter {
+    border-radius: 0.5em;
+}
+
+.content_fa {
+    color: #777777;
+}
+
+button#btn_cancel {
+    width: 150px;
+    height: 45px;
+    border-radius: 0;
+}
+
+button#btn_confirm {
+    width: 150px;
+    height: 45px;
+    border-radius: 0;
+}
+.modal-btn-cancel {
+    float: right;  
+}
+
+.modal-body[_ngcontent-c5] {
+    padding-top: 30px;
+    margin-top: 20px;
+}
+.modal-icon {
+    text-align: center;
+}
+
+tr {
+    border-bottom: 1px solid #ccc;
+}
+td  {
+    border-bottom: 1px solid #d2d6de;
+}
+tbody {
+    background-color: white;
 }

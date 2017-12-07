@@ -142,7 +142,7 @@
                         <div class="form-group" [ngClass]="applyCssError(f, state)">
                           <label class="control-label">Estado</label>
                           <select class="form-control" #state="ngModel" [(ngModel)]="user.address.state" name="state" id="user_state" (change)="loadCities($event.target.value)" required>
-                              <option>--Selecione o estado--</option>
+                              <option disabled>--Selecione o estado--</option>
                             <option *ngFor='let s of states' [value]='s.id'>{{s.name}}</option>
                           </select>  
                           <app-control-field-error [showError]="verifyValidSubmitted(f, state)" msgError="Selecione um estado">                          
@@ -150,16 +150,16 @@
                         </div> 
                         <!-- end select state -->
 
-                        <!-- select city-->
+                         <!-- select city-->
                         <div class="form-group" [ngClass]="applyCssError(f, city)">
-                          <label class="control-label">Cidade</label>
-                          <select class="form-control" #city="ngModel" name="city_id_fk" id="user_city" [(ngModel)]="user.address.city" required>
-                              <option>--Selecione a cidade--</option>
-                            <option *ngFor="let c of cities" [value]="c.id">{{c.name}}</option>
-                          </select>
-                          <app-control-field-error [showError]="verifyValidSubmitted(f, city)" msgError="Selecione uma cidade">                          
-                          </app-control-field-error>
-                        </div>
+                            <label class="control-label">Cidade</label>
+                            <select class="form-control" #city="ngModel" name="city_id_fk" id="user_city" [(ngModel)]="user.address.city" required>
+                                <option>--Selecione a cidade--</option>
+                              <option *ngFor="let c of cities" [value]='c.id'>{{c.name}}</option>
+                            </select>
+                            <app-control-field-error [showError]="verifyValidSubmitted(f, city)" msgError="Selecione uma cidade">                          
+                            </app-control-field-error>
+                          </div>
 
                         <!-- end select city-->
                         <div class="form-group" [ngClass]="applyCssError(f, neighborhood)">

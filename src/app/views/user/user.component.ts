@@ -56,6 +56,10 @@ export class UserComponent implements OnInit {
   saveData() {
     this.verifyType();
     console.log(this.user.profile);
+    this.user.address.city = Number(this.user.address.city);
+    console.log('Usuários:', this.user);
+    console.log('Cidades: ', this.cities);
+
     this.userService.createUser(this.user).subscribe(
       success => {
         this.userService.show_msg = true;

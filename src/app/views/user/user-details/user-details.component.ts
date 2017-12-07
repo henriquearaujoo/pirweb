@@ -18,7 +18,7 @@ export class UserDetailsComponent implements OnInit {
   show_pjur: boolean;
   private profiles: Profile[] = new Array();
   private cities: City[];
-  private city_id: string;
+  private city_id: number;
   private state_id: string;
 
   constructor(

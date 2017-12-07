@@ -26,7 +26,7 @@ export class UserEditComponent implements OnInit {
   private person: Person;
   private hasdata: boolean;
   show_pjur: boolean;
-  private city_id: string;
+  private city_id: number;
   private state_id: string;
   private error_list = new Array();
   private error_item = new Array<string>();
@@ -63,6 +63,7 @@ export class UserEditComponent implements OnInit {
   editData() {
     this.verifyType();
     console.log(this.user);
+    this.user.address.city = Number(this.user.address.city);
     this.userService.saveEditUser(this.user).subscribe(
       success => {
         this.userService.show_msg = true;

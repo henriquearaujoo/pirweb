@@ -155,7 +155,7 @@
                   <label class="control-label">Cidade</label>
                   <select class="form-control" #city="ngModel" name="city_id_fk" id="user_city" [(ngModel)]="user.address.city" required>
                       <option>--Selecione a cidade--</option>
-                    <option *ngFor="let c of cities" [value]="c.id">{{c.name}}</option>
+                    <option *ngFor="let c of cities" [value]='c.id'>{{c.name}}</option>
                   </select>
                   <app-control-field-error [showError]="verifyValidSubmitted(f, city)" msgError="Selecione uma cidade">                          
                   </app-control-field-error>

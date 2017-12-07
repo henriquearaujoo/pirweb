@@ -1,13 +1,13 @@
 <div class="row">
-    <div class="col-sm-4">
+    <!-- <div class="col-sm-4">
         <span *ngIf="paginate.totalElements">
             Exibindo {{ paginate.first ? 1 : (paginate.number * paginate.size) + 1 }} a {{ paginate.last ? paginate.totalElements : ((paginate.number * paginate.size)  +  paginate.size) }} de {{ paginate.totalElements }} registros 
         </span>
         <span *ngIf="!paginate.totalElements">
             Exibindo 0 a 0 de 0 registros
         </span>
-    </div> 
-    <div class="col-sm-8">
+    </div>  -->
+    <div class="col-sm-12">
         <!-- pager -->
         <ul *ngIf="pages && pages.length" class="pagination stylepage">
             <li [ngClass]="{disabled:paginate.first}">
