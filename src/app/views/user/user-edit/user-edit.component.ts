@@ -83,10 +83,8 @@ export class UserEditComponent implements OnInit {
 
   }
 
-  editData(isValid: boolean) {
-    if ( !isValid ) {
-      return false;
-    }
+  editData() {
+    
 
     this.verifyType();
     console.log(this.user);

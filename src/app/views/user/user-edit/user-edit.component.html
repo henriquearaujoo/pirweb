@@ -80,9 +80,11 @@
                                                     <app-control-field-error [showError]="verifyValidSubmitted(f, login)" msgError="Digite um login">
                                                     </app-control-field-error>
                                                 </div>
-                                                <div class="form-group">
+                                                <div class="form-group" [ngClass]="applyCssError(f, password)">
                                                     <label class="control-label">Senha</label>
                                                     <input type="password" [(ngModel)]="user.password" #password="ngModel" name="password" id="user_password" class="form-control" required minlength="8" placeholder="Inserir uma senha">
+                                                    <app-control-field-error [showError]="verifyValidSubmitted(f, password)" msgError="Digite uma senha. Mínimo 8 caracteres">		
+                                                    </app-control-field-error>
                                                 </div>
                                             </div>
                                         </div>
