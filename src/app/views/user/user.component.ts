@@ -28,19 +28,19 @@ export class UserComponent implements OnInit {
   private first_name: string;
   private last_name: string;
   private hasdata: boolean;
-  show_pjur: boolean;
+  private show_pjur: boolean;
   private success: boolean;
   private error_list = new Array();
   private error_item = new Array<string>();
+  private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
 
-  accountTab: string;
-  personalTab: string;
-  adressTab: string;
-  currentTab: number;
-  previousTab: string;
-  nextTab: string;
-  next: string;
-
+  private accountTab: string;
+  private personalTab: string;
+  private adressTab: string;
+  private currentTab: number;
+  private previousTab: string;
+  private nextTab: string;
+  private next: string;
 
   constructor(
     private userService: UserService,
@@ -275,5 +275,9 @@ export class UserComponent implements OnInit {
       'has-error': this.verifyValidSubmitted(form, field),
       'has-feedback': this.verifyValidSubmitted(form, field)
     };
+  }
+
+  backToList() {
+    this.router.navigate(['user-list']);
   }
 }
