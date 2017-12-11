@@ -94,8 +94,8 @@ export class UserEditComponent implements OnInit {
     this.user.name = this.first_name + ' ' + this.last_name;
     this.userService.saveEditUser(this.user).subscribe(
       success => {
-        this.userService.show_msg = true;
-        this.router.navigate(['/user-list']);
+        // this.userService.show_msg = true;
+        // this.router.navigate(['/user-list']);
       },
       error => {
         this.error_list = error;
