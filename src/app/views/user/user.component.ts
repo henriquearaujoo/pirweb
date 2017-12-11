@@ -34,6 +34,7 @@ export class UserComponent implements OnInit {
   private error_item = new Array<string>();
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
 
+<<<<<<< HEAD
   private accountTab: string;
   private personalTab: string;
   private adressTab: string;
@@ -41,6 +42,17 @@ export class UserComponent implements OnInit {
   private previousTab: string;
   private nextTab: string;
   private next: string;
+=======
+  accountTab: string;
+  personalTab: string;
+  adressTab: string;
+  currentTab: number;
+  previousTab: string;
+  nextTab: string;
+  next: string;
+  enable_save: boolean;
+
+>>>>>>> [RS_04] updated form
 
   constructor(
     private userService: UserService,
@@ -66,6 +78,8 @@ export class UserComponent implements OnInit {
     this.accountTab = '../../../assets/img/user/ic_account_enable.png';
     this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
     this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
+
+    this.enable_save = false;
   }
 
   ngOnChange() {
@@ -247,6 +261,12 @@ export class UserComponent implements OnInit {
     }
       this.previousTab = '#tab_' + (this.currentTab + 1);
       this.nextTab = '#tab_' + (this.currentTab + 1);
+
+      if (this.nextTab === '#tab_3') {
+        this.enable_save = true;
+      } else {
+        this.enable_save = false;
+      }
 
       if (this.currentTab === 0) {
           this.accountTab = '../../../assets/img/user/ic_account_enable.png';
