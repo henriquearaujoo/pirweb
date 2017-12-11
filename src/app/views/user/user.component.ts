@@ -25,6 +25,8 @@ export class UserComponent implements OnInit {
   private profiles: Profile[] = new Array();
   private org: Org;
   private person: Person;
+  private first_name: string;
+  private last_name: string;
   private hasdata: boolean;
   show_pjur: boolean;
   private success: boolean;
@@ -56,6 +58,7 @@ export class UserComponent implements OnInit {
   saveData() {
     this.verifyType();
     console.log(this.user.profile);
+    this.user.name = this.first_name + ' ' + this.last_name;
     this.user.address.city = Number(this.user.address.city);
     console.log('Usuários:', this.user);
     console.log('Cidades: ', this.cities);
