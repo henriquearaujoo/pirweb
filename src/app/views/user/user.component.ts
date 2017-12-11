@@ -33,6 +33,15 @@ export class UserComponent implements OnInit {
   private error_list = new Array();
   private error_item = new Array<string>();
 
+  accountTab: string;
+  personalTab: string;
+  adressTab: string;
+  currentTab: number;
+  previousTab: string;
+  nextTab: string;
+  next: string;
+
+
   constructor(
     private userService: UserService,
     private profileService: ProfileService,
@@ -50,6 +59,13 @@ export class UserComponent implements OnInit {
     this.show_pjur = false;
     this.success = false;
     this.error_list = [];
+
+    this.currentTab = 0;
+    this.previousTab = '#tab_1';
+    this.nextTab = '#tab_2';
+    this.accountTab = '../../../assets/img/user/ic_account_enable.png';
+    this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
+    this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
   }
 
   ngOnChange() {
@@ -216,6 +232,39 @@ export class UserComponent implements OnInit {
       }
     }
    }
+
+   isActive(tab: boolean) {
+    if (tab) {
+      if (this.currentTab === -1) {
+            this.currentTab = 0;
+      } else if (this.currentTab < 2) {
+            this.currentTab++;
+        }
+    }else {
+      if (this.currentTab > 0) {
+            this.currentTab--;
+          }
+    }
+      this.previousTab = '#tab_' + (this.currentTab + 1);
+      this.nextTab = '#tab_' + (this.currentTab + 1);
+
+      if (this.currentTab === 0) {
+          this.accountTab = '../../../assets/img/user/ic_account_enable.png';
+          this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
+          this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
+
+      }else if (this.currentTab === 1) {
+          this.accountTab = '../../../assets/img/user/ic_account_disable.png';
+          this.personalTab = '../../../assets/img/user/ic_personal_enable.png';
+          this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
+
+      }else {
+          this.accountTab = '../../../assets/img/user/ic_account_disable.png';
+          this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
+          this.adressTab = '../../../assets/img/user/ic_adress_enable.png';
+          this.next = 'Salvar';
+        }
+  }
 
   verifyValidSubmitted(form, field) {
     return form.submitted && !field.valid;

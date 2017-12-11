@@ -51,6 +51,7 @@ label{
 
 .box {
     border-top: 0;
+    box-shadow: none;
 }
 
 .box-header {
@@ -177,4 +178,27 @@ section.content_user {
 .row.footer {
     /* padding-right: 25px; */
     padding-left: 10px;
+}
+
+.control {
+    text-align: center;
+}
+
+.control a {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.control a {
+    color: #4d4949;
+}
+.tab-pane {
+    background-color: #f4f4f4;
+    border-bottom: 0;
+}
+
+.content-control {
+    background-color: #f4f4f4;
+    padding-bottom: 25px;
+    margin-bottom: 20px;
 }
