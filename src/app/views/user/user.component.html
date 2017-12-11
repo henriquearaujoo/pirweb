@@ -212,8 +212,7 @@
                     <!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_3">
                         <div class="content">
-                            <section class="content">
-                                <form name="form" (ngSubmit)="f.form.valid && saveData()" #f="ngForm" novalidate>
+                            <section class="content">                                
                                     <div class="box-header with-border">
                                         <h5 class="box-title"> Informações de Endereço
                                         </h5>
@@ -294,8 +293,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </form>
+                                    </div>                               
                             </section>
                         </div>
                     </div>
@@ -320,7 +318,7 @@
                         </div>
                         <div class="col-md-3 col-md-offset-6">
                             <div class="form-group save">
-                                <button data-toggle="modal" data-target="#modal-default" class="btn btn-primary btn-block" name="submit" id="btn_save">Cadastrar</button>
+                                <button data-toggle="modal" data-target="#modal-default" class="btn btn-primary btn-block" name="submit" id="btn_save" [disabled]="!enable_save">Cadastrar</button>
                             </div>
                         </div>
                     </div>

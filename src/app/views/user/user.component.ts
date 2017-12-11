@@ -34,7 +34,6 @@ export class UserComponent implements OnInit {
   private error_item = new Array<string>();
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
 
-<<<<<<< HEAD
   private accountTab: string;
   private personalTab: string;
   private adressTab: string;
@@ -42,17 +41,7 @@ export class UserComponent implements OnInit {
   private previousTab: string;
   private nextTab: string;
   private next: string;
-=======
-  accountTab: string;
-  personalTab: string;
-  adressTab: string;
-  currentTab: number;
-  previousTab: string;
-  nextTab: string;
-  next: string;
-  enable_save: boolean;
-
->>>>>>> [RS_04] updated form
+  private enable_save: boolean;
 
   constructor(
     private userService: UserService,
@@ -95,8 +84,9 @@ export class UserComponent implements OnInit {
 
     this.userService.createUser(this.user).subscribe(
       success => {
-        this.userService.show_msg = true;
-        this.router.navigate(['/user-list']);
+        // this.userService.show_msg = true;
+        // this.success = true;
+        // this.router.navigate(['/user-list']);
       },
       error => {
         this.error_list = error;
