@@ -97,6 +97,7 @@ import { CreateFormComponent } from './views/template-forms/create-form/create-f
 import { PaginateComponent } from './components/paginate/paginate.component';
 import { ControlFieldErrorComponent } from './components/control-field-error/control-field-error.component';
 import { UserInformationAccountComponent } from './views/user/user-information-account/user-information-account.component';
+import { UserPersonalInformationComponent } from './views/user/user-personal-information/user-personal-information.component';
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
 
@@ -137,7 +138,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     CreateFormComponent,
     PaginateComponent,
     ControlFieldErrorComponent,
-    UserInformationAccountComponent
+    UserInformationAccountComponent,
+    UserPersonalInformationComponent
   ],
   imports: [
     BrowserModule,

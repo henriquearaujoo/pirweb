@@ -1,3 +1,5 @@
+import { UserPersonalInformationComponent } from './views/user/user-personal-information/user-personal-information.component';
+import { UserInformationAccountComponent } from './views/user/user-information-account/user-information-account.component';
 import { TemplateOptionCardComponent } from './views/template-forms/template-option-card/template-option-card.component';
 import { TemplateSelectModelComponent } from './views/template-forms/template-select-model/template-select-model.component';
 import { UserDetailsComponent } from './views/user/user-details/user-details.component';
@@ -98,6 +100,10 @@ const App_Router: Routes = [
           {
             path: 'user-edit',
             component: UserEditComponent
+          },
+          {
+            path: 'user-personal-info',
+            component: UserPersonalInformationComponent
           },
           {
             path: 'profile',
