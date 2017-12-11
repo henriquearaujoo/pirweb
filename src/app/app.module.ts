@@ -96,6 +96,7 @@ import { TaskComponent } from './views/template-forms/task/task.component';
 import { CreateFormComponent } from './views/template-forms/create-form/create-form.component';
 import { PaginateComponent } from './components/paginate/paginate.component';
 import { ControlFieldErrorComponent } from './components/control-field-error/control-field-error.component';
+import { UserInformationAccountComponent } from './views/user/user-information-account/user-information-account.component';
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
 
@@ -135,7 +136,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     TaskComponent,
     CreateFormComponent,
     PaginateComponent,
-    ControlFieldErrorComponent
+    ControlFieldErrorComponent,
+    UserInformationAccountComponent
   ],
   imports: [
     BrowserModule,
