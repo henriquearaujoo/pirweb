@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {JasperoAlertsModule} from '@jaspero/ng2-alerts';
+import {ToastyModule} from 'ng2-toasty';
 
 import { CdkTableModule } from '@angular/cdk/table';
 import {
@@ -190,7 +191,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     BrowserAnimationsModule,
     SimpleNotificationsModule.forRoot(),
     NgxPaginationModule,
-    JasperoAlertsModule
+    JasperoAlertsModule,
+    ToastyModule.forRoot()
   ],
   providers: [
     RestService,

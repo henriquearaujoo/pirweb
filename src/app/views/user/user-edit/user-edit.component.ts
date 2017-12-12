@@ -43,6 +43,10 @@ export class UserEditComponent implements OnInit {
     private next: string;
     private enable_save: boolean;
 
+    private success: boolean;
+
+  private divModal: HTMLDivElement;
+
   constructor(
     private userService: UserService,
     private profileService: ProfileService,
@@ -53,13 +57,17 @@ export class UserEditComponent implements OnInit {
       this.person = new Person();
     }
 
+    private jquery: JQuery ;
+
   ngOnInit() {
+
     this.show_pjur = false;
     this.user = this.userService.getUser();
     this.city_id = this.user.address.city;
     this.selectType();
     this.getState();
     this.loadProfiles();
+    this.success = false;
 
     this.currentTab = 0;
     this.previousTab = '#tab_1';
@@ -80,20 +88,25 @@ export class UserEditComponent implements OnInit {
         this.org = new Org();
         this.person = new Person();
     }
-
+    this.divModal = (<HTMLDivElement>document.getElementById('modal-default'));
+    // (<HTMLInputElement>document.getElementById('loginInput')).va
   }
 
   editData(isValid: boolean) {
+
     if ( !isValid ) {
       return false;
     }
-
+    this.success = false;
     this.verifyType();
     console.log(this.user);
     this.user.address.city = Number(this.user.address.city);
     this.user.name = this.first_name + ' ' + this.last_name;
     this.userService.saveEditUser(this.user).subscribe(
       success => {
+        this.success = true;
+        //this.divModal.style.display = '';
+        ///(onHidden)='hide()'
         // this.userService.show_msg = true;
         // this.router.navigate(['/user-list']);
       },
@@ -102,6 +115,10 @@ export class UserEditComponent implements OnInit {
         this.verifyError();
       }
     );
+  }
+
+  openModal() {
+
   }
 
   public loadProfiles() {

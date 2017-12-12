@@ -27,6 +27,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   private paginate: Paginate = new Paginate();
   @Output() page: number;
   filter: any = {name: ''};
+  private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
 
   constructor(
     private pagerService: PageService,
