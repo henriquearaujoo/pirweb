@@ -1,3 +1,4 @@
+import { Intervention } from './../../../../models/intervention';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InterventionComponent implements OnInit {
 
+  private intervention: Intervention;
+
   constructor() { }
 
   ngOnInit() {
+    this.intervention = new Intervention();
   }
 
 }

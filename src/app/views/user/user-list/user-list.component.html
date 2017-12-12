@@ -1,100 +1,121 @@
 <simple-notifications></simple-notifications>
-
-<div class="box"> 
-  <div class="box-header ">
-    <h3 class="box-title">Lista de Usuários</h3>
-  </div>  
-  <div class="row">
-    <div class="btn-col">
-      <button class="btn btn-primary" [routerLink]="['/user']" id="btn_new"> Novo </button>
+<div class="content_">
+  <div class="content-top">
+    <div class="content_fa"> <i class="fa fa-user"></i> Usuários > Lista de Usuários</div>
+    
+  </div>
+<section class="content">
+  <div class="box"> 
+    <div class="box-header ">
+      <h5 class="box-title">LISTA DE USUÁRIOS</h5>
+    </div>    
+    <!-- when there's not record -->
+    <div *ngIf="!hasdata">
+      <section class="content">
+          <div class="feedback-icon fa fa-users"></div><br><br>
+          <span class="feedback-message">Não há dados cadastrados</span>
+      </section>
     </div>
-  </div>  
-  <!-- when there's not record -->
-  <div *ngIf="!hasdata">
-    <section class="content">
-        <div class="feedback-icon fa fa-users"></div><br><br>
-        <span class="feedback-message">Não há dados cadastrados</span>
-    </section>
-  </div>
 
-  <div *ngIf="hasdata">             
-      <div class="row">
-          <div class="col-sm-6">
-            <div id="_filter" class="dataTables_filter">
-              <label>
-                Filtrar:<input type="text" class="form-control form-border " name="name" id="filter" (keyup)="getUsers()" [(ngModel)]="filter.name" placeholder="Nome do usuário">
-              </label>
+    <div *ngIf="hasdata">             
+        <div class="row">
+            <div class="col-sm-12">
+              <div id="_filter" class="dataTables_filter">
+                <label>
+                <input type="text" class="form-control form-border " name="name" id="filter" (keyup)="getUsers()" [(ngModel)]="filter.name" placeholder="Filtro">
+                </label>
+              </div>
             </div>
-          </div>
-      </div>
-      <div class="box-body with-border">
-        <table id="example2" class="table table-hover ">
-          <thead>
-            <tr>
-              <th class="tbl-left">Nome
-                <span class="glyphicon" ></span>
-              </th>
-              <th class="tbl-left">Perfil
-                <span class="glyphicon" ></span>
-              </th>
-              <!--th class="tbl-left">Status
+        </div>
+        <div class="box-body">
+          <table id="example2" class="table">
+            <thead>
+              <tr>
+                <th class="tbl-left">NOME
                   <span class="glyphicon" ></span>
-                </th -->
-              <th colspan="3" class="tbl-center"> Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of users">
-              <td class="tbl-left">  
-                  {{ item.name }}
-              </td>
-              <td class="tbl-left">  
-                  {{ item.profile }}
-              </td>
-              <!--td class="tbl-left" >  
-                  {{ item.status === true ? 'Ativo': 'Inativo' }}
-              </td -->
-              <td class="tbl-right">              
-                <a (click)="setUser(item)" id="btn_details" [routerLink]="['/user-details']" title="Ver detalhes">
-                    <i class="large material-icons">visibility</i>
-                </a>
-              </td>
-              <td class="tbl-right">          
-                <a title="Editar" id="btn_edit"
-                  (click)="setUser(item)" [routerLink]="['/user-edit']">
-                  <i class="fa fa-pencil fa-fw"></i>
-                </a>
-              </td>
-              <td class="tbl-right">
-                  <a href="" [title]="item.status === true ? 'Desativar': 'Ativar'"
-                    data-toggle="modal" data-target="#modal-default"
-                    (click)="changeStatus(item)" id="btn_status">              
-                    <i [ngClass]="item.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
-                  </a>      
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="box-footer">
-        <app-paginate [paginate]="paginate" (eventPage)="setPage($event)"></app-paginate>
-      </div>
+                </th>
+                <th class="tbl-left">PERFIL
+                  <span class="glyphicon" ></span>
+                </th>
+                <!--th class="tbl-left">Status
+                    <span class="glyphicon" ></span>
+                  </th -->
+                <th colspan="3" class="tbl-center"> AÇÃO</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of users">
+                <td class="tbl-left">  
+                    {{ item.name }}
+                </td>
+                <td class="tbl-left">  
+                    {{ item.profile }}
+                </td>
+                <!--td class="tbl-left" >  
+                    {{ item.status === true ? 'Ativo': 'Inativo' }}
+                </td -->
+                <td class="tbl-right">              
+                  <a (click)="setUser(item)" id="btn_details" [routerLink]="['/user-details']" title="Ver detalhes">
+                      <i class="large material-icons">visibility</i>
+                  </a>
+                </td>
+                <td class="tbl-right">          
+                  <a title="Editar" id="btn_edit"
+                    (click)="setUser(item)" [routerLink]="['/user-edit']">
+                    <i class="fa fa-pencil fa-fw"></i>
+                  </a>
+                </td>
+                <td class="tbl-right">
+                    <a href="" [title]="item.status === true ? 'Desativar': 'Ativar'"
+                      data-toggle="modal" data-target="#modal-default"
+                      (click)="changeStatus(item)" id="btn_status">              
+                      <i [ngClass]="item.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
+                    </a>      
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="box-footer">
+          <app-paginate [paginate]="paginate" (eventPage)="setPage($event)"></app-paginate>
+          <!-- <div class="row">
+              <div class="btn-col">
+                <button class="btn btn-primary" [routerLink]="['/user']" id="btn_new"> Novo </button>
+              </div>
+          </div>  -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="btn-col">
+          <button class="btn btn-primary" [routerLink]="['/user']" id="btn_new"> Novo </button>
+        </div>
+    </div>
   </div>
+</section>
 </div>
 
  <!-- Modal Delete -->
  <div class="modal fade" id="modal-default">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-sm">
     <div class="modal-content">
-      <div class="modal-header">
+      <!-- <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_close">
-          <span aria-hidden="true"></span></button>
-        <h4 class="modal-title" *ngIf="user.status"> Deseja realmente Desativar o usuário {{ user.name | uppercase}} ?</h4>
-        <h4 class="modal-title" *ngIf="!user.status"> Deseja realmente Ativar o usuário {{ user.name | uppercase}} ?</h4>
+          <span aria-hidden="true"></span></button>  
+      </div> -->
+      <div class="modal-body">
+        <div class="modal-icon">
+            <i class="material-icons" style="font-size: 60px;">error_outline</i>
+        </div>          
+          <h5  *ngIf="user.status"> Deseja realmente desativar o usuário <strong> {{ user.name | uppercase}} </strong> ?</h5>
+          <h5  *ngIf="!user.status"> Deseja realmente ativar o usuário <strong> {{ user.name | uppercase}} </strong> ?</h5>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default pull-left" data-dismiss="modal" id="btn_cancel">Cancelar</button>
-        <button type="button" (click)="disableAbleUser()" class="btn btn-primary" data-dismiss="modal" id="btn_confirm">Confirmar</button>
+      <div class="modal-footer_">
+        <div class="modal-btn-cancel">
+            <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal" id="btn_cancel">Cancelar</button>
+        </div>
+        <div class="modal-btn-confirm">
+            <button type="button" (click)="disableAbleUser()" class="btn btn-primary btn-md btn-block" data-dismiss="modal" id="btn_confirm">Confirmar</button>
+        </div>
       </div>
     </div>
     <!-- /.modal-content -->

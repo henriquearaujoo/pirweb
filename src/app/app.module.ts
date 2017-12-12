@@ -85,7 +85,7 @@ import { RuleComponent } from './views/profile/rule/rule.component';
 import { PageComponent } from './views/profile/page/page.component';
 
 import { ProfilePipe } from './views/profile/profile-list/profile.pipe';
-import { UserPipe } from './views/user/user-list/user.pipe';
+// import { UserPipe } from './views/user/user-list/user.pipe';
 import { DefineRulesComponent } from './views/define-rules/define-rules.component';
 import { ToastService } from './services/toast-notification/toast.service';
 import { UserEditComponent } from './views/user/user-edit/user-edit.component';
@@ -108,6 +108,13 @@ import { ChapterService } from './services/chapter/chapter.service';
 import { ChapterDetailsComponent } from './views/template-chapter/chapter/chapter-details/chapter-details.component';
 import { ChapterEditComponent } from './views/template-chapter/chapter/chapter-edit/chapter-edit.component';
 import { ChapterDashboardComponent } from './views/template-chapter/chapter/chapter-dashboard/chapter-dashboard.component';
+
+import { UserInformationAccountComponent } from './views/user/user-information-account/user-information-account.component';
+
+import { UserPersonalInformationComponent } from './views/user/user-personal-information/user-personal-information.component';
+
+import { UserAddressComponent } from './views/user/user-address/user-address.component';
+
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
 
@@ -133,7 +140,7 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ResetPasswordComponent,
     ProfileComponent,
     ProfileListComponent,
-    UserPipe,
+    // UserPipe,
     ProfilePipe,
     RuleComponent,
     PageComponent,
@@ -156,7 +163,11 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     AnswerListComponent,
     ChapterDetailsComponent,
     ChapterEditComponent,
-    ChapterDashboardComponent
+    ChapterDashboardComponent,
+    UserInformationAccountComponent,
+    UserPersonalInformationComponent,
+    UserAddressComponent
+
   ],
   imports: [
     BrowserModule,

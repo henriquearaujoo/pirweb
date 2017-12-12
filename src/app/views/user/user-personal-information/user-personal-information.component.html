@@ -1,0 +1,43 @@
+<section class="content">
+    <!-- Custom Tabs -->
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li>
+                <img src="{{accountTab}}" />
+            </li>
+            <li>
+                <img src="{{personalTab}}" />
+            </li>
+            <li>
+                <img src="{{adressTab}}" />
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab_1">
+                <app-user-information-account></app-user-information-account>
+            </div>
+            <!-- /.tab-pane -->
+            <div class="tab-pane" id="tab_2">
+                <b>tab2 jhga jkga ajhga kgakhgk</b>
+            </div>
+            <!-- /.tab-pane -->
+            <div class="tab-pane" id="tab_3">
+                <b>tab3</b>
+            </div>
+            <!-- /.tab-pane -->
+            <div class="content">
+                <div class="control">
+                    <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false)">
+                        <img src="../../../assets/img/global/ic_previous.png" />
+                        <b>Anterior</b>
+                    </a>
+                    <a href="{{nextTab}}" data-toggle="tab" (click)="isActive(true)">
+                        <b>Próximo</b>
+                        <img src="../../../assets/img/global/ic_next.png" />
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>

@@ -1,5 +1,7 @@
 import { ChapterDashboardComponent } from './views/template-chapter/chapter/chapter-dashboard/chapter-dashboard.component';
 import { TemplateSelectModelComponent } from './views/template-chapter/template-select-model/template-select-model.component';
+import { UserPersonalInformationComponent } from './views/user/user-personal-information/user-personal-information.component';
+import { UserInformationAccountComponent } from './views/user/user-information-account/user-information-account.component';
 import { UserDetailsComponent } from './views/user/user-details/user-details.component';
 import { PageComponent } from './views/profile/page/page.component';
 import { ProfileComponent } from './views/profile/profile.component';
@@ -123,6 +125,10 @@ const App_Router: Routes = [
           {
             path: 'user-edit',
             component: UserEditComponent
+          },
+          {
+            path: 'user-personal-info',
+            component: UserPersonalInformationComponent
           },
           {
             path: 'profile',

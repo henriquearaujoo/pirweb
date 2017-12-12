@@ -1,0 +1,6 @@
+@jaspero/ng2-alerts
+
+update project
+ - npm install
+ - npm uninstall --save angular-cli
+ - npm i -g npm to update

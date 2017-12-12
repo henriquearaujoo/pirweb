@@ -25,11 +25,23 @@ export class UserComponent implements OnInit {
   private profiles: Profile[] = new Array();
   private org: Org;
   private person: Person;
+  private first_name: string;
+  private last_name: string;
   private hasdata: boolean;
-  show_pjur: boolean;
+  private show_pjur: boolean;
   private success: boolean;
   private error_list = new Array();
   private error_item = new Array<string>();
+  private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
+
+  private accountTab: string;
+  private personalTab: string;
+  private adressTab: string;
+  private currentTab: number;
+  private previousTab: string;
+  private nextTab: string;
+  private next: string;
+  private enable_save: boolean;
 
   constructor(
     private userService: UserService,
@@ -48,6 +60,15 @@ export class UserComponent implements OnInit {
     this.show_pjur = false;
     this.success = false;
     this.error_list = [];
+
+    this.currentTab = 0;
+    this.previousTab = '#tab_1';
+    this.nextTab = '#tab_2';
+    this.accountTab = '../../../assets/img/user/ic_account_enable.png';
+    this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
+    this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
+
+    this.enable_save = false;
   }
 
   ngOnChange() {
@@ -56,10 +77,16 @@ export class UserComponent implements OnInit {
   saveData() {
     this.verifyType();
     console.log(this.user.profile);
+    this.user.name = this.first_name + ' ' + this.last_name;
+    this.user.address.city = Number(this.user.address.city);
+    console.log('Usuários:', this.user);
+    console.log('Cidades: ', this.cities);
+
     this.userService.createUser(this.user).subscribe(
       success => {
-        this.userService.show_msg = true;
-        this.router.navigate(['/user-list']);
+        // this.userService.show_msg = true;
+        // this.success = true;
+        // this.router.navigate(['/user-list']);
       },
       error => {
         this.error_list = error;
@@ -210,6 +237,45 @@ export class UserComponent implements OnInit {
     }
    }
 
+   isActive(tab: boolean) {
+    if (tab) {
+      if (this.currentTab === -1) {
+            this.currentTab = 0;
+      } else if (this.currentTab < 2) {
+            this.currentTab++;
+        }
+    }else {
+      if (this.currentTab > 0) {
+            this.currentTab--;
+          }
+    }
+      this.previousTab = '#tab_' + (this.currentTab + 1);
+      this.nextTab = '#tab_' + (this.currentTab + 1);
+
+      if (this.nextTab === '#tab_3') {
+        this.enable_save = true;
+      } else {
+        this.enable_save = false;
+      }
+
+      if (this.currentTab === 0) {
+          this.accountTab = '../../../assets/img/user/ic_account_enable.png';
+          this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
+          this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
+
+      }else if (this.currentTab === 1) {
+          this.accountTab = '../../../assets/img/user/ic_account_disable.png';
+          this.personalTab = '../../../assets/img/user/ic_personal_enable.png';
+          this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
+
+      }else {
+          this.accountTab = '../../../assets/img/user/ic_account_disable.png';
+          this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
+          this.adressTab = '../../../assets/img/user/ic_adress_enable.png';
+          this.next = 'Salvar';
+        }
+  }
+
   verifyValidSubmitted(form, field) {
     return form.submitted && !field.valid;
   }
@@ -219,5 +285,9 @@ export class UserComponent implements OnInit {
       'has-error': this.verifyValidSubmitted(form, field),
       'has-feedback': this.verifyValidSubmitted(form, field)
     };
+  }
+
+  backToList() {
+    this.router.navigate(['user-list']);
   }
 }
