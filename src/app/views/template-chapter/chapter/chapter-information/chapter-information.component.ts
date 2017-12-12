@@ -22,6 +22,15 @@ export class ChapterInformationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getNextChapterNumber();
+  }
+
+  getNextChapterNumber() {
+    this.chapterService.getChapters().subscribe(
+      success => {
+        this.chapter.number = success.lenght;
+      }
+    );
   }
 
   saveData() {
@@ -33,6 +42,7 @@ export class ChapterInformationComponent implements OnInit {
       success => {
         this.chapter = success;
         this.toastService.toastSuccess();
+        this.router.navigate(['chapter-dashboard']);
       }
     );
     // this.router.navigate(['/template-chapter-option']);

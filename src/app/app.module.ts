@@ -107,6 +107,7 @@ import { TemplateCollectDataItemComponent } from './views/template-chapter/templ
 import { ChapterService } from './services/chapter/chapter.service';
 import { ChapterDetailsComponent } from './views/template-chapter/chapter/chapter-details/chapter-details.component';
 import { ChapterEditComponent } from './views/template-chapter/chapter/chapter-edit/chapter-edit.component';
+import { ChapterDashboardComponent } from './views/template-chapter/chapter/chapter-dashboard/chapter-dashboard.component';
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
 
@@ -154,7 +155,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     TemplateChapterItemComponent,
     AnswerListComponent,
     ChapterDetailsComponent,
-    ChapterEditComponent
+    ChapterEditComponent,
+    ChapterDashboardComponent
   ],
   imports: [
     BrowserModule,

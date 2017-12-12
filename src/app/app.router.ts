@@ -1,3 +1,4 @@
+import { ChapterDashboardComponent } from './views/template-chapter/chapter/chapter-dashboard/chapter-dashboard.component';
 import { TemplateSelectModelComponent } from './views/template-chapter/template-select-model/template-select-model.component';
 import { UserDetailsComponent } from './views/user/user-details/user-details.component';
 import { PageComponent } from './views/profile/page/page.component';
@@ -102,6 +103,10 @@ const App_Router: Routes = [
           {
             path: 'chapter-edit',
             component: ChapterEditComponent
+          },
+          {
+            path: 'chapter-dashboard',
+            component: ChapterDashboardComponent
           },
           {
             path: 'user',

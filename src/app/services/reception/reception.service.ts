@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs/Observable';
+import { Http } from '@angular/http';
 import { Reception } from './../../models/reception';
 import { RestService } from './../rest/rest.service';
 import { Constant } from './../../constant/constant';
@@ -7,7 +9,9 @@ import { Injectable } from '@angular/core';
 export class ReceptionService extends RestService {
 
   apiurl = Constant.BASE_URL;
-  constructor() { }
+  constructor(http: Http) {
+    super(http);
+  }
 
   public getReception() {
     const currentUrl = this.apiurl + 'chapters/greetings/';

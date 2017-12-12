@@ -15,7 +15,6 @@ export class ChapterEditComponent implements OnInit {
   private chapter: Chapter = new Chapter();
   private estimated_time: number;
 
-
   constructor(
     private router: Router,
     private chapterService: ChapterService,
@@ -38,9 +37,9 @@ export class ChapterEditComponent implements OnInit {
       success => {
         this.chapter = success;
         this.toastService.toastSuccess();
+        this.router.navigate(['chapter-dashboard']);
       }
     );
-    // this.router.navigate(['/template-chapter-option']);
   }
 
   verifyValidSubmitted(form, field) {
