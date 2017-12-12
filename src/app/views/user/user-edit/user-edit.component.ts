@@ -1,6 +1,5 @@
-
 import { ToastService } from './../../../services/toast-notification/toast.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { User } from '../../../models/user';
 import { Types } from '../../../models/types';
 import { Profile } from '../../../models/profile';
@@ -34,18 +33,18 @@ export class UserEditComponent implements OnInit {
   private error_item = new Array<string>();
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
 
-    private accountTab: string;
-    private personalTab: string;
-    private adressTab: string;
-    private currentTab: number;
-    private previousTab: string;
-    private nextTab: string;
-    private next: string;
-    private enable_save: boolean;
+  private accountTab: string;
+  private personalTab: string;
+  private adressTab: string;
+  private currentTab: number;
+  private previousTab: string;
+  private nextTab: string;
+  private next: string;
+  private enable_save: boolean;
 
-    private success: boolean;
+  private modalOpened: boolean;
 
-  private divModal: HTMLDivElement;
+  private openModalButton: HTMLButtonElement;
 
   constructor(
     private userService: UserService,
@@ -55,9 +54,7 @@ export class UserEditComponent implements OnInit {
       this.user = new User();
       this.org = new Org();
       this.person = new Person();
-    }
-
-    private jquery: JQuery ;
+  }
 
   ngOnInit() {
 
@@ -67,7 +64,7 @@ export class UserEditComponent implements OnInit {
     this.selectType();
     this.getState();
     this.loadProfiles();
-    this.success = false;
+    this.modalOpened = false;
 
     this.currentTab = 0;
     this.previousTab = '#tab_1';
@@ -88,8 +85,7 @@ export class UserEditComponent implements OnInit {
         this.org = new Org();
         this.person = new Person();
     }
-    this.divModal = (<HTMLDivElement>document.getElementById('modal-default'));
-    // (<HTMLInputElement>document.getElementById('loginInput')).va
+    this.openModalButton = (<HTMLButtonElement>document.getElementById('openModalButton'));
   }
 
   editData(isValid: boolean) {
@@ -97,18 +93,17 @@ export class UserEditComponent implements OnInit {
     if ( !isValid ) {
       return false;
     }
-    this.success = false;
+
+    this.modalOpened = false;
+
     this.verifyType();
     console.log(this.user);
     this.user.address.city = Number(this.user.address.city);
     this.user.name = this.first_name + ' ' + this.last_name;
+
     this.userService.saveEditUser(this.user).subscribe(
-      success => {
-        this.success = true;
-        //this.divModal.style.display = '';
-        ///(onHidden)='hide()'
-        // this.userService.show_msg = true;
-        // this.router.navigate(['/user-list']);
+      s => {
+        this.openModal();
       },
       error => {
         this.error_list = error;
@@ -118,7 +113,10 @@ export class UserEditComponent implements OnInit {
   }
 
   openModal() {
-
+    if (!this.modalOpened) {
+      this.modalOpened = true;
+      this.openModalButton.click();
+    }
   }
 
   public loadProfiles() {
