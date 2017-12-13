@@ -16,6 +16,7 @@ export class TemplateChapterComponent implements OnInit {
   templates: TemplateItem[] = new Array();
   chapters: Chapter[] = new Array();
   hasdata: boolean;
+  filter: any = {name: ''};
 
   constructor(
     private router: Router,
@@ -49,7 +50,6 @@ export class TemplateChapterComponent implements OnInit {
         this.hasdata = false;
       }
     );
-
   }
   createNewChapter() {
     this.router.navigate(['chapter-dashboard']);
