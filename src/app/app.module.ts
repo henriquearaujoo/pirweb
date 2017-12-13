@@ -10,6 +10,7 @@ import {JasperoAlertsModule} from '@jaspero/ng2-alerts';
 import { NgxEditorModule } from 'ngx-editor';
 import { CKEditorModule } from 'ngx-ckeditor';
 // import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import {ToastyModule} from 'ng2-toasty';
 
 import { CdkTableModule } from '@angular/cdk/table';
 import {
@@ -216,8 +217,9 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     NgxPaginationModule,
     JasperoAlertsModule,
     NgxEditorModule,
-    CKEditorModule
+    CKEditorModule,
     // FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
+    ToastyModule.forRoot()
   ],
   providers: [
     RestService,

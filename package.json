@@ -1,71 +1,399 @@
+< simple - notifications > < /simple-notifications>
+
+<
+div class = "content_" >
+    <
+    div class = "content-top" >
+    <
+    div class = "content_fa" > < i class = "fa fa-user" > < /i> Capítulo > Dashboard</div >
+    <
+    /div>
+
+<
+section class = "content_user" >
+    <
+    div class = "content-header " >
+    <
+    h5 class = "content-title" > INFOMAÇÕES DO CAPÍTULO {
+        { currentChapter } } < /h5> <
+    /div> <
+    form name = "form"#
+f = "ngForm"
+novalidate >
+    <!-- Custom Tabs -->
+    <
+    div class = "nav-tabs-custom" >
+    <
+    ul class = "nav nav-tabs" >
+    <
+    li >
+    <
+    img src = "{{informationTab}}" / >
+    <
+    /li> <
+    li >
+    <
+    img src = "{{receptionTab}}" / >
+    <
+    /li> <
+    li >
+    <
+    img src = "{{interventionTab}}" / >
+    <
+    /li> <
+    li >
+    <
+    img src = "{{conclusionTab}}" / >
+    <
+    /li> <
+    /ul> <
+    div class = "tab-content" >
+    <
+    div class = "tab-pane active"
+id = "tab_1" >
+    <
+    div class = "content" >
+    <
+    section class = "content" >
+    <
+    div class = "box-header with-border" >
+    <
+    h5 class = "box-title" >
+    INFORMAÇÕES DO CAPÍTULO <
+    /h5> <
+    /div> <
+    div class = "row" >
+    <
+    div class = "col-sm-12" >
+    <
+    div class = "box box-primary" >
+    <
+    div class = "box-body" >
+    <!-- <app-chapter-information></app-chapter-information> -->
+    <
+    /div> <
+    /div> <
+    /div> <
+    /div> <
+    /section> <
+    /div> <
+    /div>
+    <!-- /.tab-pane -->
+    <
+    div class = "tab-content" >
+    <
+    div class = "tab-pane active"
+id = "tab_2" >
+    <
+    div class = "content" >
+    <
+    section class = "content" >
+    <
+    div class = "box-header with-border" >
+    <
+    h5 class = "box-title" >
+    RECEPÇÃO <
+    /h5> <
+    /div> <
+    div class = "row" >
+    <
+    div class = "col-sm-12" >
+    <
+    div class = "box box-primary" >
+    <
+    div class = "box-body" >
+    <!-- <app-reception></app-reception> -->
+    <
+    /div> <
+    /div> <
+    /div> <
+    /div> <
+    /section> <
+    /div> <
+    /div>
+    <!-- /.tab-pane -->
+    <
+    div class = "tab-pane"
+id = "tab_3" >
+    <
+    div class = "content" >
+    <
+    section class = "content" >
+    <
+    div class = "box-header with-border" >
+    <
+    h5 class = "box-title" >
+    INTERVENÇÃO <
+    /h5> <
+    /div> <
+    div class = "row" >
+    <
+    div class = "col-sm-12" >
+    <
+    div class = "box box-primary" >
+    <
+    div class = "box-body" >
+    <!-- <app-intervention></app-intervention> -->
+    <
+    /div> <
+    /div> <
+    /div> <
+    /div> <
+    /section> <
+    /div> <
+    /div>
+    <!-- /.tab-pane -->
+    <
+    div class = "tab-pane"
+id = "tab_4" >
+    <
+    div class = "content" >
+    <
+    section class = "content" >
+    <
+    div class = "box-header with-border" >
+    <
+    h5 class = "box-title" >
+    CONCLUSÃO <
+    /h5> <
+    /div> <
+    div class = "row" >
+    <
+    div class = "col-sm-12" >
+    <
+    div class = "box box-primary" >
+    <
+    div class = "box-body" >
+    <!-- <app-task></app-task> -->
+    <
+    /div> <
+    /div> <
+    /div> <
+    /div> <
+    /section> <
+    /div> <
+    /div>
+    <!-- /.tab-pane -->
+    <
+    div class = "tab-pane"
+id = "tab_4" >
+    <
+    div class = "content" >
+    <
+    section class = "content" >
+    <
+    div class = "box-header with-border" >
+    <
+    h5 class = "box-title" >
+    CONCLUSÃO <
+    /h5> <
+    /div> <
+    div class = "row" >
+    <
+    div class = "col-sm-12" >
+    <
+    div class = "box box-primary" >
+    <
+    div class = "box-body" >
+    <!-- CARD -->
+    <
+    /div> <
+    /div> <
+    /div> <
+    /div> <
+    /section> <
+    /div> <
+    /div>
+    <!-- /.tab-pane -->
+    <
+    div class = "content-control" >
+    <
+    div class = "control" >
+    <
+    a href = "{{previousTab}}"
+data - toggle = "tab" (click) = "isActive(false)" >
+    <
+    img src = "../../../assets/img/global/ic_previous.png" / >
+    <
+    b > Anterior < /b> <
+    /a> <
+    a href = "{{nextTab}}"
+data - toggle = "tab" (click) = "isActive(true)" >
+    <
+    b > Próximo < /b> <
+    img src = "../../../assets/img/global/ic_next.png" / >
+    <
+    /a> <
+    /div> <
+    /div>
+    <!-- <div class="row footer">
+    <
+    div class = "col-md-3" >
+    <
+    div class = "form-group" >
+    <
+    button class = "btn btn-default btn-block" [routerLink] = "['/user-list']"
+id = "btn_return" > Cancelar < /button> <
+    /div> <
+    /div> <
+    div class = "col-md-3 col-md-offset-6" >
+    <
+    div class = "form-group save" >
+    <
+    button data - toggle = "modal"
+data - target = "#modal-default"
+class = "btn btn-primary btn-block"
+name = "submit"
+id = "btn_save" [disabled] = "!enable_save" > Salvar < /button> <
+    /div> <
+    /div> <
+    /div> --> <
+    /div>
+    <!-- /.tab-content -->
+    <
+    /div> <
+    /form> <
+    /section> <
+    /div> {
+        "name": "pir-web",
+        "version": "0.0.0",
+        "license": "MIT",
+        "scripts": {
+            "ng": "ng",
+            "start": "ng serve",
+            "build": "ng build",
+            "test": "ng test",
+            "lint": "ng lint",
+            "e2e": "ng e2e"
+        },
+        "private": true,
+        "dependencies": {
+            "@agm/core": "^1.0.0-beta.1",
+            "@angular/animations": "^4.4.5",
+            "@angular/cdk": "^2.0.0-beta.12",
+            "@angular/common": "^4.4.5",
+            "@angular/compiler": "^4.4.5",
+            "@angular/core": "^4.4.5",
+            "@angular/forms": "^4.4.5",
+            "@angular/http": "^4.4.5",
+            "@angular/material": "^2.0.0-beta.12",
+            "@angular/platform-browser": "^4.4.5",
+            "@angular/platform-browser-dynamic": "^4.4.5",
+            "@angular/router": "^4.4.5",
+            "@jaspero/ng2-alerts": "0.0.7",
+            "@types/long": "^3.0.32",
+            "angular-2-data-table": "^0.1.2",
+            "angular2-data-table": "^3.0.0",
+            "angular2-notifications": "^0.7.8",
+            "bootstrap-wysiwyg": "^2.0.1",
+            "core-js": "^2.4.1",
+            "froala-editor": "^2.7.2",
+            "materialize-css": "^0.100.2",
+            "ng-cpf-cnpj-validate": "^1.0.2",
+            "ng2-filter-pipe": "^0.1.10",
+            "ng2-input-mask": "0.0.7",
+            "ng2-order-pipe": "^0.1.5",
+            "ng2-search-filter": "^0.3.1",
+            "ng2-toasty": "^4.0.3",
+            "ngx-ckeditor": "^0.1.1",
+            "ngx-editor": "^3.1.2",
+            "ngx-pagination": "^3.0.3",
+            "popper.js": "^1.12.5",
+            "rxjs": "^5.5.0",
+            "underscore": "^1.8.3",
+            "zone.js": "^0.8.14"
+        },
+        "devDependencies": {
+            "@angular/cli": "1.3.2",
+            "@angular/compiler-cli": "^4.4.5",
+            "@angular/language-service": "^4.4.5",
+            "@types/jasmine": "~2.5.53",
+            "@types/jasminewd2": "~2.0.2",
+            "@types/node": "~6.0.60",
+            "codelyzer": "~3.1.1",
+            "jasmine-core": "~2.6.2",
+            "jasmine-spec-reporter": "~4.1.0",
+            "karma": "~1.7.0",
+            "karma-chrome-launcher": "~2.1.1",
+            "karma-cli": "~1.0.1",
+            "karma-coverage-istanbul-reporter": "^1.2.1",
+            "karma-jasmine": "~1.1.0",
+            "karma-jasmine-html-reporter": "^0.2.2",
+            "protractor": "~5.1.2",
+            "ts-node": "~3.2.0",
+            "tslint": "~5.3.2",
+            "typescript": "~2.3.3"
+        }
+    }
+
 {
-  "name": "pir-web",
-  "version": "0.0.0",
-  "license": "MIT",
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
-  },
-  "private": true,
-  "dependencies": {
-    "@agm/core": "^1.0.0-beta.1",
-    "@angular/animations": "^4.4.5",
-    "@angular/cdk": "^2.0.0-beta.12",
-    "@angular/common": "^4.4.5",
-    "@angular/compiler": "^4.4.5",
-    "@angular/core": "^4.4.5",
-    "@angular/forms": "^4.4.5",
-    "@angular/http": "^4.4.5",
-    "@angular/material": "^2.0.0-beta.12",
-    "@angular/platform-browser": "^4.4.5",
-    "@angular/platform-browser-dynamic": "^4.4.5",
-    "@angular/router": "^4.4.5",
-    "@jaspero/ng2-alerts": "0.0.7",
-    "@types/long": "^3.0.32",
-    "angular-2-data-table": "^0.1.2",
-    "angular2-data-table": "^3.0.0",
-    "angular2-notifications": "^0.7.8",
-    "bootstrap-wysiwyg": "^2.0.1",
-    "core-js": "^2.4.1",
-    "froala-editor": "^2.7.2",
-    "materialize-css": "^0.100.2",
-    "ng-cpf-cnpj-validate": "^1.0.2",
-    "ng2-filter-pipe": "^0.1.10",
-    "ng2-input-mask": "0.0.7",
-    "ng2-order-pipe": "^0.1.5",
-    "ng2-search-filter": "^0.3.1",
-    "ng2-toasty": "^4.0.3",
-    "ngx-ckeditor": "^0.1.1",
-    "ngx-editor": "^3.1.2",
-    "ngx-pagination": "^3.0.3",
-    "popper.js": "^1.12.5",
-    "rxjs": "^5.5.0",
-    "underscore": "^1.8.3",
-    "zone.js": "^0.8.14"
-  },
-  "devDependencies": {
-    "@angular/cli": "1.3.2",
-    "@angular/compiler-cli": "^4.4.5",
-    "@angular/language-service": "^4.4.5",
-    "@types/jasmine": "~2.5.53",
-    "@types/jasminewd2": "~2.0.2",
-    "@types/node": "~6.0.60",
-    "codelyzer": "~3.1.1",
-    "jasmine-core": "~2.6.2",
-    "jasmine-spec-reporter": "~4.1.0",
-    "karma": "~1.7.0",
-    "karma-chrome-launcher": "~2.1.1",
-    "karma-cli": "~1.0.1",
-    "karma-coverage-istanbul-reporter": "^1.2.1",
-    "karma-jasmine": "~1.1.0",
-    "karma-jasmine-html-reporter": "^0.2.2",
-    "protractor": "~5.1.2",
-    "ts-node": "~3.2.0",
-    "tslint": "~5.3.2",
-    "typescript": "~2.3.3"
-  }
+    "name": "pir-web",
+    "version": "0.0.0",
+    "license": "MIT",
+    "scripts": {
+        "ng": "ng",
+        "start": "ng serve",
+        "build": "ng build",
+        "test": "ng test",
+        "lint": "ng lint",
+        "e2e": "ng e2e"
+    },
+    "private": true,
+    "dependencies": {
+        "@agm/core": "^1.0.0-beta.1",
+        "@angular/animations": "^4.4.5",
+        "@angular/cdk": "^2.0.0-beta.12",
+        "@angular/common": "^4.4.5",
+        "@angular/compiler": "^4.4.5",
+        "@angular/core": "^4.4.5",
+        "@angular/forms": "^4.4.5",
+        "@angular/http": "^4.4.5",
+        "@angular/material": "^2.0.0-beta.12",
+        "@angular/platform-browser": "^4.4.5",
+        "@angular/platform-browser-dynamic": "^4.4.5",
+        "@angular/router": "^4.4.5",
+        "@jaspero/ng2-alerts": "0.0.7",
+        "@types/long": "^3.0.32",
+        "angular-2-data-table": "^0.1.2",
+        "angular2-data-table": "^3.0.0",
+        "angular2-notifications": "^0.7.8",
+        "bootstrap-wysiwyg": "^2.0.1",
+        "core-js": "^2.4.1",
+        "froala-editor": "^2.7.2",
+        "materialize-css": "^0.100.2",
+        "ng-cpf-cnpj-validate": "^1.0.2",
+        "ng2-filter-pipe": "^0.1.10",
+        "ng2-input-mask": "0.0.7",
+        "ng2-order-pipe": "^0.1.5",
+        "ng2-search-filter": "^0.3.1",
+        "ng2-toasty": "^4.0.3",
+        "ngx-ckeditor": "^0.1.1",
+        "ngx-editor": "^3.1.2",
+        "ngx-pagination": "^3.0.3",
+        "popper.js": "^1.12.5",
+        "rxjs": "^5.5.0",
+        "underscore": "^1.8.3",
+        "zone.js": "^0.8.14"
+    },
+    "devDependencies": {
+        "@angular/cli": "1.3.2",
+        "@angular/compiler-cli": "^4.4.5",
+        "@angular/language-service": "^4.4.5",
+        "@types/jasmine": "~2.5.53",
+        "@types/jasminewd2": "~2.0.2",
+        "@types/node": "~6.0.60",
+        "codelyzer": "~3.1.1",
+        "jasmine-core": "~2.6.2",
+        "jasmine-spec-reporter": "~4.1.0",
+        "karma": "~1.7.0",
+        "karma-chrome-launcher": "~2.1.1",
+        "karma-cli": "~1.0.1",
+        "karma-coverage-istanbul-reporter": "^1.2.1",
+        "karma-jasmine": "~1.1.0",
+        "karma-jasmine-html-reporter": "^0.2.2",
+        "protractor": "~5.1.2",
+        "ts-node": "~3.2.0",
+        "tslint": "~5.3.2",
+        "typescript": "~2.3.3"
+    }
 }

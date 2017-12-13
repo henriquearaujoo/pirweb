@@ -124,13 +124,13 @@ button {
 }
 
 button#btn_cancel {
-    width: 150px;
+    width: 175px;
     height: 45px;
     border-radius: 0;
 }
 
 button#btn_confirm {
-    width: 150px;
+    width: 175px;
     height: 45px;
     border-radius: 0;
 }

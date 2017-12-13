@@ -124,19 +124,23 @@ button {
 }
 
 button#btn_cancel {
-    width: 150px;
+    width: 175px;
     height: 45px;
     border-radius: 0;
 }
 
 button#btn_confirm {
-    width: 150px;
+    width: 175px;
     height: 45px;
     border-radius: 0;
 }
 
-.modal-btn-cancel {
+.modal-btn-confirm {
     float: right;
+}
+
+.modal-btn-cancel {
+    float: left;
 }
 
 .modal-body[_ngcontent-c5] {

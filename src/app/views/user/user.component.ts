@@ -3,20 +3,22 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { Person } from './../../models/person';
 import { Org } from './../../models/org';
 import { ProfileService } from './../../services/profile/profile.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { User } from '../../models/user';
 import { Profile } from '../../models/profile';
 import { Types } from '../../models/types';
 
 import { UserService } from '../../services/user/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import * as $ from 'jquery';
+
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, AfterViewInit {
 
   private user: User;
   private types: Types[] = [new Types('PFIS', 'Pessoa Fi­sica'), new Types('PJUR', 'Pessoa Jurídica')];
@@ -42,6 +44,10 @@ export class UserComponent implements OnInit {
   private nextTab: string;
   private next: string;
   private enable_save: boolean;
+  private enable_previous: boolean;
+  private cont: number;
+  private modalSave: string;
+  // @ViewChild('myModal') myModal: ElementRef;
 
   constructor(
     private userService: UserService,
@@ -69,9 +75,24 @@ export class UserComponent implements OnInit {
     this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
 
     this.enable_save = false;
+    this.enable_previous = false;
+    this.cont = 0;
+    this.modalSave = '#modal-default';
   }
 
   ngOnChange() {
+  }
+
+  ngAfterViewInit() {
+  }
+
+  openModal() {
+    // jQuery(this.myModal.nativeElement).modal('show').noConflict();
+    // (<any>$('#myModal')).modal('show');
+    //  $.noConflict(true);
+     console.log($(window)); // jquery is accessible
+    //  $('#myModal').modal('show');
+    // $(this.myModal.nativeElement).modal('show');
   }
 
   saveData() {
@@ -81,11 +102,13 @@ export class UserComponent implements OnInit {
     this.user.address.city = Number(this.user.address.city);
     console.log('Usuários:', this.user);
     console.log('Cidades: ', this.cities);
-
+    this.success = true;
     this.userService.createUser(this.user).subscribe(
       success => {
+        // jQuery(this.myModal.nativeElement).modal('show');
+        // (<any>$('#myModal')).modal('show');
         // this.userService.show_msg = true;
-        // this.success = true;
+        this.success = true;
         // this.router.navigate(['/user-list']);
       },
       error => {
@@ -243,10 +266,14 @@ export class UserComponent implements OnInit {
             this.currentTab = 0;
       } else if (this.currentTab < 2) {
             this.currentTab++;
+            this.cont++;
+            console.log('TAB:', this.currentTab);
         }
     }else {
       if (this.currentTab > 0) {
             this.currentTab--;
+            this.cont--;
+            console.log('TAB:', this.currentTab);
           }
     }
       this.previousTab = '#tab_' + (this.currentTab + 1);
