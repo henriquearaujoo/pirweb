@@ -4,7 +4,7 @@ export class Chapter {
     public title: string;
     public description: string;
     public content: string;
-    public goal: string;
+    public task: string;
     public family_tasks: string;
     public estimated_time: number;
     public time_next_visit: number;

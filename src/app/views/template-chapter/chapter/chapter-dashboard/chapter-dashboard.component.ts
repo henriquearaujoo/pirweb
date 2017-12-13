@@ -7,15 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChapterDashboardComponent implements OnInit {
 
-  private accountTab: string;
-  private personalTab: string;
-  private adressTab: string;
-  private currentTab: number;
+  private informationTab: string;
+  private receptionTab: string;
+  private conclusionTab: string;
+  private interventionTab: string;
+
   private previousTab: string;
+  private currentTab: number;
   private nextTab: string;
   private next: string;
   private enable_save: boolean;
-  private currentChapter: string;
+  private currentChapter: number;
 
   constructor() { }
 
@@ -23,47 +25,63 @@ export class ChapterDashboardComponent implements OnInit {
     this.currentTab = 0;
     this.previousTab = '#tab_1';
     this.nextTab = '#tab_2';
-    this.accountTab = '../../../assets/img/user/ic_account_enable.png';
-    this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
-    this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
-    this.currentChapter = 'Capítulo x';
+
+    this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_enable.png';
+    this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_disable.png';
+    this.interventionTab = '../../../assets/img/chapter/ic_chapter_tab_intervention_disable.png';
+    this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_question_disable.png';
+
+    this.currentChapter = 1;
     this.enable_save = false;
   }
 
   isActive(tab: boolean) {
+
     if (tab) {
       if (this.currentTab === -1) {
             this.currentTab = 0;
-      } else if (this.currentTab < 2) {
+      } else if (this.currentTab < 3) {
             this.currentTab++;
         }
     }else {
       if (this.currentTab > 0) {
-            this.currentTab--;
-          }
+        this.currentTab--;
+      }
     }
     this.previousTab = '#tab_' + (this.currentTab + 1);
     this.nextTab = '#tab_' + (this.currentTab + 1);
 
-    if (this.nextTab === '#tab_3') {
+    if (this.nextTab === '#tab_4') {
       this.enable_save = true;
     } else {
       this.enable_save = false;
     }
 
-    if (this.currentTab === 0) {
-      this.accountTab = '../../../assets/img/user/ic_account_enable.png';
-      this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
-      this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
-    }else if (this.currentTab === 1) {
-      this.accountTab = '../../../assets/img/user/ic_account_disable.png';
-      this.personalTab = '../../../assets/img/user/ic_personal_enable.png';
-      this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
-    }else {
-      this.accountTab = '../../../assets/img/user/ic_account_disable.png';
-      this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
-      this.adressTab = '../../../assets/img/user/ic_adress_enable.png';
-      this.next = 'Salvar';
+    switch (this.currentTab) {
+        case 0:
+          this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_enable.png';
+          this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_disable.png';
+          this.interventionTab = '../../../assets/img/chapter/ic_chapter_tab_intervention_disable.png';
+          this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_question_disable.png';
+          break;
+        case 1:
+          this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_disable.png';
+          this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_enable.png';
+          this.interventionTab = '../../../assets/img/chapter/ic_chapter_tab_intervention_disable.png';
+          this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_question_disable.png';
+          break;
+        case 2:
+          this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_disable.png';
+          this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_disable.png';
+          this.interventionTab = '../../../assets/img/chapter/ic_chapter_tab_intervention_enable.png';
+          this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_question_disable.png';
+          break;
+        case 3:
+          this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_disable.png';
+          this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_disable.png';
+          this.interventionTab = '../../../assets/img/chapter/ic_chapter_tab_intervention_disable.png';
+          this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_question_enable.png';
+          break;
     }
   }
 }

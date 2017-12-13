@@ -257,3 +257,7 @@ section.content_user {
     text-align: center;
     cursor: pointer;
 }
+
+.position {
+    padding: 20px 0px 20px 20px;
+}

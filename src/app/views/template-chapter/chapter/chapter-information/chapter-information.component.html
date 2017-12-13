@@ -3,7 +3,7 @@
 <div class="content">
     <section class="content">
         <form name="form" (ngSubmit)="f.form.valid && saveData()" #f="ngForm" novalidate>
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-md-6">
                     <div class="box-header with-border">
                         <h3 class="box-title"> Informaçoes básicas
@@ -18,7 +18,7 @@
                     <app-control-field-error [showError]="verifyValidSubmitted(f, number)" msgError="Digite um N°">
                     </app-control-field-error>
                 </div>
-            </div>
+            </div> -->
 
             <div class="row">
                 <div class="col-md-6">
@@ -77,9 +77,9 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label">Conclusão</label>
-                                <ck-editor id="chapter_conclusion" name="editor" #conclusion="ngModel" [(ngModel)]="chapter.goal" skin="moono-lisa" [fullPage]="false"></ck-editor>
-                                <app-control-field-error [showError]="verifyValidSubmitted(f, conclusion)" msgError="Digite a conclusão">
+                                <label class="control-label">Tarefa para a familia</label>
+                                <ck-editor id="chapter_task" name="editor" #conclusion="ngModel" [(ngModel)]="chapter.task" skin="moono-lisa" [fullPage]="false"></ck-editor>
+                                <app-control-field-error [showError]="verifyValidSubmitted(f, task)" msgError="Digite a conclusão">
                                 </app-control-field-error>
                             </div>
                         </div>
