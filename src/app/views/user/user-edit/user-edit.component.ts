@@ -8,6 +8,7 @@ import { Person } from '../../../models/person';
 import { UserService } from '../../../services/user/user.service';
 import { ProfileService } from '../../../services/profile/profile.service';
 import { Router } from '@angular/router';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-user-edit',
@@ -41,10 +42,11 @@ export class UserEditComponent implements OnInit {
   private nextTab: string;
   private next: string;
   private enable_save: boolean;
+  private modalSave: string;
 
   private modalOpened: boolean;
-
   private openModalButton: HTMLButtonElement;
+  private btn_cancel: boolean;
 
   constructor(
     private userService: UserService,
@@ -58,12 +60,14 @@ export class UserEditComponent implements OnInit {
 
   ngOnInit() {
 
+    this.btn_cancel = false;
     this.show_pjur = false;
     this.user = this.userService.getUser();
     this.city_id = this.user.address.city;
     this.selectType();
     this.getState();
     this.loadProfiles();
+    this.modalSave = '#modal-default';
     this.modalOpened = false;
 
     this.currentTab = 0;
@@ -86,24 +90,25 @@ export class UserEditComponent implements OnInit {
         this.person = new Person();
     }
     this.openModalButton = (<HTMLButtonElement>document.getElementById('openModalButton'));
+    this.openModalButton.style.display = 'none';
+    (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
   }
 
-  editData(isValid: boolean) {
-
-    if ( !isValid ) {
+  editData() {
+    if (this.btn_cancel) {
+      this.btn_cancel = false;
       return false;
     }
-
     this.modalOpened = false;
-
     this.verifyType();
-    console.log(this.user);
+    console.log('EDITAR',  this.user);
     this.user.address.city = Number(this.user.address.city);
     this.user.name = this.first_name + ' ' + this.last_name;
 
     this.userService.saveEditUser(this.user).subscribe(
       s => {
         this.openModal();
+        console.log('openModal()');
       },
       error => {
         this.error_list = error;
@@ -350,6 +355,7 @@ export class UserEditComponent implements OnInit {
       }
 
       if (this.currentTab === 0) {
+          (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
           this.accountTab = '../../../assets/img/user/ic_account_enable.png';
           this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
           this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
@@ -358,8 +364,11 @@ export class UserEditComponent implements OnInit {
           this.accountTab = '../../../assets/img/user/ic_account_disable.png';
           this.personalTab = '../../../assets/img/user/ic_personal_enable.png';
           this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
+          (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
+          (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
 
       }else {
+          (<HTMLButtonElement>document.getElementById('btn_next')).style.display = 'none';
           this.accountTab = '../../../assets/img/user/ic_account_disable.png';
           this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
           this.adressTab = '../../../assets/img/user/ic_adress_enable.png';
@@ -369,6 +378,11 @@ export class UserEditComponent implements OnInit {
 
   backToList() {
     this.router.navigate(['user-list']);
+  }
+
+  cancel() {
+    console.log('cancel', this.btn_cancel);
+    this.btn_cancel = true;
   }
 
 }

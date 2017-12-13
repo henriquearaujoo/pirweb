@@ -82,17 +82,17 @@ label {
     padding-left: 40px;
     padding-top: 30px;
 }
-
+/* 
 .col-sm-6 {
     padding: 0;
-}
+} */
 
 .form-group.profile {
-    padding-right: 20px;
+    padding-right: 10px;
 }
 
 .form-group.type {
-    padding-left: 20px;
+    padding-left: 10px;
 }
 
 label {
@@ -135,14 +135,18 @@ button#btn_confirm {
     border-radius: 0;
 }
 
-.modal-btn-cancel {
+.modal-btn-confirm {
     float: right;
 }
 
-.modal-body[_ngcontent-c5] {
+.modal-btn-cancel {
+    float: left;
+}
+
+/* .modal-body[_ngcontent-c5] {
     padding-top: 30px;
     margin-top: 20px;
-}
+} */
 
 .modal-icon {
     text-align: center;
@@ -190,9 +194,9 @@ section.content_user {
     padding: 24px;
 }
 
-.form-group.left {
+/* .form-group.left {
     padding-right: 30px;
-}
+} */
 
 .row.footer {
     /* padding-right: 25px; */
@@ -238,10 +242,12 @@ section.content_user {
 .modal-content {
     height: 200px;
     width: 350px;
+    text-align: center;
 }
 
-.modal-body[_ngcontent-c5] {
+.modal-body {
     padding-top: 30px;
+    padding-bottom: 30px;
     margin-top: 20px;
     text-align: center;
 }
