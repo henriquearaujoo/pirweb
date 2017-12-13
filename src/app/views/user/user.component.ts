@@ -3,13 +3,15 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { Person } from './../../models/person';
 import { Org } from './../../models/org';
 import { ProfileService } from './../../services/profile/profile.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { User } from '../../models/user';
 import { Profile } from '../../models/profile';
 import { Types } from '../../models/types';
 
 import { UserService } from '../../services/user/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import * as $ from 'jquery';
+
 
 @Component({
   selector: 'app-user',
@@ -25,11 +27,29 @@ export class UserComponent implements OnInit {
   private profiles: Profile[] = new Array();
   private org: Org;
   private person: Person;
+  private first_name: string;
+  private last_name: string;
   private hasdata: boolean;
-  show_pjur: boolean;
+  private show_pjur: boolean;
   private success: boolean;
   private error_list = new Array();
   private error_item = new Array<string>();
+  private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
+
+  private accountTab: string;
+  private personalTab: string;
+  private adressTab: string;
+  private currentTab: number;
+  private previousTab: string;
+  private nextTab: string;
+  private next: string;
+  private enable_save: boolean;
+  private enable_previous: boolean;
+  private cont: number;
+  private modalSave: string;
+
+  private modalOpened: boolean;
+  private openModalButton: HTMLButtonElement;
 
   constructor(
     private userService: UserService,
@@ -48,24 +68,51 @@ export class UserComponent implements OnInit {
     this.show_pjur = false;
     this.success = false;
     this.error_list = [];
-  }
+    this.modalOpened = false;
 
-  ngOnChange() {
+    this.currentTab = 0;
+    this.previousTab = '#tab_1';
+    this.nextTab = '#tab_2';
+    this.accountTab = '../../../assets/img/user/ic_account_enable.png';
+    this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
+    this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
+
+    this.enable_save = false;
+    this.cont = 0;
+    this.modalSave = '#modal-default';
+
+    this.openModalButton = (<HTMLButtonElement>document.getElementById('openModalButton'));
+    this.openModalButton.style.display = 'none';
+    (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
   }
 
   saveData() {
+    this.modalOpened = false;
+    console.log('SAVE', this.user);
     this.verifyType();
     console.log(this.user.profile);
+    this.user.name = this.first_name + ' ' + this.last_name;
+    this.user.address.city = Number(this.user.address.city);
+    console.log('Usuários:', this.user);
+    console.log('Cidades: ', this.cities);
+    this.success = true;
     this.userService.createUser(this.user).subscribe(
       success => {
-        this.userService.show_msg = true;
-        this.router.navigate(['/user-list']);
+        this.openModal();
+        // this.router.navigate(['/user-list']);
       },
       error => {
         this.error_list = error;
         this.verifyError();
       }
     );
+  }
+
+  openModal() {
+    if (!this.modalOpened) {
+      this.modalOpened = true;
+      this.openModalButton.click();
+    }
   }
 
   public loadProfiles() {
@@ -210,6 +257,52 @@ export class UserComponent implements OnInit {
     }
    }
 
+   isActive(tab: boolean) {
+    if (tab) {
+      if (this.currentTab === -1) {
+            this.currentTab = 0;
+      } else if (this.currentTab < 2) {
+            this.currentTab++;
+            this.cont++;
+            console.log('TAB:', this.cont);
+        }
+    }else {
+      if (this.currentTab > 0) {
+            this.currentTab--;
+            this.cont--;
+            console.log('TAB:', this.cont);
+          }
+    }
+      this.previousTab = '#tab_' + (this.currentTab + 1);
+      this.nextTab = '#tab_' + (this.currentTab + 1);
+
+      if (this.nextTab === '#tab_3') {
+        this.enable_save = true;
+      } else {
+        this.enable_save = false;
+      }
+
+      if (this.currentTab === 0) {
+          (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
+          this.accountTab = '../../../assets/img/user/ic_account_enable.png';
+          this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
+          this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
+
+      }else if (this.currentTab === 1) {
+          this.accountTab = '../../../assets/img/user/ic_account_disable.png';
+          this.personalTab = '../../../assets/img/user/ic_personal_enable.png';
+          this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
+          (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
+          (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
+      }else {
+          (<HTMLButtonElement>document.getElementById('btn_next')).style.display = 'none';
+          this.accountTab = '../../../assets/img/user/ic_account_disable.png';
+          this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
+          this.adressTab = '../../../assets/img/user/ic_adress_enable.png';
+          this.next = 'Salvar';
+        }
+  }
+
   verifyValidSubmitted(form, field) {
     return form.submitted && !field.valid;
   }
@@ -219,5 +312,9 @@ export class UserComponent implements OnInit {
       'has-error': this.verifyValidSubmitted(form, field),
       'has-feedback': this.verifyValidSubmitted(form, field)
     };
+  }
+
+  backToList() {
+    this.router.navigate(['user-list']);
   }
 }

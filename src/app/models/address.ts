@@ -5,7 +5,7 @@ export class Address {
     public id: string;
     public complement: string;
     public postalcode: string;
-    public city: string;
+    public city: number;
     public state: string;
 
 }

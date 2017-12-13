@@ -18,8 +18,9 @@ export class UserDetailsComponent implements OnInit {
   show_pjur: boolean;
   private profiles: Profile[] = new Array();
   private cities: City[];
-  private city_id: string;
+  private city_id: number;
   private state_id: string;
+  private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
 
   constructor(
     private userService: UserService,

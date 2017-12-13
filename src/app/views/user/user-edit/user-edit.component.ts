@@ -1,6 +1,5 @@
-
 import { ToastService } from './../../../services/toast-notification/toast.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { User } from '../../../models/user';
 import { Types } from '../../../models/types';
 import { Profile } from '../../../models/profile';
@@ -9,6 +8,7 @@ import { Person } from '../../../models/person';
 import { UserService } from '../../../services/user/user.service';
 import { ProfileService } from '../../../services/profile/profile.service';
 import { Router } from '@angular/router';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-user-edit',
@@ -24,12 +24,29 @@ export class UserEditComponent implements OnInit {
   private profiles: Profile[] = new Array();
   private org: Org;
   private person: Person;
+  private first_name: string;
+  private last_name: string;
   private hasdata: boolean;
   show_pjur: boolean;
-  private city_id: string;
+  private city_id: number;
   private state_id: string;
   private error_list = new Array();
   private error_item = new Array<string>();
+  private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
+
+  private accountTab: string;
+  private personalTab: string;
+  private adressTab: string;
+  private currentTab: number;
+  private previousTab: string;
+  private nextTab: string;
+  private next: string;
+  private enable_save: boolean;
+  private modalSave: string;
+
+  private modalOpened: boolean;
+  private openModalButton: HTMLButtonElement;
+  private btn_cancel: boolean;
 
   constructor(
     private userService: UserService,
@@ -39,40 +56,72 @@ export class UserEditComponent implements OnInit {
       this.user = new User();
       this.org = new Org();
       this.person = new Person();
-    }
+  }
 
   ngOnInit() {
+
+    this.btn_cancel = false;
     this.show_pjur = false;
     this.user = this.userService.getUser();
     this.city_id = this.user.address.city;
     this.selectType();
     this.getState();
     this.loadProfiles();
+    this.modalSave = '#modal-default';
+    this.modalOpened = false;
+
+    this.currentTab = 0;
+    this.previousTab = '#tab_1';
+    this.nextTab = '#tab_2';
+    this.accountTab = '../../../assets/img/user/ic_account_enable.png';
+    this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
+    this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
+
+    this.enable_save = false;
 
     if (this.user !== undefined) {
         this.person = this.user.pfis;
         this.org = this.user.pjur;
+        this.first_name = this.user.name.split(' ')[0];
+        this.last_name = this.user.name.split(' ')[1];
     } else {
         this.user = new User();
         this.org = new Org();
         this.person = new Person();
     }
-
+    this.openModalButton = (<HTMLButtonElement>document.getElementById('openModalButton'));
+    this.openModalButton.style.display = 'none';
+    (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
   }
 
   editData() {
+    if (this.btn_cancel) {
+      this.btn_cancel = false;
+      return false;
+    }
+    this.modalOpened = false;
     this.verifyType();
-    console.log(this.user);
+    console.log('EDITAR',  this.user);
+    this.user.address.city = Number(this.user.address.city);
+    this.user.name = this.first_name + ' ' + this.last_name;
+
     this.userService.saveEditUser(this.user).subscribe(
-      success => {
-        this.userService.show_msg = true;
-        this.router.navigate(['/user-list']);
+      s => {
+        this.openModal();
+        console.log('openModal()');
       },
       error => {
         this.error_list = error;
         this.verifyError();
       }
     );
+  }
+
+  openModal() {
+    if (!this.modalOpened) {
+      this.modalOpened = true;
+      this.openModalButton.click();
+    }
   }
 
   public loadProfiles() {
@@ -282,6 +331,58 @@ export class UserEditComponent implements OnInit {
       'has-error': this.verifyValidSubmitted(form, field),
       'has-feedback': this.verifyValidSubmitted(form, field)
     };
+  }
+
+  isActive(tab: boolean) {
+    if (tab) {
+      if (this.currentTab === -1) {
+            this.currentTab = 0;
+      } else if (this.currentTab < 2) {
+            this.currentTab++;
+        }
+    }else {
+      if (this.currentTab > 0) {
+            this.currentTab--;
+          }
+    }
+      this.previousTab = '#tab_' + (this.currentTab + 1);
+      this.nextTab = '#tab_' + (this.currentTab + 1);
+
+      if (this.nextTab === '#tab_3') {
+        this.enable_save = true;
+      } else {
+        this.enable_save = false;
+      }
+
+      if (this.currentTab === 0) {
+          (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
+          this.accountTab = '../../../assets/img/user/ic_account_enable.png';
+          this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
+          this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
+
+      }else if (this.currentTab === 1) {
+          this.accountTab = '../../../assets/img/user/ic_account_disable.png';
+          this.personalTab = '../../../assets/img/user/ic_personal_enable.png';
+          this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
+          (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
+          (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
+
+      }else {
+          (<HTMLButtonElement>document.getElementById('btn_next')).style.display = 'none';
+          this.accountTab = '../../../assets/img/user/ic_account_disable.png';
+          this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
+          this.adressTab = '../../../assets/img/user/ic_adress_enable.png';
+          this.next = 'Salvar';
+        }
+  }
+
+  backToList() {
+    this.router.navigate(['user-list']);
+  }
+
+  cancel() {
+    console.log('cancel', this.btn_cancel);
+    this.btn_cancel = true;
   }
 
 }

@@ -57,7 +57,7 @@ export class UserService extends RestService {
     return this.get(this.apiurl + 'states/state/' + state_id + '/cities');
   }
 
-  public getCity(city_id?: string) {
+  public getCity(city_id?: number) {
      return this.get(this.apiurl + 'states/city/' + city_id + '/');
   }
 

@@ -1,0 +1,73 @@
+<simple-notifications></simple-notifications>
+
+<div class="content">
+    <section class="content">
+      <form name="form" (ngSubmit)="f.form.valid && saveData()" #f="ngForm" novalidate>
+          <div class="box-header with-border">
+            <h5 class="box-title"> Informações da Conta
+            </h5>
+          </div>
+          <div class="row">              
+            <div class="col-sm-12">
+              <div class="box box-primary">
+                <div class="box-body">
+                  <!-- select status-->
+                  <div class="form-group" [ngClass]="applyCssError(f, status)">
+                    <label class="control-label">Status</label>
+                    <select class="form-control" #status="ngModel" name="status" id="user_status" [(ngModel)]="user.status" required>
+                      <option disabled>Status</option>
+                      <option value="true">Ativo</option>
+                      <option value="false">Inatí­vo</option>
+                    </select>
+                    <app-control-field-error [showError]="verifyValidSubmitted(f, status)" msgError="Selecione o status do usuário">                          
+                    </app-control-field-error>
+                  </div>
+                  <!-- end select status-->
+                  <!-- select profile-->
+                  <div class="col-sm-6">
+                    <div class="form-group profile" [ngClass]="applyCssError(f, profile)">
+                      <label class="control-label">Perfil</label>
+                      <select class="form-control" name="profile" id="user_profile"
+                        [(ngModel)]="user.profile" #profile="ngModel" required>
+                        <option disabled> Perfil</option>
+                        <option *ngFor="let profile of profiles" [value]="profile.id">{{profile.title}}</option>
+                      </select>
+                      <app-control-field-error [showError]="verifyValidSubmitted(f, profile)" msgError="Selecione um perfil">                          
+                      </app-control-field-error>                        
+                    </div>
+                  </div>
+                  <!-- end select profile-->
+
+                  <!-- select type-->
+                  <div class="col-sm-6">
+                    <div class="form-group type" [ngClass]="applyCssError(f, type)">
+                      <label class="control-label">Tipo de usuário</label>
+                      <select class="form-control" name="type" id="user_type"
+                        [(ngModel)]="user.type" #type="ngModel" (change)="selectType()" required>
+                        <option disabled >Tipo de Usuário</option>
+                        <option *ngFor="let type of types" [value]="type.id">{{type.description}}</option>
+                      </select>
+                      <app-control-field-error [showError]="verifyValidSubmitted(f, type)" msgError="Selecione um tipo de usuário">                          
+                      </app-control-field-error>
+                    </div>
+                  </div>
+                  <!-- end select type-->
+                  <div class="form-group" [ngClass]="applyCssError(f, login)">
+                    <label class="control-label">Login</label>
+                    <input type="text" [(ngModel)]="user.login" #login="ngModel" name="login" id="user_login" class="form-control" placeholder="Login" required>
+                    <app-control-field-error [showError]="verifyValidSubmitted(f, login)" msgError="Digite um login">                          
+                    </app-control-field-error>                        
+                  </div>
+                  <div class="form-group" [ngClass]="applyCssError(f, password)">
+                    <label class="control-label">Senha</label>
+                    <input type="password" [(ngModel)]="user.password" #password="ngModel" name="password" id="user_password" class="form-control" required minlength="8" placeholder="Inserir uma senha">
+                    <app-control-field-error [showError]="verifyValidSubmitted(f, password)" msgError="Digite uma senha. Mínimo 8 caracteres">                          
+                    </app-control-field-error>
+                  </div>                     
+                </div>
+              </div>
+            </div>            
+          </div>
+        </form>
+        </section>
+      </div>
