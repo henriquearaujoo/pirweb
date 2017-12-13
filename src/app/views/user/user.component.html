@@ -300,11 +300,11 @@
                     <!-- /.tab-pane -->
                     <div class="content-control">
                         <div class="control">
-                            <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false)">
+                            <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false)" id="btn_previous">
                                 <img src="../../../assets/img/global/ic_previous.png" />
                                 <b>Anterior</b>
                             </a>
-                            <a href="{{nextTab}}" data-toggle="tab" (click)="isActive(true)" *ngIf="currentTab !== 2">
+                            <a href="{{nextTab}}" data-toggle="tab" (click)="isActive(true)" id="btn_next">
                                 <b>Próximo</b>
                                 <img src="../../../assets/img/global/ic_next.png" />
                             </a>

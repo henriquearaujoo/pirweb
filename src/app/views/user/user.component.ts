@@ -78,6 +78,8 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.enable_previous = false;
     this.cont = 0;
     this.modalSave = '#modal-default';
+
+    (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
   }
 
   ngOnChange() {
@@ -267,13 +269,13 @@ export class UserComponent implements OnInit, AfterViewInit {
       } else if (this.currentTab < 2) {
             this.currentTab++;
             this.cont++;
-            console.log('TAB:', this.currentTab);
+            console.log('TAB:', this.cont);
         }
     }else {
       if (this.currentTab > 0) {
             this.currentTab--;
             this.cont--;
-            console.log('TAB:', this.currentTab);
+            console.log('TAB:', this.cont);
           }
     }
       this.previousTab = '#tab_' + (this.currentTab + 1);
@@ -286,6 +288,7 @@ export class UserComponent implements OnInit, AfterViewInit {
       }
 
       if (this.currentTab === 0) {
+          (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
           this.accountTab = '../../../assets/img/user/ic_account_enable.png';
           this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
           this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
@@ -294,8 +297,10 @@ export class UserComponent implements OnInit, AfterViewInit {
           this.accountTab = '../../../assets/img/user/ic_account_disable.png';
           this.personalTab = '../../../assets/img/user/ic_personal_enable.png';
           this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
-
+          (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
+          (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
       }else {
+          (<HTMLButtonElement>document.getElementById('btn_next')).style.display = 'none';
           this.accountTab = '../../../assets/img/user/ic_account_disable.png';
           this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
           this.adressTab = '../../../assets/img/user/ic_adress_enable.png';

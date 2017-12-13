@@ -86,6 +86,7 @@ export class UserEditComponent implements OnInit {
         this.person = new Person();
     }
     this.openModalButton = (<HTMLButtonElement>document.getElementById('openModalButton'));
+    (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
   }
 
   editData(isValid: boolean) {
@@ -350,6 +351,7 @@ export class UserEditComponent implements OnInit {
       }
 
       if (this.currentTab === 0) {
+          (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
           this.accountTab = '../../../assets/img/user/ic_account_enable.png';
           this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
           this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
@@ -358,8 +360,11 @@ export class UserEditComponent implements OnInit {
           this.accountTab = '../../../assets/img/user/ic_account_disable.png';
           this.personalTab = '../../../assets/img/user/ic_personal_enable.png';
           this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
+          (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
+          (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
 
       }else {
+          (<HTMLButtonElement>document.getElementById('btn_next')).style.display = 'none';
           this.accountTab = '../../../assets/img/user/ic_account_disable.png';
           this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
           this.adressTab = '../../../assets/img/user/ic_adress_enable.png';
