@@ -5,7 +5,7 @@ import { Http, XHRBackend, RequestOptions, HttpModule, ConnectionBackend } from 
 import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SimpleNotificationsModule } from 'angular2-notifications';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 import {JasperoAlertsModule} from '@jaspero/ng2-alerts';
 import { NgxEditorModule } from 'ngx-editor';
 import { CKEditorModule } from 'ngx-ckeditor';

@@ -1,17 +1,11 @@
 <simple-notifications></simple-notifications>
-
 <div class="content">
     <section class="content">
         <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
             <div class="row">
-                <div class="col-sm-5">
-                    <div class="row">
-                        Rotinas básicas
-                    </div>
+                <div>
+                    Rotinas básicas
                 </div>
-            </div>
-
-            <div class="row">
                 <!-- Turn off devices -->
                 <div class="col">
                     <div class="row">
@@ -24,7 +18,7 @@
                             Televisão
                         </div>
                         <div class="col-sm-1">
-                            <input type="checkbox" name="turn_off_tv">
+                            <input type="checkbox" name="turn_off_tv" checked>
                         </div>
                     </div>
                     <div class="row">
@@ -32,7 +26,7 @@
                             Rádio
                         </div>
                         <div class="col-sm-1">
-                            <input type="checkbox" name="turn_off_radio">
+                            <input type="checkbox" name="turn_off_radio" checked>
                         </div>
                     </div>
                     <div class="row">
@@ -40,7 +34,7 @@
                             Celular
                         </div>
                         <div class="col-sm-1">
-                            <input type="checkbox" name="turn_off_phone">
+                            <input type="checkbox" name="turn_off_phone" checked>
                         </div>
                     </div>
                     <div class="row">
@@ -65,7 +59,7 @@
                             Fogão elétrico
                         </div>
                         <div class="col-sm-1">
-                            <input type="checkbox" name="turn_off_tv">
+                            <input type="checkbox" name="turn_off_tv" checked>
                         </div>
                     </div>
                     <div class="row">
@@ -73,7 +67,7 @@
                             Fogão a lenha
                         </div>
                         <div class="col-sm-1">
-                            <input type="checkbox" name="turn_off_radio">
+                            <input type="checkbox" name="turn_off_radio" checked>
                         </div>
                     </div>
                     <div class="row">
@@ -99,7 +93,7 @@
                             Fogão elétrico
                         </div>
                         <div class="col-sm-1">
-                            <input type="checkbox" name="turn_off_tv">
+                            <input type="checkbox" name="turn_off_tv" checked>
                         </div>
                     </div>
                     <div class="row">
@@ -107,7 +101,7 @@
                             Fogão a lenha
                         </div>
                         <div class="col-sm-1">
-                            <input type="checkbox" name="turn_off_radio">
+                            <input type="checkbox" name="turn_off_radio" checked>
                         </div>
                     </div>
                     <div class="row">
@@ -122,42 +116,50 @@
                 <!--/ Turn off -->
             </div>
 
-            <div class="row">
+            <div>
                 <div class="col">
                     <div class="row">
                         <div class="col-sm-6">
-                            Retomar visita anterior <input type="checkbox" name="turn_off_tv" />
+                            Retomar visita anterior <input type="checkbox" name="turn_off_tv" checked />
                         </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="row">
-                        <div class="col-sm-4">
-                            Acalmar familia <input type="checkbox" name="turn_off_tv">
+                        <div class="col-sm-5">
+                            Acalmar familia <input type="checkbox" name="turn_off_tv" checked>
                         </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="row">
                         <div class="col-sm-6">
-                            Explicar sobre a visita <input type="checkbox" name="turn_off_tv">
+                            Explicar sobre a visita <input type="checkbox" name="turn_off_tv" checked>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="box box-primary">
-                        <div class="box-body">
-                            <div class="form-group">
-                                <label class="control-label">Descrição</label>
-                                <ck-editor id="reception_description" name="reception_description" #description="ngModel" [(ngModel)]="reception.description" skin="moono-lisa" [fullPage]="false"></ck-editor>
+            <div class="row" style="margin-left:8px;">
+                <div class="col-sm-6">
+                    <label class="control-label">Outros</label>
+                    <ck-editor id="reception_other" name="reception_reception_other" #description="ngModel" [(ngModel)]="reception.reception_other" skin="moono-lisa" [fullPage]="false"></ck-editor>
+                </div>
+            </div>
+            <section class="content" style="margin-top:10px;">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="box box-primary">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label class="control-label">Descrição</label>
+                                    <ck-editor style="height: 150px;" id="reception_description" name="reception_description" #description="ngModel" [(ngModel)]="reception.description" skin="moono-lisa" [fullPage]="false"></ck-editor>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
+
             <!-- <div class="row">
                 <div class="col-sm-6 cancel">
                     <div class="form-group">

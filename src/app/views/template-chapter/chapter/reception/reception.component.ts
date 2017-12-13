@@ -1,5 +1,6 @@
+import { Subject } from 'rxjs/Subject';
 import { Reception } from './../../../../models/reception';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-reception',
@@ -9,10 +10,17 @@ import { Component, OnInit } from '@angular/core';
 export class ReceptionComponent implements OnInit {
 
   private reception: Reception =  new Reception();
+  @Input() chapterId: any;
+  @Input() parentSubject: Subject<any>;
 
   constructor() { }
 
   ngOnInit() {
+
+  }
+
+  saveData() {
+    console.log(this.chapterId);
   }
 
 }
