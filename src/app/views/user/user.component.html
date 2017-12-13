@@ -1,5 +1,5 @@
 <simple-notifications></simple-notifications>
-
+<button data-toggle="modal" data-target="#modal-default" id="openModalButton">Open Modal</button>
 <div class="content_">
     <div class="content-top">
         <div class="content_fa"> <i class="fa fa-user"></i> Usuários > Cadastro</div>
@@ -35,57 +35,72 @@
                                     <div class="col-sm-12">
                                         <div class="box box-primary">
                                             <div class="box-body">
-                                                <!-- select status-->
-                                                <div class="form-group" [ngClass]="applyCssError(f, status)">
-                                                    <label class="control-label">Status</label>
-                                                    <select class="form-control" #status="ngModel" name="status" id="user_status" [(ngModel)]="user.status" required>
-                                  <option disabled>Status</option>
-                                  <option value="true">Ativo</option>
-                                  <option value="false">Inatí­vo</option>
-                                </select>
-                                                    <app-control-field-error [showError]="verifyValidSubmitted(f, status)" msgError="Selecione o status do usuário">
-                                                    </app-control-field-error>
-                                                </div>
-                                                <!-- end select status-->
-                                                <!-- select profile-->
-                                                <div class="col-sm-6">
-                                                    <div class="form-group profile" [ngClass]="applyCssError(f, profile)">
-                                                        <label class="control-label">Perfil</label>
-                                                        <select class="form-control" name="profile" id="user_profile" [(ngModel)]="user.profile" #profile="ngModel" required>
-                                    <option disabled> Perfil</option>
-                                    <option *ngFor="let profile of profiles" [value]="profile.id">{{profile.title}}</option>
-                                  </select>
-                                                        <app-control-field-error [showError]="verifyValidSubmitted(f, profile)" msgError="Selecione um perfil">
-                                                        </app-control-field-error>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                         <!-- select status-->
+                                                        <div class="form-group" [ngClass]="applyCssError(f, status)">
+                                                            <label class="control-label">Status</label>
+                                                            <select class="form-control" #status="ngModel" name="status" id="user_status" [(ngModel)]="user.status" required>
+                                                                <option disabled>Status</option>
+                                                                <option value="true">Ativo</option>
+                                                                <option value="false">Inatí­vo</option>
+                                                                </select>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f, status)" msgError="Selecione o status do usuário">
+                                                            </app-control-field-error>
+                                                        </div>
+                                                        <!-- end select status-->
                                                     </div>
                                                 </div>
-                                                <!-- end select profile-->
-
-                                                <!-- select type-->
+                                               <div class="row">
+                                                     <!-- select profile-->
                                                 <div class="col-sm-6">
-                                                    <div class="form-group type" [ngClass]="applyCssError(f, type)">
-                                                        <label class="control-label">Tipo de usuário</label>
-                                                        <select class="form-control" name="type" id="user_type" [(ngModel)]="user.type" #type="ngModel" (change)="selectType()" required>
-                                    <option disabled >Tipo de Usuário</option>
-                                    <option *ngFor="let type of types" [value]="type.id">{{type.description}}</option>
-                                  </select>
-                                                        <app-control-field-error [showError]="verifyValidSubmitted(f, type)" msgError="Selecione um tipo de usuário">
-                                                        </app-control-field-error>
+                                                        <div class="form-group profile" [ngClass]="applyCssError(f, profile)">
+                                                            <label class="control-label">Perfil</label>
+                                                            <select class="form-control" name="profile" id="user_profile" [(ngModel)]="user.profile" #profile="ngModel" required>
+                                                                <option disabled> Perfil</option>
+                                                                <option *ngFor="let profile of profiles" [value]="profile.id">{{profile.title}}</option>
+                                                            </select>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f, profile)" msgError="Selecione um perfil">
+                                                            </app-control-field-error>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <!-- end select type-->
-                                                <div class="form-group" [ngClass]="applyCssError(f, login)">
-                                                    <label class="control-label">Login</label>
-                                                    <input type="text" [(ngModel)]="user.login" #login="ngModel" name="login" id="user_login" class="form-control" placeholder="Login" required>
-                                                    <app-control-field-error [showError]="verifyValidSubmitted(f, login)" msgError="Digite um login">
-                                                    </app-control-field-error>
-                                                </div>
-                                                <div class="form-group" [ngClass]="applyCssError(f, password)">
-                                                    <label class="control-label">Senha</label>
-                                                    <input type="password" [(ngModel)]="user.password" #password="ngModel" name="password" id="user_password" class="form-control" required minlength="8" placeholder="Inserir uma senha">
-                                                    <app-control-field-error [showError]="verifyValidSubmitted(f, password)" msgError="Digite uma senha. Mínimo 8 caracteres">
-                                                    </app-control-field-error>
-                                                </div>
+                                                    <!-- end select profile-->
+    
+                                                    <!-- select type-->
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group type" [ngClass]="applyCssError(f, type)">
+                                                            <label class="control-label">Tipo de usuário</label>
+                                                            <select class="form-control" name="type" id="user_type" [(ngModel)]="user.type" #type="ngModel" (change)="selectType()" required>
+                                                                <option disabled >Tipo de Usuário</option>
+                                                                <option *ngFor="let type of types" [value]="type.id">{{type.description}}</option>
+                                                            </select>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f, type)" msgError="Selecione um tipo de usuário">
+                                                            </app-control-field-error>
+                                                        </div>
+                                                    </div>
+                                                    <!-- end select type-->
+                                               </div>
+                                               <div class="row">
+                                                   <div class="col-sm-12">
+                                                        <div class="form-group" [ngClass]="applyCssError(f, login)">
+                                                                <label class="control-label">Login</label>
+                                                                <input type="text" [(ngModel)]="user.login" #login="ngModel" name="login" id="user_login" class="form-control" placeholder="Login" required>
+                                                                <app-control-field-error [showError]="verifyValidSubmitted(f, login)" msgError="Digite um login">
+                                                                </app-control-field-error>
+                                                        </div>
+                                                   </div>
+                                               </div>
+                                               <div class="row">
+                                                    <div class="col-sm-12">
+                                                            <div class="form-group" [ngClass]="applyCssError(f, password)">
+                                                                    <label class="control-label">Senha</label>
+                                                                    <input type="password" [(ngModel)]="user.password" #password="ngModel" name="password" id="user_password" class="form-control" required minlength="8" placeholder="Inserir uma senha">
+                                                                    <app-control-field-error [showError]="verifyValidSubmitted(f, password)" msgError="Digite uma senha. Mínimo 8 caracteres">
+                                                                    </app-control-field-error>
+                                                            </div>
+                                                    </div>
+                                                </div>                                              
+                                               
                                             </div>
                                         </div>
                                     </div>
@@ -125,7 +140,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col">
+                                                    <div class="col-sm-12">
                                                         <div class="form-group" [ngClass]="applyCssError(f, email)">
                                                             <label class="control-label">E-mail</label>
                                                             <input type="email" [(ngModel)]="user.email" #email="ngModel" name="email" id="user_email" class="form-control" placeholder="Inserir E-mail ..." ngModel email required>
@@ -154,7 +169,7 @@
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col">
+                                                    <div class="col-sm-12">
                                                         <div class="form-group" [ngClass]="applyCssError(f, cpf)" *ngIf="!show_pjur">
                                                             <label class="control-label">CPF</label>
                                                             <input type="text" [(ngModel)]="person.cpf" #cpf="ngModel" name="cpf" pattern="[0-9]{11}" id="user_cpf" minlength="11" maxlength="11" class="form-control" placeholder="CPF" required>
@@ -183,7 +198,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col">
+                                                    <div class="col-sm-12">
                                                         <div class="form-group" [ngClass]="applyCssError(f, socialname)" *ngIf="show_pjur">
                                                             <label class="control-label">Razão Social</label>
                                                             <input type="text" #socialname="ngModel" [(ngModel)]="org.social_name" name="social_name" id="user_socialname" class="form-control" placeholder="Razão Social" required>
@@ -193,7 +208,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col">
+                                                    <div class="col-sm-12">
                                                         <div class="form-group" [ngClass]="applyCssError(f, fantasyname)" *ngIf="show_pjur">
                                                             <label class="control-label">Nome Fantasia</label>
                                                             <input type="text" #fantasyname="ngModel" [(ngModel)]="org.fantasy_name" name="fantasy_name" id="user_fantasyname" class="form-control" placeholder="Nome Fantasia" required>
@@ -318,8 +333,7 @@
                         </div>
                         <div class="col-md-3 col-md-offset-6">
                             <div class="form-group save">
-                                <button data-toggle="modal" data-target="#modal-default"  class="btn btn-primary btn-block" name="submit" id="btn_save" [disabled]="!enable_save">Cadastrar</button>
-                                <!-- <button (click)="openModal()">OpenModal</button> -->
+                                <button class="btn btn-primary btn-block" name="submit" id="btn_save" [disabled]="!enable_save">Cadastrar</button>                                
                             </div>
                         </div>
                     </div>

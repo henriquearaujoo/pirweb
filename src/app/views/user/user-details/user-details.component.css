@@ -54,3 +54,37 @@ label{
 i.material-icons {
     font-size: 18px;
 }
+ /* MODAL */
+
+.modal-footer {
+    padding: 0;
+    margin-top: 90px;
+}
+
+.modal-content {
+    height: 200px;
+}
+
+button#btn_cancel {
+    width: 150px;
+    height: 45px;
+    border-radius: 0;
+}
+
+button#btn_confirm {
+    width: 150px;
+    height: 45px;
+    border-radius: 0;
+}
+.modal-btn-cancel {
+    float: right;  
+}
+
+.modal-body {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-top: 20px;
+}
+.modal-icon {
+    text-align: center;
+}

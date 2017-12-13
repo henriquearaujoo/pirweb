@@ -18,7 +18,7 @@ import * as $ from 'jquery';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent implements OnInit, AfterViewInit {
+export class UserComponent implements OnInit {
 
   private user: User;
   private types: Types[] = [new Types('PFIS', 'Pessoa Fi­sica'), new Types('PJUR', 'Pessoa Jurídica')];
@@ -47,7 +47,9 @@ export class UserComponent implements OnInit, AfterViewInit {
   private enable_previous: boolean;
   private cont: number;
   private modalSave: string;
-  // @ViewChild('myModal') myModal: ElementRef;
+
+  private modalOpened: boolean;
+  private openModalButton: HTMLButtonElement;
 
   constructor(
     private userService: UserService,
@@ -66,6 +68,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.show_pjur = false;
     this.success = false;
     this.error_list = [];
+    this.modalOpened = false;
 
     this.currentTab = 0;
     this.previousTab = '#tab_1';
@@ -75,29 +78,17 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
 
     this.enable_save = false;
-    this.enable_previous = false;
     this.cont = 0;
     this.modalSave = '#modal-default';
 
+    this.openModalButton = (<HTMLButtonElement>document.getElementById('openModalButton'));
+    this.openModalButton.style.display = 'none';
     (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
   }
 
-  ngOnChange() {
-  }
-
-  ngAfterViewInit() {
-  }
-
-  openModal() {
-    // jQuery(this.myModal.nativeElement).modal('show').noConflict();
-    // (<any>$('#myModal')).modal('show');
-    //  $.noConflict(true);
-     console.log($(window)); // jquery is accessible
-    //  $('#myModal').modal('show');
-    // $(this.myModal.nativeElement).modal('show');
-  }
-
   saveData() {
+    this.modalOpened = false;
+    console.log('SAVE', this.user);
     this.verifyType();
     console.log(this.user.profile);
     this.user.name = this.first_name + ' ' + this.last_name;
@@ -107,10 +98,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.success = true;
     this.userService.createUser(this.user).subscribe(
       success => {
-        // jQuery(this.myModal.nativeElement).modal('show');
-        // (<any>$('#myModal')).modal('show');
-        // this.userService.show_msg = true;
-        this.success = true;
+        this.openModal();
         // this.router.navigate(['/user-list']);
       },
       error => {
@@ -118,6 +106,13 @@ export class UserComponent implements OnInit, AfterViewInit {
         this.verifyError();
       }
     );
+  }
+
+  openModal() {
+    if (!this.modalOpened) {
+      this.modalOpened = true;
+      this.openModalButton.click();
+    }
   }
 
   public loadProfiles() {

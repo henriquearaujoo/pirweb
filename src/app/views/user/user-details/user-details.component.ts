@@ -20,6 +20,7 @@ export class UserDetailsComponent implements OnInit {
   private cities: City[];
   private city_id: number;
   private state_id: string;
+  private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
 
   constructor(
     private userService: UserService,
