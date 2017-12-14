@@ -12,8 +12,8 @@
     border-top-color: #373d40;
 }
 
-.card {
-    width: 230px;
+/* .card {
+    width: 210px;
     height: 280px;
     float: left;
     margin: 10px;
@@ -36,7 +36,7 @@
     vertical-align: middle;
     padding-top: 110px;
     color: white;    
-}
+} */
 
 /* LAYOUT */
 .container {
@@ -111,7 +111,9 @@ div.box-footer {
 }
 .nav-tabs-custom > .nav-tabs > li.active > a {
     background-color: #f4f4f4;
+    border-top: 1px solid #ccc;
 }
+
 .nav-tabs-custom > .nav-tabs > li {
     margin-right: 25px;
 }
@@ -147,12 +149,44 @@ i.fa.fa-circle.inactive_circle {
 }
 /* END TABS*/
 
-/* FILTER */
-div#_filter {
-    padding-top: 10px;
-}
+
+/* HEADER */
 
 input#filter {
     border-radius: 0.5em;
 }
-/* FILTER */
+
+div#_filter {
+    padding-right: 40px;
+}
+
+button.btn.btn-primary.add {
+    border-radius: 1em;
+}
+
+i.fa.fa-plus {
+    padding-right: 10px;
+}
+
+li.add {
+    /* text-align: right; */
+    /* float: right; */
+}
+
+.navbar-custom-menu{
+    padding-top: 10px;
+    padding-right: 30px;
+    float: right;
+}
+.divider {
+    border-left: 2px solid #ccc;
+    padding: 18px;
+}
+
+
+/* END HEADER */
+
+/* PAGINATe*/
+.paginate {
+    text-align: center;
+}

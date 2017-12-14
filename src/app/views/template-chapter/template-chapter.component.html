@@ -26,60 +26,93 @@
                     <div class="col-sm-12">
                         <!-- Custom Tabs -->
                         <div class="nav-tabs-custom">
-                        <ul class="nav nav-tabs">
-                            <li class="_all"><a href="#tab_1" data-toggle="tab">Todos Capítulos</a></li>
-                            <li class="_active">
-                                <a href="#tab_2" data-toggle="tab">
-                                    <i class="fa fa-circle active_circle" aria-hidden="true"></i>Ativos
-                                </a>
-                            </li>
-                            <li class="_inactive">
-                                <a href="#tab_3" data-toggle="tab">
-                                    <i class="fa fa-circle inactive_circle" aria-hidden="true"></i>Inativos
-                                </a>
-                            </li> 
-                            <li class="filter">
-                                <!-- <div class="col-sm-4"> -->
-                                    <div id="_filter" class="filter">
-                                        <input type="text" class="form-control form-border " name="name" id="filter" (keyup)="getChapters()" [(ngModel)]="filter.name" placeholder="Filtrar">
-                                    </div>
-                                <!-- </div> -->
-                            </li>
-                        </ul>
+                            <ul class="nav nav-tabs">
+                                <li class="_all active"><a href="#tab_1" data-toggle="tab">Todos Capítulos</a></li>
+                                <li class="_active">
+                                    <a href="#tab_2" data-toggle="tab">
+                                        <i class="fa fa-circle active_circle" aria-hidden="true"></i>Ativos
+                                    </a>
+                                </li>
+                                <li class="_inactive">
+                                    <a href="#tab_3" data-toggle="tab">
+                                        <i class="fa fa-circle inactive_circle" aria-hidden="true"></i>Inativos
+                                    </a>
+                                </li>                           
+                                <div class="navbar-custom-menu">
+                                    <ul class="nav navbar-nav">  
+                                        <li class="filter">
+                                            <div id="_filter">
+                                                <input type="number" min="1"  class="form-control form-border" (change)="getChapters() || setPageChapterActive() || getChapterInactive()" (keyup)="getChapters() || setPageChapterActive() || getChapterInactive()" name="name" id="filter" [(ngModel)]="filter.name" placeholder="N° do Capítulo">
+                                            </div>                                    
+                                        </li> 
+                                        <li> <div class="divider"></div> </li> 
+                                        <li class="add">
+                                            <button class="btn btn-primary add" (click)="createNewChapter()">
+                                                <i class="fa fa-plus"></i>ADICIONAR CAPÍTULO
+                                            </button>
+                                        </li>                                    
+                                    </ul>
+                                </div>      
+                            </ul>
+                        </div>
+                           
                         <div class="tab-content">
                             <div class="tab-pane active" id="tab_1">
                                 <div class="box box-primary">
-                                    <div class="box-body">                              
-                                        <!-- <mat-card class="card_add" (click)="createNewChapter()">       
-                                            <i class="fa fa-plus fa-5x" aria-hidden="true"></i>    
-                                        </mat-card>                                -->
+                                    <div class="box-body">     
                                         <div *ngIf="hasdata">
                                             <div *ngFor="let item of chapters">
                                                 <app-template-chapter-item [chapter]="item" (click)="setChapter(item)"></app-template-chapter-item>
                                             </div>
-                                        </div>
-                                            
+                                        </div>                                            
+                                    </div>
+                                    <div class="paginate" *ngIf="paginate.size !== paginate.totalElements">
+                                        <button class="btn btn-default" (click)="setPage()">Carregar mais capítulos</button>
                                     </div>
                                 </div>   
                             </div>
                             <!-- /.tab-pane -->
                             <div class="tab-pane" id="tab_2">
-                            
+                                <div class="box box-primary">
+                                    <div class="box-body">     
+                                        <div *ngIf="hasdata">
+                                            <div *ngFor="let item of chapters_active">
+                                                <app-template-chapter-item [chapter]="item" (click)="setChapter(item)"></app-template-chapter-item>
+                                            </div>
+                                        </div>                                            
+                                    </div>
+                                    <div class="paginate" *ngIf="paginate_active.size !== paginate_active.totalElements">
+                                        <button class="btn btn-default" (click)="setPageChapterActive()">Carregar mais capítulos</button>
+                                    </div>
+                                </div>   
                             </div>
                             <!-- /.tab-pane -->
                             <div class="tab-pane" id="tab_3">
-                            
+                                <div class="box box-primary">
+                                    <div class="box-body">     
+                                        <div *ngIf="hasdata">
+                                            <div *ngFor="let item of chapters_inactive">
+                                                <app-template-chapter-item [chapter]="item" (click)="setChapter(item)"></app-template-chapter-item>
+                                            </div>
+                                        </div>
+                                            
+                                    </div>
+                                    <div class="paginate" *ngIf="paginate_inactive.size !== paginate_inactive.totalElements">
+                                        <button class="btn btn-default" (click)="setPageChapterInactive()">Carregar mais capítulos</button>
+                                    </div>    
+                                </div>   
                             </div>
-                            <!-- /.tab-pane -->
+                            <!-- /.tab-pane -->                         
+                                                   
                         </div>
                         <!-- /.tab-content -->
-                        </div>
-                        <!-- nav-tabs-custom -->
                         
                     </div>
-                    <!-- /.col -->
+                    <!-- col -->                        
                 </div>
                 <!-- /.row -->
+            </div>
+            <!-- /.hasdata -->
             <!-- END CUSTOM TABS -->  
 
                 <!-- <div class="row">              
@@ -100,6 +133,5 @@
                     </div>
                 </div>   -->
             </div>
-        </div>      
     </section>
 </div>

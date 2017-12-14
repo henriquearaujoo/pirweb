@@ -10,14 +10,27 @@ export class ChapterService extends RestService {
 
   apiurl = Constant.BASE_URL;
   private chapter: Chapter;
+  private size: number;
 
   constructor(http: Http) {
     super(http);
+    this.size = 2;
    }
 
-  public getChapters() {
-    const currentUrl = this.apiurl + 'chapters/';
-    return this.get(currentUrl);
+  public getChapters(param?: number, size?: number) {
+    if (param === undefined) {
+      const currentUrl = this.apiurl + 'chapters/search/page/?size=' + size;
+      return this.get(currentUrl);
+    }
+    return this.get(this.apiurl + 'chapters/search/page/?size=' + size + '&number=' + param);
+  }
+
+  public getChapterStatus(param?: number, status?: boolean, size?: number) {
+    if (status === undefined) {
+      const currentUrl = this.apiurl + 'chapters/search/page/?size=' + size;
+      return this.get(currentUrl);
+    }
+    return this.get(this.apiurl + 'chapters/search/page/?size=' + size + '&status=' + status + '&number=' + param);
   }
 
   public saveChapter(chapter: Chapter): Observable<Chapter> {

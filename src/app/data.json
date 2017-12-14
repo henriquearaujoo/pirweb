@@ -156,5 +156,19 @@
       "username": "admin",
       "password": "adm"
     }
+  ],
+  "chapters": [
+    {
+   "id": 1,
+    "number": 1,
+    "title": "Cap01",
+    "description": "test test",
+    "content": " test content",
+    "task": "aaaa",
+    "family_tasks": "bbbb",
+    "estimated_time": 18000,
+    "time_next_visit": 1800,
+    "valid": true
+    }
   ]
 }

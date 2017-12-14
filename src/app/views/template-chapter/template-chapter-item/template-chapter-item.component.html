@@ -1,19 +1,57 @@
-<mat-card class="card">
-    <mat-card-title> N° {{ chapter.number }}</mat-card-title>
-    <mat-card-subtitle>{{ chapter.title }}</mat-card-subtitle>
-    <i class="large material-icons">library_books</i>   
-    <mat-card-content [innerHtml]="chapter.description">
-    </mat-card-content>
+<mat-card class="card"> 
+    <mat-card-header>
+        <div class="content_">
+        <div class="row">
+            <div class="col-sm-6">
+                <i [ngClass]="chapter.status === true ? 'fa fa-circle active_circle': 'fa fa-circle inactive_circle' "  aria-hidden="true"></i>
+            </div>
+            <div class="col-sm-6">
+                <ul class="dp-version">
+                    <li class="dropdown">
+                        <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Versão</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Versão</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Versão</a></li>                            
+                        </ul>
+                    </li>
+                </ul>    
+            </div>                        
+        </div>  
+        <div class="row">
+            <div class="col-sm-12">
+               Capítulo {{ chapter.number }}
+            </div>
+        </div>       
+       <div class="row">
+           <div class="col-sm-12">
+                Versão {{ chapter.version }}
+           </div>
+       </div>
+    </div>
+    </mat-card-header>      
+   
+    <h5> {{ chapter.title }}</h5>
+    <i class="fa fa-picture-o" aria-hidden="true"></i>   
+    <div class="content-card">
+        <!-- <div [innerHtml]="chapter.description"></div> -->
+        <div class="progress progress-xs">
+            <div class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" 
+                aria-valuenow="chapter.percentage" aria-valuemin="0" aria-valuemax="100" 
+                [style.width]="chapter.percentage + '%'">                
+            </div>
+        </div>
+        <span class="percentage"><strong> {{ chapter.percentage }}%</strong> Completo</span>
+    </div>    
 
     <mat-card-actions>
-        <button>
-            <i class="fa fa-pencil-square-o" aria-hidden="true" (click)='editChapter()'> </i>
-        </button>
-        <button>
-            <i class="fa fa-toggle-on" aria-hidden="true" (click)='disableTemplate()'></i>    
-        </button>
-        <button>
-          <i class="fa fa-trash" aria-hidden="true" (click)='removeTemplate()'></i>    
+        <button class="btn btn-primary btn-xs">
+            <i class="fa fa-pencil" aria-hidden="true" (click)='editChapter()'> </i> Editar
+        </button>       
+        <button class="btn btn-primary btn-xs">
+          <i class="fa fa-remove" aria-hidden="true" (click)='removeTemplate()'></i> Deletar   
         </button>       
     </mat-card-actions>
     <mat-card-footer>
