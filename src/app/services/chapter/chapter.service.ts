@@ -17,7 +17,6 @@ export class ChapterService extends RestService {
     this.size = 2;
    }
 
-<<<<<<< HEAD
   public getChapters(param?: number, size?: number) {
     if (param === undefined) {
       const currentUrl = this.apiurl + 'chapters/search/page/?size=' + size;
@@ -32,10 +31,6 @@ export class ChapterService extends RestService {
       return this.get(currentUrl);
     }
     return this.get(this.apiurl + 'chapters/search/page/?size=' + size + '&status=' + status + '&number=' + param);
-=======
-  public getChapters() {
-    return this.get(this.apiurl);
->>>>>>> [RS_32] insert information
   }
 
   public select() {
