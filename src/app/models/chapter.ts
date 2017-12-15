@@ -13,4 +13,6 @@ export class Chapter {
     public time_next_visit: number;
     public status =  false;
     public percentage: number;
+    public versions: Chapter[] = new Array();
+
 }

@@ -1,18 +1,19 @@
 import { Chapter } from './../../models/chapter';
 import { Router } from '@angular/router';
 import { TemplateItem } from './../../models/templateItem';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, OnChanges } from '@angular/core';
 import { TemplateChapterItemComponent } from './template-chapter-item/template-chapter-item.component';
 import { ChapterService } from '../../services/chapter/chapter.service';
 import { error } from 'util';
 import { Paginate } from '../../models/paginate';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-template-chapter',
   templateUrl: './template-chapter.component.html',
   styleUrls: ['./template-chapter.component.css']
 })
-export class TemplateChapterComponent implements OnInit {
+export class TemplateChapterComponent implements OnInit, OnChanges {
 
   templates: TemplateItem[] = new Array();
   private paginate: Paginate = new Paginate();
@@ -28,15 +29,18 @@ export class TemplateChapterComponent implements OnInit {
   private size_active: number;
   private size_inactive: number;
 
+  // @ViewChild('chapterItemChild')
+  // chapterItem: TemplateChapterItemComponent;
+
   constructor(
     private router: Router,
     private chapterService: ChapterService
   ) {
       this.hasdata = false;
       this.page = 0;
-      this.size = 1;
-      this.size_active = 1;
-      this.size_inactive = 1;
+      this.size = 3;
+      this.size_active = 3;
+      this.size_inactive = 3;
 
   }
 
@@ -55,6 +59,8 @@ export class TemplateChapterComponent implements OnInit {
     this.getChapterInactive();
   }
 
+  ngOnChanges() {
+  }
   getChapters() {
     if ( this.filter.name == null) {
       this.filter.name = '';
@@ -66,6 +72,9 @@ export class TemplateChapterComponent implements OnInit {
         this.chapters = this.paginate.content;
         this.hasdata = true;
         console.log('CHAPTERS', this.chapters);
+        // this.chapters.forEach( chapter => {
+
+        // });
       },
       error => {
         console.log('ERROR', error);
@@ -104,21 +113,30 @@ export class TemplateChapterComponent implements OnInit {
     );
   }
 
+  // changeStatus(status: boolean) {
+  //   this.chapterItem.changeStatus.subscribe(
+  //     s => {
+  //       this.getChapters();
+  //     },
+  //     error => console.log(error)
+  //   );
+  // }
+
   setPage() {
     // this.page++;
-    this.size = this.size + 1 ;
+    this.size = this.size + 3 ;
     this.getChapters();
   }
 
   setPageChapterActive() {
     // this.page++;
-    this.size_active = this.size_active + 1 ;
+    this.size_active = this.size_active + 3 ;
     this.getChapterActive();
   }
 
   setPageChapterInactive() {
     // this.page++;
-    this.size_inactive = this.size_inactive + 1 ;
+    this.size_inactive = this.size_inactive + 3 ;
     this.getChapterInactive();
   }
 

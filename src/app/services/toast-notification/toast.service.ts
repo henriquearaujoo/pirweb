@@ -79,4 +79,13 @@ export class ToastService {
         clickToClose: true
       });
     }
+
+    toastErrorChangeStatus() {
+      this.toastService.warn('Atenção!', ' Não é possível habilitar a versão.', {
+        timeOut: 3000,
+        showProgressBar: true,
+        pauseOnHover: true,
+        clickToClose: true
+      });
+    }
 }

@@ -1,5 +1,6 @@
 .content_ {
     width: 100%;
+    height: 120px;
     padding-right: 20px;
 }
 
@@ -15,8 +16,8 @@
 /* CARD */
 
 .card {
-    width: 210px;
-    height: 280px;
+    width: 220px;
+    height: 298px;
     float: left;
     margin: 10px;
     cursor: pointer;
@@ -70,6 +71,19 @@ i.fa.fa-circle {
     padding-top: 15px;
 }
 
+/* VERSIONS*/
+.dropdown-header {
+    font-size: 16px;
+}
+
+.dropdown-menu > li > a > .fa {
+    padding-left: 30px;
+}   
+
+i.fa.fa-toggle-off, i.fa.fa-toggle-on {
+    font-size: 18px;
+}
+
 /* //PROGRESS BAR// */
 .progress {
     margin-bottom: 2px;
@@ -79,3 +93,39 @@ i.fa.fa-circle {
 }
 
 /* END CARD*/
+
+/* MODAL */
+.modal-footer {
+    padding: 0;
+    margin-top: 90px;
+}
+
+.modal-content {
+    height: 200px;
+}
+
+.modal-btn-cancel {
+    float: right;  
+}
+
+.modal-body[_ngcontent-c5] {
+    padding-top: 30px;
+    margin-top: 20px;
+}
+.modal-icon {
+    text-align: center;
+}
+
+button#btn_cancel {
+    width: 150px;
+    height: 45px;
+    border-radius: 0;
+}
+
+button#btn_confirm {
+    width: 150px;
+    height: 45px;
+    border-radius: 0;
+}
+
+/* END MODAL*/
