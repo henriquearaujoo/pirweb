@@ -20,12 +20,22 @@ export class ToastService {
     }
     toastMsg(title: string, msg: string, timeOut?: number, clickClose?: boolean, pauseOnHover?: boolean) {
       this.toastService.success(title, msg, {
-        timeOut: timeOut == null ? 3000 : timeOut,
+        timeOut: 3000,
         showProgressBar: true,
-        pauseOnHover:  pauseOnHover == null ? true : pauseOnHover,
-        clickToClose: clickClose == null ? true : clickClose
+        pauseOnHover:  true,
+        clickToClose: true
       });
     }
+
+    toastErrorLabel() {
+      this.toastService.error('Erro!', 'Necessário o preenchimento de todos os campos obrigatórios', {
+        timeOut: 3000,
+        showProgressBar: true,
+        pauseOnHover: true,
+        clickToClose: true
+      });
+    }
+
     toastError() {
       this.toastService.error('Erro!', 'Ação não realizada', {
         timeOut: 3000,

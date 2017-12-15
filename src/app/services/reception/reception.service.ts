@@ -17,8 +17,20 @@ export class ReceptionService extends RestService {
     return this.get(this.apiurl);
   }
 
-  public saveReception(reception: Reception): Observable<Reception> {
+  public select() {
+    return this.get(this.apiurl);
+  }
+
+  public load(id: string) {
+    return this.get(this.apiurl + id);
+  }
+
+  public insert(reception: Reception): Observable<Reception> {
     return this.post(this.apiurl, reception);
+  }
+
+  public update(reception: Reception): Observable<Reception> {
+    return this.put(this.apiurl, reception);
   }
 
 }

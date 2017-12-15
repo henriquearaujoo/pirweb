@@ -45,7 +45,6 @@ export class ChapterDashboardComponent implements OnInit {
     private toastService: ToastService) { }
 
   ngOnInit() {
-
     this.currentTab = 0;
 
     this.previousTab = '#tab_1';
@@ -61,18 +60,22 @@ export class ChapterDashboardComponent implements OnInit {
     this.urlId = this.activeRoute.snapshot.paramMap.get('id');
     if (this.urlId !== null) {
       this.isNewData = false;
-      this.sendEventToLoad(0);
+      this.information.isNewData = false;
+      this.reception.chapter = this.urlId;
+      this.sendEventToLoad();
     }else {
+      this.information.isNewData = true;
       this.getChapterNumber();
     }
-
   }
+
   getChapterNumber() {
     this.information.getNextChapterNumber().subscribe(
       success => {
         this.chapterList = success;
         this.chapter.number = this.chapterList.length + 1;
         this.currentChapter = this.chapter.number;
+        this.information.number = this.currentChapter;
       },
       e => {
         console.log('error: ' + e);
@@ -80,71 +83,37 @@ export class ChapterDashboardComponent implements OnInit {
     );
   }
   /*****************SELECT******************/
-  sendEventToLoad(id: number) {
-    switch (id) {
-      case 0:
-        this.information.load(this.urlId + '==').subscribe(
-          s => {
-            this.chapter = s;
-            this.information.loadForm(s);
-            this.currentChapter = this.chapter.number;
-          },
-          e => {
-            console.log('Error: ' + e);
-          }
-        );
-      break;
-      case 1:
+  sendEventToLoad() {
+    this.information.load(this.urlId + '==').subscribe(
+      s => {
+        this.chapter = s;
+        this.information.loadForm(s);
+        this.currentChapter = this.chapter.number;
+      },
+      e => {
+        console.log('Error: ' + e);
+      }
+    );
 
-        break;
-      case 2:
-
-        break;
-    }
-  }
-  /************INSERT OR UPDATE***********/
-  sendEventToSave(id: number) {
-    switch (id) {
-      case 0:
-        this.information.saveData(this.isNewData).subscribe(
-          s => {
-            if (this.isNewData) {
-              this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
-            } else {
-              this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso');
-            }
-            console.log('saved with success!');
-          },
-          e => {
-            console.log('error: ' + e);
-          }
-        );
-        break;
-      case 1:
-        this.reception.saveData(this.isNewData, this.chapter.id);
-        break;
-      case 2:
-        this.intervention.saveData(this.isNewData);
-        break;
-    }
+    this.reception.load(this.urlId + '==');
+    this.intervention.load(this.urlId + '==');
   }
 
-  isActive(tab: boolean) {
-    /*
-      if true then save data of current component
-      else load information of previuos component
-    */
+  /*
+    true = next
+    false = previuos
+  */
+  walk(tab: boolean) {
+
     if (tab) {
       if (this.currentTab === -1) {
         this.currentTab = 0;
       } else if (this.currentTab < 3) {
-        this.sendEventToSave(this.currentTab);
         this.currentTab++;
       }
     }else {
       if (this.currentTab > 0) {
         this.currentTab--;
-        this.sendEventToLoad(this.currentTab);
       }
     }
     this.previousTab = '#tab_' + (this.currentTab + 1);

@@ -116,28 +116,17 @@
                     <!-- /.tab-pane -->
                     <div class="content-control">
                         <div class="control">
-                            <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false)">
+                            <a href="{{previousTab}}" data-toggle="tab" (click)="walk(false)">
                                 <img src="../../../assets/img/global/ic_previous.png" />
                                 <b>Anterior</b>
                             </a>
-                            <a href="{{nextTab}}" data-toggle="tab" (click)="isActive(true)">
+                            <a href="{{nextTab}}" data-toggle="tab" (click)="walk(true)">
                                 <b>Próximo</b>
                                 <img src="../../../assets/img/global/ic_next.png" />
                             </a>
                         </div>
                     </div>
-                    <!-- <div class="row footer">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <button class="btn btn-default btn-block" [routerLink]="['/user-list']" id="btn_return"> Cancelar</button>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-md-offset-6">
-                            <div class="form-group save">
-                                <button data-toggle="modal" data-target="#modal-default" class="btn btn-primary btn-block" name="submit" id="btn_save" [disabled]="!enable_save">Salvar</button>
-                            </div>
-                        </div>
-                    </div> -->
+
                 </div>
                 <!-- /.tab-content -->
             </div>

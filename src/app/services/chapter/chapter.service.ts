@@ -33,6 +33,10 @@ export class ChapterService extends RestService {
     return this.get(this.apiurl + 'chapters/search/page/?size=' + size + '&status=' + status + '&number=' + param);
   }
 
+  public loadVersionFromChapter(number: number, version: number) {
+    return this.get(this.apiurl + 'search?number=' + version + '&version= ' + version);
+  }
+
   public select() {
     return this.get(this.apiurl);
   }

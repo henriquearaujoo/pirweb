@@ -1,3 +1,4 @@
+import { ToastService } from './../../../../services/toast-notification/toast.service';
 import { InterventionService } from './../../../../services/intervention/intervention.service';
 import { Intervention } from './../../../../models/intervention';
 import { Component, OnInit } from '@angular/core';
@@ -10,35 +11,53 @@ import { Input } from '@angular/core/src/metadata/directives';
 })
 
 export class InterventionComponent implements OnInit {
-  private intervention: Intervention;
 
-  constructor(private service: InterventionService) { }
+  private intervention: Intervention;
+  public chapter: string;
+  public isNewData: boolean;
+
+  constructor(
+    private service: InterventionService,
+    private toastService: ToastService) { }
 
   ngOnInit() {
     this.intervention = new Intervention();
   }
 
-  saveData(isNewData: boolean) {
-    if (isNewData) {
+  saveData() {
+    this.intervention.chapter = this.chapter;
+    if (this.isNewData) {
       this.service.insert(this.intervention).subscribe(
-        success => {
-
+        s => {
+          this.intervention = s;
+          this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
+          console.log('saved with success!');
+        },
+        e => {
+          this.toastService.toastError();
+          console.log('error: ' + e);
         }
       );
     }else {
       this.service.update(this.intervention).subscribe(
-        success => {
-
+        s => {
+          this.intervention = s;
+          this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso');
+          console.log('saved with success!');
+        },
+        e => {
+          this.toastService.toastError();
+          console.log('error: ' + e);
         }
       );
     }
   }
 
-  load() {
-    // this.service.load(this.chapterId).subscribe(
-    //   success => {
-    //       this.intervention = success;
-    //   }
-    //);
+  load(chapter) {
+    this.service.load(chapter).subscribe(
+      success => {
+          this.intervention = success;
+      }
+    );
   }
 }
