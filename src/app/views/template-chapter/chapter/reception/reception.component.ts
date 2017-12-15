@@ -19,8 +19,8 @@ export class ReceptionComponent implements OnInit {
 
   }
 
-  saveData() {
-    console.log(this.chapterId);
+  saveData(isNewData: boolean , chapterId: any) {
+
   }
 
 }

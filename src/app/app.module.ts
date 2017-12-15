@@ -1,3 +1,5 @@
+import { ReceptionService } from './services/reception/reception.service';
+import { InterventionService } from './services/intervention/intervention.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
@@ -92,7 +94,7 @@ import { ToastService } from './services/toast-notification/toast.service';
 import { UserEditComponent } from './views/user/user-edit/user-edit.component';
 import { UserDetailsComponent } from './views/user/user-details/user-details.component';
 import { TemplateSelectModelComponent } from './views/template-chapter/template-select-model/template-select-model.component';
-import { ChapterInformationComponent } from './views/template-chapter/chapter/chapter-information/chapter-information.component';
+
 import { ReceptionComponent } from './views/template-chapter/chapter/reception/reception.component';
 import { TaskComponent } from './views/template-chapter/chapter/task/task.component';
 import { TemplateCollectDataComponent } from './views/template-chapter/template-collect-data/template-collect-data.component';
@@ -115,6 +117,8 @@ import { UserInformationAccountComponent } from './views/user/user-information-a
 import { UserPersonalInformationComponent } from './views/user/user-personal-information/user-personal-information.component';
 
 import { UserAddressComponent } from './views/user/user-address/user-address.component';
+import { ConclusionComponent } from './views/template-chapter/chapter/conclusion/conclusion.component';
+import { InformationComponent } from './views/template-chapter/chapter/information/information.component';
 
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
@@ -150,7 +154,6 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     UserDetailsComponent,
     TemplateSelectModelComponent,
     TemplateChapterOptionComponent,
-    ChapterInformationComponent,
     ReceptionComponent,
     TaskComponent,
     TemplateCollectDataComponent,
@@ -167,7 +170,9 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ChapterDashboardComponent,
     UserInformationAccountComponent,
     UserPersonalInformationComponent,
-    UserAddressComponent
+    UserAddressComponent,
+    ConclusionComponent,
+    InformationComponent
 
   ],
   imports: [
@@ -235,6 +240,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     AccessPageService,
     ToastService,
     ChapterService,
+    InterventionService,
+    ReceptionService,
     UserDetailsComponent
   ],
   bootstrap: [AppComponent]

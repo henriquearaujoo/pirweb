@@ -30,16 +30,16 @@ export class ChapterEditComponent implements OnInit {
   }
 
   editData() {
-    this.chapter.family_tasks = 'test family tasks';
-    this.chapter.estimated_time = this.estimated_time * 60000;
-    this.chapter.time_next_visit = 86400000;
-    this.chapterService.saveEditChapter(this.chapter).subscribe(
-      success => {
-        this.chapter = success;
-        this.toastService.toastSuccess();
-        this.router.navigate(['chapter-dashboard']);
-      }
-    );
+    // this.chapter.family_tasks = 'test family tasks';
+    // this.chapter.estimated_time = this.estimated_time * 60000;
+    // this.chapter.time_next_visit = 86400000;
+    // this.chapterService.saveEditChapter(this.chapter).subscribe(
+    //   success => {
+    //     this.chapter = success;
+    //     this.toastService.toastSuccess();
+    //     this.router.navigate(['chapter-dashboard']);
+    //   }
+    // );
   }
 
   verifyValidSubmitted(form, field) {

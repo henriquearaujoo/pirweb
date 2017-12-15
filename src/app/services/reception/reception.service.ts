@@ -8,19 +8,17 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ReceptionService extends RestService {
 
-  apiurl = Constant.BASE_URL;
+  apiurl = Constant.BASE_URL + 'chapters/greeting/';
   constructor(http: Http) {
     super(http);
   }
 
   public getReception() {
-    const currentUrl = this.apiurl + 'chapters/greetings/';
-    return this.get(currentUrl);
+    return this.get(this.apiurl);
   }
 
   public saveReception(reception: Reception): Observable<Reception> {
-    const saveReceptionUrl = this.apiurl + 'chapters/greetings/';
-    return this.post(saveReceptionUrl, reception);
+    return this.post(this.apiurl, reception);
   }
 
 }

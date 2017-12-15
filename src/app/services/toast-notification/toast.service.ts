@@ -18,7 +18,14 @@ export class ToastService {
         clickToClose: true
       });
     }
-
+    toastMsg(title: string, msg: string, timeOut?: number, clickClose?: boolean, pauseOnHover?: boolean) {
+      this.toastService.success(title, msg, {
+        timeOut: timeOut == null ? 3000 : timeOut,
+        showProgressBar: true,
+        pauseOnHover:  pauseOnHover == null ? true : pauseOnHover,
+        clickToClose: clickClose == null ? true : clickClose
+      });
+    }
     toastError() {
       this.toastService.error('Erro!', 'Ação não realizada', {
         timeOut: 3000,

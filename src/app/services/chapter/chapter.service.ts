@@ -8,7 +8,7 @@ import { Chapter } from '../../models/chapter';
 @Injectable()
 export class ChapterService extends RestService {
 
-  apiurl = Constant.BASE_URL;
+  private apiurl = Constant.BASE_URL + 'chapters/';
   private chapter: Chapter;
   private size: number;
 
@@ -17,6 +17,7 @@ export class ChapterService extends RestService {
     this.size = 2;
    }
 
+<<<<<<< HEAD
   public getChapters(param?: number, size?: number) {
     if (param === undefined) {
       const currentUrl = this.apiurl + 'chapters/search/page/?size=' + size;
@@ -31,16 +32,26 @@ export class ChapterService extends RestService {
       return this.get(currentUrl);
     }
     return this.get(this.apiurl + 'chapters/search/page/?size=' + size + '&status=' + status + '&number=' + param);
+=======
+  public getChapters() {
+    return this.get(this.apiurl);
+>>>>>>> [RS_32] insert information
   }
 
-  public saveChapter(chapter: Chapter): Observable<Chapter> {
-    const saveChapterUrl = this.apiurl + 'chapters/';
-    return this.post(saveChapterUrl, chapter);
+  public select() {
+    return this.get(this.apiurl);
   }
 
-  public saveEditChapter(chapter: Chapter): Observable<Chapter> {
-    const saveChapterUrl = this.apiurl + 'chapters/';
-    return this.put(saveChapterUrl, chapter);
+  public load(id: string) {
+    return this.get(this.apiurl + id);
+  }
+
+  public insert(chapter: Chapter): Observable<Chapter> {
+    return this.post(this.apiurl, chapter);
+  }
+
+  public update(chapter: Chapter): Observable<Chapter> {
+    return this.put(this.apiurl, chapter);
   }
 
   public setChapter(chapter: Chapter) {

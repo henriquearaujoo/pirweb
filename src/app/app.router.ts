@@ -1,3 +1,4 @@
+
 import { ChapterDashboardComponent } from './views/template-chapter/chapter/chapter-dashboard/chapter-dashboard.component';
 import { TemplateSelectModelComponent } from './views/template-chapter/template-select-model/template-select-model.component';
 import { UserPersonalInformationComponent } from './views/user/user-personal-information/user-personal-information.component';
@@ -18,7 +19,6 @@ import { AgentComponent} from './views/agent/agent.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { TemplateChapterComponent } from './views/template-chapter/template-chapter.component';
 
-import { ChapterInformationComponent } from './views/template-chapter/chapter/chapter-information/chapter-information.component';
 import { ReceptionComponent } from './views/template-chapter/chapter/reception/reception.component';
 import { TaskComponent } from './views/template-chapter/chapter/task/task.component';
 import { TemplateCollectDataComponent } from './views/template-chapter/template-collect-data/template-collect-data.component';
@@ -37,6 +37,7 @@ import { TemplateChapterOptionComponent } from './views/template-chapter/templat
 import { QuestionComponent } from './views/template-chapter/template-collect-data/question/question.component';
 import { ChapterDetailsComponent } from './views/template-chapter/chapter/chapter-details/chapter-details.component';
 import { ChapterEditComponent } from './views/template-chapter/chapter/chapter-edit/chapter-edit.component';
+import { InformationComponent } from './views/template-chapter/chapter/information/information.component';
 
 const App_Router: Routes = [
 
@@ -76,7 +77,7 @@ const App_Router: Routes = [
           },
           {
             path: 'chapterInformation',
-            component: ChapterInformationComponent
+            component: InformationComponent
           },
           {
             path: 'reception',
@@ -108,6 +109,10 @@ const App_Router: Routes = [
           },
           {
             path: 'chapter-dashboard',
+            component: ChapterDashboardComponent
+          },
+          {
+            path: 'chapter-dashboard/:id',
             component: ChapterDashboardComponent
           },
           {
