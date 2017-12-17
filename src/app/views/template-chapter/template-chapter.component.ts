@@ -72,8 +72,11 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
         this.chapters = this.paginate.content;
         this.hasdata = true;
         console.log('CHAPTERS', this.chapters);
-        // this.chapters.forEach( chapter => {
-
+        // const hash = {};
+        // this.chapters = this.chapters.filter(chapter => {
+        //   const exists = !hash[chapter.number] || false;
+        //   hash[chapter.number] = true;
+        //   return exists;
         // });
       },
       error => {

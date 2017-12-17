@@ -19,23 +19,23 @@ export class ChapterService extends RestService {
 
   public getChapters(param?: number, size?: number) {
     if (param === undefined) {
-      return this.get(this.apiurl + '/search/page/?size=' + size + '&sort=chapter,asc');
+      return this.get(this.apiurl + 'search/page/?size=' + size + '&sort=chapter,asc');
     }
-    return this.get(this.apiurl + '/search/page/?size=' + size + '&number=' + param + '&sort=chapter,asc');
+    return this.get(this.apiurl + 'search/page/?size=' + size + '&number=' + param + '&sort=chapter,asc');
   }
 
   public getChapterStatus(param?: number, status?: boolean, size?: number) {
     if (status === undefined) {
-      return this.get(this.apiurl + '/search/page/?size=' + size + '&sort=chapter,asc');
+      return this.get(this.apiurl + 'search/page/?size=' + size + '&sort=chapter,asc');
     }
-    return this.get(this.apiurl + '/search/page/?size=' + size + '&status=' + status + '&number=' + param + '&sort=chapter,asc');
+    return this.get(this.apiurl + 'search/page/?size=' + size + '&status=' + status + '&number=' + param + '&sort=chapter,asc');
   }
 
   public getChaptersWithParam(param?: number) {
     if (param === undefined) {
-      return this.get(this.apiurl + '/search/page/?sort=chapter,asc');
+      return this.get(this.apiurl + 'search/page/?sort=chapter,asc');
     }
-    return this.get(this.apiurl + '/search/page/?number=' + param + '&sort=chapter,asc');
+    return this.get(this.apiurl + 'search/page/?number=' + param + '&sort=chapter,asc');
   }
 
   public loadVersionFromChapter(number: number, version: number) {

@@ -10,7 +10,8 @@ import { TemplateChapterComponent } from '../template-chapter.component';
 @Component({
   selector: 'app-template-chapter-item',
   templateUrl: './template-chapter-item.component.html',
-  styleUrls: ['./template-chapter-item.component.css']
+  styleUrls: ['./template-chapter-item.component.css',
+              '../../../../../node_modules/materialize-css/dist/css/materialize.css']
 })
 export class TemplateChapterItemComponent implements OnInit {
 
@@ -20,8 +21,8 @@ export class TemplateChapterItemComponent implements OnInit {
   private response: Response;
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
 
-  @ViewChild('chapter')
-  templateChapter: TemplateChapterComponent;
+  // @ViewChild('chapter')
+  // templateChapter: TemplateChapterComponent;
 
   constructor(
     private router: Router,

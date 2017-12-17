@@ -1,5 +1,72 @@
 <simple-notifications></simple-notifications>
-<mat-card class="card"> 
+<!-- <div class="row">
+    <div class="col s12 m6"> -->
+        <div class="card sticky-action">
+            <!-- <div class="card-image waves-effect waves-block waves-light">
+
+            </div> -->
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4">
+                  <i [ngClass]="chapter.status === true ? 'fa fa-circle active_circle': 'fa fa-circle inactive_circle' "  aria-hidden="true"></i>
+                  <i class="medium material-icons right">arrow_drop_down</i></span>
+                <div class="row">
+                    <div class="col-sm-12">
+                       <h4> Capítulo {{ chapter.number }} </h4>
+                    </div>
+                </div>       
+               <div class="row">
+                   <div class="col-sm-12">
+                       <h5> Versão {{ chapter.version }} </h5>
+                   </div>
+               </div>
+               <div class="row">
+                    <div class="col-sm-12">
+                        <h5> {{ chapter.title }} </h5>
+                    </div>
+                </div>
+                <img class="ic_image" src="../../../../assets/img/chapter/ic_image.png">
+            </div>
+            <div class="card-action">
+                <div class="chapter-progress">
+                    <div class="progress progress-xs">
+                        <div class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" 
+                            aria-valuenow="chapter.percentage" aria-valuemin="0" aria-valuemax="100" 
+                            [style.width]="chapter.percentage + '%'">                
+                        </div>
+                    </div>
+                    <span class="percentage"><strong> {{ chapter.percentage }}%</strong> Completo</span> <br/>
+                </div>
+                <button class="btn edit">
+                    <i class="fa fa-pencil" aria-hidden="true" (click)='editChapter()'> </i> Editar
+                </button>       
+                <button class="btn status" (click)="disableAbleVersion(chapter)">
+                    <i [ngClass]="chapter.status === true ? 'fa fa-ban': 'fa fa-check' " aria-hidden="true"></i>           
+                    {{ chapter.status === true ? 'Desativar': 'Ativar'}} 
+                </button>       
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">
+                    <i [ngClass]="chapter.status === true ? 'fa fa-circle active_circle': 'fa fa-circle inactive_circle' " style="margin-top: 15px;"  aria-hidden="true"></i>
+                    <i class="medium material-icons right">arrow_drop_up</i></span>
+                <div class="version">
+                    <ul class="list-version" >
+                        <li class="version-header">Capítulo {{ chapter.number }}</li>
+                        <li *ngFor="let item of chapter.versions" class="li-version">
+                            <span class="version-title">Versão {{ item.version }}</span> 
+                            <a [title]="item.status === true ? 'Desativar': 'Ativar'"                                  
+                                (click)="disableAbleVersion(item)" class="version-status">                                    
+                                <i [ngClass]="item.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
+                            </a>     
+                        </li>   
+                        <li> <span class="version-add"> Adicionar </span> <i class="fa fa-plus" aria-hidden="true"></i> </li>                                             
+                    </ul>
+                </div>
+            </div>
+          </div>                    
+    <!-- </div> -->
+  <!-- </div> -->
+
+<!-- <mat-card class="card"> 
     <mat-card-header>
         <div class="content_">
         <div class="row">
@@ -46,7 +113,7 @@
   
     <i class="fa fa-picture-o" aria-hidden="true"></i>   
     <div class="content-card">
-        <!-- <div [innerHtml]="chapter.description"></div> -->
+        
         <div class="progress progress-xs">
             <div class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" 
                 aria-valuenow="chapter.percentage" aria-valuemin="0" aria-valuemax="100" 
@@ -68,7 +135,7 @@
     <mat-card-footer>
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </mat-card-footer>
-</mat-card>
+</mat-card> -->
 
 <!-- Modal Disable -->
 <div class="modal fade" id="modal-default">

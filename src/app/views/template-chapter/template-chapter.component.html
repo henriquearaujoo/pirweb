@@ -62,7 +62,7 @@
                                     <div class="box-body">     
                                         <div *ngIf="hasdata">
                                             <div *ngFor="let item of chapters">
-                                                <app-template-chapter-item #chapterItem [chapter]="item" (click)="setChapter(item)"></app-template-chapter-item>
+                                                <app-template-chapter-item #chapterItemChild [chapter]="item" (click)="setChapter(item)"></app-template-chapter-item>
                                             </div>
                                         </div>                                            
                                     </div>

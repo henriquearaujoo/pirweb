@@ -56,8 +56,12 @@ button.btn.btn-primary.btn-xs {
 }
 
 i.fa.fa-circle.active_circle {
-    color: #00a65a;
+    color: #58c537;
 }
+
+/* .card-reveal.i.fa.fa-circle {    
+    margin-top: 16px;
+} */
 
 i.fa.fa-circle.inactive_circle {
     color: #a60000;
@@ -65,6 +69,7 @@ i.fa.fa-circle.inactive_circle {
 
 i.fa.fa-circle {
     float: left;
+    /* margin-top: 10px; */
 }
 
 .content-card {
@@ -72,24 +77,109 @@ i.fa.fa-circle {
 }
 
 /* VERSIONS*/
-.dropdown-header {
-    font-size: 16px;
+ul.list-version {
+    /* padding-top: 40px; */
 }
-
-.dropdown-menu > li > a > .fa {
-    padding-left: 30px;
-}   
-
-i.fa.fa-toggle-off, i.fa.fa-toggle-on {
+.version {
+    background-color: #f4f4f4;
+    margin-top: 6px;
+    height: 250px;
+}
+li.version-header {
+    background-color: #e8e8e8;
+    height: 40px;
+    text-align: center;
+    padding: 8px 40px;
+    font-weight: bold;
+    color: gray;
     font-size: 18px;
+    margin-bottom: 10px;
+}
+span.version-title {
+    margin-right: 80px;
+}
+li.li-version {
+    font-size: 14px;
+    border-bottom: 1px solid #d2d6de;
+    border-top: 1px solid #d2d6de;
 }
 
+i.fa.fa-toggle-on, i.fa.fa-toggle-off, i.fa.fa-plus {
+    font-size: 28px;
+    color: #373d40;
+}
+span.version-add {
+    margin-right: 68px;
+}
 /* //PROGRESS BAR// */
-.progress {
-    margin-bottom: 2px;
+.progress[_ngcontent-c7] {
+    background-color: #b7b4b4;
 }
 .progress-bar-primary {
     background-color: #373d40;
+}
+
+/* MATERIALIZE*/
+.row[_ngcontent-c7] {
+    margin-bottom: 5px;
+}
+
+.card[_ngcontent-c7] .card-content[_ngcontent-c7] {
+    padding: 0px 15px;
+    height: 250px;
+}
+
+.card[_ngcontent-c7][_ngcontent-c7] {
+    height: 368px;
+    width: 234px;
+}
+
+.card[_ngcontent-c7] .card-action[_ngcontent-c7]{
+    padding: 10px;
+}
+.card[_ngcontent-c7] .card-reveal[_ngcontent-c7] {
+    padding: 10px;
+    top: 97%;
+    width: 90%;
+    left: 5%;
+}
+
+.btn[_ngcontent-c7] {
+    height: 26px;
+    width: 90px;
+    line-height: 26px;
+    padding: 0 0.8rem;
+    border-radius: 0.5em;
+    background-color: #373d40;
+}
+
+.btn[_ngcontent-c7]:hover, .btn-large[_ngcontent-c7]:hover {
+    background-color: #373d40;
+}
+
+.card[_ngcontent-c7] {
+    margin: 25px 30px;
+}
+
+.card[_ngcontent-c7] .card-title[_ngcontent-c7] {
+    font-size: 18px;
+}
+span.card-title.activator.grey-text.text-darken-4 {
+    padding-top: 10px;
+}
+span.card-title.grey-text.text-darken-4 {
+    height: 40px;
+    border-bottom: 1px solid #e8e6e6;
+}
+button.btn.edit {
+    margin-right: 30px;
+}
+.chapter-progress {
+    margin-bottom: 15px;
+    padding: 0px 25px;
+}
+.ic_image {
+    height: 70px;
 }
 
 /* END CARD*/
