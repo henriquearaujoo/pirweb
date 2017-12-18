@@ -1,7 +1,7 @@
+import { Chapter } from './../../../models/chapter';
 import { Response } from '@angular/http';
 import { TemplateItem } from './../../../models/templateItem';
 import { Component, OnInit, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { Chapter } from '../../../models/chapter';
 import { Router } from '@angular/router';
 import { ChapterService } from '../../../services/chapter/chapter.service';
 import { ToastService } from '../../../services/toast-notification/toast.service';
@@ -33,10 +33,10 @@ export class TemplateChapterItemComponent implements OnInit {
     this.getVersions();
    }
 
-   public editChapter() {
-     this.chapterService.setChapter(this.chapter);
-      this.router.navigate(['chapter-edit']);
-   }
+  //  public editChapter() {
+  //    this.chapterService.setChapter(this.chapter);
+  //     this.router.navigate(['chapter-edit']);
+  //  }
 
    public disableTemplate() {
     console.log(this.chapter.id);
@@ -62,6 +62,17 @@ export class TemplateChapterItemComponent implements OnInit {
     );
    }
 
+   editChapter(chapter: Chapter) {
+    localStorage.setItem('chapterId', chapter.id );
+    console.log('chapterId', localStorage.getItem('chapterId'));
+    this.router.navigate(['chapter-dashboard']);
+  }
+
+   addVersion(chapter: Chapter) {
+    localStorage.setItem('chapterNumber', chapter.number.toString() );
+    console.log('chapterNumber', localStorage.getItem('chapterNumber'));
+    this.router.navigate(['chapter-dashboard']);
+   }
 
    disableAbleVersion(chapter: Chapter) {
     console.log('Chapter: ', chapter.status);
