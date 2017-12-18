@@ -19,6 +19,11 @@ export class InformationComponent implements OnInit {
   public isNewData = true;
   public number: number;
   @Output() returnEvent = new EventEmitter();
+  @Output() cancelEvent = new EventEmitter();
+
+  onCancel() {
+    this.cancelEvent.emit();
+  }
 
   constructor(
     private router: Router,
@@ -41,7 +46,7 @@ export class InformationComponent implements OnInit {
     if ( this.isNewData ) {
       this.chapterService.insert(this.chapter).subscribe(
         s => {
-          this.returnEvent.emit(true);
+          this.returnEvent.emit(s);
           console.log('saved with success!');
         },
         e => {
@@ -53,11 +58,11 @@ export class InformationComponent implements OnInit {
       this.chapterService.update(this.chapter).subscribe(
         s => {
           this.chapter = s;
-          this.returnEvent.emit(true);
+          this.returnEvent.emit(s);
           console.log('saved with success!');
         },
         e => {
-          this.returnEvent.emit(false);
+          this.returnEvent.emit(null);
           console.log('error: ' + e);
         }
       );

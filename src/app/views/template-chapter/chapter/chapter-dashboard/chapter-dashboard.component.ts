@@ -31,6 +31,7 @@ export class ChapterDashboardComponent implements OnInit {
   private enable_save: boolean;
   private currentChapter: any;
   private urlId: string;
+  private openModalButton: HTMLButtonElement;
 
   @ViewChild('informationChild')
   information: InformationComponent;
@@ -45,6 +46,9 @@ export class ChapterDashboardComponent implements OnInit {
     private toastService: ToastService) { }
 
   ngOnInit() {
+
+    this.openModalButton = (<HTMLButtonElement>document.getElementById('openModalButton'));
+    this.openModalButton.style.display = 'none';
 
     this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_enable.png';
     this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_disable.png';
@@ -94,17 +98,60 @@ export class ChapterDashboardComponent implements OnInit {
     this.intervention.load(this.urlId);
   }
   /****Return of Event from children components ****/
-  actionSave(status: boolean, c?: Chapter) {
+  actionInformation(c: Chapter) {
+      if ( c !== null ) {
+        this.chapter.id = c.id;
+        // add id in all components
+        this.reception.chapter = this.chapter;
+        this.toastService.toastSuccess();
+        return;
+      }
+      this.toastService.toastErrorLabel();
+  }
+  /****Return of Event from children components ****/
+  actionSave(status: boolean, c?: any) {
     if (status) {
       if ( c !== null ) {
         this.chapter.id = c.id;
         // add id in all components
         this.reception.chapter.id = this.chapter.id;
       }
-
       this.toastService.toastSuccess();
     } else {
-      this.toastService.toastErrorLabel();
+      this.toastService.toastErrorChapterId();
+    }
+  }
+
+  openModal() {
+    this.openModalButton.click();
+  }
+
+  walk ( tab: number) {
+    switch (tab) {
+      case 0:
+        this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_enable.png';
+        this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_disable.png';
+        this.interventionTab = '../../../assets/img/chapter/ic_chapter_tab_intervention_disable.png';
+        this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_question_disable.png';
+      break;
+      case 1:
+        this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_disable.png';
+        this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_enable.png';
+        this.interventionTab = '../../../assets/img/chapter/ic_chapter_tab_intervention_disable.png';
+        this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_question_disable.png';
+      break;
+      case 2:
+        this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_disable.png';
+        this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_disable.png';
+        this.interventionTab = '../../../assets/img/chapter/ic_chapter_tab_intervention_enable.png';
+        this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_question_disable.png';
+      break;
+      case 3:
+        this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_disable.png';
+        this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_disable.png';
+        this.interventionTab = '../../../assets/img/chapter/ic_chapter_tab_intervention_disable.png';
+        this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_question_enable.png';
+      break;
     }
   }
 }

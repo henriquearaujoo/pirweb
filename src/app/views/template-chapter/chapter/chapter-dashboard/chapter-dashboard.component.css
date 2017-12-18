@@ -261,3 +261,39 @@ section.content_user {
 .position {
     padding: 20px 0px 20px 20px;
 }
+
+
+/******** Modal *********/
+
+.modal-footer {
+    padding: 0;
+    margin-top: 10px;
+    background-color: #302e2e;
+    text-align: center;
+    cursor: pointer;
+}
+
+.modal-content {
+    height: 200px;
+    width: 350px;
+    text-align: center;
+}
+
+.modal-body {
+    padding-top: 30px;
+    margin-top: 20px;
+    padding-bottom: 30px;
+    text-align: center;
+}
+
+.modal-icon {
+    text-align: center;
+}
+
+.modal-footer label {
+    height: 30px;
+    margin-top: 10px;
+    color: #cccccc;
+    text-align: center;
+    cursor: pointer;
+}

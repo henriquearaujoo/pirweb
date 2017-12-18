@@ -17,6 +17,12 @@ export class ReceptionComponent implements OnInit {
   public isNewData = true;
   public chapter: Chapter;
   @Output() returnEvent = new EventEmitter();
+  @Output() cancelEvent = new EventEmitter();
+
+  onCancel() {
+    this.cancelEvent.emit();
+  }
+
 
   constructor(private service: ReceptionService, private toast: ToastService) { }
 
@@ -25,7 +31,7 @@ export class ReceptionComponent implements OnInit {
   }
 
   saveData() {
-    if ( this.chapter === null) {
+    if ( this.chapter === undefined) {
       this.returnEvent.emit(false);
       return;
     }
@@ -48,4 +54,14 @@ export class ReceptionComponent implements OnInit {
     );
   }
 
+  verifyValidSubmitted(form, field) {
+    return form.submitted && !field.valid;
+  }
+
+  applyCssError(form, field) {
+    return {
+      'has-error': this.verifyValidSubmitted(form, field),
+      'has-feedback': this.verifyValidSubmitted(form, field)
+    };
+  }
 }

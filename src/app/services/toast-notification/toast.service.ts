@@ -18,6 +18,7 @@ export class ToastService {
         clickToClose: true
       });
     }
+
     toastMsg(title: string, msg: string, timeOut?: number, clickClose?: boolean, pauseOnHover?: boolean) {
       this.toastService.success(title, msg, {
         timeOut: 3000,
@@ -26,7 +27,14 @@ export class ToastService {
         clickToClose: true
       });
     }
-
+    toastErrorChapterId() {
+      this.toastService.error('Erro!', 'Salve as informações do cápitulo para poder registar as outras informações', {
+        timeOut: 3000,
+        showProgressBar: true,
+        pauseOnHover: true,
+        clickToClose: true
+      });
+    }
     toastErrorLabel() {
       this.toastService.error('Erro!', 'Necessário o preenchimento de todos os campos obrigatórios', {
         timeOut: 3000,

@@ -1,7 +1,7 @@
 import { ToastService } from './../../../../services/toast-notification/toast.service';
 import { InterventionService } from './../../../../services/intervention/intervention.service';
 import { Intervention } from './../../../../models/intervention';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Input } from '@angular/core/src/metadata/directives';
 
 @Component({
@@ -15,6 +15,7 @@ export class InterventionComponent implements OnInit {
   private intervention: Intervention;
   public chapter: string;
   public isNewData: boolean;
+  @Output() cancelEvent = new EventEmitter();
 
   constructor(
     private service: InterventionService,
@@ -60,4 +61,9 @@ export class InterventionComponent implements OnInit {
       }
     );
   }
+
+  onCancel() {
+    this.cancelEvent.emit();
+  }
+
 }
