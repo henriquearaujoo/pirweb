@@ -1,7 +1,7 @@
 import { Chapter } from './../../models/chapter';
 import { Router } from '@angular/router';
 import { TemplateItem } from './../../models/templateItem';
-import { Component, OnInit, ViewChild, OnChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, OnChanges, AfterViewInit } from '@angular/core';
 import { TemplateChapterItemComponent } from './template-chapter-item/template-chapter-item.component';
 import { ChapterService } from '../../services/chapter/chapter.service';
 import { error } from 'util';
@@ -13,7 +13,7 @@ import { Observable } from 'rxjs/Observable';
   templateUrl: './template-chapter.component.html',
   styleUrls: ['./template-chapter.component.css']
 })
-export class TemplateChapterComponent implements OnInit, OnChanges {
+export class TemplateChapterComponent implements OnInit, OnChanges, AfterViewInit {
 
   templates: TemplateItem[] = new Array();
   private paginate: Paginate = new Paginate();
@@ -29,8 +29,8 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
   private size_active: number;
   private size_inactive: number;
 
-  // @ViewChild('chapterItemChild')
-  // chapterItem: TemplateChapterItemComponent;
+  @ViewChild('chapterItemChild')
+  chapterItem: TemplateChapterItemComponent;
 
   constructor(
     private router: Router,
@@ -57,6 +57,14 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
     this.getChapters();
     this.getChapterActive();
     this.getChapterInactive();
+  }
+
+  ngAfterViewInit() {
+    // this.chapterItem.changeStatus.subscribe(
+    //   s => {
+    //     this.getChapters();
+    //   }
+    // );
   }
 
   ngOnChanges() {

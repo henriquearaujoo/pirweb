@@ -77,6 +77,7 @@ export class TemplateChapterItemComponent implements OnInit {
           success => {
             if (this.chapter.number === this.version.number) {
               this.chapter.status = this.version.status;
+              this.changeStatus.emit(true);
             }
             this.toastService.toastSuccess();
             console.log(success);
@@ -92,6 +93,7 @@ export class TemplateChapterItemComponent implements OnInit {
         success => {
           this.chapter.status = success.status;
           this.getVersions();
+          this.changeStatus.emit(true);
           this.toastService.toastSuccess();
         },
         error => console.log(error)

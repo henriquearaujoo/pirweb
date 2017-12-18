@@ -97,6 +97,13 @@ div.box-footer {
     padding: 0!important;
     background-color: #f4f4f4;
 }
+
+.col-sm-2 {
+    text-align: right;
+    padding-top: 10px;
+    padding-left: 85px;
+}
+
 /* END LAYOUT*/
 
 
@@ -166,6 +173,8 @@ div#_filter {
 
 button.btn.btn-primary.add {
     border-radius: 1em;
+    font-size: 12px;
+    padding: 8px 10px;
 }
 
 i.fa.fa-plus {
