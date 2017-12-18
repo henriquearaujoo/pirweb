@@ -110,7 +110,7 @@ export class RestService {
 
   private extractData(res: Response) {
     try {
-      return res.json()
+      return res.json();
     } catch (e) {
       return res;
     }

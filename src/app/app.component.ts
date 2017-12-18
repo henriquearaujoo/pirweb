@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from './services/login/authentication.service';
+import 'rxjs/add/operator/pairwise';
+import { Router, NavigationEnd } from '@angular/router';
 
 
 @Component({
@@ -8,13 +10,17 @@ import { AuthenticationService } from './services/login/authentication.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
- 
-  constructor( ){
-      
-    }
-  
-    ngOnInit(){
-   
-    }
-  
+
+  constructor( router: Router) {
+    router.events.subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          if (event.url !== '/chapter-dashboard') {
+            localStorage.setItem('chapterId', '');
+          }
+        }
+    });
+  }
+  OnInit() {
+
+  }
 }

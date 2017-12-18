@@ -70,7 +70,7 @@
                                     <div class="col-sm-12">
                                         <div class="box box-primary">
                                             <div class="box-body">
-                                                <!-- <app-reception #receptionChild></app-reception> -->
+                                                <app-reception #receptionChild (returnEvent)="actionSave($event)"></app-reception>
                                             </div>
                                         </div>
                                     </div>
@@ -91,7 +91,7 @@
                                     <div class="col-sm-12">
                                         <div class="box box-primary">
                                             <div class="box-body">
-                                                <!-- <app-intervention #intervention></app-intervention> -->
+                                                <app-intervention #intervention></app-intervention>
                                             </div>
                                         </div>
                                     </div>
@@ -113,7 +113,7 @@
                                         <div class="box box-primary">
                                             <div class="box-body">
                                                 <!-- CARD -->
-                                                <!-- <app-conclusion></app-conclusion> -->
+                                                <app-conclusion></app-conclusion>
                                             </div>
                                         </div>
                                     </div>

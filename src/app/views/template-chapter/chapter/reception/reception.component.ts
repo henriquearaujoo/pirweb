@@ -2,18 +2,21 @@ import { ToastService } from './../../../../services/toast-notification/toast.se
 import { ReceptionService } from './../../../../services/reception/reception.service';
 import { Subject } from 'rxjs/Subject';
 import { Reception } from './../../../../models/reception';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Chapter } from '../../../../models/chapter';
 
 @Component({
   selector: 'app-reception',
   templateUrl: './reception.component.html',
   styleUrls: ['./reception.component.css']
 })
+
 export class ReceptionComponent implements OnInit {
 
   private reception: Reception =  new Reception();
-  public chapter: string;
   public isNewData = true;
+  public chapter: Chapter;
+  @Output() returnEvent = new EventEmitter();
 
   constructor(private service: ReceptionService, private toast: ToastService) { }
 
@@ -22,7 +25,11 @@ export class ReceptionComponent implements OnInit {
   }
 
   saveData() {
-    this.reception.chapter = this.chapter;
+    if ( this.chapter === null) {
+      this.returnEvent.emit(false);
+      return;
+    }
+    this.reception.chapter = this.chapter.id;
     if (this.isNewData) {
       this.service.insert(this.reception).subscribe(
         s => this.reception = s,
