@@ -30,36 +30,38 @@ export class InformationComponent implements OnInit {
     return this.chapterService.select();
   }
 
-  public saveData() {
+  public saveData(): Observable<Chapter>  {
 
     this.chapter.number = Number(this.number);
     this.chapter.time_next_visit = Number(this.chapter.time_next_visit);
     this.chapter.estimated_time = Number(this.chapter.estimated_time);
 
     if ( this.isNewData ) {
-      this.chapterService.insert(this.chapter).subscribe(
-        s => {
-          this.chapter = s;
-          this.toastService.toastSuccess();
-          console.log('saved with success!');
-        },
-        e => {
-          this.toastService.toastError();
-          console.log('error: ' + e);
-        }
-      );
+      return this.chapterService.insert(this.chapter);
+      // this.chapterService.insert(this.chapter).subscribe(
+      //   s => {
+      //     this.chapter = s;
+      //     this.toastService.toastSuccess();
+      //     console.log('saved with success!');
+      //   },
+      //   e => {
+      //     this.toastService.toastError();
+      //     console.log('error: ' + e);
+      //   }
+      // );
     }else {
-      this.chapterService.update(this.chapter).subscribe(
-        s => {
-          this.chapter = s;
-          this.toastService.toastSuccess();
-          console.log('saved with success!');
-        },
-        e => {
-          this.toastService.toastError();
-          console.log('error: ' + e);
-        }
-      );
+      return this.chapterService.update(this.chapter);
+      // this.chapterService.update(this.chapter).subscribe(
+      //   s => {
+      //     this.chapter = s;
+      //     this.toastService.toastSuccess();
+      //     console.log('saved with success!');
+      //   },
+      //   e => {
+      //     this.toastService.toastError();
+      //     console.log('error: ' + e);
+      //   }
+      // );
     }
   }
 
