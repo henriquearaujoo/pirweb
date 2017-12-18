@@ -64,14 +64,14 @@
                                     <div class="box-body">     
                                         <div *ngIf="hasdata">
                                             <div *ngFor="let item of chapters">
-                                                <app-template-chapter-item #chapterItemChild [chapter]="item" (click)="setChapter(item)"></app-template-chapter-item>
+                                                <app-template-chapter-item (changeStatus)="changeStatus($event)" [chapter]="item" (click)="setChapter(item)"></app-template-chapter-item>
                                             </div>
                                         </div>                                            
                                     </div>
-                                    <div class="paginate" *ngIf="paginate.size !== paginate.totalElements">
+                                    <div class="paginate" *ngIf="paginate.size < paginate.totalElements">
                                         <button class="btn btn-default" (click)="setPage()">Carregar mais capítulos</button>
                                     </div>
-                                    <div class="paginate" *ngIf="paginate.size === paginate.totalElements">
+                                    <div class="paginate" *ngIf="paginate.size > paginate.totalElements">
                                         <span class="btn btn-default" disabled> Não há mais capítulos</span>
                                     </div>
                                 </div>   
@@ -82,12 +82,15 @@
                                     <div class="box-body">     
                                         <div *ngIf="hasdata">
                                             <div *ngFor="let item of chapters_active">
-                                                <app-template-chapter-item [chapter]="item" (click)="setChapter(item)"></app-template-chapter-item>
+                                                <app-template-chapter-item (changeStatus)="changeStatus($event)" [chapter]="item" (click)="setChapter(item)"></app-template-chapter-item>
                                             </div>
                                         </div>                                            
-                                    </div>
-                                    <div class="paginate" *ngIf="paginate_active.size !== paginate_active.totalElements">
+                                    </div>                                
+                                    <div class="paginate" *ngIf="paginate_active.size < paginate_active.totalElements">
                                         <button class="btn btn-default" (click)="setPageChapterActive()">Carregar mais capítulos</button>
+                                    </div>
+                                    <div class="paginate" *ngIf="paginate_active.size > paginate_active.totalElements">
+                                        <span class="btn btn-default" disabled> Não há mais capítulos</span>
                                     </div>
                                 </div>   
                             </div>
@@ -97,14 +100,17 @@
                                     <div class="box-body">     
                                         <div *ngIf="hasdata">
                                             <div *ngFor="let item of chapters_inactive">
-                                                <app-template-chapter-item [chapter]="item" (click)="setChapter(item)"></app-template-chapter-item>
+                                                <app-template-chapter-item (changeStatus)="changeStatus($event)" [chapter]="item" (click)="setChapter(item)"></app-template-chapter-item>
                                             </div>
                                         </div>
                                             
                                     </div>
-                                    <div class="paginate" *ngIf="paginate_inactive.size !== paginate_inactive.totalElements">
+                                    <div class="paginate" *ngIf="paginate_inactive.size < paginate_inactive.totalElements">
                                         <button class="btn btn-default" (click)="setPageChapterInactive()">Carregar mais capítulos</button>
-                                    </div>    
+                                    </div> 
+                                    <div class="paginate" *ngIf="paginate_inactive.size > paginate_inactive.totalElements">
+                                        <span class="btn btn-default" disabled> Não há mais capítulos</span>
+                                    </div>   
                                 </div>   
                             </div>
                             <!-- /.tab-pane -->                         

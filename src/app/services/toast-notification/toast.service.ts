@@ -12,7 +12,7 @@ export class ToastService {
     private router: Router) { }
     toastSuccess() {
       this.toastService.success('Sucesso!', 'Ação realizada com sucesso', {
-        timeOut: 3000,
+        timeOut: 800,
         showProgressBar: true,
         pauseOnHover: true,
         clickToClose: true
@@ -81,8 +81,8 @@ export class ToastService {
     }
 
     toastErrorChangeStatus() {
-      this.toastService.warn('Atenção!', ' Não é possível habilitar a versão.', {
-        timeOut: 3000,
+      this.toastService.warn('Atenção!', ' Não é possível habilitar essa versão.', {
+        timeOut: 800,
         showProgressBar: true,
         pauseOnHover: true,
         clickToClose: true

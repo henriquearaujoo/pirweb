@@ -13,7 +13,7 @@ import { Observable } from 'rxjs/Observable';
   templateUrl: './template-chapter.component.html',
   styleUrls: ['./template-chapter.component.css']
 })
-export class TemplateChapterComponent implements OnInit, OnChanges, AfterViewInit {
+export class TemplateChapterComponent implements OnInit, OnChanges {
 
   templates: TemplateItem[] = new Array();
   private paginate: Paginate = new Paginate();
@@ -29,46 +29,28 @@ export class TemplateChapterComponent implements OnInit, OnChanges, AfterViewIni
   private size_active: number;
   private size_inactive: number;
 
-  @ViewChild('chapterItemChild')
-  chapterItem: TemplateChapterItemComponent;
-
   constructor(
     private router: Router,
-    private chapterService: ChapterService
+    private chapterService: ChapterService,
+    private chapterItem: TemplateChapterItemComponent
   ) {
       this.hasdata = false;
       this.page = 0;
-      this.size = 3;
-      this.size_active = 3;
-      this.size_inactive = 3;
+      this.size = 10;
+      this.size_active = 10;
+      this.size_inactive = 10;
 
   }
 
   ngOnInit() {
-    for (let i = 0 ; i < 5 ; i++) {
-      const t = new TemplateItem();
-      t.description = 'description test:' + i;
-      t.title = 'title test';
-      t.content = 'content test';
-      t.id = i;
-      this.templates.push(t);
-    }
     this.hasdata = false;
     this.getChapters();
     this.getChapterActive();
     this.getChapterInactive();
   }
 
-  ngAfterViewInit() {
-    // this.chapterItem.changeStatus.subscribe(
-    //   s => {
-    //     this.getChapters();
-    //   }
-    // );
-  }
+  ngOnChanges() {  }
 
-  ngOnChanges() {
-  }
   getChapters() {
     if ( this.filter.name == null) {
       this.filter.name = '';
@@ -80,12 +62,13 @@ export class TemplateChapterComponent implements OnInit, OnChanges, AfterViewIni
         this.chapters = this.paginate.content;
         this.hasdata = true;
         console.log('CHAPTERS', this.chapters);
-        // const hash = {};
-        // this.chapters = this.chapters.filter(chapter => {
-        //   const exists = !hash[chapter.number] || false;
-        //   hash[chapter.number] = true;
-        //   return exists;
-        // });
+
+        const hash = {};
+        this.chapters = this.chapters.filter(chapter => {
+          const exists = !hash[chapter.number] || false;
+          hash[chapter.number] = true;
+          return exists;
+        });
       },
       error => {
         console.log('ERROR', error);
@@ -101,6 +84,13 @@ export class TemplateChapterComponent implements OnInit, OnChanges, AfterViewIni
         this.chapters_active = this.paginate_active.content;
         this.hasdata = true;
         console.log('ACTIVES CHAPTERS', this.chapters_active);
+
+        const hash = {};
+        this.chapters_active = this.chapters_active.filter(chapter => {
+          const exists = !hash[chapter.number] || false;
+          hash[chapter.number] = true;
+          return exists;
+        });
       },
       error => {
         console.log('ERROR', error);
@@ -116,6 +106,13 @@ export class TemplateChapterComponent implements OnInit, OnChanges, AfterViewIni
         this.chapters_inactive = this.paginate_inactive.content;
         this.hasdata = true;
         console.log('INACTIVE CHAPTERS', this.chapters_inactive);
+
+        const hash = {};
+        this.chapters_inactive = this.chapters_inactive.filter(chapter => {
+          const exists = !hash[chapter.number] || false;
+          hash[chapter.number] = true;
+          return exists;
+        });
       },
       error => {
         console.log('ERROR', error);
@@ -124,30 +121,21 @@ export class TemplateChapterComponent implements OnInit, OnChanges, AfterViewIni
     );
   }
 
-  // changeStatus(status: boolean) {
-  //   this.chapterItem.changeStatus.subscribe(
-  //     s => {
-  //       this.getChapters();
-  //     },
-  //     error => console.log(error)
-  //   );
-  // }
-
   setPage() {
     // this.page++;
-    this.size = this.size + 3 ;
+    this.size = this.size + 10 ;
     this.getChapters();
   }
 
   setPageChapterActive() {
     // this.page++;
-    this.size_active = this.size_active + 3 ;
+    this.size_active = this.size_active + 10 ;
     this.getChapterActive();
   }
 
   setPageChapterInactive() {
     // this.page++;
-    this.size_inactive = this.size_inactive + 3 ;
+    this.size_inactive = this.size_inactive + 10 ;
     this.getChapterInactive();
   }
 
@@ -158,5 +146,13 @@ export class TemplateChapterComponent implements OnInit, OnChanges, AfterViewIni
   setChapter(chapter: Chapter) {
     this.chapterService.setChapter(chapter);
     // this.router.navigate(['chapter-details']);
+  }
+
+  changeStatus(event) {
+    if (event) {
+      this.getChapters();
+      this.getChapterActive();
+      this.getChapterInactive();
+    }
   }
 }

@@ -242,7 +242,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ChapterService,
     InterventionService,
     ReceptionService,
-    UserDetailsComponent
+    UserDetailsComponent,
+    TemplateChapterItemComponent
   ],
   bootstrap: [AppComponent]
 })

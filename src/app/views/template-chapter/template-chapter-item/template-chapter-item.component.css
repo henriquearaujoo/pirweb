@@ -92,7 +92,7 @@ li.version-header {
     padding: 8px 40px;
     font-weight: bold;
     color: gray;
-    font-size: 18px;
+    font-size: 16px;
     margin-bottom: 10px;
 }
 span.version-title {
@@ -180,6 +180,10 @@ button.btn.edit {
 }
 .ic_image {
     height: 70px;
+}
+
+.btn[_ngcontent-c7]:focus, .btn-large[_ngcontent-c7]:focus, .btn-floating[_ngcontent-c7]:focus {
+    background-color: #444;
 }
 
 /* END CARD*/
