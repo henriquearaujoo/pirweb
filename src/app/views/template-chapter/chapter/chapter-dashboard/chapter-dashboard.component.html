@@ -14,18 +14,26 @@
         <form name="form" (ngSubmit)="editData(f.form.valid)" #f="ngForm" novalidate>
             <!-- Custom Tabs -->
             <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs">
+                <ul class="nav nav-tabs" style="background: #fff;">
                     <li>
-                        <img src="{{informationTab}}" />
+                        <a class="tab-pane active" href="#tab_1" data-toggle="tab">
+                            <img src="{{informationTab}}" (click)="walk(0)" />
+                        </a>
                     </li>
                     <li>
-                        <img src="{{receptionTab}}" />
+                        <a class="tab-pane" href="#tab_2" data-toggle="tab">
+                            <img src="{{receptionTab}}" (click)="walk(1)" />
+                        </a>
                     </li>
                     <li>
-                        <img src="{{interventionTab}}" />
+                        <a class="tab-pane" href="#tab_3" data-toggle="tab">
+                            <img src="{{interventionTab}}" (click)="walk(2)" />
+                        </a>
                     </li>
                     <li>
-                        <img src="{{conclusionTab}}" />
+                        <a class="tab-pane" href="#tab_4" data-toggle="tab">
+                            <img src="{{conclusionTab}}" (click)="walk(3)" />
+                        </a>
                     </li>
                 </ul>
                 <div class="tab-content">
@@ -41,7 +49,7 @@
                                     <div class="col-sm-12">
                                         <div class="box box-primary">
                                             <div class="box-body">
-                                                <app-information #informationChild></app-information>
+                                                <app-information #informationChild (returnEvent)="actionSave($event)"></app-information>
                                             </div>
                                         </div>
                                     </div>
@@ -62,7 +70,7 @@
                                     <div class="col-sm-12">
                                         <div class="box box-primary">
                                             <div class="box-body">
-                                                <app-reception #receptionChild></app-reception>
+                                                <!-- <app-reception #receptionChild></app-reception> -->
                                             </div>
                                         </div>
                                     </div>
@@ -83,7 +91,7 @@
                                     <div class="col-sm-12">
                                         <div class="box box-primary">
                                             <div class="box-body">
-                                                <app-intervention #intervention></app-intervention>
+                                                <!-- <app-intervention #intervention></app-intervention> -->
                                             </div>
                                         </div>
                                     </div>
@@ -105,7 +113,7 @@
                                         <div class="box box-primary">
                                             <div class="box-body">
                                                 <!-- CARD -->
-                                                <app-conclusion></app-conclusion>
+                                                <!-- <app-conclusion></app-conclusion> -->
                                             </div>
                                         </div>
                                     </div>
@@ -114,7 +122,7 @@
                         </div>
                     </div>
                     <!-- /.tab-pane -->
-                    <div class="content-control">
+                    <!-- <div class="content-control">
                         <div class="control">
                             <a href="{{previousTab}}" data-toggle="tab" (click)="walk(false)">
                                 <img src="../../../assets/img/global/ic_previous.png" />
@@ -125,7 +133,7 @@
                                 <img src="../../../assets/img/global/ic_next.png" />
                             </a>
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
                 <!-- /.tab-content -->

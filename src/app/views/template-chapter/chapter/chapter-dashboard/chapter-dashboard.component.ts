@@ -45,10 +45,10 @@ export class ChapterDashboardComponent implements OnInit {
     private toastService: ToastService) { }
 
   ngOnInit() {
-    this.currentTab = 0;
+    // this.currentTab = 0;
 
-    this.previousTab = '#tab_1';
-    this.nextTab = '#tab_2';
+    // this.previousTab = '#tab_1';
+    // this.nextTab = '#tab_2';
 
     this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_enable.png';
     this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_disable.png';
@@ -98,34 +98,41 @@ export class ChapterDashboardComponent implements OnInit {
     this.reception.load(this.urlId + '==');
     this.intervention.load(this.urlId + '==');
   }
-
+  /****Return of Event from children components ****/
+  actionSave(status: boolean) {
+    if (status) {
+      this.toastService.toastSuccess();
+    } else {
+      this.toastService.toastErrorLabel();
+    }
+  }
   /*
     true = next
     false = previuos
   */
-  walk(tab: boolean) {
+  walk(currentTab: number) {
 
-    if (tab) {
-      if (this.currentTab === -1) {
-        this.currentTab = 0;
-      } else if (this.currentTab < 3) {
-        this.currentTab++;
-      }
-    }else {
-      if (this.currentTab > 0) {
-        this.currentTab--;
-      }
-    }
-    this.previousTab = '#tab_' + (this.currentTab + 1);
-    this.nextTab = '#tab_' + (this.currentTab + 1);
+    // if (tab) {
+    //   if (this.currentTab === -1) {
+    //     this.currentTab = 0;
+    //   } else if (this.currentTab < 3) {
+    //     this.currentTab++;
+    //   }
+    // }else {
+    //   if (this.currentTab > 0) {
+    //     this.currentTab--;
+    //   }
+    // }
+    // this.previousTab = '#tab_' + (this.currentTab + 1);
+    // this.nextTab = '#tab_' + (this.currentTab + 1);
 
-    if (this.nextTab === '#tab_4') {
-      this.enable_save = true;
-    } else {
-      this.enable_save = false;
-    }
+    // if (this.nextTab === '#tab_4') {
+    //   this.enable_save = true;
+    // } else {
+    //   this.enable_save = false;
+    // }
 
-    switch (this.currentTab) {
+    switch (currentTab) {
         case 0:
           this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_enable.png';
           this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_disable.png';

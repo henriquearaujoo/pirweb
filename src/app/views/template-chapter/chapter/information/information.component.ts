@@ -1,10 +1,11 @@
 import { ToastService } from './../../../../services/toast-notification/toast.service';
-import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import * as $ from 'jquery';
 import { Chapter } from '../../../../models/chapter';
 import { ChapterService } from '../../../../services/chapter/chapter.service';
 import { Observable } from 'rxjs/Observable';
+
 
 @Component({
   selector: 'app-information',
@@ -17,6 +18,7 @@ export class InformationComponent implements OnInit {
   private estimated_time: number;
   public isNewData = true;
   public number: number;
+  @Output() returnEvent = new EventEmitter();
 
   constructor(
     private router: Router,
@@ -30,38 +32,36 @@ export class InformationComponent implements OnInit {
     return this.chapterService.select();
   }
 
-  public saveData(): Observable<Chapter>  {
+  public saveData() {
 
     this.chapter.number = Number(this.number);
     this.chapter.time_next_visit = Number(this.chapter.time_next_visit);
     this.chapter.estimated_time = Number(this.chapter.estimated_time);
 
     if ( this.isNewData ) {
-      return this.chapterService.insert(this.chapter);
-      // this.chapterService.insert(this.chapter).subscribe(
-      //   s => {
-      //     this.chapter = s;
-      //     this.toastService.toastSuccess();
-      //     console.log('saved with success!');
-      //   },
-      //   e => {
-      //     this.toastService.toastError();
-      //     console.log('error: ' + e);
-      //   }
-      // );
+      this.chapterService.insert(this.chapter).subscribe(
+        s => {
+          //this.chapter = s;
+          this.returnEvent.emit(true);
+          console.log('saved with success!');
+        },
+        e => {
+          this.returnEvent.emit(false);
+          console.log('error: ' + e);
+        }
+      );
     }else {
-      return this.chapterService.update(this.chapter);
-      // this.chapterService.update(this.chapter).subscribe(
-      //   s => {
-      //     this.chapter = s;
-      //     this.toastService.toastSuccess();
-      //     console.log('saved with success!');
-      //   },
-      //   e => {
-      //     this.toastService.toastError();
-      //     console.log('error: ' + e);
-      //   }
-      // );
+      this.chapterService.update(this.chapter).subscribe(
+        s => {
+          this.chapter = s;
+          this.returnEvent.emit(true);
+          console.log('saved with success!');
+        },
+        e => {
+          this.returnEvent.emit(false);
+          console.log('error: ' + e);
+        }
+      );
     }
   }
 
