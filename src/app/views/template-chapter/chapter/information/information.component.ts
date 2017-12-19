@@ -38,8 +38,10 @@ export class InformationComponent implements OnInit {
   }
 
   public saveData() {
+    if (this.isNewData) {
+      this.chapter.number = Number(this.number);
+    }
 
-    this.chapter.number = Number(this.number);
     this.chapter.time_next_visit = Number(this.chapter.time_next_visit);
     this.chapter.estimated_time = Number(this.chapter.estimated_time);
 

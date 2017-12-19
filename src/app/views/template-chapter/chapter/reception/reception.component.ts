@@ -38,11 +38,26 @@ export class ReceptionComponent implements OnInit {
     this.reception.chapter = this.chapter.id;
     if (this.isNewData) {
       this.service.insert(this.reception).subscribe(
-        s => this.reception = s,
-        e => console.log(e)
+        s => {
+          this.reception = s;
+          this.returnEvent.emit(true);
+         },
+        e => {
+          console.log(e);
+          this.returnEvent.emit(false);
+        }
       );
     }else {
-      this.service.update(this.reception).subscribe();
+      this.service.update(this.reception).subscribe(
+        s => {
+          this.reception = s;
+          this.returnEvent.emit(true);
+         },
+        e => {
+          console.log(e);
+          this.returnEvent.emit(false);
+        }
+      );
     }
   }
 

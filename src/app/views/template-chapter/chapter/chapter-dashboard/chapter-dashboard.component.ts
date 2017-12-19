@@ -61,6 +61,7 @@ export class ChapterDashboardComponent implements OnInit {
     if (this.urlId !== null && this.urlId !== '') {
       this.isNewData = false;
       this.information.isNewData = false;
+      this.reception.isNewData = false;
       this.sendEventToLoad();
     }else {
       this.information.isNewData = true;
@@ -88,14 +89,14 @@ export class ChapterDashboardComponent implements OnInit {
         this.chapter = s;
         this.information.loadForm(s);
         this.currentChapter = this.chapter.number;
+        this.reception.load(this.urlId);
+        //this.reception.chapter.id = this.urlId;
+        this.intervention.load(this.urlId);
       },
       e => {
         console.log('Error: ' + e);
       }
     );
-
-    this.reception.load(this.urlId);
-    this.intervention.load(this.urlId);
   }
   /****Return of Event from children components ****/
   actionInformation(c: Chapter) {
@@ -109,13 +110,8 @@ export class ChapterDashboardComponent implements OnInit {
       this.toastService.toastErrorLabel();
   }
   /****Return of Event from children components ****/
-  actionSave(status: boolean, c?: any) {
+  actionSave(status: boolean) {
     if (status) {
-      if ( c !== null ) {
-        this.chapter.id = c.id;
-        // add id in all components
-        this.reception.chapter.id = this.chapter.id;
-      }
       this.toastService.toastSuccess();
     } else {
       this.toastService.toastErrorChapterId();
