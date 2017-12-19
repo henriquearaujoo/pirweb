@@ -32,6 +32,7 @@ export class ChapterDashboardComponent implements OnInit {
   private currentChapter: any;
   private urlId: string;
   private openModalButton: HTMLButtonElement;
+  private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
 
   @ViewChild('informationChild')
   information: InformationComponent;
@@ -90,7 +91,7 @@ export class ChapterDashboardComponent implements OnInit {
         this.information.loadForm(s);
         this.currentChapter = this.chapter.number;
         this.reception.load(this.urlId);
-        //this.reception.chapter.id = this.urlId;
+        // this.reception.chapter.id = this.urlId;
         this.intervention.load(this.urlId);
       },
       e => {
@@ -150,4 +151,8 @@ export class ChapterDashboardComponent implements OnInit {
       break;
     }
   }
+
+  modalConfirm() {
+    this.router.navigate(['/template-chapter']);
+    }
 }

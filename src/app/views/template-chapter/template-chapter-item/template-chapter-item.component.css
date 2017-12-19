@@ -82,7 +82,7 @@ ul.list-version {
 }
 .version {
     background-color: #f4f4f4;
-    margin-top: 6px;
+    margin-top: 1px;
     height: 250px;
 }
 li.version-header {
@@ -109,10 +109,10 @@ i.fa.fa-toggle-on, i.fa.fa-toggle-off, i.fa.fa-plus {
     color: #373d40;
 }
 span.version-add {
-    margin-right: 68px;
+    margin-right: 78px;
 }
 /* //PROGRESS BAR// */
-.progress[_ngcontent-c7] {
+.progress.progress-xs {
     background-color: #b7b4b4;
 }
 .progress-bar-primary {
@@ -120,11 +120,23 @@ span.version-add {
 }
 
 /* MATERIALIZE*/
-.row[_ngcontent-c7] {
-    margin-bottom: 5px;
+.row {
+    margin-bottom: 5px!important;
 }
 
-.card[_ngcontent-c7] .card-content[_ngcontent-c7] {
+.card.sticky-action {
+    height: 368px;
+    width: 234px;
+    margin: 25px 30px;
+}
+
+.card.sticky-action .card-content {
+    padding: 0px 15px;
+    height: 250px;
+    text-align: center;
+}
+
+/* .card[_ngcontent-c7] .card-content[_ngcontent-c7] {
     padding: 0px 15px;
     height: 250px;
 }
@@ -132,9 +144,19 @@ span.version-add {
 .card[_ngcontent-c7][_ngcontent-c7] {
     height: 368px;
     width: 234px;
+} */
+
+.card.sticky-action .card-action {
+    padding: 10px;
 }
 
-.card[_ngcontent-c7] .card-action[_ngcontent-c7]{
+.card.sticky-action .card-reveal {
+    padding: 10px;
+    top: 97%;
+    width: 90%;
+    left: 5%;
+}
+/* .card[_ngcontent-c7] .card-action[_ngcontent-c7]{
     padding: 10px;
 }
 .card[_ngcontent-c7] .card-reveal[_ngcontent-c7] {
@@ -142,9 +164,8 @@ span.version-add {
     top: 97%;
     width: 90%;
     left: 5%;
-}
-
-.btn[_ngcontent-c7] {
+} */
+button.btn.status, button.btn.edit {
     height: 26px;
     width: 90px;
     line-height: 26px;
@@ -153,17 +174,28 @@ span.version-add {
     background-color: #373d40;
 }
 
-.btn[_ngcontent-c7]:hover, .btn-large[_ngcontent-c7]:hover {
+/* .btn[_ngcontent-c7] {
+
+} */
+
+button.btn.status:hover, button.btn.edit:hover {
     background-color: #373d40;
 }
 
-.card[_ngcontent-c7] {
-    margin: 25px 30px;
-}
+/* .btn[_ngcontent-c7]:hover, .btn-large[_ngcontent-c7]:hover {
+    background-color: #373d40;
+} */
 
-.card[_ngcontent-c7] .card-title[_ngcontent-c7] {
+/* .card[_ngcontent-c7] {
+    margin: 25px 30px;
+} */
+
+.card.sticky-action .card-title {
     font-size: 18px;
 }
+/* .card[_ngcontent-c7] .card-title[_ngcontent-c7] {
+    font-size: 18px;
+} */
 span.card-title.activator.grey-text.text-darken-4 {
     padding-top: 10px;
 }
@@ -181,10 +213,12 @@ button.btn.edit {
 .ic_image {
     height: 70px;
 }
-
-.btn[_ngcontent-c7]:focus, .btn-large[_ngcontent-c7]:focus, .btn-floating[_ngcontent-c7]:focus {
+button.btn.status:focus, button.btn.edit:focus {
     background-color: #444;
 }
+/* .btn[_ngcontent-c7]:focus, .btn-large[_ngcontent-c7]:focus, .btn-floating[_ngcontent-c7]:focus {
+    background-color: #444;
+} */
 
 /* END CARD*/
 

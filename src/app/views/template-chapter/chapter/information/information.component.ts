@@ -18,11 +18,15 @@ export class InformationComponent implements OnInit {
   private estimated_time: number;
   public isNewData = true;
   public number: number;
+  private btn_cancel: boolean;
+
   @Output() returnEvent = new EventEmitter();
   @Output() cancelEvent = new EventEmitter();
 
   onCancel() {
     this.cancelEvent.emit();
+    console.log('cancel', this.btn_cancel);
+    this.btn_cancel = true;
   }
 
   constructor(
@@ -31,13 +35,19 @@ export class InformationComponent implements OnInit {
     private toastService: ToastService) {
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.btn_cancel = false;
+  }
 
   getNextChapterNumber() {
     return this.chapterService.select();
   }
 
   public saveData() {
+    if (this.btn_cancel) {
+      this.btn_cancel = false;
+      return false;
+    }
     if (this.isNewData) {
       this.chapter.number = Number(this.number);
     }

@@ -78,9 +78,7 @@ label {
 
 .box-body {
     background-color: #f4f4f4;
-    padding-right: 40px;
-    padding-left: 40px;
-    padding-top: 30px;
+    padding: 0;
 }
 
 .col-sm-6 {
@@ -124,13 +122,13 @@ button {
 }
 
 button#btn_cancel {
-    width: 150px;
+    width: 175px;
     height: 45px;
     border-radius: 0;
 }
 
 button#btn_confirm {
-    width: 150px;
+    width: 175px;
     height: 45px;
     border-radius: 0;
 }
@@ -224,39 +222,6 @@ section.content_user {
     margin-bottom: 20px;
 }
 
-
-/******** Modal *********/
-
-.modal-footer {
-    padding: 0;
-    margin-top: 10px;
-    background-color: #302e2e;
-    text-align: center;
-    cursor: pointer;
-}
-
-.modal-content {
-    height: 200px;
-    width: 350px;
-}
-
-.modal-body[_ngcontent-c5] {
-    padding-top: 30px;
-    margin-top: 20px;
-    text-align: center;
-}
-
-.modal-icon {
-    text-align: center;
-}
-
-.modal-footer label {
-    height: 30px;
-    margin-top: 10px;
-    color: #cccccc;
-    text-align: center;
-    cursor: pointer;
-}
 
 .position {
     padding: 20px 0px 20px 20px;

@@ -9,8 +9,16 @@
     border-color: #373d40;
 }
 
+.box {
+    box-shadow: none;
+}
+
 .box.box-primary {
-    border-top-color: #373d40;
+    border: 0;
+}
+
+.box-body {
+    background-color: #f4f4f4;
 }
 
 .col-md-3.col-md-offset-6.save {

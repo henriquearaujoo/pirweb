@@ -12,7 +12,7 @@ import { Paginate } from '../../../models/paginate';
   selector: 'app-template-chapter-item',
   templateUrl: './template-chapter-item.component.html',
   styleUrls: ['./template-chapter-item.component.css',
-              '../../../../../node_modules/materialize-css/dist/css/materialize.css']
+              '../../../../../node_modules/materialize-css/dist/css/materialize.min.css']
 })
 export class TemplateChapterItemComponent implements OnInit {
 

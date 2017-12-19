@@ -147,7 +147,7 @@
                     <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal" id="btn_cancel">Não</button>
                 </div>
                 <div class="modal-btn-confirm">
-                    <button type="button" [routerLink]="['/template-chapter']" class="btn btn-primary btn-md btn-block" data-dismiss="modal" id="btn_confirm">Sim</button>
+                    <button type="button" (click)="modalConfirm()" class="btn btn-primary btn-md btn-block" data-dismiss="modal" id="btn_confirm">Sim</button>
                 </div>
             </div>
         </div>
