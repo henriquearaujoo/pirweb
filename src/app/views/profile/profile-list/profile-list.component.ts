@@ -35,6 +35,9 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
     hasdata: boolean;
 
     filter: any = {title: ''};
+    private profileTab: string;
+    private permissionTab: string;
+    private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
 
     constructor(
       pagerService: PageService,
@@ -50,6 +53,8 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
       }
 
       ngOnInit() {
+        this.profileTab = '../../../assets/img/profile/ic_profile_enable.png';
+        this.permissionTab = '../../../assets/img/profile/ic_permission_disable.png';
         this.hasdata = false;
         this.getProfile();
       }
@@ -123,5 +128,18 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
       editProfile(profile: Profile) {
         this.edit = true;
         this.selectedProfile = profile;
+      }
+
+      walk ( tab: number) {
+        switch (tab) {
+          case 0:
+            this.profileTab = '../../../assets/img/profile/ic_profile_enable.png';
+            this.permissionTab = '../../../assets/img/profile/ic_permission_disable.png';
+          break;
+          case 1:
+            this.profileTab = '../../../assets/img/profile/ic_profile_disable.png';
+            this.permissionTab = '../../../assets/img/profile/ic_permission_enable.png';
+          break;
+        }
       }
 }

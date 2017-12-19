@@ -1,88 +1,178 @@
 <simple-notifications></simple-notifications>
 
-<app-profile (insertValue)="onInsertValue($event)" 
-  (filterValue)="onFilter($event)"
-  [edit]="edit"
-  [selectedProfile]="selectedProfile"
-  [profiles]="profiles">
-</app-profile>
-<!-- when there's not record -->
-<div *ngIf="!hasdata">
-  <section class="content">
-      <div class="feedback-icon fa fa-users"></div><br><br>
-      <span class="feedback-message">Não há dados cadastrados</span>
-  </section>
-</div>  
-<div *ngIf="hasdata">  
-  <div class="box">             
-    <div class="row">
-        <div class="col-sm-6">
-          <div id="_filter" class="dataTables_filter">
-            <label>
-              Filtrar:<input type="text" class="form-control form-border " name="title" (keyup)="getProfile()" [(ngModel)]="filter.title" placeholder="Tipo de Perfil">
-            </label>
-          </div>
-        </div>              
+<div class="content_">
+  <div class="content-top">
+    <div class="content_fa"> <i class="fa fa-user"></i> Usuários > Perfil</div>
+    
+  </div>
+<section class="content">
+  <div class="box"> 
+    <div class="box-header_ ">
+      <h5 class="box-title">LISTA DE PERFIS</h5>
+    </div>    
+    <!-- when there's not record -->
+    <div *ngIf="!hasdata">
+      <section class="content">
+          <div class="feedback-icon fa fa-users"></div><br><br>
+          <span class="feedback-message">Não há dados cadastrados</span>
+      </section>
     </div>
-    <div class="box-body with-border">
-      <table id="example2" class="table table-hover ">
-        <thead>
-          <tr>
-            <th class="tbl-left">Título
-              <span class="glyphicon" ></span>
-            </th>           
-            <th colspan="3" class="tbl-center"> Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of profiles">
-            <td class="tbl-left">  
-                {{ item.title }}
-            </td>         
-            <td class="tbl-right">              
-              <a (click)="setProfile(item)" [routerLink]="['/page-list']" title="Permissões">
-                  <i class="large material-icons">lock</i>
-              </a>
-            </td>
-            <td class="tbl-right">          
-              <a (click)="editProfile(item)">
-                  <i class="fa fa-pencil fa-fw show-icon"></i>
-              </a>
-            </td>
-            <td class="tbl-right">  
-                <a href="" [title]="item.status === true ? 'Desativar': 'Ativar'"
-                  data-toggle="modal" data-target="#modal-default"
-                  (click)="changeStatus(item)">              
-                  <i [ngClass]="item.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
-                </a>  
-            </td>         
-          </tr>
-        </tbody>
-      </table>
-    </div>        
-    <div class="box-footer">
-        <app-paginate [paginate]="paginate" (eventPage)="setPage($event)"></app-paginate>     
+
+    <div *ngIf="hasdata">     
+      
+        <div class="box-body">
+            <!-- Custom Tabs -->
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li>
+                      <a class="tab-pane active" href="#tab_1" data-toggle="tab">
+                        <img src="{{ profileTab }}" (click)="walk(0)" />
+                      </a>                       
+                    </li>
+                    <li>
+                      <a class="tab-pane" href="#tab_2" data-toggle="tab">
+                        <img src="{{ permissionTab }}" (click)="walk(1)" />
+                      </a>                        
+                    </li>                   
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_1">
+                        <div class="content_">
+                            <section class="content_">
+                                <div class="box-header with-border">
+                                    <h5 class="box-title"> Perfil
+                                    </h5>
+                                </div>
+                                <app-profile (insertValue)="onInsertValue($event)" 
+                                  (filterValue)="onFilter($event)"
+                                  [edit]="edit"
+                                  [selectedProfile]="selectedProfile"
+                                  [profiles]="profiles">
+                               </app-profile>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                      <div id="_filter" class="dataTables_filter">
+                                        <label>
+                                          Filtro <input type="text" class="form-control form-border " name="title" (keyup)="getProfile()" [(ngModel)]="filter.title" placeholder="Tipo de Perfil">
+                                        </label>
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="box box-primary">
+                                            <div class="box-body">
+                                                <table id="example2" class="table">
+                                                    <thead>
+                                                      <tr>
+                                                        <th>ID
+                                                          <span class="glyphicon" ></span>
+                                                        </th>
+                                                        <th>TIPO
+                                                          <span class="glyphicon" ></span>
+                                                        </th>
+                                                        <!--th class="tbl-left">Status
+                                                            <span class="glyphicon" ></span>
+                                                          </th -->
+                                                        <th colspan="3"> AÇÃO</th>
+                                                      </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                      <tr *ngFor="let item of profiles; let i = index">
+                                                        <td> {{ i + 1 }}</td>
+                                                        <td>  
+                                                            {{ item.title }} 
+                                                        </td>            
+                                                       
+                                                        <td class="tbl-right">              
+                                                          <a (click)="setProfile(item)" [routerLink]="['/page-list']" title="Permissões">
+                                                            <i class="large material-icons">lock</i>
+                                                          </a>
+                                                        </td>
+                                                        <td class="tbl-right">          
+                                                          <a title="Editar" id="btn_edit"
+                                                            (click)="editProfile(item)">
+                                                            <i class="fa fa-pencil fa-fw"></i>
+                                                          </a>
+                                                        </td>
+                                                        <td class="tbl-right">
+                                                            <a href="" [title]="item.status === true ? 'Desativar': 'Ativar'"
+                                                              data-toggle="modal" data-target="#modal-default"
+                                                              (click)="changeStatus(item)" id="btn_status">              
+                                                              <i [ngClass]="item.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
+                                                            </a>      
+                                                        </td>
+                                                      </tr>
+                                                    </tbody>
+                                                  </table>
+                                            </div>
+                                            <div class="box-footer">
+                                                <app-paginate [paginate]="paginate" (eventPage)="setPage($event)"></app-paginate>                                                
+                                              </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </section>
+                        </div>
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_2">
+                        <div class="content">
+                            <section class="content">
+                                <div class="box-header with-border">
+                                    <h5 class="box-title"> Permissões
+                                    </h5>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="box box-primary">
+                                            <div class="box-body">
+                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                    <!-- /.tab-pane -->          
+            
+                </div>
+                <!-- /.tab-content -->
+            </div>
+        </div>
+       
     </div>
   </div>
+</section>
 </div>
 
- <!-- Modal Delete -->
- <div class="modal fade" id="modal-default">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true"></span></button>
-          <h4 class="modal-title" *ngIf="profile.status"> Deseja realmente Desativar o perfil {{ profile.title | uppercase}}?</h4>
-          <h4 class="modal-title" *ngIf="!profile.status"> Deseja realmente Ativar o perfil {{ profile.title | uppercase}}?</h4>
+
+
+<!-- Modal Disable -->
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content" [ngStyle]="object">
+        <div class="modal-body">
+          <div class="modal-icon">
+              <i class="material-icons" style="font-size: 60px;">error_outline</i>
+          </div>          
+            <h5  *ngIf="profile.status"> Deseja realmente desativar o perfil <strong> {{ profile.title | uppercase}} </strong> ?</h5>
+            <h5  *ngIf="!profile.status"> Deseja realmente ativar o perfil <strong> {{ profile.title | uppercase}} </strong> ?</h5>
+        </div>
+        <div class="modal-footer_">
+          <div class="modal-btn-cancel">
+              <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal" id="btn_cancel">Cancelar</button>
+          </div>
+          <div class="modal-btn-confirm">
+              <button type="button" (click)="disableProfile()" class="btn btn-primary btn-md btn-block" data-dismiss="modal" id="btn_confirm">Confirmar</button>
+          </div>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
-        <button type="button" (click)="disableProfile()" class="btn btn-primary" data-dismiss="modal">Confirmar</button>
-      </div>
+      <!-- /.modal-content -->
     </div>
-    <!-- /.modal-content -->
+    <!-- /.modal-dialog -->
   </div>
-  <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
+  <!-- /.modal -->
+  

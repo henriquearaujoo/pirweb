@@ -65,14 +65,23 @@
     border-color: #ddd;
 }
 
-.box-header {
-    padding: 35px 22px 30px;
-}
+.box {
+    box-shadow: none;
+  }
+  
+  .box-body {
+    background-color: #f7f7f7;
+    border: 1px solid #ccc;
+  }
 
-.box-header h4 {
-    padding-bottom: 20px;
-}
-
+  .box-header {
+    background-color: #e8e6e6;
+    height: 52px;
+    padding: 18px;
+    color: gray;
+    font-weight: bold;
+  }
+  
 option.list-group-item {
     border: 0;
 }

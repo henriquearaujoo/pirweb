@@ -1,18 +1,89 @@
-<jaspero-alerts [defaultSettings]="options"></jaspero-alerts>
-<div class="container">
+<div class="content_">
+        <div class="container-fluid">
+                <section class="content">
+                  <div class="row">       
+                    <div class="box box-solid">
+                        <div class="box-header ">
+                          TIPO
+                        </div>  
+                        <div class="box-body">
+                            <select class="form-control" name="profile" id="profile"  required>
+                                <option disabled> Perfil</option>
+                                <option *ngFor="let profile of profiles" [value]="profile.id">{{profile.title}}</option>
+                            </select>                                 
+                        </div>
+                      </div>   
+                  </div>
+                </section>
+            <!-- <app-profile-list [newProfile]="profile"></app-profile-list> -->
+        </div>
+
+        <section class="content_">
+            <!-- <div class="row">
+                <div class="col-sm-12">
+                    <h4 class="title" > Perfil 
+                        <small>Permissões</small>
+                    </h4><br/>
+                     <h5 class="title">Tipo: {{ currentProfile.title }}</h5>
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="box box-primary">
+                        <div class="box-body">
+                            <table id="example2" class="table">
+                                <thead>
+                                  <tr>
+                                    <th>SESSÕES
+                                      <span class="glyphicon" ></span>
+                                    </th>                                   
+                                    <th colspan="4"> PERMISSÕES</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let item of pageFromServer">
+                                    <td>  
+                                        {{ item.route }}
+                                    </td>            
+                                   
+                                    <td class="tbl-right">              
+                                      A
+                                    </td>
+                                    <td class="tbl-right">          
+                                      B
+                                    </td>
+                                    <td class="tbl-right">
+                                        C    
+                                    </td>
+                                    <td>
+                                        D
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+<!-- <div class="container">
     <section class="content">
       <div class="row">
-        <!-- Load profile title -->
+       
         <div class="box-header with-border" >
             <h4 class="title" > Perfil 
                 <small>Permissões</small>
             </h4><br/>
             <h5 class="title">Tipo: {{ currentProfile.title }}</h5>
         </div>
-        <!-- /Load profile title -->
+       
 
         <div class="box-body col-centered">
-            <!-- List with all profile permission -->
+           
             <div class="col-xs-4" >         
                 <div class="box-content-permission">
                     <div class="panel-title-permission">
@@ -26,9 +97,7 @@
                 </select>
                 </div>     
             </div>
-            <!--/List with all profile permission -->
             
-            <!-- Actions -->
             <div class="col-xs-1">  
                 <div class="row btn-left" > 
                     <button type="button" class="btn btn-default btn-lg"  
@@ -53,9 +122,7 @@
                     </button>
                 </div>                    
             </div>
-            <!-- / Actions -->
             
-            <!-- List all pages -->
             <div class="col-xs-4" >         
                 <div class="box-content-permission">
                     <div class="panel-title-permission">
@@ -71,7 +138,7 @@
                     </select>                      
                 </div>     
             </div>  
-            <!-- / List all pages -->
+          
         </div>    
         <div class="box-footer ">
             <div class="col-md-10">
@@ -80,7 +147,7 @@
         </div>  
     </div>        
   </section>
-</div>
+</div> -->
 
 <!-- Modal Delete -->
  <div class="modal fade" id="modal-default">

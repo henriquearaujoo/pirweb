@@ -1,3 +1,4 @@
+import { Paginate } from './../../../models/paginate';
 import { RuleService } from './../../../services/rule/rule.service';
 import { Headers } from '@angular/http';
 import { PagenateComponent } from './../../../components/pagenate/pagenate.component';
@@ -31,6 +32,8 @@ export class PageComponent extends PagenateComponent implements OnInit {
   private selected: any[] = new Array();
   private allowed_selected: any[] = new Array();
   private confirm_rules: boolean;
+  private paginate: Paginate = new Paginate();
+  private profiles: Profile[] = new Array();
 
   constructor(
     pagerService: PageService,
@@ -42,12 +45,24 @@ export class PageComponent extends PagenateComponent implements OnInit {
      }
 
   ngOnInit() {
+    this.getProfile();
     this.loadPageFromProfile();
     this.currentProfile = this.accessPageService.getProfile();
   }
 
   ngOnChange() {
     this.loadPageFromProfile();
+  }
+
+  getProfile() {
+    this.profileService.getProfile().subscribe(
+      success => {
+        this.paginate = success;
+        this.profiles = this.paginate.content;
+        console.log('Paginate:', this.paginate);
+      },
+      error => console.log(error)
+    );
   }
 
   loadPageFromProfile() {
