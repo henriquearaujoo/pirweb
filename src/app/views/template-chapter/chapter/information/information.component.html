@@ -17,6 +17,11 @@
                                 <app-control-field-error [showError]="verifyValidSubmitted(f, subtitle)" msgError="Digite um título"></app-control-field-error>
                             </div>
 
+                            <div class="form-group">
+                                <label class="control-label">Versão</label>
+                                <input type="text" readonly id="chapter_version" name="chapter_version" [(ngModel)]="chapter.version" value="chapter.version" class="form-control">
+                            </div>
+
                             <div class="form-group" [ngClass]="applyCssError(f, description)">
                                 <label class="control-label">Descrição</label>
                                 <ck-editor id="chapter_description" name="editor_description" #description="ngModel" [(ngModel)]="chapter.description" skin="moono-lisa" [fullPage]="false" [config]="config" required></ck-editor>

@@ -45,7 +45,7 @@ export class InformationComponent implements OnInit {
     this.chapter.time_next_visit = Number(this.chapter.time_next_visit);
     this.chapter.estimated_time = Number(this.chapter.estimated_time);
 
-    if ( this.isNewData ) {
+    if ( this.isNewData && this.chapter !== undefined ) {
       this.chapterService.insert(this.chapter).subscribe(
         s => {
           this.returnEvent.emit(s);
