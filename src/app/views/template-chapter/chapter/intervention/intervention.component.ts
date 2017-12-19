@@ -66,4 +66,14 @@ export class InterventionComponent implements OnInit {
     this.cancelEvent.emit();
   }
 
+  verifyValidSubmitted(form, field) {
+    return form.submitted && !field.valid;
+  }
+
+  applyCssError(form, field) {
+    return {
+      'has-error': this.verifyValidSubmitted(form, field),
+      'has-feedback': this.verifyValidSubmitted(form, field)
+    };
+  }
 }
