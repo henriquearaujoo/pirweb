@@ -11,7 +11,7 @@ export class ChapterItemComponent implements OnInit {
 
   @Input() chapter: Chapter;
 
-  id: number;
+  id: string;
   title: string;
   describe: string;
   subdescribe: string;

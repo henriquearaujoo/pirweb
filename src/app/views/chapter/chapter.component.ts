@@ -20,7 +20,7 @@ export class ChapterComponent implements OnInit {
       t.description = 'description test:' + i;
       t.title = 'title test';
       t.content = 'content test';
-      t.id = i;
+      t.id = i + '';
       this.mChapter.push(t);
     }
   }
