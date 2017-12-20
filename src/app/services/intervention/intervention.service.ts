@@ -23,6 +23,6 @@ export class InterventionService extends RestService {
   }
 
   public load(chapter_id: string) {
-    return this.get(this.apiurl + chapter_id);
+    return this.get(this.apiurl + '/search/?chapter_id=' + chapter_id);
   }
 }

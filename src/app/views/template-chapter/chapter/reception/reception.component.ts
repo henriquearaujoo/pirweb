@@ -15,7 +15,8 @@ export class ReceptionComponent implements OnInit {
 
   private reception: Reception =  new Reception();
   public isNewData = true;
-  public chapter: Chapter;
+  public chapter: string;
+
   @Output() returnEvent = new EventEmitter();
   @Output() cancelEvent = new EventEmitter();
 
@@ -26,21 +27,21 @@ export class ReceptionComponent implements OnInit {
 
   constructor(private service: ReceptionService, private toast: ToastService) { }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() { }
 
   saveData() {
     if ( this.chapter === undefined) {
       this.returnEvent.emit(false);
       return;
     }
-    this.reception.chapter = this.chapter.id;
-    if (this.isNewData) {
+
+    this.reception.chapter = this.chapter;
+    if (this.isNewData || this.reception.id === undefined) {
       this.service.insert(this.reception).subscribe(
         s => {
           this.reception = s;
           this.returnEvent.emit(true);
+          this.isNewData  = false;
          },
         e => {
           console.log(e);
@@ -62,9 +63,13 @@ export class ReceptionComponent implements OnInit {
   }
 
   load(chapter) {
+    this.chapter = chapter;
     this.service.load(chapter).subscribe(
       s => {
-        this.reception = s;
+        this.reception = s[0];
+      },
+      e => {
+        console.log('error: ' + e);
       }
     );
   }

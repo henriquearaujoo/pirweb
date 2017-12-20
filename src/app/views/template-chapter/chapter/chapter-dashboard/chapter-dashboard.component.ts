@@ -107,7 +107,7 @@ export class ChapterDashboardComponent implements OnInit {
       if ( c !== null ) {
         this.chapter.id = c.id;
         // add id in all components
-        this.reception.chapter = this.chapter;
+        this.reception.chapter = c.id;
         this.intervention.chapter = c.id;
         this.toastService.toastSuccess();
         return;

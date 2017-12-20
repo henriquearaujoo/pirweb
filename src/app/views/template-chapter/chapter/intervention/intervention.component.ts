@@ -30,6 +30,7 @@ export class InterventionComponent implements OnInit {
     if (this.isNewData || this.intervention.id === undefined) {
       this.service.insert(this.intervention).subscribe(
         s => {
+          this.isNewData  = false;
           this.intervention = s;
           this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
           console.log('saved with success!');
@@ -58,7 +59,10 @@ export class InterventionComponent implements OnInit {
     this.chapter = chapter;
     this.service.load(chapter).subscribe(
       success => {
-          this.intervention = success;
+          this.intervention = success[0];
+      },
+      e => {
+        console.log('PirError:' + e);
       }
     );
   }

@@ -59,6 +59,7 @@ export class InformationComponent implements OnInit {
       this.chapterService.insert(this.chapter).subscribe(
         s => {
           this.returnEvent.emit(s);
+          this.isNewData  = false;
           console.log('saved with success!');
         },
         e => {
