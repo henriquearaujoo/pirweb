@@ -84,6 +84,7 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
       }
 
       setProfile(profile: Profile) {
+        this.selectedProfile = profile;
         localStorage.setItem('currentProfile', JSON.stringify(profile));
         this.accessPageService.profileSelected(profile);
       }

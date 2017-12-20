@@ -85,8 +85,8 @@
                                                         </td>            
                                                        
                                                         <td class="tbl-right">              
-                                                          <a (click)="setProfile(item)" [routerLink]="['/page-list']" title="Permissões">
-                                                            <i class="large material-icons">lock</i>
+                                                          <a (click)="setProfile(item)" href="#tab_2" data-toggle="tab" title="Permissões">
+                                                            <i class="large material-icons" (click)="walk(1)">lock</i>
                                                           </a>
                                                         </td>
                                                         <td class="tbl-right">          
@@ -128,7 +128,7 @@
                                     <div class="col-sm-12">
                                         <div class="box box-primary">
                                             <div class="box-body">
-                               
+                                              <app-page></app-page>
                                             </div>
                                         </div>
                                     </div>

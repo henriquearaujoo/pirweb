@@ -1,4 +1,8 @@
+import { Rule } from './rule';
+
 export class Page {
     public id:     number;
-    public name:   string;
+    public title:   string;
+    public route: string;
+    public rules: Rule[] = new Array();
 }

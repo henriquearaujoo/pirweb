@@ -68,7 +68,10 @@
 .box {
     box-shadow: none;
   }
-  
+
+  .box.box-primary {
+    border-top: 0;
+}
   .box-body {
     background-color: #f7f7f7;
     border: 1px solid #ccc;
@@ -97,3 +100,64 @@ option.list-group-item {
     color: #fff;
     text-align: center;
 }
+
+select#profile {
+    width: 200px;
+    background-color: gray;
+    color: white;
+}
+
+/* TABLE */
+table {
+    border: 1px solid #ddd;
+}
+
+table, a {
+    color: #666;
+}
+
+th {   
+    /* padding: 12px;
+    height: 50px; */
+}
+.tbl-center {
+    text-align: center;
+    /* width: 150px; */
+}
+.tbl-right {
+    text-align: right;  
+    width: 50px;
+}
+
+tr, th {
+    text-align: center;
+}
+
+thead {
+    border-top: 0;
+    color: #777;
+    font-size: 14px;
+    background-color: #e8e6e6;
+}
+
+.table>tbody>tr>td, 
+.table>tbody>tr>th, 
+.table>thead>tr>td, 
+.table>thead>tr>th{
+    vertical-align: middle; 
+}
+
+div.dataTables_filter {
+    text-align: left;
+    margin-left: 10px;
+}
+
+tr.tr-permissions {
+    font-size: 12px;
+}
+
+tr.tr-main {
+    height: 60px;
+    font-size: 14px;
+}
+/* END TABLE */
