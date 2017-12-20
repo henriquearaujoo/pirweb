@@ -119,6 +119,7 @@ import { UserPersonalInformationComponent } from './views/user/user-personal-inf
 import { UserAddressComponent } from './views/user/user-address/user-address.component';
 import { ConclusionComponent } from './views/template-chapter/chapter/conclusion/conclusion.component';
 import { InformationComponent } from './views/template-chapter/chapter/information/information.component';
+import { ModalWaitingAnswerComponent } from './components/modal-waiting-answer/modal-waiting-answer.component';
 
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
@@ -172,7 +173,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     UserPersonalInformationComponent,
     UserAddressComponent,
     ConclusionComponent,
-    InformationComponent
+    InformationComponent,
+    ModalWaitingAnswerComponent
 
   ],
   imports: [

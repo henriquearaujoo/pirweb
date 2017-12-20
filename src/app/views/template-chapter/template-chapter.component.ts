@@ -1,3 +1,4 @@
+import { ModalWaitingAnswerComponent } from './../../components/modal-waiting-answer/modal-waiting-answer.component';
 import { Chapter } from './../../models/chapter';
 import { Router } from '@angular/router';
 import { TemplateItem } from './../../models/templateItem';
@@ -29,6 +30,9 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
   private size_active: number;
   private size_inactive: number;
 
+  // @ViewChild('resquestServer')
+  // resquestServer: ModalWaitingAnswerComponent;
+
   constructor(
     private router: Router,
     private chapterService: ChapterService,
@@ -52,6 +56,7 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
   ngOnChanges() {  }
 
   getChapters() {
+
     if ( this.filter.name == null) {
       this.filter.name = '';
     }

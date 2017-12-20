@@ -27,7 +27,7 @@ export class InterventionComponent implements OnInit {
 
   saveData() {
     this.intervention.chapter = this.chapter;
-    if (this.isNewData) {
+    if (this.isNewData || this.intervention.id === undefined) {
       this.service.insert(this.intervention).subscribe(
         s => {
           this.intervention = s;
@@ -55,6 +55,7 @@ export class InterventionComponent implements OnInit {
   }
 
   load(chapter) {
+    this.chapter = chapter;
     this.service.load(chapter).subscribe(
       success => {
           this.intervention = success;

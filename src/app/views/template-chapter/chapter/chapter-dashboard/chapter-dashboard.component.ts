@@ -63,9 +63,12 @@ export class ChapterDashboardComponent implements OnInit {
       this.isNewData = false;
       this.information.isNewData = false;
       this.reception.isNewData = false;
+      this.intervention.isNewData = false;
       this.sendEventToLoad();
     }else {
       this.information.isNewData = true;
+      this.reception.isNewData = true;
+      this.intervention.isNewData = true;
       this.getChapterNumber();
     }
   }
@@ -88,10 +91,10 @@ export class ChapterDashboardComponent implements OnInit {
     this.information.load(this.urlId).subscribe(
       s => {
         this.chapter = s;
+
         this.information.loadForm(s);
         this.currentChapter = this.chapter.number;
         this.reception.load(this.urlId);
-        // this.reception.chapter.id = this.urlId;
         this.intervention.load(this.urlId);
       },
       e => {
@@ -105,6 +108,7 @@ export class ChapterDashboardComponent implements OnInit {
         this.chapter.id = c.id;
         // add id in all components
         this.reception.chapter = this.chapter;
+        this.intervention.chapter = c.id;
         this.toastService.toastSuccess();
         return;
       }
