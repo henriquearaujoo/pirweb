@@ -1,0 +1,22 @@
+<mat-card class="card"> 
+  <mat-card-title>{{describe}}</mat-card-title>
+  <i class="large material-icons">assignment_ind</i>      
+  <mat-card-content>
+      <p>{{subdescribe}}</p>
+  </mat-card-content>
+
+  <mat-card-actions>
+      <button>
+          <i class="fa fa-pencil-square-o" aria-hidden="true" (click)='updateTemplate()'> </i>
+      </button>
+      <button>
+          <i class="fa fa-toggle-on" aria-hidden="true" (click)='disableTemplate()'></i>    
+      </button>
+      <button>
+        <i class="fa fa-trash" aria-hidden="true" (click)='removeTemplate()'></i>    
+      </button>       
+  </mat-card-actions>
+  <mat-card-footer>
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </mat-card-footer>
+</mat-card>

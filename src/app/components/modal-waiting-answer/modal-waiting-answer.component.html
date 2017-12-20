@@ -1,0 +1,24 @@
+<button style="display:none" data-toggle="modal" data-target="#modal-waiting-answer" id="openModalButton">Open Modal</button>
+<!-- Modal Cancel -->
+<div class="modal fade" id="modal-waiting-answer">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" [ngStyle]="object">
+            <div class="modal-body">
+                <div class="modal-icon">
+                    <i class="material-icons" style="font-size: 60px;">error_outline</i>
+                </div>
+                <h5>
+                    Aguarde um momento por favor
+                    <strong> aguardando resposta do servidor ...</strong>
+                    <mat-spinner></mat-spinner>
+                </h5>
+                <div class="row">
+                    <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal" id="modal">Não</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

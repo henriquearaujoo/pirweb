@@ -1,0 +1,75 @@
+<div class="content">
+    <div class="row">
+        <h4 class="title_component"> Selecionar Modelo do Formulário </h4>
+    </div>
+    <div class="row">
+        <!-- Template 1 -->
+        <div class="col">
+            <div class="card">
+                <mat-card>
+                    <mat-card-title>Modelo: {{template}}</mat-card-title>
+                    <mat-card-content>
+                        <i class="fa fa-picture-o" aria-hidden="true"></i>                       
+                    </mat-card-content> 
+                </mat-card>
+                <label class="form-check-inline">
+                    <input class="form-check-input" type="radio" name="mode" [value]="1" [(ngModel)]="template">
+                </label>
+            </div>
+        </div>
+        <!-- Template 2 -->
+        <div class="col">
+            <div class="card">
+                <mat-card>
+                    <mat-card-title>Modelo: {{template}}</mat-card-title>
+                    <mat-card-content>
+                        <i class="fa fa-picture-o" aria-hidden="true"></i>                       
+                    </mat-card-content>
+                </mat-card>
+                <label class="form-check-inline">
+                    <input class="form-check-input" type="radio" name="mode" [value]="2" [(ngModel)]="template">
+                </label>
+            </div>
+        </div>
+        <!-- Template 3 -->
+        <div class="col">
+            <div class="card">
+                <mat-card>
+                    <mat-card-title>Modelo: {{template}}</mat-card-title>
+                    <mat-card-content>
+                        <i class="fa fa-picture-o" aria-hidden="true"></i>                       
+                    </mat-card-content>
+                </mat-card>
+                <label class="form-check-inline">
+                    <input class="form-check-input" type="radio" name="mode" [value]="3" [(ngModel)]="template">
+                </label>
+            </div>
+        </div>
+        <!-- Template 4 -->
+        <div class="col">
+            <div class="card">
+                <mat-card>
+                    <mat-card-title>Modelo: {{template}}</mat-card-title>
+                    <mat-card-content>
+                        <i class="fa fa-picture-o" aria-hidden="true"></i>                       
+                    </mat-card-content>
+                </mat-card>
+                <label class="form-check-inline">
+                    <input class="form-check-input" type="radio" name="mode" [value]="4" [(ngModel)]="template">
+                </label>
+            </div>
+        </div>
+    </div>  
+    <div class="row footer">
+        <div class="col-md-3 cancel">
+            <div class="form-group">
+                <button class="btn btn-default btn-md" [routerLink]="['/createForm']" id="btn_return"> Cancelar</button>
+            </div>
+        </div>
+        <div class="col-md-3 col-md-offset-6 save">
+            <div class="form-group">               
+                <button class="btn btn-primary btn-md" name="submit" id="btn_save" [routerLink]="[ '/question']">Próximo</button>
+            </div>
+        </div>
+    </div>
+</div>

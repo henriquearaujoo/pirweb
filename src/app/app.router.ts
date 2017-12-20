@@ -1,7 +1,8 @@
+
+import { ChapterDashboardComponent } from './views/template-chapter/chapter/chapter-dashboard/chapter-dashboard.component';
+import { TemplateSelectModelComponent } from './views/template-chapter/template-select-model/template-select-model.component';
 import { UserPersonalInformationComponent } from './views/user/user-personal-information/user-personal-information.component';
 import { UserInformationAccountComponent } from './views/user/user-information-account/user-information-account.component';
-import { TemplateOptionCardComponent } from './views/template-forms/template-option-card/template-option-card.component';
-import { TemplateSelectModelComponent } from './views/template-forms/template-select-model/template-select-model.component';
 import { UserDetailsComponent } from './views/user/user-details/user-details.component';
 import { PageComponent } from './views/profile/page/page.component';
 import { ProfileComponent } from './views/profile/profile.component';
@@ -16,12 +17,11 @@ import { MapsComponent } from './views/maps/maps.component';
 import { LoginComponent } from './views/login/login.component';
 import { AgentComponent} from './views/agent/agent.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
-import { TemplateFormsComponent } from './views/template-forms/template-forms.component';
+import { TemplateChapterComponent } from './views/template-chapter/template-chapter.component';
 
-import { ChapterInformationComponent } from './views/template-forms/chapter-information/chapter-information.component';
-import { ReceptionComponent } from './views/template-forms/reception/reception.component';
-import { TaskComponent } from './views/template-forms/task/task.component';
-import { CreateFormComponent } from './views/template-forms/create-form/create-form.component';
+import { ReceptionComponent } from './views/template-chapter/chapter/reception/reception.component';
+import { TaskComponent } from './views/template-chapter/chapter/task/task.component';
+import { TemplateCollectDataComponent } from './views/template-chapter/template-collect-data/template-collect-data.component';
 
 import { HomeLayoutComponent } from './components/layout/home-layout.component';
 import { LoginLayoutComponent } from './components/layout/login-layout.component';
@@ -32,13 +32,19 @@ import {UserListComponent} from './views/user/user-list/user-list.component';
 import { ResetPasswordComponent } from './views/login/reset-password/reset-password.component';
 import { ProfileListComponent } from './views/profile/profile-list/profile-list.component';
 import { UserEditComponent } from './views/user/user-edit/user-edit.component';
+import { InterventionComponent } from './views/template-chapter/chapter/intervention/intervention.component';
+import { TemplateChapterOptionComponent } from './views/template-chapter/template-chapter-option/template-chapter-option.component';
+import { QuestionComponent } from './views/template-chapter/template-collect-data/question/question.component';
+import { ChapterDetailsComponent } from './views/template-chapter/chapter/chapter-details/chapter-details.component';
+import { ChapterEditComponent } from './views/template-chapter/chapter/chapter-edit/chapter-edit.component';
+import { InformationComponent } from './views/template-chapter/chapter/information/information.component';
 
 const App_Router: Routes = [
 
     {
         path: '',
         component: HomeLayoutComponent,
-        //canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         children: [
           {
             path: '',
@@ -58,32 +64,56 @@ const App_Router: Routes = [
             component: MapsComponent
           },
           {
-            path: 'templateForms',
-            component: TemplateFormsComponent
+            path: 'template-chapter',
+            component: TemplateChapterComponent
           },
           {
             path: 'selectModel',
             component: TemplateSelectModelComponent
           },
           {
-            path: 'template-option-card',
-            component: TemplateOptionCardComponent
+            path: 'template-chapter-option',
+            component: TemplateChapterOptionComponent
           },
           {
             path: 'chapterInformation',
-            component: ChapterInformationComponent
+            component: InformationComponent
           },
           {
             path: 'reception',
             component: ReceptionComponent
           },
           {
+            path: 'intervention',
+            component: InterventionComponent
+          },
+          {
             path: 'task',
             component: TaskComponent
           },
           {
-            path: 'createForm',
-            component: CreateFormComponent
+            path: 'collect-data',
+            component: TemplateCollectDataComponent
+          },
+          {
+            path: 'question',
+            component: QuestionComponent
+          },
+          {
+            path: 'chapter-details',
+            component: ChapterDetailsComponent
+          },
+          {
+            path: 'chapter-edit',
+            component: ChapterEditComponent
+          },
+          {
+            path: 'chapter-dashboard',
+            component: ChapterDashboardComponent
+          },
+          {
+            path: 'chapter-dashboard/:id',
+            component: ChapterDashboardComponent
           },
           {
             path: 'user',

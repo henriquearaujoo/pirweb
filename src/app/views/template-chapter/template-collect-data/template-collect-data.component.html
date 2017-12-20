@@ -1,0 +1,27 @@
+<div class="container">
+    <section class="content">      
+          <div class="box-header with-border">
+            <h3 class="box-title"> Dados a serem Coletados
+            </h3>
+          </div>
+          <div class="row">              
+              <div class="col-sm-12">
+                  <div class="box box-primary">
+                    <div class="box-body">
+                        <mat-card class="card_add" (click)="createNewQuestion()">       
+                            <i class="fa fa-plus fa-5x" aria-hidden="true"></i>    
+                        </mat-card>
+                        <div *ngFor="let item of templates">
+                            <app-template-collect-data-item [templateItem]="item"></app-template-collect-data-item>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+                <div class="col-sm-12 cancel">
+                    <button class="btn btn-default" [routerLink]="['/template-chapter-option']" id="btn_return"> Voltar</button>    
+                </div>            
+              </div>
+    </section>
+</div>

@@ -1,0 +1,57 @@
+.form-group, .form-control{
+    color: grey;
+}
+
+.btn-primary {
+    /* width: 100px; */
+    background-color:#373d40;
+    border-color: #373d40;
+}
+
+.box.box-primary {
+    border-top-color: #373d40;
+}
+
+.card {
+    width: 230px;
+    min-width: 200px;
+    height: 340px;
+    float: left;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.card mat-card {
+    width: 230px;
+    min-width: 200px;
+    height: 280px;
+    float: left;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.title_component {
+    margin-left: 30px;
+}
+
+label.form-check-inline {
+    margin-top: 10px;
+}
+
+.col-md-3.col-md-offset-6.save {
+    text-align: right;
+    padding-right: 35px;
+}
+
+.col-md-3.cancel {
+    padding-left: 35px;
+}
+.row.footer {
+    margin-top: 50px;
+}
+
+i.fa.fa-picture-o {
+    font-size: 50px;
+}

@@ -1,0 +1,53 @@
+.form-group, .form-control{
+    color: grey;
+}
+
+.btn-primary {
+    /* width: 100px; */
+    background-color:#373d40;
+    border-color: #373d40;
+}
+
+.box.box-primary {
+    border-top-color: #373d40;
+}
+
+.card {
+    width: 230px;
+    height: 280px;
+    float: left;
+    margin: 10px;
+    cursor: pointer;
+    cursor: hand;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.card_add {
+    background-color: #22457c;
+    width: 230px;
+    height: 280px;
+    float: left;
+    margin: 10px;
+    cursor: pointer;
+    cursor: hand;
+    text-align: center;
+    border-radius: 10px;    
+    vertical-align: middle;
+    padding-top: 110px;
+    color: white;    
+}
+
+.container {
+    display: table;
+    flex-direction: column;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.col-sm-12.cancel {
+    text-align: right;
+    padding-right: 170px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}

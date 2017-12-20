@@ -1,0 +1,47 @@
+<simple-notifications></simple-notifications>
+<div class="content">
+    <section class="content">
+        <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="box box-primary">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label class="control-label">Descrição</label>
+                                <div class="box-body pad">
+                                    <ck-editor id="task_description" name="task_description" #description="ngModel" [(ngModel)]="task.description" skin="moono-lisa" [fullPage]="false">
+                                    </ck-editor>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-md" name="submit" id="btn_save">
+                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                    Adicionar Tarefa                            
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <app-task-list></app-task-list>
+                </div>
+            </div>
+
+            <!-- <div class="row">
+                <div class="col-sm-6 cancel">
+                    <div class="form-group">
+                        <button class="btn btn-default btn-md" [routerLink]="['/template-chapter-option']" id="btn_return"> Cancelar</button>
+                    </div>
+                </div>
+                <div class="col-sm-6 save">
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-md" name="submit" id="btn_save">Salvar</button>
+                    </div>
+                </div>
+            </div> -->
+        </form>
+    </section>
+</div>

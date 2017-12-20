@@ -1,0 +1,49 @@
+.form-group, .form-control{
+    color: grey;
+}
+
+.btn-primary {
+    /* width: 100px; */
+    background-color:#373d40;
+    border-color: #373d40;
+}
+
+.box.box-primary {
+    border-top-color: #373d40;
+}
+
+.col-md-3.col-md-offset-6.save {
+    text-align: right;
+    padding-right: 35px;
+}
+
+.col-md-3.cancel {
+    padding-left: 35px;
+}
+
+.editor {
+    width: 100%; 
+    height: auto; 
+    font-size: 14px; 
+    line-height: 18px; 
+    background-color: #f5f5f5;
+    border: 0;
+    padding: 10px;
+}
+
+.form-control[readonly] {
+    background-color: #f5f5f5;
+    border: 0;
+}
+
+label.control-label.col-md-2 {
+    padding-top: 10px;
+}
+
+/* input#chapter_number {
+    max-width: 100px;
+} */
+
+ .chapter-number {
+    text-align: right;
+}
