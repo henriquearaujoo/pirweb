@@ -1,3 +1,4 @@
+import { Rule } from './../../../models/rule';
 import { error } from 'util';
 import { ToastService } from './../../../services/toast-notification/toast.service';
 import { Paginate } from './../../../models/paginate';
@@ -14,7 +15,6 @@ import { RuleProfile } from '../../../models/rule-profile';
 import { ProfileService } from '../../../services/profile/profile.service';
 
 import * as _ from 'underscore';
-import { Rule } from '../../../models/rule';
 import { AlertsService, AlertType } from '@jaspero/ng2-alerts';
 
 @Component({
@@ -27,10 +27,12 @@ export class PageComponent extends PagenateComponent implements OnInit {
 
   public selectedPages = new Array();
   private pageFromServer = new Array();
-  private all_pages = new Array();
-  private all_pages_profile: Page[] = new Array();
+  private all_pages: Page[] = new Array();
+  private all_pages_profile: Rule[] = new Array();
   private pagesFromProfile = new Array();
   private currentProfile: Profile = new Profile();
+  private currentPage: Page = new Page();
+  permissionsFromProfile: Rule[] = new Array();
   public page_allowed = new Array();
 
   private selected: any[] = new Array();
@@ -55,14 +57,16 @@ export class PageComponent extends PagenateComponent implements OnInit {
     private router: Router,
     private toastService: ToastService) {
       super(pagerService);
+      this.permissionsFromProfile = new Array();
      }
 
   ngOnInit() {
     this.getProfile();
     this.currentProfile = this.accessPageService.getProfile();
+    this.currentPage.id = '';
     console.log('currentProfile', this.currentProfile);
     if ( this.currentProfile.id === undefined) {
-      this.currentProfile = new Profile();
+      // this.currentProfile.id = '';
       // this.loadAllPages();
      } // else {
     //   this.loadPageFromProfile();
@@ -94,12 +98,24 @@ export class PageComponent extends PagenateComponent implements OnInit {
     );
   }
 
-  loadPagesProfile() {
-    this.profileService.getPages(this.accessPageService.getProfile().id).subscribe(
+  loadAllPermissions() {
+    this.accessPageService.getPermissionsFromProfile(this.accessPageService.getProfile().id).subscribe(
       s => {
-        this.all_pages_profile = s;
+        this.permissionsFromProfile = s;
+        console.log('loadAllPermissions()', this.permissionsFromProfile);
       },
       error => console.log(error)
+    );
+  }
+
+  loadPageFromProfile_() {
+    this.profileService.getPages(this.accessPageService.getProfile().id).subscribe(
+      s => {
+        this.pagesFromProfile = s;
+        console.log('loadPageFromProfile_', this.pagesFromProfile);
+
+      },
+      e => console.log(e)
     );
   }
 
@@ -214,112 +230,135 @@ export class PageComponent extends PagenateComponent implements OnInit {
   }
 
   setProfile() {
-    this.all_pages_profile = new Array();
-    console.log('currentProfile:', this.currentProfile);
     this.accessPageService.profileSelected(this.currentProfile);
-    this.profileService.getPages(this.currentProfile.id).subscribe(
-      s => {
-        this.all_pages_profile = s;
-        console.log('all_pages_profile:', this.all_pages_profile);
-      },
-      error => console.log(error)
-    );
-    // this.loadPagesProfile();
-    console.log('Perfil selecionado:', this.accessPageService.getProfile());
-    console.log('Pages From Profile:', this.all_pages_profile);
+    this.loadPageFromProfile_();
+    this.loadAllPermissions();
+    console.log('Perfil selecionado:', this.accessPageService.getProfile().id);
   }
 
   updatePermission(page: Page, option, event) {
-    console.log('Pages From Profile:', this.all_pages_profile);
+    console.log('PERMISSÕES:', this.permissionsFromProfile);
     this.rule = new Rule();
-    console.log('event.target.value ' + event.target.value);
-    const index = this.checked.indexOf(option);
-    if (event.target.checked) {
-      console.log('Profile', this.currentProfile.id);
-      console.log('Page', page);
-      console.log('Option', option.id + ' ', option.rule);
-      console.log('insert', event.target.value);
-      if ( index === -1) {
-        this.checked.push(option);
-        switch (option.id) {
-          case 1: {
-            this.rule.create = true;
-            break;
+    this.currentPage = page;
+    this.all_pages_profile = new Array();
+    this.accessPageService.getPagesFromProfile(this.currentProfile.id, this.currentPage.id).subscribe(
+      success_page_profile => {
+        this.all_pages_profile = success_page_profile;
+        console.log('loadPagesProfile()', this.all_pages_profile);
+
+        // * CHECKED * /
+        console.log('event.target.value ' + event.target.value);
+        const index = this.checked.indexOf(option);
+
+        if (event.target.checked) {
+          console.log('Profile', this.currentProfile.id);
+          console.log('Page', page);
+          console.log('Option', option + ' ', option);
+          console.log('insert', event.target.value);
+          if ( index === -1) {
+            this.checked.push(option);
+            console.log('all_pages_profile.length', this.all_pages_profile);
+            switch (option) {
+              case 1: {
+                if (this.all_pages_profile.length > 0) {
+                  this.all_pages_profile[0].create = true;
+                  break;
+                }
+                this.rule.create = true;
+                break;
+              }
+              case 2: {
+                if (this.all_pages_profile.length > 0) {
+                  this.all_pages_profile[0].update = true;
+                  break;
+                }
+                this.rule.update = true;
+                break;
+              }
+              case 3: {
+                if (this.all_pages_profile.length > 0) {
+                  this.all_pages_profile[0].read = true;
+                  break;
+                }
+                this.rule.read = true;
+                break;
+              }
+              case 4: {
+                if (this.all_pages_profile.length > 0) {
+                  this.all_pages_profile[0].delete = true;
+                  break;
+                }
+                this.rule.delete = true;
+                break;
+              }
+            }
           }
-          case 2: {
-            this.rule.update = true;
-            break;
-          }
-          case 3: {
-            this.rule.read = true;
-            break;
-          }
-          case 4: {
-            this.rule.delete = true;
-          }
+        }  else {
+          console.log('Profile', this.currentProfile.id);
+          console.log('Page', page);
+          console.log('Option', option);
+          console.log('delete', event.target.value);
+          // if ( index !== -1) {
+            this.checked.splice(index, 1);
+            console.log('Switch');
+            switch (option) {
+              case 1: {
+                if (this.all_pages_profile.length > 0) {
+                  this.all_pages_profile[0].create = false;
+                  break;
+                }
+                this.rule.create = false;
+                break;
+              }
+              case 2: {
+                if (this.all_pages_profile.length > 0) {
+                  this.all_pages_profile[0].update = false;
+                  break;
+                }
+                this.rule.update = false;
+                break;
+              }
+              case 3: {
+                if (this.all_pages_profile.length > 0) {
+                  this.all_pages_profile[0].read = false;
+                  break;
+                }
+                this.rule.read = false;
+                break;
+              }
+              case 4: {
+                if (this.all_pages_profile.length > 0) {
+                  this.all_pages_profile[0].delete = false;
+                  break;
+                }
+                this.rule.delete = false;
+                break;
+              }
+            }
+          // }
         }
 
-      }
-    } else {
-      console.log('Profile', this.currentProfile.id);
-      console.log('Page', page);
-      console.log('Option', option.id + ' ', option.rule);
-      console.log('delete', event.target.value);
-      if ( index !== -1) {
-        this.checked.splice(index, 1);
-        switch (option.id) {
-          case 1: {
-            this.rule.create = false;
-            break;
-          }
-          case 2: {
-            this.rule.update = false;
-            break;
-          }
-          case 3: {
-            this.rule.read = false;
-            break;
-          }
-          case 4: {
-            this.rule.delete = false;
-          }
-        }
-      }
-    }
-    this.rule.profile_id = this.currentProfile.id;
-    this.rule.page_id = page.id;
-    console.log('Páginas do Perfil:', this.pagesFromProfile);
-    if (this.all_pages_profile.length > 0) {
-      for (let i = 0; i <= this.all_pages_profile.length; i++) {
-        if ( this.all_pages_profile[i].id === page.id) {
-          console.log('Página com regras');
-          this.ruleService.editRule(this.rule).subscribe(
+        if (this.all_pages_profile.length > 0) {
+          this.ruleService.editRule(this.all_pages_profile[0]).subscribe(
             s => {
               this.toastService.toastSuccess();
-            },
-             error => console.log(error)
-          );
-          break;
-        } else {
-            console.log('Página sem com regras');
-             this.ruleService.saveRule(this.rule).subscribe(
-               s => {
-                 this.toastService.toastSuccess();
-               },
-               error => console.log(error)
-             );
-        }
-      }
-    } else {
-          console.log('Perfil sem páginas');
-          this.ruleService.saveRule(this.rule).subscribe(
-             s => {
-               this.toastService.toastSuccess();
               },
-             error => console.log(error)
-             );
-    }
-    console.log('Rules', this.rule);
-  }
+              error => console.log(error)
+          );
+        } else {
+              this.rule.profile_id = this.currentProfile.id;
+              this.rule.page_id = this.currentPage.id;
+              console.log('Perfil sem páginas');
+              this.ruleService.saveRule(this.rule).subscribe(
+                 s => {
+                   this.toastService.toastSuccess();
+                  },
+                 error => console.log(error)
+                 );
+        }
+      },
+      error => console.log(error)
+    );
 
+  }
 }

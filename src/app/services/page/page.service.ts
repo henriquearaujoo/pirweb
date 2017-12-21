@@ -9,7 +9,7 @@ import { RuleProfile } from '../../models/rule-profile';
 import { Rule } from '../../models/rule';
 
 @Injectable()
-export class AccessPageService extends RestService implements OnInit{
+export class AccessPageService extends RestService implements OnInit {
 
   public profile: Profile = new Profile();
   public rule: Rule = new Rule();
@@ -38,7 +38,23 @@ export class AccessPageService extends RestService implements OnInit{
     return this.get(getPageURL);
   }
 
-  profileSelected(profile: Profile): void{
+  public getPagesFromProfile(profile_id?: number, page_id?: number ) {
+    if ((profile_id === undefined) || (page_id === undefined)) {
+      return this.get(this.apiurl + 'rules/search/');
+    }
+    const getPageURL = this.apiurl.concat('rules/search/?profile=' + profile_id + '&page=' + page_id);
+    return this.get(getPageURL);
+  }
+
+  public getPermissionsFromProfile(profile_id?: number ): Observable<Rule[]> {
+    if ( profile_id === undefined ) {
+      return this.get(this.apiurl + 'rules/search/');
+    }
+    const getPageURL = this.apiurl.concat('rules/search/?profile=' + profile_id );
+    return this.get(getPageURL);
+  }
+
+  profileSelected(profile: Profile): void {
     console.log('perfil retornado so service: ', profile);
     this.profile = profile;
   }
