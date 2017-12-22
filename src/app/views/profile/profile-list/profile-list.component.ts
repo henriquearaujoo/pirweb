@@ -1,5 +1,5 @@
 import { ToastService } from './../../../services/toast-notification/toast.service';
-import {Component, OnInit, OnChanges, Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ProfileService } from '../../../services/profile/profile.service';
@@ -11,6 +11,7 @@ import { RuleService } from '../../../services/rule/rule.service';
 import { Rule } from '../../../models/rule';
 import { AccessPageService } from '../../../services/page/page.service';
 import { Paginate } from '../../../models/paginate';
+import { PageComponent } from '../page/page.component';
 
 
 @Component({
@@ -21,7 +22,7 @@ import { Paginate } from '../../../models/paginate';
 export class ProfileListComponent extends PagenateComponent implements OnInit, OnChanges {
    profiles: Profile[] = new Array();
 
-    @Input() profile: Profile = new Profile();
+    profile: Profile = new Profile();
     private paginate: Paginate = new Paginate();
 
     @Input() profile_id: number;
@@ -34,10 +35,15 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
 
     hasdata: boolean;
 
+    @ViewChild('page') pageComponent: PageComponent;
+
     filter: any = {title: ''};
     private profileTab: string;
     private permissionTab: string;
     private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
+
+    private currentTab: number;
+    private cont: number;
 
     constructor(
       pagerService: PageService,
@@ -53,6 +59,8 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
       }
 
       ngOnInit() {
+        this.currentTab = 0;
+        this.cont = 0;
         this.profileTab = '../../../assets/img/profile/ic_profile_enable.png';
         this.permissionTab = '../../../assets/img/profile/ic_permission_disable.png';
         this.hasdata = false;
@@ -85,8 +93,9 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
 
       setProfile(profile: Profile) {
         this.selectedProfile = profile;
-        localStorage.setItem('currentProfile', JSON.stringify(profile));
+        // localStorage.setItem('currentProfile', JSON.stringify(profile));
         this.accessPageService.profileSelected(profile);
+        console.log(this.accessPageService.getProfile().title);
       }
 
       changeStatus(profile: Profile) {
@@ -120,6 +129,7 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
         this.getProfile();
         this.filter.title = '';
         this.edit = false;
+        this.pageComponent.getProfile();
       }
 
       onFilter(evento) {
@@ -131,16 +141,37 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
         this.selectedProfile = profile;
       }
 
+      isActive(tab: boolean) {
+
+      }
+
       walk ( tab: number) {
         switch (tab) {
-          case 0:
+          case 0: {
             this.profileTab = '../../../assets/img/profile/ic_profile_enable.png';
             this.permissionTab = '../../../assets/img/profile/ic_permission_disable.png';
-          break;
-          case 1:
+            break;
+          }
+          case 1: {
+            if (this.accessPageService.getProfile().id !== undefined) {
+              this.pageComponent.getCurrentProfile();
+            }
             this.profileTab = '../../../assets/img/profile/ic_profile_disable.png';
             this.permissionTab = '../../../assets/img/profile/ic_permission_enable.png';
           break;
+          }
         }
+      }
+
+      walk_ ( tab: number, profile: Profile) {
+        this.selectedProfile = profile;
+        this.accessPageService.profileSelected(profile);
+
+        if (this.accessPageService.getProfile().id !== undefined) {
+            this.pageComponent.getCurrentProfile();
+        }
+        // this.openTab.click();
+        this.profileTab = '../../../assets/img/profile/ic_profile_disable.png';
+        this.permissionTab = '../../../assets/img/profile/ic_permission_enable.png';
       }
 }

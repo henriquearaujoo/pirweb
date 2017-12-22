@@ -140,6 +140,10 @@ thead {
     background-color: #e8e6e6;
 }
 
+.table > tbody + tbody {
+    border-top: 0;
+}
+
 .table>tbody>tr>td, 
 .table>tbody>tr>th, 
 .table>thead>tr>td, 

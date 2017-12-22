@@ -25,12 +25,12 @@
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     <li>
-                      <a class="tab-pane active" href="#tab_1" data-toggle="tab">
+                      <a class="tab-pane active" href="#tab_1" data-toggle="tab" id="tab_profile">
                         <img src="{{ profileTab }}" (click)="walk(0)" />
                       </a>                       
                     </li>
                     <li>
-                      <a class="tab-pane" href="#tab_2" data-toggle="tab">
+                      <a class="tab-pane" href="#tab_2" data-toggle="tab" id="tab_permission">
                         <img src="{{ permissionTab }}" (click)="walk(1)" />
                       </a>                        
                     </li>                   
@@ -85,8 +85,8 @@
                                                         </td>            
                                                        
                                                         <td class="tbl-right">              
-                                                          <a (click)="setProfile(item)" href="#tab_2" data-toggle="tab" title="Permissões">
-                                                            <i class="large material-icons" (click)="walk(1)">lock</i>
+                                                          <a  href="#tab_2" (click)="isActive(true)"data-toggle="tab" title="Permissões">
+                                                            <i (click)="walk_(1, item)" class="large material-icons">lock</i>
                                                           </a>
                                                         </td>
                                                         <td class="tbl-right">          
@@ -96,11 +96,11 @@
                                                           </a>
                                                         </td>
                                                         <td class="tbl-right">
-                                                            <a href="" [title]="item.status === true ? 'Desativar': 'Ativar'"
-                                                              data-toggle="modal" data-target="#modal-default"
+                                                            <a [title]="item.status === true ? 'Desativar': 'Ativar'"
+                                                              data-toggle="modal" data-target="#myModal"
                                                               (click)="changeStatus(item)" id="btn_status">              
                                                               <i [ngClass]="item.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
-                                                            </a>      
+                                                            </a>                                                          
                                                         </td>
                                                       </tr>
                                                     </tbody>
@@ -128,7 +128,7 @@
                                     <div class="col-sm-12">
                                         <div class="box box-primary">
                                             <div class="box-body">
-                                              <app-page></app-page>
+                                              <app-page #page></app-page>
                                             </div>
                                         </div>
                                     </div>
@@ -148,12 +148,15 @@
 </section>
 </div>
 
-
-
-<!-- Modal Disable -->
-<div class="modal fade" id="modal-default">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content" [ngStyle]="object">
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm" [ngStyle]="object">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
         <div class="modal-body">
           <div class="modal-icon">
               <i class="material-icons" style="font-size: 60px;">error_outline</i>
@@ -162,17 +165,16 @@
             <h5  *ngIf="!profile.status"> Deseja realmente ativar o perfil <strong> {{ profile.title | uppercase}} </strong> ?</h5>
         </div>
         <div class="modal-footer_">
-          <div class="modal-btn-cancel">
+            <div class="modal-btn-cancel">
               <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal" id="btn_cancel">Cancelar</button>
-          </div>
-          <div class="modal-btn-confirm">
+            </div>
+            <div class="modal-btn-confirm">
               <button type="button" (click)="disableProfile()" class="btn btn-primary btn-md btn-block" data-dismiss="modal" id="btn_confirm">Confirmar</button>
-          </div>
+            </div>          
         </div>
       </div>
-      <!-- /.modal-content -->
+  
     </div>
-    <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
+</div>
+  
   

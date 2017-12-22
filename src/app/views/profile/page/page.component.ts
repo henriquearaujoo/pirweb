@@ -37,6 +37,7 @@ export class PageComponent extends PagenateComponent implements OnInit {
 
   private selected: any[] = new Array();
   private allowed_selected: any[] = new Array();
+  private matPermissions: boolean[][];
   private confirm_rules: boolean;
   private paginate: Paginate = new Paginate();
   private profiles: Profile[] = new Array();
@@ -48,6 +49,8 @@ export class PageComponent extends PagenateComponent implements OnInit {
     {'id': 4, 'rule': 'Desabilitar'}
   ];
   private checked: any[] = new Array();
+  private hasPermissions: boolean;
+  @Input() insertValue: boolean;
 
   constructor(
     pagerService: PageService,
@@ -62,6 +65,7 @@ export class PageComponent extends PagenateComponent implements OnInit {
 
   ngOnInit() {
     this.getProfile();
+    this.hasPermissions = false;
     this.currentProfile = this.accessPageService.getProfile();
     this.currentPage.id = '';
     console.log('currentProfile', this.currentProfile);
@@ -72,10 +76,15 @@ export class PageComponent extends PagenateComponent implements OnInit {
     //   this.loadPageFromProfile();
     // }
     this.loadAllPages();
+
   }
 
-  ngOnChange() {
-    // this.loadPageFromProfile();
+  ngOnChange() {}
+
+  getCurrentProfile() {
+    this.currentProfile = this.accessPageService.getProfile();
+    console.log('getCurrentProfile()');
+    this.loadAllPermissions();
   }
 
   getProfile() {
@@ -102,6 +111,11 @@ export class PageComponent extends PagenateComponent implements OnInit {
     this.accessPageService.getPermissionsFromProfile(this.accessPageService.getProfile().id).subscribe(
       s => {
         this.permissionsFromProfile = s;
+        if (s.length > 0 ) {
+          this.hasPermissions = true;
+        }else {
+          this.hasPermissions = false;
+        }
         console.log('loadAllPermissions()', this.permissionsFromProfile);
       },
       error => console.log(error)
@@ -234,6 +248,7 @@ export class PageComponent extends PagenateComponent implements OnInit {
     this.loadPageFromProfile_();
     this.loadAllPermissions();
     console.log('Perfil selecionado:', this.accessPageService.getProfile().id);
+    this.loadAllPages();
   }
 
   updatePermission(page: Page, option, event) {
@@ -255,11 +270,20 @@ export class PageComponent extends PagenateComponent implements OnInit {
           console.log('Page', page);
           console.log('Option', option + ' ', option);
           console.log('insert', event.target.value);
-          if ( index === -1) {
+          console.log('index', index);
+          // if ( index === -1) {
             this.checked.push(option);
-            console.log('all_pages_profile.length', this.all_pages_profile);
+            console.log('Switch insert');
             switch (option) {
               case 1: {
+                if (this.all_pages_profile.length > 0) {
+                  this.all_pages_profile[0].read = true;
+                  break;
+                }
+                this.rule.read = true;
+                break;
+              }
+              case 2: {
                 if (this.all_pages_profile.length > 0) {
                   this.all_pages_profile[0].create = true;
                   break;
@@ -267,20 +291,12 @@ export class PageComponent extends PagenateComponent implements OnInit {
                 this.rule.create = true;
                 break;
               }
-              case 2: {
+              case 3: {
                 if (this.all_pages_profile.length > 0) {
                   this.all_pages_profile[0].update = true;
                   break;
                 }
                 this.rule.update = true;
-                break;
-              }
-              case 3: {
-                if (this.all_pages_profile.length > 0) {
-                  this.all_pages_profile[0].read = true;
-                  break;
-                }
-                this.rule.read = true;
                 break;
               }
               case 4: {
@@ -292,7 +308,7 @@ export class PageComponent extends PagenateComponent implements OnInit {
                 break;
               }
             }
-          }
+          // }
         }  else {
           console.log('Profile', this.currentProfile.id);
           console.log('Page', page);
@@ -300,9 +316,17 @@ export class PageComponent extends PagenateComponent implements OnInit {
           console.log('delete', event.target.value);
           // if ( index !== -1) {
             this.checked.splice(index, 1);
-            console.log('Switch');
+            console.log('Switch delete');
             switch (option) {
               case 1: {
+                if (this.all_pages_profile.length > 0) {
+                  this.all_pages_profile[0].read = false;
+                  break;
+                }
+                this.rule.read = false;
+                break;
+              }
+              case 2: {
                 if (this.all_pages_profile.length > 0) {
                   this.all_pages_profile[0].create = false;
                   break;
@@ -310,20 +334,12 @@ export class PageComponent extends PagenateComponent implements OnInit {
                 this.rule.create = false;
                 break;
               }
-              case 2: {
+              case 3: {
                 if (this.all_pages_profile.length > 0) {
                   this.all_pages_profile[0].update = false;
                   break;
                 }
                 this.rule.update = false;
-                break;
-              }
-              case 3: {
-                if (this.all_pages_profile.length > 0) {
-                  this.all_pages_profile[0].read = false;
-                  break;
-                }
-                this.rule.read = false;
                 break;
               }
               case 4: {
