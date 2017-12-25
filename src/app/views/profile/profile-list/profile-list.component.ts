@@ -42,8 +42,10 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
     private permissionTab: string;
     private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
 
-    private currentTab: number;
-    private cont: number;
+    private profileTabActive: boolean;
+    private permissionTabActive: boolean;
+    // private currentTab: number;
+    // private cont: number;
 
     constructor(
       pagerService: PageService,
@@ -59,10 +61,12 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
       }
 
       ngOnInit() {
-        this.currentTab = 0;
-        this.cont = 0;
+        // this.currentTab = 0;
+        // this.cont = 0;
         this.profileTab = '../../../assets/img/profile/ic_profile_enable.png';
         this.permissionTab = '../../../assets/img/profile/ic_permission_disable.png';
+        this.profileTabActive = true;
+        this.permissionTabActive = false;
         this.hasdata = false;
         this.getProfile();
       }
@@ -150,6 +154,8 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
           case 0: {
             this.profileTab = '../../../assets/img/profile/ic_profile_enable.png';
             this.permissionTab = '../../../assets/img/profile/ic_permission_disable.png';
+            this.profileTabActive = true;
+            this.permissionTabActive = false;
             break;
           }
           case 1: {
@@ -158,6 +164,8 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
             }
             this.profileTab = '../../../assets/img/profile/ic_profile_disable.png';
             this.permissionTab = '../../../assets/img/profile/ic_permission_enable.png';
+            this.profileTabActive = false;
+            this.permissionTabActive = true;
           break;
           }
         }
@@ -170,8 +178,9 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
         if (this.accessPageService.getProfile().id !== undefined) {
             this.pageComponent.getCurrentProfile();
         }
-        // this.openTab.click();
         this.profileTab = '../../../assets/img/profile/ic_profile_disable.png';
         this.permissionTab = '../../../assets/img/profile/ic_permission_enable.png';
+        this.profileTabActive = false;
+        this.permissionTabActive = true;
       }
 }

@@ -24,19 +24,19 @@
             <!-- Custom Tabs -->
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li>
-                      <a class="tab-pane active" href="#tab_1" data-toggle="tab" id="tab_profile">
+                    <li [class.active]="profileTabActive">
+                      <a class="tab-pane" [ngClass]= "profileTabActive ? 'active' : ''" href="#tab_1" data-toggle="tab" id="tab_profile">
                         <img src="{{ profileTab }}" (click)="walk(0)" />
                       </a>                       
                     </li>
-                    <li>
-                      <a class="tab-pane" href="#tab_2" data-toggle="tab" id="tab_permission">
+                    <li [class.active]="permissionTabActive">
+                      <a  class="tab-pane" [ngClass]= "permissionTabActive ? 'active' : ''" href="#tab_2" data-toggle="tab" id="tab_permission">
                         <img src="{{ permissionTab }}" (click)="walk(1)" />
                       </a>                        
                     </li>                   
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane active" id="tab_1">
+                    <div class="tab-pane" [ngClass]= "profileTabActive ? 'active' : ''" id="tab_1">
                         <div class="content_">
                             <section class="content_">
                                 <div class="box-header with-border">
@@ -117,7 +117,7 @@
                         </div>
                     </div>
                     <!-- /.tab-pane -->
-                    <div class="tab-pane" id="tab_2">
+                    <div class="tab-pane" [ngClass]= "permissionTabActive ? 'active' : ''" id="tab_2">
                         <div class="content">
                             <section class="content">
                                 <div class="box-header with-border">
