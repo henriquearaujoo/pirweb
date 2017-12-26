@@ -16,6 +16,7 @@ export class InterventionComponent implements OnInit {
   public chapter: string;
   public isNewData: boolean;
   @Output() cancelEvent = new EventEmitter();
+  private btn_cancel: boolean;
 
   constructor(
     private service: InterventionService,
@@ -23,9 +24,14 @@ export class InterventionComponent implements OnInit {
 
   ngOnInit() {
     this.intervention = new Intervention();
+    this.btn_cancel = false;
   }
 
   saveData() {
+    if (this.btn_cancel) {
+      this.btn_cancel = false;
+      return false;
+    }
     this.intervention.chapter = this.chapter;
     if (this.isNewData || this.intervention.id === undefined) {
       this.service.insert(this.intervention).subscribe(
@@ -69,6 +75,7 @@ export class InterventionComponent implements OnInit {
 
   onCancel() {
     this.cancelEvent.emit();
+    this.btn_cancel = true;
   }
 
   verifyValidSubmitted(form, field) {
