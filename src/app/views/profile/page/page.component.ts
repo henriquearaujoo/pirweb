@@ -252,28 +252,20 @@ export class PageComponent extends PagenateComponent implements OnInit {
   }
 
   updatePermission(page: Page, option, event) {
-    console.log('PERMISSÕES:', this.permissionsFromProfile);
     this.rule = new Rule();
     this.currentPage = page;
     this.all_pages_profile = new Array();
     this.accessPageService.getPagesFromProfile(this.currentProfile.id, this.currentPage.id).subscribe(
       success_page_profile => {
         this.all_pages_profile = success_page_profile;
-        console.log('loadPagesProfile()', this.all_pages_profile);
 
         // * CHECKED * /
         console.log('event.target.value ' + event.target.value);
         const index = this.checked.indexOf(option);
 
         if (event.target.checked) {
-          console.log('Profile', this.currentProfile.id);
-          console.log('Page', page);
-          console.log('Option', option + ' ', option);
-          console.log('insert', event.target.value);
-          console.log('index', index);
           // if ( index === -1) {
             this.checked.push(option);
-            console.log('Switch insert');
             switch (option) {
               case 1: {
                 if (this.all_pages_profile.length > 0) {
@@ -310,13 +302,8 @@ export class PageComponent extends PagenateComponent implements OnInit {
             }
           // }
         }  else {
-          console.log('Profile', this.currentProfile.id);
-          console.log('Page', page);
-          console.log('Option', option);
-          console.log('delete', event.target.value);
           // if ( index !== -1) {
             this.checked.splice(index, 1);
-            console.log('Switch delete');
             switch (option) {
               case 1: {
                 if (this.all_pages_profile.length > 0) {
@@ -364,7 +351,6 @@ export class PageComponent extends PagenateComponent implements OnInit {
         } else {
               this.rule.profile_id = this.currentProfile.id;
               this.rule.page_id = this.currentPage.id;
-              console.log('Perfil sem páginas');
               this.ruleService.saveRule(this.rule).subscribe(
                  s => {
                    this.toastService.toastSuccess();
