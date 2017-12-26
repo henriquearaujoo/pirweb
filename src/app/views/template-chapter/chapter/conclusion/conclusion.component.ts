@@ -8,15 +8,23 @@ import { Conclusion } from '../../../../models/conclusion';
 })
 export class ConclusionComponent implements OnInit {
 
-  constructor() { }
+  hasdata: boolean;
+
   private conclusion: Conclusion;
   public editorOptions = {
     placeholder: '...',
     theme: 'snow'
   };
 
+  constructor() {
+    this.hasdata = false;
+   }
+
   ngOnInit() {
     this.conclusion = new Conclusion();
   }
 
+  createNewQuestion() {
+
+  }
 }

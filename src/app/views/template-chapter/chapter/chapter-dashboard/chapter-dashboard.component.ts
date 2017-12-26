@@ -54,7 +54,7 @@ export class ChapterDashboardComponent implements OnInit {
     this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_enable.png';
     this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_disable.png';
     this.interventionTab = '../../../assets/img/chapter/ic_chapter_tab_intervention_disable.png';
-    this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_question_disable.png';
+    this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_conclusion_disable.png';
 
     /*check if is a new or update*/
     this.isNewData = true;
@@ -133,25 +133,25 @@ export class ChapterDashboardComponent implements OnInit {
         this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_enable.png';
         this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_disable.png';
         this.interventionTab = '../../../assets/img/chapter/ic_chapter_tab_intervention_disable.png';
-        this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_question_disable.png';
+        this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_conclusion_disable.png';
       break;
       case 1:
         this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_disable.png';
         this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_enable.png';
         this.interventionTab = '../../../assets/img/chapter/ic_chapter_tab_intervention_disable.png';
-        this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_question_disable.png';
+        this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_conclusion_disable.png';
       break;
       case 2:
         this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_disable.png';
         this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_disable.png';
         this.interventionTab = '../../../assets/img/chapter/ic_chapter_tab_intervention_enable.png';
-        this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_question_disable.png';
+        this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_conclusion_disable.png';
       break;
       case 3:
         this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_disable.png';
         this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_disable.png';
         this.interventionTab = '../../../assets/img/chapter/ic_chapter_tab_intervention_disable.png';
-        this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_question_enable.png';
+        this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_conclusion_enable.png';
       break;
     }
   }
