@@ -6,7 +6,7 @@
                         <div class="box-header ">
                           TIPO
                         </div>  
-                        <div class="box-body">
+                        <div class="box-body profile">
                             <select class="form-control" (change)="setProfile()" name="profile" id="profile"
                                 [(ngModel)]="currentProfile.id">
                                 <option disabled> Perfil</option>
@@ -25,14 +25,14 @@
                         <div class="box-body_">
                                 <table class="table">
                             <thead>
-                                <tr>
+                                <tr class="tr-main">
                                     <th>SESSÕES 
                                         <span class="glyphicon" ></span>
                                     </th>                                   
                                     <th colspan="4"> PERMISSÕES</th>
                                 </tr>
-                                    <tr>
-                                    <th scope="col"></th>
+                                    <tr class="tr-permissions">
+                                    <th scope="col" class="page-route"></th>
                                     <th scope="col">Visualizar</th>
                                     <th scope="col">Criar</th>
                                     <th scope="col">Editar</th>
@@ -41,7 +41,7 @@
                                 </thead>
                                 <tbody *ngIf="permissionsFromProfile.length === 0">
                                     <tr  *ngFor="let item of all_pages">
-                                        <th scope="row">{{item.route}}</th>
+                                        <th scope="row" class="page-route">{{item.route}}</th>
                                         <td>
                                             <input type="checkbox" 
                                                 [value]="1" disabled/>
@@ -62,7 +62,7 @@
                                 </tbody>
                                 <tbody *ngFor="let item of all_pages">
                                     <tr *ngFor="let perm of permissionsFromProfile">
-                                        <th scope="row" *ngIf="perm.page_id === item.id">{{item.route}}</th>
+                                        <th scope="row" *ngIf="perm.page_id === item.id" class="page-route">{{item.route}}</th>
                                         <td *ngIf="perm.page_id === item.id">
                                             <input type="checkbox" 
                                                 [value]="1"

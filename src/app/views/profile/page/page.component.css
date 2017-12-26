@@ -77,6 +77,10 @@
     border: 1px solid #ccc;
   }
 
+  .box-body.profile {
+    padding: 30px;
+}
+
   .box-header {
     background-color: #e8e6e6;
     height: 52px;
@@ -163,5 +167,13 @@ tr.tr-permissions {
 tr.tr-main {
     height: 60px;
     font-size: 14px;
+}
+
+th.page-route {
+    border-right: 1px solid #eee;
+}
+
+.table > thead > tr > th {
+    border-bottom: 1px solid #f4f4f4;
 }
 /* END TABLE */

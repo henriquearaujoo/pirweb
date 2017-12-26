@@ -67,3 +67,9 @@
   i.fa.fa-plus, i.fa.fa-pencil {
     padding-right: 12px;
   }
+
+  .box-body.add-profile {
+    padding-top: 25px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
