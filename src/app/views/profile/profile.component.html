@@ -5,22 +5,21 @@
         <div class="row">       
           <div class="box box-solid">
               <div class="box-header ">
-                <h3 class="box-title">Lista de Perfis</h3>
+                TIPO
               </div>  
-              <div class="box-body">
+              <div class="box-body add-profile">
                 <form role="form" name="form" class="form-horizontal" (ngSubmit)="f.form.valid && save()" #f="ngForm" novalidate>
                   
-                  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !title.valid}">
-                    <label class="control-label col-sm-1" > Título: </label>   
-                    <div class="col-sm-9">          
+                  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !title.valid}">                    
+                    <div class="col-md-9">          
                     <input type="text" class="form-control" id="title" name="title"
-                      placeholder="Descrição do perfil de usuário" 
+                      placeholder="TIPO DO PERFIL" 
                       [(ngModel)]="profile.title"
                       #title="ngModel" required>
                     <div *ngIf="f.submitted && !title.valid" class="help-block">Escrever um novo tipo de perfil</div>
                     </div>                  
-                      <div class="control-button col-sm-2">                 
-                        <button class="btn btn-primary btn-block" >Salvar</button>   
+                      <div class="control-button col-md-3">                 
+                        <button class="btn btn-primary btn-block"> <i class="fa fa-plus"></i>Adicionar Perfil</button>   
                       </div>                  
                   </div> 
                 </form>                      
@@ -39,16 +38,13 @@
           <div class="row">       
             <div class="box box-solid">
                 <div class="box-header ">
-                  <h3 class="box-title">Lista de Perfis
-                    <small>Editar</small> 
-                  </h3>
+                    TIPO
                 </div>  
-                <div class="box-body">
+                <div class="box-body add-profile">
                   <form role="form" name="form" class="form-horizontal" (ngSubmit)="f.form.valid && saveEdit()" #f="ngForm" novalidate>
                     
                     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !title.valid}">
-                      <label class="control-label col-sm-1" > Título: </label>   
-                      <div class="col-sm-9">          
+                      <div class="col-md-9">          
                         <div class="input-group">
                           <input type="text" class="form-control" id="title" name="title"
                             placeholder="Descrição do perfil de usuário" 
@@ -58,8 +54,8 @@
                         </div>   
                         <div *ngIf="f.submitted && !title.valid" class="help-block">Escrever um tipo de perfil</div>                       
                       </div>              
-                        <div class="control-button col-sm-2">                 
-                          <button class="btn btn-primary btn-block" >Alterar</button>   
+                        <div class="control-button col-md-3">       
+                          <button class="btn btn-primary btn-block"> <i class="fa fa-pencil"></i>Editar Perfil</button> 
                         </div>                  
                     </div> 
                   </form>                      

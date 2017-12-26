@@ -1,3 +1,7 @@
+import { Rule } from './../../../models/rule';
+import { error } from 'util';
+import { ToastService } from './../../../services/toast-notification/toast.service';
+import { Paginate } from './../../../models/paginate';
 import { RuleService } from './../../../services/rule/rule.service';
 import { Headers } from '@angular/http';
 import { PagenateComponent } from './../../../components/pagenate/pagenate.component';
@@ -11,7 +15,6 @@ import { RuleProfile } from '../../../models/rule-profile';
 import { ProfileService } from '../../../services/profile/profile.service';
 
 import * as _ from 'underscore';
-import { Rule } from '../../../models/rule';
 import { AlertsService, AlertType } from '@jaspero/ng2-alerts';
 
 @Component({
@@ -24,36 +27,117 @@ export class PageComponent extends PagenateComponent implements OnInit {
 
   public selectedPages = new Array();
   private pageFromServer = new Array();
+  private all_pages: Page[] = new Array();
+  private all_pages_profile: Rule[] = new Array();
   private pagesFromProfile = new Array();
-  public currentProfile: Profile = new Profile();
+  private currentProfile: Profile = new Profile();
+  private currentPage: Page = new Page();
+  permissionsFromProfile: Rule[] = new Array();
   public page_allowed = new Array();
 
   private selected: any[] = new Array();
   private allowed_selected: any[] = new Array();
+  private matPermissions: boolean[][];
   private confirm_rules: boolean;
+  private paginate: Paginate = new Paginate();
+  private profiles: Profile[] = new Array();
+  private rule: Rule = new Rule();
+  private options: any[] = [
+    {'id': 1, 'rule': 'Criar'},
+    {'id': 2, 'rule': 'Editar'},
+    {'id': 3, 'rule': 'Visualizar'},
+    {'id': 4, 'rule': 'Desabilitar'}
+  ];
+  private checked: any[] = new Array();
+  private hasPermissions: boolean;
+  @Input() insertValue: boolean;
 
   constructor(
     pagerService: PageService,
     private profileService: ProfileService,
     private accessPageService: AccessPageService,
     private ruleService: RuleService,
-    private router: Router) {
+    private router: Router,
+    private toastService: ToastService) {
       super(pagerService);
+      this.permissionsFromProfile = new Array();
      }
 
   ngOnInit() {
-    this.loadPageFromProfile();
+    this.getProfile();
+    this.hasPermissions = false;
     this.currentProfile = this.accessPageService.getProfile();
+    this.currentPage.id = '';
+    console.log('currentProfile', this.currentProfile);
+    if ( this.currentProfile.id === undefined) {
+      // this.currentProfile.id = '';
+      // this.loadAllPages();
+     } // else {
+    //   this.loadPageFromProfile();
+    // }
+    this.loadAllPages();
+
   }
 
-  ngOnChange() {
-    this.loadPageFromProfile();
+  ngOnChange() {}
+
+  getCurrentProfile() {
+    this.currentProfile = this.accessPageService.getProfile();
+    console.log('getCurrentProfile()');
+    this.loadAllPermissions();
+  }
+
+  getProfile() {
+    this.profileService.getProfile().subscribe(
+      success => {
+        this.paginate = success;
+        this.profiles = this.paginate.content;
+        console.log('Paginate:', this.paginate);
+      },
+      error => console.log(error)
+    );
+  }
+
+  loadAllPages() {
+    this.accessPageService.getAllPages().subscribe(
+      s => {
+        this.all_pages = s;
+      },
+      error => console.log(error)
+    );
+  }
+
+  loadAllPermissions() {
+    this.accessPageService.getPermissionsFromProfile(this.accessPageService.getProfile().id).subscribe(
+      s => {
+        this.permissionsFromProfile = s;
+        if (s.length > 0 ) {
+          this.hasPermissions = true;
+        }else {
+          this.hasPermissions = false;
+        }
+        console.log('loadAllPermissions()', this.permissionsFromProfile);
+      },
+      error => console.log(error)
+    );
+  }
+
+  loadPageFromProfile_() {
+    this.profileService.getPages(this.accessPageService.getProfile().id).subscribe(
+      s => {
+        this.pagesFromProfile = s;
+        console.log('loadPageFromProfile_', this.pagesFromProfile);
+
+      },
+      e => console.log(e)
+    );
   }
 
   loadPageFromProfile() {
     this.profileService.getPages(this.accessPageService.getProfile().id).subscribe(
       s => {
         this.pagesFromProfile = s;
+        console.log('loadPageFromProfile', this.pagesFromProfile);
         this.accessPageService.getAllPages().subscribe(
           s2 => {
             this.pageFromServer = s2;
@@ -73,6 +157,7 @@ export class PageComponent extends PagenateComponent implements OnInit {
       e => console.log(e)
     );
   }
+
   onReloadPage(event) {
     this.loadPageFromProfile();
     console.log(event);
@@ -158,4 +243,124 @@ export class PageComponent extends PagenateComponent implements OnInit {
     this.selected = [];
   }
 
+  setProfile() {
+    this.accessPageService.profileSelected(this.currentProfile);
+    this.loadPageFromProfile_();
+    this.loadAllPermissions();
+    console.log('Perfil selecionado:', this.accessPageService.getProfile().id);
+    this.loadAllPages();
+  }
+
+  updatePermission(page: Page, option, event) {
+    this.rule = new Rule();
+    this.currentPage = page;
+    this.all_pages_profile = new Array();
+    this.accessPageService.getPagesFromProfile(this.currentProfile.id, this.currentPage.id).subscribe(
+      success_page_profile => {
+        this.all_pages_profile = success_page_profile;
+
+        // * CHECKED * /
+        console.log('event.target.value ' + event.target.value);
+        const index = this.checked.indexOf(option);
+
+        if (event.target.checked) {
+          // if ( index === -1) {
+            this.checked.push(option);
+            switch (option) {
+              case 1: {
+                if (this.all_pages_profile.length > 0) {
+                  this.all_pages_profile[0].read = true;
+                  break;
+                }
+                this.rule.read = true;
+                break;
+              }
+              case 2: {
+                if (this.all_pages_profile.length > 0) {
+                  this.all_pages_profile[0].create = true;
+                  break;
+                }
+                this.rule.create = true;
+                break;
+              }
+              case 3: {
+                if (this.all_pages_profile.length > 0) {
+                  this.all_pages_profile[0].update = true;
+                  break;
+                }
+                this.rule.update = true;
+                break;
+              }
+              case 4: {
+                if (this.all_pages_profile.length > 0) {
+                  this.all_pages_profile[0].delete = true;
+                  break;
+                }
+                this.rule.delete = true;
+                break;
+              }
+            }
+          // }
+        }  else {
+          // if ( index !== -1) {
+            this.checked.splice(index, 1);
+            switch (option) {
+              case 1: {
+                if (this.all_pages_profile.length > 0) {
+                  this.all_pages_profile[0].read = false;
+                  break;
+                }
+                this.rule.read = false;
+                break;
+              }
+              case 2: {
+                if (this.all_pages_profile.length > 0) {
+                  this.all_pages_profile[0].create = false;
+                  break;
+                }
+                this.rule.create = false;
+                break;
+              }
+              case 3: {
+                if (this.all_pages_profile.length > 0) {
+                  this.all_pages_profile[0].update = false;
+                  break;
+                }
+                this.rule.update = false;
+                break;
+              }
+              case 4: {
+                if (this.all_pages_profile.length > 0) {
+                  this.all_pages_profile[0].delete = false;
+                  break;
+                }
+                this.rule.delete = false;
+                break;
+              }
+            }
+          // }
+        }
+
+        if (this.all_pages_profile.length > 0) {
+          this.ruleService.editRule(this.all_pages_profile[0]).subscribe(
+            s => {
+              this.toastService.toastSuccess();
+              },
+              error => console.log(error)
+          );
+        } else {
+              this.rule.profile_id = this.currentProfile.id;
+              this.rule.page_id = this.currentPage.id;
+              this.ruleService.saveRule(this.rule).subscribe(
+                 s => {
+                   this.toastService.toastSuccess();
+                  },
+                 error => console.log(error)
+                 );
+        }
+      },
+      error => console.log(error)
+    );
+
+  }
 }

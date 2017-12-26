@@ -20,7 +20,7 @@ export class ProfileService extends RestService {
     if ( filter === undefined ) {
       return this.get(this.apiurl + 'profiles/search/page/?size=' + this.SIZE + '&page=' + page + '&sort=title,asc');
     } else {
-      return this.get(this.apiurl + 'profiles/search/page/?size=' + this.SIZE + '&page=' + page + '&title=' + filter + '&sort=title,asc');
+     return this.get(this.apiurl + 'profiles/search/page/?size=' + this.SIZE + '&page=' + page + '&title=' + filter + '&sort=title,asc');
     }
   }
 

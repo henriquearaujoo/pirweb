@@ -23,6 +23,11 @@ export class RuleService extends RestService {
     return this.post(saveRuleUrl, rules);
   }
 
+  public editRule(rule: Rule): Observable<Rule> {
+    const saveRuleUrl = this.apiurl.concat('rules/');
+    return this.put(saveRuleUrl, rule);
+  }
+
   public deleteRule(id: string) {
     const deleteRuleUrl = this.apiurl + 'rules' + '/' + id + '/';
     return this.deleteR(deleteRuleUrl);
