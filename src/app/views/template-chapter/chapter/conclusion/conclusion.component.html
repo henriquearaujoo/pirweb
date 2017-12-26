@@ -10,8 +10,9 @@
                             <div class="form-group">
                                 <label class="control-label">Descrição da conclusão</label>
                                 <div class="box-body pad">
-                                    <ck-editor id="conclusion_description" name="conclusion_description" #description="ngModel" [(ngModel)]="conclusion.description" skin="moono-lisa" [fullPage]="false">
-                                    </ck-editor>
+                                        <quill-editor [options]="editorOptions" id="conclusion_description" name="conclusion_description" #description="ngModel" [(ngModel)]="conclusion.description" required></quill-editor>
+                                    <!-- <ck-editor id="conclusion_description" name="conclusion_description" #description="ngModel" [(ngModel)]="conclusion.description" skin="moono-lisa" [fullPage]="false">
+                                    </ck-editor> -->
                                 </div>
                             </div>
                         </div>

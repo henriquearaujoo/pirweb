@@ -8,8 +8,13 @@
     border-color: #373d40;
 }
 
+.box {
+    background-color: #f4f4f4;
+    box-shadow: none;
+}
+
 .box.box-primary {
-    border-top-color: #373d40;
+    border-top: 0px;
 }
 
 .col-sm-6.save {

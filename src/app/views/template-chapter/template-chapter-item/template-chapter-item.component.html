@@ -38,7 +38,7 @@
                     <span class="percentage"><strong> {{ currentVersion.percentage }}%</strong> Completo</span> <br/>
                 </div>
                 <button class="btn edit" (click)="editChapter(currentVersion)">
-                    <i class="fa fa-pencil" aria-hidden="true" (click)='editChapter()'> </i> Editar
+                    <i class="fa fa-pencil" aria-hidden="true" (click)='editChapter(currentVersion)'> </i> Editar
                 </button>       
                 <button class="btn status" (click)="disableAbleVersion(currentVersion)">
                     <i [ngClass]="currentVersion.status === true ? 'fa fa-ban': 'fa fa-check' " aria-hidden="true"></i>           

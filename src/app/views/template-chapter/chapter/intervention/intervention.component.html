@@ -10,8 +10,9 @@
                             <div class="form-group" [ngClass]="applyCssError(fIntervention, description)">
                                 <label class="control-label">Descrição</label>
                                 <div class="box-body pad">
-                                    <ck-editor id="intervention_description" name="intervention_description" #description="ngModel" [(ngModel)]="intervention.description" skin="moono-lisa" [fullPage]="false">
-                                    </ck-editor>
+                                    <quill-editor [options]="editorOptions" id="intervention_description" name="intervention_description" #description="ngModel" [(ngModel)]="intervention.description" required></quill-editor>
+                                    <!-- <ck-editor id="intervention_description" name="intervention_description" #description="ngModel" [(ngModel)]="intervention.description" skin="moono-lisa" [fullPage]="false">
+                                    </ck-editor> -->
                                     <app-control-field-error [showError]="verifyValidSubmitted(fIntervention, description)" msgError="Digite a descrição">
                                     </app-control-field-error>
                                 </div>
@@ -20,8 +21,9 @@
                             <div class="form-group" [ngClass]="applyCssError(fIntervention, activity)">
                                 <label class="control-label">Atividades da visita</label>
                                 <div class="box-body pad">
-                                    <ck-editor id="intervention_activity" name="intervention_activity" #activity="ngModel" [(ngModel)]="intervention.activity" skin="moono-lisa" [fullPage]="false" required>
-                                    </ck-editor>
+                                    <quill-editor [options]="editorOptions" id="intervention_activity" name="intervention_activity" #activity="ngModel" [(ngModel)]="intervention.activity" required></quill-editor>
+                                    <!-- <ck-editor id="intervention_activity" name="intervention_activity" #activity="ngModel" [(ngModel)]="intervention.activity" skin="moono-lisa" [fullPage]="false" required>
+                                    </ck-editor> -->
                                     <app-control-field-error [showError]="verifyValidSubmitted(fIntervention, activity)" msgError="Digite a atividate da familia">
                                     </app-control-field-error>
                                 </div>

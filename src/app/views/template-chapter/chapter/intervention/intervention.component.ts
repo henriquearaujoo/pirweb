@@ -18,6 +18,11 @@ export class InterventionComponent implements OnInit {
   @Output() cancelEvent = new EventEmitter();
   private btn_cancel: boolean;
 
+  public editorOptions = {
+    placeholder: '...',
+    theme: 'snow'
+  };
+
   constructor(
     private service: InterventionService,
     private toastService: ToastService) { }
@@ -66,6 +71,10 @@ export class InterventionComponent implements OnInit {
     this.service.load(chapter).subscribe(
       success => {
           this.intervention = success[0];
+          console.log('Load:', this.intervention);
+          if (this.intervention === undefined) {
+            this.intervention = new Intervention();
+          }
       },
       e => {
         console.log('PirError:' + e);

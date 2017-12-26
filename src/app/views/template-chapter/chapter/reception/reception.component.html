@@ -5,7 +5,7 @@
             <div class="form-group">
                 <div class="col-sm-3">
                     Retomar visita anterior
-                    <input type="checkbox" id="turnoff_eletronics" name="turn_off_tv" [(ngModel)]="reception.turnoff_eletronics" value='{{reception.turnoff_stove}}' />
+                    <input type="checkbox" id="turnoff_eletronics" name="turn_off_tv" [(ngModel)]="reception.turnoff_eletronics" value='{{reception.turnoff_eletronics}}' />
                 </div>
                 <div class="col-sm-3">
                     Acalmar familia
@@ -26,7 +26,8 @@
                         <div class="box-body">
                             <div class="form-group" [ngClass]="applyCssError(fReception, description)">
                                 <label class="control-label">Descrição</label>
-                                <ck-editor style="height: 150px;" id="reception_description" name="reception_description" #description="ngModel" [(ngModel)]="reception.description" skin="moono-lisa" [fullPage]="false" required [config]="config"></ck-editor>
+                                <quill-editor style="height: 150px;" [options]="editorOptions" id="reception_description" name="reception_description" #description="ngModel" [(ngModel)]="reception.description" required></quill-editor>
+                                <!-- <ck-editor style="height: 150px;" id="reception_description" name="reception_description" #description="ngModel" [(ngModel)]="reception.description" skin="moono-lisa" [fullPage]="false" required [config]="config"></ck-editor> -->
                                 <app-control-field-error [showError]="verifyValidSubmitted(fReception, description)" msgError="Digite a descrição">
                                 </app-control-field-error>
                             </div>
