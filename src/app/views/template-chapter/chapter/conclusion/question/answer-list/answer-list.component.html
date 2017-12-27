@@ -1,0 +1,102 @@
+<simple-notifications></simple-notifications>
+<!-- when there's not record -->
+<!-- div *ngIf="!hasdata">
+  <section class="content">
+      <i class="large material-icons">assignment</i>  
+      <span class="feedback-message">Não há tarefas cadastrados</span>
+  </section>
+</div -->  
+<!--div *ngIf="hasdata" -->  
+<div>
+  <div class="box box-primary">         
+    <div class="box-body">
+      <table id="example2" class="table table-hover ">
+        <thead>
+          <tr>
+            <th class="tbl-left">NÚMERO </th> 
+            <th>RESPOSTA
+              <span class="glyphicon" ></span>
+            </th>           
+            <th colspan="3"> AÇÃO</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of answers; let i = index">
+            <td class="tbl-left">
+              {{ i + 1 }}
+            </td>
+            <td>  
+                {{ item }}
+            </td>         
+          
+            <td class="tbl-right">              
+                <a (click)="setUser(item)" id="btn_details" title="Ver detalhes">
+                    <i class="large material-icons">visibility</i>
+                </a>
+              </td>
+              <td class="tbl-right">          
+                <a title="Editar" id="btn_edit"
+                  (click)="setUser(item)" >
+                  <i class="fa fa-pencil fa-fw"></i>
+                </a>
+              </td>
+              <td class="tbl-right">
+                  <a href="" title="Excluir Resposta"
+                    data-toggle="modal" data-target="#modal-default"
+                    (click)="deleteAnswer(item)" id="btn_delete">              
+                    <i class="fa fa-trash "  aria-hidden="true"></i>
+                  </a>      
+              </td>
+            <!-- <td class="tbl-right">          
+                <a>
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+            </td>       -->
+          </tr>
+        </tbody>
+      </table>
+    </div>        
+    <div class="box-footer">
+        <!--app-paginate [paginate]="paginate" (eventPage)="setPage($event)"></app-paginate -->     
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-sm-6 ">
+        <div class="form-group">
+          <button class="btn btn-default btn-md" id="btn_return" (click)="onCancel()"> Voltar</button>
+        </div>
+      </div>  
+      <div class="col-sm-6 add">  
+        <div class="form-group">                    
+          <button class="btn btn-primary btn-md" name="submit" id="btn_add" data-toggle="modal" data-target="#modal-answer">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+              Adicionar resposta                        
+          </button>
+        </div>                 
+      </div>
+  </div> 
+</div>
+
+<!-- Modal Answer -->
+<div class="modal fade" id="modal-answer">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header answer">
+            <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Resposta</h4> -->
+          </div>
+          <div class="modal-body">
+              <quill-editor [options]="editorOptions" id="answer_description" name="answer_description" required></quill-editor>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary">Salvar</button>
+          </div>
+      </div>
+        <!-- /.modal-content -->   
+  </div> 
+</div>
+<!-- /.modal -->
+
+

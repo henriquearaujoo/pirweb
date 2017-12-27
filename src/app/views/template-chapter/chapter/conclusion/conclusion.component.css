@@ -103,3 +103,7 @@ i.fa.fa-plus {
 .paginate {
     text-align: center;
 }
+
+.row.footer {
+    margin-top: 50px;
+}

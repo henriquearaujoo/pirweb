@@ -14,7 +14,7 @@
         <form name="form" #f="ngForm" novalidate>
             <!-- Custom Tabs -->
             <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs" style="background: #fff;">
+                <ul class="nav nav-tabs">
                     <li>
                         <a class="tab-pane active" href="#tab_1" data-toggle="tab">
                             <img src="{{informationTab}}" (click)="walk(0)" />
@@ -113,7 +113,7 @@
                                         <div class="box box-primary">
                                             <div class="box-body">
                                                 <!-- CARD -->
-                                                <app-conclusion></app-conclusion>
+                                                <app-conclusion #conclusion (returnEvent)="actionSave($event)" (cancelEvent)='openModal()'></app-conclusion>
                                             </div>
                                         </div>
                                     </div>

@@ -104,9 +104,7 @@ import { ControlFieldErrorComponent } from './components/control-field-error/con
 import { InterventionComponent } from './views/template-chapter/chapter/intervention/intervention.component';
 import { TaskListComponent } from './views/template-chapter/chapter/task/task-list/task-list.component';
 import { TemplateChapterOptionComponent } from './views/template-chapter/template-chapter-option/template-chapter-option.component';
-import { QuestionComponent } from './views/template-chapter/template-collect-data/question/question.component';
 import { TemplateChapterItemComponent } from './views/template-chapter/template-chapter-item/template-chapter-item.component';
-import { AnswerListComponent } from './views/template-chapter/template-collect-data/question/answer-list/answer-list.component';
 import { TemplateCollectDataItemComponent } from './views/template-chapter/template-collect-data-item/template-collect-data-item.component';
 import { ChapterService } from './services/chapter/chapter.service';
 import { ChapterDetailsComponent } from './views/template-chapter/chapter/chapter-details/chapter-details.component';
@@ -121,6 +119,9 @@ import { UserAddressComponent } from './views/user/user-address/user-address.com
 import { ConclusionComponent } from './views/template-chapter/chapter/conclusion/conclusion.component';
 import { InformationComponent } from './views/template-chapter/chapter/information/information.component';
 import { ModalWaitingAnswerComponent } from './components/modal-waiting-answer/modal-waiting-answer.component';
+import { ConclusionService } from './services/conclusion/conclusion.service';
+import { QuestionComponent } from './views/template-chapter/chapter/conclusion/question/question.component';
+import { AnswerListComponent } from './views/template-chapter/chapter/conclusion/question/answer-list/answer-list.component';
 
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
@@ -247,7 +248,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     InterventionService,
     ReceptionService,
     UserDetailsComponent,
-    TemplateChapterItemComponent
+    TemplateChapterItemComponent,
+    ConclusionService
   ],
   bootstrap: [AppComponent]
 })

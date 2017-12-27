@@ -8,6 +8,7 @@ import { Component, OnInit, Output, ViewChild, OnDestroy } from '@angular/core';
 import { ReceptionComponent } from '../reception/reception.component';
 import { EventEmitter } from 'events';
 import { InformationComponent } from '../information/information.component';
+import { ConclusionComponent } from '../conclusion/conclusion.component';
 
 @Component({
   selector: 'app-chapter-dashboard',
@@ -40,6 +41,8 @@ export class ChapterDashboardComponent implements OnInit {
   reception: ReceptionComponent;
   @ViewChild('intervention')
   intervention: InterventionComponent;
+  @ViewChild('conclusion')
+  conclusion: ConclusionComponent;
 
   constructor(
     private router: Router,
@@ -64,11 +67,13 @@ export class ChapterDashboardComponent implements OnInit {
       this.information.isNewData = false;
       this.reception.isNewData = false;
       this.intervention.isNewData = false;
+      this.conclusion.isNewData = false;
       this.sendEventToLoad();
     }else {
       this.information.isNewData = true;
       this.reception.isNewData = true;
       this.intervention.isNewData = true;
+      this.conclusion.isNewData = true;
       this.getChapterNumber();
     }
   }
@@ -96,6 +101,7 @@ export class ChapterDashboardComponent implements OnInit {
         this.currentChapter = this.chapter.number;
         this.reception.load(this.urlId);
         this.intervention.load(this.urlId);
+        this.conclusion.load(this.urlId);
       },
       e => {
         console.log('Error: ' + e);
@@ -109,6 +115,7 @@ export class ChapterDashboardComponent implements OnInit {
         // add id in all components
         this.reception.chapter = c.id;
         this.intervention.chapter = c.id;
+        this.conclusion.chapter = c.id;
         this.toastService.toastSuccess();
         return;
       }

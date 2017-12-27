@@ -1,0 +1,49 @@
+section.content {
+    padding-top: 0;
+}
+
+.form-group,
+.form-control {
+    color: grey;
+}
+
+.btn {
+    min-width: 130px;
+}
+
+.btn-primary {
+    /* width: 100px; */
+    background-color: #373d40;
+    border-color: #373d40;
+}
+
+.box {
+    background-color: #f4f4f4;
+    margin-bottom: 0;
+    box-shadow: none;
+}
+
+.box-header .box-title, .title-answer {
+    font-size: 14px;
+    font-weight: bold;
+    color: gray;
+}
+
+.box.box-primary {
+    border-top: 1px solid #ddd;
+}
+
+.box-body {
+    background-color: #f4f4f4;
+    padding: 0;
+    padding-top: 10px;
+}
+
+.col-sm-12.save {
+    text-align: right;
+    padding-right: 15px;
+}
+
+.modal-header.answer {
+    background-color: #ccc;
+}

@@ -34,7 +34,6 @@ import { ProfileListComponent } from './views/profile/profile-list/profile-list.
 import { UserEditComponent } from './views/user/user-edit/user-edit.component';
 import { InterventionComponent } from './views/template-chapter/chapter/intervention/intervention.component';
 import { TemplateChapterOptionComponent } from './views/template-chapter/template-chapter-option/template-chapter-option.component';
-import { QuestionComponent } from './views/template-chapter/template-collect-data/question/question.component';
 import { ChapterDetailsComponent } from './views/template-chapter/chapter/chapter-details/chapter-details.component';
 import { ChapterEditComponent } from './views/template-chapter/chapter/chapter-edit/chapter-edit.component';
 import { InformationComponent } from './views/template-chapter/chapter/information/information.component';
@@ -94,10 +93,6 @@ const App_Router: Routes = [
           {
             path: 'collect-data',
             component: TemplateCollectDataComponent
-          },
-          {
-            path: 'question',
-            component: QuestionComponent
           },
           {
             path: 'chapter-details',

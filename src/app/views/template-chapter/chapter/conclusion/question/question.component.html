@@ -1,0 +1,43 @@
+<simple-notifications></simple-notifications>
+
+<div class="content_">
+    <section class="content">
+      <form name="form_question" (ngSubmit)="fQuestion.form.valid && saveData()" #fQuestion="ngForm" novalidate>
+          <div class="box-header with-border">
+            <h5 class="box-title"> QUESTÃO
+            </h5>
+          </div>
+          <div class="row">              
+              <div class="col-sm-12">
+                  <div class="box box-primary">
+                    <div class="box-body">
+                      <div class="form-group" [ngClass]="applyCssError(fQuestion, description)">
+                        <label class="control-label">Descrição da questão</label>                       
+                          <div class="box-body pad">                            
+                            <quill-editor [options]="editorOptions" id="question_description" name="conclusion_description" 
+                              #description="ngModel" [(ngModel)]="question.description" required></quill-editor>
+                            <app-control-field-error [showError]="verifyValidSubmitted(fQuestion, description)" msgError="Digite a descrição">
+                            </app-control-field-error>
+                          </div>
+                     </div>                     
+                  </div>
+                </div>
+              </div>                           
+          </div>
+          <div class="row">
+            <div class="col-sm-12 save">
+              <div class="form-group">
+                  <button class="btn btn-primary btn-md" name="submit" id="btn_save">Salvar                            
+                  </button>
+                </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="title-answer"> Respostas</div>
+                <app-answer-list></app-answer-list>   
+            </div>
+          </div>         
+      </form>
+  </section>
+</div>
