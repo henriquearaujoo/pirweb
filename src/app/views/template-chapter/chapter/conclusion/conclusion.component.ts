@@ -13,6 +13,7 @@ import { ToastService } from '../../../../services/toast-notification/toast.serv
 export class ConclusionComponent implements OnInit {
 
   hasdata: boolean;
+  private tasks = new Array();
 
   private conclusion: Conclusion;
   public chapter: string;
@@ -31,6 +32,7 @@ export class ConclusionComponent implements OnInit {
     private toastService: ToastService
   ) {
     this.hasdata = false;
+    this.tasks = ['Resposta 1', 'Resposta 2', 'Resposta 3'];
    }
 
   ngOnInit() {
@@ -45,7 +47,6 @@ export class ConclusionComponent implements OnInit {
       return false;
     }
     this.conclusion.chapter = this.chapter;
-    // this.conclusion.questions = new Array( new Question());
     if (this.isNewData || this.conclusion.id === undefined) {
       this.conclusionService.insert(this.conclusion).subscribe(
         s => {
@@ -56,10 +57,10 @@ export class ConclusionComponent implements OnInit {
         },
         e => {
           this.toastService.toastError();
-          console.log('error: ' + e);
+          console.log('error save: ' + e);
         }
       );
-    }else {
+    } else {
       this.conclusionService.update(this.conclusion).subscribe(
         s => {
           this.conclusion = s;
@@ -68,7 +69,7 @@ export class ConclusionComponent implements OnInit {
         },
         e => {
           this.toastService.toastError();
-          console.log('error: ' + e);
+          console.log('error update: ' + e);
         }
       );
     }

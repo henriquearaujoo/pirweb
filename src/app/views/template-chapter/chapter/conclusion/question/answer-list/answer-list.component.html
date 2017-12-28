@@ -47,11 +47,6 @@
                     <i class="fa fa-trash "  aria-hidden="true"></i>
                   </a>      
               </td>
-            <!-- <td class="tbl-right">          
-                <a>
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                </a>
-            </td>       -->
           </tr>
         </tbody>
       </table>
@@ -87,11 +82,24 @@
             <h4 class="modal-title">Resposta</h4> -->
           </div>
           <div class="modal-body">
-              <quill-editor [options]="editorOptions" id="answer_description" name="answer_description" required></quill-editor>
+              <!-- <form name="form_answer" (ngSubmit)="fAnswer.form.valid && saveData()" #fQuestion="ngForm" novalidate> -->
+                <!-- <div class="form-group" [ngClass]="applyCssError(fAnswer, description)"> -->
+                  <quill-editor [options]="editorOptions" id="answer_description" name="answer_description" 
+                    #description="ngModel" [(ngModel)]="answer.description" required></quill-editor>
+                    <!-- <app-control-field-error [showError]="verifyValidSubmitted(fAnswer, description)" msgError="Digite a descrição">
+                    </app-control-field-error>
+                </div> -->
+                <!-- <div class="row">
+                  <div class="col">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                      <button type="button" class="btn btn-primary">Salvar</button>
+                  </div>
+                </div> -->
+              <!-- </form> -->
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary">Salvar</button>
+            <button type="button" class="btn btn-primary" (click)="saveData()">Salvar</button>
           </div>
       </div>
         <!-- /.modal-content -->   

@@ -1,0 +1,46 @@
+.question, .description, .answer {
+    float: left;
+    margin-right: 14%;
+}
+
+.actions {
+    float: right;
+}
+
+button.btn.remove, button.btn.edit {
+    height: 26px;
+    width: 85px;
+    line-height: 26px;
+    padding: 0 0.8rem;
+    border-radius: 1em;
+    background-color: #373d40;
+}
+
+button.btn.edit {
+    margin-right: 15px;
+}
+
+button.btn.remove:hover, button.btn.edit:hover {
+    background-color: #373d40;
+}
+
+i.fa {
+    padding-right: 6px;
+}
+
+/* CARDS */
+.card.horizontal.card-stacked.card-content {
+    padding: 0;
+    padding-top: 22px;
+}
+
+.card {
+    background-color: #f4f4f4!important;
+}
+
+.card.horizontal {
+    margin-bottom: 30px;
+    box-shadow: none;
+    border: 1px solid #ccc;
+    border-radius: 0.5em;
+}

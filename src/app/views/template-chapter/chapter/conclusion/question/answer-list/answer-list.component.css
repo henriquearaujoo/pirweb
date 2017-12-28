@@ -64,3 +64,7 @@ th, td {
 .col-sm-6.add {
     text-align: right;
 }
+
+.modal-header.answer {
+    background-color: #ccc;
+}

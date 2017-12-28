@@ -122,6 +122,7 @@ import { ModalWaitingAnswerComponent } from './components/modal-waiting-answer/m
 import { ConclusionService } from './services/conclusion/conclusion.service';
 import { QuestionComponent } from './views/template-chapter/chapter/conclusion/question/question.component';
 import { AnswerListComponent } from './views/template-chapter/chapter/conclusion/question/answer-list/answer-list.component';
+import { QuestionItemComponent } from './views/template-chapter/chapter/conclusion/question/question-item/question-item.component';
 
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
@@ -176,7 +177,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     UserAddressComponent,
     ConclusionComponent,
     InformationComponent,
-    ModalWaitingAnswerComponent
+    ModalWaitingAnswerComponent,
+    QuestionItemComponent
 
   ],
   imports: [
