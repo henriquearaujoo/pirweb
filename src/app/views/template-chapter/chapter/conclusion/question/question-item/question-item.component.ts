@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Question } from '../../../../../../models/question';
 
 @Component({
@@ -11,6 +11,7 @@ export class QuestionItemComponent implements OnInit {
 
   @Input() private question: Question;
   @Input() private index: string;
+  @Output() private isEdit = new EventEmitter<boolean>();
 
   constructor() {
     this.question = new Question();
@@ -18,5 +19,14 @@ export class QuestionItemComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  onEdit() {
+   localStorage.setItem('questionId', this.question.id);
+   this.isEdit.emit(true);
+   }
+
+   onDelete() {
+     console.log('Delete!');
+   }
 
 }

@@ -39,7 +39,7 @@
                             <div class="box-body">
                                 <div *ngIf="!hasdata">
                                     <div *ngFor="let item of conclusion.questions; let i = index">
-                                        <app-question-item [question]="item" [index]="i + 1"></app-question-item>
+                                        <app-question-item [question]="item" [index]="i + 1" (isEdit)="onEdit($event)" ></app-question-item>
                                     </div>
                                 </div>
                             </div>
@@ -56,8 +56,8 @@
                 </div>
                 <!-- /.row -->
             </div>
-            <div *ngIf="add_question">
-                <app-question [conclusion]="conclusion" (cancel)="onCancelAddAnswer($event)"></app-question>
+            <div>
+                <app-question #question [conclusion]="conclusion" [isNewData]="isNewQuestion" [addQuestion]="add_question" (cancel)="onCancelAddAnswer($event)"></app-question>
             </div>
             <div class="row footer">
                 <div class="col-md-2">

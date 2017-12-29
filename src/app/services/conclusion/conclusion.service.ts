@@ -38,8 +38,8 @@ export class ConclusionService extends RestService {
     return this.post(currentURL, answer);
   }
 
-  public getAnswer() {
-    const currentURL = this.apiurl + 'question/answer/page';
+  public getAnswer(question_id?: string) {
+    const currentURL = this.apiurl + 'question/answer/search/page?question=' + question_id;
     return this.get(currentURL);
   }
 
@@ -54,14 +54,23 @@ export class ConclusionService extends RestService {
     return this.post(currentURL, question);
   }
 
+  public updateQuestion(question: Question): Observable<Question> {
+    const currentURL = this.apiurl + 'question';
+    return this.put(currentURL, question);
+  }
+
   public getQuestion() {
-    const currentURL = this.apiurl + '/question/page';
+    const currentURL = this.apiurl + 'question/search/page';
     return this.get(currentURL);
   }
 
   public deleteQuestion(question: string): Observable<Question> {
     const deleteQuestionURL = this.apiurl.concat('question');
     return this.deleteServiceWithId(deleteQuestionURL, 'id', question);
+  }
+
+  public loadQuestion(question_id: string) {
+    return this.get(this.apiurl + 'question/search/page?id=' + question_id);
   }
 }
 

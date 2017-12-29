@@ -1,9 +1,11 @@
 import { error } from 'util';
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, ViewChild } from '@angular/core';
 import { Question } from '../../../../../models/question';
 import { ConclusionService } from '../../../../../services/conclusion/conclusion.service';
 import { ToastService } from '../../../../../services/toast-notification/toast.service';
 import { Conclusion } from '../../../../../models/conclusion';
+import { Paginate } from '../../../../../models/paginate';
+import { AnswerListComponent } from './answer-list/answer-list.component';
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
@@ -16,7 +18,12 @@ export class QuestionComponent implements OnInit {
   private questions: Question[] = new Array();
   @Output() private cancel = new EventEmitter<boolean>();
   private btn_cancel: boolean;
-  private add_question: boolean;
+  @Input() private addQuestion: boolean;
+  @Input() public isNewData: boolean;
+  private paginate: Paginate = new Paginate();
+  @ViewChild('answer')
+  answer: AnswerListComponent;
+
   public editorOptions = {
     placeholder: '...',
     theme: 'snow'
@@ -24,7 +31,7 @@ export class QuestionComponent implements OnInit {
 
   constructor(
     private conclusionService: ConclusionService,
-    private toastSerivce: ToastService
+    private toastService: ToastService
   ) { }
 
   ngOnInit() {
@@ -33,17 +40,53 @@ export class QuestionComponent implements OnInit {
 
   saveData() {
     this.question.for_conclusion = this.conclusion.id;
-    this.conclusionService.insertQuestion(this.question).subscribe(
+    if (this.isNewData || this.conclusion.id === undefined) {
+      this.conclusionService.insertQuestion(this.question).subscribe(
+        success => {
+          this.question = success;
+          this.isNewData  = false;
+          console.log('Question:', success);
+          this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
+          console.log('isNewData', this.isNewData);
+        },
+        error => console.log(error)
+      );
+     } else {
+      this.conclusionService.updateQuestion(this.question).subscribe(
+        s => {
+          this.question = s;
+          this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso');
+          console.log('saved with success!', this.question);
+        },
+        e => {
+          this.toastService.toastError();
+          console.log('error update: ' + e);
+        }
+      );
+    }
+  }
+
+  load(question_id) {
+    this.conclusionService.loadQuestion(question_id).subscribe(
       success => {
-        this.question = success;
-        this.toastSerivce.toastSuccess();
+        this.paginate = success;
+          this.question = this.paginate.content[0];
+          console.log('LoadQuestion:', this.question);
+          this.answer.getAnswers();
+          if (this.question === undefined) {
+            this.question = new Question();
+          }
+          // localStorage.removeItem('questionId');
       },
-      error => console.log(error)
+      e => {
+        console.log('PirError:' + e);
+      }
     );
   }
 
   onCancel() {
     this.btn_cancel = true;
+    console.log('onCancel()');
   }
 
   onCancelAddAnswer(event) {

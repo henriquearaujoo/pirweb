@@ -32,10 +32,13 @@ export class AnswerListComponent implements OnInit {
   }
 
   getAnswers() {
-    this.conclusionService.getAnswer().subscribe(
+    this.question.id = localStorage.getItem('questionId');
+    console.log('question.id', this.question.id);
+    this.conclusionService.getAnswer(this.question.id).subscribe(
       success => {
         this.paginate = success;
         this.answers = this.paginate.content;
+        console.log('Answers', this.answers);
       },
       error => console.log(error)
     );
@@ -43,9 +46,11 @@ export class AnswerListComponent implements OnInit {
 
   saveData() {
     this.answer.for_question = this.question.id;
+    console.log('answer.for_question:', this.answer.for_question);
     this.conclusionService.insertAnswer(this.answer).subscribe(
       success => {
         this.toastService.toastSuccess();
+        this.getAnswers();
       },
       error => console.log(error)
     );

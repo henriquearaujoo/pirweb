@@ -1,9 +1,10 @@
 import { Question } from './../../../../models/question';
 import { error } from 'util';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Conclusion } from '../../../../models/conclusion';
 import { ConclusionService } from '../../../../services/conclusion/conclusion.service';
 import { ToastService } from '../../../../services/toast-notification/toast.service';
+import { QuestionComponent } from './question/question.component';
 
 @Component({
   selector: 'app-conclusion',
@@ -18,9 +19,12 @@ export class ConclusionComponent implements OnInit {
   private conclusion: Conclusion;
   public chapter: string;
   public isNewData: boolean;
+  public isNewQuestion: boolean;
   @Output() cancelEvent = new EventEmitter();
   private btn_cancel: boolean;
   private add_question: boolean;
+  @ViewChild('question')
+  question: QuestionComponent;
 
   public editorOptions = {
     placeholder: '...',
@@ -39,6 +43,7 @@ export class ConclusionComponent implements OnInit {
     this.conclusion = new Conclusion();
     this.btn_cancel = false;
     this.add_question = false;
+    this.isNewQuestion = false;
   }
 
   saveData() {
@@ -53,7 +58,7 @@ export class ConclusionComponent implements OnInit {
           this.isNewData  = false;
           this.conclusion = s;
           this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
-          console.log('saved with success!');
+          console.log('saved with success!', this.conclusion);
         },
         e => {
           this.toastService.toastError();
@@ -65,7 +70,7 @@ export class ConclusionComponent implements OnInit {
         s => {
           this.conclusion = s;
           this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso');
-          console.log('saved with success!');
+          console.log('saved with success!', this.conclusion);
         },
         e => {
           this.toastService.toastError();
@@ -93,6 +98,16 @@ export class ConclusionComponent implements OnInit {
 
   createNewQuestion() {
     this.add_question = true;
+    this.isNewQuestion = true;
+  }
+
+  onEdit(event) {
+    if (event) {
+      this.add_question = true;
+      const q = localStorage.getItem('questionId');
+      console.log('CONCLUSION: onEdit()questionId', q);
+      this.question.load(q);
+    }
   }
 
   onCancel() {
@@ -103,6 +118,9 @@ export class ConclusionComponent implements OnInit {
   onCancelAddAnswer(event) {
     if (event) {
       this.add_question = false;
+      if (this.chapter !== undefined) {
+        this.load(this.chapter);
+      }
     }
   }
 
