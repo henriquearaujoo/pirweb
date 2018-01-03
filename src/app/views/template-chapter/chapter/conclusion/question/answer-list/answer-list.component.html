@@ -21,28 +21,29 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of answers; let i = index">
+          <tr *ngFor="let item of pagedItems; let i = index">
             <td class="tbl-left">
-              {{ i + 1 }}
+             {{ item.number }}
             </td>
             <td [innerHTML]="item.description"> 
             </td>         
           
             <td class="tbl-right">              
-                <a (click)="setUser(item)" id="btn_details" title="Ver detalhes">
-                    <i class="large material-icons">visibility</i>
+                <a href="" title="Ver detalhes" id="btn_details"  data-toggle="modal" data-target="#modal-answer"
+                  (click)="showAnswer(item)" >
+                  <i class="large material-icons">visibility</i>
                 </a>
               </td>
               <td class="tbl-right">          
-                <a title="Editar" id="btn_edit"
-                  (click)="setUser(item)" >
+                <a href="" title="Editar" id="btn_edit" data-toggle="modal" data-target="#modal-answer"
+                  (click)="onEdit(item)">
                   <i class="fa fa-pencil fa-fw"></i>
                 </a>
               </td>
               <td class="tbl-right">
                   <a href="" title="Excluir Resposta"
                     data-toggle="modal" data-target="#modal-default"
-                    (click)="deleteAnswer(item)" id="btn_delete">              
+                    (click)="onDelete(item)" id="btn_delete">              
                     <i class="fa fa-trash "  aria-hidden="true"></i>
                   </a>      
               </td>
@@ -50,8 +51,33 @@
         </tbody>
       </table>
     </div>        
-    <div class="box-footer">
-        <!--app-paginate [paginate]="paginate" (eventPage)="setPage($event)"></app-paginate -->     
+    <div class="box-footer"> 
+      <div class="row">
+        <div class="col-sm-6 pagination1" *ngIf="answers.length">
+            Exibindo <strong>{{ pager.currentPage === 1 ? 1 : (pager.currentPage * 10) - 9 }} </strong> - 
+            <strong>{{ pager.currentPage === pager.totalPages ? answers.length : ((pager.currentPage * 10) ) }} </strong> 
+            de <strong>{{ answers.length }} </strong>
+        </div>
+        <div class="col-sm-6 pagination2">
+            <ul *ngIf="pager.pages && pager.pages.length" class="pagination stylepage">
+                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                    <a (click)="setPage(1)">Primeiro</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                    <a (click)="setPage(pager.currentPage - 1)">Anterior</a>
+                </li>
+                <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                    <a (click)="setPage(page)">{{page}}</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                    <a (click)="setPage(pager.currentPage + 1)">Próxima</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                    <a (click)="setPage(pager.totalPages)">Último</a>
+                </li>
+            </ul>
+        </div>
+      </div>
     </div>
   </div>
   <div class="row">
@@ -62,7 +88,8 @@
       </div>  
       <div class="col-sm-6 add">  
         <div class="form-group">                    
-          <button class="btn btn-primary btn-md" name="submit" id="btn_add" data-toggle="modal" data-target="#modal-answer">
+          <button class="btn btn-primary btn-md" name="submit" id="btn_add" 
+            data-toggle="modal" data-target="#modal-answer" (click)="onNewAnswer()" [disabled]="question.id === undefined">
             <i class="fa fa-plus" aria-hidden="true"></i>
               Adicionar resposta                        
           </button>
@@ -72,34 +99,27 @@
 </div>
 
 <!-- Modal Answer -->
-<div class="modal fade" id="modal-answer">
+<div class="modal fade" id="modal-answer" (click)="getAnswers()">
   <div class="modal-dialog">
-      <div class="modal-content">
+      <div class="modal-content" [ngStyle]="object">
           <div class="modal-header answer">
-            <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Resposta</h4> -->
           </div>
           <div class="modal-body">
-              <!-- <form name="form_answer" (ngSubmit)="fAnswer.form.valid && saveData()" #fQuestion="ngForm" novalidate> -->
-                <!-- <div class="form-group" [ngClass]="applyCssError(fAnswer, description)"> -->
-                  <quill-editor [options]="editorOptions" id="answer_description" name="answer_description" 
-                    #description="ngModel" [(ngModel)]="answer.description" required></quill-editor>
-                    <!-- <app-control-field-error [showError]="verifyValidSubmitted(fAnswer, description)" msgError="Digite a descrição">
-                    </app-control-field-error>
-                </div> -->
-                <!-- <div class="row">
-                  <div class="col">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                      <button type="button" class="btn btn-primary">Salvar</button>
-                  </div>
-                </div> -->
-              <!-- </form> -->
+            <div *ngIf="!show">
+                <quill-editor [options]="editorOptions" id="answer_description" name="answer_description" 
+                #description="ngModel" [(ngModel)]="answer.description" required></quill-editor>
+            </div>  
+            <div *ngIf="show">
+              <p [innerHTML]="answer.description"></p>
+            </div>    
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary" (click)="saveData()">Salvar</button>
+          <div class="modal-footer" *ngIf="!show">
+            <button type="button" class="btn btn-default" data-dismiss="modal" (click)="cancel_()">Cancelar</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveData()">Salvar</button>
           </div>
+          <div class="modal-footer" *ngIf="show">
+              <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="cancel_()">Fechar</button>
+            </div>
       </div>
         <!-- /.modal-content -->   
   </div> 

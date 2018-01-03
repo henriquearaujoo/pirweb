@@ -11,8 +11,10 @@ import { Question } from '../../models/question';
 export class ConclusionService extends RestService {
 
   private apiurl = Constant.BASE_URL + 'chapters/conclusion/';
+  private size: number;
   constructor(http: Http) {
     super(http);
+    this.size = 10;
    }
 
    // *** CONCLUSION *** //
@@ -38,14 +40,19 @@ export class ConclusionService extends RestService {
     return this.post(currentURL, answer);
   }
 
+  public updateAnswer(answer: Answer): Observable<Answer> {
+    const currentURL = this.apiurl + 'question/answer';
+    return this.put(currentURL, answer);
+  }
+
   public getAnswer(question_id?: string) {
-    const currentURL = this.apiurl + 'question/answer/search/page?question=' + question_id;
+    const currentURL = this.apiurl + 'question/answer/search?question=' + question_id;
     return this.get(currentURL);
   }
 
-  public deleteAnswer(answer: string): Observable<Answer> {
-    const deleteAnswerURL = this.apiurl.concat('question/answer');
-    return this.deleteServiceWithId(deleteAnswerURL, 'id', answer);
+  public deleteAnswer(answer_id: string): Observable<Answer> {
+    const deleteAnswerURL = this.apiurl + 'question/answer' + '/' + answer_id;
+    return this.deleteR(deleteAnswerURL);
   }
 
   // *** QUESTIONS *** //
@@ -59,18 +66,22 @@ export class ConclusionService extends RestService {
     return this.put(currentURL, question);
   }
 
-  public getQuestion() {
-    const currentURL = this.apiurl + 'question/search/page';
+  public getQuestion(conclusion_id?: number, size?: number) {
+    // if (conclusion_id === undefined) {
+    //   const currentURL = this.apiurl + 'question/search/page?sort=description,asc';
+    // return this.get(currentURL);
+    // }
+    const currentURL = this.apiurl + 'question/search/page?size=' + size + '&conclusion=' + conclusion_id + '&sort=description,asc';
     return this.get(currentURL);
   }
 
-  public deleteQuestion(question: string): Observable<Question> {
-    const deleteQuestionURL = this.apiurl.concat('question');
-    return this.deleteServiceWithId(deleteQuestionURL, 'id', question);
+  public deleteQuestion(question_id: string): Observable<Question> {
+    const deleteQuestionURL = this.apiurl + 'question' + '/' + question_id;
+    return this.deleteR(deleteQuestionURL);
   }
 
   public loadQuestion(question_id: string) {
-    return this.get(this.apiurl + 'question/search/page?id=' + question_id);
+    return this.get(this.apiurl + 'question/search/page?id=' + question_id + '&sort=description,asc');
   }
 }
 

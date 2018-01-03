@@ -1,10 +1,18 @@
-.question, .description, .answer {
+.question, .description {
     float: left;
     margin-right: 14%;
 }
 
+.description {
+    min-width: 70px;
+}
+
 .actions {
     float: right;
+}
+
+a#answers {
+    margin-right: 110px;
 }
 
 button.btn.remove, button.btn.edit {
@@ -20,7 +28,7 @@ button.btn.edit {
     margin-right: 15px;
 }
 
-button.btn.remove:hover, button.btn.edit:hover {
+button.btn.remove:hover, button.btn.edit:hover, button.btn.btn-default:hover {
     background-color: #373d40;
 }
 
@@ -43,4 +51,14 @@ i.fa {
     box-shadow: none;
     border: 1px solid #ccc;
     border-radius: 0.5em;
+}
+
+/* MODAL */
+div#modal-answer {
+    height: 300px;
+    width: 450px;
+}
+
+button.btn.btn-default  {
+    background-color: #373d40;
 }

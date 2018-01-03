@@ -1,3 +1,4 @@
+import { error } from 'util';
 import { Injectable } from '@angular/core';
 import { NotificationsService } from 'angular2-notifications';
 import { Router } from '@angular/router';
@@ -27,6 +28,16 @@ export class ToastService {
         clickToClose: true
       });
     }
+
+    toastMsgError(title: string, msg: string, timeOut?: number, clickClose?: boolean, pauseOnHover?: boolean) {
+      this.toastService.error(title, msg, {
+        timeOut: 3000,
+        showProgressBar: true,
+        pauseOnHover:  true,
+        clickToClose: true
+      });
+    }
+
     toastErrorChapterId() {
       this.toastService.error('Erro!', 'Salve as informações do cápitulo para poder registar as outras informações', {
         timeOut: 3000,

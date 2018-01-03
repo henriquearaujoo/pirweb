@@ -43,14 +43,14 @@
                     </button>
                   </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="title-answer"> Respostas</div>
-                  <app-answer-list #answer [question]="question" (cancel)="onCancelAddAnswer($event)"></app-answer-list>   
-              </div>
-            </div>         
+            </div>       
         </form>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="title-answer"> Respostas</div>
+              <app-answer-list #answer [question]="question" (cancel)="onCancelAddAnswer($event)"></app-answer-list>   
+          </div>
+        </div>  
     </section>
   </div>
 </div>

@@ -6,17 +6,58 @@
         <div class="col-sm-12"> -->
             <div class="question">Questão {{ index }}</div> 
             <div class="description" [innerHTML]="question.description"></div>
-            <div class="answer">
-              <div *ngFor="let answer of question.answers">
+            <!-- <div class="answer" *ngIf="answers.length !== 0"> -->
+              <!-- <div *ngFor="let answer of answers">
                   <span [innerHTML]="answer.description"></span>
-              </div>
-            </div>
+              </div> -->
+              <!-- <a title="Ver Respostas"
+                class="waves-effect waves-light modal-trigger" data-toggle="modal" 
+                data-target="#modal-answer" id="list_answer" >
+                Respostas
+              </a> -->
+            <!-- </div> -->
             <div class="actions">
+              <!-- <div class="answer" *ngIf="answers.length !== 0"> -->
+                <a title="Ver Respostas" 
+                  class="waves-effect waves-light modal-trigger" data-toggle="modal" 
+                  data-target="#exampleModal" id="answs">
+                  Respostas 
+                </a>
+              <!-- </div> -->
               <button class="btn edit" (click)="onEdit()"> <i class="fa fa-pencil"></i>Editar</button>
-              <button class="btn remove"><i class="fa fa-remove" (click)="onDelete()"></i>Deletar</button>
+              <button class="btn remove" (click)="onDelete()"><i class="fa fa-remove"></i>Deletar</button>
             </div>
         <!-- </div>
       </div> -->
     </div>
   </div>
 </div>
+<!-- <button data-toggle="modal" data-target="#modal-test" id="btnModal">openModal</button> -->
+<!-- Modal Answer -->
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Launch demo modal
+  </button> -->
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">ID Questão: {{ question.id }} </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div *ngFor="let a of answers">
+                <span [innerHTML]="a.description"></span>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>

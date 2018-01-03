@@ -45,9 +45,9 @@ export class QuestionComponent implements OnInit {
         success => {
           this.question = success;
           this.isNewData  = false;
-          console.log('Question:', success);
+          localStorage.setItem('questionId', this.question.id);
+          console.log('Question ID:', localStorage.getItem('questionId'));
           this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
-          console.log('isNewData', this.isNewData);
         },
         error => console.log(error)
       );
@@ -71,6 +71,7 @@ export class QuestionComponent implements OnInit {
       success => {
         this.paginate = success;
           this.question = this.paginate.content[0];
+          this.isNewData = false;
           console.log('LoadQuestion:', this.question);
           this.answer.getAnswers();
           if (this.question === undefined) {
@@ -92,6 +93,8 @@ export class QuestionComponent implements OnInit {
   onCancelAddAnswer(event) {
     if (event) {
       this.cancel.emit(true);
+      this.question = new Question();
+      this.isNewData = true;
     }
   }
 
