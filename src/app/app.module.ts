@@ -11,6 +11,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import {JasperoAlertsModule} from '@jaspero/ng2-alerts';
 import { NgxEditorModule } from 'ngx-editor';
 import { CKEditorModule } from 'ngx-ckeditor';
+import { QuillEditorModule } from 'ng2-quill-editor';
 // import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import {ToastyModule} from 'ng2-toasty';
 
@@ -225,6 +226,7 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     JasperoAlertsModule,
     NgxEditorModule,
     CKEditorModule,
+    QuillEditorModule,
     // FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
     ToastyModule.forRoot()
   ],

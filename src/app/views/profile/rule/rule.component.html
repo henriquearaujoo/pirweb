@@ -1,61 +1,25 @@
-
-<div class="modal fade" id="rules{{pk}}" role="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Com as permissões ativadas o usuário poderá: </h4>          
-      </div>
-			<div class="modal-body">
-				<div class="row margin_both">
-					<div class="col-md-12">
-            <form>
-              <div class="row form-group ">             
-                <!-- checkbox -->
-                  <div *ngFor=" let option of options"  class="checkbox">
-                    <label>
-                      <input type="checkbox" [attr.name]="options" 
-                        [value]="option" 
-                        (change)="updateChecked(option, $event)" 
-                        [checked]="option === 'Visualizar'" 
-                        [disabled]="option === 'Visualizar'">
-                            {{ option }}
-                    </label>                
-                  </div>              
-              </div>						
-            </form>
-					</div>
-				</div>
-      </div>
-      <div class="modal-footer">							
-        <!-- <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button> -->
-        <button type="button" class="btn btn-primary btn-md" data-dismiss="modal" (click)='confirmRules()' > Salvar </button>
-      </div>
-		</div>
-	</div>
-</div>
-
-<!-- Modal confirm rules -->
-<div class="modal fade" id="modal-confirm">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true"></span></button>
-        <h4 class="modal-title">Deseja realmente salvar seus dados?</h4>
-      </div>
-      <div class="modal-footer-confirm">
-        <button type="button" class="btn btn-default" data-dismiss="modal" [routerLink]="['profile-list']">Cancelar</button>
-        <button type="button" class="btn btn-default"  data-dismiss="modal"> Voltar </button>
-        <button type="button" (click)='confirmRules()' class="btn btn-primary" data-dismiss="modal" [routerLink]="['profile-list']">Salvar</button>
-      </div>
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
-
-<a class="glyphicon glyphicon-menu-left" data-toggle="modal" href="#rules{{pk}}" *ngIf='!lg'></a>
-
+<!-- <th scope="row">1</th>
+<td >
+    <input type="checkbox" [attr.name]="options" 
+        [value]="1" 
+        [checked]="permission.page_id === item.id && permission.create" 
+        (change)="updatePermission(item, 1, $event)"> 
+</td>   
+<td class="tbl-right"> 
+    <input type="checkbox" [attr.name]="options" 
+        [value]="2" 
+        [checked]="permission.page_id === item.id && permission.update" 
+        (change)="updatePermission(item, 2, $event)">  
+</td>      
+<td class="tbl-right"> 
+    <input type="checkbox" [attr.name]="options" 
+        [value]="3" 
+        [checked]="permission.page_id === item.id && permission.read" 
+        (change)="updatePermission(item, 3, $event)"> 
+</td>   
+<td class="tbl-right">
+    <input type="checkbox" [attr.name]="options" 
+        [value]="4" 
+        [checked]="permission.page_id === item.id && permission.delete" 
+        (change)="updatePermission(item, 4, $event)">   
+</td>  -->

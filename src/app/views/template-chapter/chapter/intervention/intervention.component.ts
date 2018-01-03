@@ -16,6 +16,12 @@ export class InterventionComponent implements OnInit {
   public chapter: string;
   public isNewData: boolean;
   @Output() cancelEvent = new EventEmitter();
+  private btn_cancel: boolean;
+
+  public editorOptions = {
+    placeholder: '...',
+    theme: 'snow'
+  };
 
   constructor(
     private service: InterventionService,
@@ -23,9 +29,14 @@ export class InterventionComponent implements OnInit {
 
   ngOnInit() {
     this.intervention = new Intervention();
+    this.btn_cancel = false;
   }
 
   saveData() {
+    if (this.btn_cancel) {
+      this.btn_cancel = false;
+      return false;
+    }
     this.intervention.chapter = this.chapter;
     if (this.isNewData || this.intervention.id === undefined) {
       this.service.insert(this.intervention).subscribe(
@@ -60,6 +71,10 @@ export class InterventionComponent implements OnInit {
     this.service.load(chapter).subscribe(
       success => {
           this.intervention = success[0];
+          console.log('Load:', this.intervention);
+          if (this.intervention === undefined) {
+            this.intervention = new Intervention();
+          }
       },
       e => {
         console.log('PirError:' + e);
@@ -69,6 +84,7 @@ export class InterventionComponent implements OnInit {
 
   onCancel() {
     this.cancelEvent.emit();
+    this.btn_cancel = true;
   }
 
   verifyValidSubmitted(form, field) {

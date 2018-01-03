@@ -23,6 +23,11 @@ export class InformationComponent implements OnInit {
   @Output() returnEvent = new EventEmitter();
   @Output() cancelEvent = new EventEmitter();
 
+  public editorOptions = {
+    placeholder: '...',
+    theme: 'snow'
+  };
+
   onCancel() {
     this.cancelEvent.emit();
     console.log('cancel', this.btn_cancel);

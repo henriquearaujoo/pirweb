@@ -10,6 +10,10 @@ export class ConclusionComponent implements OnInit {
 
   constructor() { }
   private conclusion: Conclusion;
+  public editorOptions = {
+    placeholder: '...',
+    theme: 'snow'
+  };
 
   ngOnInit() {
     this.conclusion = new Conclusion();

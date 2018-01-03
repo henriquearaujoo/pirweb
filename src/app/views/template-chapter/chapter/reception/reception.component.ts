@@ -13,23 +13,37 @@ import { Chapter } from '../../../../models/chapter';
 
 export class ReceptionComponent implements OnInit {
 
-  private reception: Reception =  new Reception();
+  private reception: Reception;
   public isNewData = true;
   public chapter: string;
+  private btn_cancel: boolean;
 
   @Output() returnEvent = new EventEmitter();
   @Output() cancelEvent = new EventEmitter();
 
+  public editorOptions = {
+    placeholder: '...',
+    theme: 'snow'
+  };
+
   onCancel() {
     this.cancelEvent.emit();
+    this.btn_cancel = true;
   }
 
 
   constructor(private service: ReceptionService, private toast: ToastService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.btn_cancel = false;
+    this.reception = new Reception();
+   }
 
   saveData() {
+    if (this.btn_cancel) {
+      this.btn_cancel = false;
+      return false;
+    }
     if ( this.chapter === undefined) {
       this.returnEvent.emit(false);
       return;
@@ -67,6 +81,10 @@ export class ReceptionComponent implements OnInit {
     this.service.load(chapter).subscribe(
       s => {
         this.reception = s[0];
+        console.log('Load:', this.reception);
+        if (this.reception === undefined) {
+          this.reception = new Reception();
+        }
       },
       e => {
         console.log('error: ' + e);
