@@ -45,9 +45,11 @@ export class ConclusionService extends RestService {
     return this.put(currentURL, answer);
   }
 
-  public getAnswer(question_id?: string) {
-    const currentURL = this.apiurl + 'question/answer/search?question=' + question_id;
-    return this.get(currentURL);
+  public getAnswer(question_id?: string, page?: number) {
+     const currentURL = this.apiurl + 'question/answer/search?question=' + question_id;
+    //  const currentURL = this.apiurl + 'question/answer/search/page/?page=' + page + '&question=' + question_id;
+     return this.get(currentURL);
+
   }
 
   public deleteAnswer(answer_id: string): Observable<Answer> {
@@ -71,7 +73,7 @@ export class ConclusionService extends RestService {
     //   const currentURL = this.apiurl + 'question/search/page?sort=description,asc';
     // return this.get(currentURL);
     // }
-    const currentURL = this.apiurl + 'question/search/page?size=' + size + '&conclusion=' + conclusion_id + '&sort=description,asc';
+    const currentURL = this.apiurl + 'question/search/page?size=' + size + '&conclusion=' + conclusion_id + '&sort=id,asc';
     return this.get(currentURL);
   }
 
@@ -81,7 +83,7 @@ export class ConclusionService extends RestService {
   }
 
   public loadQuestion(question_id: string) {
-    return this.get(this.apiurl + 'question/search/page?id=' + question_id + '&sort=description,asc');
+    return this.get(this.apiurl + 'question/search/page?id=' + question_id + '&sort=id,asc');
   }
 }
 

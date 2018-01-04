@@ -11,7 +11,7 @@
                 <div class="col-sm-12">
                     <div class="box box-primary">
                       <div class="box-body">
-                        <div class="form-group" [ngClass]="applyCssError(fQuestion, description)">
+                        <div class="form-group" [ngClass]="applyCssError(fQuestion, type)">
                           <label class="control-label"> Tipo</label>
                           <select class="form-control" name="type" id="question_type" [(ngModel)] ="question.type" 
                             #type="ngModel" required>

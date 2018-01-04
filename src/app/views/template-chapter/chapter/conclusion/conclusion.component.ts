@@ -6,6 +6,7 @@ import { ConclusionService } from '../../../../services/conclusion/conclusion.se
 import { ToastService } from '../../../../services/toast-notification/toast.service';
 import { QuestionComponent } from './question/question.component';
 import { Paginate } from '../../../../models/paginate';
+import { Answer } from '../../../../models/answer';
 
 @Component({
   selector: 'app-conclusion',
@@ -29,6 +30,8 @@ export class ConclusionComponent implements OnInit {
   private paginate: Paginate = new Paginate();
   private hasdata: boolean;
   private size: number;
+  private answers: Answer[] = new Array();
+  private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
 
   public editorOptions = {
     placeholder: '...',
@@ -125,24 +128,59 @@ export class ConclusionComponent implements OnInit {
     }
   }
 
+  getAnswers(question: Question) {
+    console.log('question.id:', question);
+    this.conclusionService.getAnswer(question.id).subscribe(
+      success => {
+       //  this.paginate = success;
+       //  this.answers = this.paginate.content;
+        this.answers = success;
+        console.log('ANSWERS2:', this.answers);
+      },
+      error => {
+         console.log(error);
+      }
+    );
+  }
+
   createNewQuestion() {
     this.add_question = true;
     this.isNewQuestion = true;
   }
 
-  onEdit(event) {
-    if (event) {
-      this.add_question = true;
-      const q = localStorage.getItem('questionId');
-      console.log('CONCLUSION: onEdit()questionId', q);
-      this.question.load(q);
-    }
+  // onEdit(event) {
+  //   if (event) {
+  //     this.add_question = true;
+  //     const q = localStorage.getItem('questionId');
+  //     console.log('CONCLUSION: onEdit()questionId', q);
+  //     this.question.load(q);
+  //   }
+  // }
+
+  // onDelete(event) {
+  //   if (event) {
+  //     this.getQuestions();
+  //   }
+  // }
+
+  onEdit(question: Question) {
+    localStorage.setItem('questionId', question.id);
+    this.add_question = true;
+    const q = localStorage.getItem('questionId');
+    console.log('CONCLUSION: onEdit()questionId', q);
+      this.question.load(question.id);
   }
 
-  onDelete(event) {
-    if (event) {
-      this.getQuestions();
-    }
+  onDelete(question: Question) {
+    console.log('Delete!');
+    this.conclusionService.deleteQuestion(question.id).subscribe(
+      success => {
+        this.toastService.toastMsg('Sucesso', 'Informações excluídas com sucesso');
+        // this.isDelete.emit(true);
+        this.getQuestions();
+      },
+      error => console.log(error)
+    );
   }
 
   onCancel() {

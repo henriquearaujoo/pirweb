@@ -1,11 +1,12 @@
 import { PagenateComponent } from './../../../../../../components/pagenate/pagenate.component';
 import { Paginate } from '../../../../../../models/paginate';
 import { Answer } from './../../../../../../models/answer';
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { ConclusionService } from '../../../../../../services/conclusion/conclusion.service';
 import { ToastService } from '../../../../../../services/toast-notification/toast.service';
 import { Question } from '../../../../../../models/question';
 import { PageService } from '../../../../../../services/pagenate/page.service';
+import { PaginateComponent } from '../../../../../../components/paginate/paginate.component';
 
 @Component({
   selector: 'app-answer-list',
@@ -14,7 +15,6 @@ import { PageService } from '../../../../../../services/pagenate/page.service';
 })
 export class AnswerListComponent extends PagenateComponent implements OnInit {
 
-  private paginate: Paginate = new Paginate();
   private answer: Answer = new Answer();
   private answerEdit: Answer = new Answer();
   private answers: Answer[] = new Array();
@@ -27,6 +27,7 @@ export class AnswerListComponent extends PagenateComponent implements OnInit {
   page: number;
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
   private index: number;
+  private paginate: Paginate = new Paginate();
 
   constructor(
     private conclusionService: ConclusionService,
@@ -48,7 +49,6 @@ export class AnswerListComponent extends PagenateComponent implements OnInit {
     this.conclusionService.getAnswer(this.question.id).subscribe(
       success => {
         // this.paginate = success;
-        console.log('Paginate:', this.paginate);
         // this.answers = this.paginate.content;
         this.answers = success;
         this.index = 1;

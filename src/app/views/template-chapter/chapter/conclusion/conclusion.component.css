@@ -101,10 +101,7 @@ i.fa.fa-plus {
     padding-right: 10px;
 }
 
-/* .navbar-custom-menu{   
-    padding-right: 30px;
-    float: right;
-} */
+
 /* END HEADER */
 
 /* PAGINATe*/
@@ -118,4 +115,77 @@ i.fa.fa-plus {
 
 .col-sm-6.actions {
     text-align: right;
+}
+
+/**** QUESTIONS LIST ****/
+.col-sm-3.question, .col-sm-2.question {
+    padding-top: 8px;
+}
+
+.actions {
+    float: right;
+}
+
+.col-sm-3.question.number {
+    font-weight: bold;
+    font-size: 16px;
+    color: #6d6c6c;
+}
+
+button.btn.remove, button.btn.edit {
+    border-radius: 100px;
+    width: 90px;
+}
+
+button.btn.edit {
+    margin-right: 15px;
+}
+
+h5.modal-title {
+    font-weight: bold;
+    font-size: 16px;
+    color: #777;
+}
+
+i.fa.fa-pencil, i.fa.fa-remove {
+    padding-right: 6px;
+}
+
+/* CARDS */
+.card.horizontal.card-stacked.card-content {
+    padding: 0;
+    padding-top: 22px;
+}
+
+.card.horizontal {
+    margin-bottom: 22px;
+    box-shadow: none;
+    border: 1px solid #ccc;
+    border-radius: 0.5em;
+    padding: 20px 30px 20px 30px;
+}
+
+/* MODAL */
+div#modal-answer {
+    height: 300px;
+    width: 450px;
+}
+
+.modal-header.answer {
+    background-color: #ccc;
+    text-align: center;
+    height: 50px;
+}
+
+.box.box-primary.answers {
+    background-color: white;
+}
+
+.box.box-primary.answers.box-body {
+    padding: 0;
+}
+
+.table.tbl-answers > thead > tr > th, .table.tbl-answers > tbody > tr > td {
+    text-align: center;
+    color: #777;
 }

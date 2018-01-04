@@ -23,28 +23,21 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <!-- Custom Tabs -->
-                    <div class="box box-primary">
-                        <div class="box-header">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="box-title">Questões</div>
-                                </div>
-                                <div class="col-sm-6 actions">
-                                    <button class="btn btn-primary add"
-                                        (click)="createNewQuestion()" [disabled]="!hasdata">
-                                        <i class="fa fa-plus fa-lg"></i>ADICIONAR QUESTÃO
-                                    </button>
-                                </div>
-                            </div>                            
-                        </div>                        
-                            <!-- <div class="paginate" *ngIf="paginate.size < paginate.totalElements">
-                                <button class="btn btn-default" (click)="setPage()">Carregar mais capítulos</button>
-                            </div>
-                            <div class="paginate" *ngIf="paginate.size > paginate.totalElements">
-                                <span class="btn btn-default" disabled> Não há mais capítulos</span>
-                            </div> -->
+                        <div class="box box-primary">
+                            <div class="box-header">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="box-title">Questões</div>
+                                    </div>
+                                    <div class="col-sm-6 actions">
+                                        <button class="btn btn-primary add"
+                                            (click)="createNewQuestion()" [disabled]="!hasdata">
+                                            <i class="fa fa-plus fa-lg"></i>ADICIONAR QUESTÃO
+                                        </button>
+                                    </div>
+                                </div>                            
+                            </div> 
                         </div>
-                       
                     </div>
                     <!-- col -->
                 </div>
@@ -52,9 +45,29 @@
             </div>
             <div class="box-body">
                     <div *ngIf="!add_question">
-                        <div *ngFor="let item of questions; let i = index">
-                            <app-question-item [question]="item" [index]="i + 1" (isEdit)="onEdit($event)" 
-                                (isDelete)="onDelete($event)" ></app-question-item>
+                        <div *ngFor="let item of questions; let i = index">                          
+                            <div class="card horizontal">
+                                <div class="card-stacked">
+                                    <div class="card-content">
+                                    <div class="row">
+                                        <div class="col-sm-3 question number">Questão {{ i + 1 }} </div>
+                                        <div class="col-sm-3 question" [innerHTML]="item.description"></div>
+                                        <div class="col-sm-2 question">
+                                            <a href="" title="Ver Respostas" (click)="getAnswers(item)" data-toggle="modal" 
+                                            data-target="#ans" id="answs" *ngIf="item.answers">
+                                            Respostas 
+                                            </a>   
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="actions">                                
+                                                <button class="btn btn-primary edit" (click)="onEdit(item)"> <i class="fa fa-pencil"></i>Editar</button>
+                                                <button class="btn btn-primary remove" (click)="onDelete(item)"><i class="fa fa-remove"></i>Deletar</button>
+                                            </div>
+                                        </div>                                        
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="paginate" *ngIf="paginate.size < paginate.totalElements">
                             <button class="btn btn-default" (click)="setPageQuestion()">Carregar mais questões</button>
@@ -82,4 +95,44 @@
                 </div>
         </form>
     </section>
+</div>
+
+
+  <!-- Modal -->
+<div class="modal fade" id="ans" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" [ngStyle]="object">
+            <div class="modal-header answer">
+                <h5 class="modal-title"> RESPOSTAS </h5>
+            </div>
+            <div class="modal-body">               
+                <div class="box box-primary answers">         
+                    <div class="box-body">
+                        <table id="example2" class="table table-hover tbl-answers ">
+                            <thead>
+                                <tr>
+                                    <th>NÚMERO </th> 
+                                    <th>RESPOSTA
+                                        <span class="glyphicon" ></span>
+                                    </th>                                      
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let an of answers; let i = index">
+                                    <td>
+                                        {{ i + 1 }}
+                                    </td>
+                                    <td [innerHTML]="an.description"></td> 
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>        
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
 </div>

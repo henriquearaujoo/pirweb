@@ -18,11 +18,15 @@
             <!-- </div> -->
             <div class="actions">
               <!-- <div class="answer" *ngIf="answers.length !== 0"> -->
-                <a title="Ver Respostas" 
-                  class="waves-effect waves-light modal-trigger" data-toggle="modal" 
-                  data-target="#exampleModal" id="answs">
+                <a title="Ver Respostas" (click)="getAnswers()" data-toggle="collapse" 
+                  data-target="#ans" id="answs">
                   Respostas 
                 </a>
+                <div id="ans" class="collapse">
+                    <div *ngFor="let a of answers">
+                        <span [innerHTML]="a.description"></span>
+                    </div>
+                </div>
               <!-- </div> -->
               <button class="btn edit" (click)="onEdit()"> <i class="fa fa-pencil"></i>Editar</button>
               <button class="btn remove" (click)="onDelete()"><i class="fa fa-remove"></i>Deletar</button>
@@ -53,10 +57,10 @@
           <div *ngFor="let a of answers">
                 <span [innerHTML]="a.description"></span>
             </div>
+
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-secondary" (click)="close()" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
