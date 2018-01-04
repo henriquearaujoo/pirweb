@@ -65,7 +65,7 @@ export class AnswerListComponent extends PagenateComponent implements OnInit {
 
   saveData() {
     if (this.answer.description === null || this.answer.description === undefined) {
-      this.toastService.toastMsgError('Atenção', 'Descrição da resposta não pode estar em branco');
+      this.toastService.toastMsgError('Erro', 'Descrição da resposta é um campo obrigatório!');
       this.getAnswers();
       return false;
     }
@@ -79,12 +79,17 @@ export class AnswerListComponent extends PagenateComponent implements OnInit {
           this.getAnswers();
         },
         error => {
+          if ( error === 'answer.exists') {
+            this.toastService.toastMsgWarn('Atenção', 'Resposta já está cadastrada');
+          } else {
+            this.toastService.toastError();
+          }
           console.log('error save:', error);
         }
       );
     } else {
       if (this.answer.description === null || this.answer.description === undefined) {
-        this.toastService.toastMsgError('Atenção', 'Descrição da resposta não pode estar em branco');
+        this.toastService.toastMsgError('Erro', 'Descrição da resposta é um campo obrigatório!');
         this.getAnswers();
         return false;
       }
@@ -94,6 +99,11 @@ export class AnswerListComponent extends PagenateComponent implements OnInit {
           this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso');
         },
         error => {
+          if ( error === 'answer.exists') {
+            this.toastService.toastMsgWarn('Atenção', 'Resposta já está cadastrada');
+          } else {
+            this.toastService.toastError();
+          }
           console.log('error save:', error);
         }
       );
@@ -131,10 +141,13 @@ export class AnswerListComponent extends PagenateComponent implements OnInit {
     console.log('Delete!', answer);
    this.conclusionService.deleteAnswer(answer.id).subscribe(
      success => {
-       this.toastService.toastMsg('Sucesso', 'Informações excluídas com sucesso');
+       this.toastService.toastSuccess();
        this.getAnswers();
      },
-     error => console.log(error)
+     error => {
+       this.toastService.toastError();
+       console.log(error);
+      }
    );
   }
 

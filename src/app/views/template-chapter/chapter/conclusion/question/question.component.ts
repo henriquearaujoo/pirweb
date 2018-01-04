@@ -49,7 +49,14 @@ export class QuestionComponent implements OnInit {
           console.log('Question ID:', localStorage.getItem('questionId'));
           this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
         },
-        error => console.log(error)
+        error => {
+          if ( error === 'question.exists') {
+            this.toastService.toastMsgWarn('Atenção', 'Questão já está cadastrada');
+          } else {
+            this.toastService.toastError();
+          }
+          console.log(error);
+        }
       );
      } else {
       this.conclusionService.updateQuestion(this.question).subscribe(
@@ -58,9 +65,13 @@ export class QuestionComponent implements OnInit {
           this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso');
           console.log('saved with success!', this.question);
         },
-        e => {
-          this.toastService.toastError();
-          console.log('error update: ' + e);
+        error => {
+          if ( error === 'question.exists') {
+            this.toastService.toastMsgWarn('Atenção', 'Questão já está cadastrada');
+          } else {
+            this.toastService.toastError();
+          }
+          console.log('error update: ' + error);
         }
       );
     }

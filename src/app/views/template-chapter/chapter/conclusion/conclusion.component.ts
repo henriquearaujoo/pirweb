@@ -71,9 +71,13 @@ export class ConclusionComponent implements OnInit {
             this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
             console.log('saved with success!', this.conclusion);
           },
-          e => {
-            this.toastService.toastError();
-            console.log('error save: ' + e);
+          error => {
+            if ( error[0] === 'chapter.conclusion.chapter.missing') {
+              this.toastService.toastErrorChapterId();
+            } else {
+              this.toastService.toastError();
+            }
+            console.log('error save: ', error);
           }
         );
       } else {
@@ -84,9 +88,13 @@ export class ConclusionComponent implements OnInit {
             this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso');
             console.log('updated with success!', this.conclusion);
           },
-          e => {
-            this.toastService.toastError();
-            console.log('error update: ' + e);
+          error => {
+            if ( error[0] === 'chapter.conclusion.chapter.missing') {
+              this.toastService.toastErrorChapterId();
+            } else {
+              this.toastService.toastError();
+            }
+            console.log('error update: ', error);
           }
         );
       }
@@ -175,11 +183,13 @@ export class ConclusionComponent implements OnInit {
     console.log('Delete!');
     this.conclusionService.deleteQuestion(question.id).subscribe(
       success => {
-        this.toastService.toastMsg('Sucesso', 'Informações excluídas com sucesso');
-        // this.isDelete.emit(true);
+        this.toastService.toastSuccess();
         this.getQuestions();
       },
-      error => console.log(error)
+      error => {
+        this.toastService.toastError();
+        console.log(error);
+      }
     );
   }
 

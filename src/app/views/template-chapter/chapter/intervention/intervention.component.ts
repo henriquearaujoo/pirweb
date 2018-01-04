@@ -47,7 +47,11 @@ export class InterventionComponent implements OnInit {
           console.log('saved with success!');
         },
         e => {
-          this.toastService.toastError();
+          if ( e[0] === 'chapter.intervention.chapter.missing') {
+            this.toastService.toastErrorChapterId();
+          } else {
+            this.toastService.toastError();
+          }
           console.log('error: ' + e);
         }
       );

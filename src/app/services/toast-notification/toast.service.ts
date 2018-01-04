@@ -29,6 +29,15 @@ export class ToastService {
       });
     }
 
+    toastMsgWarn(title: string, msg: string, timeOut?: number, clickClose?: boolean, pauseOnHover?: boolean) {
+      this.toastService.warn(title, msg, {
+        timeOut: 3000,
+        showProgressBar: true,
+        pauseOnHover:  true,
+        clickToClose: true
+      });
+    }
+
     toastMsgError(title: string, msg: string, timeOut?: number, clickClose?: boolean, pauseOnHover?: boolean) {
       this.toastService.error(title, msg, {
         timeOut: 3000,
@@ -39,7 +48,7 @@ export class ToastService {
     }
 
     toastErrorChapterId() {
-      this.toastService.error('Erro!', 'Salve as informações do cápitulo para poder registar as outras informações', {
+      this.toastService.error('Erro!', 'Salve as informações do capítulo para poder registar as outras informações', {
         timeOut: 3000,
         showProgressBar: true,
         pauseOnHover: true,
