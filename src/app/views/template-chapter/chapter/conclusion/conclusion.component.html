@@ -60,7 +60,7 @@
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="actions">                                
-                                                <button class="btn btn-primary edit" (click)="onEdit(item)"> <i class="fa fa-pencil"></i>Editar</button>
+                                                <button class="btn btn-primary edit" (click)="onEdit(item, i)"> <i class="fa fa-pencil"></i>Editar</button>
                                                 <button class="btn btn-primary remove" (click)="onDelete(item)"><i class="fa fa-remove"></i>Deletar</button>
                                             </div>
                                         </div>                                        
@@ -79,7 +79,7 @@
                 </div>
             
                 <div>
-                    <app-question #question [conclusion]="conclusion" [isNewData]="isNewQuestion" [addQuestion]="add_question" (cancel)="onCancelAddAnswer($event)"></app-question>
+                    <app-question #question [index]="index" [conclusion]="conclusion" [isNewData]="isNewQuestion" [addQuestion]="add_question" (cancel)="onCancelAddAnswer($event)"></app-question>
                 </div>
                 <div class="row footer">
                     <div class="col-md-2">

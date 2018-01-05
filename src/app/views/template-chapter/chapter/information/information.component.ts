@@ -19,6 +19,7 @@ export class InformationComponent implements OnInit {
   public isNewData = true;
   public number: number;
   private btn_cancel: boolean;
+  private lastVersion: any;
 
   @Output() returnEvent = new EventEmitter();
   @Output() cancelEvent = new EventEmitter();
@@ -42,6 +43,7 @@ export class InformationComponent implements OnInit {
 
   ngOnInit() {
     this.btn_cancel = false;
+    this.lastVersion = localStorage.getItem('lastVersion');
   }
 
   getNextChapterNumber() {
@@ -65,6 +67,7 @@ export class InformationComponent implements OnInit {
         s => {
           this.returnEvent.emit(s);
           this.isNewData  = false;
+          this.chapter.version = this.lastVersion;
           console.log('saved with success!');
         },
         e => {

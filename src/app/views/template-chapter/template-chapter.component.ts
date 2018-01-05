@@ -145,6 +145,7 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
   }
 
   createNewChapter() {
+    localStorage.removeItem('lastVersion');
     this.router.navigate(['chapter-dashboard']);
   }
 

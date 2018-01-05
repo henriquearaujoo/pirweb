@@ -82,8 +82,23 @@ export class ChapterDashboardComponent implements OnInit {
     this.information.getNextChapterNumber().subscribe(
       success => {
         this.chapterList = success;
+
+        const hash = {};
+        this.chapterList = this.chapterList.filter(chapter => {
+          const exists = !hash[chapter.number] || false;
+          hash[chapter.number] = true;
+          return exists;
+        });
+
         this.chapter.number = this.chapterList.length + 1;
-        this.currentChapter = this.chapter.number;
+        // * VERSION *
+        const chapterNumber = localStorage.getItem('chapterNumber');
+        if (chapterNumber) {
+          this.currentChapter = chapterNumber;
+          localStorage.removeItem('chapterNumber');
+        } else {
+          this.currentChapter = this.chapter.number;
+        }
         this.information.number = this.currentChapter;
       },
       e => {

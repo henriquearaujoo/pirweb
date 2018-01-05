@@ -21,6 +21,7 @@ export class TemplateChapterItemComponent implements OnInit {
   private paginate: Paginate = new Paginate();
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
   private currentVersion: Chapter;
+  private lastVersion: any;
 
   constructor(
     private router: Router,
@@ -57,6 +58,7 @@ export class TemplateChapterItemComponent implements OnInit {
           }
           this.currentVersion = this.chapter.versions[i];
         }
+        this.lastVersion = this.chapter.versions.length;
         console.log(this.chapter.versions);
       }
     );
@@ -69,9 +71,13 @@ export class TemplateChapterItemComponent implements OnInit {
   }
 
    addVersion(chapter: Chapter) {
-    localStorage.setItem('chapterNumber', chapter.number.toString() );
-    console.log('chapterNumber', localStorage.getItem('chapterNumber'));
-    this.router.navigate(['chapter-dashboard']);
+     if (chapter.percentage !== 100) {
+       this.toastService.toastMsgWarn('Atenção', 'Você precisa concluir a versão atual do capítulo para adicionar outra versão!');
+     } else {
+      localStorage.setItem('chapterNumber', chapter.number.toString() );
+      localStorage.setItem('lastVersion', this.lastVersion );
+      this.router.navigate(['chapter-dashboard']);
+     }
    }
 
    disableAbleVersion(chapter: Chapter) {

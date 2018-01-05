@@ -198,9 +198,19 @@ export class UserComponent implements OnInit {
             this.toastService.toastErrorValid('CPF');
             break;
           }
-          case 'user.type.pjur.cnpj.valid': {
+          case 'user.type.pfis.cpf.invalid': {
             console.log(er);
             this.toastService.toastErrorValid('CPF');
+            break;
+          }
+          case 'user.type.pjur.cnpj.valid': {
+            console.log(er);
+            this.toastService.toastErrorValid('CNPJ');
+            break;
+          }
+          case 'user.type.pjur.cnpj.invalid': {
+            console.log(er);
+            this.toastService.toastErrorValid('CNPJ');
             break;
           }
           case 'user.type.pfis.rg.short': {

@@ -29,6 +29,11 @@ export class AnswerListComponent extends PagenateComponent implements OnInit {
   private index: number;
   private paginate: Paginate = new Paginate();
 
+  public editorOptions = {
+    placeholder: '...',
+    theme: 'snow'
+  };
+
   constructor(
     private conclusionService: ConclusionService,
     private toastService: ToastService,

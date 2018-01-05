@@ -32,6 +32,7 @@ export class ConclusionComponent implements OnInit {
   private size: number;
   private answers: Answer[] = new Array();
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
+  private index: number;
 
   public editorOptions = {
     placeholder: '...',
@@ -42,7 +43,7 @@ export class ConclusionComponent implements OnInit {
     private conclusionService: ConclusionService,
     private toastService: ToastService
   ) {
-    this.size = 1;
+    this.size = 10;
    }
 
   ngOnInit() {
@@ -129,7 +130,7 @@ export class ConclusionComponent implements OnInit {
           this.paginate = success;
           this.questions = this.paginate.content;
           console.log('CONCLUSION:', this.conclusion.id);
-          console.log('QUESTIONS:', this.questions);
+          console.log('QUESTIONS PAGINATE:', this.paginate);
         },
         error => console.log(error)
       );
@@ -154,6 +155,9 @@ export class ConclusionComponent implements OnInit {
   createNewQuestion() {
     this.add_question = true;
     this.isNewQuestion = true;
+    if (this.paginate !== undefined) {
+      this.index = this.paginate.totalElements + 1;
+    }
   }
 
   // onEdit(event) {
@@ -171,12 +175,14 @@ export class ConclusionComponent implements OnInit {
   //   }
   // }
 
-  onEdit(question: Question) {
+  onEdit(question: Question, index) {
     localStorage.setItem('questionId', question.id);
+    index = index + 1;
+    localStorage.setItem('questionIndex', index);
     this.add_question = true;
-    const q = localStorage.getItem('questionId');
-    console.log('CONCLUSION: onEdit()questionId', q);
-      this.question.load(question.id);
+    // const q = localStorage.getItem('questionId');
+    // console.log('CONCLUSION: onEdit()questionId', q);
+    this.question.load(question.id);
   }
 
   onDelete(question: Question) {
@@ -212,7 +218,7 @@ export class ConclusionComponent implements OnInit {
   }
 
   setPageQuestion() {
-    this.size = this.size + 1 ;
+    this.size = this.size + 10 ;
     this.getQuestions();
   }
 

@@ -5,6 +5,7 @@
 
 .box-header {
     border-bottom: 1px solid #ddd;
+    padding-top: 0;
 }
 
 .box-title {
@@ -35,59 +36,9 @@
     padding-left: 35px;
 }
 
-/* TABS */
-/* .nav-tabs-custom {
-    padding-left: 30px;
-    padding-top: 20px;
-    background-color: #f4f4f4;
+label.control-label {
+    padding-left: 10px;
 }
-.nav-tabs-custom > .tab-content {
-    padding: 0;
-}
-.nav-tabs-custom > .nav-tabs > li.active > a {
-    background-color: #f4f4f4;
-    border-top: 1px solid #ccc;
-}
-
-.nav[_ngcontent-c5] > li[_ngcontent-c5] > a[_ngcontent-c5]{
-    padding: 10px 10px 10px 0px;
-}
-
-.nav-tabs-custom > .nav-tabs > li {
-    margin-right: 35px;
-}
-.nav-tabs-custom > .nav-tabs > li.active {
-    border-top-color: #3c8dbc00;
-}
-li._all {
-    border-bottom: 3px solid #373d40;;
-}
-li._active {
-    border-bottom: 3px solid #58c537;
-}
-
-li._inactive {
-    border-bottom: 3px solid #a60000;
-}
-
-i.fa.fa-circle {
-    padding-right: 8px;
-    font-size: 11px;
-}
-
-i.fa.fa-circle.active_circle {
-    color: #58c537;
-}
-
-i.fa.fa-circle.inactive_circle {
-    color: #a60000;
-}
-
-.nav > li > a {
-    padding: 10px 0px;
-} */
-/* END TABS*/
-
 
 /* HEADER */
 
@@ -95,6 +46,7 @@ button.btn.btn-primary.add {
     border-radius: 1em;
     font-size: 12px;
     padding: 8px 10px;
+    margin-right: 10px;
 }
 
 i.fa.fa-plus {
@@ -159,6 +111,8 @@ i.fa.fa-pencil, i.fa.fa-remove {
 
 .card.horizontal {
     margin-bottom: 22px;
+    margin-left: 10px;
+    margin-right: 10px;
     box-shadow: none;
     border: 1px solid #ccc;
     border-radius: 0.5em;

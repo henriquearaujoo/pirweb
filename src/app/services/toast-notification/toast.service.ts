@@ -31,7 +31,7 @@ export class ToastService {
 
     toastMsgWarn(title: string, msg: string, timeOut?: number, clickClose?: boolean, pauseOnHover?: boolean) {
       this.toastService.warn(title, msg, {
-        timeOut: 3000,
+        timeOut: 3100,
         showProgressBar: true,
         pauseOnHover:  true,
         clickToClose: true

@@ -6,6 +6,7 @@ import { ToastService } from '../../../../../services/toast-notification/toast.s
 import { Conclusion } from '../../../../../models/conclusion';
 import { Paginate } from '../../../../../models/paginate';
 import { AnswerListComponent } from './answer-list/answer-list.component';
+import index from 'quill';
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
@@ -23,6 +24,8 @@ export class QuestionComponent implements OnInit {
   private paginate: Paginate = new Paginate();
   @ViewChild('answer')
   answer: AnswerListComponent;
+  @Input() private index: any;
+  private indexEdit: any;
 
   public editorOptions = {
     placeholder: '...',
@@ -45,8 +48,8 @@ export class QuestionComponent implements OnInit {
         success => {
           this.question = success;
           this.isNewData  = false;
+          this.indexEdit = this.index;
           localStorage.setItem('questionId', this.question.id);
-          console.log('Question ID:', localStorage.getItem('questionId'));
           this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
         },
         error => {
@@ -83,6 +86,7 @@ export class QuestionComponent implements OnInit {
         this.paginate = success;
           this.question = this.paginate.content[0];
           this.isNewData = false;
+          this.indexEdit = localStorage.getItem('questionIndex');
           console.log('LoadQuestion:', this.question);
           this.answer.getAnswers();
           if (this.question === undefined) {

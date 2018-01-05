@@ -55,10 +55,17 @@
     <div class="box-footer"> 
       <div class="row">
         <div class="col-sm-6 pagination1" *ngIf="answers.length">
-            Exibindo <strong>{{ pager.currentPage === 1 ? 1 : (pager.currentPage * 10) - 9 }} </strong> - 
-            <strong>{{ pager.currentPage === pager.totalPages ? answers.length : ((pager.currentPage * 10) ) }} </strong> 
-            de <strong>{{ answers.length }} </strong>
-        </div>
+          <div class="pag1" *ngIf="answers.length > 10">
+              Exibindo <strong>{{ pager.currentPage === 1 ? 1 : (pager.currentPage * 10) - 9 }} </strong> - 
+              <strong>{{ pager.currentPage === pager.totalPages ? answers.length : (pager.currentPage * 10)  }} </strong> 
+              &nbsp;de &nbsp;<strong>{{ answers.length }} </strong>
+          </div>
+          <div class="pag2" *ngIf="answers.length <= 10">
+              Exibindo <strong>{{ pager.currentPage === 1 ? 1 : (pager.currentPage * 10) - 9 }} </strong> - 
+              <strong>{{ answers.length }} </strong> 
+              &nbsp;de&nbsp; <strong>{{ answers.length }} </strong>
+          </div>            
+        </div>      
         <div class="col-sm-6 pagination2">
             <app-paginate [paginate]="paginate" (eventPage)="setPage($event)"></app-paginate>
             <ul *ngIf="pager.pages && pager.pages.length" class="pagination stylepage">
