@@ -43,7 +43,7 @@ export class ConclusionComponent implements OnInit {
     private conclusionService: ConclusionService,
     private toastService: ToastService
   ) {
-    this.size = 10;
+    this.size = 5;
    }
 
   ngOnInit() {
@@ -160,21 +160,6 @@ export class ConclusionComponent implements OnInit {
     }
   }
 
-  // onEdit(event) {
-  //   if (event) {
-  //     this.add_question = true;
-  //     const q = localStorage.getItem('questionId');
-  //     console.log('CONCLUSION: onEdit()questionId', q);
-  //     this.question.load(q);
-  //   }
-  // }
-
-  // onDelete(event) {
-  //   if (event) {
-  //     this.getQuestions();
-  //   }
-  // }
-
   onEdit(question: Question, index) {
     localStorage.setItem('questionId', question.id);
     index = index + 1;
@@ -218,7 +203,7 @@ export class ConclusionComponent implements OnInit {
   }
 
   setPageQuestion() {
-    this.size = this.size + 10 ;
+    this.size = this.size + 5 ;
     this.getQuestions();
   }
 

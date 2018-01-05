@@ -9,7 +9,7 @@
             </div>
             <div class="row">              
                 <div class="col-sm-12">
-                    <div class="box box-primary">
+                    <div class="box box-primary question">
                       <div class="box-body">
                         <div class="form-group" [ngClass]="applyCssError(fQuestion, type)">
                           <label class="control-label"> Tipo</label>
@@ -45,7 +45,7 @@
               </div>
             </div>       
         </form>
-        <div class="row">
+        <div class="row list-answers">
           <div class="col-sm-12">
             <div class="title-answer"> Respostas</div>
               <app-answer-list #answer [question]="question" (cancel)="onCancelAddAnswer($event)"></app-answer-list>   

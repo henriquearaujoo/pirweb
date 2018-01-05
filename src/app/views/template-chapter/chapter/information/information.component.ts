@@ -44,6 +44,9 @@ export class InformationComponent implements OnInit {
   ngOnInit() {
     this.btn_cancel = false;
     this.lastVersion = localStorage.getItem('lastVersion');
+    if (!this.lastVersion) {
+      this.lastVersion = 0;
+    }
   }
 
   getNextChapterNumber() {

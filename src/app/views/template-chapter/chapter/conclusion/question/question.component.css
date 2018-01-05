@@ -11,6 +11,11 @@ section.content {
     min-width: 90px;
 }
 
+.box.box-primary.question {
+    padding-left: 18px;
+    padding-right: 18px;
+}
+
 .btn-primary {
     /* width: 100px; */
     background-color: #373d40;
@@ -29,6 +34,10 @@ section.content {
     color: gray;
 }
 
+.title-answer {
+    padding-bottom: 5px;
+}
+
 .box.box-primary {
     border-top: 1px solid #ddd;
 }
@@ -41,9 +50,14 @@ section.content {
 
 .col-sm-12.save {
     text-align: right;
-    padding-right: 15px;
+    padding-right: 34px;
 }
 
 .modal-header.answer {
     background-color: #ccc;
+}
+
+.row.list-answers {
+    padding-left: 20px;
+    padding-right: 20px;
 }
