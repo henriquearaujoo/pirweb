@@ -1,3 +1,4 @@
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { ReceptionService } from './services/reception/reception.service';
 import { InterventionService } from './services/intervention/intervention.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -122,6 +123,8 @@ import { ModalWaitingAnswerComponent } from './components/modal-waiting-answer/m
 import { ConclusionService } from './services/conclusion/conclusion.service';
 import { QuestionComponent } from './views/template-chapter/chapter/conclusion/question/question.component';
 import { AnswerListComponent } from './views/template-chapter/chapter/conclusion/question/answer-list/answer-list.component';
+import { LoaderComponent } from './components/loader/loader.component';
+import { LoaderService } from './services/loader/loader.service';
 
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
@@ -176,7 +179,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     UserAddressComponent,
     ConclusionComponent,
     InformationComponent,
-    ModalWaitingAnswerComponent
+    ModalWaitingAnswerComponent,
+    LoaderComponent
 
   ],
   imports: [
@@ -229,7 +233,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     CKEditorModule,
     QuillEditorModule,
     // FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
-    ToastyModule.forRoot()
+    ToastyModule.forRoot(),
+    NgxSpinnerModule
   ],
   providers: [
     RestService,
@@ -249,7 +254,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ReceptionService,
     UserDetailsComponent,
     TemplateChapterItemComponent,
-    ConclusionService
+    ConclusionService,
+    LoaderService
   ],
   bootstrap: [AppComponent]
 })

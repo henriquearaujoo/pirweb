@@ -44,6 +44,7 @@ export class ConclusionComponent implements OnInit {
     private toastService: ToastService
   ) {
     this.size = 5;
+    this.index = 0;
    }
 
   ngOnInit() {
@@ -66,6 +67,7 @@ export class ConclusionComponent implements OnInit {
         this.conclusionService.insert(this.conclusion).subscribe(
           s => {
             this.isNewData  = false;
+            this.index = 0;
             this.conclusion = s;
             this.hasdata = true;
             this.btn_save = false;
@@ -153,10 +155,15 @@ export class ConclusionComponent implements OnInit {
   }
 
   createNewQuestion() {
+    this.getQuestions();
     this.add_question = true;
     this.isNewQuestion = true;
-    if (this.paginate !== undefined) {
+    if (this.paginate.totalElements !== undefined) {
+      console.log('paginate1:', this.paginate.totalElements);
       this.index = this.paginate.totalElements + 1;
+    } else {
+      console.log('paginate2:', this.paginate.totalElements);
+      this.index = 1;
     }
   }
 

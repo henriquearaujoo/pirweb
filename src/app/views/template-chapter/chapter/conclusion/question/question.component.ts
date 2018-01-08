@@ -24,8 +24,8 @@ export class QuestionComponent implements OnInit {
   private paginate: Paginate = new Paginate();
   @ViewChild('answer')
   answer: AnswerListComponent;
-  @Input() private index: any;
-  private indexEdit: any;
+  @Input() private index: number;
+  private indexEdit: number;
 
   public editorOptions = {
     placeholder: '...',
@@ -35,7 +35,9 @@ export class QuestionComponent implements OnInit {
   constructor(
     private conclusionService: ConclusionService,
     private toastService: ToastService
-  ) { }
+  ) {
+    this.index = 0;
+  }
 
   ngOnInit() {
     this.btn_cancel = false;
@@ -86,7 +88,7 @@ export class QuestionComponent implements OnInit {
         this.paginate = success;
           this.question = this.paginate.content[0];
           this.isNewData = false;
-          this.indexEdit = localStorage.getItem('questionIndex');
+          this.indexEdit = Number(localStorage.getItem('questionIndex'));
           console.log('LoadQuestion:', this.question);
           this.answer.getAnswers();
           if (this.question === undefined) {

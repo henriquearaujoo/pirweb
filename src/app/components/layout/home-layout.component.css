@@ -2,3 +2,7 @@
     background-color: #fff; 
     min-height: 555px!important;
 }
+
+.content-wrapper.black-overlay {
+    height: 130%!important;
+}
