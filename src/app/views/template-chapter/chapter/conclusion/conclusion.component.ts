@@ -35,6 +35,14 @@ export class ConclusionComponent implements OnInit {
   private index: number;
 
   public editorOptions = {
+    modules: {
+      toolbar: [
+        [{ header: [1, 2, false] }],
+        ['bold', 'italic', 'underline'],
+        [{ 'indent': '-1'}, { 'indent': '+1' }],
+        [{ 'align': [] }]
+      ]
+    },
     placeholder: '...',
     theme: 'snow'
   };

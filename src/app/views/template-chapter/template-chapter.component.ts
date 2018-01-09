@@ -20,6 +20,7 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
   private paginate: Paginate = new Paginate();
   private paginate_active: Paginate = new Paginate();
   private paginate_inactive: Paginate = new Paginate();
+  private paginate_version: Paginate = new Paginate();
   private chapters: Chapter[] = new Array();
   private chapters_active: Chapter[] = new Array();
   private chapters_inactive: Chapter[] = new Array();
@@ -108,14 +109,33 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
         this.paginate_inactive = success;
         this.chapters_inactive = this.paginate_inactive.content;
         this.hasdata = true;
-        console.log('INACTIVE CHAPTERS', this.chapters_inactive);
-
+        console.log('INACTIVE CHAPTERS 0', this.chapters_inactive);
+        // Remove duplicates chapters
         const hash = {};
         this.chapters_inactive = this.chapters_inactive.filter(chapter => {
           const exists = !hash[chapter.number] || false;
           hash[chapter.number] = true;
           return exists;
         });
+        // Remove chapter with active version
+        // for (let i = 0; i < this.chapters_inactive.length; i ++) {
+        //   this.chapterService.getVersionFromChapter(this.chapters_inactive[i].number).subscribe(
+        //     s => {
+        //       this.paginate_version = s;
+        //       if (this.chapters_inactive[i] !== undefined) {
+        //         this.chapters_inactive[i].versions = this.paginate_version.content;
+        //         for ( let j = 0 ; j < this.chapters_inactive[i].versions.length ; j ++) {
+        //           if ( this.chapters_inactive[i].versions[j].status) {
+        //             this.chapters_inactive.splice(i, 1);
+        //             break;
+        //           }
+        //         }
+        //       }
+        //     },
+        //     error => console.log(error)
+        //   );
+        // }
+        console.log('INACTIVE CHAPTERS 2', this.chapters_inactive);
       },
       error => {
         console.log('ERROR', error);

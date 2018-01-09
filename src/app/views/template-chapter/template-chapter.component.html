@@ -55,8 +55,7 @@
                         <div *ngIf="!hasdata">
                             <section class="content">
                                 <div class="feedback-icon"></div>
-                                <i class="large material-icons">library_books</i>
-                                <span class="feedback-message">Não há capítulos cadastrados</span>
+                                <span class="feedback-message">Não existem capítulos cadastrados</span>
                             </section>
                         </div>
                         <div class="tab-content" *ngIf="hasdata">
@@ -73,7 +72,7 @@
                                         <button class="btn btn-default" (click)="setPage()">Carregar mais capítulos</button>
                                     </div>
                                     <div class="paginate" *ngIf="paginate.size > paginate.totalElements">
-                                        <span class="btn btn-default" disabled> Não há mais capítulos</span>
+                                        <span class="show-chapter" > Não há mais capítulos para exibir</span>
                                     </div>
                                 </div>
                             </div>
@@ -91,7 +90,7 @@
                                         <button class="btn btn-default" (click)="setPageChapterActive()">Carregar mais capítulos</button>
                                     </div>
                                     <div class="paginate" *ngIf="paginate_active.size > paginate_active.totalElements">
-                                        <span class="btn btn-default" disabled> Não há mais capítulos</span>
+                                        <span class="show-chapter" > Não há mais capítulos para exibir</span>
                                     </div>
                                 </div>
                             </div>
@@ -110,7 +109,7 @@
                                         <button class="btn btn-default" (click)="setPageChapterInactive()">Carregar mais capítulos</button>
                                     </div>
                                     <div class="paginate" *ngIf="paginate_inactive.size > paginate_inactive.totalElements">
-                                        <span class="btn btn-default" disabled> Não há mais capítulos</span>
+                                        <span class="show-chapter" > Não há mais capítulos para exibir</span>
                                     </div>
                                 </div>
                             </div>
@@ -124,24 +123,6 @@
                 </div>
                 <!-- /.row -->
             </div>
-
-            <!-- <div class="row">              
-                    <div class="col-sm-12">
-                        <div class="box box-primary">
-                            <div class="box-body">                              
-                                <mat-card class="card_add" (click)="createNewChapter()">       
-                                    <i class="fa fa-plus fa-5x" aria-hidden="true"></i>    
-                               </mat-card>                               
-                                <div *ngIf="hasdata">
-                                    <div *ngFor="let item of chapters">
-                                        <app-template-chapter-item [chapter]="item" (click)="setChapter(item)"></app-template-chapter-item>
-                                    </div>
-                                </div>
-                            
-                            </div>
-                        </div>
-                    </div>
-                </div>   -->
         </div>
     </section>
 </div>

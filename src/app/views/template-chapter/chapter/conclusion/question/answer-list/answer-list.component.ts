@@ -30,6 +30,14 @@ export class AnswerListComponent extends PagenateComponent implements OnInit {
   private paginate: Paginate = new Paginate();
 
   public editorOptions = {
+    modules: {
+      toolbar: [
+        [{ header: [1, 2, false] }],
+        ['bold', 'italic', 'underline'],
+        [{ 'indent': '-1'}, { 'indent': '+1' }],
+        [{ 'align': [] }]
+      ]
+    },
     placeholder: '...',
     theme: 'snow'
   };

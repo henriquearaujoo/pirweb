@@ -45,10 +45,18 @@
           </li>
           
           <li [class.active]="isActive(['/','/template-chapter'])">
-            <a class="menu" (click)="toTemplateChapter()">
-              <i class="fa fa-file-text" aria-hidden="true"></i>
-              <span>Capítulos</span>
+            <a href="#">
+              <i class="fa fa-file-text"></i> <span>Livro</span>
+              <i class="fa fa-angle-left pull-right"></i>
             </a>
+            <ul class="treeview-menu">
+              <li [class.active]="isActive(['/template-chapter'])">
+                <a class="menu" (click)="toTemplateChapter()">
+                    <i class="fa fa-circle-o" aria-hidden="true"></i>
+                    <span>Capítulos</span>
+                </a>
+              </li> 
+            </ul>
           </li>
         
       </ul>
