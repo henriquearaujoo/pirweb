@@ -8,7 +8,6 @@ import { ChapterService } from '../../services/chapter/chapter.service';
 import { error } from 'util';
 import { Paginate } from '../../models/paginate';
 import { Observable } from 'rxjs/Observable';
-import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-template-chapter',
@@ -37,8 +36,7 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
   constructor(
     private router: Router,
     private chapterService: ChapterService,
-    private chapterItem: TemplateChapterItemComponent,
-    private spinnerService: NgxSpinnerService
+    private chapterItem: TemplateChapterItemComponent
   ) {
       this.hasdata = false;
       this.page = 0;
@@ -49,7 +47,6 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    // this.spinnerService.show();
     this.hasdata = false;
     this.getChapters();
     this.getChapterActive();
@@ -68,9 +65,6 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
         this.paginate = success;
         this.chapters = this.paginate.content;
         this.hasdata = true;
-        setTimeout(() => {
-          // this.spinnerService.hide();
-      }, 500);
 
         const hash = {};
         this.chapters = this.chapters.filter(chapter => {

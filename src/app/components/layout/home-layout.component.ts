@@ -7,13 +7,6 @@ import { Component } from '@angular/core';
     <app-side-bar ></app-side-bar>
     <div class="content-wrapper">
       <router-outlet>
-      <ngx-spinner
-          bdOpacity = 0.5
-          bdColor = "#333"
-          size = "large"
-          color = "#fff"
-          type = "ball-spin-clockwise-fade">
-      </ngx-spinner>
       </router-outlet>
     </div>
   `,
