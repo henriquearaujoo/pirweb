@@ -1,4 +1,4 @@
-import { NgxSpinnerModule } from 'ngx-spinner';
+// import { NgxSpinnerModule } from 'ngx-spinner';
 import { ReceptionService } from './services/reception/reception.service';
 import { InterventionService } from './services/intervention/intervention.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -233,8 +233,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     CKEditorModule,
     QuillEditorModule,
     // FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
-    ToastyModule.forRoot(),
-    NgxSpinnerModule
+    ToastyModule.forRoot()
+    // NgxSpinnerModule
   ],
   providers: [
     RestService,

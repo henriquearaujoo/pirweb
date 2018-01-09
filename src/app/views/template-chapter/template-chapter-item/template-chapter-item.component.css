@@ -96,7 +96,7 @@ li.version-header {
     margin-bottom: 10px;
 }
 span.version-title {
-    margin-right: 80px;
+    margin-right: 60px;
 }
 li.li-version {
     font-size: 14px;
@@ -105,7 +105,11 @@ li.li-version {
 }
 
 i.fa.fa-toggle-on, i.fa.fa-toggle-off, i.fa.fa-plus {
-    font-size: 28px;
+    font-size: 24px;
+    color: #373d40;
+}
+i.fa.fa-pencil {
+    font-size: 22px;
     color: #373d40;
 }
 span.version-add {
