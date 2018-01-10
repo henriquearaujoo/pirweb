@@ -9,6 +9,11 @@ import { Router, ActivatedRoute, ActivatedRouteSnapshot, RouterStateSnapshot, Ro
 
 export class SideBarComponent implements OnInit {
   private url: string;
+  private routes: any[];
+  private urlToNavigate: string;
+  private isForm: boolean;
+  private hide = false;
+
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {
     const state: RouterState = router.routerState;
     const snapshot: RouterStateSnapshot = state.snapshot;
@@ -20,7 +25,9 @@ export class SideBarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isActive([this.url, '/']);
+    // this.isActive([this.url, '/']);
+    this.routes = this.router.config;
+    localStorage.setItem('currentURL', this.router.url);
   }
 
   isActive(instruction: String[]): boolean {
@@ -62,5 +69,50 @@ export class SideBarComponent implements OnInit {
 
   toProfileList() {
     this.router.navigate(['profile-list']);
+  }
+
+  private redirectTo(componentName: string) {
+
+    const currentURL = localStorage.getItem('currentURL');
+    this.urlToNavigate = componentName;
+    // let found = false;
+
+    // for (let i = 0; i < this.routes.length && !found; i++) {
+    //     console.log(this.routes[i].children);
+    //     if (this.routes[i].path.toString() === componentName) {
+    //       this.urlToNavigate = this.routes[i].path;
+    //       found = true;
+    //       break;
+    //     }
+    //     if (this.routes[i] !== undefined && this.routes[i].children.length > 0) {
+    //       for (let j = 0; j < this.routes.length && !found; j++) {
+    //         console.log(this.routes[i].children[j].path);
+    //         if (this.routes[i].children[j].path.toString() === componentName) {
+    //           this.urlToNavigate = this.routes[i].children[j].path.toString();
+    //           found = true;
+    //           break;
+    //         }
+    //       }
+    //     }
+    // }
+
+    if (currentURL === null) {
+      this.router.navigate([this.urlToNavigate]);
+    } else {
+      this.isForm = currentURL.toLowerCase().includes('chapter-dashboard');
+
+      if (this.isForm) {
+        (<HTMLButtonElement> document.getElementById('btnModal')).click();
+          // this.confirmationModal.config.ignoreBackdropClick = true;
+          // this.confirmationModal.config.keyboard = false;
+          // this.confirmationModal.show();
+      } else {
+        this.router.navigate([this.urlToNavigate]);
+      }
+    }
+  }
+
+ confirmModalToLeavePage() {
+    this.router.navigate([this.urlToNavigate]);
   }
 }

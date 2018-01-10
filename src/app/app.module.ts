@@ -66,6 +66,7 @@ import { AccessPageService } from './services/page/page.service';
 
 import { routing } from './app.router';
 import { AuthGuard } from './guards/auth.guard';
+import { DeactivateGuard } from './guards/deactivate.guard';
 
 import { AppComponent } from './app.component';
 import { HeaderBarComponent } from './components/header-bar/header-bar.component';
@@ -255,7 +256,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     UserDetailsComponent,
     TemplateChapterItemComponent,
     ConclusionService,
-    LoaderService
+    LoaderService,
+    DeactivateGuard
   ],
   bootstrap: [AppComponent]
 })

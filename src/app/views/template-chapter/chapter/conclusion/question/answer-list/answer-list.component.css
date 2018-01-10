@@ -17,6 +17,13 @@ a {
     color: #666;
 }
 
+.limit-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 19px;
+}
+
 .pagination>.active>a {
     background-color: #373d40;
     border-color:  #373d40;

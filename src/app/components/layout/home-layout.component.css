@@ -1,6 +1,6 @@
 .content-wrapper {
     background-color: #fff; 
-    min-height: 555px!important;
+    /* min-height: 555px!important; */
 }
 
 .content-wrapper.black-overlay {

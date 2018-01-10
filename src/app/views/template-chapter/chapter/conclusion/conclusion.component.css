@@ -70,6 +70,16 @@ i.fa.fa-plus {
 }
 
 /**** QUESTIONS LIST ****/
+.col-sm-4.question.description {
+    padding-top: 8px;
+}
+
+.limit-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 34px;
+}
 .col-sm-3.question, .col-sm-2.question {
     padding-top: 8px;
 }
@@ -78,7 +88,7 @@ i.fa.fa-plus {
     float: right;
 }
 
-.col-sm-3.question.number {
+.col-sm-2.question.number {
     font-weight: bold;
     font-size: 16px;
     color: #6d6c6c;
@@ -116,7 +126,7 @@ i.fa.fa-pencil, i.fa.fa-remove {
     box-shadow: none;
     border: 1px solid #ccc;
     border-radius: 0.5em;
-    padding: 15px 30px 10px 30px;
+    padding: 19px 30px 1px 30px;
 }
 
 /* MODAL */

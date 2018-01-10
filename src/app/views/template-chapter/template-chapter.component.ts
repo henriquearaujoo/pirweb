@@ -8,6 +8,7 @@ import { ChapterService } from '../../services/chapter/chapter.service';
 import { error } from 'util';
 import { Paginate } from '../../models/paginate';
 import { Observable } from 'rxjs/Observable';
+import { LoaderService } from '../../services/loader/loader.service';
 
 @Component({
   selector: 'app-template-chapter',
@@ -37,7 +38,8 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
   constructor(
     private router: Router,
     private chapterService: ChapterService,
-    private chapterItem: TemplateChapterItemComponent
+    private chapterItem: TemplateChapterItemComponent,
+    private loaderService: LoaderService
   ) {
       this.hasdata = false;
       this.page = 0;
@@ -48,6 +50,7 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    // this.loaderService.show();
     this.hasdata = false;
     this.getChapters();
     this.getChapterActive();
@@ -57,7 +60,7 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
   ngOnChanges() {  }
 
   getChapters() {
-
+    // this.loaderService.show();
     if ( this.filter.name == null) {
       this.filter.name = '';
     }
@@ -66,6 +69,7 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
         this.paginate = success;
         this.chapters = this.paginate.content;
         this.hasdata = true;
+        // this.loaderService.hide();
 
         const hash = {};
         this.chapters = this.chapters.filter(chapter => {
@@ -82,13 +86,12 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
   }
 
   getChapterActive() {
-    this.chapterService.getChapterStatus(this.filter.name, true, this.size_active).subscribe(
+    this.chapterService.getChapterActive(this.filter.name, this.size_active).subscribe(
       success => {
         this.paginate_active = success;
         this.chapters_active = this.paginate_active.content;
         this.hasdata = true;
-        console.log('ACTIVES CHAPTERS', this.chapters_active);
-
+        // Remove duplicates chapters
         const hash = {};
         this.chapters_active = this.chapters_active.filter(chapter => {
           const exists = !hash[chapter.number] || false;
@@ -104,12 +107,11 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
   }
 
   getChapterInactive() {
-    this.chapterService.getChapterStatus(this.filter.name, false, this.size_inactive).subscribe(
+    this.chapterService.getChapterInactive(this.filter.name, this.size_inactive).subscribe(
       success => {
         this.paginate_inactive = success;
         this.chapters_inactive = this.paginate_inactive.content;
         this.hasdata = true;
-        console.log('INACTIVE CHAPTERS 0', this.chapters_inactive);
         // Remove duplicates chapters
         const hash = {};
         this.chapters_inactive = this.chapters_inactive.filter(chapter => {
@@ -117,25 +119,6 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
           hash[chapter.number] = true;
           return exists;
         });
-        // Remove chapter with active version
-        // for (let i = 0; i < this.chapters_inactive.length; i ++) {
-        //   this.chapterService.getVersionFromChapter(this.chapters_inactive[i].number).subscribe(
-        //     s => {
-        //       this.paginate_version = s;
-        //       if (this.chapters_inactive[i] !== undefined) {
-        //         this.chapters_inactive[i].versions = this.paginate_version.content;
-        //         for ( let j = 0 ; j < this.chapters_inactive[i].versions.length ; j ++) {
-        //           if ( this.chapters_inactive[i].versions[j].status) {
-        //             this.chapters_inactive.splice(i, 1);
-        //             break;
-        //           }
-        //         }
-        //       }
-        //     },
-        //     error => console.log(error)
-        //   );
-        // }
-        console.log('INACTIVE CHAPTERS 2', this.chapters_inactive);
       },
       error => {
         console.log('ERROR', error);

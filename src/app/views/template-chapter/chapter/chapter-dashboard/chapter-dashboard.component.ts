@@ -9,6 +9,7 @@ import { ReceptionComponent } from '../reception/reception.component';
 import { EventEmitter } from 'events';
 import { InformationComponent } from '../information/information.component';
 import { ConclusionComponent } from '../conclusion/conclusion.component';
+import { IFormCanDeActivate } from '../../../../guards/iform-candeactivate';
 
 @Component({
   selector: 'app-chapter-dashboard',
@@ -16,7 +17,7 @@ import { ConclusionComponent } from '../conclusion/conclusion.component';
   styleUrls: ['./chapter-dashboard.component.css'],
 })
 
-export class ChapterDashboardComponent implements OnInit {
+export class ChapterDashboardComponent implements OnInit, IFormCanDeActivate {
 
   private chapterList: Chapter[] = new Array();
   private chapter = new Chapter();
@@ -31,6 +32,7 @@ export class ChapterDashboardComponent implements OnInit {
   private next: string;
   private enable_save: boolean;
   private currentChapter: any;
+  public  canChangePage = false;
   private urlId: string;
   private openModalButton: HTMLButtonElement;
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
@@ -145,10 +147,6 @@ export class ChapterDashboardComponent implements OnInit {
     }
   }
 
-  openModal() {
-    this.openModalButton.click();
-  }
-
   walk ( tab: number) {
     switch (tab) {
       case 0:
@@ -178,7 +176,19 @@ export class ChapterDashboardComponent implements OnInit {
     }
   }
 
+  openModal() {
+    this.openModalButton.click();
+    console.log('openModal');
+    return false;
+  }
+
   modalConfirm() {
+    this.canChangePage = true;
     this.router.navigate(['/template-chapter']);
-    }
+    return true;
+  }
+
+  changePage() {
+    return this.openModal();
+  }
 }

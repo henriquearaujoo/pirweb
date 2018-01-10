@@ -30,13 +30,13 @@
             <ul class="treeview-menu">
               
               <li [class.active]="isActive(['/user-list', '/user', '/user-edit', '/user-details'])">
-                <a class="menu" (click)="toUserList()">
+                <a class="menu" (click)="redirectTo('user-list')">
                     <i class="fa fa-circle-o" aria-hidden="true"></i>
                     <span>Registros</span>
                 </a>
               </li>         
               <li [class.active]="isActive(['/profile-list', '/page-list'])">
-                <a class="menu" (click)="toProfileList()">
+                <a class="menu" (click)="redirectTo('profile-list')">
                     <i class="fa fa-circle-o" aria-hidden="true"></i> 
                     <span>Perfil</span>                   
                 </a>             
@@ -51,14 +51,40 @@
             </a>
             <ul class="treeview-menu">
               <li [class.active]="isActive(['/template-chapter'])">
-                <a class="menu" (click)="toTemplateChapter()">
+                <a class="menu" (click)="redirectTo('template-chapter')">
                     <i class="fa fa-circle-o" aria-hidden="true"></i>
                     <span>Capítulos</span>
                 </a>
               </li> 
             </ul>
           </li>
+          <li>
+              <button [style.visibility]="'hidden'" id="btnModal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#sideModal">
+                  Launch demo modal
+              </button>
+          </li>
         
       </ul>
     </section>
   </aside>
+
+  <!-- Modal -->
+<div class="modal fade" id="sideModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="confirmModalToLeavePage()">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>

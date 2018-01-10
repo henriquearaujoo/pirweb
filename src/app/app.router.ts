@@ -1,4 +1,3 @@
-
 import { ChapterDashboardComponent } from './views/template-chapter/chapter/chapter-dashboard/chapter-dashboard.component';
 import { TemplateSelectModelComponent } from './views/template-chapter/template-select-model/template-select-model.component';
 import { UserPersonalInformationComponent } from './views/user/user-personal-information/user-personal-information.component';
@@ -37,6 +36,7 @@ import { TemplateChapterOptionComponent } from './views/template-chapter/templat
 import { ChapterDetailsComponent } from './views/template-chapter/chapter/chapter-details/chapter-details.component';
 import { ChapterEditComponent } from './views/template-chapter/chapter/chapter-edit/chapter-edit.component';
 import { InformationComponent } from './views/template-chapter/chapter/information/information.component';
+import { DeactivateGuard } from './guards/deactivate.guard';
 
 const App_Router: Routes = [
 
@@ -46,8 +46,9 @@ const App_Router: Routes = [
         // canActivate: [AuthGuard],
         children: [
           {
-            path: '',
-            component: HomeComponent
+            path: '', component: HomeComponent,
+            // redirectTo: 'user',
+            // pathMatch: 'full'
           },
           {
             path: 'dashboard',
@@ -104,7 +105,8 @@ const App_Router: Routes = [
           },
           {
             path: 'chapter-dashboard',
-            component: ChapterDashboardComponent
+            component: ChapterDashboardComponent,
+              canDeactivate: [DeactivateGuard]
           },
           {
             path: 'chapter-dashboard/:id',
@@ -112,7 +114,8 @@ const App_Router: Routes = [
           },
           {
             path: 'user',
-            component: UserComponent
+            component: UserComponent,
+              canDeactivate: [DeactivateGuard]
           },
           {
             path: 'user-list',

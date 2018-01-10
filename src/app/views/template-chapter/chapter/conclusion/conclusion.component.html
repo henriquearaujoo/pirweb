@@ -50,8 +50,10 @@
                                 <div class="card-stacked">
                                     <div class="card-content">
                                     <div class="row">
-                                        <div class="col-sm-3 question number">Questão {{ i + 1 }} </div>
-                                        <div class="col-sm-3 question" [innerHTML]="item.description"></div>
+                                        <div class="col-sm-2 question number">Questão {{ i + 1 }} </div>
+                                        <div class="col-sm-4 question description">
+                                            <p class="limit-text" [innerHTML]="item.description"> </p>
+                                        </div>
                                         <div class="col-sm-2 question">
                                             <a href="" title="Ver Respostas" (click)="getAnswers(item)" data-toggle="modal" 
                                             data-target="#ans" id="answs" *ngIf="item.answers">
