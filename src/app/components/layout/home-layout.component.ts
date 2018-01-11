@@ -6,7 +6,8 @@ import { Component } from '@angular/core';
     <app-header-bar ></app-header-bar>
     <app-side-bar ></app-side-bar>
     <div class="content-wrapper">
-        <router-outlet></router-outlet>
+      <router-outlet>
+      </router-outlet>
     </div>
   `,
   styleUrls: ['home-layout.component.css']

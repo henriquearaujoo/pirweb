@@ -1,0 +1,11 @@
+<div [class.loader-hidden]="!show">
+  <div class="loader-overlay">
+    <div>
+        progress 1
+        <div class="progress" *ngIf="show">
+             progress 2
+             <div class="indeterminate"></div>
+        </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<simple-notifications></simple-notifications>
+<div *ngIf="addQuestion">
+  <div class="content_" >
+      <section class="content">
+        <form name="form_question" (ngSubmit)="fQuestion.form.valid && saveData()" #fQuestion="ngForm" novalidate>
+            <div class="box-header with-border">
+              <h5 class="box-title" *ngIf="isNewData"> QUESTÃO {{ index }}</h5>
+              <h5 class="box-title" *ngIf="!isNewData"> QUESTÃO {{ indexEdit }}</h5>
+            </div>
+            <div class="row">              
+                <div class="col-sm-12">
+                    <div class="box box-primary question">
+                      <div class="box-body">
+                        <div class="form-group" [ngClass]="applyCssError(fQuestion, type)">
+                          <label class="control-label"> Tipo</label>
+                          <select class="form-control" name="type" id="question_type" [(ngModel)] ="question.type" 
+                            #type="ngModel" required>
+                            <option disabled> Tipo da questão </option>
+                            <option value="DISSERTATIVE"> Dissertativa</option>
+                            <option value="OBJECTIVE"> Objetiva</option>
+                            <option value="SUBJECTIVE"> Subjetiva</option>
+                          </select>
+                          <app-control-field-error [showError]="verifyValidSubmitted(fQuestion, type)" msgError="Selecione o tipo da questão">
+                          </app-control-field-error>
+                        </div>
+                        <div class="form-group" [ngClass]="applyCssError(fQuestion, description)">
+                          <label class="control-label">Descrição da questão</label>                       
+                            <div class="box-body pad">                            
+                              <quill-editor [options]="editorOptions" id="question_description" name="question_description" 
+                                #description="ngModel" [(ngModel)]="question.description" required></quill-editor>
+                              <app-control-field-error [showError]="verifyValidSubmitted(fQuestion, description)" msgError="Digite a descrição">
+                              </app-control-field-error>
+                            </div>
+                      </div>                     
+                    </div>
+                  </div>
+                </div>                           
+            </div>
+            <div class="row">
+              <div class="col-sm-12 save">
+                <div class="form-group">
+                    <button class="btn btn-primary btn-sm save-question" name="submit" id="btn_save_question">Salvar                            
+                    </button>
+                  </div>
+              </div>
+            </div>       
+        </form>
+        <div class="row list-answers">
+          <div class="col-sm-12">
+            <div class="title-answer"> Respostas</div>
+              <app-answer-list #answer [question]="question" (cancel)="onCancelAddAnswer($event)"></app-answer-list>   
+          </div>
+        </div>  
+    </section>
+  </div>
+</div>

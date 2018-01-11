@@ -2,6 +2,10 @@
     color: grey;
 }
 
+label.control-label {
+    padding-left: 10px;
+}
+
 .btn-primary {
     /* width: 100px; */
     background-color:#373d40;

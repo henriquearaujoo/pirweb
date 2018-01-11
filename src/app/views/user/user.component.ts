@@ -11,6 +11,7 @@ import { Types } from '../../models/types';
 import { UserService } from '../../services/user/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as $ from 'jquery';
+import { IFormCanDeActivate } from '../../guards/iform-candeactivate';
 
 
 @Component({
@@ -50,6 +51,9 @@ export class UserComponent implements OnInit {
 
   private modalOpened: boolean;
   private openModalButton: HTMLButtonElement;
+  private openModalCancel: HTMLButtonElement;
+
+  public  canChangePage = false;
 
   constructor(
     private userService: UserService,
@@ -83,6 +87,10 @@ export class UserComponent implements OnInit {
 
     this.openModalButton = (<HTMLButtonElement>document.getElementById('openModalButton'));
     this.openModalButton.style.display = 'none';
+
+    this.openModalCancel = (<HTMLButtonElement>document.getElementById('openModalCancel'));
+    this.openModalCancel.style.display = 'none';
+
     (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
   }
 
@@ -98,7 +106,7 @@ export class UserComponent implements OnInit {
     this.success = true;
     this.userService.createUser(this.user).subscribe(
       success => {
-        this.openModal();
+        this.openModalSuccess();
         // this.router.navigate(['/user-list']);
       },
       error => {
@@ -108,11 +116,17 @@ export class UserComponent implements OnInit {
     );
   }
 
-  openModal() {
+  openModalSuccess() {
     if (!this.modalOpened) {
       this.modalOpened = true;
       this.openModalButton.click();
+      return false;
     }
+  }
+
+  openModal() {
+    this.openModalCancel.click();
+    return false;
   }
 
   public loadProfiles() {
@@ -198,9 +212,19 @@ export class UserComponent implements OnInit {
             this.toastService.toastErrorValid('CPF');
             break;
           }
-          case 'user.type.pjur.cnpj.valid': {
+          case 'user.type.pfis.cpf.invalid': {
             console.log(er);
             this.toastService.toastErrorValid('CPF');
+            break;
+          }
+          case 'user.type.pjur.cnpj.valid': {
+            console.log(er);
+            this.toastService.toastErrorValid('CNPJ');
+            break;
+          }
+          case 'user.type.pjur.cnpj.invalid': {
+            console.log(er);
+            this.toastService.toastErrorValid('CNPJ');
             break;
           }
           case 'user.type.pfis.rg.short': {
@@ -315,6 +339,7 @@ export class UserComponent implements OnInit {
   }
 
   backToList() {
+    this.canChangePage = true;
     this.router.navigate(['user-list']);
   }
 }

@@ -121,7 +121,7 @@ div.box-footer {
     border-top: 1px solid #ccc;
 }
 
-.nav[_ngcontent-c5] > li[_ngcontent-c5] > a[_ngcontent-c5]{
+.nav > li > a{
     padding: 10px 10px 10px 0px;
 }
 
@@ -190,15 +190,14 @@ li.add {
     padding-right: 30px;
     float: right;
 }
-.divider {
-    border-left: 2px solid #ccc;
-    padding: 18px;
-}
-
 
 /* END HEADER */
 
 /* PAGINATe*/
 .paginate {
     text-align: center;
+}
+
+span.show-chapter {
+    color: gray;
 }

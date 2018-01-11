@@ -1,3 +1,8 @@
+section.content_ {
+    /* padding-left: 20px;
+    padding-right: 20px; */
+}
+
 .form-group,
 .form-control {
     color: grey;
@@ -9,9 +14,25 @@
     border-color: #373d40;
 }
 
+/* .col-sm-12.box.box-primary {
+    margin-bottom: 0!important;
+} */
+
 .box {
     background-color: #f4f4f4;
     box-shadow: none;
+    /* margin-bottom: 0!important; */
+}
+
+.form-group.routines, .box {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+}
+
+.row.footer {
+    /* background-color: white; */
+    padding: 10px;
 }
 
 .box.box-primary {
@@ -26,6 +47,11 @@
 .col-sm-6.cancel {
     padding-left: 35px;
 }
+
+.col-sm-3.routine {
+    text-align: center;
+}
+
 
 .editor {
     width: 100%;
@@ -46,4 +72,10 @@
     margin-bottom: 50px;
     width: 100%;
     background: rgb(88, 84, 84);
+}
+
+input[type="checkbox"] {
+    position: relative;
+    top: 10px;
+    left: 5px;
 }

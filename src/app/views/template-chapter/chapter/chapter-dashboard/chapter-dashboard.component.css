@@ -137,7 +137,7 @@ button#btn_confirm {
     float: right;
 }
 
-.modal-body[_ngcontent-c5] {
+.modal-body {
     padding-top: 30px;
     margin-top: 20px;
 }
@@ -176,12 +176,30 @@ i.fa.fa-user {
 
 .nav-tabs-custom>.nav-tabs {
     height: 55px;
+    padding-bottom: 62px;
 }
 
 .nav-tabs-custom>.tab-content {
     padding-top: 10px;
     padding-left: 25px;
     padding-right: 25px;
+}
+
+.nav-tabs-custom > .nav-tabs > li.active > a {
+    padding: 0;
+}
+
+.nav-tabs-custom > .nav-tabs > li.active {
+    margin-top: 10px;
+    border-top: 0;
+}
+
+.nav-tabs-custom > .nav-tabs > li.active > a {
+    margin-right: 14px;
+}
+
+a.tab-pane {
+    padding-left: 0;
 }
 
 section.content_user {

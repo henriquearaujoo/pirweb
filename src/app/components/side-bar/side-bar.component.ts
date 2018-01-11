@@ -9,6 +9,12 @@ import { Router, ActivatedRoute, ActivatedRouteSnapshot, RouterStateSnapshot, Ro
 
 export class SideBarComponent implements OnInit {
   private url: string;
+  private routes: any[];
+  private urlToNavigate: string;
+  private isForm: boolean;
+  private hide = false;
+  private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
+
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {
     const state: RouterState = router.routerState;
     const snapshot: RouterStateSnapshot = state.snapshot;
@@ -20,7 +26,9 @@ export class SideBarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isActive([this.url, '/']);
+    // this.isActive([this.url, '/']);
+    this.routes = this.router.config;
+    localStorage.setItem('currentURL', this.router.url);
   }
 
   isActive(instruction: String[]): boolean {
@@ -62,5 +70,27 @@ export class SideBarComponent implements OnInit {
 
   toProfileList() {
     this.router.navigate(['profile-list']);
+  }
+
+  private redirectTo(componentName: string) {
+
+    const currentURL = this.router.url;
+    this.urlToNavigate = componentName;
+
+    if (currentURL === null) {
+      this.router.navigate([this.urlToNavigate]);
+    } else {
+      this.isForm = (currentURL.toLowerCase() === '/chapter-dashboard') ||
+                    (currentURL.toLowerCase() === '/user');
+      if (this.isForm) {
+        (<HTMLButtonElement> document.getElementById('btnModal')).click();
+      } else {
+        this.router.navigate([this.urlToNavigate]);
+      }
+    }
+  }
+
+ confirmModalToLeavePage() {
+    this.router.navigate([this.urlToNavigate]);
   }
 }

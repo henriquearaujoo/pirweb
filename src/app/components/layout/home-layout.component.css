@@ -1,4 +1,8 @@
 .content-wrapper {
     background-color: #fff; 
-    min-height: 555px!important;
+    min-height: 601px!important;
 }
+
+/* .content-wrapper.black-overlay {
+    height: 130%!important;
+} */

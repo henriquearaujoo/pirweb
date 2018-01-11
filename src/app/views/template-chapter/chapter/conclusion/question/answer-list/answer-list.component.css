@@ -1,0 +1,88 @@
+.form-group,
+.form-control {
+    color: grey;
+}
+
+.btn-primary {
+    /* width: 100px; */
+    background-color: #373d40;
+    border-color: #373d40;
+}
+
+i.fa {
+    font-size: 20px;
+}
+
+a {
+    color: #666;
+}
+
+.limit-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 19px;
+}
+
+.pagination>.active>a {
+    background-color: #373d40;
+    border-color:  #373d40;
+}
+
+.pagination {
+    margin: 0;
+}
+
+.box-header .box-title {
+    font-size: 14px;
+}
+
+.box.box-primary {
+    border-top: 0;
+}
+
+.box-body {
+    padding: 0;
+}
+
+thead {
+    background-color: #999;
+    color: white;
+    font-size: 12px;
+}
+
+th, td {
+    text-align: center;
+}
+
+.table > thead > tr > th.tbl-left {
+    text-align: left;
+    padding-left: 30px;
+}
+
+.table > tbody > tr > td.tbl-left {
+    text-align: left;
+    padding-left: 52px;
+}
+
+.table > tbody > tr > td.tbl-right {
+    text-align: right;
+    width: 50px;
+    padding-right: 35px;
+}
+
+.col-sm-6.add {
+    text-align: right;
+}
+
+.modal-header.answer {
+    background-color: #ccc;
+}
+
+.col-sm-6.pagination1 {
+    padding-top: 16px;
+}
+
+.col-sm-6.pagination2 {
+    text-align: right;
+}

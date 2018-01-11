@@ -22,6 +22,14 @@ export class ReceptionComponent implements OnInit {
   @Output() cancelEvent = new EventEmitter();
 
   public editorOptions = {
+    modules: {
+      toolbar: [
+        [{ header: [1, 2, false] }],
+        ['bold', 'italic', 'underline'],
+        [{ 'indent': '-1'}, { 'indent': '+1' }],
+        [{ 'align': [] }]
+      ]
+    },
     placeholder: '...',
     theme: 'snow'
   };

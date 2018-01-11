@@ -1,4 +1,3 @@
-
 import { ChapterDashboardComponent } from './views/template-chapter/chapter/chapter-dashboard/chapter-dashboard.component';
 import { TemplateSelectModelComponent } from './views/template-chapter/template-select-model/template-select-model.component';
 import { UserPersonalInformationComponent } from './views/user/user-personal-information/user-personal-information.component';
@@ -34,10 +33,10 @@ import { ProfileListComponent } from './views/profile/profile-list/profile-list.
 import { UserEditComponent } from './views/user/user-edit/user-edit.component';
 import { InterventionComponent } from './views/template-chapter/chapter/intervention/intervention.component';
 import { TemplateChapterOptionComponent } from './views/template-chapter/template-chapter-option/template-chapter-option.component';
-import { QuestionComponent } from './views/template-chapter/template-collect-data/question/question.component';
 import { ChapterDetailsComponent } from './views/template-chapter/chapter/chapter-details/chapter-details.component';
 import { ChapterEditComponent } from './views/template-chapter/chapter/chapter-edit/chapter-edit.component';
 import { InformationComponent } from './views/template-chapter/chapter/information/information.component';
+import { DeactivateGuard } from './guards/deactivate.guard';
 
 const App_Router: Routes = [
 
@@ -48,7 +47,8 @@ const App_Router: Routes = [
         children: [
           {
             path: '',
-            component: HomeComponent
+            redirectTo: 'user-list',
+            pathMatch: 'full'
           },
           {
             path: 'dashboard',
@@ -96,10 +96,6 @@ const App_Router: Routes = [
             component: TemplateCollectDataComponent
           },
           {
-            path: 'question',
-            component: QuestionComponent
-          },
-          {
             path: 'chapter-details',
             component: ChapterDetailsComponent
           },
@@ -110,6 +106,7 @@ const App_Router: Routes = [
           {
             path: 'chapter-dashboard',
             component: ChapterDashboardComponent
+              // canDeactivate: [DeactivateGuard]
           },
           {
             path: 'chapter-dashboard/:id',
@@ -118,6 +115,7 @@ const App_Router: Routes = [
           {
             path: 'user',
             component: UserComponent
+              // canDeactivate: [DeactivateGuard]
           },
           {
             path: 'user-list',

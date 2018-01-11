@@ -22,7 +22,7 @@ export class ReceptionService extends RestService {
   }
 
   public load(id: string) {
-    return this.get(this.apiurl + '/search/?chapter_id=' + id);
+    return this.get(this.apiurl + 'search/?chapter_id=' + id);
   }
 
   public insert(reception: Reception): Observable<Reception> {

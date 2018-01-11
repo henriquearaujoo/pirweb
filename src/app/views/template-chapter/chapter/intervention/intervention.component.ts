@@ -19,6 +19,14 @@ export class InterventionComponent implements OnInit {
   private btn_cancel: boolean;
 
   public editorOptions = {
+    modules: {
+      toolbar: [
+        [{ header: [1, 2, false] }],
+        ['bold', 'italic', 'underline'],
+        [{ 'indent': '-1'}, { 'indent': '+1' }],
+        [{ 'align': [] }]
+      ]
+    },
     placeholder: '...',
     theme: 'snow'
   };
@@ -47,7 +55,11 @@ export class InterventionComponent implements OnInit {
           console.log('saved with success!');
         },
         e => {
-          this.toastService.toastError();
+          if ( e[0] === 'chapter.intervention.chapter.missing') {
+            this.toastService.toastErrorChapterId();
+          } else {
+            this.toastService.toastError();
+          }
           console.log('error: ' + e);
         }
       );

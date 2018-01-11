@@ -63,4 +63,12 @@ export class ChapterService extends RestService {
   public getVersionFromChapter(id: number) {
     return this.get(this.apiurl + 'search/page/?number=' + id + '&sort=version,asc');
   }
+
+  public getChapterInactive(param?: number, size?: number) {
+      return this.get(this.apiurl + 'inactive/search/page?size=' + size + '&number=' + param + '&sort=chapter,asc&sort=version,desc');
+  }
+
+  public getChapterActive(param?: number, size?: number) {
+    return this.get(this.apiurl + 'active/search/page?size=' + size + '&number=' + param + '&sort=chapter,asc&sort=version,desc');
+  }
 }
