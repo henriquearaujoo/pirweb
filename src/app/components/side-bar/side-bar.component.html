@@ -59,7 +59,7 @@
             </ul>
           </li>
           <li>
-              <button [style.visibility]="'hidden'" id="btnModal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#sideModal">
+              <button [style.visibility]="'hidden'" id="btnModal" type="button"  data-toggle="modal" data-target="#sideModal">
                   Launch demo modal
               </button>
           </li>
@@ -69,7 +69,7 @@
   </aside>
 
   <!-- Modal -->
-<div class="modal fade" id="sideModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="sideModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -87,4 +87,30 @@
             </div>
         </div>
     </div>
+</div> -->
+
+<!-- Modal Cancel -->
+<div  class="modal fade" id="sideModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm">
+      <div class="modal-content" [ngStyle]="object">
+          <div class="modal-body">
+              <div class="modal-icon">
+                  <i class="material-icons" style="font-size: 60px;">error_outline</i>
+              </div>
+              <h5> Deseja realmente <strong>CANCELAR</strong> ?</h5>
+          </div>
+          <div class="modal-footer" data-dismiss="modal">
+              <!-- <div class="row"> -->
+              <div class="modal-btn-cancel">
+                  <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal" id="btn_cancel">Não</button>
+              </div>
+              <div class="modal-btn-confirm">
+                  <button type="button" (click)="confirmModalToLeavePage()" class="btn btn-primary btn-md btn-block" data-dismiss="modal" id="btn_confirm">Sim</button>
+              </div>
+          </div>
+      </div>
+      <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
 </div>
+<!-- /.modal -->

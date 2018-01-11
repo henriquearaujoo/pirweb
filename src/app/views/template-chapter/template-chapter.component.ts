@@ -80,6 +80,7 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
       },
       error => {
         console.log('ERROR', error);
+        // this.loaderService.hide();
         this.hasdata = false;
       }
     );

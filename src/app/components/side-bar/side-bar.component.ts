@@ -13,6 +13,7 @@ export class SideBarComponent implements OnInit {
   private urlToNavigate: string;
   private isForm: boolean;
   private hide = false;
+  private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {
     const state: RouterState = router.routerState;
@@ -73,39 +74,16 @@ export class SideBarComponent implements OnInit {
 
   private redirectTo(componentName: string) {
 
-    const currentURL = localStorage.getItem('currentURL');
+    const currentURL = this.router.url;
     this.urlToNavigate = componentName;
-    // let found = false;
-
-    // for (let i = 0; i < this.routes.length && !found; i++) {
-    //     console.log(this.routes[i].children);
-    //     if (this.routes[i].path.toString() === componentName) {
-    //       this.urlToNavigate = this.routes[i].path;
-    //       found = true;
-    //       break;
-    //     }
-    //     if (this.routes[i] !== undefined && this.routes[i].children.length > 0) {
-    //       for (let j = 0; j < this.routes.length && !found; j++) {
-    //         console.log(this.routes[i].children[j].path);
-    //         if (this.routes[i].children[j].path.toString() === componentName) {
-    //           this.urlToNavigate = this.routes[i].children[j].path.toString();
-    //           found = true;
-    //           break;
-    //         }
-    //       }
-    //     }
-    // }
 
     if (currentURL === null) {
       this.router.navigate([this.urlToNavigate]);
     } else {
-      this.isForm = currentURL.toLowerCase().includes('chapter-dashboard');
-
+      this.isForm = (currentURL.toLowerCase() === '/chapter-dashboard') ||
+                    (currentURL.toLowerCase() === '/user');
       if (this.isForm) {
         (<HTMLButtonElement> document.getElementById('btnModal')).click();
-          // this.confirmationModal.config.ignoreBackdropClick = true;
-          // this.confirmationModal.config.keyboard = false;
-          // this.confirmationModal.show();
       } else {
         this.router.navigate([this.urlToNavigate]);
       }

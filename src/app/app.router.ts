@@ -46,9 +46,9 @@ const App_Router: Routes = [
         // canActivate: [AuthGuard],
         children: [
           {
-            path: '', component: HomeComponent,
-            // redirectTo: 'user',
-            // pathMatch: 'full'
+            path: '',
+            redirectTo: 'user',
+            pathMatch: 'full'
           },
           {
             path: 'dashboard',
@@ -105,8 +105,8 @@ const App_Router: Routes = [
           },
           {
             path: 'chapter-dashboard',
-            component: ChapterDashboardComponent,
-              canDeactivate: [DeactivateGuard]
+            component: ChapterDashboardComponent
+              // canDeactivate: [DeactivateGuard]
           },
           {
             path: 'chapter-dashboard/:id',
@@ -114,8 +114,8 @@ const App_Router: Routes = [
           },
           {
             path: 'user',
-            component: UserComponent,
-              canDeactivate: [DeactivateGuard]
+            component: UserComponent
+              // canDeactivate: [DeactivateGuard]
           },
           {
             path: 'user-list',
