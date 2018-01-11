@@ -38,8 +38,8 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
   constructor(
     private router: Router,
     private chapterService: ChapterService,
-    private chapterItem: TemplateChapterItemComponent,
-    private loaderService: LoaderService
+    private chapterItem: TemplateChapterItemComponent
+    // private loaderService: LoaderService
   ) {
       this.hasdata = false;
       this.page = 0;

@@ -52,11 +52,11 @@
                                 </div>
                             </ul>
                         </div>                        
-                        <div class="tab-content">
+                        <div class="tab-content">                            
                             <div class="tab-pane active" id="tab_1">
                                 <div class="box box-primary">
                                     <div class="box-body">
-                                        <div>
+                                        <div>                                           
                                             <div *ngFor="let item of chapters">
                                                 <app-template-chapter-item (changeStatus)="changeStatus($event)" [chapter]="item" (click)="setChapter(item)"></app-template-chapter-item>
                                             </div>

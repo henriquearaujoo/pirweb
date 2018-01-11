@@ -47,7 +47,7 @@ const App_Router: Routes = [
         children: [
           {
             path: '',
-            redirectTo: 'user',
+            redirectTo: 'user-list',
             pathMatch: 'full'
           },
           {
