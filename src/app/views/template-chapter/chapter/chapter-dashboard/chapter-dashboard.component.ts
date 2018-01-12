@@ -10,6 +10,7 @@ import { EventEmitter } from 'events';
 import { InformationComponent } from '../information/information.component';
 import { ConclusionComponent } from '../conclusion/conclusion.component';
 import { IFormCanDeActivate } from '../../../../guards/iform-candeactivate';
+import { ModalCancelService } from '../../../../components/modal-cancel/modal-cancel.service';
 
 @Component({
   selector: 'app-chapter-dashboard',
@@ -17,7 +18,7 @@ import { IFormCanDeActivate } from '../../../../guards/iform-candeactivate';
   styleUrls: ['./chapter-dashboard.component.css'],
 })
 
-export class ChapterDashboardComponent implements OnInit, IFormCanDeActivate {
+export class ChapterDashboardComponent implements OnInit {
 
   private chapterList: Chapter[] = new Array();
   private chapter = new Chapter();
@@ -34,8 +35,9 @@ export class ChapterDashboardComponent implements OnInit, IFormCanDeActivate {
   private currentChapter: any;
   public  canChangePage = false;
   private urlId: string;
-  private openModalButton: HTMLButtonElement;
+  // private openModalButton: HTMLButtonElement;
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
+  private showModal: boolean;
 
   @ViewChild('informationChild')
   information: InformationComponent;
@@ -49,12 +51,13 @@ export class ChapterDashboardComponent implements OnInit, IFormCanDeActivate {
   constructor(
     private router: Router,
     private activeRoute: ActivatedRoute,
-    private toastService: ToastService) { }
+    private toastService: ToastService,
+    private modalService: ModalCancelService) { }
 
   ngOnInit() {
 
-    this.openModalButton = (<HTMLButtonElement>document.getElementById('openModalButton'));
-    this.openModalButton.style.display = 'none';
+    // this.openModalButton = (<HTMLButtonElement>document.getElementById('openModalButton'));
+    // this.openModalButton.style.display = 'none';
 
     this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_enable.png';
     this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_disable.png';
@@ -177,18 +180,15 @@ export class ChapterDashboardComponent implements OnInit, IFormCanDeActivate {
   }
 
   openModal() {
-    this.openModalButton.click();
-    console.log('openModal');
-    return false;
+   this.modalService.show('/template-chapter');
+    // this.openModalButton.click();
+    console.log('openModal dashboard');
   }
 
-  modalConfirm() {
-    this.canChangePage = true;
-    this.router.navigate(['/template-chapter']);
-    return true;
-  }
+  // modalConfirm() {
+  //   this.canChangePage = true;
+  //   this.router.navigate(['/template-chapter']);
+  //   return true;
+  // }
 
-  changePage() {
-    return this.openModal();
-  }
 }

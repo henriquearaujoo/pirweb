@@ -9,6 +9,7 @@ import { error } from 'util';
 import { Paginate } from '../../models/paginate';
 import { Observable } from 'rxjs/Observable';
 import { LoaderService } from '../../services/loader/loader.service';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-template-chapter',
@@ -32,14 +33,11 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
   private size_active: number;
   private size_inactive: number;
 
-  // @ViewChild('resquestServer')
-  // resquestServer: ModalWaitingAnswerComponent;
-
   constructor(
     private router: Router,
     private chapterService: ChapterService,
-    private chapterItem: TemplateChapterItemComponent
-    // private loaderService: LoaderService
+    private chapterItem: TemplateChapterItemComponent,
+    private loaderService: LoaderService
   ) {
       this.hasdata = false;
       this.page = 0;
@@ -50,7 +48,6 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    // this.loaderService.show();
     this.hasdata = false;
     this.getChapters();
     this.getChapterActive();
@@ -60,7 +57,7 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
   ngOnChanges() {  }
 
   getChapters() {
-    // this.loaderService.show();
+    this.loaderService.show();
     if ( this.filter.name == null) {
       this.filter.name = '';
     }
@@ -69,7 +66,6 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
         this.paginate = success;
         this.chapters = this.paginate.content;
         this.hasdata = true;
-        // this.loaderService.hide();
 
         const hash = {};
         this.chapters = this.chapters.filter(chapter => {
@@ -77,10 +73,17 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
           hash[chapter.number] = true;
           return exists;
         });
+        setTimeout(() => {
+          this.loaderService.hide();
+        }, 500);
       },
       error => {
         console.log('ERROR', error);
-        // this.loaderService.hide();
+
+        setTimeout(() => {
+          this.loaderService.hide();
+        }, 500);
+
         this.hasdata = false;
       }
     );

@@ -13,8 +13,8 @@ import {JasperoAlertsModule} from '@jaspero/ng2-alerts';
 import { NgxEditorModule } from 'ngx-editor';
 import { CKEditorModule } from 'ngx-ckeditor';
 import { QuillEditorModule } from 'ng2-quill-editor';
-// import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import {ToastyModule} from 'ng2-toasty';
+// import { NgProgressModule } from 'ngx-progressbar';
 
 import { CdkTableModule } from '@angular/cdk/table';
 import {
@@ -126,6 +126,8 @@ import { QuestionComponent } from './views/template-chapter/chapter/conclusion/q
 import { AnswerListComponent } from './views/template-chapter/chapter/conclusion/question/answer-list/answer-list.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { LoaderService } from './services/loader/loader.service';
+import { ModalCancelComponent } from './components/modal-cancel/modal-cancel.component';
+import { ModalCancelService } from './components/modal-cancel/modal-cancel.service';
 
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
@@ -181,7 +183,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ConclusionComponent,
     InformationComponent,
     ModalWaitingAnswerComponent,
-    LoaderComponent
+    LoaderComponent,
+    ModalCancelComponent
 
   ],
   imports: [
@@ -233,8 +236,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     NgxEditorModule,
     CKEditorModule,
     QuillEditorModule,
-    // FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
     ToastyModule.forRoot()
+    // NgProgressModule
     // NgxSpinnerModule
   ],
   providers: [
@@ -257,7 +260,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     TemplateChapterItemComponent,
     ConclusionService,
     LoaderService,
-    DeactivateGuard
+    DeactivateGuard,
+    ModalCancelService
   ],
   bootstrap: [AppComponent]
 })

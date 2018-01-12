@@ -1,4 +1,4 @@
-<aside class="main-sidebar">
+ <aside class="main-sidebar">
     <section class="sidebar">
       <ul class="sidebar-menu" data-widget="tree">
         <!--
@@ -53,44 +53,22 @@
               <li [class.active]="isActive(['/template-chapter'])">
                 <a class="menu" (click)="redirectTo('template-chapter')">
                     <i class="fa fa-circle-o" aria-hidden="true"></i>
-                    <span>Capítulos</span>
-                </a>
+                    <span>Capítulos </span>
+                </a>                
               </li> 
             </ul>
           </li>
           <li>
-              <button [style.visibility]="'hidden'" id="btnModal" type="button"  data-toggle="modal" data-target="#sideModal">
+              <!-- <button [style.visibility]="'hidden'" id="btnModal" type="button"  data-toggle="modal" data-target="#sideModal">
                   Launch demo modal
-              </button>
-          </li>
-        
+              </button>                   -->
+          </li>         
       </ul>
     </section>
   </aside>
 
-  <!-- Modal -->
-<!-- <div class="modal fade" id="sideModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="confirmModalToLeavePage()">Confirmar</button>
-            </div>
-        </div>
-    </div>
-</div> -->
-
 <!-- Modal Cancel -->
-<div  class="modal fade" id="sideModal" tabindex="-1" role="dialog">
+<!-- <div  class="modal fade" id="sideModal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-sm">
       <div class="modal-content" [ngStyle]="object">
           <div class="modal-body">
@@ -100,7 +78,6 @@
               <h5> Deseja realmente <strong>CANCELAR</strong> ?</h5>
           </div>
           <div class="modal-footer" data-dismiss="modal">
-              <!-- <div class="row"> -->
               <div class="modal-btn-cancel">
                   <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal" id="btn_cancel">Não</button>
               </div>
@@ -108,9 +85,9 @@
                   <button type="button" (click)="confirmModalToLeavePage()" class="btn btn-primary btn-md btn-block" data-dismiss="modal" id="btn_confirm">Sim</button>
               </div>
           </div>
-      </div>
+      </div> -->
       <!-- /.modal-content -->
-  </div>
+  <!-- </div> -->
   <!-- /.modal-dialog -->
-</div>
+<!-- </div> -->
 <!-- /.modal -->

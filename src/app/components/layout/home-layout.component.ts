@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
     <app-side-bar ></app-side-bar>
     <div class="content-wrapper">
       <router-outlet>
+      <app-loader></app-loader>
       </router-outlet>
     </div>
   `,

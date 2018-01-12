@@ -1,5 +1,5 @@
 <simple-notifications></simple-notifications>
-<button style="display:none" data-toggle="modal" data-target="#modal-cancel" id="openModalButton">Open Modal</button>
+<!-- <button style="display:none" data-toggle="modal" data-target="#modal-cancel" id="openModalButton">Open Modal</button> -->
 <div class="content_">
     <div class="content-top">
         <div class="content_fa">
@@ -9,7 +9,7 @@
 
     <section class="content_user">
         <div class="content-header ">
-            <h5 class="content_fa">CAPÍTULO {{currentChapter}}</h5>
+            <h5 class="content_fa">CAPÍTULO {{currentChapter}}</h5>            
         </div>
         <form name="form" #f="ngForm" novalidate>
             <!-- Custom Tabs -->
@@ -127,9 +127,9 @@
         </form>
     </section>
 </div>
-
+<app-modal-cancel> </app-modal-cancel>
 <!-- Modal Cancel -->
-<div class="modal fade" id="modal-cancel">
+<!-- <div class="modal fade" id="modal-cancel">
     <div class="modal-dialog modal-sm">
         <div class="modal-content" [ngStyle]="object">
             <div class="modal-body">
@@ -139,7 +139,6 @@
                 <h5> Deseja realmente <strong>CANCELAR</strong> ?</h5>
             </div>
             <div class="modal-footer" data-dismiss="modal">
-                <!-- <div class="row"> -->
                 <div class="modal-btn-cancel">
                     <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal" id="btn_cancel">Não</button>
                 </div>
@@ -147,9 +146,9 @@
                     <button type="button" (click)="modalConfirm()" class="btn btn-primary btn-md btn-block" data-dismiss="modal" id="btn_confirm">Sim</button>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- /.modal-content -->
-    </div>
+    <!-- </div> -->
     <!-- /.modal-dialog -->
-</div>
+<!-- </div> -->
 <!-- /.modal -->

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ActivatedRouteSnapshot, RouterStateSnapshot, RouterState } from '@angular/router';
+import { ModalCancelService } from '../modal-cancel/modal-cancel.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -13,9 +14,13 @@ export class SideBarComponent implements OnInit {
   private urlToNavigate: string;
   private isForm: boolean;
   private hide = false;
-  private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
+  // private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
+  // private showModal: boolean;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private modalService: ModalCancelService) {
     const state: RouterState = router.routerState;
     const snapshot: RouterStateSnapshot = state.snapshot;
     const root: ActivatedRouteSnapshot = snapshot.root;
@@ -83,14 +88,15 @@ export class SideBarComponent implements OnInit {
       this.isForm = (currentURL.toLowerCase() === '/chapter-dashboard') ||
                     (currentURL.toLowerCase() === '/user');
       if (this.isForm) {
-        (<HTMLButtonElement> document.getElementById('btnModal')).click();
+        this.modalService.show(this.urlToNavigate);
+        // (<HTMLButtonElement> document.getElementById('btnModal')).click();
       } else {
         this.router.navigate([this.urlToNavigate]);
       }
     }
   }
 
- confirmModalToLeavePage() {
-    this.router.navigate([this.urlToNavigate]);
-  }
+//  confirmModalToLeavePage() {
+//     this.router.navigate([this.urlToNavigate]);
+//   }
 }

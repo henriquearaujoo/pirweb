@@ -76,10 +76,11 @@ export class InformationComponent implements OnInit {
     if ( this.isNewData && this.chapter !== undefined ) {
       this.chapterService.insert(this.chapter).subscribe(
         s => {
+          this.chapter = s;
           this.returnEvent.emit(s);
           this.isNewData  = false;
           this.chapter.version = this.lastVersion;
-          console.log('saved with success!');
+          console.log('saved with success!', this.chapter);
         },
         e => {
           this.returnEvent.emit(false);
@@ -91,7 +92,7 @@ export class InformationComponent implements OnInit {
         s => {
           this.chapter = s;
           this.returnEvent.emit(s);
-          console.log('saved with success!');
+          console.log('updated with success!');
         },
         e => {
           this.returnEvent.emit(null);

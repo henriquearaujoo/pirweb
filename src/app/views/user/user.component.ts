@@ -12,6 +12,7 @@ import { UserService } from '../../services/user/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as $ from 'jquery';
 import { IFormCanDeActivate } from '../../guards/iform-candeactivate';
+import { ModalCancelService } from '../../components/modal-cancel/modal-cancel.service';
 
 
 @Component({
@@ -51,7 +52,7 @@ export class UserComponent implements OnInit {
 
   private modalOpened: boolean;
   private openModalButton: HTMLButtonElement;
-  private openModalCancel: HTMLButtonElement;
+  // private openModalCancel: HTMLButtonElement;
 
   public  canChangePage = false;
 
@@ -60,7 +61,8 @@ export class UserComponent implements OnInit {
     private profileService: ProfileService,
     private router: Router,
     private route: ActivatedRoute,
-    private toastService: ToastService) {
+    private toastService: ToastService,
+    private modalService: ModalCancelService) {
       this.user = new User();
       this.org = new Org();
       this.person = new Person();
@@ -88,8 +90,8 @@ export class UserComponent implements OnInit {
     this.openModalButton = (<HTMLButtonElement>document.getElementById('openModalButton'));
     this.openModalButton.style.display = 'none';
 
-    this.openModalCancel = (<HTMLButtonElement>document.getElementById('openModalCancel'));
-    this.openModalCancel.style.display = 'none';
+    // this.openModalCancel = (<HTMLButtonElement>document.getElementById('openModalCancel'));
+    // this.openModalCancel.style.display = 'none';
 
     (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
   }
@@ -125,8 +127,9 @@ export class UserComponent implements OnInit {
   }
 
   openModal() {
-    this.openModalCancel.click();
-    return false;
+    this.modalService.show('/user-list');
+    // this.openModalCancel.click();
+    // return false;
   }
 
   public loadProfiles() {
@@ -339,7 +342,6 @@ export class UserComponent implements OnInit {
   }
 
   backToList() {
-    this.canChangePage = true;
     this.router.navigate(['user-list']);
   }
 }

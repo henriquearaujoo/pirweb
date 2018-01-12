@@ -1,6 +1,6 @@
 <simple-notifications></simple-notifications>
 <button data-toggle="modal" data-target="#modal-default" id="openModalButton">Open Modal</button>
-<button data-toggle="modal" data-target="#modal-cancel" id="openModalCancel">Open Modal</button>
+<!-- <button data-toggle="modal" data-target="#modal-cancel" id="openModalCancel">Open Modal</button> -->
 <div class="content_">
     <div class="content-top">
         <div class="content_fa"> <i class="fa fa-user"></i> Usuários > Cadastro</div>
@@ -329,7 +329,7 @@
                     <div class="row footer">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <button class="btn btn-default btn-block" data-toggle="modal" data-target="#modal-cancel" id="btn_return"> Cancelar</button>
+                                <button class="btn btn-default btn-block" (click)="openModal()" id="btn_return"> Cancelar</button>
                             </div>
                         </div>
                         <div class="col-md-3 col-md-offset-6">
@@ -346,6 +346,8 @@
         </form>
     </section>
 </div>
+
+<app-modal-cancel> </app-modal-cancel> 
 
 <!-- Modal Add -->
 <div class="modal fade" id="modal-default" (click)='backToList()'>
@@ -368,34 +370,26 @@
 <!-- /.modal -->
 
 <!-- Modal Cancel -->
-<div class="modal fade" id="modal-cancel">
+<!-- <div class="modal fade" id="modal-cancel">
     <div class="modal-dialog modal-sm">
         <div class="modal-content" [ngStyle]="object">
             <div class="modal-body">
                 <div class="modal-icon">                    
                     <i class="material-icons" style="font-size: 60px;">error_outline</i>
                 </div>
-                <h5> Deseja realmente <strong>CANCELAR</strong> ?</h5>
+                <h5> Deseja realmente <strong>CANCELAR</strong> ? 999</h5>
             </div>
             <div class="modal-footer" data-dismiss="modal"> 
-                <!-- <div class="row"> -->
                     <div class="modal-btn-cancel">
                         <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal" id="btn_cancel">Não</button>
                     </div>
                     <div class="modal-btn-confirm">
                         <button type="button" (click)="backToList()" class="btn btn-primary btn-md btn-block" data-dismiss="modal" id="btn_confirm">Sim</button>
                     </div>
-                <!-- </div>               -->
-                <!-- <div class="modal-btn-cancel">
-                    
-                </div>
-                <div class="modal-btn-confirm">
-                    
-                </div> -->
             </div>
-        </div>
+        </div> -->
         <!-- /.modal-content -->
-    </div>
+    <!-- </div> -->
     <!-- /.modal-dialog -->
-</div>
+<!-- </div> -->
 <!-- /.modal -->
