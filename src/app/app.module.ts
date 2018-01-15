@@ -63,6 +63,7 @@ import { CreateUserService } from './services/user-create/create-user.service';
 import { ProfileService } from './services/profile/profile.service';
 import { RuleService } from './services/rule/rule.service';
 import { AccessPageService } from './services/page/page.service';
+import { CommunityService } from './services/community/community.service';
 
 import { routing } from './app.router';
 import { AuthGuard } from './guards/auth.guard';
@@ -128,6 +129,8 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { LoaderService } from './services/loader/loader.service';
 import { ModalCancelComponent } from './components/modal-cancel/modal-cancel.component';
 import { ModalCancelService } from './components/modal-cancel/modal-cancel.service';
+import { CommunityComponent } from './views/community/community.component';
+import { CommunityListComponent } from './views/community/community-list/community-list.component';
 
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
@@ -184,7 +187,9 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     InformationComponent,
     ModalWaitingAnswerComponent,
     LoaderComponent,
-    ModalCancelComponent
+    ModalCancelComponent,
+    CommunityComponent,
+    CommunityListComponent
 
   ],
   imports: [
@@ -261,7 +266,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ConclusionService,
     LoaderService,
     DeactivateGuard,
-    ModalCancelService
+    ModalCancelService,
+    CommunityService
   ],
   bootstrap: [AppComponent]
 })
