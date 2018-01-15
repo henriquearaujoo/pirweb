@@ -40,7 +40,7 @@
                 <button class="btn edit" (click)="editChapter(currentVersion)">
                     <i class="fa fa-pencil" aria-hidden="true" (click)='editChapter(currentVersion)'> </i> Editar
                 </button>       
-                <button class="btn status" (click)="disableAbleVersion(currentVersion)">
+                <button class="btn status" (click)="disableEnableVersion(currentVersion)">
                     <i [ngClass]="currentVersion.status === true ? 'fa fa-ban': 'fa fa-check' " aria-hidden="true"></i>           
                     {{ currentVersion.status === true ? 'Desativar': 'Ativar'}} 
                 </button>       
@@ -59,7 +59,7 @@
                                 <i class="fa fa-pencil edit-version"  aria-hidden="true"></i>
                             </a>
                             <a [title]="item.status === true ? 'Desativar': 'Ativar'"                                  
-                                (click)="disableAbleVersion(item)" class="version-status">                                    
+                                (click)="disableEnableVersion(item)" class="version-status">                                    
                                 <i [ngClass]="item.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
                             </a>     
                         </li>   
@@ -88,7 +88,7 @@
                             <li class="dropdown-header">Capítulo {{ chapter.number }}</li>
                             <li *ngFor="let item of chapter.versions" class="dp-version">                               
                                 <a [title]="item.status === true ? 'Desativar': 'Ativar'"                                  
-                                    (click)="disableAbleVersion(item)" id="btn_status"> 
+                                    (click)="disableEnableVersion(item)" id="btn_status"> 
                                         Versão {{ item.version }}           
                                     <i [ngClass]="item.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
                                 </a>     
@@ -132,7 +132,7 @@
         <button class="btn btn-primary btn-xs">
             <i class="fa fa-pencil" aria-hidden="true" (click)='editChapter()'> </i> Editar
         </button>       
-        <button class="btn btn-primary btn-xs" (click)="disableAbleVersion(chapter)">
+        <button class="btn btn-primary btn-xs" (click)="disableEnableVersion(chapter)">
             <i [ngClass]="chapter.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' " aria-hidden="true"></i>           
             {{ chapter.status === true ? 'Desativar': 'Ativar'}} 
         </button>       
@@ -158,7 +158,7 @@
                   <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal" id="btn_cancel">Cancelar</button>
               </div>
               <div class="modal-btn-confirm">
-                  <button type="button" (click)="disableAbleVersion()" class="btn btn-primary btn-md btn-block" data-dismiss="modal" id="btn_confirm">Confirmar</button>
+                  <button type="button" (click)="disableEnableVersion()" class="btn btn-primary btn-md btn-block" data-dismiss="modal" id="btn_confirm">Confirmar</button>
               </div>
             </div>
         </div>

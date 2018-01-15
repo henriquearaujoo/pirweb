@@ -1,19 +1,45 @@
 {
-  "posts": [
+  "users": [
     {
       "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "username": "admin",
+      "password": "adm"
+    },
+    {
+      "id": 2,
+      "username": "admin2",
+      "password": "adm2"
+    },
+    {
+      "id": 3,
+      "username": "user1",
+      "password": "123"
     }
   ],
-  "comments": [
+  "community": [
     {
       "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "name": "comunidade 1",
+      "uc": "uc 1",
+      "regional": "regional 1"
+    },
+    {
+      "id": 2,
+      "name": "comunidade 2",
+      "uc": "uc 2",
+      "regional": "regional 2"
+    },
+    {
+      "id": 3,
+      "name": "comunidade 3",
+      "uc": "uc 3",
+      "regional": "regional 3"
+    },
+    {
+      "uc": "uc 4",
+      "name": "teste comunidade",
+      "regional": "teste regional",
+      "id": 4
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }

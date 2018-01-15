@@ -38,6 +38,7 @@ import { ChapterEditComponent } from './views/template-chapter/chapter/chapter-e
 import { InformationComponent } from './views/template-chapter/chapter/information/information.component';
 import { DeactivateGuard } from './guards/deactivate.guard';
 import { CommunityComponent } from './views/community/community.component';
+import { CommunityListComponent } from './views/community/community-list/community-list.component';
 
 const App_Router: Routes = [
 
@@ -63,6 +64,10 @@ const App_Router: Routes = [
           {
             path: 'maps',
             component: MapsComponent
+          },
+          {
+            path: 'community-list',
+            component: CommunityListComponent
           },
           {
             path: 'community',

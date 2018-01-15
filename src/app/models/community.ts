@@ -1,3 +1,8 @@
 export class Community {
-    public id;
+    public id: number;
+    public name: string;
+    public uc: string;
+    public regional: string;
+    public status: boolean;
+
 }

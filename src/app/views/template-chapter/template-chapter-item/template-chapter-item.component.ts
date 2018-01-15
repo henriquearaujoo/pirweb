@@ -80,7 +80,7 @@ export class TemplateChapterItemComponent implements OnInit {
      }
    }
 
-   disableAbleVersion(chapter: Chapter) {
+   disableEnableVersion(chapter: Chapter) {
     console.log('Chapter: ', chapter);
     if ( !chapter.status) {
       if (chapter.percentage === 100) {

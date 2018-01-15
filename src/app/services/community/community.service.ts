@@ -8,7 +8,9 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class CommunityService extends RestService {
 
-  private apiurl = Constant.BASE_URL + 'community';
+  private apiurl = 'http://localhost:3000/community';
+  // private apiurl = Constant.BASE_URL + 'community';
+
   constructor(http: Http) {
     super(http);
    }
@@ -23,6 +25,11 @@ export class CommunityService extends RestService {
 
   public update(community: Community): Observable<Community> {
     return this.put(this.apiurl, community);
+  }
+
+  public load(id: string) {
+    // return this.get(this.apiurl + 'search/?community_id=' + id);
+    return this.get(this.apiurl + '?id=' + id);
   }
 
 }
