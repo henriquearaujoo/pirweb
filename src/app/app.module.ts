@@ -127,8 +127,8 @@ import { QuestionComponent } from './views/template-chapter/chapter/conclusion/q
 import { AnswerListComponent } from './views/template-chapter/chapter/conclusion/question/answer-list/answer-list.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { LoaderService } from './services/loader/loader.service';
-import { ModalCancelComponent } from './components/modal-cancel/modal-cancel.component';
-import { ModalCancelService } from './components/modal-cancel/modal-cancel.service';
+import { ModalComponent } from './components/modal/modal.component';
+import { ModalService } from './components/modal/modal.service';
 import { CommunityComponent } from './views/community/community.component';
 import { CommunityListComponent } from './views/community/community-list/community-list.component';
 
@@ -187,7 +187,7 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     InformationComponent,
     ModalWaitingAnswerComponent,
     LoaderComponent,
-    ModalCancelComponent,
+    ModalComponent,
     CommunityComponent,
     CommunityListComponent
 
@@ -266,7 +266,7 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ConclusionService,
     LoaderService,
     DeactivateGuard,
-    ModalCancelService,
+    ModalService,
     CommunityService
   ],
   bootstrap: [AppComponent]

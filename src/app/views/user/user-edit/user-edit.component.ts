@@ -47,6 +47,8 @@ export class UserEditComponent implements OnInit {
   private modalOpened: boolean;
   private openModalButton: HTMLButtonElement;
   private btn_cancel: boolean;
+  private type: any;
+  private urlId: string;
 
   constructor(
     private userService: UserService,
@@ -62,11 +64,12 @@ export class UserEditComponent implements OnInit {
 
     this.btn_cancel = false;
     this.show_pjur = false;
-    this.user = this.userService.getUser();
-    this.city_id = this.user.address.city;
-    this.selectType();
-    this.getState();
-    this.loadProfiles();
+    this.urlId = localStorage.getItem('userId');
+    console.log('userId', this.urlId);
+    if (this.urlId !== undefined || this.urlId !== '') {
+      this.loadUser();
+    }
+    // this.user = this.userService.getUser();
     this.modalSave = '#modal-default';
     this.modalOpened = false;
 
@@ -79,16 +82,6 @@ export class UserEditComponent implements OnInit {
 
     this.enable_save = false;
 
-    if (this.user !== undefined) {
-        this.person = this.user.pfis;
-        this.org = this.user.pjur;
-        this.first_name = this.user.name.split(' ')[0];
-        this.last_name = this.user.name.split(' ')[1];
-    } else {
-        this.user = new User();
-        this.org = new Org();
-        this.person = new Person();
-    }
     this.openModalButton = (<HTMLButtonElement>document.getElementById('openModalButton'));
     this.openModalButton.style.display = 'none';
     (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
@@ -101,20 +94,47 @@ export class UserEditComponent implements OnInit {
     }
     this.modalOpened = false;
     this.verifyType();
-    console.log('EDITAR',  this.user);
-    this.user.address.city = Number(this.user.address.city);
-    this.user.name = this.first_name + ' ' + this.last_name;
+    // console.log('EDITAR',  this.user);
+    // this.user.address.city = Number(this.user.address.city);
+    // this.user.name = this.first_name + ' ' + this.last_name;
 
-    this.userService.saveEditUser(this.user).subscribe(
-      s => {
-        this.openModal();
-        console.log('openModal()');
-      },
-      error => {
-        this.error_list = error;
-        this.verifyError();
+    if (this.type === 'PJUR') {
+      console.log('SAVE ORG', this.org);
+      this.userService.saveEditEntity(this.org).subscribe(
+        s_org => {
+          this.openModal();
+          // this.router.navigate(['/user-list']);
+        },
+        error => {
+          this.error_list = error;
+          this.verifyError();
+        }
+      );
+    } else {
+      if (this.type === 'PFIS') {
+        console.log('SAVE PERSON', this.person);
+        this.userService.saveEditPerson(this.person).subscribe(
+          s_person => {
+            this.openModal();
+            // this.router.navigate(['/user-list']);
+          },
+          error => {
+            this.error_list = error;
+            this.verifyError();
+          }
+        );
       }
-    );
+    }
+    // this.userService.saveEditUser(this.user).subscribe(
+    //   s => {
+    //     this.openModal();
+    //     console.log('openModal()');
+    //   },
+    //   error => {
+    //     this.error_list = error;
+    //     this.verifyError();
+    //   }
+    // );
   }
 
   openModal() {
@@ -183,6 +203,31 @@ export class UserEditComponent implements OnInit {
 
   }
 
+  loadUser() {
+    this.userService.load(this.urlId).subscribe(
+      success => {
+        this.user = success[0];
+        if (this.user !== undefined) {
+          this.person = this.user.pfis;
+          this.org = this.user.pjur;
+          this.first_name = this.user.name.split(' ')[0];
+          this.last_name = this.user.name.split(' ')[1];
+
+          this.city_id = this.user.address.city;
+          this.selectType();
+          this.getState();
+          this.loadProfiles();
+        } else {
+            this.user = new User();
+            this.org = new Org();
+            this.person = new Person();
+        }
+      },
+      error => console.log(error)
+    );
+
+  }
+
   selectType() {
     switch (this.user.type) {
       case 'PFIS':
@@ -211,30 +256,56 @@ export class UserEditComponent implements OnInit {
 
   verifyType() {
     if (this.user !== undefined) {
+      this.user.address.city = Number(this.user.address.city);
+      this.user.name = this.first_name + ' ' + this.last_name;
+
       switch (this.user.type) {
         case 'PFIS':
         {
           this.show_pjur = false;
-          if (this.user.pjur !== undefined) {
-            this.user.pfis = this.person;
-            this.user.pjur = null;
-            delete this.user.pjur;
-          } else {
-            this.user.pfis = this.person;
-          }
+
+           // this.user.pfis = this.person;
+           this.person.id = this.user.id;
+          this.person.address = this.user.address;
+          this.person.email = this.user.email;
+          this.person.login = this.user.login;
+          this.person.name = this.user.name;
+          this.person.password = this.user.password;
+          this.person.profile = this.user.profile;
+          this.person.status = this.user.status;
+          this.person.type = this.user.type;
+          this.type = 'PFIS';
+          // if (this.user.pjur !== undefined) {
+          //   this.user.pfis = this.person;
+          //   this.user.pjur = null;
+          //   delete this.user.pjur;
+          // } else {
+          //   this.user.pfis = this.person;
+          // }
           break;
         }
 
         case 'PJUR':
         {
           this.show_pjur = true;
-          if (this.user.pfis !== undefined) {
-            this.user.pjur = this.org;
-            this.user.pfis = null;
-            delete this.user.pfis;
-          } else {
-            this.user.pjur = this.org;
-          }
+
+          this.org.id = this.user.id;
+          this.org.address = this.user.address;
+          this.org.email = this.user.email;
+          this.org.login = this.user.login;
+          this.org.name = this.user.name;
+          this.org.password = this.user.password;
+          this.org.profile = this.user.profile;
+          this.org.status = this.user.status;
+          this.org.type = this.user.type;
+          this.type = 'PJUR';
+          // if (this.user.pfis !== undefined) {
+          //   this.user.pjur = this.org;
+          //   this.user.pfis = null;
+          //   delete this.user.pfis;
+          // } else {
+          //   this.user.pjur = this.org;
+          // }
           break;
         }
       }

@@ -1,5 +1,6 @@
 <simple-notifications></simple-notifications>
-<button data-toggle="modal" data-target="#modal-default" id="openModalButton">Open Modal</button>
+<app-modal> </app-modal>
+<!-- <button data-toggle="modal" data-target="#modal-default" id="openModalButton">Open Modal</button> -->
 <!-- <button data-toggle="modal" data-target="#modal-cancel" id="openModalCancel">Open Modal</button> -->
 <div class="content_">
     <div class="content-top">
@@ -347,10 +348,8 @@
     </section>
 </div>
 
-<app-modal-cancel> </app-modal-cancel> 
-
 <!-- Modal Add -->
-<div class="modal fade" id="modal-default" (click)='backToList()'>
+<!-- <div class="modal fade" id="modal-default" (click)='backToList()'>
     <div class="modal-dialog modal-sm">
         <div class="modal-content" [ngStyle]="object">
             <div class="modal-body">
@@ -362,11 +361,11 @@
             <div class="modal-footer" data-dismiss="modal" id="btn_confirm" (click)='backToList()'>
                 <label>Fechar</label>
             </div>
-        </div>
+        </div> -->
         <!-- /.modal-content -->
-    </div>
+    <!-- </div> -->
     <!-- /.modal-dialog -->
-</div>
+<!-- </div> -->
 <!-- /.modal -->
 
 <!-- Modal Cancel -->

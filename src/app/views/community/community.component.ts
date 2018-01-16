@@ -4,7 +4,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Community } from '../../models/community';
 import { Subscription } from 'rxjs/Subscription';
 import { CommunityService } from '../../services/community/community.service';
-import { ModalCancelService } from '../../components/modal-cancel/modal-cancel.service';
+import { ModalService } from '../../components/modal/modal.service';
 @Component({
   selector: 'app-community',
   templateUrl: './community.component.html',
@@ -20,7 +20,7 @@ export class CommunityComponent implements OnInit, OnDestroy {
   constructor(
     private communityService: CommunityService,
     private toastService: ToastService,
-    private modalService: ModalCancelService
+    private modalService: ModalService
   ) { }
 
   ngOnInit() {
@@ -75,7 +75,7 @@ export class CommunityComponent implements OnInit, OnDestroy {
   }
 
   openModal() {
-    this.modalService.show('/community-list');
+    this.modalService.modalCancel('/community-list');
 
   }
 

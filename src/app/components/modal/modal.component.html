@@ -1,5 +1,8 @@
 <button  style="display:none"class="btn btn-default" data-toggle="modal" data-target="#modal-cancel" 
-    id="openModalBtn">Cancelar</button>
+    id="openModalCancel">Cancelar</button>
+
+<button  style="display:none"class="btn btn-default" data-toggle="modal" data-target="#modal-success" 
+    id="openModalSuccess">Salvar</button>
 
 <!-- Modal Cancel -->
 <div class="modal fade" id="modal-cancel">
@@ -19,6 +22,26 @@
                 <div class="modal-btn-confirm">
                     <button type="button" (click)="modalConfirm()" class="btn btn-primary btn-md btn-block" data-dismiss="modal" id="btn_confirm">Sim</button>
                 </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Modal Add -->
+<div class="modal fade" id="modal-success" (click)='modalConfirm()'>
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" [ngStyle]="object">
+            <div class="modal-body">
+                <div class="modal-icon">
+                    <i class="material-icons" style="font-size: 60px;">done</i>
+                </div>
+                <h5> Cadastro realizado com Sucesso!</h5>
+            </div>
+            <div class="modal-footer" data-dismiss="modal" id="btn_confirm" (click)='modalConfirm()'>
+                <label>Fechar</label>
             </div>
         </div>
         <!-- /.modal-content -->

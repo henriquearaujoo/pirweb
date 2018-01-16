@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ActivatedRouteSnapshot, RouterStateSnapshot, RouterState } from '@angular/router';
-import { ModalCancelService } from '../modal-cancel/modal-cancel.service';
+import { ModalService } from '../modal/modal.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -20,7 +20,7 @@ export class SideBarComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private modalService: ModalCancelService) {
+    private modalService: ModalService) {
     const state: RouterState = router.routerState;
     const snapshot: RouterStateSnapshot = state.snapshot;
     const root: ActivatedRouteSnapshot = snapshot.root;
@@ -88,7 +88,7 @@ export class SideBarComponent implements OnInit {
       this.isForm = (currentURL.toLowerCase() === '/chapter-dashboard') ||
                     (currentURL.toLowerCase() === '/user');
       if (this.isForm) {
-        this.modalService.show(this.urlToNavigate);
+        this.modalService.modalCancel(this.urlToNavigate);
         // (<HTMLButtonElement> document.getElementById('btnModal')).click();
       } else {
         this.router.navigate([this.urlToNavigate]);

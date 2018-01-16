@@ -12,7 +12,7 @@ import { UserService } from '../../services/user/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as $ from 'jquery';
 import { IFormCanDeActivate } from '../../guards/iform-candeactivate';
-import { ModalCancelService } from '../../components/modal-cancel/modal-cancel.service';
+import { ModalService } from '../../components/modal/modal.service';
 
 
 @Component({
@@ -51,7 +51,8 @@ export class UserComponent implements OnInit {
   private modalSave: string;
 
   private modalOpened: boolean;
-  private openModalButton: HTMLButtonElement;
+  // private openModalButton: HTMLButtonElement;
+  private type: any;
   // private openModalCancel: HTMLButtonElement;
 
   public  canChangePage = false;
@@ -62,7 +63,7 @@ export class UserComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private toastService: ToastService,
-    private modalService: ModalCancelService) {
+    private modalService: ModalService) {
       this.user = new User();
       this.org = new Org();
       this.person = new Person();
@@ -87,8 +88,8 @@ export class UserComponent implements OnInit {
     this.cont = 0;
     this.modalSave = '#modal-default';
 
-    this.openModalButton = (<HTMLButtonElement>document.getElementById('openModalButton'));
-    this.openModalButton.style.display = 'none';
+    // this.openModalButton = (<HTMLButtonElement>document.getElementById('openModalButton'));
+    // this.openModalButton.style.display = 'none';
 
     // this.openModalCancel = (<HTMLButtonElement>document.getElementById('openModalCancel'));
     // this.openModalCancel.style.display = 'none';
@@ -98,36 +99,51 @@ export class UserComponent implements OnInit {
 
   saveData() {
     this.modalOpened = false;
-    console.log('SAVE', this.user);
     this.verifyType();
-    console.log(this.user.profile);
-    this.user.name = this.first_name + ' ' + this.last_name;
-    this.user.address.city = Number(this.user.address.city);
-    console.log('Usuários:', this.user);
-    console.log('Cidades: ', this.cities);
+    // console.log(this.user.profile);
+    // this.user.name = this.first_name + ' ' + this.last_name;
+    // this.user.address.city = Number(this.user.address.city);
     this.success = true;
-    this.userService.createUser(this.user).subscribe(
-      success => {
-        this.openModalSuccess();
-        // this.router.navigate(['/user-list']);
-      },
-      error => {
-        this.error_list = error;
-        this.verifyError();
+    if (this.type === 'PJUR') {
+      console.log('SAVE ORG', this.org);
+      this.userService.createEntity(this.org).subscribe(
+        s_org => {
+          this.openModalSuccess();
+          // this.router.navigate(['/user-list']);
+        },
+        error => {
+          this.error_list = error;
+          this.verifyError();
+        }
+      );
+    } else {
+      if (this.type === 'PFIS') {
+        console.log('SAVE PERSON', this.person);
+        this.userService.createPerson(this.person).subscribe(
+          s_person => {
+            this.openModalSuccess();
+            // this.router.navigate(['/user-list']);
+          },
+          error => {
+            this.error_list = error;
+            this.verifyError();
+          }
+        );
       }
-    );
+    }
   }
 
   openModalSuccess() {
     if (!this.modalOpened) {
       this.modalOpened = true;
-      this.openModalButton.click();
+      // this.openModalButton.click();
+      this.modalService.modalSuccess('/user-list');
       return false;
     }
   }
 
   openModal() {
-    this.modalService.show('/user-list');
+    this.modalService.modalCancel('/user-list');
     // this.openModalCancel.click();
     // return false;
   }
@@ -189,18 +205,39 @@ export class UserComponent implements OnInit {
   }
 
   verifyType() {
+    this.user.name = this.first_name + ' ' + this.last_name;
+    this.user.address.city = Number(this.user.address.city);
+
     switch (this.user.type) {
       case 'PFIS':
       {
-        this.user.pfis = this.person;
-        this.org = null;
+        // this.user.pfis = this.person;
+        this.person.address = this.user.address;
+        this.person.email = this.user.email;
+        this.person.login = this.user.login;
+        this.person.name = this.user.name;
+        this.person.password = this.user.password;
+        this.person.profile = this.user.profile;
+        this.person.status = this.user.status;
+        this.person.type = this.user.type;
+        this.type = 'PFIS';
+        // this.org = null;
         break;
       }
 
       case 'PJUR':
       {
-        this.user.pjur = this.org;
-        this.person = null;
+        this.org.address = this.user.address;
+        this.org.email = this.user.email;
+        this.org.login = this.user.login;
+        this.org.name = this.user.name;
+        this.org.password = this.user.password;
+        this.org.profile = this.user.profile;
+        this.org.status = this.user.status;
+        this.org.type = this.user.type;
+        this.type = 'PJUR';
+        // this.user.pjur = this.org;
+        // this.person = null;
         break;
       }
     }

@@ -10,7 +10,7 @@ import { EventEmitter } from 'events';
 import { InformationComponent } from '../information/information.component';
 import { ConclusionComponent } from '../conclusion/conclusion.component';
 import { IFormCanDeActivate } from '../../../../guards/iform-candeactivate';
-import { ModalCancelService } from '../../../../components/modal-cancel/modal-cancel.service';
+import { ModalService } from '../../../../components/modal/modal.service';
 
 @Component({
   selector: 'app-chapter-dashboard',
@@ -52,7 +52,7 @@ export class ChapterDashboardComponent implements OnInit {
     private router: Router,
     private activeRoute: ActivatedRoute,
     private toastService: ToastService,
-    private modalService: ModalCancelService) { }
+    private modalService: ModalService) { }
 
   ngOnInit() {
 
@@ -180,7 +180,7 @@ export class ChapterDashboardComponent implements OnInit {
   }
 
   openModal() {
-   this.modalService.show('/template-chapter');
+   this.modalService.modalCancel('/template-chapter');
     // this.openModalButton.click();
     console.log('openModal dashboard');
   }

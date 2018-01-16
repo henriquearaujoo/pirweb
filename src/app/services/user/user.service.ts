@@ -4,6 +4,8 @@ import { RestService } from '../rest/rest.service';
 import { Http } from '@angular/http';
 import { User } from '../../models/user';
 import { Observable } from 'rxjs/Observable';
+import { Person } from '../../models/person';
+import { Org } from '../../models/org';
 
 @Injectable()
 export class UserService extends RestService {
@@ -32,9 +34,27 @@ export class UserService extends RestService {
     return this.post(this.apiurl + 'users/', user);
   }
 
+  public createPerson(person: Person) {
+    return this.post(this.apiurl + 'users/person/', person);
+  }
+
+  public createEntity(org: Org) {
+    return this.post(this.apiurl + 'users/entity/', org);
+  }
+
   public saveEditUser(user: User): Observable<User> {
     const saveUserUrl = this.apiurl.concat('users/');
     return this.put(saveUserUrl, user);
+  }
+
+  public saveEditPerson(person: Person): Observable<Person> {
+    const saveUserUrl = this.apiurl.concat('users/person/');
+    return this.put(saveUserUrl, person);
+  }
+
+  public saveEditEntity(org: Org): Observable<Org> {
+    const saveUserUrl = this.apiurl.concat('users/entity/');
+    return this.put(saveUserUrl, org);
   }
 
   public disableUser(user: User): Observable<User> {
@@ -59,6 +79,10 @@ export class UserService extends RestService {
 
   public getCity(city_id?: number) {
      return this.get(this.apiurl + 'states/city/' + city_id + '/');
+  }
+
+  public load(id: string) {
+    return this.get(this.apiurl + 'users/search/?id=' + id);
   }
 
   setUser(user: User) {

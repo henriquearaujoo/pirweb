@@ -61,6 +61,7 @@ export class UserListComponent implements OnInit, OnDestroy {
       success => {
         this.paginate = success;
         this.users = success.content;
+        console.log('USERS:', this.users);
         console.log('show_msg', this.userService.show_msg);
         if (this.userService.show_msg) {
           this.toastService.toastSuccess();
@@ -94,8 +95,9 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.getUsers();
   }
 
-  setUser(user) {
+  setUser(user: User) {
     this.userService.setUser(user);
+    localStorage.setItem('userId', user.id);
   }
 
   changeStatus(user: User) {

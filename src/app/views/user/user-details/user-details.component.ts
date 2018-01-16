@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ProfileService } from '../../../services/profile/profile.service';
 import { Profile } from '../../../models/profile';
 import { ToastService } from '../../../services/toast-notification/toast.service';
+import { Address } from '../../../models/address';
 
 @Component({
   selector: 'app-user-details',
@@ -17,10 +18,12 @@ export class UserDetailsComponent implements OnInit {
   private user: User;
   show_pjur: boolean;
   private profiles: Profile[] = new Array();
+  private profile: Profile = new Profile();
   private cities: City[];
   private city_id: number;
   private state_id: string;
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
+  private urlId: string;
 
   constructor(
     private userService: UserService,
@@ -32,11 +35,12 @@ export class UserDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.show_pjur = false;
-    this.user = this.userService.getUser();
-    this.city_id = this.user.address.city;
-    console.log(this.city_id);
-    this.verifyType();
-    this.loadCityState();
+    // this.user = this.userService.getUser();
+    this.urlId = localStorage.getItem('userId');
+    console.log('userId', this.urlId);
+    if (this.urlId !== undefined || this.urlId !== '') {
+      this.loadUser();
+    }
   }
 
   verifyType() {
@@ -57,20 +61,44 @@ export class UserDetailsComponent implements OnInit {
     }
   }
 
-  loadCityState() {
-    this.userService.getCity(this.user.address.city).subscribe(
-      success_city => {
-        this.user.address.city = success_city.name;
-        this.userService.getStates(success_city.state_id).subscribe(
-          success_state => {
-            this.user.address.state = success_state.name;
-          },
-          error => console.log(error)
+  loadUser() {
+    this.userService.load(this.urlId).subscribe(
+      success => {
+        this.user = success[0];
+        this.profileService.load(this.user.profile).subscribe(
+          s => {
+            this.profile = s[0];
+            this.user.profile = this.profile.title;
+            if (this.user.address !== undefined) {
+              this.city_id = this.user.address.city;
+            } else {
+              this.user.address = new Address();
+            }
+            console.log(this.city_id);
+            this.verifyType();
+            this.loadCityState();
+          }
         );
       },
       error => console.log(error)
     );
+  }
 
+  loadCityState() {
+    if (this.user.address.city !== undefined) {
+      this.userService.getCity(this.user.address.city).subscribe(
+        success_city => {
+          this.user.address.city = success_city.name;
+          this.userService.getStates(success_city.state_id).subscribe(
+            success_state => {
+              this.user.address.state = success_state.name;
+            },
+            error => console.log(error)
+          );
+        },
+        error => console.log(error)
+      );
+    }
   }
 
   editUser() {
