@@ -9,6 +9,7 @@ import { UserService } from '../../../services/user/user.service';
 import { ProfileService } from '../../../services/profile/profile.service';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
+import { Community } from '../../../models/community';
 
 @Component({
   selector: 'app-user-edit',
@@ -19,6 +20,8 @@ export class UserEditComponent implements OnInit {
 
   private user: User;
   private types: Types[] = [new Types('PFIS', 'Pessoa Fi­sica'), new Types('PJUR', 'Pessoa Jurídica')];
+  private communities: Community[] = new Array();
+  private profile: string;
   private states = new Array();
   private cities = new Array();
   private profiles: Profile[] = new Array();
@@ -49,6 +52,7 @@ export class UserEditComponent implements OnInit {
   private btn_cancel: boolean;
   private type: any;
   private urlId: string;
+  private show_community: boolean;
 
   constructor(
     private userService: UserService,
@@ -64,6 +68,7 @@ export class UserEditComponent implements OnInit {
 
     this.btn_cancel = false;
     this.show_pjur = false;
+    this.show_community = false;
     this.urlId = localStorage.getItem('userId');
     console.log('userId', this.urlId);
     if (this.urlId !== undefined || this.urlId !== '') {
@@ -125,16 +130,6 @@ export class UserEditComponent implements OnInit {
         );
       }
     }
-    // this.userService.saveEditUser(this.user).subscribe(
-    //   s => {
-    //     this.openModal();
-    //     console.log('openModal()');
-    //   },
-    //   error => {
-    //     this.error_list = error;
-    //     this.verifyError();
-    //   }
-    // );
   }
 
   openModal() {
@@ -264,8 +259,7 @@ export class UserEditComponent implements OnInit {
         {
           this.show_pjur = false;
 
-           // this.user.pfis = this.person;
-           this.person.id = this.user.id;
+          this.person.id = this.user.id;
           this.person.address = this.user.address;
           this.person.email = this.user.email;
           this.person.login = this.user.login;
@@ -275,13 +269,6 @@ export class UserEditComponent implements OnInit {
           this.person.status = this.user.status;
           this.person.type = this.user.type;
           this.type = 'PFIS';
-          // if (this.user.pjur !== undefined) {
-          //   this.user.pfis = this.person;
-          //   this.user.pjur = null;
-          //   delete this.user.pjur;
-          // } else {
-          //   this.user.pfis = this.person;
-          // }
           break;
         }
 
@@ -299,15 +286,31 @@ export class UserEditComponent implements OnInit {
           this.org.status = this.user.status;
           this.org.type = this.user.type;
           this.type = 'PJUR';
-          // if (this.user.pfis !== undefined) {
-          //   this.user.pjur = this.org;
-          //   this.user.pfis = null;
-          //   delete this.user.pfis;
-          // } else {
-          //   this.user.pjur = this.org;
-          // }
           break;
         }
+      }
+    }
+  }
+
+  selectProfile() {
+    this.profiles.forEach( elem => {
+      if (this.user !== undefined) {
+        if (elem.id === this.user.profile) {
+          this.profile = elem.title;
+        }
+      }
+    });
+    console.log('Select Profile:', this.profile);
+    switch (this.profile.toUpperCase()) {
+      case 'AGENTE':
+      {
+        this.show_community = true;
+        break;
+      }
+      default:
+      {
+        this.show_community = false;
+        break;
       }
     }
   }

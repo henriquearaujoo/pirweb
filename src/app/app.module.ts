@@ -64,6 +64,7 @@ import { ProfileService } from './services/profile/profile.service';
 import { RuleService } from './services/rule/rule.service';
 import { AccessPageService } from './services/page/page.service';
 import { CommunityService } from './services/community/community.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { routing } from './app.router';
 import { AuthGuard } from './guards/auth.guard';
@@ -241,7 +242,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     NgxEditorModule,
     CKEditorModule,
     QuillEditorModule,
-    ToastyModule.forRoot()
+    ToastyModule.forRoot(),
+    HttpClientModule,
     // NgProgressModule
     // NgxSpinnerModule
   ],

@@ -84,21 +84,29 @@
                                                             {{ item.title }} 
                                                         </td>            
                                                        
-                                                        <td class="tbl-right">              
-                                                          <a  href="#tab_2" (click)="isActive(true)"data-toggle="tab" title="Permissões">
-                                                            <i (click)="walk_(1, item)" class="large material-icons">lock</i>
+                                                        <td class="tbl-right" >              
+                                                          <a  href="#tab_2" (click)="isActive(true)"data-toggle="tab" title="Permissões"
+                                                            *ngIf=" ((item.title | uppercase) !== 'AGENTE') &&
+                                                                        ((item.title | uppercase) !== 'ADMINISTRADOR') &&
+                                                                        ((item.title | uppercase) !== 'TERCEIRO')">
+                                                            <i (click)="walk_(1, item)" class="large material-icons"> lock</i>
                                                           </a>
                                                         </td>
                                                         <td class="tbl-right">          
-                                                          <a title="Editar" id="btn_edit"
-                                                            (click)="editProfile(item)">
+                                                          <a title="Editar" id="btn_edit" (click)="editProfile(item)"
+                                                            *ngIf=" ((item.title | uppercase) !== 'AGENTE') &&
+                                                                        ((item.title | uppercase) !== 'ADMINISTRADOR') &&
+                                                                        ((item.title | uppercase) !== 'TERCEIRO')">
                                                             <i class="fa fa-pencil fa-fw"></i>
                                                           </a>
                                                         </td>
                                                         <td class="tbl-right">
                                                             <a [title]="item.status === true ? 'Desativar': 'Ativar'"
                                                               data-toggle="modal" data-target="#myModal"
-                                                              (click)="changeStatus(item)" id="btn_status">              
+                                                              (click)="changeStatus(item)" id="btn_status"
+                                                              *ngIf=" ((item.title | uppercase) !== 'AGENTE') &&
+                                                                      ((item.title | uppercase) !== 'ADMINISTRADOR') &&
+                                                                      ((item.title | uppercase) !== 'TERCEIRO')">              
                                                               <i [ngClass]="item.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
                                                             </a>                                                          
                                                         </td>

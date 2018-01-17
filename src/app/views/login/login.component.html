@@ -5,19 +5,21 @@
     <!-- /.login-logo -->
     <div class="login-box-body">
   
-      <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+      <form name="form" (ngSubmit)="f.form.valid && sendData()" #f="ngForm" novalidate>
 
-        <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+        <div class="form-group" [ngClass]="applyCssError(f, login)">
             <label for="user">Usuário:</label>
-            <input [(ngModel)]="user.username" name="username" #username="ngModel" class="form-control" placeholder="Nome de usuário" required>
-            <div *ngIf="f.submitted && !username.valid" class="help-block">Digite um usuário</div>
+            <input name="login" #login="ngModel" [(ngModel)]="user.login"  class="form-control" placeholder="Nome de usuário" required>
+            <app-control-field-error [showError]="verifyValidSubmitted(f, login)" msgError="Digite um usuário">
+            </app-control-field-error>
         </div>
         
-        <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+        <div class="form-group" [ngClass]="applyCssError(f, password)">
             <label for="psw">Senha:</label>
-            <input [(ngModel)]="user.password" name="password" #password="ngModel"  type="password" class="form-control" placeholder="Senha" required>
-            <div *ngIf="f.submitted && !password.valid" class="help-block"> Digite uma senha</div>
-          </div>
+            <input name="password" #password="ngModel" [(ngModel)]="user.password"  type="password" class="form-control" placeholder="Senha" required>
+            <app-control-field-error [showError]="verifyValidSubmitted(f, password)" msgError=" Digite uma senha">
+            </app-control-field-error>
+        </div>
 
         <div class="row">
           

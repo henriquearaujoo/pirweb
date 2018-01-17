@@ -15,7 +15,7 @@ export class User {
     public status: boolean;
     public dt_register: string;
     public address: Address = new Address();
-    // public city_id: string;
+    public community_id: string;
 
     constructor() { }
 }

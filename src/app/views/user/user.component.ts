@@ -1,3 +1,4 @@
+import { Community } from './../../models/community';
 import { ToastService } from './../../services/toast-notification/toast.service';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { Person } from './../../models/person';
@@ -24,9 +25,11 @@ export class UserComponent implements OnInit {
 
   private user: User;
   private types: Types[] = [new Types('PFIS', 'Pessoa Fi­sica'), new Types('PJUR', 'Pessoa Jurídica')];
+  private communities: Community[] = new Array();
   private states = new Array();
   private cities = new Array();
   private profiles: Profile[] = new Array();
+  private profile: string;
   private org: Org;
   private person: Person;
   private first_name: string;
@@ -54,8 +57,7 @@ export class UserComponent implements OnInit {
   // private openModalButton: HTMLButtonElement;
   private type: any;
   // private openModalCancel: HTMLButtonElement;
-
-  public  canChangePage = false;
+  private show_community: boolean;
 
   constructor(
     private userService: UserService,
@@ -73,6 +75,7 @@ export class UserComponent implements OnInit {
     this.loadStates();
     this.loadProfiles();
     this.show_pjur = false;
+    this.show_community = false;
     this.success = false;
     this.error_list = [];
     this.modalOpened = false;
@@ -95,6 +98,7 @@ export class UserComponent implements OnInit {
     // this.openModalCancel.style.display = 'none';
 
     (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
+
   }
 
   saveData() {
@@ -199,6 +203,29 @@ export class UserComponent implements OnInit {
       {
         this.show_pjur = true;
         this.org = new Org();
+        break;
+      }
+    }
+  }
+
+  selectProfile() {
+    this.profiles.forEach( elem => {
+      if (this.user !== undefined) {
+        if (elem.id === this.user.profile) {
+          this.profile = elem.title;
+        }
+      }
+    });
+    console.log('Select Profile:', this.profile);
+    switch (this.profile.toUpperCase()) {
+      case 'AGENTE':
+      {
+        this.show_community = true;
+        break;
+      }
+      default:
+      {
+        this.show_community = false;
         break;
       }
     }

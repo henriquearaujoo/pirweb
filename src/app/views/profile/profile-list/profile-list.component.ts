@@ -60,127 +60,127 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
         this.page = 0;
       }
 
-      ngOnInit() {
-        // this.currentTab = 0;
-        // this.cont = 0;
-        this.profileTab = '../../../assets/img/profile/ic_profile_enable.png';
-        this.permissionTab = '../../../assets/img/profile/ic_permission_disable.png';
-        this.profileTabActive = true;
-        this.permissionTabActive = false;
-        this.hasdata = false;
-        this.getProfile();
+    ngOnInit() {
+      // this.currentTab = 0;
+      // this.cont = 0;
+      this.profileTab = '../../../assets/img/profile/ic_profile_enable.png';
+      this.permissionTab = '../../../assets/img/profile/ic_permission_disable.png';
+      this.profileTabActive = true;
+      this.permissionTabActive = false;
+      this.hasdata = false;
+      this.getProfile();
+    }
+
+    ngOnChanges() {
+    }
+
+    getProfile() {
+      if ( this.filter.title !== '') { this.page = 0; }
+      this.profileService.getProfile(this.filter.title, this.page).subscribe(
+        success => {
+          this.paginate = success;
+          this.profiles = this.paginate.content;
+          console.log('Paginate:', this.paginate);
+          this.hasdata = true;
+        },
+        error => this.hasdata = false
+      );
+    }
+
+    setPage(page: number) {
+      this.page = page;
+      console.log('Página:', this.page);
+      console.log('Paginate:', this.paginate);
+      console.log('Filtro:', this.filter.title);
+      this.getProfile();
+    }
+
+    setProfile(profile: Profile) {
+      this.selectedProfile = profile;
+      // localStorage.setItem('currentProfile', JSON.stringify(profile));
+      this.accessPageService.profileSelected(profile);
+      console.log(this.accessPageService.getProfile().title);
+    }
+
+    changeStatus(profile: Profile) {
+      this.profile = profile;
+    }
+
+    disableProfile() {
+      if (this.profile.status === true) {
+        this.profile.status = false;
+      } else {
+        this.profile.status = true;
       }
+      console.log(this.profile.status);
 
-      ngOnChanges() {
-      }
+      this.profile.description = '';
+      this.profile.created_by = '';
+      this.profile.modified_by = '';
+      console.log('Disable:', this.profile);
+      this.profileService.disableProfile(this.profile).subscribe(
+        success => {
+          this.router.navigate(['profile-list']);
+          this.getProfile();
+          this.toastService.toastSuccess();
+        },
+        error => <any>error
+      );
+    }
 
-      getProfile() {
-        if ( this.filter.title !== '') { this.page = 0; }
-        this.profileService.getProfile(this.filter.title, this.page).subscribe(
-          success => {
-            this.paginate = success;
-            this.profiles = this.paginate.content;
-            console.log('Paginate:', this.paginate);
-            this.hasdata = true;
-          },
-          error => this.hasdata = false
-        );
-      }
+    onInsertValue(evento: Profile) {
+      this.profiles.push(evento);
+      this.getProfile();
+      this.filter.title = '';
+      this.edit = false;
+      this.pageComponent.getProfile();
+    }
 
-      setPage(page: number) {
-        this.page = page;
-        console.log('Página:', this.page);
-        console.log('Paginate:', this.paginate);
-        console.log('Filtro:', this.filter.title);
-        this.getProfile();
-      }
+    onFilter(evento) {
+      this.filter.title = evento.title;
+    }
 
-      setProfile(profile: Profile) {
-        this.selectedProfile = profile;
-        // localStorage.setItem('currentProfile', JSON.stringify(profile));
-        this.accessPageService.profileSelected(profile);
-        console.log(this.accessPageService.getProfile().title);
-      }
+    editProfile(profile: Profile) {
+      this.edit = true;
+      this.selectedProfile = profile;
+    }
 
-      changeStatus(profile: Profile) {
-        this.profile = profile;
-      }
+    isActive(tab: boolean) {
 
-      disableProfile() {
-        if (this.profile.status === true) {
-          this.profile.status = false;
-        } else {
-          this.profile.status = true;
-        }
-        console.log(this.profile.status);
+    }
 
-        this.profile.description = '';
-        this.profile.created_by = '';
-        this.profile.modified_by = '';
-        console.log('Disable:', this.profile);
-        this.profileService.disableProfile(this.profile).subscribe(
-          success => {
-            this.router.navigate(['profile-list']);
-            this.getProfile();
-            this.toastService.toastSuccess();
-          },
-          error => <any>error
-        );
-      }
-
-      onInsertValue(evento: Profile) {
-        this.profiles.push(evento);
-        this.getProfile();
-        this.filter.title = '';
-        this.edit = false;
-        this.pageComponent.getProfile();
-      }
-
-      onFilter(evento) {
-        this.filter.title = evento.title;
-      }
-
-      editProfile(profile: Profile) {
-        this.edit = true;
-        this.selectedProfile = profile;
-      }
-
-      isActive(tab: boolean) {
-
-      }
-
-      walk ( tab: number) {
-        switch (tab) {
-          case 0: {
-            this.profileTab = '../../../assets/img/profile/ic_profile_enable.png';
-            this.permissionTab = '../../../assets/img/profile/ic_permission_disable.png';
-            this.profileTabActive = true;
-            this.permissionTabActive = false;
-            break;
-          }
-          case 1: {
-            if (this.accessPageService.getProfile().id !== undefined) {
-              this.pageComponent.getCurrentProfile();
-            }
-            this.profileTab = '../../../assets/img/profile/ic_profile_disable.png';
-            this.permissionTab = '../../../assets/img/profile/ic_permission_enable.png';
-            this.profileTabActive = false;
-            this.permissionTabActive = true;
+    walk ( tab: number) {
+      switch (tab) {
+        case 0: {
+          this.profileTab = '../../../assets/img/profile/ic_profile_enable.png';
+          this.permissionTab = '../../../assets/img/profile/ic_permission_disable.png';
+          this.profileTabActive = true;
+          this.permissionTabActive = false;
           break;
-          }
         }
-      }
-
-      walk_ ( tab: number, profile: Profile) {
-        this.selectedProfile = profile;
-        this.accessPageService.profileSelected(profile);
-
-        if (this.accessPageService.getProfile().id !== undefined) {
+        case 1: {
+          if (this.accessPageService.getProfile().id !== undefined) {
             this.pageComponent.getCurrentProfile();
+          }
+          this.profileTab = '../../../assets/img/profile/ic_profile_disable.png';
+          this.permissionTab = '../../../assets/img/profile/ic_permission_enable.png';
+          this.profileTabActive = false;
+          this.permissionTabActive = true;
+        break;
         }
-        this.profileTab = '../../../assets/img/profile/ic_profile_disable.png';
-        this.permissionTab = '../../../assets/img/profile/ic_permission_enable.png';
-        this.profileTabActive = false;
-        this.permissionTabActive = true;
       }
+    }
+
+    walk_ ( tab: number, profile: Profile) {
+      this.selectedProfile = profile;
+      this.accessPageService.profileSelected(profile);
+
+      if (this.accessPageService.getProfile().id !== undefined) {
+          this.pageComponent.getCurrentProfile();
+      }
+      this.profileTab = '../../../assets/img/profile/ic_profile_disable.png';
+      this.permissionTab = '../../../assets/img/profile/ic_permission_enable.png';
+      this.profileTabActive = false;
+      this.permissionTabActive = true;
+    }
 }
