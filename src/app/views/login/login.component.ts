@@ -35,17 +35,8 @@ export class LoginComponent implements OnInit {
 
     sendData() {
         this.authenticationService.login(this.user.login, this.user.password).subscribe(
-            success => {
-                console.log('test', success.headers.get('authorization'));
-                console.log('authentication:', success);
-                // login successful if there's a jwt token in the response
-                // if (this.user && this.user.token) {
-                //     // store user details and jwt token in local storage to keep user logged in between page refreshes
-                //     localStorage.setItem('currentUser', JSON.stringify(this.user));
-                // }
-
-                // return this.user;
-
+            (data: Response) => {
+                console.log(data.headers.get('authorization'));
             },
             error => console.log('Error:', error)
         );

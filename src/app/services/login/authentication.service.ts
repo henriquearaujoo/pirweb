@@ -37,8 +37,8 @@ export class AuthenticationService extends RestService  {
   //       });
   // }
 // senha hash 256
-  login(username: string, password: string): Observable<any> {
-    return this.post(this.apiurl + 'authentication/login', { username: username, password: sha256(password) })
+  login(username: string, password: string) {
+    return this.post(this.apiurl + 'authentication/login', { username: username, password: sha256(password) });
   }
 
   logout(): void {
