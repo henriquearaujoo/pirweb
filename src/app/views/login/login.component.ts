@@ -37,14 +37,10 @@ export class LoginComponent implements OnInit {
         this.authenticationService.login(this.user.login, this.user.password).subscribe(
             (data: Response) => {
                 console.log(data.headers.get('authorization'));
+                localStorage.setItem('tokenPir', data.headers.get('authorization') );
             },
             error => console.log('Error:', error)
         );
-    }
-
-    test() {
-        const a = sha256('12345678');
-        console.log(a);
     }
 
     applyCssError(form, field) {

@@ -68,7 +68,7 @@ export class PageComponent extends PagenateComponent implements OnInit {
     this.hasPermissions = false;
     this.currentProfile = this.accessPageService.getProfile();
     this.currentPage.id = '';
-    console.log('currentProfile', this.currentProfile);
+    console.log('currentProfile', this.currentProfile.id);
     if ( this.currentProfile.id === undefined) {
       // this.currentProfile.id = '';
       // this.loadAllPages();
