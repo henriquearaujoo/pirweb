@@ -86,14 +86,14 @@
                                                <div class="row" *ngIf="show_community">
                                                 <!-- select community-->
                                                 <div class="col-sm-12">
-                                                    <div class="form-group" [ngClass]="applyCssError(f, community)">
+                                                    <div class="form-group">
                                                         <label class="control-label">Comunidade</label>
-                                                        <select class="form-control" name="community" id="community" #community="ngModel" [(ngModel)]="user.community_id" required>
+                                                        <select class="form-control" name="community" id="community" #community="ngModel" [(ngModel)]="user.community_id">
                                                             <option disabled >Comunidade</option>
                                                             <option *ngFor="let item of communities" [value]="item.id">{{item.name}}</option>
                                                         </select>
-                                                        <app-control-field-error [showError]="verifyValidSubmitted(f, community)" msgError="Selecione uma comunidade">
-                                                        </app-control-field-error>
+                                                        <!-- <app-control-field-error [showError]="verifyValidSubmitted(f, community)" msgError="Selecione uma comunidade">
+                                                        </app-control-field-error> -->
                                                     </div>
                                                 </div>
                                                 <!-- end select community-->

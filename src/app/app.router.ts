@@ -45,7 +45,7 @@ const App_Router: Routes = [
     {
         path: '',
         component: HomeLayoutComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         children: [
           {
             path: '',
@@ -169,8 +169,8 @@ const App_Router: Routes = [
           }
         ]
       },
-      { path: '**', redirectTo: '' },
-      { path: 'resetPassword', component: ResetPasswordComponent}
+      { path: 'reset-password', component: ResetPasswordComponent},
+      { path: '**', redirectTo: '' }
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(App_Router);

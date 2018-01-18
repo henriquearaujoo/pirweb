@@ -132,7 +132,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { ModalService } from './components/modal/modal.service';
 import { CommunityComponent } from './views/community/community.component';
 import { CommunityListComponent } from './views/community/community-list/community-list.component';
-import { JwtInterceptor } from './helpers/jwt.interceptor';
+import { Interceptor } from './helpers/interceptor';
 
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
@@ -249,11 +249,12 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     // NgxSpinnerModule
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: JwtInterceptor,
-      multi: true
-    },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: JwtInterceptor,
+    //   multi: true
+    // },
+    { provide: XHRBackend, useClass: Interceptor },
     RestService,
     PageService,
     CostumerService,

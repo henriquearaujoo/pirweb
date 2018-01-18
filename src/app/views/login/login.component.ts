@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { AuthenticationService } from '../../services/login/authentication.service';
 import { User } from '../../models/user';
@@ -14,8 +14,9 @@ import { sha256, sha224 } from 'js-sha256';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
+  private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 240) + 'px'};
   private user: User = new User();
   loading = false;
   returnUrl: string;
@@ -38,9 +39,26 @@ export class LoginComponent implements OnInit {
             (data: Response) => {
                 console.log(data.headers.get('authorization'));
                 localStorage.setItem('tokenPir', data.headers.get('authorization') );
+                this.router.navigate([this.returnUrl]);
             },
-            error => console.log('Error:', error)
+            error => {
+                this.verifyError(error);
+                console.log('Error:', error);
+            }
         );
+    }
+
+    verifyError(error) {
+        switch (error) {
+            case 'user.password.mismatch': {
+                this.toastService.toastMsgWarn('Atenção', 'Senha inválida!');
+                break;
+            }
+            case 'login.username.notfound': {
+                this.toastService.toastMsgWarn('Atenção', 'Usuário inválido!');
+                break;
+            }
+        }
     }
 
     applyCssError(form, field) {
@@ -52,5 +70,13 @@ export class LoginComponent implements OnInit {
 
     verifyValidSubmitted(form, field) {
     return form.submitted && !field.valid;
+    }
+
+    resetPassword() {
+        this.router.navigate(['/reset-password']);
+    }
+
+    ngOnDestroy(): void {
+        // throw new Error('Method not implemented.');
     }
 }

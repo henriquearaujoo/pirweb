@@ -7,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResetPasswordComponent implements OnInit {
 
-  constructor() { }
+  private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
+  private user: any = { email: ''};
+  constructor() {
+   }
 
   ngOnInit() {
   }

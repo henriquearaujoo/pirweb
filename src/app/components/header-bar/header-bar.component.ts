@@ -1,5 +1,6 @@
 import { AuthenticationService } from './../../services/login/authentication.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header-bar',
@@ -8,8 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderBarComponent implements OnInit {
 
-  constructor() { }
+  constructor( private route: Router) { }
 
   ngOnInit() {
+  }
+
+  logout() {
+    localStorage.removeItem('tokenPir');
+    this.route.navigate(['/login']);
   }
 }
