@@ -13,7 +13,6 @@ import { sha256, sha224 } from 'js-sha256';
 export class AuthenticationService extends RestService  {
 
   apiurl = Constant.BASE_URL;
-  private users: User[];
 
   constructor(
     http: Http,
@@ -22,26 +21,19 @@ export class AuthenticationService extends RestService  {
       super(http);
     }
 
-  // login1(username: string, password: string) {
-  //   const loginUrl = this.apiurl.concat('authenticate');
-  //   // tslint:disable-next-line:comment-format
-  //   //return this.http.post(loginUrl, JSON.stringify({ username: username, password: password }))
-  //   return this.http.get(loginUrl)
-  //       .map((response: Response) => {
-  //           const user = response.json();
-  //           if (user) {
-  //               localStorage.setItem('currentUser', JSON.stringify(user));
-  //           }
-
-  //           return user;
-  //       });
-  // }
-// senha hash 256
   login(username: string, password: string) {
     return this.post(this.apiurl + 'authentication/login', { username: username, password: sha256(password) });
   }
 
+  getUser(login: string) {
+    return this.get(this.apiurl + 'users/search/?login=' + login);
+  }
+
+  getPermissions(id: string) {
+    return this.get(this.apiurl + 'rules/search/?profile_id=' + id);
+  }
+
   logout(): void {
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem('tokenPir');
   }
 }

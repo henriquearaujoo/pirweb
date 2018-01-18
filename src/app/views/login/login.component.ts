@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastService } from '../../services/toast-notification/toast.service';
 import { Observable } from 'rxjs/Observable';
 import { sha256, sha224 } from 'js-sha256';
+import { Rule } from '../../models/rule';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 240) + 'px'};
   private user: User = new User();
+  private rules: Rule[] = new Array();
   loading = false;
   returnUrl: string;
 
@@ -38,12 +40,34 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.authenticationService.login(this.user.login, this.user.password).subscribe(
             (data: Response) => {
                 console.log(data.headers.get('authorization'));
-                localStorage.setItem('tokenPir', data.headers.get('authorization') );
-                this.router.navigate([this.returnUrl]);
+                const token = data.headers.get('authorization');
+                localStorage.setItem('tokenPir', token );
+                if (token) {
+                    this.getRules();
+                }
             },
             error => {
                 this.verifyError(error);
                 console.log('Error:', error);
+            }
+        );
+    }
+
+    getRules() {
+        this.authenticationService.getUser(this.user.login).subscribe(
+            success_user => {
+                this.user = success_user[0];
+                this.authenticationService.getPermissions(this.user.id).subscribe(
+                    success_rules => {
+                        this.rules = success_rules;
+                        console.log('RULES:', this.rules);
+                        this.router.navigate([this.returnUrl]);
+                    }
+                );
+            },
+            error => {
+                this.toastService.toastMsg('Erro', 'Não foi possível carregar as regras de acesso!');
+                console.log(error);
             }
         );
     }
