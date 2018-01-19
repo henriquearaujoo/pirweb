@@ -1,3 +1,4 @@
+import { AccessPageService } from './../../services/page/page.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { AuthenticationService } from '../../services/login/authentication.service';
@@ -9,6 +10,8 @@ import { ToastService } from '../../services/toast-notification/toast.service';
 import { Observable } from 'rxjs/Observable';
 import { sha256, sha224 } from 'js-sha256';
 import { Rule } from '../../models/rule';
+import { Page } from '../../models/page';
+import { decodeToken } from 'jsontokens';
 
 @Component({
   selector: 'app-login',
@@ -19,12 +22,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 240) + 'px'};
   private user: User = new User();
-  private rules: Rule[] = new Array();
   loading = false;
   returnUrl: string;
 
   constructor(
       private authenticationService: AuthenticationService,
+      private accessPageService: AccessPageService,
       private route: ActivatedRoute,
       private router: Router,
       private toastService: ToastService
@@ -43,7 +46,10 @@ export class LoginComponent implements OnInit, OnDestroy {
                 const token = data.headers.get('authorization');
                 localStorage.setItem('tokenPir', token );
                 if (token) {
-                    this.getRules();
+                    const tokenData = decodeToken(token);
+                    console.log('Decode Token:', tokenData.payload);
+                    this.getUser();
+                    this.router.navigate([this.returnUrl]);
                 }
             },
             error => {
@@ -53,17 +59,13 @@ export class LoginComponent implements OnInit, OnDestroy {
         );
     }
 
-    getRules() {
+    getUser() {
         this.authenticationService.getUser(this.user.login).subscribe(
             success_user => {
                 this.user = success_user[0];
-                this.authenticationService.getPermissions(this.user.id).subscribe(
-                    success_rules => {
-                        this.rules = success_rules;
-                        console.log('RULES:', this.rules);
-                        this.router.navigate([this.returnUrl]);
-                    }
-                );
+                console.log('USER:', this.user);
+                console.log('profile_id:', this.user.profile);
+                localStorage.setItem('profileId_rules', this.user.profile);
             },
             error => {
                 this.toastService.toastMsg('Erro', 'Não foi possível carregar as regras de acesso!');
@@ -71,6 +73,10 @@ export class LoginComponent implements OnInit, OnDestroy {
             }
         );
     }
+
+    // public getPermissions() {
+    //     return this.rules;
+    // }
 
     verifyError(error) {
         switch (error) {

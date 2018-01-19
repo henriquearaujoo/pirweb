@@ -9,13 +9,14 @@ import { Router } from '@angular/router';
 })
 export class HeaderBarComponent implements OnInit {
 
-  constructor( private route: Router) { }
+  constructor(
+    private route: Router,
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
   }
 
   logout() {
-    localStorage.removeItem('tokenPir');
-    this.route.navigate(['/login']);
+    this.authenticationService.logout();
   }
 }

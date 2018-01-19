@@ -39,6 +39,7 @@ import { InformationComponent } from './views/template-chapter/chapter/informati
 import { DeactivateGuard } from './guards/deactivate.guard';
 import { CommunityComponent } from './views/community/community.component';
 import { CommunityListComponent } from './views/community/community-list/community-list.component';
+import { PageGuard } from './guards/page.guard';
 
 const App_Router: Routes = [
 
@@ -48,9 +49,9 @@ const App_Router: Routes = [
         canActivate: [AuthGuard],
         children: [
           {
-            path: '',
-            redirectTo: 'user-list',
-            pathMatch: 'full'
+            path: '', component: HomeComponent
+            // redirectTo: 'user-list',
+            // pathMatch: 'full'
           },
           {
             path: 'dashboard',
@@ -129,7 +130,8 @@ const App_Router: Routes = [
           },
           {
             path: 'user-list',
-            component: UserListComponent
+            component: UserListComponent,
+              canActivate: [PageGuard]
           },
           {
             path: 'user-details',

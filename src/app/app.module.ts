@@ -65,10 +65,12 @@ import { RuleService } from './services/rule/rule.service';
 import { AccessPageService } from './services/page/page.service';
 import { CommunityService } from './services/community/community.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Permissions } from './guards/permissions';
 
 import { routing } from './app.router';
 import { AuthGuard } from './guards/auth.guard';
 import { DeactivateGuard } from './guards/deactivate.guard';
+import { PageGuard } from './guards/page.guard';
 
 import { AppComponent } from './app.component';
 import { HeaderBarComponent } from './components/header-bar/header-bar.component';
@@ -244,16 +246,11 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     CKEditorModule,
     QuillEditorModule,
     ToastyModule.forRoot(),
-    HttpClientModule,
+    HttpClientModule
     // NgProgressModule
     // NgxSpinnerModule
   ],
   providers: [
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: JwtInterceptor,
-    //   multi: true
-    // },
     { provide: XHRBackend, useClass: Interceptor },
     RestService,
     PageService,
@@ -275,6 +272,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ConclusionService,
     LoaderService,
     DeactivateGuard,
+    Permissions,
+    PageGuard,
     ModalService,
     CommunityService
   ],

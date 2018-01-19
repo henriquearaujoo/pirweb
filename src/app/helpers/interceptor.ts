@@ -21,6 +21,7 @@ export class Interceptor extends XHRBackend {
       if (error.status === 401 || error.status === 403) {
         console.log('acesso não autorizado');
         localStorage.removeItem('tokenPir');
+        localStorage.removeItem('profileId_rules');
       }
       return Observable.throw(error);
     });

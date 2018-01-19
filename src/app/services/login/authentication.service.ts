@@ -30,10 +30,12 @@ export class AuthenticationService extends RestService  {
   }
 
   getPermissions(id: string) {
-    return this.get(this.apiurl + 'rules/search/?profile_id=' + id);
+    return this.get(this.apiurl + 'rules/search/?profile=' + id);
   }
 
   logout(): void {
     localStorage.removeItem('tokenPir');
+    localStorage.removeItem('profileId_rules');
+    this.router.navigate(['/login']);
   }
 }
