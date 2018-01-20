@@ -125,8 +125,8 @@ const App_Router: Routes = [
           },
           {
             path: 'user',
-            component: UserComponent
-              // canDeactivate: [DeactivateGuard]
+            component: UserComponent,
+              canActivate: [PageGuard]
           },
           {
             path: 'user-list',
@@ -152,6 +152,7 @@ const App_Router: Routes = [
           {
             path: 'profile-list',
             component: ProfileListComponent
+            // canActivate: [PageGuard]
           },
           {
             path: 'page-list',

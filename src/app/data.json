@@ -33,38 +33,56 @@
       "id": 8
     }
   ],
-  "pages": [
+  "rules": [
     {
       "id": 1,
-      "name": "Dasboard"
+      "page_id": 1,
+      "read": false,
+      "create": false,
+      "delete": false,
+      "update": true
     },
     {
       "id": 2,
-      "name": "Agente"
+      "page_id": 2,
+      "read": false,
+      "create": false,
+      "delete": false,
+      "update": true
     },
     {
       "id": 3,
-      "name": "Agente/listar"
+      "page_id": 3,
+      "read": true,
+      "create": false,
+      "delete": false,
+      "update": true
     },
     {
       "id": 4,
-      "name": "Agente/performace-individual"
+      "page_id": 4,
+      "read": true,
+      "create": false,
+      "delete": false,
+      "update": true
+    }
+  ],
+  "pages": [
+    {
+      "id": 1,
+      "route": "user-list"
     },
     {
-      "id": 5,
-      "name": "Agente/detalhes"
+      "id": 2,
+      "name": "profile-list"
     },
     {
-      "id": 6,
-      "name": "Mapa/mostrar-agentes"
+      "id": 3,
+      "name": "template-chapter"
     },
     {
-      "id": 7,
-      "name": "Formulários/*"
-    },
-    {
-      "id": 8,
-      "name": "Formulários/criar-template"
+      "id": 4,
+      "name": "user"
     }
   ],
   "users": [

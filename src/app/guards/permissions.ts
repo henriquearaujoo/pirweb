@@ -11,12 +11,18 @@ export class Permissions implements OnDestroy {
     private rules2: Rule[] = new Array();
     private pages: Page[] = new Array();
     isActivate: boolean;
+    canUpdate: boolean;
+    canCreate: boolean;
+    canDelete: boolean;
     returnUrl: string;
 
     constructor(
         private authenticationService: AuthenticationService,
         private accessPageService: AccessPageService) {
             this.isActivate = false;
+            this.canUpdate = false;
+            this.canCreate = false;
+            this.canDelete = false;
         }
 
     canActivate(url: string) {
@@ -46,7 +52,7 @@ export class Permissions implements OnDestroy {
                             }
 
                             if (this.rules.length !== 0) {
-                                console.log('TEST');
+                                console.log('TEST', this.rules);
                                 for ( let i = 0; i < this.rules.length; i++) {
                                     console.log('URL', this.returnUrl);
                                     if ( ('/' + this.rules[i].page_id ) === this.returnUrl) {
@@ -54,6 +60,15 @@ export class Permissions implements OnDestroy {
                                         if ( this.rules[i].read) {
                                             console.log('Pode ativar rota!');
                                             this.isActivate = true;
+                                            if ( this.rules[i].create) {
+                                                this.canCreate = true;
+                                            }
+                                            if ( this.rules[i].update) {
+                                                this.canUpdate = true;
+                                            }
+                                            if ( this.rules[i].delete) {
+                                                this.canDelete = true;
+                                            }
                                             break;
                                         } else {
                                             console.log('Não pode ativar rota!');
