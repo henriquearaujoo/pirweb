@@ -1,39 +1,40 @@
- <aside class="main-sidebar">
+ <aside class="main-sidebar" *ngIf="rules.length !== 0">
     <section class="sidebar">
-      <ul class="sidebar-menu" data-widget="tree">
-        <!--
-        <li [class]="isActive(['/','/dashboard'])">
-          <a class="menu" (click)="toDashboard()">
-            <i class="fa fa-dashboard"></i>
-            <span>Dashboard de Desempenho</span>
-          </a>
-        </li>
-        <li [class]="isActive(['/','/agent'])">
-          <a class="menu" (click)="toAgent()">
-            <i class="fa fa-users"></i>
-            <span>Agentes</span>
-          </a>
-        </li>
-        <li [class]="isActive(['/','/maps'])">
-          <a class="menu" (click)="toMaps()">
-            <i class="fa fa-map-marker" aria-hidden="true"></i>
-            <span>Mapa dos Clientes</span>
-          </a>
-        </li>
-        -->      
+      <ul class="sidebar-menu" data-widget="tree" *ngFor="let item of menu">
+        
+        <li class="treeview" [class.active]="isActive(item.routes)">
+            <a href="#" *ngIf="item.category === 'parent'">
+              <i class="{{ item.iClass }}"></i> <span>{{ item.title }}</span>
+              <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu" *ngFor="let sub of menu">
+              
+              <li [class.active]="isActive(item.routes)" *ngIf="sub.parent === item.id">
+                <a class="menu" (click)="redirectTo(sub.route)"  *ngIf="sub.category === 'child'">
+                    <i class="{{ sub.iClass }}" aria-hidden="true"></i>
+                    <span>{{ sub.title }}</span>
+                </a>
+              </li>         
+              
+            </ul>
+          </li> 
       
-        <li class="treeview" [class.active]="isActive(['/','/user-list', '/user', '/user-edit', '/user-details', '/profile-list', '/page-list'])">
+        <!-- <li class="treeview" [class.active]="isActive(['/','/user-list', '/user', '/user-edit', '/user-details', '/profile-list', '/page-list'])"
+        *ngIf="item.page_id === 'user-list' && item.read && show === 0">
             <a href="#">
               <i class="fa fa-users"></i> <span>Usuários</span>
               <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
               
-              <li [class.active]="isActive(['/user-list', '/user', '/user-edit', '/user-details'])">
+              <li [class.active]="isActive(['/user-list', '/user', '/user-edit', '/user-details'])"
+                *ngIf="item.page_id === 'user-list' && item.read && show === 0">
                 <a class="menu" (click)="redirectTo('user-list')">
-                    <i class="fa fa-circle-o" aria-hidden="true"></i>
+                    <i class="fa fa-circle-o" aria-hidden="true"
+                    ></i>
                     <span>Registros</span>
                 </a>
+              
               </li>         
               <li [class.active]="isActive(['/profile-list', '/page-list'])">
                 <a class="menu" (click)="redirectTo('profile-list')">
@@ -42,7 +43,7 @@
                 </a>             
               </li>
             </ul>
-          </li>
+          </li> 
           
           <li [class.active]="isActive(['/','/template-chapter'])">
             <a href="#">
@@ -57,7 +58,7 @@
                 </a>                
               </li> 
             </ul>
-          </li>
+          </li> -->
 
           <!-- <li [class.active]="isActive(['/','/community-list', '/community'])">
             <a (click)="redirectTo('community-list')">

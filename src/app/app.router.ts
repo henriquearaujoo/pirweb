@@ -151,8 +151,8 @@ const App_Router: Routes = [
           },
           {
             path: 'profile-list',
-            component: ProfileListComponent
-            // canActivate: [PageGuard]
+            component: ProfileListComponent,
+              canActivate: [PageGuard]
           },
           {
             path: 'page-list',

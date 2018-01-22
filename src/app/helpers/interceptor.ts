@@ -1,12 +1,20 @@
+import { Router, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Request, XHRBackend, BrowserXhr, ResponseOptions, XSRFStrategy, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
+import { ModalService } from '../components/modal/modal.service';
 @Injectable()
 export class Interceptor extends XHRBackend {
 
-  constructor(browserXhr: BrowserXhr, baseResponseOptions: ResponseOptions, xsrfStrategy: XSRFStrategy) {
+  state: RouterStateSnapshot;
+  constructor(
+    browserXhr: BrowserXhr,
+    baseResponseOptions: ResponseOptions,
+    xsrfStrategy: XSRFStrategy,
+    private router: Router,
+    private modalService: ModalService ) {
     super(browserXhr, baseResponseOptions, xsrfStrategy);
   }
 
@@ -18,10 +26,12 @@ export class Interceptor extends XHRBackend {
     // tslint:disable-next-line:prefer-const
     let xhrConnection = super.createConnection(request);
     xhrConnection.response = xhrConnection.response.catch((error: Response) => {
-      if (error.status === 401 || error.status === 403) {
+      if (error.status === 401 || error.status === 403 || error.status === 0) {
         console.log('acesso não autorizado');
         localStorage.removeItem('tokenPir');
         localStorage.removeItem('profileId_rules');
+        this.modalService.modalLogin();
+        this.router.navigate(['/login']);
       }
       return Observable.throw(error);
     });

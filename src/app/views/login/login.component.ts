@@ -12,6 +12,7 @@ import { sha256, sha224 } from 'js-sha256';
 import { Rule } from '../../models/rule';
 import { Page } from '../../models/page';
 import { decodeToken } from 'jsontokens';
+import { Permissions } from '../../helpers/permissions';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +35,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       private accessPageService: AccessPageService,
       private route: ActivatedRoute,
       private router: Router,
-      private toastService: ToastService
+      private toastService: ToastService,
+      private permisions: Permissions
      ) { }
 
   ngOnInit() {
@@ -51,8 +53,9 @@ export class LoginComponent implements OnInit, OnDestroy {
                 localStorage.setItem('tokenPir', token );
                 if (token) {
                     const tokenData = decodeToken(token);
-                    console.log('Decode Token:', tokenData.payload);
-                    this.getUser();
+                    console.log('Decode Token:', tokenData.payload.pfl);
+                    localStorage.setItem('profileId_rules', tokenData.payload.pfl);
+                    this.getPermissions();
                     this.router.navigate([this.returnUrl]);
                 }
             },
@@ -67,77 +70,60 @@ export class LoginComponent implements OnInit, OnDestroy {
         // this.router.navigate([this.returnUrl]);
     }
 
-    getUser() {
-        this.authenticationService.getUser(this.user.login).subscribe(
-            success_user => {
-                this.user = success_user[0];
-                console.log('USER:', this.user);
-                console.log('profile_id:', this.user.profile);
-                localStorage.setItem('profileId_rules', this.user.profile);
-            },
-            error => {
-                this.toastService.toastMsg('Erro', 'Não foi possível carregar as regras de acesso!');
-                console.log(error);
-            }
-        );
-    }
+    // getUser() {
+    //     this.authenticationService.getUser(this.user.login).subscribe(
+    //         success_user => {
+    //             this.user = success_user[0];
+    //             console.log('USER:', this.user);
+    //             console.log('profile_id:', this.user.profile);
+    //             localStorage.setItem('profileId_rules', this.user.profile);
+    //             this.getPermissions();
+    //         },
+    //         error => {
+    //             this.toastService.toastMsg('Erro', 'Não foi possível carregar as regras de acesso!');
+    //             console.log(error);
+    //         }
+    //     );
+    // }
 
-    // getPermissions() {
-    //     // this.returnUrl = url;
+    getPermissions() {
+        // this.returnUrl = url;
 
-    //     const profile = localStorage.getItem('profileId_rules');
-    //     // this.isActivate = false;
+        const profile = localStorage.getItem('profileId_rules');
+        // this.isActivate = false;
 
-    //     if (profile !== undefined || profile !== null) {
-    //         this.authenticationService.getPermissions(profile).subscribe(
-    //             success_rules => {
-    //                 this.rules = success_rules;
-    //                 console.log('RULES:', this.rules);
-    //                 // PAGES
-    //                 this.accessPageService.getAllPages().subscribe(
-    //                     success => {
-    //                         this.pages = success;
-    //                         console.log('RULES 1:', this.rules);
-    //                         console.log('PAGES:', this.pages);
-    //                         for ( let i = 0; i < this.pages.length; i++) {
-    //                             for ( let j = 0; j < this.rules.length; j++) {
-    //                                 if (this.pages[i].id === this.rules[j].page_id) {
-    //                                     this.rules[j].page_id = this.pages[i].route;
-    //                                     break;
-    //                                 }
-    //                             }
-    //                         }
+        if (profile !== undefined || profile !== null) {
+            this.authenticationService.getPermissions(profile).subscribe(
+                success_rules => {
+                    this.rules = success_rules;
+                    console.log('RULES:', this.rules);
+                    // PAGES
+                    this.accessPageService.getAllPages().subscribe(
+                        success => {
+                            this.pages = success;
+                            console.log('RULES 1:', this.rules);
+                            console.log('PAGES:', this.pages);
+                            for ( let i = 0; i < this.pages.length; i++) {
+                                for ( let j = 0; j < this.rules.length; j++) {
+                                    if (this.pages[i].id === this.rules[j].page_id) {
+                                        this.rules[j].page_id = this.pages[i].route;
+                                        break;
+                                    }
+                                }
+                            }
+                            this.permisions.setPermission(this.rules);
+                            localStorage.setItem('rulesProfile', JSON.stringify(this.rules));
+                            // console.log('RULES setPermission:', this.rules);
+                        },
+                        error => console.log(error)
+                    );
 
-    //                         if (this.rules.length !== 0) {
-    //                             console.log('TEST');
-    //                             for ( let i = 0; i < this.rules.length; i++) {
-    //                                 console.log('URL', this.returnUrl);
-    //                                 if ( ('/' + this.rules[i].page_id ) === this.returnUrl) {
-    //                                     console.log('TEST 2');
-    //                                     if ( this.rules[i].read) {
-    //                                         console.log('Pode ativar rota!');
-    //                                         this.isActivate = true;
-    //                                         break;
-    //                                     } else {
-    //                                         console.log('Não pode ativar rota!');
-    //                                         this.isActivate = false;
-    //                                         break;
-    //                                     }
-    //                                 }
-    //                             }
-    //                         }
-
-
-    //                     },
-    //                     error => console.log(error)
-    //                 );
-
-    //             }
-    //         );
-    //     }
-    //     // return this.isActivate;
-    //     // console.log('RETURN', this.getPermissions());
-    //   }
+                }
+            );
+        }
+        // return this.isActivate;
+        // console.log('RETURN', this.getPermissions());
+      }
 
     verifyError(error) {
         switch (error) {

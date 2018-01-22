@@ -1,6 +1,12 @@
+import { Constant } from './../../constant/constant';
+import { Rule } from './../../models/rule';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ActivatedRouteSnapshot, RouterStateSnapshot, RouterState } from '@angular/router';
 import { ModalService } from '../modal/modal.service';
+import { Permissions, RuleState } from '../../helpers/permissions';
+import { Subscribable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import { MENU } from './side-bar-menu-item';
 
 @Component({
   selector: 'app-side-bar',
@@ -14,26 +20,51 @@ export class SideBarComponent implements OnInit {
   private urlToNavigate: string;
   private isForm: boolean;
   private hide = false;
+  private subscription: Subscription;
+  private rules: any[] = new Array();
+  private show: number;
   // private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
   // private showModal: boolean;
+  private menu: any[] = MENU;
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private modalService: ModalService) {
+    private modalService: ModalService,
+    private permissions: Permissions) {
     const state: RouterState = router.routerState;
-    const snapshot: RouterStateSnapshot = state.snapshot;
-    const root: ActivatedRouteSnapshot = snapshot.root;
-    console.log('state', state);
-    console.log('snapshot', snapshot.url);
-    this.url = snapshot.url;
-    console.log('root', root);
+      const snapshot: RouterStateSnapshot = state.snapshot;
+      const root: ActivatedRouteSnapshot = snapshot.root;
+      console.log('state', state);
+      console.log('snapshot', snapshot.url);
+      this.url = snapshot.url;
+      console.log('root', root);
+      this.show = 0;
+      console.log('MENU:', this.menu);
+      // this.rules = <any>localStorage.getItem('rulesProfile');
+      // console.log('PERMISSIONS side bar: ', this.rules);
   }
 
   ngOnInit() {
     // this.isActive([this.url, '/']);
     this.routes = this.router.config;
     localStorage.setItem('currentURL', this.router.url);
+
+    this.subscription = this.permissions.ruleState.subscribe(
+      (rules: RuleState) => {
+        this.rules = rules.permissions;
+       console.log('PERMISSIONS EVENT:', this.rules);
+       console.log('menu.length', this.menu.length);
+       for (let i = 0; i < this.menu.length; i++) {
+         for ( let j = 0; j < this.rules.length; j++) {
+          if (this.menu[i].route === this.rules[j].page_id) {
+            this.menu[i].read = this.rules[j].read;
+            break;
+          }
+         }
+       }
+      });
+      console.log('PERMISSIONS side bar: ', this.rules);
   }
 
   isActive(instruction: String[]): boolean {

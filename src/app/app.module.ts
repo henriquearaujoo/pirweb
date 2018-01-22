@@ -65,7 +65,7 @@ import { RuleService } from './services/rule/rule.service';
 import { AccessPageService } from './services/page/page.service';
 import { CommunityService } from './services/community/community.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Permissions } from './guards/permissions';
+import { Permissions } from './helpers/permissions';
 
 import { routing } from './app.router';
 import { AuthGuard } from './guards/auth.guard';

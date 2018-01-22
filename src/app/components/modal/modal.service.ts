@@ -22,6 +22,12 @@ export class ModalService {
     console.log('Modal Success');
   }
 
+  modalLogin() {
+    // this.route = route;
+    this.modalSubject.next(<ModalState>{showLogin: true});
+    console.log('Modal Login');
+  }
+
   hide() {
     this.modalSubject.next(<ModalState>{showCancel: false, showSuccess: false});
     console.log('Hide Modal');
@@ -36,4 +42,5 @@ export class ModalService {
 export interface ModalState {
   showCancel: boolean;
   showSuccess: boolean;
+  showLogin: boolean;
 }
