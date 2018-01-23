@@ -4,20 +4,19 @@ export const MENU = [
         'id': 1,
         'title': 'Usuários',
         'route': '',
-        // tslint:disable-next-line:quotemark
         'routes': ['/', '/user-list', '/user', '/user-edit', '/user-details', '/profile-list', '/page-list'],
-        'read': true,
+        'read': false,
         'iClass': 'fa fa-users',
         'category': 'parent',
         'hasChild': true,
+        'parent': 0
     },
     {
         'id': 2,
         'title': 'Registros',
         'route': 'user-list',
-        // tslint:disable-next-line:quotemark
         'routes': ['/user-list', '/user', '/user-edit', '/user-details'],
-        'read': true,
+        'read': false,
         'iClass': 'fa fa-circle-o',
         'category': 'child',
         'hasChild': false,
@@ -27,9 +26,8 @@ export const MENU = [
         'id': 3,
         'title': 'Perfil',
         'route': 'profile-list',
-        // tslint:disable-next-line:quotemark
         'routes': ['/profile-list', '/page-list'],
-        'read': true,
+        'read': false,
         'iClass': 'fa fa-circle-o',
         'category': 'child',
         'hasChild': false,
@@ -39,20 +37,19 @@ export const MENU = [
         'id': 4,
         'title': 'Livro',
         'route': '',
-        // tslint:disable-next-line:quotemark
         'routes': ['/', '/template-chapter'],
-        'read': true,
+        'read': false,
         'iClass': 'fa fa-file-text',
         'category': 'parent',
         'hasChild': true,
+        'parent': 0
     },
     {
         'id': 5,
         'title': 'Capítulos',
         'route': 'template-chapter',
-        // tslint:disable-next-line:quotemark
         'routes': ['/template-chapter'],
-        'read': true,
+        'read': false,
         'iClass': 'fa fa-circle-o',
         'category': 'child',
         'hasChild': false,

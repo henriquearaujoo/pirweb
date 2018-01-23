@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                     const tokenData = decodeToken(token);
                     console.log('Decode Token:', tokenData.payload.pfl);
                     localStorage.setItem('profileId_rules', tokenData.payload.pfl);
-                    this.getPermissions();
+                    // this.getPermissions();
                     this.router.navigate([this.returnUrl]);
                 }
             },

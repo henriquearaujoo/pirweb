@@ -116,8 +116,13 @@ const App_Router: Routes = [
           },
           {
             path: 'chapter-dashboard',
+            component: ChapterDashboardComponent,
+              canActivate: [PageGuard]
+          },
+          {
+            path: 'chapter-dashboard-edit',
             component: ChapterDashboardComponent
-              // canDeactivate: [DeactivateGuard]
+              // canActivate: [PageGuard]
           },
           {
             path: 'chapter-dashboard/:id',
@@ -135,11 +140,13 @@ const App_Router: Routes = [
           },
           {
             path: 'user-details',
-            component: UserDetailsComponent
+            component: UserDetailsComponent,
+              canActivate: [PageGuard]
           },
           {
             path: 'user-edit',
-            component: UserEditComponent
+            component: UserEditComponent,
+              canActivate: [PageGuard]
           },
           {
             path: 'user-personal-info',
@@ -156,7 +163,8 @@ const App_Router: Routes = [
           },
           {
             path: 'page-list',
-            component: PageComponent
+            component: PageComponent,
+              canActivate: [PageGuard]
           }
 
         ]

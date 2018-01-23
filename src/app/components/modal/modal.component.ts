@@ -15,9 +15,11 @@ export class ModalComponent implements OnInit, OnDestroy {
   private route: string;
   private show_cancel: boolean;
   private show_success: boolean;
+  private show_SessionExpired: boolean;
   private subscription: Subscription;
   private openModalCancel: HTMLButtonElement;
   private openModalSuccess: HTMLButtonElement;
+  private openModalSessionExpired: HTMLButtonElement;
 
   constructor(
     private router: Router,
@@ -25,6 +27,7 @@ export class ModalComponent implements OnInit, OnDestroy {
   ) {
     this.show_cancel = false;
     this.show_success = false;
+    this.show_SessionExpired = false;
   }
 
   ngOnInit() {
@@ -34,11 +37,16 @@ export class ModalComponent implements OnInit, OnDestroy {
     this.openModalSuccess = (<HTMLButtonElement>document.getElementById('openModalSuccess'));
     this.openModalSuccess.style.display = 'none';
 
+    this.openModalSessionExpired = (<HTMLButtonElement>document.getElementById('openModalSessionExpired'));
+    this.openModalSessionExpired.style.display = 'none';
+
     this.subscription = this.modalService.modalState.subscribe(
       (state: ModalState) => {
         this.show_cancel = state.showCancel;
         this.show_success = state.showSuccess;
+        this.show_SessionExpired = state.show_SessionExpired;
         this.route = this.modalService.getRoute();
+        console.log('show_SessionExpired', this.show_SessionExpired);
         this.openModal();
       });
   }
@@ -53,8 +61,15 @@ export class ModalComponent implements OnInit, OnDestroy {
         this.openModalSuccess.click();
         this.show_success = false;
         console.log('Open Modal Success');
+      } else {
+        if (this.show_SessionExpired) {
+          this.openModalSessionExpired.click();
+          this.show_SessionExpired = false;
+          console.log('Open Modal Session Expired');
+        }
       }
     }
+
   }
 
   modalConfirm() {

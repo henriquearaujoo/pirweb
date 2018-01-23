@@ -4,6 +4,9 @@
 <button  style="display:none"class="btn btn-default" data-toggle="modal" data-target="#modal-success" 
     id="openModalSuccess">Salvar</button>
 
+<button  style="display:none"class="btn btn-default" data-toggle="modal" data-target="#modal-SessionExpired" 
+    id="openModalSessionExpired">Sessão Expirada</button>
+
 <!-- Modal Cancel -->
 <div class="modal fade" id="modal-cancel">
     <div class="modal-dialog modal-sm">
@@ -50,8 +53,8 @@
 </div>
 <!-- /.modal -->
 
-<!-- Modal Login -->
-<div class="modal fade" id="modal-cancel">
+<!-- Modal Session Expired -->
+<div class="modal fade" id="modal-SessionExpired">
     <div class="modal-dialog modal-sm">
         <div class="modal-content" [ngStyle]="object">
             <div class="modal-body">

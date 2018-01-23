@@ -62,14 +62,14 @@
                 </td>
                 <td class="tbl-right">          
                   <a title="Editar" id="btn_edit"
-                    (click)="setUser(item)" [routerLink]="['/user-edit']">
+                    (click)="setUser(item)" [routerLink]="['/user-edit']" *ngIf="canUpdate">
                     <i class="fa fa-pencil fa-fw"></i>
                   </a>
                 </td>
                 <td class="tbl-right">
                     <a href="" [title]="item.status === true ? 'Desativar': 'Ativar'"
                       data-toggle="modal" data-target="#modal-default"
-                      (click)="changeStatus(item)" id="btn_status">              
+                      (click)="changeStatus(item)" id="btn_status" *ngIf="canDelete">              
                       <i [ngClass]="item.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
                     </a>      
                 </td>
@@ -86,7 +86,7 @@
           </div>  -->
         </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="canCreate">
         <div class="btn-col">
           <button class="btn btn-primary" [routerLink]="['/user']" id="btn_new"> Novo </button>
         </div>

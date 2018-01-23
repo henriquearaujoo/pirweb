@@ -12,11 +12,11 @@ export class Permissions implements OnDestroy {
     private rules: Rule[] = new Array();
     private permissions: Rule[];
     private pages: Page[] = new Array();
-    canRead = Observable.of(false);
 
-    canUpdate: boolean;
-    canCreate: boolean;
-    canDelete: boolean;
+    canRead = Observable.of(false);
+    // canUpdate = Observable.of(false);
+    // canCreate = Observable.of(false);
+    // canDelete = Observable.of(false);
     returnUrl: string;
     private rulesSubject = new Subject<RuleState>();
     ruleState = this.rulesSubject.asObservable();
@@ -28,9 +28,9 @@ export class Permissions implements OnDestroy {
         private authenticationService: AuthenticationService,
         private accessPageService: AccessPageService) {
             // this.canRead = false;
-            this.canUpdate = false;
-            this.canCreate = false;
-            this.canDelete = false;
+            // this.canUpdate = false;
+            // this.canCreate = false;
+            // this.canDelete = false;
         }
 
     canActivate(url: string): Observable<boolean> {
@@ -48,8 +48,8 @@ export class Permissions implements OnDestroy {
                     this.accessPageService.getAllPages().subscribe(
                         success => {
                             this.pages = success;
-                            console.log('RULES 1:', this.rules);
-                            console.log('PAGES:', this.pages);
+                            // console.log('RULES 1:', this.rules);
+                            // console.log('PAGES:', this.pages);
                             for ( let i = 0; i < this.pages.length; i++) {
                                 for ( let j = 0; j < this.rules.length; j++) {
                                     if (this.pages[i].id === this.rules[j].page_id) {
@@ -60,32 +60,40 @@ export class Permissions implements OnDestroy {
                             }
                             this.rulesSubject.next(<RuleState>{permissions: this.rules});
                             if (this.rules.length !== 0) {
-                                console.log('TEST', this.rules);
+                                // console.log('TEST', this.rules);
                                 for ( let i = 0; i < this.rules.length; i++) {
-                                    console.log('URL', this.returnUrl);
+                                    // console.log('URL', this.returnUrl);
                                     if ( ('/' + this.rules[i].page_id ) === this.returnUrl) {
-                                        console.log('TEST 2');
+                                        // console.log('TEST 2');
                                         if ( this.rules[i].read) {
-                                            console.log('Pode ativar rota!');
+                                            // console.log('Pode ativar rota!');
                                             // this.canRead = true;
                                             this.canRead = Observable.of(true);
-                                            this.permissionsSubject.next(<RuleState>{canRead: true});
-                                            if ( this.rules[i].create) {
-                                                this.canCreate = true;
-                                            }
-                                            if ( this.rules[i].update) {
-                                                this.canUpdate = true;
-                                            }
-                                            if ( this.rules[i].delete) {
-                                                this.canDelete = true;
-                                            }
+                                            this.permissionsSubject.next(<RuleState>{
+                                                canRead: this.rules[i].read,
+                                                canCreate: this.rules[i].create,
+                                                canUpdate: this.rules[i].update,
+                                                canDelete: this.rules[i].delete
+                                            });
+                                            // if ( this.rules[i].create) {
+                                            //     // this.canCreate = Observable.of(true);
+                                            //     this.permissionsSubject.next(<RuleState>{canCreate: true});
+                                            // }
+                                            // if ( this.rules[i].update) {
+                                            //     // this.canUpdate = Observable.of(true);
+                                            //     this.permissionsSubject.next(<RuleState>{canUpdate: true});
+                                            // }
+                                            // if ( this.rules[i].delete) {
+                                            //     // this.canDelete = Observable.of(true);
+                                            //     this.permissionsSubject.next(<RuleState>{canDelete: true});
+                                            // }
                                             break;
                                         } else {
                                             // this.canRead = false;
                                             this.canRead = Observable.of(false);
                                             console.log('Não pode ativar rota!');
                                             // this.permissionsSubject.next(<RuleState>{canRead: false});
-                                            break;
+                                            // break;
                                         }
                                     }
                                 }
@@ -142,7 +150,7 @@ export class Permissions implements OnDestroy {
                                 }
                             }
                             this.rulesSubject.next(<RuleState>{permissions: this.rules});
-                            localStorage.setItem('rulesProfile', JSON.stringify(this.rules));
+                            // localStorage.setItem('rulesProfile', JSON.stringify(this.rules));
                             // console.log('RULES setPermission:', this.rules);
                         },
                         error => console.log(error)
@@ -155,69 +163,15 @@ export class Permissions implements OnDestroy {
         // console.log('RETURN', this.getPermissions());
       }
 
-    // getPermissions(): boolean {
-    //     const profile = localStorage.getItem('profileId_rules');
-    //     let state = false;
-    //     console.log('returnUrl', this.returnUrl);
-    //     if (profile !== undefined || profile !== null) {
-    //         this.authenticationService.getPermissions(profile).subscribe(
-    //             success_rules => {
-    //                 this.rules = success_rules;
-    //                 console.log('RULES:', this.rules);
-    //                 state =  this.getPages();
-
-    //             }
-    //         );
-    //     }
-    //     return state;
-    // }
-
-    // getPages(): boolean {
-    //     let state = false;
-    //     this.accessPageService.getAllPages().subscribe(
-    //         success => {
-    //             this.pages = success;
-    //             console.log('RULES 1:', this.rules);
-    //             console.log('PAGES:', this.pages);
-    //             for ( let i = 0; i < this.pages.length; i++) {
-    //                 for ( let j = 0; j < this.rules.length; j++) {
-    //                     if (this.pages[i].id === this.rules[j].page_id) {
-    //                         this.rules[j].page_id = this.pages[i].route;
-    //                         break;
-    //                     }
-    //                 }
-    //             }
-
-    //             if (this.rules.length !== 0) {
-    //                 console.log('TEST');
-    //                 for ( let i = 0; i < this.rules.length; i++) {
-    //                     console.log('URL', this.returnUrl);
-    //                     if ( ('/' + this.rules[i].page_id ) === this.returnUrl) {
-    //                         console.log('TEST 2');
-    //                         if ( this.rules[i].read) {
-    //                             console.log('Pode ativar rota!');
-    //                             state = true;
-    //                         } else {
-    //                             console.log('Não pode ativar rota!');
-    //                             state = false;
-    //                         }
-    //                     }
-    //                 }
-    //             }
-
-
-    //         },
-    //         error => console.log(error)
-    //     );
-    //     return state;
-    // }
-  // tslint:disable-next-line:eofline
     ngOnDestroy(): void {
     }
-  // tslint:disable-next-line:eofline
   }
 
   export interface RuleState {
     permissions: Rule[];
     canRead: boolean;
+    canUpdate: boolean;
+    canCreate: boolean;
+    canDelete: boolean;
+  // tslint:disable-next-line:eofline
   }

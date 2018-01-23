@@ -22,10 +22,10 @@ export class ModalService {
     console.log('Modal Success');
   }
 
-  modalLogin() {
+  modalSessionExpired() {
     // this.route = route;
-    this.modalSubject.next(<ModalState>{showLogin: true});
-    console.log('Modal Login');
+    this.modalSubject.next(<ModalState>{show_SessionExpired: true});
+    console.log('Modal Session Expired');
   }
 
   hide() {
@@ -42,5 +42,5 @@ export class ModalService {
 export interface ModalState {
   showCancel: boolean;
   showSuccess: boolean;
-  showLogin: boolean;
+  show_SessionExpired: boolean;
 }

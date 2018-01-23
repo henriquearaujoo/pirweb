@@ -1,3 +1,4 @@
+import { ToastService } from './../services/toast-notification/toast.service';
 import { Router, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Request, XHRBackend, BrowserXhr, ResponseOptions, XSRFStrategy, Response } from '@angular/http';
@@ -14,7 +15,8 @@ export class Interceptor extends XHRBackend {
     baseResponseOptions: ResponseOptions,
     xsrfStrategy: XSRFStrategy,
     private router: Router,
-    private modalService: ModalService ) {
+    private modalService: ModalService,
+    private toastService: ToastService ) {
     super(browserXhr, baseResponseOptions, xsrfStrategy);
   }
 
@@ -28,11 +30,22 @@ export class Interceptor extends XHRBackend {
     xhrConnection.response = xhrConnection.response.catch((error: Response) => {
       if (error.status === 401 || error.status === 403 || error.status === 0) {
         console.log('acesso não autorizado');
+        // this.modalService.modalSessionExpired();
+        this.toastService.toastMsgError('Atenção', 'Sessão expirada!');
         localStorage.removeItem('tokenPir');
         localStorage.removeItem('profileId_rules');
-        this.modalService.modalLogin();
+        // alert('test');
         this.router.navigate(['/login']);
       }
+        // if ( error.status === 0) {
+        //   // this.toastService.toastMsgError('Atenção', 'Sem conexão com o servidor!');
+        //   localStorage.removeItem('tokenPir');
+        //   localStorage.removeItem('profileId_rules');
+        //   // alert('Sessão expirada!');
+        //   this.router.navigate(['/login']);
+        //   this.toastService.toastMsgError('Atenção', 'Sessão expirada!');
+        // }
+
       return Observable.throw(error);
     });
     return xhrConnection;

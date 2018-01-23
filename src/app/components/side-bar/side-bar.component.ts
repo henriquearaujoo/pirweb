@@ -1,6 +1,6 @@
 import { Constant } from './../../constant/constant';
 import { Rule } from './../../models/rule';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, ActivatedRouteSnapshot, RouterStateSnapshot, RouterState } from '@angular/router';
 import { ModalService } from '../modal/modal.service';
 import { Permissions, RuleState } from '../../helpers/permissions';
@@ -14,7 +14,7 @@ import { MENU } from './side-bar-menu-item';
   styleUrls: ['./side-bar.component.css']
 })
 
-export class SideBarComponent implements OnInit {
+export class SideBarComponent implements OnInit, OnDestroy {
   private url: string;
   private routes: any[];
   private urlToNavigate: string;
@@ -26,6 +26,7 @@ export class SideBarComponent implements OnInit {
   // private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
   // private showModal: boolean;
   private menu: any[] = MENU;
+  // private show_parent: boolean;
 
   constructor(
     private router: Router,
@@ -39,7 +40,7 @@ export class SideBarComponent implements OnInit {
       console.log('snapshot', snapshot.url);
       this.url = snapshot.url;
       console.log('root', root);
-      this.show = 0;
+      // this.show_parent = false;
       console.log('MENU:', this.menu);
       // this.rules = <any>localStorage.getItem('rulesProfile');
       // console.log('PERMISSIONS side bar: ', this.rules);
@@ -63,8 +64,23 @@ export class SideBarComponent implements OnInit {
           }
          }
        }
+
+       for (let i = 0; i < this.menu.length; i++) {
+        if (this.menu[i].category === 'parent') {
+          for ( let j = 0; j < this.menu.length; j++) {
+            if ( this.menu[j].parent === this.menu[i].id) {
+              if ( this.menu[j].read ) {
+                // this.show_parent = true;
+                this.menu[i].read = true;
+                break;
+              }
+            }
+          }
+        }
+      }
+
       });
-      console.log('PERMISSIONS side bar: ', this.rules);
+      console.log('PERMISSIONS side bar: ', this.menu);
   }
 
   isActive(instruction: String[]): boolean {
@@ -125,6 +141,10 @@ export class SideBarComponent implements OnInit {
         this.router.navigate([this.urlToNavigate]);
       }
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 //  confirmModalToLeavePage() {

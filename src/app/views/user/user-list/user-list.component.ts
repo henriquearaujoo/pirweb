@@ -1,3 +1,4 @@
+import { Permissions, RuleState } from './../../../helpers/permissions';
 import { element } from 'protractor';
 import { Paginate } from './../../../models/paginate';
 import { ToastService } from './../../../services/toast-notification/toast.service';
@@ -32,15 +33,24 @@ export class UserListComponent implements OnInit, OnDestroy {
   @Output() page: number;
   filter: any = {name: ''};
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
+  private canRead: boolean;
+  private canUpdate: boolean;
+  private canCreate: boolean;
+  private canDelete: boolean;
 
   constructor(
     private pagerService: PageService,
     private userService: UserService,
     private profileService: ProfileService,
     private toastService: ToastService,
-    private router: Router) {
+    private router: Router,
+    private permissions: Permissions) {
       this.hasdata = false;
       this.page = 0;
+      this.canCreate = false;
+      this.canUpdate = false;
+      this.canRead = false;
+      this.canDelete = false;
      }
 
   ngOnInit() {
@@ -50,6 +60,17 @@ export class UserListComponent implements OnInit, OnDestroy {
       success => {
         console.log('Desabilitado: ', success);
         this.users = this.users.filter( user => user.id !== success.id);
+        this.getUsers();
+      }
+    );
+
+    this.permissions.permissionsState.subscribe(
+      (rules: RuleState) => {
+        this.canCreate = rules.canCreate;
+        this.canUpdate = rules.canUpdate;
+        this.canRead = rules.canRead;
+        this.canDelete = rules.canDelete;
+        console.log('RULES', rules);
         this.getUsers();
       }
     );

@@ -2,14 +2,14 @@
     <section class="sidebar">
       <ul class="sidebar-menu" data-widget="tree" *ngFor="let item of menu">
         
-        <li class="treeview" [class.active]="isActive(item.routes)">
+        <li class="treeview" [class.active]="isActive(item.routes)" *ngIf="item.read">
             <a href="#" *ngIf="item.category === 'parent'">
               <i class="{{ item.iClass }}"></i> <span>{{ item.title }}</span>
-              <i class="fa fa-angle-left pull-right"></i>
+              <i class="fa fa-angle-left pull-right" *ngIf="item.hasChild"></i>
             </a>
             <ul class="treeview-menu" *ngFor="let sub of menu">
               
-              <li [class.active]="isActive(item.routes)" *ngIf="sub.parent === item.id">
+              <li [class.active]="isActive(sub.routes)" *ngIf="sub.parent === item.id && sub.read">
                 <a class="menu" (click)="redirectTo(sub.route)"  *ngIf="sub.category === 'child'">
                     <i class="{{ sub.iClass }}" aria-hidden="true"></i>
                     <span>{{ sub.title }}</span>
@@ -17,7 +17,7 @@
               </li>         
               
             </ul>
-          </li> 
+        </li> 
       
         <!-- <li class="treeview" [class.active]="isActive(['/','/user-list', '/user', '/user-edit', '/user-details', '/profile-list', '/page-list'])"
         *ngIf="item.page_id === 'user-list' && item.read && show === 0">
@@ -66,11 +66,11 @@
             </a>           
           </li> -->
 
-          <li>
+          <!-- <li> -->
               <!-- <button [style.visibility]="'hidden'" id="btnModal" type="button"  data-toggle="modal" data-target="#sideModal">
                   Launch demo modal
               </button>                   -->
-          </li>         
+          <!-- </li>          -->
       </ul>
     </section>
   </aside>
