@@ -8,37 +8,26 @@ import { Permissions, RuleState } from '../helpers/permissions';
 
 @Injectable()
 export class PageGuard implements CanActivate {
-    isRead: boolean;
-    isCreate: boolean;
-    isUpdate: boolean;
-    isDelete: boolean;
-
-    read: boolean;
 
     constructor(
-        private permissions: Permissions
+        private permissions: Permissions,
+        private  router: Router
     ) {
-        this.isRead = false;
-        this.isCreate = false;
-        this.isUpdate = false;
-        this.isDelete = false;
-        this.read = false;
+        // this.permissions.canActivate(router.routerState.snapshot.url);
     }
 
     canActivate(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
         ): Observable<boolean> | boolean {
-        this.isRead = (state.url === '/user-list' ||
-                       state.url === '/profile-list' ||
-                       state.url === '/template-chapter');
+        // this.isRead = (state.url === '/user-list' ||
+        //                state.url === '/profile-list' ||
+        //                state.url === '/template-chapter');
 
-        // if (this.isRead) {
-            // this.permissions.canActivate(state.url);
             console.log('state ###', state.url);
             console.log('canRead ###', this.permissions.canRead);
             return this.permissions.canActivate(state.url);
-        // }
     }
 
+// tslint:disable-next-line:eofline
 }

@@ -1,5 +1,5 @@
 import { AuthenticationService } from './../../services/login/authentication.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Compiler } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class HeaderBarComponent implements OnInit {
 
   constructor(
+    // private _compiler: Compiler,
     private route: Router,
     private authenticationService: AuthenticationService) { }
 
@@ -18,5 +19,7 @@ export class HeaderBarComponent implements OnInit {
 
   logout() {
     this.authenticationService.logout();
+    // location.reload();
+    // this._compiler.clearCache();
   }
 }

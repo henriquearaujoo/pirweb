@@ -8,11 +8,13 @@ import { UserService } from '../user/user.service';
 import { Constant } from '../../constant/constant';
 import { Observable } from 'rxjs/Observable';
 import { sha256, sha224 } from 'js-sha256';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class AuthenticationService extends RestService  {
 
   apiurl = Constant.BASE_URL;
+  // logoutSubject = new Subject<any>();
 
   constructor(
     http: Http,
@@ -35,8 +37,9 @@ export class AuthenticationService extends RestService  {
   }
 
   logout(): void {
+    // this.logoutSubject.next({ logout: true });
     localStorage.removeItem('tokenPir');
     localStorage.removeItem('profileId_rules');
-    this.router.navigate(['/login']);
+    localStorage.removeItem('currentUserPir');
   }
 }

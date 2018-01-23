@@ -49,9 +49,12 @@ const App_Router: Routes = [
         canActivate: [AuthGuard],
         children: [
           {
-            path: '', component: HomeComponent
-            // redirectTo: 'user-list',
-            // pathMatch: 'full'
+            path: '',
+            redirectTo: 'home',
+            pathMatch: 'full',
+          },
+          {
+            path: 'home', component: HomeComponent
           },
           {
             path: 'dashboard',
@@ -76,7 +79,8 @@ const App_Router: Routes = [
           },
           {
             path: 'template-chapter',
-            component: TemplateChapterComponent
+            component: TemplateChapterComponent,
+              canActivate: [PageGuard]
           },
           {
             path: 'selectModel',
@@ -118,11 +122,6 @@ const App_Router: Routes = [
             path: 'chapter-dashboard',
             component: ChapterDashboardComponent,
               canActivate: [PageGuard]
-          },
-          {
-            path: 'chapter-dashboard-edit',
-            component: ChapterDashboardComponent
-              // canActivate: [PageGuard]
           },
           {
             path: 'chapter-dashboard/:id',

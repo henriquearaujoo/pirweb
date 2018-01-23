@@ -34,6 +34,7 @@ export class Interceptor extends XHRBackend {
         this.toastService.toastMsgError('Atenção', 'Sessão expirada!');
         localStorage.removeItem('tokenPir');
         localStorage.removeItem('profileId_rules');
+        localStorage.removeItem('currentUserPir');
         // alert('test');
         this.router.navigate(['/login']);
       }
