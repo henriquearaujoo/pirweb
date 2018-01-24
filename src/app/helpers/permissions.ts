@@ -14,7 +14,6 @@ export class Permissions implements OnDestroy {
     private permissions: Rule[];
     private pages: Page[] = new Array();
 
-    // canRead = Observable.of(false);
     returnUrl: string;
     private rulesSubject = new Subject<RuleState>();
     ruleState = this.rulesSubject.asObservable();
@@ -34,7 +33,6 @@ export class Permissions implements OnDestroy {
         this.returnUrl = url;
 
         const profile = localStorage.getItem('profileId_rules');
-        // this.canRead = false;
 
         if (profile !== undefined || profile !== null) {
             this.authenticationService.getPermissions(profile).subscribe(
@@ -96,22 +94,15 @@ export class Permissions implements OnDestroy {
       }
 
       getPermission() {
-        // this.returnUrl = url;
-
         const profile = localStorage.getItem('profileId_rules');
-        // this.isActivate = false;
-
         if (profile !== undefined || profile !== null) {
             this.authenticationService.getPermissions(profile).subscribe(
                 success_rules => {
                     this.rules = success_rules;
-                    console.log('RULES:', this.rules);
                     // PAGES
                     this.accessPageService.getAllPages().subscribe(
                         success => {
                             this.pages = success;
-                            console.log('RULES 1:', this.rules);
-                            console.log('PAGES:', this.pages);
                             for ( let i = 0; i < this.pages.length; i++) {
                                 for ( let j = 0; j < this.rules.length; j++) {
                                     if (this.pages[i].id === this.rules[j].page_id) {
@@ -121,8 +112,6 @@ export class Permissions implements OnDestroy {
                                 }
                             }
                             this.rulesSubject.next(<RuleState>{permissions: this.rules});
-                            // localStorage.setItem('rulesProfile', JSON.stringify(this.rules));
-                            // console.log('RULES setPermission:', this.rules);
                         },
                         error => console.log(error)
                     );
@@ -130,8 +119,6 @@ export class Permissions implements OnDestroy {
                 }
             );
         }
-        // return this.isActivate;
-        // console.log('RETURN', this.getPermissions());
       }
 
     ngOnDestroy(): void {

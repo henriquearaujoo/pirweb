@@ -70,7 +70,6 @@ export class UserListComponent implements OnInit, OnDestroy {
         this.canUpdate = rules.canUpdate;
         this.canRead = rules.canRead;
         this.canDelete = rules.canDelete;
-        this.getUsers();
       }
     );
   }

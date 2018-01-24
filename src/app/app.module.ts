@@ -135,6 +135,7 @@ import { ModalService } from './components/modal/modal.service';
 import { CommunityComponent } from './views/community/community.component';
 import { CommunityListComponent } from './views/community/community-list/community-list.component';
 import { Interceptor } from './helpers/interceptor';
+import { UploadComponent } from './views/template-chapter/chapter/upload/upload.component';
 
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
@@ -193,7 +194,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     LoaderComponent,
     ModalComponent,
     CommunityComponent,
-    CommunityListComponent
+    CommunityListComponent,
+    UploadComponent
 
   ],
   imports: [
