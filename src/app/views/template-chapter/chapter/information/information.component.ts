@@ -1,3 +1,4 @@
+import { Permissions, RuleState } from './../../../../helpers/permissions';
 import { ToastService } from './../../../../services/toast-notification/toast.service';
 import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
@@ -20,6 +21,10 @@ export class InformationComponent implements OnInit {
   public number: number;
   private btn_cancel: boolean;
   private lastVersion: any;
+  private canRead: boolean;
+  private canUpdate: boolean;
+  private canCreate: boolean;
+  private canDelete: boolean;
 
   @Output() returnEvent = new EventEmitter();
   @Output() cancelEvent = new EventEmitter();
@@ -46,10 +51,24 @@ export class InformationComponent implements OnInit {
   constructor(
     private router: Router,
     private chapterService: ChapterService,
-    private toastService: ToastService) {
+    private toastService: ToastService,
+    private permissions: Permissions) {
+      this.canCreate = false;
+      this.canUpdate = false;
+      this.canRead = false;
+      this.canDelete = false;
   }
 
   ngOnInit() {
+    this.permissions.canActivate('/chapter-dashboard');
+    this.permissions.permissionsState.subscribe(
+      (rules: RuleState) => {
+        this.canCreate = rules.canCreate;
+        this.canUpdate = rules.canUpdate;
+        this.canRead = rules.canRead;
+        this.canDelete = rules.canDelete;
+      }
+    );
     this.btn_cancel = false;
     this.lastVersion = localStorage.getItem('lastVersion');
     if (!this.lastVersion) {

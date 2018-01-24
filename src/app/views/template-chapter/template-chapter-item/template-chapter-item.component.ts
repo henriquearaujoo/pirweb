@@ -1,3 +1,4 @@
+import { Permissions, RuleState } from './../../../helpers/permissions';
 import { Chapter } from './../../../models/chapter';
 import { Response } from '@angular/http';
 import { TemplateItem } from './../../../models/templateItem';
@@ -22,22 +23,37 @@ export class TemplateChapterItemComponent implements OnInit {
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
   private currentVersion: Chapter;
   private lastVersion: any;
+  private canRead: boolean;
+  private canUpdate: boolean;
+  private canCreate: boolean;
+  private canDelete: boolean;
 
   constructor(
     private router: Router,
     private chapterService: ChapterService,
-    private toastService: ToastService
-  ) { }
+    private toastService: ToastService,
+    private permissions: Permissions
+  ) {
+    this.canCreate = false;
+    this.canUpdate = false;
+    this.canRead = false;
+    this.canDelete = false;
+   }
 
   ngOnInit() {
+    this.permissions.canActivate('/template-chapter');
+    this.permissions.permissionsState.subscribe(
+      (rules: RuleState) => {
+        this.canCreate = rules.canCreate;
+        this.canUpdate = rules.canUpdate;
+        this.canRead = rules.canRead;
+        this.canDelete = rules.canDelete;
+      }
+    );
+
     this.currentVersion = new Chapter();
     this.getVersions();
    }
-
-  //  public editChapter() {
-  //    this.chapterService.setChapter(this.chapter);
-  //     this.router.navigate(['chapter-edit']);
-  //  }
 
    public disableTemplate() {
     console.log(this.chapter.id);

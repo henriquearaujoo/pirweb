@@ -10,6 +10,7 @@ import { Paginate } from '../../models/paginate';
 import { Observable } from 'rxjs/Observable';
 import { LoaderService } from '../../services/loader/loader.service';
 import { NgProgress } from 'ngx-progressbar';
+import { Permissions, RuleState } from '../../helpers/permissions';
 
 @Component({
   selector: 'app-template-chapter',
@@ -32,26 +33,45 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
   private size: number;
   private size_active: number;
   private size_inactive: number;
+  private canRead: boolean;
+  private canUpdate: boolean;
+  private canCreate: boolean;
+  private canDelete: boolean;
 
   constructor(
     private router: Router,
     private chapterService: ChapterService,
     private chapterItem: TemplateChapterItemComponent,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private permissions: Permissions
   ) {
       this.hasdata = false;
       this.page = 0;
       this.size = 10;
       this.size_active = 10;
       this.size_inactive = 10;
+      this.canCreate = false;
+      this.canUpdate = false;
+      this.canRead = false;
+      this.canDelete = false;
 
   }
 
   ngOnInit() {
+    this.permissions.canActivate('/template-chapter');
+    this.permissions.permissionsState.subscribe(
+      (rules: RuleState) => {
+        this.canCreate = rules.canCreate;
+        this.canUpdate = rules.canUpdate;
+        this.canRead = rules.canRead;
+        this.canDelete = rules.canDelete;
+      }
+    );
     this.hasdata = false;
     this.getChapters();
     this.getChapterActive();
     this.getChapterInactive();
+    console.log('canCreate', this.canCreate);
   }
 
   ngOnChanges() {  }

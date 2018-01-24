@@ -5,12 +5,14 @@
         <li class="treeview" [class.active]="isActive(item.routes)" *ngIf="item.read">
             <a href="#" *ngIf="item.category === 'parent'">
               <i class="{{ item.iClass }}"></i> <span>{{ item.title }}</span>
-              <i class="fa fa-angle-left pull-right" *ngIf="item.hasChild"></i>
+              <span class="pull-right-container" *ngIf="item.hasChild">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
             </a>
-            <ul class="treeview-menu" *ngFor="let sub of menu">
+            <ul class="treeview-menu">
               
-              <li [class.active]="isActive(sub.routes)" *ngIf="sub.parent === item.id && sub.read">
-                <a class="menu" (click)="redirectTo(sub.route)"  *ngIf="sub.category === 'child'">
+              <li [class.active]="isActive(sub.routes)" *ngFor="let sub of menu">
+                <a class="menu" (click)="redirectTo(sub.route)"  *ngIf="sub.category === 'child' && sub.parent === item.id && sub.read">
                     <i class="{{ sub.iClass }}" aria-hidden="true"></i>
                     <span>{{ sub.title }}</span>
                 </a>

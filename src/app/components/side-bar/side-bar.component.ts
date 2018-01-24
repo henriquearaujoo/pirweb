@@ -48,8 +48,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
     this.subscription = this.permissions.ruleState.subscribe(
       (rules: RuleState) => {
         this.rules = rules.permissions;
-       console.log('PERMISSIONS EVENT:', this.rules);
-       console.log('menu.length', this.menu.length);
+
        for (let i = 0; i < this.menu.length; i++) {
          for ( let j = 0; j < this.rules.length; j++) {
           if (this.menu[i].route === this.rules[j].page_id) {
@@ -75,7 +74,6 @@ export class SideBarComponent implements OnInit, OnDestroy {
       }
 
       });
-      console.log('PERMISSIONS side bar: ', this.menu);
   }
 
   isActive(instruction: String[]): boolean {

@@ -1,3 +1,4 @@
+import { Permissions } from './../../../helpers/permissions';
 import { ToastService } from './../../../services/toast-notification/toast.service';
 import { Component, OnInit} from '@angular/core';
 import { User } from '../../../models/user';
@@ -65,7 +66,6 @@ export class UserEditComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.btn_cancel = false;
     this.show_pjur = false;
     this.show_community = false;

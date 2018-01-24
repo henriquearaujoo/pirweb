@@ -28,6 +28,12 @@ export class ModalService {
     console.log('Modal Session Expired');
   }
 
+  modalPermission() {
+    // this.route = route;
+    this.modalSubject.next(<ModalState>{showPermission: true});
+    console.log('Modal Permission');
+  }
+
   hide() {
     this.modalSubject.next(<ModalState>{showCancel: false, showSuccess: false});
     console.log('Hide Modal');
@@ -43,4 +49,5 @@ export interface ModalState {
   showCancel: boolean;
   showSuccess: boolean;
   show_SessionExpired: boolean;
+  showPermission: boolean;
 }

@@ -63,14 +63,13 @@ export class UserListComponent implements OnInit, OnDestroy {
         this.getUsers();
       }
     );
-
+    this.permissions.canActivate('/user-list');
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
         this.canUpdate = rules.canUpdate;
         this.canRead = rules.canRead;
         this.canDelete = rules.canDelete;
-        console.log('RULES', rules);
         this.getUsers();
       }
     );

@@ -1,3 +1,5 @@
+import { ToastService } from './../services/toast-notification/toast.service';
+import { error } from 'util';
 import { Injectable, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import {
@@ -20,13 +22,28 @@ export class PageGuard implements CanActivate {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
         ): Observable<boolean> | boolean {
-        // this.isRead = (state.url === '/user-list' ||
-        //                state.url === '/profile-list' ||
-        //                state.url === '/template-chapter');
 
-            console.log('state ###', state.url);
-            console.log('canRead ###', this.permissions.canRead);
-            return this.permissions.canActivate(state.url);
+        //  return this.permissions.canActivate(state.url).map(
+        //     (read: boolean) => {
+        //         if (read) {
+        //             console.log('Permitido');
+        //             return true;
+        //         }
+        //         console.log('Negado');
+        //         return false;
+        //     });
+
+        this.permissions.canActivate(state.url);
+        return this.permissions.permissionsState.map(
+            (rules: RuleState) => {
+            if (rules.canRead) {
+                console.log('Permitido');
+                return rules.canRead;
+            }
+            console.log('Negado');
+            this.router.navigate(['/home']);
+            return rules.canRead;
+        });
     }
 
 // tslint:disable-next-line:eofline

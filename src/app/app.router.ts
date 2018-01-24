@@ -59,65 +59,70 @@ const App_Router: Routes = [
           {
             path: 'dashboard',
             component: DashboardComponent
+              // canActivate: [PageGuard]
           },
 
           {
             path: 'agent',
             component: AgentComponent
+              // canActivate: [PageGuard]
           },
           {
             path: 'maps',
             component: MapsComponent
+              // canActivate: [PageGuard]
           },
           {
             path: 'community-list',
             component: CommunityListComponent
+            // canActivate: [PageGuard]
           },
           {
             path: 'community',
             component: CommunityComponent
+            // canActivate: [PageGuard]
           },
           {
             path: 'template-chapter',
             component: TemplateChapterComponent,
               canActivate: [PageGuard]
           },
-          {
-            path: 'selectModel',
-            component: TemplateSelectModelComponent
-          },
-          {
-            path: 'template-chapter-option',
-            component: TemplateChapterOptionComponent
-          },
-          {
-            path: 'chapterInformation',
-            component: InformationComponent
-          },
-          {
-            path: 'reception',
-            component: ReceptionComponent
-          },
-          {
-            path: 'intervention',
-            component: InterventionComponent
-          },
-          {
-            path: 'task',
-            component: TaskComponent
-          },
-          {
-            path: 'collect-data',
-            component: TemplateCollectDataComponent
-          },
-          {
-            path: 'chapter-details',
-            component: ChapterDetailsComponent
-          },
-          {
-            path: 'chapter-edit',
-            component: ChapterEditComponent
-          },
+          // {
+          //   path: 'selectModel',
+          //   component: TemplateSelectModelComponent
+          // },
+          // {
+          //   path: 'template-chapter-option',
+          //   component: TemplateChapterOptionComponent
+          // },
+          // {
+          //   path: 'chapterInformation',
+          //   component: InformationComponent
+          // },
+          // {
+          //   path: 'reception',
+          //   component: ReceptionComponent
+          // },
+          // {
+          //   path: 'intervention',
+          //   component: InterventionComponent
+          // },
+          // {
+          //   path: 'task',
+          //   component: TaskComponent
+          // },
+          // {
+          //   path: 'collect-data',
+          //   component: TemplateCollectDataComponent
+          // },
+          // {
+          //   path: 'chapter-details',
+          //   component: ChapterDetailsComponent
+          // },
+          // {
+          //   path: 'chapter-edit',
+          //   component: ChapterEditComponent
+          // },
           {
             path: 'chapter-dashboard',
             component: ChapterDashboardComponent,
@@ -125,7 +130,8 @@ const App_Router: Routes = [
           },
           {
             path: 'chapter-dashboard/:id',
-            component: ChapterDashboardComponent
+            component: ChapterDashboardComponent,
+              canActivate: [PageGuard]
           },
           {
             path: 'user',
@@ -147,10 +153,10 @@ const App_Router: Routes = [
             component: UserEditComponent,
               canActivate: [PageGuard]
           },
-          {
-            path: 'user-personal-info',
-            component: UserPersonalInformationComponent
-          },
+          // {
+          //   path: 'user-personal-info',
+          //   component: UserPersonalInformationComponent
+          // },
           {
             path: 'profile',
             component: ProfileComponent
@@ -159,12 +165,12 @@ const App_Router: Routes = [
             path: 'profile-list',
             component: ProfileListComponent,
               canActivate: [PageGuard]
-          },
-          {
-            path: 'page-list',
-            component: PageComponent,
-              canActivate: [PageGuard]
           }
+          // {
+          //   path: 'page-list',
+          //   component: PageComponent,
+          //     canActivate: [PageGuard]
+          // }
 
         ]
       },

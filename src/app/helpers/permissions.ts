@@ -3,7 +3,7 @@ import { AuthenticationService } from './../services/login/authentication.servic
 import { AccessPageService } from './../services/page/page.service';
 import { Page } from './../models/page';
 import { Rule } from '../models/rule';
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
@@ -14,7 +14,7 @@ export class Permissions implements OnDestroy {
     private permissions: Rule[];
     private pages: Page[] = new Array();
 
-    canRead = Observable.of(false);
+    // canRead = Observable.of(false);
     returnUrl: string;
     private rulesSubject = new Subject<RuleState>();
     ruleState = this.rulesSubject.asObservable();
@@ -22,13 +22,15 @@ export class Permissions implements OnDestroy {
     private permissionsSubject = new Subject<RuleState>();
     permissionsState = this.permissionsSubject.asObservable();
 
+    can_not_access = new EventEmitter();
+
     constructor(
         private authenticationService: AuthenticationService,
         private accessPageService: AccessPageService,
         private  router: Router) {
         }
 
-    canActivate(url: string): Observable<boolean> {
+    canActivate(url: string) {
         this.returnUrl = url;
 
         const profile = localStorage.getItem('profileId_rules');
@@ -38,7 +40,6 @@ export class Permissions implements OnDestroy {
             this.authenticationService.getPermissions(profile).subscribe(
                 success_rules => {
                     this.rules = success_rules;
-                    console.log('RULES:', this.rules);
                     // PAGES
                     this.accessPageService.getAllPages().subscribe(
                         success => {
@@ -51,17 +52,13 @@ export class Permissions implements OnDestroy {
                                     }
                                 }
                             }
-                            this.rulesSubject.next(<RuleState>{permissions: this.rules});
                             if (this.rules.length !== 0) {
-                                // console.log('TEST', this.rules);
+                                this.rulesSubject.next(<RuleState>{permissions: this.rules});
                                 for ( let i = 0; i < this.rules.length; i++) {
-                                    // console.log('URL', this.returnUrl);
                                     if ( ('/' + this.rules[i].page_id ) === this.returnUrl) {
-                                        // console.log('TEST 2');
                                         if ( this.rules[i].read) {
                                             console.log('Pode ativar rota!');
-                                            // this.canRead = true;
-                                            this.canRead = Observable.of(true);
+
                                             this.permissionsSubject.next(<RuleState>{
                                                 canRead: this.rules[i].read,
                                                 canCreate: this.rules[i].create,
@@ -70,14 +67,17 @@ export class Permissions implements OnDestroy {
                                             });
                                             break;
                                         } else {
-                                            // this.canRead = false;
-                                            this.canRead = Observable.of(false);
+                                            this.permissionsSubject.next(<RuleState>{
+                                                canRead: this.rules[i].read,
+                                                canCreate: this.rules[i].create,
+                                                canUpdate: this.rules[i].update,
+                                                canDelete: this.rules[i].delete
+                                            });
                                             console.log('Não pode ativar rota!');
-                                            this.router.navigate(['/home']);
+                                            // this.router.navigate(['/home']);
                                         }
                                     }
                                 }
-                                // this.canRead = false;
                             }
 
 
@@ -88,18 +88,11 @@ export class Permissions implements OnDestroy {
                 }
             );
         }
-        return this.canRead;
+        // return this.canRead;
       }
 
-      setPermission(_rules: Rule[]) {
-        console.log('RULES setPermissions:', _rules);
-        this.permissions = _rules;
-        this.rulesSubject.next(<RuleState>{permissions: _rules});
-      }
-
-      getPermissions(): Rule[] {
-        console.log('RULES getPermissions:', this.permissions);
-          return this.permissions;
+      setPermission(permission: boolean) {
+        this.can_not_access.emit(permission);
       }
 
       getPermission() {

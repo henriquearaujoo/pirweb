@@ -56,7 +56,6 @@ export class LoginComponent implements OnInit, OnDestroy {
                     console.log('Decode Token:', tokenData);
                     localStorage.setItem('profileId_rules', tokenData.payload.pfl);
                     localStorage.setItem('currentUserPir', tokenData.payload.unm);
-                    // this.getPermissions();
                     this.router.navigate([this.returnUrl]);
                 }
             },
@@ -65,66 +64,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                 console.log('Error:', error);
             }
         );
-
-        // JSON SERVER
-        // localStorage.setItem('tokenPir', 'token' );
-        // this.router.navigate([this.returnUrl]);
     }
-
-    // getUser() {
-    //     this.authenticationService.getUser(this.user.login).subscribe(
-    //         success_user => {
-    //             this.user = success_user[0];
-    //             console.log('USER:', this.user);
-    //             console.log('profile_id:', this.user.profile);
-    //             localStorage.setItem('profileId_rules', this.user.profile);
-    //             this.getPermissions();
-    //         },
-    //         error => {
-    //             this.toastService.toastMsg('Erro', 'Não foi possível carregar as regras de acesso!');
-    //             console.log(error);
-    //         }
-    //     );
-    // }
-
-    getPermissions() {
-        // this.returnUrl = url;
-
-        const profile = localStorage.getItem('profileId_rules');
-        // this.isActivate = false;
-
-        if (profile !== undefined || profile !== null) {
-            this.authenticationService.getPermissions(profile).subscribe(
-                success_rules => {
-                    this.rules = success_rules;
-                    console.log('RULES:', this.rules);
-                    // PAGES
-                    this.accessPageService.getAllPages().subscribe(
-                        success => {
-                            this.pages = success;
-                            console.log('RULES 1:', this.rules);
-                            console.log('PAGES:', this.pages);
-                            for ( let i = 0; i < this.pages.length; i++) {
-                                for ( let j = 0; j < this.rules.length; j++) {
-                                    if (this.pages[i].id === this.rules[j].page_id) {
-                                        this.rules[j].page_id = this.pages[i].route;
-                                        break;
-                                    }
-                                }
-                            }
-                            this.permisions.setPermission(this.rules);
-                            localStorage.setItem('rulesProfile', JSON.stringify(this.rules));
-                            // console.log('RULES setPermission:', this.rules);
-                        },
-                        error => console.log(error)
-                    );
-
-                }
-            );
-        }
-        // return this.isActivate;
-        // console.log('RETURN', this.getPermissions());
-      }
 
     verifyError(error) {
         switch (error) {

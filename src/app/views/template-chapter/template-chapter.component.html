@@ -44,7 +44,7 @@
                                 <div class="navbar-custom-menu">
                                     <ul class="nav navbar-nav">
                                         <li class="add">
-                                            <button class="btn btn-primary add" (click)="createNewChapter()">
+                                            <button class="btn btn-primary add" (click)="createNewChapter()" *ngIf="canCreate">
                                                 <i class="fa fa-plus fa-lg"></i>ADICIONAR CAPÍTULO
                                             </button>
                                         </li>

@@ -1,3 +1,4 @@
+import { Permissions, RuleState } from './../../../helpers/permissions';
 import { ToastService } from './../../../services/toast-notification/toast.service';
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
@@ -44,8 +45,10 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
 
     private profileTabActive: boolean;
     private permissionTabActive: boolean;
-    // private currentTab: number;
-    // private cont: number;
+    private canRead: boolean;
+    private canUpdate: boolean;
+    private canCreate: boolean;
+    private canDelete: boolean;
 
     constructor(
       pagerService: PageService,
@@ -53,16 +56,28 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
       private ruleService: RuleService,
       private accessPageService: AccessPageService,
       private toastService: ToastService,
-      private router: Router) {
+      private router: Router,
+      private permissions: Permissions) {
         super(pagerService);
         this.hasdata = false;
         this.edit = false;
         this.page = 0;
+        this.canCreate = false;
+        this.canUpdate = false;
+        this.canRead = false;
+        this.canDelete = false;
       }
 
     ngOnInit() {
-      // this.currentTab = 0;
-      // this.cont = 0;
+      this.permissions.canActivate('/profile-list');
+      this.permissions.permissionsState.subscribe(
+        (rules: RuleState) => {
+          this.canCreate = rules.canCreate;
+          this.canUpdate = rules.canUpdate;
+          this.canRead = rules.canRead;
+          this.canDelete = rules.canDelete;
+        }
+      );
       this.profileTab = '../../../assets/img/profile/ic_profile_enable.png';
       this.permissionTab = '../../../assets/img/profile/ic_permission_disable.png';
       this.profileTabActive = true;

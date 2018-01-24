@@ -1,3 +1,4 @@
+import { Permissions, RuleState } from './../../../helpers/permissions';
 import { City } from './../../../models/city';
 import { UserService } from './../../../services/user/user.service';
 import { Component, OnInit, EventEmitter } from '@angular/core';
@@ -24,16 +25,34 @@ export class UserDetailsComponent implements OnInit {
   private state_id: string;
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
   private urlId: string;
+  private canRead: boolean;
+  private canUpdate: boolean;
+  private canCreate: boolean;
+  private canDelete: boolean;
 
   constructor(
     private userService: UserService,
     private profileService: ProfileService,
     private toastService: ToastService,
-    private router: Router ) {
+    private router: Router,
+    private permissions: Permissions ) {
     this.user = new User();
+    this.canCreate = false;
+    this.canUpdate = false;
+    this.canRead = false;
+    this.canDelete = false;
   }
 
   ngOnInit() {
+    this.permissions.canActivate('/user-details');
+    this.permissions.permissionsState.subscribe(
+      (rules: RuleState) => {
+        this.canCreate = rules.canCreate;
+        this.canUpdate = rules.canUpdate;
+        this.canRead = rules.canRead;
+        this.canDelete = rules.canDelete;
+      }
+    );
     this.show_pjur = false;
     // this.user = this.userService.getUser();
     this.urlId = localStorage.getItem('userId');

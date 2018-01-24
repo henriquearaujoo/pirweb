@@ -1,6 +1,8 @@
+import { ToastService } from './../../services/toast-notification/toast.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../services/login/authentication.service';
 import { User } from '../../models/user';
+import { Permissions } from '../../helpers/permissions';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +19,10 @@ export class HomeComponent implements OnInit {
 
     private currentUser: string;
 
-    constructor(  ) {
+    constructor(
+      private permissions: Permissions,
+      private toastService: ToastService
+     ) {
     }
 
     ngOnInit() {

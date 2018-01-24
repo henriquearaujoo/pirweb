@@ -31,7 +31,9 @@
                                     </div>
                                     <div class="col-sm-6 actions">
                                         <button class="btn btn-primary add"
-                                            (click)="createNewQuestion()" [disabled]="!hasdata">
+                                            (click)="createNewQuestion()" 
+                                            [disabled]="!hasdata"
+                                            *ngIf="canCreate || canUpdate">
                                             <i class="fa fa-plus fa-lg"></i>ADICIONAR QUESTÃO
                                         </button>
                                     </div>
@@ -61,7 +63,7 @@
                                             </a>   
                                         </div>
                                         <div class="col-sm-4">
-                                            <div class="actions">                                
+                                            <div class="actions" *ngIf="canCreate || canUpdate">                                
                                                 <button class="btn btn-primary btn-sm edit" (click)="onEdit(item, i)"> <i class="fa fa-pencil"></i>Editar</button>
                                                 <button class="btn btn-primary btn-sm remove" (click)="onDelete(item)"><i class="fa fa-remove"></i>Deletar</button>
                                             </div>
@@ -90,7 +92,7 @@
                         </div>
                     </div>
                     <div class="col-md-2 col-md-offset-8">
-                        <div class="form-group save">
+                        <div class="form-group save" *ngIf="canCreate || canUpdate">
                             <button class="btn btn-primary btn-block" name="submit" id="btn_save" (click)="onSave()">Salvar</button>
                         </div>
                     </div>
