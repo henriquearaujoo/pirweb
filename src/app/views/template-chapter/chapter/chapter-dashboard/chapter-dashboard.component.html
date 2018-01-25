@@ -36,8 +36,8 @@
                         </a>
                     </li>
                     <li>
-                        <a class="tab-pane" href="#tab_5" data-toggle="tab" (click)="walk(4)">
-                            Arquivos
+                        <a class="tab-pane" href="#tab_5" data-toggle="tab">
+                            <img src="{{multimediaTab}}" (click)="walk(4)" />
                         </a>
                     </li>
                 </ul>
@@ -45,11 +45,16 @@
                     <div class="tab-pane active" id="tab_1">
                         <div class="content">
                             <section class="content">
-                                <div class="box-header with-border">
-                                    <h5 class="box-title">
-                                        Informações do Capítulo
-                                    </h5>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="box-header with-border">
+                                            <h5 class="box-title">
+                                                Informações do Capítulo
+                                            </h5>
+                                        </div>
+                                    </div>
                                 </div>
+                               
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="box box-primary">
@@ -66,11 +71,16 @@
                     <div class="tab-pane" id="tab_2">
                         <div class="content">
                             <section class="content">
-                                <div class="box-header with-border">
-                                    <h5 class="box-title">
-                                        Acolhimento
-                                    </h5>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="box-header with-border">
+                                            <h5 class="box-title">
+                                                Acolhimento
+                                            </h5>
+                                        </div>
+                                    </div>
                                 </div>
+                                
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="box box-primary">
@@ -87,11 +97,16 @@
                     <div class="tab-pane" id="tab_3">
                         <div class="content">
                             <section class="content">
-                                <div class="box-header with-border">
-                                    <h5 class="box-title">
-                                        Intervenção
-                                    </h5>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="box-header with-border">
+                                            <h5 class="box-title">
+                                                Intervenção
+                                            </h5>
+                                        </div>
+                                    </div>
                                 </div>
+                                
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="box box-primary">
@@ -108,11 +123,16 @@
                     <div class="tab-pane" id="tab_4">
                         <div class="content">
                             <section class="content">
-                                <div class="box-header with-border">
-                                    <h5 class="box-title">
-                                        Conclusão
-                                    </h5>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="box-header with-border">
+                                            <h5 class="box-title">
+                                                Conclusão
+                                            </h5>
+                                        </div>
+                                    </div>
                                 </div>
+                                
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="box box-primary">
@@ -127,7 +147,29 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="tab_5">
-                        arquivos
+                        <div class="content">
+                            <section class="content">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="box-header with-border">
+                                            <h5 class="box-title">
+                                                Mídias do Capítulo
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="box box-primary">
+                                            <div class="box-body">
+                                              <app-multimedia #multimedia></app-multimedia>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>                        
                     </div>
                 </div>
                 <!-- /.tab-content -->

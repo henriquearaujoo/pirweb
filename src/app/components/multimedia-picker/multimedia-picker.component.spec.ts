@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UploadComponent } from './upload.component';
+import { MultimediaPickerComponent } from './multimedia-picker.component';
 
-describe('UploadComponent', () => {
-  let component: UploadComponent;
-  let fixture: ComponentFixture<UploadComponent>;
+describe('MultimediaPickerComponent', () => {
+  let component: MultimediaPickerComponent;
+  let fixture: ComponentFixture<MultimediaPickerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UploadComponent ]
+      declarations: [ MultimediaPickerComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UploadComponent);
+    fixture = TestBed.createComponent(MultimediaPickerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

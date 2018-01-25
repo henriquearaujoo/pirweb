@@ -1,3 +1,4 @@
+import { FileService } from './services/file/file.service';
 // import { NgxSpinnerModule } from 'ngx-spinner';
 import { ReceptionService } from './services/reception/reception.service';
 import { InterventionService } from './services/intervention/intervention.service';
@@ -135,7 +136,9 @@ import { ModalService } from './components/modal/modal.service';
 import { CommunityComponent } from './views/community/community.component';
 import { CommunityListComponent } from './views/community/community-list/community-list.component';
 import { Interceptor } from './helpers/interceptor';
-import { UploadComponent } from './views/template-chapter/chapter/upload/upload.component';
+import { MultimediaComponent } from './views/template-chapter/chapter/multimedia/multimedia.component';
+import { MultimediaGalleryComponent } from './components/multimedia-gallery/multimedia-gallery.component';
+import { MultimediaPickerComponent } from './components/multimedia-picker/multimedia-picker.component';
 
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
@@ -195,7 +198,9 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ModalComponent,
     CommunityComponent,
     CommunityListComponent,
-    UploadComponent
+    MultimediaComponent,
+    MultimediaGalleryComponent,
+    MultimediaPickerComponent
 
   ],
   imports: [
@@ -277,7 +282,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     Permissions,
     PageGuard,
     ModalService,
-    CommunityService
+    CommunityService,
+    FileService
   ],
   bootstrap: [AppComponent]
 })

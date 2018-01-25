@@ -1,0 +1,11 @@
+li { 
+    display:inline;
+}
+.thumbnails { 
+    margin:8px 8px;
+    box-shadow:#999 1px 1px 3px 1px; 
+    cursor: pointer 
+}   
+.modal-content {
+    width: auto;
+}

@@ -1,0 +1,38 @@
+<simple-notifications></simple-notifications>
+
+<div class="content">
+    <section class="content">
+        <form name="form_intervention" (ngSubmit)="fMultimedia.form.valid && saveData()" #fIntervention="ngForm" novalidate>
+            <div class="row">
+                <div class="col">
+                    <div class="box box-primary">
+                        <div class="box-body">
+                          <div class="row">
+                            <div class="col">
+                                <app-multimedia-picker #multimediaPicker [(fileData)]="media" (uploaded)="upload($event)"></app-multimedia-picker>                                  
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                                <!-- <app-multimedia-gallery [imageList]=images></app-multimedia-gallery> -->
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row footer">
+                <!-- <div class="col-md-2">
+                    <div>
+                        <button class="btn btn-default btn-block" (click)="onCancel()" id="btn_return"> Cancelar</button>
+                    </div>
+                </div>
+                <div class="col-md-2 col-md-offset-8">
+                    <div class="form-group save" *ngIf="canCreate || canUpdate">
+                        <button class="btn btn-primary btn-block" name="submit" id="btn_save">Salvar</button>
+                    </div>
+                </div> -->
+            </div>
+        </form>
+    </section>
+</div>

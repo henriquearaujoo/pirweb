@@ -1,0 +1,21 @@
+<div class="modal fade" id="selectedImageModal" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+         <img *ngIf="selectedImage" src="{{selectedImage.url}}" >
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+      <ul id="thumbnailsList">
+          <li *ngFor="let image of imageList" >
+            <img src="{{ image.url }}" class="thumbnails"
+                width="191" height="146"  
+                data-toggle="modal" data-target="#selectedImageModal"
+                (click)=setSelectedImage(image)>
+          </li>
+      </ul>
+  </div>
+</div>

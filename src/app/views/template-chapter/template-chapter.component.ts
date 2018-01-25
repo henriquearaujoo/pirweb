@@ -58,6 +58,7 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    // this.loaderService.show();
     this.permissions.canActivate('/template-chapter');
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
@@ -65,6 +66,7 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
         this.canUpdate = rules.canUpdate;
         this.canRead = rules.canRead;
         this.canDelete = rules.canDelete;
+        // this.loaderService.hide();
       }
     );
     this.hasdata = false;
