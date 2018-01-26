@@ -5,6 +5,7 @@ import { Chapter } from '../../../../models/chapter';
 import { FileService } from '../../../../services/file/file.service';
 import { ChapterService } from '../../../../services/chapter/chapter.service';
 import { ToastService } from '../../../../services/toast-notification/toast.service';
+import { Constant } from '../../../../constant/constant';
 
 @Component({
   selector: 'app-multimedia',
@@ -20,6 +21,7 @@ export class MultimediaComponent implements OnInit {
   private canDelete: boolean;
 
   private images: any;
+  private multimedias: any;
   private type_file: any;
   private selectedFile: any;
   public chapter_id: string;
@@ -41,13 +43,12 @@ export class MultimediaComponent implements OnInit {
     this.canDelete = false;
 
     this.images = [
-      {'url': '../../../../../assets/pir.png'},
-      {'url': '../../../../../assets/pir.png'},
-      {'url': '../../../../../assets/pir.png'},
-      {'url': '../../../../../assets/pir.png'},
-      {'url': '../../../../../assets/pir.png'},
-      {'url': '../../../../../assets/pir.png'},
-      {'url': '../../../../../assets/pir.png'}
+      {'url': '../../../../../assets/img1.jpg', 'type': 'image'},
+      {'url': '../../../../../assets/img2.jpg', 'type': 'image'},
+      {'url': '../../../../../assets/img3.jpg', 'type': 'image'},
+      {'url': '../../../../../assets/itn.mp4', 'type': 'video'},
+      {'url': '../../../../../assets/FAS.pdf', 'type': 'pdf'},
+      {'url': '../../../../../assets/pir.png', 'type': 'image'}
           ];
 
     this.type_file = [
@@ -92,8 +93,12 @@ export class MultimediaComponent implements OnInit {
     this.chapterService.load(chapter).subscribe(
       success => {
         this.chapter = success;
-        console.log('CHAPTER MULTIMEDIA:', this.chapter);
-        this.multimediaPicker.chapter = this.chapter;
+        this.reload();
+        // this.multimedias = this.chapter.medias;
+        // console.log('MULTIMEDIAs:', this.multimedias);
+        //  for (let i = 0; i < this.multimedias.length; i++) {
+        //     this.multimedias[i].path = Constant.BASE_URL + 'file/download/' + this.multimedias[i].id;
+        // }
       },
       e => {
         console.log('PirError:' + e);
@@ -103,19 +108,16 @@ export class MultimediaComponent implements OnInit {
 
   upload(media) {
     this.media = media;
-    this.chapter.media = null;
-
-    // /UPDATE CHAPTERS
-    console.log('MEDIA:', this.media);
     if (this.media && this.media.id) {
-      this.chapter.media.push(this.media);
-      console.log('CHAPTER MEDIA:', this.chapter.media);
-
+      this.chapter.medias.push(this.media);
+      console.log('CHAPTER:', this.chapter);
+      this.chapter.thumbnails = this.chapter.medias;
       this.chapterService.update(this.chapter).subscribe(
-        o => {
+        s => {
           this.toastService.toastSuccess();
-          console.log(o);
-          // this.cancel();
+          this.chapter = s;
+          this.reload();
+          console.log('UPDATE CHAPTER:', this.chapter);
         },
         e => {
           console.log(e);
@@ -125,5 +127,12 @@ export class MultimediaComponent implements OnInit {
     }
   }
 
+  reload() {
+    this.multimedias = this.chapter.medias;
+    console.log('MULTIMEDIAs:', this.multimedias);
+    for (let i = 0; i < this.multimedias.length; i++) {
+      this.multimedias[i].path = Constant.BASE_URL + 'file/download/' + this.multimedias[i].id;
+     }
+  }
 // tslint:disable-next-line:eofline
 }

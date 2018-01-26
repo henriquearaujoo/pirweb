@@ -1,21 +1,112 @@
-<div class="modal fade" id="selectedImageModal" >
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-body">
-         <img *ngIf="selectedImage" src="{{selectedImage.url}}" >
-      </div>
+<div class="row">
+  <div class="col">
+    <!-- Custom Tabs -->
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#tab_a" data-toggle="tab">Todos</a></li>
+          <li><a href="#tab_i" data-toggle="tab">Imagens</a></li>
+          <li><a href="#tab_v" data-toggle="tab">Vídeos</a></li>
+          <li><a href="#tab_f" data-toggle="tab">Arquivos</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="tab_a">
+            <ul id="thumbnailsList">
+              <h4>Imagens</h4>
+              <li *ngFor="let image of datasource" [ngSwitch]="image.type" >
+                <img src="{{ image.path }}" class="thumbnails"
+                  width="191" height="146"  
+                  data-toggle="modal" data-target="#selectedItemModal"
+                  (click)=setSelectedItem(image) *ngSwitchCase="'PICTURE2D'">
+              </li>
+              <h4>Vídeos</h4>
+              <li *ngFor="let video of datasource" [ngSwitch]="video.type" >
+                <video controls class="thumbnails" width="191" height="146" *ngSwitchCase="'VIDEO2D'"
+                  data-toggle="modal" data-target="#selectedItemModal"
+                  (click)=setSelectedItem(video)>
+                    <source src="{{ video.path }}" type="video/mp4" /> Browser not supported
+                </video>
+              </li>
+              <h4>Arquivos</h4>
+              <li *ngFor="let file of datasource" [ngSwitch]="file.type">
+                  <span *ngSwitchCase="'FILE'"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></span>
+                  <!-- <div>
+                      <label>PDF src</label>
+                      <input type="text" placeholder="PDF src" [(ngModel)]="file.url">
+                  </div> -->
+                  <!-- <pdf-viewer [src]="file.url" 
+                              [render-text]="false"
+                              [original-size]="false"
+                              [show-all]="false"
+                              [page]="1"
+                              style="display: block;height:146px;width:146px;">
+                  </pdf-viewer> -->
+              </li>
+            </ul>
+          </div>
+          <div class="tab-pane" id="tab_i">
+            <ul id="thumbnailsList">
+              <li *ngFor="let image of datasource" [ngSwitch]="image.type" >
+                <img src="{{ image.path }}" class="thumbnails"
+                  width="191" height="146"  
+                  data-toggle="modal" data-target="#selectedItemModal"
+                  (click)=setSelectedItem(image) *ngSwitchCase="'PICTURE2D'">
+              </li>
+            </ul>
+          </div>
+          <div class="tab-pane" id="tab_v">
+            <li *ngFor="let video of datasource" [ngSwitch]="video.type" >
+              <video controls class="thumbnails" width="191" height="146" *ngSwitchCase="'VIDEO2D'"
+                data-toggle="modal" data-target="#selectedItemModal"
+                (click)=setSelectedItem(video)>
+                  <source src="{{ video.path }}" type="video/mp4" /> Browser not supported
+              </video>
+            </li>
+          </div>
+          <div class="tab-pane" id="tab_f">
+            <li *ngFor="let file of datasource" [ngSwitch]="file.type">
+                <span *ngSwitchCase="'FILE'"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></span>
+                <!-- <div>
+                    <label>PDF src</label>
+                    <input type="text" placeholder="PDF src" [(ngModel)]="file.url">
+                </div> -->
+                <!-- <pdf-viewer [src]="file.url" 
+                            [render-text]="false"
+                            [original-size]="false"
+                            [show-all]="false"
+                            [page]="1"
+                            style="display: block;height:146px;width:146px;">
+                </pdf-viewer> -->
+            </li>
+          </div>
+        </div>
     </div>
   </div>
 </div>
-<div class="row">
-  <div class="col">
-      <ul id="thumbnailsList">
-          <li *ngFor="let image of imageList" >
-            <img src="{{ image.url }}" class="thumbnails"
-                width="191" height="146"  
-                data-toggle="modal" data-target="#selectedImageModal"
-                (click)=setSelectedImage(image)>
-          </li>
-      </ul>
+
+<div class="modal fade" id="selectedItemModal" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="selectedItem">
+            <div *ngIf="selectedItem.type === 'PICTURE2D'">
+              <img src="{{ selectedItem.path }}" >
+              <!-- <div class="btn-back" (click)=navigate(false)>
+                  &lt;
+               </div>
+               <div class="btn-forward" (click)=navigate(true)>
+                  &gt;
+               </div> -->
+            </div>   
+            <div *ngIf="selectedItem.type === 'VIDEO2D'">
+              <video class="video-modal" controls #videoplayer>
+                <source src="{{ selectedItem.path }}" type="video/mp4" /> Browser not supported
+              </video>
+            </div>    
+        </div>             
+      </div>
+    </div>
   </div>
 </div>

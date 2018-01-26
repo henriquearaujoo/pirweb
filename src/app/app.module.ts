@@ -140,6 +140,8 @@ import { MultimediaComponent } from './views/template-chapter/chapter/multimedia
 import { MultimediaGalleryComponent } from './components/multimedia-gallery/multimedia-gallery.component';
 import { MultimediaPickerComponent } from './components/multimedia-picker/multimedia-picker.component';
 
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
 
@@ -253,7 +255,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     CKEditorModule,
     QuillEditorModule,
     ToastyModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    PdfViewerModule
     // NgProgressModule
     // NgxSpinnerModule
   ],

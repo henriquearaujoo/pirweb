@@ -60,7 +60,8 @@ export class LoginComponent implements OnInit, OnDestroy {
                 }
             },
             error => {
-                this.verifyError(error);
+                // this.verifyError(error);
+                this.toastService.toastMsgWarn('Atenção', 'Autenticação incorreta!');
                 console.log('Error:', error);
             }
         );

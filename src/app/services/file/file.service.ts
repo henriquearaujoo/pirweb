@@ -15,8 +15,11 @@ export class FileService extends RestService {
     public upload(mediaType: String, fileToUpload: any) {
         const input = new FormData();
         input.append('file', fileToUpload);
-
+        console.log(this.apiurl + 'file/upload/' + mediaType);
         return this.http.post(this.apiurl + 'file/upload/' + mediaType, input);
     }
 
+    public download(id: string) {
+        return this.get(this.apiurl + 'file/download/' + id);
+    }
 }

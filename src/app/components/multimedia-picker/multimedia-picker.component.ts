@@ -68,13 +68,13 @@ export class MultimediaPickerComponent implements OnInit {
     this.type_file = [
       {
         'name': 'Imagem',
-        'type': 'P2D',
+        'type': 'PICTURE2D',
         'size': 10318,
         'accept': 'image/png'
       },
       {
         'name': 'Vídeo',
-        'type': 'VIDEO_2D',
+        'type': 'VIDEO2D',
         'size': 10318,
         'accept': 'mp4'
         },
@@ -115,6 +115,7 @@ export class MultimediaPickerComponent implements OnInit {
       const fileToUpload = fi.files[0];
       this.fileService.upload(this._fileData.mediaType, fileToUpload).subscribe(
         res => {
+          console.log('_fileData1', res);
           this._fileData = JSON.parse(res.text());
           console.log('_fileData', JSON.parse(res.text()));
 

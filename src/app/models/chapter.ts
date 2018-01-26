@@ -14,7 +14,8 @@ export class Chapter {
     public time_next_visit: number;
     public status =  false;
     public percentage: number;
-    public media: FileData[] = new Array();
+    public medias: any[] = new Array();
     public versions: Chapter[] = new Array();
+    public thumbnails: any[] = new Array();
 
 }

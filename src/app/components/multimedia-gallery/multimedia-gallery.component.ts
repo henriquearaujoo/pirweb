@@ -10,119 +10,25 @@ declare function require(name: string): any;
 })
 export class MultimediaGalleryComponent implements OnInit {
 
-  @Input() imageList: any[];
-  private selectedImage: any;
-
-  // elementResizeEvent = require('element-resize-event');
-
-  _hasClick: boolean;
-
-  _mediaType: any;
-  _mediaSrc: any;
-
-  // @ViewChild('mainscreen') mainscreen: ElementRef;
-  // @ViewChild('videoplayer') videoplayer: any;
-
-  viewHeight: number;
-  viewWidth: number;
-
-  @Input() set fileData(val) {
-    if (val === undefined) {
-      return;
-    }
-
-    if (!val) {
-      this._mediaType = null;
-      this._mediaSrc = null;
-      this.reload();
-      return;
-    }
-
-    this._mediaType = val.mediaType;
-    this._mediaSrc = Constant.BASE_URL + 'file/download/' + val.id;
-    this.reload();
-  }
-
-  @Input()
-  set mediaType(val) {
-    this._mediaType = val;
-    this.reload();
-  }
-
-  get mediaType(): any {
-    return this._mediaType;
-  }
-
-  @Input()
-  set mediaSrc(val) {
-    this._mediaSrc = val;
-    this.reload();
-  }
-
-  get mediaSrc(): any {
-    return this._mediaSrc;
-  }
+  @Input() datasource: any[];
+  private selectedItem: any;
 
   constructor() { }
 
   ngOnInit() {
-    this.calcAdjustedHeight();
-
-    // this.elementResizeEvent(this.mainscreen.nativeElement, function () {
-    //   this.calcAdjustedHeight();
-    // }.bind(this));
-    // this.elementResizeEvent(this.mainscreen.nativeElement.parentNode, function () {
-    //   this.calcAdjustedHeight();
-    // }.bind(this));
-    // this.elementResizeEvent(this.mainscreen.nativeElement.parentNode.parentNode, function () {
-    //   this.calcAdjustedHeight();
-    // }.bind(this));
+    console.log('Datasource:', this.datasource);
   }
 
-  setSelectedImage(image: any) {
-    this.selectedImage = image;
+  setSelectedItem(item: any) {
+    this.selectedItem = item;
+    console.log('selectedItem', this.selectedItem);
  }
 
- reload() {
-
-  // if (this._mediaType === Constant.MEDIA_TYPE.VIDEO_2D && this.videoplayer && this.videoplayer.nativeElement) {
-  //   this.videoplayer.nativeElement.load();
-  //   this._hasClick = false;
-  // }
-
-  setTimeout(() => this.calcAdjustedHeight(), 100);
+ navigate(forward) {
+  const index = this.datasource.indexOf(this.selectedItem) + (forward ? 1 : -1);
+  if (index >= 0 && index < this.datasource.length) {
+     this.selectedItem = this.datasource[index];
+  }
 }
-
-calcAdjustedHeight() {
-  // 1280/720
-  // this.viewWidth = Math.max(this.mainscreen.nativeElement.clientWidth,
-  //   this.mainscreen.nativeElement.parentNode.clientWidth,
-  //   this.mainscreen.nativeElement.parentNode.parentNode.clientWidth);
-  // this.viewHeight = Math.min((this.viewWidth * 720) / 1280, 720);
-}
-
-@HostListener('window:resize', ['$event'])
-onResize(event) {
-  this.calcAdjustedHeight();
-
-  // if(this._mediaType === Constant.MEDIA_TYPE.VIDEO_2D && this.videoplayer) {
-  //   this.videoplayer.nativeElement.height(this.viewWidth);
-  //   this.videoplayer.nativeElement.width(this.viewHeight);
-  // }
-}
-
-toggleVideo() {
-  // if (!this._hasClick) {
-  //   this.videoplayer.nativeElement.webkitRequestFullScreen();
-  //   this.videoplayer.nativeElement.play();
-  // } else if (!this.videoplayer.nativeElement.paused) {
-  //   this.videoplayer.nativeElement.pause();
-  // } else {
-  //   this.videoplayer.nativeElement.play();
-  // }
-
-  this._hasClick = true;
-}
-
 
 }

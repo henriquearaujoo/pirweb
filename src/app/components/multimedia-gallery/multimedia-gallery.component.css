@@ -7,5 +7,47 @@ li {
     cursor: pointer 
 }   
 .modal-content {
-    width: auto;
+    width: 628px;
 }
+
+i.fa.fa-file-pdf-o {
+    font-size: 70px;
+}
+
+.video-modal {
+    width: 600px;
+}
+.modal-header {
+    border-bottom: 0;
+}
+
+/* navigate */
+.btn-back, .btn-forward{
+	position:absolute;
+	opacity:0.9;
+	background-color:black;
+	padding:10px;
+	top:190;
+	color:white;
+	/* text-weight:bold; */
+	cursor:pointer;
+}
+ 
+.btn-forward{
+	left:612;
+}
+/* GALLERY */
+
+  .close {
+    position: absolute;
+    z-index: 3;
+    top: 10px;
+    right: 10px;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    background: url(#close);
+    border-radius: 25px;
+    background: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+  }
