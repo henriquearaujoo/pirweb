@@ -43,12 +43,17 @@ export class MultimediaComponent implements OnInit {
     this.canDelete = false;
 
     this.images = [
-      {'url': '../../../../../assets/img1.jpg', 'type': 'image'},
-      {'url': '../../../../../assets/img2.jpg', 'type': 'image'},
-      {'url': '../../../../../assets/img3.jpg', 'type': 'image'},
-      {'url': '../../../../../assets/itn.mp4', 'type': 'video'},
-      {'url': '../../../../../assets/FAS.pdf', 'type': 'pdf'},
-      {'url': '../../../../../assets/pir.png', 'type': 'image'}
+      {'path': '../../../../../assets/img_test/img1.jpg', 'type': 'PICTURE2D'},
+      {'path': '../../../../../assets/img_test/itn.mp4', 'type': 'VIDEO2D'},
+      {'path': '../../../../../assets/img_test/img2.jpg', 'type': 'PICTURE2D'},
+      {'path': '../../../../../assets/img_test/img3.jpg', 'type': 'PICTURE2D'},
+      {'path': '../../../../../assets/img_test/img4.jpg', 'type': 'PICTURE2D'},
+      {'path': '../../../../../assets/img_test/itn.mp4', 'type': 'VIDEO2D'},
+      {'path': '../../../../../assets/img_test/img5.jpg', 'type': 'PICTURE2D'},
+      {'path': '../../../../../assets/img_test/img6.png', 'type': 'PICTURE2D'},
+      {'path': '../../../../../assets/img_test/itn.mp4', 'type': 'VIDEO2D'},
+      {'path': '../../../../../assets/img_test/itn.mp4', 'type': 'VIDEO2D'},
+      {'path': '../../../../../assets/img_test/FAS.pdf', 'type': 'FILE'}
           ];
 
     this.type_file = [

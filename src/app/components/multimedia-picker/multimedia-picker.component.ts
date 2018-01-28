@@ -75,13 +75,13 @@ export class MultimediaPickerComponent implements OnInit {
       {
         'name': 'Vídeo',
         'type': 'VIDEO2D',
-        'size': 10318,
+        'size': 50318,
         'accept': 'mp4'
         },
       {
         'name': 'PDF',
         'type': 'FILE',
-        'size': 10318,
+        'size': 20318,
         'accept': 'pdf'
         }
     ];
