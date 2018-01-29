@@ -89,7 +89,7 @@ import { LoginLayoutComponent } from './components/layout/login-layout.component
 import { AlertComponent } from './components/alert/alert.component';
 import { UserComponent } from './views/user/user.component';
 import { UserListComponent } from './views/user/user-list/user-list.component';
-import { ResetPasswordComponent } from './views/login/reset-password/reset-password.component';
+import { SendEmailComponent } from './views/login/send-email/send-email.component';
 import { ProfileComponent } from './views/profile/profile.component';
 import { ProfileListComponent } from './views/profile/profile-list/profile-list.component';
 import { RuleComponent } from './views/profile/rule/rule.component';
@@ -138,7 +138,9 @@ import { CommunityListComponent } from './views/community/community-list/communi
 import { Interceptor } from './helpers/interceptor';
 import { MultimediaComponent } from './views/template-chapter/chapter/multimedia/multimedia.component';
 import { MultimediaGalleryComponent } from './components/multimedia-gallery/multimedia-gallery.component';
-import { MultimediaPickerComponent } from './components/multimedia-picker/multimedia-picker.component';
+import { UploadMultimediaComponent } from './components/upload-multimedia/upload-multimedia.component';
+import { ResetPasswordComponent } from './views/login/reset-password/reset-password.component';
+// import { EqualValidator } from './directives/equal-validator.directive';
 
 // import { PdfViewerModule } from 'ng2-pdf-viewer';
 
@@ -164,7 +166,7 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     AlertComponent,
     UserComponent,
     UserListComponent,
-    ResetPasswordComponent,
+    SendEmailComponent,
     ProfileComponent,
     ProfileListComponent,
     // UserPipe,
@@ -202,7 +204,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     CommunityListComponent,
     MultimediaComponent,
     MultimediaGalleryComponent,
-    MultimediaPickerComponent
+    UploadMultimediaComponent,
+    ResetPasswordComponent
 
   ],
   imports: [
@@ -256,6 +259,7 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     QuillEditorModule,
     ToastyModule.forRoot(),
     HttpClientModule
+    // EqualValidator
     // PdfViewerModule
     // NgProgressModule
     // NgxSpinnerModule

@@ -81,6 +81,7 @@ export class InformationComponent implements OnInit {
   }
 
   public saveData() {
+    this.chapter.thumbnails = [];
     if (this.btn_cancel) {
       this.btn_cancel = false;
       return false;

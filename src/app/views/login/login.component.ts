@@ -92,7 +92,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     resetPassword() {
-        this.router.navigate(['/reset-password']);
+        this.router.navigate(['/send-email']);
     }
 
     ngOnDestroy(): void {

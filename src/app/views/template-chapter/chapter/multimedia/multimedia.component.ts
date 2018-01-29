@@ -1,4 +1,3 @@
-import { MultimediaPickerComponent } from './../../../../components/multimedia-picker/multimedia-picker.component';
 import { Permissions, RuleState } from './../../../../helpers/permissions';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Chapter } from '../../../../models/chapter';
@@ -26,9 +25,7 @@ export class MultimediaComponent implements OnInit {
   private selectedFile: any;
   public chapter_id: string;
   private chapter: Chapter = new Chapter();
-
-  @ViewChild('multimediaPicker')
-  multimediaPicker: MultimediaPickerComponent;
+  public isNewData: boolean;
 
   media: any = {};
   thumbnail: any = {};
@@ -114,21 +111,23 @@ export class MultimediaComponent implements OnInit {
   upload(media) {
     this.media = media;
     if (this.media && this.media.id) {
-      this.chapter.medias.push(this.media);
-      console.log('CHAPTER:', this.chapter);
-      this.chapter.thumbnails = this.chapter.medias;
-      this.chapterService.update(this.chapter).subscribe(
-        s => {
-          this.toastService.toastSuccess();
-          this.chapter = s;
-          this.reload();
-          console.log('UPDATE CHAPTER:', this.chapter);
-        },
-        e => {
-          console.log(e);
-          this.toastService.toastError();
-        }
-      );
+      if (!this.isNewData) {
+        this.chapter.medias.push(this.media);
+        console.log('CHAPTER:', this.chapter);
+        this.chapter.thumbnails = [];
+        this.chapterService.update(this.chapter).subscribe(
+          s => {
+            this.toastService.toastSuccess();
+            this.chapter = s;
+            this.reload();
+            console.log('UPDATE CHAPTER:', this.chapter);
+          },
+          e => {
+            console.log(e);
+            this.toastService.toastError();
+          }
+        );
+      }
     }
   }
 

@@ -97,6 +97,7 @@ export class TemplateChapterItemComponent implements OnInit {
    }
 
    disableEnableVersion(chapter: Chapter) {
+    chapter.thumbnails = [];
     console.log('Chapter: ', chapter);
     if ( !chapter.status) {
       if (chapter.percentage === 100) {

@@ -13,57 +13,43 @@
             <div class="row">
               <div class="col">
                   <ul id="thumbnailsList">                    
-                      <li *ngFor="let item of datasource; let i = index" [ngSwitch]="item.type" >
+                      <li class="list-tn" *ngFor="let item of datasource; let i = index" [ngSwitch]="item.type" >
                         <h4 *ngIf="i === 0">Imagens</h4>
-                        <img src="{{ item.path }}" id="myImg" class="thumbnails" alt="teste"
-                          width="191" height="146"  
-                          data-toggle="modal" data-target="#selectedItemModal"
+                          <a data-toggle="modal" data-target="#selectedItemModal"
                           (click)=setSelectedItem(item) *ngSwitchCase="'PICTURE2D'">
-                          <!-- <span class="delete-img"><i class="fa fa-trash" *ngSwitchCase="'PICTURE2D'"></i></span> -->
+                          <img src="{{ item.path }}" id="myImg" class="thumbnails" alt="teste"
+                            width="191" height="146">
+                            <span class="caption">
+                              <p><strong>{{ item.name }}</strong></p>
+                            </span>
+                          </a>
+                          <span class="delete-img"><i class="fa fa-trash" *ngSwitchCase="'PICTURE2D'"></i></span>                       
                       </li>
                       
-                      <li *ngFor="let item of datasource; let i = index" [ngSwitch]="item.type" >   
+                      <li class="list-tn" *ngFor="let item of datasource; let i = index" [ngSwitch]="item.type" >   
                         <h4 *ngIf="i === 0">Vídeos</h4>  
                         <video controls id="myVideo" class="thumbnails video" width="191" height="146"  
                           data-toggle="modal" data-target="#selectedItemModal"
                           (click)=setSelectedItem(item) *ngSwitchCase="'VIDEO2D'">
                             <source src="{{ item.path }}" type="video/mp4" /> Browser not sxupported
                         </video>
+                        <!-- <span class="caption v" *ngSwitchCase="'VIDEO2D'">
+                          <p><strong>{{ item.name }}</strong></p>
+                        </span> -->
                         <!-- <span class="delete-img"><i class="fa fa-trash" *ngSwitchCase="'VIDEO2D'"></i></span> -->
                       </li>
                       
-                      <li *ngFor="let item of datasource; let i = index" [ngSwitch]="item.type" >
-                        <h4 *ngIf="i === 0">Arquivos</h4>
-                        <div class="thumbnails file" *ngSwitchCase="'FILE'">
-                          <a  href="{{ item.path }}" class="icon-pdf" target="_blank">
+                      <li class="list-tn type-file" *ngFor="let item of datasource; let i = index" [ngSwitch]="item.type" >
+                        <h4 class="file-title" *ngIf="i === 0">Arquivos</h4>                      
+                          <a  href="{{ item.path }}" class="thumbnails-file icon-pdf" target="_blank"
+                            *ngSwitchCase="'FILE'">
                             <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                          </a>
-                          <!-- <span class="delete-img" *ngSwitchCase="'FILE'"><i class="fa fa-trash"></i></span> -->
-                        </div>
-                      </li>
-                            <!-- </div> -->
-                          <!-- </div>
-                        </div> -->
-                      <!-- </li> -->
-                      <!-- <li *ngFor="let video of datasource" [ngSwitch]="video.type" > -->
-                        <!-- <div *ngSwitchCase="'VIDEO2D'"> -->
-                          <!-- <video controls id="myVideo" class="thumbnails" width="191" height="146"
-                            data-toggle="modal" data-target="#selectedItemModal"
-                            (click)=setSelectedItem(video) *ngSwitchCase="'VIDEO2D'">
-                              <source src="{{ video.path }}" type="video/mp4" /> Browser not supported
-                          </video>
-                          <span class="delete-img"><i class="fa fa-trash"></i></span> -->
-                        <!-- </div> -->
-                      <!-- </li>
-                      <li *ngFor="let file of datasource" [ngSwitch]="file.type">
-                        <div class="thumbnails file" *ngSwitchCase="'FILE'">
-                          <a  href="{{ file.path }}" class="icon-pdf" target="_blank">
-                            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                          </a>
-                          <span class="delete-img"><i class="fa fa-trash"></i></span>
-                        </div>
-                          
-                      </li> -->
+                            <span class="caption f" *ngSwitchCase="'FILE'">
+                              <p class="limit-text"><strong>{{ item.name }}</strong></p>
+                            </span>  
+                          </a>    
+                                           
+                      </li>                      
                     </ul>
 
               </div>
@@ -72,11 +58,15 @@
           </div>
           <div class="tab-pane fade" id="tab_i">
             <ul id="thumbnailsList">
-              <li *ngFor="let image of datasource" [ngSwitch]="image.type" >
-                <img src="{{ image.path }}" id="myImg" class="thumbnails"
-                  width="191" height="146"  
-                  data-toggle="modal" data-target="#selectedItemModal"
+              <li class="list-tn" *ngFor="let image of datasource" [ngSwitch]="image.type" >
+                <a data-toggle="modal" data-target="#selectedItemModal"
                   (click)=setSelectedItem(image) *ngSwitchCase="'PICTURE2D'">
+                  <img src="{{ image.path }}" id="myImg" class="thumbnails"
+                    width="191" height="146">
+                  <span class="caption">
+                    <p><strong>{{ image.name }}</strong></p>
+                  </span>
+                </a>
               </li>
             </ul>
           </div>
@@ -90,12 +80,14 @@
             </li>
           </div>
           <div class="tab-pane fade" id="tab_f">
-            <li *ngFor="let file of datasource" [ngSwitch]="file.type">
-              <div class="thumbnails file" *ngSwitchCase="'FILE'">
-                <a  href="{{ file.path }}" class="icon-pdf" target="_blank">
-                  <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                </a>
-              </div>
+            <li class="list-tn type-file" *ngFor="let file of datasource" [ngSwitch]="file.type">
+              <a  href="{{ file.path }}" class="thumbnails-file icon-pdf" target="_blank"
+                *ngSwitchCase="'FILE'">
+                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                <span class="caption f" *ngSwitchCase="'FILE'">
+                  <p class="limit-text"><strong>{{ file.name }}</strong></p>
+                </span>  
+              </a>    
             </li>
           </div>
         </div>

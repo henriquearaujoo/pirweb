@@ -1,3 +1,4 @@
+import { ToastService } from './../../services/toast-notification/toast.service';
 import { error } from 'util';
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
 import { FileData } from '../../models/FileData';
@@ -7,43 +8,26 @@ import { v4 as uuid } from 'uuid';
 import { Chapter } from '../../models/chapter';
 
 @Component({
-  selector: 'app-multimedia-picker',
-  templateUrl: './multimedia-picker.component.html',
-  styleUrls: ['./multimedia-picker.component.css']
+  selector: 'app-upload-multimedia',
+  templateUrl: './upload-multimedia.component.html',
+  styleUrls: ['./upload-multimedia.component.css']
 })
-export class MultimediaPickerComponent implements OnInit {
+export class UploadMultimediaComponent implements OnInit {
 
   private type_file: any[];
   private selectedType;
   public chapter: Chapter = new Chapter();
 
+  private files: any[] = new Array();
+  private hasFile = false;
   @ViewChild('fileInput') fileInput;
   @Output() uploaded: EventEmitter<any> = new EventEmitter<any>();
-  @Input() type = 0;
   _fileData: any;
-  // _fileData.mediaType = this.selectedType.type;
-  _mediaSrc: any;
-  _isThumbnail: any = false;
 
   _mediaTypeId: any;
 
   @Input() canChangeType: any = true;
-
-  @Input() set isThumbnail(val) {
-    if (!this._fileData) {
-      this._fileData = new FileData();
-
-      this.clear();
-    }
-
-    if (this._isThumbnail = val) {
-      if (this._fileData.mediaType !== Constant.MEDIA_TYPE.PICTURE_2D) {
-        this._fileData.mediaType = Constant.MEDIA_TYPE.PICTURE_2D;
-
-        this.clear();
-      }
-    }
-  }
+  @Input() isNewData: boolean;
 
   @Input()
   set fileData(val: any) {
@@ -53,7 +37,6 @@ export class MultimediaPickerComponent implements OnInit {
       this._fileData = new FileData();
     }
 
-    this.reload();
   }
 
   get fileData(): any {
@@ -64,25 +47,27 @@ export class MultimediaPickerComponent implements OnInit {
     return this._fileData;
   }
 
-  constructor(private fileService: FileService) {
+  constructor(
+    private fileService: FileService,
+    private toastService: ToastService) {
     this.type_file = [
       {
         'name': 'Imagem',
         'type': 'PICTURE2D',
         'size': 10318,
-        'accept': 'image/png'
+        'accept': 'image/png, image/jpeg'
       },
       {
         'name': 'Vídeo',
         'type': 'VIDEO2D',
         'size': 50318,
-        'accept': 'mp4'
+        'accept': 'video/mp4'
         },
       {
         'name': 'PDF',
         'type': 'FILE',
         'size': 20318,
-        'accept': 'pdf'
+        'accept': 'application/pdf'
         }
     ];
 
@@ -96,13 +81,30 @@ export class MultimediaPickerComponent implements OnInit {
     if (!this._fileData) {
       this._fileData = new FileData();
     }
+    this.selectedType = '';
   }
 
-  reload() {
-    if (this._fileData && this._fileData.id) {
-      this._mediaSrc = Constant.BASE_URL + '/file/download/' + this._fileData.id;
+  onChange(files) {
+    const fi = this.fileInput.nativeElement;
+    if (fi.files && fi.files.length > 0) {
+      for (let i = 0 ; i < fi.files.length ; i ++ ) {
+        const fileToUpload = fi.files[i];
+        if ( this.selectedType.accept.includes(fileToUpload.type) ) {
+          console.log('FILE:', fileToUpload);
+          this.files.push(fileToUpload);
+          this.hasFile = true;
+        } else {
+          this.toastService.toastMsgError('Erro', 'Não foi possível carregar o arquivo ' + fileToUpload.name +
+            '. Verifique as extensões permitidas para o tipo de mídia selecionado');
+        }
+      }
     }
-
+  }
+  remove(file) {
+    this.files.splice(file, 1);
+    if (this.files.length === 0) {
+      this.hasFile = false;
+    }
   }
 
   upload(): void {
@@ -111,21 +113,23 @@ export class MultimediaPickerComponent implements OnInit {
     }
 
     const fi = this.fileInput.nativeElement;
-    if (fi.files && fi.files[0]) {
-      const fileToUpload = fi.files[0];
-      this.fileService.upload(this._fileData.mediaType, fileToUpload).subscribe(
+    if (fi.files && fi.files.length > 0) {
+      for (let i = 0 ; i < fi.files.length ; i ++ ) {
+        const fileToUpload = fi.files[i];
+        this.fileService.upload(this._fileData.mediaType, fileToUpload).subscribe(
         res => {
-          console.log('_fileData1', res);
           this._fileData = JSON.parse(res.text());
           console.log('_fileData', JSON.parse(res.text()));
 
-          // this.reload();
+          this.files = [];
+          this.hasFile = false;
 
           if (this.uploaded) {
             this.uploaded.emit(this._fileData);
           }
         }, error => console.log('ERROR UPLOAD:', error)
       );
+      }
     }
   }
 
@@ -143,7 +147,6 @@ export class MultimediaPickerComponent implements OnInit {
     const mediaType = this._fileData.mediaType;
     this._fileData = { mediaType: mediaType };
 
-    this._mediaSrc = null;
     this.loadInfo();
 
     if (this.uploaded) {

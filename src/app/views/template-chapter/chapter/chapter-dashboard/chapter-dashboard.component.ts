@@ -78,12 +78,14 @@ export class ChapterDashboardComponent implements OnInit {
       this.reception.isNewData = false;
       this.intervention.isNewData = false;
       this.conclusion.isNewData = false;
+      this.multimedia.isNewData = false;
       this.sendEventToLoad();
     }else {
       this.information.isNewData = true;
       this.reception.isNewData = true;
       this.intervention.isNewData = true;
       this.conclusion.isNewData = true;
+      this.multimedia.isNewData = true;
       this.getChapterNumber();
     }
   }

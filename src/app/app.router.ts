@@ -1,3 +1,4 @@
+import { ResetPasswordComponent } from './views/login/reset-password/reset-password.component';
 import { ChapterDashboardComponent } from './views/template-chapter/chapter/chapter-dashboard/chapter-dashboard.component';
 import { TemplateSelectModelComponent } from './views/template-chapter/template-select-model/template-select-model.component';
 import { UserPersonalInformationComponent } from './views/user/user-personal-information/user-personal-information.component';
@@ -28,7 +29,6 @@ import { LoginLayoutComponent } from './components/layout/login-layout.component
 import {UserComponent} from './views/user/user.component';
 import {UserListComponent} from './views/user/user-list/user-list.component';
 
-import { ResetPasswordComponent } from './views/login/reset-password/reset-password.component';
 import { ProfileListComponent } from './views/profile/profile-list/profile-list.component';
 import { UserEditComponent } from './views/user/user-edit/user-edit.component';
 import { InterventionComponent } from './views/template-chapter/chapter/intervention/intervention.component';
@@ -40,6 +40,7 @@ import { DeactivateGuard } from './guards/deactivate.guard';
 import { CommunityComponent } from './views/community/community.component';
 import { CommunityListComponent } from './views/community/community-list/community-list.component';
 import { PageGuard } from './guards/page.guard';
+import { SendEmailComponent } from './views/login/send-email/send-email.component';
 
 const App_Router: Routes = [
 
@@ -185,6 +186,7 @@ const App_Router: Routes = [
           }
         ]
       },
+      { path: 'send-email', component: SendEmailComponent},
       { path: 'reset-password', component: ResetPasswordComponent},
       { path: '**', redirectTo: '' }
 ];

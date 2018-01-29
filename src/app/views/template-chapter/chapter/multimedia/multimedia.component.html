@@ -9,7 +9,7 @@
                         <div class="box-body">
                           <div class="row">
                             <div class="col">
-                                <app-multimedia-picker #multimediaPicker [(fileData)]="media" (uploaded)="upload($event)"></app-multimedia-picker>                                  
+                                <app-upload-multimedia [isNewData]="isNewData" [(fileData)]="media" (uploaded)="upload($event)" disabled></app-upload-multimedia>                                  
                             </div>
                           </div>
                           <div class="row">
