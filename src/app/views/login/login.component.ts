@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   private rules2: Rule[] = new Array();
   private pages: Page[] = new Array();
   isActivate: boolean;
+  private checked: boolean;
 
   constructor(
       private authenticationService: AuthenticationService,
@@ -40,6 +41,13 @@ export class LoginComponent implements OnInit, OnDestroy {
      ) { }
 
   ngOnInit() {
+      const login = localStorage.getItem('currentLogin');
+      const psw = atob(localStorage.getItem('pirfas'));
+      if ( login && psw ) {
+        this.user.login = login;
+        this.user.password = psw;
+        this.checked = true;
+      }
    // reset login
     this.authenticationService.logout();
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -56,6 +64,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                     console.log('Decode Token:', tokenData);
                     localStorage.setItem('profileId_rules', tokenData.payload.pfl);
                     localStorage.setItem('currentUserPir', tokenData.payload.unm);
+
                     this.router.navigate([this.returnUrl]);
                 }
             },
@@ -93,6 +102,18 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     resetPassword() {
         this.router.navigate(['/send-email']);
+    }
+
+    remember(event) {
+        if ( event.target.checked ) {
+            if ( (this.user.login !== undefined) && (this.user.password !== undefined) ) {
+                localStorage.setItem('currentLogin', this.user.login);
+                localStorage.setItem('pirfas', btoa(this.user.password));
+            }
+        } else {
+            localStorage.removeItem('currentLogin');
+            localStorage.removeItem('pirfas');
+        }
     }
 
     ngOnDestroy(): void {

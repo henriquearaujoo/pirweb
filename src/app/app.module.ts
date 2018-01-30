@@ -140,6 +140,7 @@ import { MultimediaComponent } from './views/template-chapter/chapter/multimedia
 import { MultimediaGalleryComponent } from './components/multimedia-gallery/multimedia-gallery.component';
 import { UploadMultimediaComponent } from './components/upload-multimedia/upload-multimedia.component';
 import { ResetPasswordComponent } from './views/login/reset-password/reset-password.component';
+import { EqualValidatorDirective } from './directives/equal-validator.directive';
 // import { EqualValidator } from './directives/equal-validator.directive';
 
 // import { PdfViewerModule } from 'ng2-pdf-viewer';
@@ -205,7 +206,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     MultimediaComponent,
     MultimediaGalleryComponent,
     UploadMultimediaComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    EqualValidatorDirective
 
   ],
   imports: [
@@ -259,7 +261,6 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     QuillEditorModule,
     ToastyModule.forRoot(),
     HttpClientModule
-    // EqualValidator
     // PdfViewerModule
     // NgProgressModule
     // NgxSpinnerModule

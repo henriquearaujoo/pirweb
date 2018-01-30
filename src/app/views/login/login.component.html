@@ -27,20 +27,22 @@
         </div>
 
         <div class="row">
-          
+          <div class="col-xs-8 remember">
+            <div class="checkbox icheck">
+              <label>
+                <input type="checkbox" (change)="remember($event)" [checked]="checked"> Lembrar
+              </label>
+            </div>
+          </div>
           <!-- /.col -->
-          <div class="col-xs-12">
-              <p>Esqueci minha
-                  <!-- <a href="/reset-password">senha</a><br> -->
-                  <a class="pointer" (click)="resetPassword()">senha</a><br>
-              </p>                  
+          <div class="col-xs-4">
             <button type="submit" class="btn btn-primary btn-md btn-block">ENTRAR</button>
           </div>
           <!-- /.col -->
         </div>
       </form>
       
-  
+      <a class="pointer" (click)="resetPassword()">Esqueci a senha</a><br>
     </div>
     <!-- /.login-box-body -->
   </div>
