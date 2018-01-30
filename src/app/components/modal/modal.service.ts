@@ -34,6 +34,12 @@ export class ModalService {
     console.log('Modal Permission');
   }
 
+  modalRemove(route: any) {
+    this.route = route;
+    this.modalSubject.next(<ModalState>{showRemove: true});
+    console.log('Modal Remove');
+  }
+
   hide() {
     this.modalSubject.next(<ModalState>{showCancel: false, showSuccess: false});
     console.log('Hide Modal');
@@ -50,4 +56,5 @@ export interface ModalState {
   showSuccess: boolean;
   show_SessionExpired: boolean;
   showPermission: boolean;
+  showRemove: boolean;
 }

@@ -1,6 +1,110 @@
-<div class="row">
+<!-- <div id="myBtnContainer">
+  <button class="btn active" onclick="filterSelection('all')"> Todas </button>
+  <button class="btn" onclick="filterSelection('picture')"> Imagem</button>
+  <button class="btn" onclick="filterSelection('video')"> Vídeos </button>
+  <button class="btn" onclick="filterSelection('file')"> Arquivos </button>
+</div> -->
+<div class="nav-tabs-custom">
+  <ul class="nav nav-pills pull-right">
+    <li class="active"><a class="btn btn-default" href="#tab_a" data-toggle="pill">Todas</a></li>
+    <li><a class="btn btn-default" href="#tab_i" data-toggle="pill">Imagens</a></li>
+    <li><a class="btn btn-default" href="#tab_v" data-toggle="pill">Vídeos</a></li>
+    <li ><a class="btn btn-default" href="#tab_f" data-toggle="tab">Arquivos</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane fade in active" id="tab_a">
+      <!-- Portfolio Gallery Grid -->
+      <div class="row">
+        <div class=" col column" *ngFor="let item of datasource; let i = index" [ngSwitch]="item.type">
+          <div class="content" *ngSwitchCase="'PICTURE2D'">
+            <img src="{{ item.path }}" class="_item"
+              (click)=setSelectedItem(item)
+              data-toggle="modal" data-target="#selectedItemModal">
+              <a class="delete-item" (click)="removeMultimedia(item)"><i class="fa fa-trash"></i></a>
+              <p class="limit-text">{{ item.name }} </p>
+          </div>
+          <div class="content" *ngSwitchCase="'VIDEO2D'">
+            <div class="_item v">
+              <video controls id="myVideo" width="191" height="146" 
+                data-toggle="modal" data-target="#selectedItemModal"
+                (click)=setSelectedItem(item) >
+                  <source src="{{ item.path }}" type="video/mp4" /> Browser not sxupported
+              </video>
+              <a class="delete-item" (click)="removeMultimedia(item)"><i class="fa fa-trash"></i></a>
+            </div>
+            <p class="limit-text">{{ item.name }} </p>
+          </div>
+          <div class="content" *ngSwitchCase="'FILE'">
+            <div class="_item">
+                <a  href="{{ item.path }}" target="_blank"
+                *ngSwitchCase="'FILE'">
+                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+              </a>   
+            </div>    
+            <a class="delete-item" (click)="removeMultimedia(item)"><i class="fa fa-trash"></i></a>
+            <p class="limit-text">{{ item.name }} </p>
+          </div>
+        </div>      
+      <!-- END GRID -->
+      </div>
+    </div>
+    <div class="tab-pane fade" id="tab_i">
+      <!-- Portfolio Gallery Grid -->
+      <div class="row">
+        <div class=" col column" *ngFor="let item of datasource; let i = index">
+          <div class="content" *ngIf="item.type === 'PICTURE2D'">
+            <img src="{{ item.path }}" class="_item"
+              (click)=setSelectedItem(item)
+              data-toggle="modal" data-target="#selectedItemModal">
+              <a class="delete-item" (click)="removeMultimedia(item)"><i class="fa fa-trash"></i></a>
+              <p class="limit-text">{{ item.name }} </p>
+          </div>
+        </div>      
+      <!-- END GRID -->
+      </div>
+    </div>
+    <div class="tab-pane fade" id="tab_v">
+      <!-- Portfolio Gallery Grid -->
+      <div class="row">
+        <div class=" col column" *ngFor="let item of datasource; let i = index">
+          <div class="content" *ngIf="item.type === 'VIDEO2D'">
+            <div class="_item v">
+              <video controls id="myVideo" width="191" height="146" 
+                data-toggle="modal" data-target="#selectedItemModal"
+                (click)=setSelectedItem(item) >
+                  <source src="{{ item.path }}" type="video/mp4" /> Browser not sxupported
+              </video>
+            </div>
+            <a class="delete-item" (click)="removeMultimedia(item)"><i class="fa fa-trash"></i></a>
+            <p class="limit-text">{{ item.name }} </p>
+          </div>
+        </div>      
+      <!-- END GRID -->
+      </div>
+    </div>
+    <div class="tab-pane fade" id="tab_f">
+      <!-- Portfolio Gallery Grid -->
+      <div class="row">
+        <div class=" col column" *ngFor="let item of datasource; let i = index">
+          <div class="content" *ngIf="item.type === 'FILE'">
+            <div class="_item">
+              <a  href="{{ item.path }}" target="_blank">
+                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+              </a>   
+            </div>   
+            <a class="delete-item" (click)="removeMultimedia(item)"><i class="fa fa-trash"></i></a> 
+            <p class="limit-text">{{ item.name }} </p>
+          </div>
+        </div>      
+      <!-- END GRID -->
+      </div>
+    </div>
+  </div>
+
+
+
+<!-- <div class="row">
   <div class="col">
-    <!-- Custom Tabs -->
     <div class="nav-tabs-custom">
         <ul class="nav nav-pills pull-right">
           <li class="active"><a class="btn btn-default" href="#tab_a" data-toggle="pill">Todas</a></li>
@@ -23,7 +127,7 @@
                               <p><strong>{{ item.name }}</strong></p>
                             </span>
                           </a>
-                          <span class="delete-img"><i class="fa fa-trash" *ngSwitchCase="'PICTURE2D'"></i></span>                       
+                          <a class="delete-item" (click)="removeMultimedia(item)"><i class="fa fa-trash" *ngSwitchCase="'PICTURE2D'"></i></a>                       
                       </li>
                       
                       <li class="list-tn" *ngFor="let item of datasource; let i = index" [ngSwitch]="item.type" >   
@@ -33,10 +137,7 @@
                           (click)=setSelectedItem(item) *ngSwitchCase="'VIDEO2D'">
                             <source src="{{ item.path }}" type="video/mp4" /> Browser not sxupported
                         </video>
-                        <!-- <span class="caption v" *ngSwitchCase="'VIDEO2D'">
-                          <p><strong>{{ item.name }}</strong></p>
-                        </span> -->
-                        <!-- <span class="delete-img"><i class="fa fa-trash" *ngSwitchCase="'VIDEO2D'"></i></span> -->
+                        <a class="delete-item v" (click)="removeMultimedia(item)"><i class="fa fa-trash" *ngSwitchCase="'VIDEO2D'"></i></a>
                       </li>
                       
                       <li class="list-tn type-file" *ngFor="let item of datasource; let i = index" [ngSwitch]="item.type" >
@@ -48,6 +149,7 @@
                               <p class="limit-text"><strong>{{ item.name }}</strong></p>
                             </span>  
                           </a>    
+                          <a class="delete-item f" (click)="removeMultimedia(item)"><i class="fa fa-trash" *ngSwitchCase="'FILE'"></i></a>
                                            
                       </li>                      
                     </ul>
@@ -67,16 +169,18 @@
                     <p><strong>{{ image.name }}</strong></p>
                   </span>
                 </a>
+                <a class="delete-item" (click)="removeMultimedia(image)"><i class="fa fa-trash" *ngSwitchCase="'PICTURE2D'"></i></a>
               </li>
             </ul>
           </div>
           <div class="tab-pane fade" id="tab_v">
-            <li *ngFor="let video of datasource" [ngSwitch]="video.type" >
+            <li class="list-tn" *ngFor="let video of datasource" [ngSwitch]="video.type" >
               <video controls class="thumbnails" width="191" height="146" *ngSwitchCase="'VIDEO2D'"
                 data-toggle="modal" data-target="#selectedItemModal"
                 (click)=setSelectedItem(video)>
                   <source src="{{ video.path }}" type="video/mp4" /> Browser not supported
               </video>
+              <a class="delete-item v" (click)="removeMultimedia(video)"><i class="fa fa-trash" *ngSwitchCase="'VIDEO2D'"></i></a>
             </li>
           </div>
           <div class="tab-pane fade" id="tab_f">
@@ -88,12 +192,13 @@
                   <p class="limit-text"><strong>{{ file.name }}</strong></p>
                 </span>  
               </a>    
+              <a class="delete-item f" (click)="removeMultimedia(file)"><i class="fa fa-trash" *ngSwitchCase="'FILE'"></i></a>
             </li>
           </div>
         </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <div class="modal fade" id="selectedItemModal" >
   <div class="modal-dialog" role="document">

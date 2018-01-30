@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { ModalService } from './../modal/modal.service';
+import { Component, OnInit, Input, ViewChild, ElementRef, HostListener, EventEmitter, Output } from '@angular/core';
 import { Constant } from '../../constant/constant';
 
 declare function require(name: string): any;
@@ -12,8 +13,8 @@ export class MultimediaGalleryComponent implements OnInit {
 
   @Input() datasource: any[];
   private selectedItem: any;
-
-  constructor() { }
+  @Output() remove = new EventEmitter<any>();
+  constructor( private modalService: ModalService ) { }
 
   ngOnInit() {
     console.log('Datasource:', this.datasource);
@@ -22,6 +23,10 @@ export class MultimediaGalleryComponent implements OnInit {
   setSelectedItem(item: any) {
     this.selectedItem = item;
     console.log('selectedItem', this.selectedItem);
+ }
+
+ removeMultimedia(item: any) {
+  this.remove.emit(item);
  }
 
  navigate(forward) {

@@ -1,3 +1,5 @@
+import { browser } from 'protractor';
+import { ModalService } from './../../../../components/modal/modal.service';
 import { Permissions, RuleState } from './../../../../helpers/permissions';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Chapter } from '../../../../models/chapter';
@@ -5,6 +7,7 @@ import { FileService } from '../../../../services/file/file.service';
 import { ChapterService } from '../../../../services/chapter/chapter.service';
 import { ToastService } from '../../../../services/toast-notification/toast.service';
 import { Constant } from '../../../../constant/constant';
+import { LoaderService } from '../../../../services/loader/loader.service';
 
 @Component({
   selector: 'app-multimedia',
@@ -26,6 +29,10 @@ export class MultimediaComponent implements OnInit {
   public chapter_id: string;
   private chapter: Chapter = new Chapter();
   public isNewData: boolean;
+  private openModalRemove: HTMLButtonElement;
+  private item_remove: any;
+  private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
+  private canReload: boolean;
 
   media: any = {};
   thumbnail: any = {};
@@ -33,7 +40,9 @@ export class MultimediaComponent implements OnInit {
   constructor(
     private permissions: Permissions,
     private chapterService: ChapterService,
-    private toastService: ToastService) {
+    private toastService: ToastService,
+    private modalService: ModalService,
+    private loaderService: LoaderService) {
     this.canCreate = false;
     this.canUpdate = false;
     this.canRead = false;
@@ -85,6 +94,9 @@ export class MultimediaComponent implements OnInit {
         this.canDelete = rules.canDelete;
       }
     );
+
+    this.openModalRemove = (<HTMLButtonElement>document.getElementById('openModalRemove'));
+    this.openModalRemove.style.display = 'none';
   }
 
   fileChanged(e: Event) {
@@ -119,6 +131,7 @@ export class MultimediaComponent implements OnInit {
           s => {
             this.toastService.toastSuccess();
             this.chapter = s;
+            this.canReload = false;
             this.reload();
             console.log('UPDATE CHAPTER:', this.chapter);
           },
@@ -136,7 +149,17 @@ export class MultimediaComponent implements OnInit {
     console.log('MULTIMEDIAs:', this.multimedias);
     for (let i = 0; i < this.multimedias.length; i++) {
       this.multimedias[i].path = Constant.BASE_URL + 'file/download/' + this.multimedias[i].id;
+      this.canReload = true;
      }
+  }
+
+  removeMultimedia(item: any) {
+    this.item_remove = item;
+    this.openModalRemove.click();
+  }
+
+  confirmRemove() {
+    console.log('REMOVE:', this.item_remove);
   }
 // tslint:disable-next-line:eofline
 }

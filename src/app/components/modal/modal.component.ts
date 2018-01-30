@@ -17,11 +17,13 @@ export class ModalComponent implements OnInit, OnDestroy {
   private show_success: boolean;
   private show_SessionExpired: boolean;
   private show_Permission: boolean;
+  private show_Remove: boolean;
   private subscription: Subscription;
   private openModalCancel: HTMLButtonElement;
   private openModalSuccess: HTMLButtonElement;
   private openModalSessionExpired: HTMLButtonElement;
   private openModalPermission: HTMLButtonElement;
+  private openModalRemove: HTMLButtonElement;
 
   constructor(
     private router: Router,
@@ -31,6 +33,7 @@ export class ModalComponent implements OnInit, OnDestroy {
     this.show_success = false;
     this.show_SessionExpired = false;
     this.show_Permission = false;
+    this.show_Remove = false;
   }
 
   ngOnInit() {
@@ -46,13 +49,16 @@ export class ModalComponent implements OnInit, OnDestroy {
     this.openModalPermission = (<HTMLButtonElement>document.getElementById('openModalPermission'));
     this.openModalPermission.style.display = 'none';
 
+    this.openModalRemove = (<HTMLButtonElement>document.getElementById('openModalRemove'));
+    this.openModalRemove.style.display = 'none';
+
     this.subscription = this.modalService.modalState.subscribe(
       (state: ModalState) => {
         this.show_cancel = state.showCancel;
         this.show_success = state.showSuccess;
         this.show_SessionExpired = state.show_SessionExpired;
+        this.show_Remove = state.showRemove;
         this.route = this.modalService.getRoute();
-        console.log('show_SessionExpired', this.show_SessionExpired);
         this.openModal();
       });
   }
@@ -77,6 +83,12 @@ export class ModalComponent implements OnInit, OnDestroy {
             this.openModalPermission.click();
             this.show_Permission = false;
             console.log('Open Modal Permission');
+        } else {
+          if (this.show_Remove) {
+            this.openModalRemove.click();
+            this.show_Remove = false;
+            console.log('Open Modal Remove');
+          }
         }
        }
       }
@@ -87,9 +99,14 @@ export class ModalComponent implements OnInit, OnDestroy {
     this.router.navigate([this.route]);
   }
 
+  modalConfirmRemove() {
+    this.router.navigate([this.route]);
+  }
+
   closeModal() {
     this.show_cancel = false;
     this.show_success = false;
+    this.show_Remove = false;
     this.modalService.hide();
   }
 

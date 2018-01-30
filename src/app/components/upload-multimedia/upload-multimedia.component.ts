@@ -90,8 +90,8 @@ export class UploadMultimediaComponent implements OnInit {
       for (let i = 0 ; i < fi.files.length ; i ++ ) {
         const fileToUpload = fi.files[i];
         if ( this.selectedType.accept.includes(fileToUpload.type) ) {
-          console.log('FILE:', fileToUpload);
           this.files.push(fileToUpload);
+          console.log('FILE1:', this.files);
           this.hasFile = true;
         } else {
           this.toastService.toastMsgError('Erro', 'Não foi possível carregar o arquivo ' + fileToUpload.name +
@@ -126,6 +126,7 @@ export class UploadMultimediaComponent implements OnInit {
 
           if (this.uploaded) {
             this.uploaded.emit(this._fileData);
+            this.selectedType = '';
           }
         }, error => console.log('ERROR UPLOAD:', error)
       );
