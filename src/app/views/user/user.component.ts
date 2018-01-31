@@ -14,7 +14,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import * as $ from 'jquery';
 import { IFormCanDeActivate } from '../../guards/iform-candeactivate';
 import { ModalService } from '../../components/modal/modal.service';
-
+import { sha256, sha224 } from 'js-sha256';
+import { Permissions, RuleState } from '../../helpers/permissions';
 
 @Component({
   selector: 'app-user',
@@ -58,6 +59,10 @@ export class UserComponent implements OnInit {
   private type: any;
   // private openModalCancel: HTMLButtonElement;
   private show_community: boolean;
+  private canRead: boolean;
+  private canUpdate: boolean;
+  private canCreate: boolean;
+  private canDelete: boolean;
 
   constructor(
     private userService: UserService,
@@ -65,13 +70,28 @@ export class UserComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private toastService: ToastService,
-    private modalService: ModalService) {
+    private modalService: ModalService,
+    private permissions: Permissions) {
       this.user = new User();
       this.org = new Org();
       this.person = new Person();
+      this.canCreate = false;
+      this.canUpdate = false;
+      this.canRead = false;
+      this.canDelete = false;
   }
 
   ngOnInit() {
+    this.permissions.canActivate('/user');
+    this.permissions.permissionsState.subscribe(
+      (rules: RuleState) => {
+        this.canCreate = rules.canCreate;
+        this.canUpdate = rules.canUpdate;
+        this.canRead = rules.canRead;
+        this.canDelete = rules.canDelete;
+        // this.loaderService.hide();
+      }
+    );
     this.loadStates();
     this.loadProfiles();
     this.show_pjur = false;
@@ -243,7 +263,7 @@ export class UserComponent implements OnInit {
         this.person.email = this.user.email;
         this.person.login = this.user.login;
         this.person.name = this.user.name;
-        this.person.password = this.user.password;
+        this.person.password = sha256(this.user.password);
         this.person.profile = this.user.profile;
         this.person.status = this.user.status;
         this.person.type = this.user.type;
@@ -258,7 +278,7 @@ export class UserComponent implements OnInit {
         this.org.email = this.user.email;
         this.org.login = this.user.login;
         this.org.name = this.user.name;
-        this.org.password = this.user.password;
+        this.org.password = sha256(this.user.password);
         this.org.profile = this.user.profile;
         this.org.status = this.user.status;
         this.org.type = this.user.type;

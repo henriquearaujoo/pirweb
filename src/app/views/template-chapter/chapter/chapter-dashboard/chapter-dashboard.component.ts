@@ -1,3 +1,4 @@
+import { LoaderService } from './../../../../services/loader/loader.service';
 import { ToastService } from './../../../../services/toast-notification/toast.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Chapter } from './../../../../models/chapter';
@@ -56,7 +57,8 @@ export class ChapterDashboardComponent implements OnInit {
     private router: Router,
     private activeRoute: ActivatedRoute,
     private toastService: ToastService,
-    private modalService: ModalService) { }
+    private modalService: ModalService,
+    private loaderService: LoaderService) { }
 
   ngOnInit() {
 
@@ -91,6 +93,7 @@ export class ChapterDashboardComponent implements OnInit {
   }
 
   getChapterNumber() {
+    this.loaderService.show();
     this.information.getNextChapterNumber().subscribe(
       success => {
         this.chapterList = success;
@@ -108,8 +111,10 @@ export class ChapterDashboardComponent implements OnInit {
         if (chapterNumber) {
           this.currentChapter = chapterNumber;
           localStorage.removeItem('chapterNumber');
+          this.loaderService.hide();
         } else {
           this.currentChapter = this.chapter.number;
+          this.loaderService.hide();
         }
         this.information.number = this.currentChapter;
       },
@@ -120,6 +125,7 @@ export class ChapterDashboardComponent implements OnInit {
   }
   /*****************SELECT******************/
   sendEventToLoad() {
+    this.loaderService.show();
     this.information.load(this.urlId).subscribe(
       s => {
         this.chapter = s;
@@ -130,6 +136,8 @@ export class ChapterDashboardComponent implements OnInit {
         this.intervention.load(this.urlId);
         this.conclusion.load(this.urlId);
         this.multimedia.load(this.urlId);
+
+        this.loaderService.hide();
       },
       e => {
         console.log('Error: ' + e);

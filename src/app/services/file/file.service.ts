@@ -19,7 +19,7 @@ export class FileService extends RestService {
         return this.http.post(this.apiurl + 'file/upload/' + mediaType, input);
     }
 
-    public download(id: string) {
-        return this.get(this.apiurl + 'file/download/' + id);
-    }
+    // public download(id: string) {
+    //     return this.get(this.apiurl + 'file/download/' + id);
+    // }
 }

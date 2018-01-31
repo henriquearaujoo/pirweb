@@ -24,6 +24,7 @@ export class MultimediaComponent implements OnInit {
 
   private images: any;
   private multimedias: any;
+  private medias: any;
   private type_file: any;
   private selectedFile: any;
   public chapter_id: string;
@@ -124,6 +125,7 @@ export class MultimediaComponent implements OnInit {
     this.media = media;
     if (this.media && this.media.id) {
       if (!this.isNewData) {
+        this.media.path = Constant.BASE_URL + 'file/download/' + this.media.id;
         this.chapter.medias.push(this.media);
         console.log('CHAPTER:', this.chapter);
         this.chapter.thumbnails = [];
@@ -131,9 +133,9 @@ export class MultimediaComponent implements OnInit {
           s => {
             this.toastService.toastSuccess();
             this.chapter = s;
+            console.log('UPDATE CHAPTER:', this.chapter);
             this.canReload = false;
             this.reload();
-            console.log('UPDATE CHAPTER:', this.chapter);
           },
           e => {
             console.log(e);
@@ -146,10 +148,12 @@ export class MultimediaComponent implements OnInit {
 
   reload() {
     this.multimedias = this.chapter.medias;
-    console.log('MULTIMEDIAs:', this.multimedias);
     for (let i = 0; i < this.multimedias.length; i++) {
       this.multimedias[i].path = Constant.BASE_URL + 'file/download/' + this.multimedias[i].id;
-      this.canReload = true;
+
+      if ( i === (this.multimedias.length - 1 )) {
+        this.canReload = true;
+      }
      }
   }
 

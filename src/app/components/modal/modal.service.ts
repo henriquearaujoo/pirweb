@@ -40,6 +40,12 @@ export class ModalService {
     console.log('Modal Remove');
   }
 
+  modalPassword(route: any) {
+    this.route = route;
+    this.modalSubject.next(<ModalState>{showPassword: true});
+    console.log('Modal Password');
+  }
+
   hide() {
     this.modalSubject.next(<ModalState>{showCancel: false, showSuccess: false});
     console.log('Hide Modal');
@@ -57,4 +63,5 @@ export interface ModalState {
   show_SessionExpired: boolean;
   showPermission: boolean;
   showRemove: boolean;
+  showPassword: boolean;
 }

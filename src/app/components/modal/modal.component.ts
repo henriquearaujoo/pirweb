@@ -18,12 +18,14 @@ export class ModalComponent implements OnInit, OnDestroy {
   private show_SessionExpired: boolean;
   private show_Permission: boolean;
   private show_Remove: boolean;
+  private show_Password: boolean;
   private subscription: Subscription;
   private openModalCancel: HTMLButtonElement;
   private openModalSuccess: HTMLButtonElement;
   private openModalSessionExpired: HTMLButtonElement;
   private openModalPermission: HTMLButtonElement;
   private openModalRemove: HTMLButtonElement;
+  private openModalPassword: HTMLButtonElement;
 
   constructor(
     private router: Router,
@@ -34,6 +36,7 @@ export class ModalComponent implements OnInit, OnDestroy {
     this.show_SessionExpired = false;
     this.show_Permission = false;
     this.show_Remove = false;
+    this.show_Password = false;
   }
 
   ngOnInit() {
@@ -52,12 +55,16 @@ export class ModalComponent implements OnInit, OnDestroy {
     this.openModalRemove = (<HTMLButtonElement>document.getElementById('openModalRemove'));
     this.openModalRemove.style.display = 'none';
 
+    this.openModalPassword = (<HTMLButtonElement>document.getElementById('openModalPassword'));
+    this.openModalPassword.style.display = 'none';
+
     this.subscription = this.modalService.modalState.subscribe(
       (state: ModalState) => {
         this.show_cancel = state.showCancel;
         this.show_success = state.showSuccess;
         this.show_SessionExpired = state.show_SessionExpired;
         this.show_Remove = state.showRemove;
+        this.show_Password = state.showPassword;
         this.route = this.modalService.getRoute();
         this.openModal();
       });
@@ -88,6 +95,12 @@ export class ModalComponent implements OnInit, OnDestroy {
             this.openModalRemove.click();
             this.show_Remove = false;
             console.log('Open Modal Remove');
+          } else {
+            if (this.show_Password) {
+              this.openModalPassword.click();
+              this.show_Password = false;
+              console.log('Open Modal Password');
+            }
           }
         }
        }

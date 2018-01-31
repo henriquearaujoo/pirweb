@@ -15,9 +15,10 @@ export class AuthenticationService extends RestService  {
 
   apiurl = Constant.BASE_URL;
   // logoutSubject = new Subject<any>();
+  eventReset = new EventEmitter<boolean>();
 
   constructor(
-    http: Http,
+    public http: Http,
     private router: Router,
     private userService: UserService) {
       super(http);
@@ -25,6 +26,17 @@ export class AuthenticationService extends RestService  {
 
   login(username: string, password: string) {
     return this.post(this.apiurl + 'authentication/login', { username: username, password: sha256(password) });
+  }
+
+  reset(token: string, password: string) {
+    console.log('token', token);
+    console.log('password', password);
+    return this.post(this.apiurl + 'authentication/reset', { token: token, password: sha256(password) });
+  }
+
+  recover(email: string) {
+    console.log('recover email', email);
+    return this.post(this.apiurl + 'authentication/recover?email=' + email, email );
   }
 
   getUser(login: string) {
@@ -41,5 +53,9 @@ export class AuthenticationService extends RestService  {
     localStorage.removeItem('tokenPir');
     localStorage.removeItem('profileId_rules');
     localStorage.removeItem('currentUserPir');
+  }
+
+  _reset() {
+    this.eventReset.emit(true);
   }
 }

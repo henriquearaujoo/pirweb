@@ -1,3 +1,4 @@
+import { LoaderService } from './../../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../../helpers/permissions';
 import { Chapter } from './../../../models/chapter';
 import { Response } from '@angular/http';
@@ -32,7 +33,8 @@ export class TemplateChapterItemComponent implements OnInit {
     private router: Router,
     private chapterService: ChapterService,
     private toastService: ToastService,
-    private permissions: Permissions
+    private permissions: Permissions,
+    private loaderService: LoaderService
   ) {
     this.canCreate = false;
     this.canUpdate = false;
@@ -63,6 +65,7 @@ export class TemplateChapterItemComponent implements OnInit {
    }
 
    getVersions() {
+    // this.loaderService.show();
     this.chapterService.getVersionFromChapter(this.chapter.number).subscribe(
       s => {
         this.paginate = s;
@@ -70,12 +73,13 @@ export class TemplateChapterItemComponent implements OnInit {
         for ( let i = 0 ; i < this.chapter.versions.length ; i ++) {
           if ( this.chapter.versions[i].status) {
             this.currentVersion = this.chapter.versions[i];
+            // this.loaderService.hide();
             break;
           }
           this.currentVersion = this.chapter.versions[i];
         }
         this.lastVersion = this.chapter.versions.length;
-        console.log(this.chapter.versions);
+        // console.log(this.chapter.versions);
       }
     );
    }

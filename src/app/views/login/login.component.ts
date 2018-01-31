@@ -1,3 +1,4 @@
+import { LoaderService } from './../../services/loader/loader.service';
 import { AccessPageService } from './../../services/page/page.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
@@ -37,7 +38,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       private route: ActivatedRoute,
       private router: Router,
       private toastService: ToastService,
-      private permisions: Permissions
+      private permisions: Permissions,
+      private loaderService: LoaderService
      ) { }
 
   ngOnInit() {
@@ -47,10 +49,19 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.user.login = login;
         this.user.password = psw;
         this.checked = true;
+        // this.toastService.toastSuccess();
+        // this.loaderService.show();
+        // console.log('OnInit');
       }
    // reset login
     this.authenticationService.logout();
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.authenticationService.eventReset.subscribe(
+        s => {
+            console.log('eventReset');
+            this.toastService.toastMsg('Sucesso', 'Senha alterada com sucesso!');
+        }
+    );
   }
 
     sendData() {

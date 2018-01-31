@@ -1,3 +1,4 @@
+<simple-notifications></simple-notifications>
 <div class="register-box" [ngStyle]="object">
   <div class="register-logo">
       <!-- <img class="img-logo" src="/assets/pir.png"> -->
@@ -6,7 +7,7 @@
   <div class="register-box-body">
     <p class="login-box-msg">Reenviar senha</p>
 
-    <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+    <form name="form" (ngSubmit)="f.form.valid && sendEmail()" #f="ngForm" novalidate>
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
         <label>Email de recuperação</label>
         <input type ="email" [(ngModel)]="user.email" name="email" #email="ngModel" class="form-control" placeholder="Digite seu e-mail" required>
@@ -22,7 +23,7 @@
         </div> -->
         <!-- /.col -->
         <div class="col-xs-12">
-            <button class="btn btn-primary btn-md btn-block" name="submit">Enviar</button>                
+            <button type="submit" class="btn btn-primary btn-md btn-block" name="submit">Enviar</button>                
         </div>
         <!-- /.col -->
       </div>

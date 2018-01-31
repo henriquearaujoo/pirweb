@@ -7,6 +7,7 @@ import { Injectable, OnDestroy, EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
+import { LoaderService } from '../services/loader/loader.service';
 
 @Injectable()
 export class Permissions implements OnDestroy {
@@ -26,7 +27,8 @@ export class Permissions implements OnDestroy {
     constructor(
         private authenticationService: AuthenticationService,
         private accessPageService: AccessPageService,
-        private  router: Router) {
+        private  router: Router,
+        private loaderService: LoaderService) {
         }
 
     canActivate(url: string) {
@@ -37,6 +39,7 @@ export class Permissions implements OnDestroy {
         if (profile !== undefined || profile !== null) {
             this.authenticationService.getPermissions(profile).subscribe(
                 success_rules => {
+                    // this.loaderService.show();
                     this.rules = success_rules;
                     // PAGES
                     this.accessPageService.getAllPages().subscribe(
@@ -56,13 +59,13 @@ export class Permissions implements OnDestroy {
                                     if ( ('/' + this.rules[i].page_id ) === this.returnUrl) {
                                         if ( this.rules[i].read) {
                                             console.log('Pode ativar rota!');
-
                                             this.permissionsSubject.next(<RuleState>{
                                                 canRead: this.rules[i].read,
                                                 canCreate: this.rules[i].create,
                                                 canUpdate: this.rules[i].update,
                                                 canDelete: this.rules[i].delete
                                             });
+                                            // this.loaderService.hide();
                                             break;
                                         } else {
                                             this.permissionsSubject.next(<RuleState>{
@@ -71,6 +74,7 @@ export class Permissions implements OnDestroy {
                                                 canUpdate: this.rules[i].update,
                                                 canDelete: this.rules[i].delete
                                             });
+                                            // this.loaderService.hide();
                                             console.log('Não pode ativar rota!');
                                             // this.router.navigate(['/home']);
                                         }
