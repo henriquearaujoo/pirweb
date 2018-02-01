@@ -74,6 +74,8 @@ export class SideBarComponent implements OnInit, OnDestroy {
       }
 
       });
+
+      console.log('HOST:', window.location.host);
   }
 
   isActive(instruction: String[]): boolean {

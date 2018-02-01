@@ -47,7 +47,9 @@
                                   (filterValue)="onFilter($event)"
                                   [edit]="edit"
                                   [selectedProfile]="selectedProfile"
-                                  [profiles]="profiles" *ngIf="canCreate">
+                                  [profiles]="profiles"
+                                  [canCreate]="canCreate"
+                                  [canUpdate]="canUpdate">
                                </app-profile>
                                 <div class="row">
                                     <div class="col-sm-12">

@@ -29,13 +29,10 @@ export class AuthenticationService extends RestService  {
   }
 
   reset(token: string, password: string) {
-    console.log('token', token);
-    console.log('password', password);
     return this.post(this.apiurl + 'authentication/reset', { token: token, password: sha256(password) });
   }
 
   recover(email: string) {
-    console.log('recover email', email);
     return this.post(this.apiurl + 'authentication/recover?email=' + email, email );
   }
 

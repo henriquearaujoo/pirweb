@@ -24,7 +24,7 @@ export class SendEmailComponent implements OnInit {
     console.log(this.user.email);
     this.authenticationService.recover(this.user.email).subscribe(
       success => {
-        console.log(success.text());
+        // console.log(success.text());
         this.toastService.toastMsg('Sucesso', 'Um link para redefinição de senha foi enviado' +
          ' para o e-mail informado!. Verifique sua caixa de e-mail.');
       },

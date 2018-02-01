@@ -139,7 +139,10 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
           this.getProfile();
           this.toastService.toastSuccess();
         },
-        error => <any>error
+        error => {
+          console.log(error);
+          this.toastService.toastError();
+        }
       );
     }
 

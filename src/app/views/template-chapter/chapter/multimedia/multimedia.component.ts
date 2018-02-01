@@ -23,7 +23,7 @@ export class MultimediaComponent implements OnInit {
   private canDelete: boolean;
 
   private images: any;
-  private multimedias: any;
+  private multimedias: any[];
   private medias: any;
   private type_file: any;
   private selectedFile: any;
@@ -43,7 +43,8 @@ export class MultimediaComponent implements OnInit {
     private chapterService: ChapterService,
     private toastService: ToastService,
     private modalService: ModalService,
-    private loaderService: LoaderService) {
+    private loaderService: LoaderService,
+    private fileService: FileService) {
     this.canCreate = false;
     this.canUpdate = false;
     this.canRead = false;
@@ -63,26 +64,26 @@ export class MultimediaComponent implements OnInit {
       {'path': '../../../../../assets/img_test/FAS.pdf', 'type': 'FILE'}
           ];
 
-    this.type_file = [
-      {
-        'id': 1,
-        'type': 'image',
-        'size': 10318,
-        'accept': 'image/png'
-      },
-      {
-        'id': 2,
-        'type': 'video',
-        'size': 10318,
-        'accept': 'mp4'
-        },
-      {
-        'id': 3,
-        'type': 'pdf',
-        'size': 10318,
-        'accept': 'pdf'
-        }
-    ];
+    // this.type_file = [
+    //   {
+    //     'id': 1,
+    //     'type': 'image',
+    //     'size': 10318,
+    //     'accept': 'image/png'
+    //   },
+    //   {
+    //     'id': 2,
+    //     'type': 'video',
+    //     'size': 10318,
+    //     'accept': 'mp4'
+    //     },
+    //   {
+    //     'id': 3,
+    //     'type': 'pdf',
+    //     'size': 10318,
+    //     'accept': 'pdf'
+    //     }
+    // ];
    }
 
   ngOnInit() {
@@ -109,6 +110,7 @@ export class MultimediaComponent implements OnInit {
       success => {
         this.chapter = success;
         this.reload();
+        this.isNewData = false;
         // this.multimedias = this.chapter.medias;
         // console.log('MULTIMEDIAs:', this.multimedias);
         //  for (let i = 0; i < this.multimedias.length; i++) {
@@ -123,10 +125,14 @@ export class MultimediaComponent implements OnInit {
 
   upload(media) {
     this.media = media;
-    if (this.media && this.media.id) {
+    console.log('MEDIA ##', this.media);
+    console.log('isNewData', this.isNewData);
+    // if (this.media && this.media.id) {
       if (!this.isNewData) {
-        this.media.path = Constant.BASE_URL + 'file/download/' + this.media.id;
-        this.chapter.medias.push(this.media);
+        this.media.path = Constant.BASE_URL + 'filetest/download/' + this.media.id;
+        for (let i = 0; i < this.media.length; i++) {
+          this.chapter.medias.push(this.media[i]);
+        }
         console.log('CHAPTER:', this.chapter);
         this.chapter.thumbnails = [];
         this.chapterService.update(this.chapter).subscribe(
@@ -143,14 +149,14 @@ export class MultimediaComponent implements OnInit {
           }
         );
       }
-    }
+    // }
   }
 
   reload() {
     this.multimedias = this.chapter.medias;
+    console.log('Multimedias:', this.multimedias);
     for (let i = 0; i < this.multimedias.length; i++) {
-      this.multimedias[i].path = Constant.BASE_URL + 'file/download/' + this.multimedias[i].id;
-
+      this.multimedias[i].path = Constant.BASE_URL + 'filetest/download/' + this.multimedias[i].id;
       if ( i === (this.multimedias.length - 1 )) {
         this.canReload = true;
       }
@@ -164,6 +170,14 @@ export class MultimediaComponent implements OnInit {
 
   confirmRemove() {
     console.log('REMOVE:', this.item_remove);
+    // this.fileService.remove(this.item_remove.id).subscribe(
+    //   success => {
+    //     this.toastService.toastSuccess();
+    //   },
+    //   errror => {
+    //     this.toastService.toastError();
+    //   }
+    // );
   }
 // tslint:disable-next-line:eofline
 }

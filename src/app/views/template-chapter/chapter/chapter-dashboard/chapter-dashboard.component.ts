@@ -120,6 +120,7 @@ export class ChapterDashboardComponent implements OnInit {
       },
       e => {
         console.log('error: ' + e);
+        this.loaderService.hide();
       }
     );
   }
@@ -141,6 +142,7 @@ export class ChapterDashboardComponent implements OnInit {
       },
       e => {
         console.log('Error: ' + e);
+        this.loaderService.hide();
       }
     );
   }
@@ -153,6 +155,7 @@ export class ChapterDashboardComponent implements OnInit {
         this.intervention.chapter = c.id;
         this.conclusion.chapter = c.id;
         this.multimedia.chapter_id = c.id;
+        this.multimedia.load(c.id);
         this.toastService.toastSuccess();
         return;
       }
