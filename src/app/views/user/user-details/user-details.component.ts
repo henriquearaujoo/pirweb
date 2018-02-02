@@ -1,3 +1,4 @@
+import { LoaderService } from './../../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../../helpers/permissions';
 import { City } from './../../../models/city';
 import { UserService } from './../../../services/user/user.service';
@@ -35,7 +36,8 @@ export class UserDetailsComponent implements OnInit {
     private profileService: ProfileService,
     private toastService: ToastService,
     private router: Router,
-    private permissions: Permissions ) {
+    private permissions: Permissions,
+    private loaderService: LoaderService ) {
     this.user = new User();
     this.canCreate = false;
     this.canUpdate = false;
@@ -81,6 +83,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   loadUser() {
+    this.loaderService.show();
     this.userService.load(this.urlId).subscribe(
       success => {
         this.user = success[0];
@@ -96,10 +99,16 @@ export class UserDetailsComponent implements OnInit {
             console.log(this.city_id);
             this.verifyType();
             this.loadCityState();
+            setTimeout(() => {
+              this.loaderService.hide();
+            }, 400);
           }
         );
       },
-      error => console.log(error)
+      error => {
+        this.loaderService.hide();
+        console.log(error);
+      }
     );
   }
 

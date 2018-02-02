@@ -5,7 +5,7 @@
   </div>
     
   <div class="register-box-body">
-    <p class="login-box-msg">Reenviar senha</p>
+    <p class="login-box-msg">Recuperação de senha</p>
 
     <form name="form" (ngSubmit)="f.form.valid && sendEmail()" #f="ngForm" novalidate>
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
@@ -14,14 +14,6 @@
         <div *ngIf="f.submitted && !email.valid" class="help-block"> Digite um e-mail válido</div>
       </div>
       <div class="row">
-        <!-- <div class="col-xs-8">
-          <div class="checkbox icheck">
-            <label>
-              <input type="checkbox"> I agree to the <a href="#">terms</a>
-            </label>
-          </div>
-        </div> -->
-        <!-- /.col -->
         <div class="col-xs-12">
             <button type="submit" class="btn btn-primary btn-md btn-block" name="submit">Enviar</button>                
         </div>

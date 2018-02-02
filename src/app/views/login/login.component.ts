@@ -65,6 +65,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
     sendData() {
+        this.loaderService.show();
         this.authenticationService.login(this.user.login, this.user.password).subscribe(
             (data: Response) => {
                 console.log(data.headers.get('authorization'));
@@ -76,12 +77,13 @@ export class LoginComponent implements OnInit, OnDestroy {
                     localStorage.setItem('profileId_rules', tokenData.payload.pfl);
                     localStorage.setItem('currentUserPir', tokenData.payload.unm);
 
+                    this.loaderService.hide();
                     this.router.navigate([this.returnUrl]);
                 }
             },
             error => {
-                // this.verifyError(error);
-                this.toastService.toastMsgWarn('Atenção', 'Autenticação incorreta!');
+                this.loaderService.hide();
+                this.verifyError(error);
                 console.log('Error:', error);
             }
         );
@@ -90,11 +92,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     verifyError(error) {
         switch (error) {
             case 'user.password.mismatch': {
-                this.toastService.toastMsgWarn('Atenção', 'Senha inválida!');
+                this.toastService.toastMsgWarn('Atenção', 'Autenticação incorreta!');
                 break;
             }
             case 'login.username.notfound': {
-                this.toastService.toastMsgWarn('Atenção', 'Usuário inválido!');
+                this.toastService.toastMsgWarn('Atenção', 'Autenticação incorreta!');
                 break;
             }
         }

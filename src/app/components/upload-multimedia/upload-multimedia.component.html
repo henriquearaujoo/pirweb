@@ -42,7 +42,8 @@
                     <span class="image-preview-input-title">Selecione ou arraste e solte aqui</span>
                     <!-- <input type="file"  name="input-file-preview" /> -->
                     <input type="file" #fileInput name="input-file-preview" accept="{{ selectedType.accept }}" 
-                      multiple (change)="onChange()" id="files" [disabled]="(isNewData || (selectedType === ''))"/>
+                      multiple (change)="onChange()" id="files" size="3"
+                      [disabled]="(isNewData || (selectedType === ''))"/>
                   </div>                
                   <button type="submit" class="btn btn-labeled btn-default" [disabled]="(isNewData || (selectedType === ''))"> <span class="btn-label"><i class="glyphicon glyphicon-upload"></i> </span>Upload</button>
                 </span>

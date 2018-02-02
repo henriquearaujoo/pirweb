@@ -39,7 +39,7 @@ export class Permissions implements OnDestroy {
         if (profile !== undefined || profile !== null) {
             this.authenticationService.getPermissions(profile).subscribe(
                 success_rules => {
-                    // this.loaderService.show();
+                    this.loaderService.show();
                     this.rules = success_rules;
                     // PAGES
                     this.accessPageService.getAllPages().subscribe(
@@ -54,6 +54,7 @@ export class Permissions implements OnDestroy {
                                 }
                             }
                             if (this.rules.length !== 0) {
+                                this.loaderService.hide();
                                 this.rulesSubject.next(<RuleState>{permissions: this.rules});
                                 for ( let i = 0; i < this.rules.length; i++) {
                                     if ( ('/' + this.rules[i].page_id ) === this.returnUrl) {
@@ -65,7 +66,6 @@ export class Permissions implements OnDestroy {
                                                 canUpdate: this.rules[i].update,
                                                 canDelete: this.rules[i].delete
                                             });
-                                            // this.loaderService.hide();
                                             break;
                                         } else {
                                             this.permissionsSubject.next(<RuleState>{
@@ -74,7 +74,7 @@ export class Permissions implements OnDestroy {
                                                 canUpdate: this.rules[i].update,
                                                 canDelete: this.rules[i].delete
                                             });
-                                            // this.loaderService.hide();
+                                            this.loaderService.hide();
                                             console.log('Não pode ativar rota!');
                                             // this.router.navigate(['/home']);
                                         }

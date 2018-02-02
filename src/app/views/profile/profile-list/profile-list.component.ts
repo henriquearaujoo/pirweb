@@ -1,3 +1,4 @@
+import { LoaderService } from './../../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../../helpers/permissions';
 import { ToastService } from './../../../services/toast-notification/toast.service';
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter, ViewChild } from '@angular/core';
@@ -57,7 +58,8 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
       private accessPageService: AccessPageService,
       private toastService: ToastService,
       private router: Router,
-      private permissions: Permissions) {
+      private permissions: Permissions,
+      private loaderService: LoaderService) {
         super(pagerService);
         this.hasdata = false;
         this.edit = false;
@@ -91,14 +93,21 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
 
     getProfile() {
       if ( this.filter.title !== '') { this.page = 0; }
+      this.loaderService.show();
       this.profileService.getProfile(this.filter.title, this.page).subscribe(
         success => {
           this.paginate = success;
           this.profiles = this.paginate.content;
           console.log('Paginate:', this.paginate);
           this.hasdata = true;
+          setTimeout(() => {
+            this.loaderService.hide();
+          }, 400);
         },
-        error => this.hasdata = false
+        error => {
+          this.hasdata = false;
+          this.loaderService.hide();
+        }
       );
     }
 

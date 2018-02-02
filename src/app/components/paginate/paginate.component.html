@@ -25,7 +25,7 @@
             <li [ngClass]="{disabled:paginate.number === paginate.totalPages - 1}" *ngIf="!paginate.last">
                 <a (click)="setPage(paginate.number + 1)">Próximo</a>
             </li>
-            <li [ngClass]="{disabled:paginate.number === paginate.totalPages - 1}" *ngIf="paginate.last">
+            <li [ngClass]="{disabled:paginate.last}" *ngIf="paginate.last">
                     <a>Próximo</a>
                 </li>
             <li [ngClass]="{disabled:paginate.last}">

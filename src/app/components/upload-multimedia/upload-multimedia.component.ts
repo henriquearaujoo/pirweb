@@ -53,14 +53,14 @@ export class UploadMultimediaComponent implements OnInit {
     this.type_file = [
       {
         'name': 'Imagem',
-        'type': 'PICTURE2D',
-        'size': 10318,
+        'type': 'IMAGE',
+        'size': 5047944,
         'accept': 'image/png, image/jpeg'
       },
       {
         'name': 'Vídeo',
-        'type': 'VIDEO2D',
-        'size': 50318,
+        'type': 'VIDEO',
+        'size': 3e+7,
         'accept': 'video/mp4'
         },
       {
@@ -89,10 +89,15 @@ export class UploadMultimediaComponent implements OnInit {
     if (fi.files && fi.files.length > 0) {
       for (let i = 0 ; i < fi.files.length ; i ++ ) {
         const fileToUpload = fi.files[i];
+        console.log('FILE ###:', fileToUpload);
         if ( this.selectedType.accept.includes(fileToUpload.type) ) {
-          this.files.push(fileToUpload);
-          console.log('FILE1:', this.files);
-          this.hasFile = true;
+          if ( fileToUpload.size <= this.selectedType.size) {
+            this.files.push(fileToUpload);
+            this.hasFile = true;
+          } else {
+            this.toastService.toastMsgError('Erro', 'Não foi possível carregar o arquivo ' + fileToUpload.name +
+            '. Verifique o tamanho máximo permitido para o tipo de mídia selecionado');
+          }
         } else {
           this.toastService.toastMsgError('Erro', 'Não foi possível carregar o arquivo ' + fileToUpload.name +
             '. Verifique as extensões permitidas para o tipo de mídia selecionado');
@@ -112,11 +117,13 @@ export class UploadMultimediaComponent implements OnInit {
       return;
     }
 
-    const fi = this.fileInput.nativeElement;
+    // tslint:disable-next-line:prefer-const
+    // let fi = this.fileInput.nativeElement;
+    // fi.files = this.files;
     if ( this.files.length > 0) {
-      if (fi.files && fi.files.length > 0) {
-        for (let i = 0 ; i < fi.files.length ; i ++ ) {
-          const fileToUpload = fi.files[i];
+      if (this.files && this.files.length > 0) {
+        for (let i = 0 ; i < this.files.length ; i ++ ) {
+          const fileToUpload = this.files[i];
           this.fileService.upload(fileToUpload).subscribe(
           res => {
             this._fileData = JSON.parse(res.text());

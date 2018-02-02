@@ -1,7 +1,6 @@
-import { browser } from 'protractor';
 import { ModalService } from './../../../../components/modal/modal.service';
 import { Permissions, RuleState } from './../../../../helpers/permissions';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { Chapter } from '../../../../models/chapter';
 import { FileService } from '../../../../services/file/file.service';
 import { ChapterService } from '../../../../services/chapter/chapter.service';
@@ -16,7 +15,8 @@ import { LoaderService } from '../../../../services/loader/loader.service';
 })
 export class MultimediaComponent implements OnInit {
   [x: string]: any;
-
+  @Output() cancelEvent = new EventEmitter();
+  private btn_cancel: boolean;
   private canRead: boolean;
   private canUpdate: boolean;
   private canCreate: boolean;
@@ -124,6 +124,10 @@ export class MultimediaComponent implements OnInit {
   }
 
   upload(media) {
+    if (this.btn_cancel) {
+      this.btn_cancel = false;
+      return false;
+    }
     this.media = media;
     console.log('MEDIA ##', this.media);
     console.log('isNewData', this.isNewData);
@@ -170,14 +174,20 @@ export class MultimediaComponent implements OnInit {
 
   confirmRemove() {
     console.log('REMOVE:', this.item_remove);
-    // this.fileService.remove(this.item_remove.id).subscribe(
-    //   success => {
-    //     this.toastService.toastSuccess();
-    //   },
-    //   errror => {
-    //     this.toastService.toastError();
-    //   }
-    // );
+    this.fileService.remove(this.item_remove.id).subscribe(
+      success => {
+        this.toastService.toastSuccess();
+        this.load(this.chapter.id);
+      },
+      errror => {
+        this.toastService.toastError();
+      }
+    );
+  }
+
+  onCancel() {
+    this.cancelEvent.emit();
+    this.btn_cancel = true;
   }
 // tslint:disable-next-line:eofline
 }

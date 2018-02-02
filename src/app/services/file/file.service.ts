@@ -32,6 +32,7 @@ export class FileService extends RestService {
     }
 
     public remove(id: string) {
-        return this.delete(this.apiurl + 'file//', id);
+        const deleteUrl = this.apiurl + 'filetest/delete/' + id + '/';
+        return this.deleteR(deleteUrl);
     }
 }

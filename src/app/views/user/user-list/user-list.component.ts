@@ -1,3 +1,4 @@
+import { LoaderService } from './../../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../../helpers/permissions';
 import { element } from 'protractor';
 import { Paginate } from './../../../models/paginate';
@@ -44,7 +45,8 @@ export class UserListComponent implements OnInit, OnDestroy {
     private profileService: ProfileService,
     private toastService: ToastService,
     private router: Router,
-    private permissions: Permissions) {
+    private permissions: Permissions,
+    private loaderService: LoaderService) {
       this.hasdata = false;
       this.page = 0;
       this.canCreate = false;
@@ -80,12 +82,11 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   getUsers() {
     if ( this.filter.name !== '') { this.page = 0; }
+    this.loaderService.show();
     this.userService.getUsers(this.filter.name, this.page).subscribe(
       success => {
         this.paginate = success;
         this.users = success.content;
-        console.log('USERS:', this.users);
-        console.log('show_msg', this.userService.show_msg);
         if (this.userService.show_msg) {
           this.toastService.toastSuccess();
           this.userService.show_msg = false;
@@ -105,9 +106,14 @@ export class UserListComponent implements OnInit, OnDestroy {
            },
            error => console.log(error)
         );
-
+        setTimeout(() => {
+          this.loaderService.hide();
+        }, 400);
       },
-      error => this.hasdata = false
+      error => {
+        this.loaderService.hide();
+        this.hasdata = false;
+      }
     );
   }
 

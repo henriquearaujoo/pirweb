@@ -1,3 +1,4 @@
+import { LoaderService } from './../services/loader/loader.service';
 import { error } from 'util';
 import { ToastService } from './../services/toast-notification/toast.service';
 import { Router, RouterStateSnapshot } from '@angular/router';
@@ -17,7 +18,8 @@ export class Interceptor extends XHRBackend {
     xsrfStrategy: XSRFStrategy,
     private router: Router,
     private modalService: ModalService,
-    private toastService: ToastService ) {
+    private toastService: ToastService,
+    private loaderService: LoaderService ) {
     super(browserXhr, baseResponseOptions, xsrfStrategy);
   }
 
@@ -25,17 +27,28 @@ export class Interceptor extends XHRBackend {
     // tslint:disable-next-line:prefer-const
     let token = localStorage.getItem('tokenPir');
     request.headers.set('Authorization', `PIRFAS=${token}`);
+    // this.loaderService.show();
     // tslint:disable-next-line:prefer-const
     let xhrConnection = super.createConnection(request);
     xhrConnection.response = xhrConnection.response.catch((error: Response) => {
         console.log('ERROR', error);
-        if (error.status === 401 || error.status === 403 || error.status === 0) {
+        if (error.status === 401 || error.status === 403) {
+          // this.loaderService.hide();
           console.log('acesso não autorizado');
           this.toastService.toastMsgError('Atenção', 'Sessão expirada!');
           localStorage.removeItem('tokenPir');
           localStorage.removeItem('profileId_rules');
           localStorage.removeItem('currentUserPir');
           this.router.navigate(['/login']);
+        } else {
+          if (error.status === 0) {
+            // this.loaderService.hide();
+            this.toastService.toastMsgError('Erro', 'Sem conexão com o servidor!');
+            localStorage.removeItem('tokenPir');
+            localStorage.removeItem('profileId_rules');
+            localStorage.removeItem('currentUserPir');
+            this.router.navigate(['/login']);
+          }
         }
         // switch (error.status) {
         //   case 401:
@@ -74,6 +87,7 @@ export class Interceptor extends XHRBackend {
 
       return Observable.throw(error);
     });
+    // this.loaderService.hide();
     return xhrConnection;
   }
 // tslint:disable-next-line:eofline

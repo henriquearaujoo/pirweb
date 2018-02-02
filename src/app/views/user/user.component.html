@@ -43,7 +43,7 @@
                                                         <div class="form-group" [ngClass]="applyCssError(f, status)">
                                                             <label class="control-label">Status</label>
                                                             <select class="form-control" #status="ngModel" name="status" id="user_status" [(ngModel)]="user.status" required>
-                                                                <option disabled>Status</option>
+                                                                <!-- <option disabled>Status</option> -->
                                                                 <option value="true">Ativo</option>
                                                                 <option value="false">Inatí­vo</option>
                                                                 </select>
@@ -60,7 +60,7 @@
                                                             <label class="control-label">Perfil</label>
                                                             <select class="form-control" name="profile" id="user_profile" [(ngModel)]="user.profile" 
                                                                 #profile="ngModel" (change)="selectProfile()" required>
-                                                                <option disabled> Perfil</option>
+                                                                <!-- <option disabled> Perfil</option> -->
                                                                 <option *ngFor="let p of profiles" [value]="p.id" >{{p.title}}</option>
                                                             </select>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f, profile)" msgError="Selecione um perfil">
@@ -74,7 +74,7 @@
                                                         <div class="form-group type" [ngClass]="applyCssError(f, type)">
                                                             <label class="control-label">Tipo de usuário</label>
                                                             <select class="form-control" name="type" id="user_type" [(ngModel)]="user.type" #type="ngModel" (change)="selectType()" required>
-                                                                <option disabled >Tipo de Usuário</option>
+                                                                <!-- <option disabled >Tipo de Usuário</option> -->
                                                                 <option *ngFor="let type of types" [value]="type.id">{{type.description}}</option>
                                                             </select>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f, type)" msgError="Selecione um tipo de usuário">
@@ -83,28 +83,28 @@
                                                     </div>
                                                     <!-- end select type-->
                                                </div>
-                                               <div class="row" *ngIf="show_community">
+                                               <!-- <div class="row" *ngIf="show_community"> -->
                                                 <!-- select community-->
-                                                <div class="col-sm-12">
+                                                <!-- <div class="col-sm-12">
                                                     <div class="form-group">
                                                         <label class="control-label">Comunidade</label>
                                                         <select class="form-control" name="community" id="community" #community="ngModel" [(ngModel)]="user.community_id">
                                                             <option disabled >Comunidade</option>
                                                             <option *ngFor="let item of communities" [value]="item.id">{{item.name}}</option>
-                                                        </select>
+                                                        </select> -->
                                                         <!-- <app-control-field-error [showError]="verifyValidSubmitted(f, community)" msgError="Selecione uma comunidade">
-                                                        </app-control-field-error> -->
-                                                    </div>
-                                                </div>
+                                                       </app-control-field-error> -->
+                                                    <!-- </div>
+                                                </div>  -->
                                                 <!-- end select community-->
-                                               </div>
+                                               <!-- </div> -->
                                                <div class="row">
                                                    <div class="col-sm-12">
                                                         <div class="form-group" [ngClass]="applyCssError(f, login)">
-                                                                <label class="control-label">Login</label>
-                                                                <input type="text" [(ngModel)]="user.login" #login="ngModel" name="login" id="user_login" class="form-control" placeholder="Login" required>
-                                                                <app-control-field-error [showError]="verifyValidSubmitted(f, login)" msgError="Digite um login">
-                                                                </app-control-field-error>
+                                                            <label class="control-label">Usuário</label>
+                                                            <input type="text" [(ngModel)]="user.login" #login="ngModel" name="login" id="user_login" class="form-control" placeholder="Usuário" required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f, login)" msgError="Digite um nome de usuário">
+                                                            </app-control-field-error>
                                                         </div>
                                                    </div>
                                                </div>
