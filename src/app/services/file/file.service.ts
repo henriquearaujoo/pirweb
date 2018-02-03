@@ -23,7 +23,7 @@ export class FileService extends RestService {
     public upload(fileToUpload: any) {
         const input = new FormData();
         input.append('file', fileToUpload);
-        return this.http.post(this.apiurl + 'filetest/upload', input);
+        return this.http.post(this.apiurl + 'file/upload', input);
     }
 
 
@@ -32,7 +32,7 @@ export class FileService extends RestService {
     }
 
     public remove(id: string) {
-        const deleteUrl = this.apiurl + 'filetest/delete/' + id + '/';
+        const deleteUrl = this.apiurl + 'file/delete/' + id + '/';
         return this.deleteR(deleteUrl);
     }
 }
