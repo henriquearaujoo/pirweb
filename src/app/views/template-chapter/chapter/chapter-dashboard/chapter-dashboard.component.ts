@@ -1,3 +1,4 @@
+import { LoaderService } from './../../../../services/loader/loader.service';
 import { ToastService } from './../../../../services/toast-notification/toast.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Chapter } from './../../../../models/chapter';
@@ -10,6 +11,8 @@ import { EventEmitter } from 'events';
 import { InformationComponent } from '../information/information.component';
 import { ConclusionComponent } from '../conclusion/conclusion.component';
 import { IFormCanDeActivate } from '../../../../guards/iform-candeactivate';
+import { ModalService } from '../../../../components/modal/modal.service';
+import { MultimediaComponent } from '../multimedia/multimedia.component';
 
 @Component({
   selector: 'app-chapter-dashboard',
@@ -17,7 +20,7 @@ import { IFormCanDeActivate } from '../../../../guards/iform-candeactivate';
   styleUrls: ['./chapter-dashboard.component.css'],
 })
 
-export class ChapterDashboardComponent implements OnInit, IFormCanDeActivate {
+export class ChapterDashboardComponent implements OnInit {
 
   private chapterList: Chapter[] = new Array();
   private chapter = new Chapter();
@@ -25,6 +28,7 @@ export class ChapterDashboardComponent implements OnInit, IFormCanDeActivate {
   private receptionTab: string;
   private conclusionTab: string;
   private interventionTab: string;
+  private multimediaTab: string;
   private isNewData: boolean;
   private previousTab: string;
   private currentTab: number;
@@ -34,8 +38,9 @@ export class ChapterDashboardComponent implements OnInit, IFormCanDeActivate {
   private currentChapter: any;
   public  canChangePage = false;
   private urlId: string;
-  private openModalButton: HTMLButtonElement;
+  // private openModalButton: HTMLButtonElement;
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
+  private showModal: boolean;
 
   @ViewChild('informationChild')
   information: InformationComponent;
@@ -45,21 +50,26 @@ export class ChapterDashboardComponent implements OnInit, IFormCanDeActivate {
   intervention: InterventionComponent;
   @ViewChild('conclusion')
   conclusion: ConclusionComponent;
+  @ViewChild('multimedia')
+  multimedia: MultimediaComponent;
 
   constructor(
     private router: Router,
     private activeRoute: ActivatedRoute,
-    private toastService: ToastService) { }
+    private toastService: ToastService,
+    private modalService: ModalService,
+    private loaderService: LoaderService) { }
 
   ngOnInit() {
 
-    this.openModalButton = (<HTMLButtonElement>document.getElementById('openModalButton'));
-    this.openModalButton.style.display = 'none';
+    // this.openModalButton = (<HTMLButtonElement>document.getElementById('openModalButton'));
+    // this.openModalButton.style.display = 'none';
 
     this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_enable.png';
     this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_disable.png';
     this.interventionTab = '../../../assets/img/chapter/ic_chapter_tab_intervention_disable.png';
     this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_conclusion_disable.png';
+    this.multimediaTab = '../../../assets/img/chapter/ic_chapter_tab_multimedia_disable.png';
 
     /*check if is a new or update*/
     this.isNewData = true;
@@ -70,17 +80,20 @@ export class ChapterDashboardComponent implements OnInit, IFormCanDeActivate {
       this.reception.isNewData = false;
       this.intervention.isNewData = false;
       this.conclusion.isNewData = false;
+      this.multimedia.isNewData = false;
       this.sendEventToLoad();
     }else {
       this.information.isNewData = true;
       this.reception.isNewData = true;
       this.intervention.isNewData = true;
       this.conclusion.isNewData = true;
+      this.multimedia.isNewData = true;
       this.getChapterNumber();
     }
   }
 
   getChapterNumber() {
+    this.loaderService.show();
     this.information.getNextChapterNumber().subscribe(
       success => {
         this.chapterList = success;
@@ -98,18 +111,22 @@ export class ChapterDashboardComponent implements OnInit, IFormCanDeActivate {
         if (chapterNumber) {
           this.currentChapter = chapterNumber;
           localStorage.removeItem('chapterNumber');
+          this.loaderService.hide();
         } else {
           this.currentChapter = this.chapter.number;
+          this.loaderService.hide();
         }
         this.information.number = this.currentChapter;
       },
       e => {
         console.log('error: ' + e);
+        this.loaderService.hide();
       }
     );
   }
   /*****************SELECT******************/
   sendEventToLoad() {
+    this.loaderService.show();
     this.information.load(this.urlId).subscribe(
       s => {
         this.chapter = s;
@@ -119,9 +136,13 @@ export class ChapterDashboardComponent implements OnInit, IFormCanDeActivate {
         this.reception.load(this.urlId);
         this.intervention.load(this.urlId);
         this.conclusion.load(this.urlId);
+        this.multimedia.load(this.urlId);
+
+        this.loaderService.hide();
       },
       e => {
         console.log('Error: ' + e);
+        this.loaderService.hide();
       }
     );
   }
@@ -133,6 +154,8 @@ export class ChapterDashboardComponent implements OnInit, IFormCanDeActivate {
         this.reception.chapter = c.id;
         this.intervention.chapter = c.id;
         this.conclusion.chapter = c.id;
+        this.multimedia.chapter_id = c.id;
+        this.multimedia.load(c.id);
         this.toastService.toastSuccess();
         return;
       }
@@ -154,41 +177,49 @@ export class ChapterDashboardComponent implements OnInit, IFormCanDeActivate {
         this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_disable.png';
         this.interventionTab = '../../../assets/img/chapter/ic_chapter_tab_intervention_disable.png';
         this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_conclusion_disable.png';
+        this.multimediaTab = '../../../assets/img/chapter/ic_chapter_tab_multimedia_disable.png';
       break;
       case 1:
         this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_disable.png';
         this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_enable.png';
         this.interventionTab = '../../../assets/img/chapter/ic_chapter_tab_intervention_disable.png';
         this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_conclusion_disable.png';
+        this.multimediaTab = '../../../assets/img/chapter/ic_chapter_tab_multimedia_disable.png';
       break;
       case 2:
         this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_disable.png';
         this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_disable.png';
         this.interventionTab = '../../../assets/img/chapter/ic_chapter_tab_intervention_enable.png';
         this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_conclusion_disable.png';
+        this.multimediaTab = '../../../assets/img/chapter/ic_chapter_tab_multimedia_disable.png';
       break;
       case 3:
         this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_disable.png';
         this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_disable.png';
         this.interventionTab = '../../../assets/img/chapter/ic_chapter_tab_intervention_disable.png';
         this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_conclusion_enable.png';
+        this.multimediaTab = '../../../assets/img/chapter/ic_chapter_tab_multimedia_disable.png';
+      break;
+      case 4:
+        this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_disable.png';
+        this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_disable.png';
+        this.interventionTab = '../../../assets/img/chapter/ic_chapter_tab_intervention_disable.png';
+        this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_conclusion_disable.png';
+        this.multimediaTab = '../../../assets/img/chapter/ic_chapter_tab_multimedia_enable.png';
       break;
     }
   }
 
   openModal() {
-    this.openModalButton.click();
-    console.log('openModal');
-    return false;
+   this.modalService.modalCancel('/template-chapter');
+    // this.openModalButton.click();
+    console.log('openModal dashboard');
   }
 
-  modalConfirm() {
-    this.canChangePage = true;
-    this.router.navigate(['/template-chapter']);
-    return true;
-  }
+  // modalConfirm() {
+  //   this.canChangePage = true;
+  //   this.router.navigate(['/template-chapter']);
+  //   return true;
+  // }
 
-  changePage() {
-    return this.openModal();
-  }
 }

@@ -1,37 +1,58 @@
+import { RestService } from './../rest/rest.service';
 import { Http, Response } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, EventEmitter } from '@angular/core';
 import { User } from '../../models/user';
 import { Router } from '@angular/router';
 import { UserService } from '../user/user.service';
 import { Constant } from '../../constant/constant';
-
+import { Observable } from 'rxjs/Observable';
+import { sha256, sha224 } from 'js-sha256';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
-export class AuthenticationService {
+export class AuthenticationService extends RestService  {
 
   apiurl = Constant.BASE_URL;
-  private users: User[];
+  // logoutSubject = new Subject<any>();
+  eventReset = new EventEmitter<boolean>();
 
-  constructor( private router: Router, private http: Http, private userService: UserService) {
-
-  }
+  constructor(
+    public http: Http,
+    private router: Router,
+    private userService: UserService) {
+      super(http);
+    }
 
   login(username: string, password: string) {
-    const loginUrl = this.apiurl.concat('authenticate');
-    // tslint:disable-next-line:comment-format
-    //return this.http.post(loginUrl, JSON.stringify({ username: username, password: password }))
-    return this.http.get(loginUrl)
-        .map((response: Response) => {
-            const user = response.json();
-            if (user) {
-                localStorage.setItem('currentUser', JSON.stringify(user));
-            }
+    return this.post(this.apiurl + 'authentication/login', { username: username, password: sha256(password) });
+  }
 
-            return user;
-        });
-}
+  reset(token: string, password: string) {
+    return this.post(this.apiurl + 'authentication/reset', { token: token, password: sha256(password) });
+  }
+
+  recover(email: string) {
+    return this.post(this.apiurl + 'authentication/recover?email=' + email, email );
+  }
+
+  getUser(login: string) {
+    return this.get(this.apiurl + 'users/search/?login=' + login);
+  }
+
+  getPermissions(id: string) {
+     return this.get(this.apiurl + 'rules/search/?profile=' + id);
+    // return this.get(this.apiurl + 'rules');
+  }
 
   logout(): void {
-    localStorage.removeItem('currentUser');
+    // this.logoutSubject.next({ logout: true });
+    localStorage.removeItem('tokenPir');
+    localStorage.removeItem('profileId_rules');
+    localStorage.removeItem('currentUserPir');
+  }
+
+  _reset() {
+    this.eventReset.emit(true);
   }
 }

@@ -1,5 +1,5 @@
 <simple-notifications></simple-notifications>
-<button style="display:none" data-toggle="modal" data-target="#modal-cancel" id="openModalButton">Open Modal</button>
+<!-- <button style="display:none" data-toggle="modal" data-target="#modal-cancel" id="openModalButton">Open Modal</button> -->
 <div class="content_">
     <div class="content-top">
         <div class="content_fa">
@@ -9,7 +9,7 @@
 
     <section class="content_user">
         <div class="content-header ">
-            <h5 class="content_fa">CAPÍTULO {{currentChapter}}</h5>
+            <h5 class="content_fa">CAPÍTULO {{currentChapter}}</h5>            
         </div>
         <form name="form" #f="ngForm" novalidate>
             <!-- Custom Tabs -->
@@ -35,16 +35,26 @@
                             <img src="{{conclusionTab}}" (click)="walk(3)" />
                         </a>
                     </li>
+                    <li>
+                        <a class="tab-pane" href="#tab_5" data-toggle="tab">
+                            <img src="{{multimediaTab}}" (click)="walk(4)" width="135"/>
+                        </a>
+                    </li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_1">
                         <div class="content">
                             <section class="content">
-                                <div class="box-header with-border">
-                                    <h5 class="box-title">
-                                        Informações do Capítulo
-                                    </h5>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="box-header with-border">
+                                            <h5 class="box-title">
+                                                Informações do Capítulo
+                                            </h5>
+                                        </div>
+                                    </div>
                                 </div>
+                               
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="box box-primary">
@@ -61,11 +71,16 @@
                     <div class="tab-pane" id="tab_2">
                         <div class="content">
                             <section class="content">
-                                <div class="box-header with-border">
-                                    <h5 class="box-title">
-                                        Acolhimento
-                                    </h5>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="box-header with-border">
+                                            <h5 class="box-title">
+                                                Acolhimento
+                                            </h5>
+                                        </div>
+                                    </div>
                                 </div>
+                                
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="box box-primary">
@@ -82,11 +97,16 @@
                     <div class="tab-pane" id="tab_3">
                         <div class="content">
                             <section class="content">
-                                <div class="box-header with-border">
-                                    <h5 class="box-title">
-                                        Intervenção
-                                    </h5>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="box-header with-border">
+                                            <h5 class="box-title">
+                                                Intervenção
+                                            </h5>
+                                        </div>
+                                    </div>
                                 </div>
+                                
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="box box-primary">
@@ -103,11 +123,16 @@
                     <div class="tab-pane" id="tab_4">
                         <div class="content">
                             <section class="content">
-                                <div class="box-header with-border">
-                                    <h5 class="box-title">
-                                        Conclusão
-                                    </h5>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="box-header with-border">
+                                            <h5 class="box-title">
+                                                Conclusão
+                                            </h5>
+                                        </div>
+                                    </div>
                                 </div>
+                                
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="box box-primary">
@@ -121,35 +146,35 @@
                             </section>
                         </div>
                     </div>
+                    <div class="tab-pane" id="tab_5">
+                        <div class="content">
+                            <section class="content">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="box-header with-border">
+                                            <h5 class="box-title">
+                                                Mídias do Capítulo
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="box box-primary">
+                                            <div class="box-body">
+                                              <app-multimedia #multimedia (cancelEvent)='openModal()'></app-multimedia>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>                        
+                    </div>
                 </div>
                 <!-- /.tab-content -->
             </div>
         </form>
     </section>
 </div>
-
-<!-- Modal Cancel -->
-<div class="modal fade" id="modal-cancel">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content" [ngStyle]="object">
-            <div class="modal-body">
-                <div class="modal-icon">
-                    <i class="material-icons" style="font-size: 60px;">error_outline</i>
-                </div>
-                <h5> Deseja realmente <strong>CANCELAR</strong> ?</h5>
-            </div>
-            <div class="modal-footer" data-dismiss="modal">
-                <!-- <div class="row"> -->
-                <div class="modal-btn-cancel">
-                    <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal" id="btn_cancel">Não</button>
-                </div>
-                <div class="modal-btn-confirm">
-                    <button type="button" (click)="modalConfirm()" class="btn btn-primary btn-md btn-block" data-dismiss="modal" id="btn_confirm">Sim</button>
-                </div>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
+<app-modal> </app-modal>

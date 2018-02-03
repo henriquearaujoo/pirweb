@@ -27,6 +27,8 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
   @Input() selectedProfile: Profile = new Profile();
 
   editProfile: string;
+  @Input() canUpdate: boolean;
+  @Input() canCreate: boolean;
 
   constructor (
     pagerService: PageService,

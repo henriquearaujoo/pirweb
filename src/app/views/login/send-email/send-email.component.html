@@ -1,0 +1,26 @@
+<simple-notifications></simple-notifications>
+<div class="register-box" [ngStyle]="object">
+  <div class="register-logo">
+      <!-- <img class="img-logo" src="/assets/pir.png"> -->
+  </div>
+    
+  <div class="register-box-body">
+    <p class="login-box-msg">Recuperação de senha</p>
+
+    <form name="form" (ngSubmit)="f.form.valid && sendEmail()" #f="ngForm" novalidate>
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+        <label>Email de recuperação</label>
+        <input type ="email" [(ngModel)]="user.email" name="email" #email="ngModel" class="form-control" placeholder="Digite seu e-mail" required>
+        <div *ngIf="f.submitted && !email.valid" class="help-block"> Digite um e-mail válido</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+            <button type="submit" class="btn btn-primary btn-md btn-block" name="submit">Enviar</button>                
+        </div>
+        <!-- /.col -->
+      </div>
+    </form>
+  </div>
+  <!-- /.form-box -->
+</div>
+<!-- /.register-box -->

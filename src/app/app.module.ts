@@ -1,3 +1,4 @@
+import { FileService } from './services/file/file.service';
 // import { NgxSpinnerModule } from 'ngx-spinner';
 import { ReceptionService } from './services/reception/reception.service';
 import { InterventionService } from './services/intervention/intervention.service';
@@ -13,8 +14,8 @@ import {JasperoAlertsModule} from '@jaspero/ng2-alerts';
 import { NgxEditorModule } from 'ngx-editor';
 import { CKEditorModule } from 'ngx-ckeditor';
 import { QuillEditorModule } from 'ng2-quill-editor';
-// import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import {ToastyModule} from 'ng2-toasty';
+// import { NgProgressModule } from 'ngx-progressbar';
 
 import { CdkTableModule } from '@angular/cdk/table';
 import {
@@ -63,10 +64,14 @@ import { CreateUserService } from './services/user-create/create-user.service';
 import { ProfileService } from './services/profile/profile.service';
 import { RuleService } from './services/rule/rule.service';
 import { AccessPageService } from './services/page/page.service';
+import { CommunityService } from './services/community/community.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Permissions } from './helpers/permissions';
 
 import { routing } from './app.router';
 import { AuthGuard } from './guards/auth.guard';
 import { DeactivateGuard } from './guards/deactivate.guard';
+import { PageGuard } from './guards/page.guard';
 
 import { AppComponent } from './app.component';
 import { HeaderBarComponent } from './components/header-bar/header-bar.component';
@@ -84,7 +89,7 @@ import { LoginLayoutComponent } from './components/layout/login-layout.component
 import { AlertComponent } from './components/alert/alert.component';
 import { UserComponent } from './views/user/user.component';
 import { UserListComponent } from './views/user/user-list/user-list.component';
-import { ResetPasswordComponent } from './views/login/reset-password/reset-password.component';
+import { SendEmailComponent } from './views/login/send-email/send-email.component';
 import { ProfileComponent } from './views/profile/profile.component';
 import { ProfileListComponent } from './views/profile/profile-list/profile-list.component';
 import { RuleComponent } from './views/profile/rule/rule.component';
@@ -126,6 +131,21 @@ import { QuestionComponent } from './views/template-chapter/chapter/conclusion/q
 import { AnswerListComponent } from './views/template-chapter/chapter/conclusion/question/answer-list/answer-list.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { LoaderService } from './services/loader/loader.service';
+import { ModalComponent } from './components/modal/modal.component';
+import { ModalService } from './components/modal/modal.service';
+import { CommunityComponent } from './views/community/community.component';
+import { CommunityListComponent } from './views/community/community-list/community-list.component';
+import { Interceptor } from './helpers/interceptor';
+import { MultimediaComponent } from './views/template-chapter/chapter/multimedia/multimedia.component';
+import { MultimediaGalleryComponent } from './components/multimedia-gallery/multimedia-gallery.component';
+import { UploadMultimediaComponent } from './components/upload-multimedia/upload-multimedia.component';
+import { ResetPasswordComponent } from './views/login/reset-password/reset-password.component';
+import { EqualValidatorDirective } from './directives/equal-validator.directive';
+import { Ng2InputMaskModule } from 'ng2-input-mask';
+import { TextMaskModule } from 'angular2-text-mask';
+// import { EqualValidator } from './directives/equal-validator.directive';
+
+// import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
@@ -149,7 +169,7 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     AlertComponent,
     UserComponent,
     UserListComponent,
-    ResetPasswordComponent,
+    SendEmailComponent,
     ProfileComponent,
     ProfileListComponent,
     // UserPipe,
@@ -181,7 +201,15 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ConclusionComponent,
     InformationComponent,
     ModalWaitingAnswerComponent,
-    LoaderComponent
+    LoaderComponent,
+    ModalComponent,
+    CommunityComponent,
+    CommunityListComponent,
+    MultimediaComponent,
+    MultimediaGalleryComponent,
+    UploadMultimediaComponent,
+    ResetPasswordComponent,
+    EqualValidatorDirective
 
   ],
   imports: [
@@ -194,6 +222,7 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     MatButtonModule,
     MatButtonToggleModule,
     MatCardModule,
+    TextMaskModule,
     MatCheckboxModule,
     MatChipsModule,
     MatStepperModule,
@@ -233,11 +262,15 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     NgxEditorModule,
     CKEditorModule,
     QuillEditorModule,
-    // FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
-    ToastyModule.forRoot()
+    ToastyModule.forRoot(),
+    HttpClientModule
+    // Ng2InputMaskModule
+    // PdfViewerModule
+    // NgProgressModule
     // NgxSpinnerModule
   ],
   providers: [
+    { provide: XHRBackend, useClass: Interceptor },
     RestService,
     PageService,
     CostumerService,
@@ -257,7 +290,12 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     TemplateChapterItemComponent,
     ConclusionService,
     LoaderService,
-    DeactivateGuard
+    DeactivateGuard,
+    Permissions,
+    PageGuard,
+    ModalService,
+    CommunityService,
+    FileService
   ],
   bootstrap: [AppComponent]
 })

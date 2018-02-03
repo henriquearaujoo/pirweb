@@ -1,3 +1,5 @@
+import { LoaderService } from './../../../services/loader/loader.service';
+import { Permissions, RuleState } from './../../../helpers/permissions';
 import { Chapter } from './../../../models/chapter';
 import { Response } from '@angular/http';
 import { TemplateItem } from './../../../models/templateItem';
@@ -22,22 +24,38 @@ export class TemplateChapterItemComponent implements OnInit {
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
   private currentVersion: Chapter;
   private lastVersion: any;
+  private canRead: boolean;
+  private canUpdate: boolean;
+  private canCreate: boolean;
+  private canDelete: boolean;
 
   constructor(
     private router: Router,
     private chapterService: ChapterService,
-    private toastService: ToastService
-  ) { }
+    private toastService: ToastService,
+    private permissions: Permissions,
+    private loaderService: LoaderService
+  ) {
+    this.canCreate = false;
+    this.canUpdate = false;
+    this.canRead = false;
+    this.canDelete = false;
+   }
 
   ngOnInit() {
+    this.permissions.canActivate('/template-chapter');
+    this.permissions.permissionsState.subscribe(
+      (rules: RuleState) => {
+        this.canCreate = rules.canCreate;
+        this.canUpdate = rules.canUpdate;
+        this.canRead = rules.canRead;
+        this.canDelete = rules.canDelete;
+      }
+    );
+
     this.currentVersion = new Chapter();
     this.getVersions();
    }
-
-  //  public editChapter() {
-  //    this.chapterService.setChapter(this.chapter);
-  //     this.router.navigate(['chapter-edit']);
-  //  }
 
    public disableTemplate() {
     console.log(this.chapter.id);
@@ -47,6 +65,7 @@ export class TemplateChapterItemComponent implements OnInit {
    }
 
    getVersions() {
+    // this.loaderService.show();
     this.chapterService.getVersionFromChapter(this.chapter.number).subscribe(
       s => {
         this.paginate = s;
@@ -54,12 +73,13 @@ export class TemplateChapterItemComponent implements OnInit {
         for ( let i = 0 ; i < this.chapter.versions.length ; i ++) {
           if ( this.chapter.versions[i].status) {
             this.currentVersion = this.chapter.versions[i];
+            // this.loaderService.hide();
             break;
           }
           this.currentVersion = this.chapter.versions[i];
         }
         this.lastVersion = this.chapter.versions.length;
-        console.log(this.chapter.versions);
+        // console.log(this.chapter.versions);
       }
     );
    }
@@ -80,7 +100,8 @@ export class TemplateChapterItemComponent implements OnInit {
      }
    }
 
-   disableAbleVersion(chapter: Chapter) {
+   disableEnableVersion(chapter: Chapter) {
+    chapter.thumbnails = [];
     console.log('Chapter: ', chapter);
     if ( !chapter.status) {
       if (chapter.percentage === 100) {

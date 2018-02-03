@@ -71,7 +71,7 @@
                     </div>
                 </div>
                 <div class="col-md-2 col-md-offset-8">
-                    <div class="form-group save">
+                    <div class="form-group save" *ngIf="canCreate || canUpdate">
                         <button class="btn btn-primary btn-block" name="submit" id="btn_save">Salvar</button>
                     </div>
                 </div>

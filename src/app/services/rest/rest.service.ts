@@ -18,7 +18,7 @@ export class RestService {
   headers: Headers;
   options: RequestOptions;
 
-  constructor(private http: Http) {
+  constructor(public http: Http) {
     this.headers = new Headers({ 'Content-Type': 'application/json' });
     this.options = new RequestOptions({ headers: this.headers });
   }
@@ -139,4 +139,5 @@ export class RestService {
     }
     return this.options;
   }
+
 }

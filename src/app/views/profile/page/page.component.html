@@ -1,10 +1,10 @@
 <div class="content_">
         <div class="container-fluid">
-                <section class="content_">
-                  <div class="row">       
+            <section class="content_">
+                <div class="row">       
                     <div class="box box-solid">
                         <div class="box-header ">
-                          TIPO
+                            TIPO
                         </div>  
                         <div class="box-body profile">
                             <select class="form-control" (change)="setProfile()" name="profile" id="profile"
@@ -13,9 +13,9 @@
                                 <option *ngFor="let profile of profiles" [value]="profile.id">{{profile.title}} </option>
                             </select>     
                         </div>
-                      </div>   
-                  </div>
-                </section>
+                    </div>   
+                </div>
+            </section>
         </div>
 
         <section class="content_">          
@@ -23,23 +23,23 @@
                 <div class="col-sm-12">
                     <div class="box box-primary">
                         <div class="box-body_">
-                                <table class="table">
-                            <thead>
-                                <tr class="tr-main">
-                                    <th>SESSÕES 
-                                        <span class="glyphicon" ></span>
-                                    </th>                                   
-                                    <th colspan="4"> PERMISSÕES</th>
-                                </tr>
+                            <table class="table">
+                                <thead>
+                                    <tr class="tr-main">
+                                        <th>SESSÕES 
+                                            <span class="glyphicon" ></span>
+                                        </th>                                   
+                                        <th colspan="4"> PERMISSÕES</th>
+                                    </tr>
                                     <tr class="tr-permissions">
-                                    <th scope="col" class="page-route"></th>
-                                    <th scope="col">Visualizar</th>
-                                    <th scope="col">Criar</th>
-                                    <th scope="col">Editar</th>
-                                    <th scope="col">Desabilitar</th>
+                                        <th scope="col" class="page-route"></th>
+                                        <th scope="col">Visualizar</th>
+                                        <th scope="col">Criar</th>
+                                        <th scope="col">Editar</th>
+                                        <th scope="col">Desabilitar</th>
                                     </tr>
                                 </thead>
-                                <tbody *ngIf="permissionsFromProfile.length === 0">
+                                <tbody *ngIf="currentProfile.id === undefined">
                                     <tr  *ngFor="let item of all_pages">
                                         <th scope="row" class="page-route">{{item.route}}</th>
                                         <td>

@@ -1,3 +1,4 @@
+import { Permissions, RuleState } from './../../../../helpers/permissions';
 import { Question } from './../../../../models/question';
 import { error } from 'util';
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
@@ -33,6 +34,10 @@ export class ConclusionComponent implements OnInit {
   private answers: Answer[] = new Array();
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
   private index: number;
+  private canRead: boolean;
+  private canUpdate: boolean;
+  private canCreate: boolean;
+  private canDelete: boolean;
 
   public editorOptions = {
     modules: {
@@ -49,13 +54,27 @@ export class ConclusionComponent implements OnInit {
 
   constructor(
     private conclusionService: ConclusionService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private permissions: Permissions
   ) {
     this.size = 5;
     this.index = 0;
+    this.canCreate = false;
+    this.canUpdate = false;
+    this.canRead = false;
+    this.canDelete = false;
    }
 
   ngOnInit() {
+    this.permissions.canActivate('/chapter-dashboard');
+    this.permissions.permissionsState.subscribe(
+      (rules: RuleState) => {
+        this.canCreate = rules.canCreate;
+        this.canUpdate = rules.canUpdate;
+        this.canRead = rules.canRead;
+        this.canDelete = rules.canDelete;
+      }
+    );
     this.conclusion = new Conclusion();
     this.btn_cancel = false;
     this.btn_save = false;

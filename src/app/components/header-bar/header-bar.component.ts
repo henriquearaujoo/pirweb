@@ -1,5 +1,6 @@
 import { AuthenticationService } from './../../services/login/authentication.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Compiler } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header-bar',
@@ -8,8 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderBarComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    // private _compiler: Compiler,
+    private route: Router,
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
+  }
+
+  logout() {
+    this.authenticationService.logout();
+    // location.reload();
+    // this._compiler.clearCache();
   }
 }

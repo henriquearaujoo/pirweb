@@ -1,3 +1,4 @@
+import { LoaderService } from './../../../services/loader/loader.service';
 import { Rule } from './../../../models/rule';
 import { error } from 'util';
 import { ToastService } from './../../../services/toast-notification/toast.service';
@@ -58,7 +59,8 @@ export class PageComponent extends PagenateComponent implements OnInit {
     private accessPageService: AccessPageService,
     private ruleService: RuleService,
     private router: Router,
-    private toastService: ToastService) {
+    private toastService: ToastService,
+    private loaderService: LoaderService) {
       super(pagerService);
       this.permissionsFromProfile = new Array();
      }
@@ -68,7 +70,7 @@ export class PageComponent extends PagenateComponent implements OnInit {
     this.hasPermissions = false;
     this.currentProfile = this.accessPageService.getProfile();
     this.currentPage.id = '';
-    console.log('currentProfile', this.currentProfile);
+    console.log('currentProfile', this.currentProfile.id);
     if ( this.currentProfile.id === undefined) {
       // this.currentProfile.id = '';
       // this.loadAllPages();
@@ -108,6 +110,7 @@ export class PageComponent extends PagenateComponent implements OnInit {
   }
 
   loadAllPermissions() {
+    this.loaderService.show();
     this.accessPageService.getPermissionsFromProfile(this.accessPageService.getProfile().id).subscribe(
       s => {
         this.permissionsFromProfile = s;
@@ -116,9 +119,15 @@ export class PageComponent extends PagenateComponent implements OnInit {
         }else {
           this.hasPermissions = false;
         }
+        setTimeout( () => {
+          this.loaderService.hide();
+        }, 200);
         console.log('loadAllPermissions()', this.permissionsFromProfile);
       },
-      error => console.log(error)
+      error => {
+        console.log(error);
+        this.loaderService.hide();
+      }
     );
   }
 

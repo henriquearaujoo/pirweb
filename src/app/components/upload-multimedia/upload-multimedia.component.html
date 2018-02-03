@@ -1,0 +1,73 @@
+<simple-notifications></simple-notifications>
+<form name="form_multimedia" (ngSubmit)="fMultimedia.form.valid && upload()" #fMultimedia="ngForm" novalidate>
+  
+    <div class="row upload-multimedia">
+      <div class="col-md-6">
+        <div class="select-multimedia">
+          <div class="form-group" [ngClass]="applyCssError(fMultimedia, mediaType)">
+            <label class="control-label">Tipo de Midia:</label>
+            <div class="row">
+              <div class="col-md-8">           
+                <select class="dropdown" name="media_Type"  #mediaType="ngModel" [disabled]="isNewData"
+                  [(ngModel)]="_fileData.mediaType" (change)="clear()" required>       
+                  <option *ngFor="let item of type_file"
+                    [value]="item.type"> {{ item.name }} </option>
+                </select>   
+              </div> 
+            </div>
+            <app-control-field-error [showError]="verifyValidSubmitted(fMultimedia, mediaType)" msgError="Selecione o tipo de arquivo">
+            </app-control-field-error>   
+            </div>
+          </div>        
+      </div>
+      <div class="col-md-6 ">
+        <div class="info-select" *ngIf="selectedType !== ''">
+            Tamanho máximo do arquivo: {{ selectedType.size }} <br/>
+            Extensões permitidas: {{ selectedType.accept }} <br/>
+        </div>        
+      </div>
+    </div>
+    <div class="row">
+
+      <div class="col-md-12">
+        <div class="panel panel-default">
+            <!-- <div class="panel-heading"><strong>Upload files</strong> <small> </small></div> -->
+          <div class="panel-body">
+            
+            <div class="input-group image-preview">
+              <!-- <input placeholder="" type="text" class="form-control image-preview-filename" disabled="disabled"> -->
+              <div class="form-group">
+                <span class="input-group-btn">
+                  <div class="btn btn-default image-preview-input"> <span class="glyphicon glyphicon-folder-open"></span>
+                    <span class="image-preview-input-title">Selecione ou arraste e solte aqui</span>
+                    <!-- <input type="file"  name="input-file-preview" /> -->
+                    <input type="file" #fileInput name="input-file-preview" accept="{{ selectedType.accept }}" 
+                      multiple (change)="onChange()" id="files" size="3"
+                      [disabled]="(isNewData || (selectedType === ''))"/>
+                  </div>                
+                  <button type="submit" class="btn btn-labeled btn-default" [disabled]="(isNewData || (selectedType === ''))"> <span class="btn-label"><i class="glyphicon glyphicon-upload"></i> </span>Upload</button>
+                </span>
+              </div>
+            </div>
+            <br />
+            <div class="js-upload-finished">
+                <h4 *ngIf="hasFile">Arquivos</h4>
+                <div class="list-group text-center" [hidden]="hasFile">Nenhum arquivo selecionado até o momento</div>
+                <div class="list-group" [hidden]="!hasFile">
+                    <div class="col col-sm-12">
+                        <a *ngFor="let file of files; let i = index;" style="float:left; margin:2px;" title="test">
+                            <div class="btn btn-default btn-sm ">
+                                <i class="fa fa-times" aria-hidden="true" (click)="remove(i)"></i>
+                                <!-- <span class="badge pull-right" onclick="remove()" (click)="remove(i)"> x </span> -->
+                                <span>{{file.name}}</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>      
+  </div>
+    
+</form>  

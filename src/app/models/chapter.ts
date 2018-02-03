@@ -1,3 +1,4 @@
+import { FileData } from './FileData';
 export class Chapter {
     public id: string;
     public number: number;
@@ -13,5 +14,8 @@ export class Chapter {
     public time_next_visit: number;
     public status =  false;
     public percentage: number;
+    public medias: any[] = new Array();
     public versions: Chapter[] = new Array();
+    public thumbnails: any[] = new Array();
+
 }

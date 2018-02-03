@@ -7,15 +7,15 @@ export class User {
     public id: string;
     public name: string;
     public email: string;
-    public pfis: Person = new Person();
-    public pjur: Org = new Org();
+    public pfis: any;
+    public pjur: any;
     public profile: string;
     public password: string;
     public type: string;
     public status: boolean;
     public dt_register: string;
     public address: Address = new Address();
-    // public city_id: string;
+    public community_id: string;
 
     constructor() { }
 }

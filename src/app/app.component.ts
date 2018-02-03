@@ -17,7 +17,7 @@ export class AppComponent {
           if (event.url !== '/chapter-dashboard') {
             localStorage.setItem('chapterId', '');
           }
-          console.log(event);
+          // console.log(event);
         }
     });
   }

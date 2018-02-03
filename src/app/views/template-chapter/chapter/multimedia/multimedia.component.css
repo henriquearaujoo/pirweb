@@ -1,0 +1,109 @@
+.form-group, .form-control{
+    color: grey;
+}
+
+label.control-label {
+    padding-left: 10px;
+}
+
+.btn-primary {
+    /* width: 100px; */
+    background-color:#373d40;
+    border-color: #373d40;
+}
+
+.box {
+    background-color: #f4f4f4;
+    box-shadow: none;
+}
+
+.box.box-primary {
+    border-top: 0px;
+}
+
+.row.select_file {
+    padding-bottom: 40px;
+}
+
+input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+/******** Modal *********/
+
+.modal-footer {
+    padding: 0;
+    margin-top: 10px;
+    background-color: #302e2e;
+    text-align: center;
+    cursor: pointer;
+}
+
+.modal-content {
+    height: 200px;
+    width: 350px;
+    text-align: center;
+}
+
+.modal-body {
+    padding-top: 30px;
+    margin-top: 20px;
+    padding-bottom: 30px;
+    text-align: center;
+}
+
+.modal-icon {
+    text-align: center;
+}
+
+.modal-footer label {
+    height: 30px;
+    margin-top: 10px;
+    color: #cccccc;
+    text-align: center;
+    cursor: pointer;
+}
+
+button {
+    min-width: 120px;
+}
+
+button#btn_cancel {
+    width: 175px;
+    height: 45px;
+    border-radius: 0;
+}
+
+button#btn_confirm {
+    width: 175px;
+    height: 45px;
+    border-radius: 0;
+}
+
+.modal-btn-cancel {
+    float: right;
+}
+
+.modal-body {
+    padding-top: 30px;
+    margin-top: 20px;
+}
+
+.btn-primary {
+    background-color: #373d40;
+    border-color: #373d40;
+}
+
+/******** END MODAL ********/

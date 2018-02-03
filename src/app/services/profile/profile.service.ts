@@ -66,4 +66,8 @@ export class ProfileService extends RestService {
     const saveProfileUrl = this.apiurl.concat('profiles/');
     return this.put(saveProfileUrl, profile);
   }
+
+  public load(id: string) {
+    return this.get(this.apiurl + 'profiles/search?id=' + id);
+  }
 }

@@ -1,3 +1,5 @@
+import { LoaderService } from './../../../services/loader/loader.service';
+import { Permissions, RuleState } from './../../../helpers/permissions';
 import { ToastService } from './../../../services/toast-notification/toast.service';
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
@@ -44,8 +46,10 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
 
     private profileTabActive: boolean;
     private permissionTabActive: boolean;
-    // private currentTab: number;
-    // private cont: number;
+    private canRead: boolean;
+    private canUpdate: boolean;
+    private canCreate: boolean;
+    private canDelete: boolean;
 
     constructor(
       pagerService: PageService,
@@ -53,134 +57,157 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
       private ruleService: RuleService,
       private accessPageService: AccessPageService,
       private toastService: ToastService,
-      private router: Router) {
+      private router: Router,
+      private permissions: Permissions,
+      private loaderService: LoaderService) {
         super(pagerService);
         this.hasdata = false;
         this.edit = false;
         this.page = 0;
+        this.canCreate = false;
+        this.canUpdate = false;
+        this.canRead = false;
+        this.canDelete = false;
       }
 
-      ngOnInit() {
-        // this.currentTab = 0;
-        // this.cont = 0;
-        this.profileTab = '../../../assets/img/profile/ic_profile_enable.png';
-        this.permissionTab = '../../../assets/img/profile/ic_permission_disable.png';
-        this.profileTabActive = true;
-        this.permissionTabActive = false;
-        this.hasdata = false;
-        this.getProfile();
-      }
-
-      ngOnChanges() {
-      }
-
-      getProfile() {
-        if ( this.filter.title !== '') { this.page = 0; }
-        this.profileService.getProfile(this.filter.title, this.page).subscribe(
-          success => {
-            this.paginate = success;
-            this.profiles = this.paginate.content;
-            console.log('Paginate:', this.paginate);
-            this.hasdata = true;
-          },
-          error => this.hasdata = false
-        );
-      }
-
-      setPage(page: number) {
-        this.page = page;
-        console.log('Página:', this.page);
-        console.log('Paginate:', this.paginate);
-        console.log('Filtro:', this.filter.title);
-        this.getProfile();
-      }
-
-      setProfile(profile: Profile) {
-        this.selectedProfile = profile;
-        // localStorage.setItem('currentProfile', JSON.stringify(profile));
-        this.accessPageService.profileSelected(profile);
-        console.log(this.accessPageService.getProfile().title);
-      }
-
-      changeStatus(profile: Profile) {
-        this.profile = profile;
-      }
-
-      disableProfile() {
-        if (this.profile.status === true) {
-          this.profile.status = false;
-        } else {
-          this.profile.status = true;
+    ngOnInit() {
+      this.permissions.canActivate('/profile-list');
+      this.permissions.permissionsState.subscribe(
+        (rules: RuleState) => {
+          this.canCreate = rules.canCreate;
+          this.canUpdate = rules.canUpdate;
+          this.canRead = rules.canRead;
+          this.canDelete = rules.canDelete;
         }
-        console.log(this.profile.status);
+      );
+      this.profileTab = '../../../assets/img/profile/ic_profile_enable.png';
+      this.permissionTab = '../../../assets/img/profile/ic_permission_disable.png';
+      this.profileTabActive = true;
+      this.permissionTabActive = false;
+      this.hasdata = false;
+      this.getProfile();
+    }
 
-        this.profile.description = '';
-        this.profile.created_by = '';
-        this.profile.modified_by = '';
-        console.log('Disable:', this.profile);
-        this.profileService.disableProfile(this.profile).subscribe(
-          success => {
-            this.router.navigate(['profile-list']);
-            this.getProfile();
-            this.toastService.toastSuccess();
-          },
-          error => <any>error
-        );
+    ngOnChanges() {
+    }
+
+    getProfile() {
+      if ( this.filter.title !== '') { this.page = 0; }
+      this.loaderService.show();
+      this.profileService.getProfile(this.filter.title, this.page).subscribe(
+        success => {
+          this.paginate = success;
+          this.profiles = this.paginate.content;
+          console.log('Paginate:', this.paginate);
+          this.hasdata = true;
+          setTimeout(() => {
+            this.loaderService.hide();
+          }, 400);
+        },
+        error => {
+          this.hasdata = false;
+          this.loaderService.hide();
+        }
+      );
+    }
+
+    setPage(page: number) {
+      this.page = page;
+      console.log('Página:', this.page);
+      console.log('Paginate:', this.paginate);
+      console.log('Filtro:', this.filter.title);
+      this.getProfile();
+    }
+
+    setProfile(profile: Profile) {
+      this.selectedProfile = profile;
+      // localStorage.setItem('currentProfile', JSON.stringify(profile));
+      this.accessPageService.profileSelected(profile);
+      console.log(this.accessPageService.getProfile().title);
+    }
+
+    changeStatus(profile: Profile) {
+      this.profile = profile;
+    }
+
+    disableProfile() {
+      if (this.profile.status === true) {
+        this.profile.status = false;
+      } else {
+        this.profile.status = true;
       }
+      console.log(this.profile.status);
 
-      onInsertValue(evento: Profile) {
-        this.profiles.push(evento);
-        this.getProfile();
-        this.filter.title = '';
-        this.edit = false;
-        this.pageComponent.getProfile();
-      }
+      this.profile.description = '';
+      this.profile.created_by = '';
+      this.profile.modified_by = '';
+      console.log('Disable:', this.profile);
+      this.profileService.disableProfile(this.profile).subscribe(
+        success => {
+          this.router.navigate(['profile-list']);
+          this.getProfile();
+          this.toastService.toastSuccess();
+        },
+        error => {
+          console.log(error);
+          this.toastService.toastError();
+        }
+      );
+    }
 
-      onFilter(evento) {
-        this.filter.title = evento.title;
-      }
+    onInsertValue(evento: Profile) {
+      this.profiles.push(evento);
+      this.getProfile();
+      this.filter.title = '';
+      this.edit = false;
+      this.pageComponent.getProfile();
+    }
 
-      editProfile(profile: Profile) {
-        this.edit = true;
-        this.selectedProfile = profile;
-      }
+    onFilter(evento) {
+      this.filter.title = evento.title;
+    }
 
-      isActive(tab: boolean) {
+    editProfile(profile: Profile) {
+      this.edit = true;
+      this.selectedProfile = profile;
+    }
 
-      }
+    isActive(tab: boolean) {
 
-      walk ( tab: number) {
-        switch (tab) {
-          case 0: {
-            this.profileTab = '../../../assets/img/profile/ic_profile_enable.png';
-            this.permissionTab = '../../../assets/img/profile/ic_permission_disable.png';
-            this.profileTabActive = true;
-            this.permissionTabActive = false;
-            break;
-          }
-          case 1: {
-            if (this.accessPageService.getProfile().id !== undefined) {
-              this.pageComponent.getCurrentProfile();
-            }
-            this.profileTab = '../../../assets/img/profile/ic_profile_disable.png';
-            this.permissionTab = '../../../assets/img/profile/ic_permission_enable.png';
-            this.profileTabActive = false;
-            this.permissionTabActive = true;
+    }
+
+    walk ( tab: number) {
+      switch (tab) {
+        case 0: {
+          this.profileTab = '../../../assets/img/profile/ic_profile_enable.png';
+          this.permissionTab = '../../../assets/img/profile/ic_permission_disable.png';
+          this.profileTabActive = true;
+          this.permissionTabActive = false;
           break;
-          }
         }
-      }
-
-      walk_ ( tab: number, profile: Profile) {
-        this.selectedProfile = profile;
-        this.accessPageService.profileSelected(profile);
-
-        if (this.accessPageService.getProfile().id !== undefined) {
+        case 1: {
+          if (this.accessPageService.getProfile().id !== undefined) {
             this.pageComponent.getCurrentProfile();
+          }
+          this.profileTab = '../../../assets/img/profile/ic_profile_disable.png';
+          this.permissionTab = '../../../assets/img/profile/ic_permission_enable.png';
+          this.profileTabActive = false;
+          this.permissionTabActive = true;
+        break;
         }
-        this.profileTab = '../../../assets/img/profile/ic_profile_disable.png';
-        this.permissionTab = '../../../assets/img/profile/ic_permission_enable.png';
-        this.profileTabActive = false;
-        this.permissionTabActive = true;
       }
+    }
+
+    walk_ ( tab: number, profile: Profile) {
+      this.selectedProfile = profile;
+      this.accessPageService.profileSelected(profile);
+
+      if (this.accessPageService.getProfile().id !== undefined) {
+          this.pageComponent.getCurrentProfile();
+      }
+      this.profileTab = '../../../assets/img/profile/ic_profile_disable.png';
+      this.permissionTab = '../../../assets/img/profile/ic_permission_enable.png';
+      this.profileTabActive = false;
+      this.permissionTabActive = true;
+    }
 }

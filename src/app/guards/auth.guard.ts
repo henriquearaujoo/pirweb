@@ -1,3 +1,4 @@
+import { Permissions } from './../helpers/permissions';
 import { Router } from '@angular/router';
 import { AuthenticationService } from './../services/login/authentication.service';
 import { Observable } from 'rxjs/Observable';
@@ -9,6 +10,7 @@ export class AuthGuard implements CanActivate {
 
   constructor(
     private authenticationService: AuthenticationService,
+    private permissions: Permissions,
     private  router: Router
   ) { }
 
@@ -17,13 +19,14 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> | boolean {
 
-    if (localStorage.getItem('currentUser')) {
+    if (localStorage.getItem('tokenPir')) {
       // logged in so return true
+      this.permissions.getPermission();
       return true;
 
     }
-   // not logged in so redirect to login page with the return url
-   this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
-   return false;
+    // not logged in so redirect to login page with the return url
+    this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
+    return false;
   }
 }

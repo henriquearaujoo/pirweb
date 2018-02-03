@@ -1,3 +1,4 @@
+import { Community } from './../../models/community';
 import { ToastService } from './../../services/toast-notification/toast.service';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { Person } from './../../models/person';
@@ -12,7 +13,9 @@ import { UserService } from '../../services/user/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as $ from 'jquery';
 import { IFormCanDeActivate } from '../../guards/iform-candeactivate';
-
+import { ModalService } from '../../components/modal/modal.service';
+import { sha256, sha224 } from 'js-sha256';
+import { Permissions, RuleState } from '../../helpers/permissions';
 
 @Component({
   selector: 'app-user',
@@ -21,11 +24,14 @@ import { IFormCanDeActivate } from '../../guards/iform-candeactivate';
 })
 export class UserComponent implements OnInit {
 
+  private isOk = false;
   private user: User;
   private types: Types[] = [new Types('PFIS', 'Pessoa Fi­sica'), new Types('PJUR', 'Pessoa Jurídica')];
+  private communities: Community[] = new Array();
   private states = new Array();
   private cities = new Array();
   private profiles: Profile[] = new Array();
+  private profile: string;
   private org: Org;
   private person: Person;
   private first_name: string;
@@ -36,7 +42,9 @@ export class UserComponent implements OnInit {
   private error_list = new Array();
   private error_item = new Array<string>();
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
-
+  private maskCEP = [ /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/];
+  private maskCPF = [ /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/];
+  private maskRg = [ /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/];
   private accountTab: string;
   private personalTab: string;
   private adressTab: string;
@@ -50,26 +58,47 @@ export class UserComponent implements OnInit {
   private modalSave: string;
 
   private modalOpened: boolean;
-  private openModalButton: HTMLButtonElement;
-  private openModalCancel: HTMLButtonElement;
-
-  public  canChangePage = false;
+  // private openModalButton: HTMLButtonElement;
+  private type: any;
+  // private openModalCancel: HTMLButtonElement;
+  private show_community: boolean;
+  private canRead: boolean;
+  private canUpdate: boolean;
+  private canCreate: boolean;
+  private canDelete: boolean;
 
   constructor(
     private userService: UserService,
     private profileService: ProfileService,
     private router: Router,
     private route: ActivatedRoute,
-    private toastService: ToastService) {
+    private toastService: ToastService,
+    private modalService: ModalService,
+    private permissions: Permissions) {
       this.user = new User();
       this.org = new Org();
       this.person = new Person();
+      this.canCreate = false;
+      this.canUpdate = false;
+      this.canRead = false;
+      this.canDelete = false;
   }
 
   ngOnInit() {
+    this.permissions.canActivate('/user');
+    this.permissions.permissionsState.subscribe(
+      (rules: RuleState) => {
+        this.canCreate = rules.canCreate;
+        this.canUpdate = rules.canUpdate;
+        this.canRead = rules.canRead;
+        this.canDelete = rules.canDelete;
+        // this.loaderService.hide();
+      }
+    );
     this.loadStates();
     this.loadProfiles();
     this.show_pjur = false;
+    this.show_community = false;
     this.success = false;
     this.error_list = [];
     this.modalOpened = false;
@@ -85,48 +114,68 @@ export class UserComponent implements OnInit {
     this.cont = 0;
     this.modalSave = '#modal-default';
 
-    this.openModalButton = (<HTMLButtonElement>document.getElementById('openModalButton'));
-    this.openModalButton.style.display = 'none';
+    // this.openModalButton = (<HTMLButtonElement>document.getElementById('openModalButton'));
+    // this.openModalButton.style.display = 'none';
 
-    this.openModalCancel = (<HTMLButtonElement>document.getElementById('openModalCancel'));
-    this.openModalCancel.style.display = 'none';
+    // this.openModalCancel = (<HTMLButtonElement>document.getElementById('openModalCancel'));
+    // this.openModalCancel.style.display = 'none';
 
     (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
+
   }
 
   saveData() {
+
     this.modalOpened = false;
-    console.log('SAVE', this.user);
     this.verifyType();
-    console.log(this.user.profile);
-    this.user.name = this.first_name + ' ' + this.last_name;
-    this.user.address.city = Number(this.user.address.city);
-    console.log('Usuários:', this.user);
-    console.log('Cidades: ', this.cities);
+    // console.log(this.user.profile);
+    // this.user.name = this.first_name + ' ' + this.last_name;
+    // this.user.address.city = Number(this.user.address.city);
     this.success = true;
-    this.userService.createUser(this.user).subscribe(
-      success => {
-        this.openModalSuccess();
-        // this.router.navigate(['/user-list']);
-      },
-      error => {
-        this.error_list = error;
-        this.verifyError();
+    if (this.type === 'PJUR') {
+      console.log('SAVE ORG', this.org);
+      this.userService.createEntity(this.org).subscribe(
+        s_org => {
+          this.openModalSuccess();
+          // this.router.navigate(['/user-list']);
+        },
+        error => {
+          this.toastService.toastError();
+          this.error_list = error;
+          this.verifyError();
+        }
+      );
+    } else {
+      if (this.type === 'PFIS') {
+        console.log('SAVE PERSON', this.person);
+        this.userService.createPerson(this.person).subscribe(
+          s_person => {
+            this.openModalSuccess();
+            // this.router.navigate(['/user-list']);
+          },
+          error => {
+            this.error_list = error;
+            this.toastService.toastError();
+            this.verifyError();
+          }
+        );
       }
-    );
+    }
   }
 
   openModalSuccess() {
     if (!this.modalOpened) {
       this.modalOpened = true;
-      this.openModalButton.click();
+      // this.openModalButton.click();
+      this.modalService.modalSuccess('/user-list');
       return false;
     }
   }
 
   openModal() {
-    this.openModalCancel.click();
-    return false;
+    this.modalService.modalCancel('/user-list');
+    // this.openModalCancel.click();
+    // return false;
   }
 
   public loadProfiles() {
@@ -185,19 +234,63 @@ export class UserComponent implements OnInit {
     }
   }
 
+  selectProfile() {
+    this.profiles.forEach( elem => {
+      if (this.user !== undefined) {
+        if (elem.id === this.user.profile) {
+          this.profile = elem.title;
+        }
+      }
+    });
+    console.log('Select Profile:', this.profile);
+    switch (this.profile.toUpperCase()) {
+      case 'AGENTE':
+      {
+        this.show_community = true;
+        break;
+      }
+      default:
+      {
+        this.show_community = false;
+        break;
+      }
+    }
+  }
+
   verifyType() {
+    this.user.name = this.first_name + ' ' + this.last_name;
+    this.user.address.city = Number(this.user.address.city);
+
     switch (this.user.type) {
       case 'PFIS':
       {
-        this.user.pfis = this.person;
-        this.org = null;
+        // this.user.pfis = this.person;
+        this.person.address = this.user.address;
+        this.person.email = this.user.email;
+        this.person.login = this.user.login;
+        this.person.name = this.user.name;
+        this.person.password = sha256(this.user.password);
+        this.person.profile = this.user.profile;
+        this.person.status = this.user.status;
+        this.person.type = this.user.type;
+        this.type = 'PFIS';
+        // this.org = null;
         break;
       }
 
       case 'PJUR':
       {
-        this.user.pjur = this.org;
-        this.person = null;
+        this.org.address = this.user.address;
+        this.org.email = this.user.email;
+        this.org.login = this.user.login;
+        this.org.name = this.user.name;
+        this.org.password = sha256(this.user.password);
+        this.org.profile = this.user.profile;
+        this.org.status = this.user.status;
+        this.org.type = this.user.type;
+        this.type = 'PJUR';
+        // this.user.pjur = this.org;
+        // this.person = null;
         break;
       }
     }
@@ -328,6 +421,7 @@ export class UserComponent implements OnInit {
   }
 
   verifyValidSubmitted(form, field) {
+    this.isOk = form.submitted && !field.valid;
     return form.submitted && !field.valid;
   }
 
@@ -339,7 +433,6 @@ export class UserComponent implements OnInit {
   }
 
   backToList() {
-    this.canChangePage = true;
     this.router.navigate(['user-list']);
   }
 }

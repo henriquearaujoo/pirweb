@@ -1,0 +1,333 @@
+li { 
+    display:inline;
+}
+
+.nav-tabs-custom {
+    padding-right: 5px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0);
+}
+
+.nav-tabs-custom > .nav-tabs > li {
+    border-top: 3px solid transparent;
+}
+
+.nav-tabs-custom > .tab-content {
+    padding-top: 60px;
+}
+
+.thumbnails {     
+    border: 1px solid #ddd; /* Gray border */
+    border-radius: 4px;  /* Rounded border */
+    padding: 5px; /* Some padding */
+    margin:8px 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}   
+
+a.thumbnails-file.icon-pdf {
+    padding-top: 80px;
+    padding-bottom: 40px;
+    margin: 6px;
+}
+
+i.fa.fa-file-pdf-o {
+    font-size: 70px;
+    padding-top: 20%;
+    color: #a94442;
+    /* padding-left: 70px; */
+    /* padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 68px;
+    padding-right: 68px;
+    margin-bottom: 14px;
+    border: 1px solid gray;
+    box-shadow: #999 1px 1px 3px 1px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s; */
+}
+
+a.thumbnails-file.icon-pdf:hover {
+    filter: none; /* IE6-9 */
+    -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+    /* -webkit-filter: brightness(0.5); */
+    /* color: white; */
+   
+  }
+
+a.icon-pdf {
+    color: #b30606;
+}
+
+h4 {
+    border-bottom: 1.5px solid #ddd;
+    font-weight: bold;
+    color: #999;
+    padding-top: 20px;
+}
+
+.thumbnails:hover {
+    filter: none; /* IE6-9 */
+    -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+    -webkit-filter: brightness(0.5);
+   
+  }
+  .file-title {
+    margin-bottom: 40px;
+  }
+
+i.fa.fa-file-pdf-o {
+    font-size: 70px;
+}
+
+.video-modal {
+    width: 600px;
+}
+.modal-header {
+    border-bottom: 0;
+    padding-bottom: 34px;
+}
+
+/* navigate */
+.btn-back, .btn-forward{
+	position:absolute;
+	opacity:0.9;
+	background-color:black;
+	padding:10px;
+	top:190;
+	color:white;
+	/* text-weight:bold; */
+	cursor:pointer;
+}
+ 
+.btn-forward{
+	left:612;
+}
+
+.selected-img {
+    width: 598px;
+}
+
+a.delete-item {
+    position: absolute;
+    bottom: 92%;
+    left: 92%;
+    font-size: 18px;
+    color: #ddd;
+}
+
+a.delete-item.v {
+    bottom: 149px;
+}
+
+a.delete-item.f {
+    bottom: 97px;
+}
+
+a.delete-item:hover {
+    color: #a94442;
+    transform: scale(1.3);
+    cursor: pointer;
+}
+
+
+  /* GALLERY */
+
+  /* The Modal (background) */
+.modal {
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(58, 56, 56, 0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (Image) */
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 800px;
+}
+
+/* Caption of Modal Image (Image Text) - Same Width as the Image */
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+}
+
+/* Add Animation - Zoom in the Modal */
+.modal-content, #caption { 
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+    from {transform:scale(0)} 
+    to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+    .modal-content {
+        width: 100%;
+    }
+}
+
+/* CAPTIONS THUMBNAILS*/
+.list-tn {
+    position: relative;
+    padding-left: 1px;
+}
+span.caption {
+    position: absolute;
+    right: 11px;
+    top: 48px;
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    color: #f1f1f1;
+    width: 194px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    text-align: center;
+    padding-top: 5px;
+    cursor: pointer;
+}
+
+span.caption.f {
+    top: 22px;
+    width: 92%;
+    left: 8px;
+    padding: 6px;
+}
+
+.limit-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-bottom: 1.5px solid #ddd;
+    font-weight: bold;
+    color: #999;
+    padding-top: 20px;
+}
+
+
+/************* new style *************/
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f1f1f1;
+    padding: 20px;
+    font-family: Arial;
+}
+
+/* Center website */
+.main {
+    max-width: 1000px;
+    margin: auto;
+}
+
+h1 {
+    font-size: 50px;
+    word-break: break-all;
+}
+
+.row {
+    margin: 8px -16px;
+}
+
+/* Add padding BETWEEN each column (if you want) */
+.row,
+.row > .column {
+    padding-left: 8px;
+}
+
+/* Create three equal columns that floats next to each other */
+.column {
+    float: left;
+    /* width: 33.33%; */
+    /* display: none; Hide columns by default */
+}
+
+/* Clear floats after rows */ 
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Content */
+.content {
+    position: relative;
+    background-color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+/* The "show" class is added to the filtered elements */
+.show {
+    display: block;
+}
+
+/* Style the buttons */
+.btn {
+  border: none;
+  outline: none;
+  padding: 12px 16px;
+  background-color: white;
+  cursor: pointer;
+}
+
+/* Add a grey background color on mouse-over */
+.btn:hover {
+  background-color: #ddd;
+}
+
+/* Add a dark background color to the active button */
+.btn.active {
+  background-color: #666;
+   color: white;
+}
+
+._item {
+    width:191px; 
+    height:146px;
+    cursor: pointer;
+    text-align: center;
+}
+
+._item:hover {
+    filter: none; /* IE6-9 */
+    -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+    -webkit-filter: brightness(0.5);
+   
+  }

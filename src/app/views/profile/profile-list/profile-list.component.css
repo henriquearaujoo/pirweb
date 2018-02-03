@@ -62,6 +62,7 @@ thead {
 div.dataTables_filter {
     text-align: left;
     margin-left: 10px;
+    margin-top: 10px;
 }
 
 .box-body {

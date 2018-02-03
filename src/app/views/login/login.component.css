@@ -13,7 +13,6 @@ body .login-box{
 }
 
 .btn-primary{
-    height: 50px;
     background-color:#373d40;
     border-color:   #373d40;
 }
@@ -46,4 +45,10 @@ label{
 
 .login-logo img {
     height: 130px;
+}
+
+.pointer {cursor: pointer;}
+
+.checkbox.icheck {
+    padding-left: 20px;
 }

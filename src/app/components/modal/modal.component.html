@@ -1,0 +1,153 @@
+<button  style="display:none"class="btn btn-default" data-toggle="modal" data-target="#modal-cancel" 
+    id="openModalCancel">Cancelar</button>
+
+<button  style="display:none"class="btn btn-default" data-toggle="modal" data-target="#modal-success" 
+    id="openModalSuccess">Salvar</button>
+
+<button  style="display:none"class="btn btn-default" data-toggle="modal" data-target="#modal-SessionExpired" 
+    id="openModalSessionExpired">Sessão Expirada</button>
+
+<button  style="display:none"class="btn btn-default" data-toggle="modal" data-target="#modal-permission" 
+    id="openModalPermission">Permissão de Acesso</button>
+
+<button  style="display:none"class="btn btn-default" data-toggle="modal" data-target="#modal-delete" 
+    id="openModalRemove"> Remover</button>
+    
+<button  style="display:none"class="btn btn-default" data-toggle="modal" data-target="#modal-password" 
+    id="openModalPassword"> Reset Password</button>
+
+<!-- Modal Cancel -->
+<div class="modal fade" id="modal-cancel">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" [ngStyle]="object">
+            <div class="modal-body">
+                <div class="modal-icon">
+                    <i class="material-icons" style="font-size: 60px;">error_outline</i>
+                </div>
+                <h5> Deseja realmente <strong>CANCELAR</strong> ?</h5>
+            </div>
+            <div class="modal-footer" data-dismiss="modal">
+                <!-- <div class="row"> -->
+                <div class="modal-btn-cancel">
+                    <button type="button" (click)="closeModal()" class="btn btn-default btn-md btn-block" data-dismiss="modal" id="btn_cancel">Não</button>
+                </div>
+                <div class="modal-btn-confirm">
+                    <button type="button" (click)="modalConfirm()" class="btn btn-primary btn-md btn-block" data-dismiss="modal" id="btn_confirm">Sim</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Modal Add -->
+<div class="modal fade" id="modal-success" (click)='modalConfirm()'>
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" [ngStyle]="object">
+            <div class="modal-body">
+                <div class="modal-icon">
+                    <i class="material-icons" style="font-size: 60px;">done</i>
+                </div>
+                <h5> Cadastro realizado com Sucesso!</h5>
+            </div>
+            <div class="modal-footer" data-dismiss="modal" id="btn_confirm" (click)='modalConfirm()'>
+                <label>Fechar</label>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Modal Session Expired -->
+<div class="modal fade" id="modal-SessionExpired">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" [ngStyle]="object">
+            <div class="modal-body">
+                <div class="modal-icon">
+                    <i class="material-icons" style="font-size: 60px;">error_outline</i>
+                </div>
+                <h5> Sessão expirada!</h5>
+            </div>
+            <div class="modal-footer" data-dismiss="modal">
+                <div class="modal-footer" data-dismiss="modal" id="btn_confirm">
+                    <label>Fechar</label>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Modal Permission -->
+<div class="modal fade" id="modal-permission">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" [ngStyle]="object">
+            <div class="modal-body">
+                <div class="modal-icon">
+                    <i class="material-icons" style="font-size: 60px;">error_outline</i>
+                </div>
+                <h5> Você não tem permissão para executar essa tarefa!</h5>
+            </div>
+            <div class="modal-footer" data-dismiss="modal">
+                <div class="modal-footer" data-dismiss="modal" id="btn_confirm">
+                    <label>Fechar</label>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Modal Remove -->
+<div class="modal fade" id="modal-delete">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" [ngStyle]="object">
+            <div class="modal-body">
+                <div class="modal-icon">
+                    <i class="material-icons" style="font-size: 60px;">error_outline</i>
+                </div>
+                <h5> Deseja realmente <strong>EXCLUIR</strong> ?</h5>
+            </div>
+            <div class="modal-footer" data-dismiss="modal">
+                <!-- <div class="row"> -->
+                <div class="modal-btn-cancel">
+                    <button type="button" (click)="closeModal()" class="btn btn-default btn-md btn-block" data-dismiss="modal" id="btn_cancel">Não</button>
+                </div>
+                <div class="modal-btn-confirm">
+                    <button type="button" (click)="modalConfirmRemove()" class="btn btn-primary btn-md btn-block" data-dismiss="modal" id="btn_confirm">Sim</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Modal Reset Password -->
+<div class="modal fade" id="modal-password" (click)='modalConfirm()'>
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" [ngStyle]="object">
+            <div class="modal-body">
+                <div class="modal-icon">
+                    <i class="material-icons" style="font-size: 60px;">done</i>
+                </div>
+                <h5> Senha alterada com Sucesso!</h5>
+            </div>
+            <div class="modal-footer" data-dismiss="modal" id="btn_confirm" (click)='modalConfirm()'>
+                <label>Fechar</label>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
