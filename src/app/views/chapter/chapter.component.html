@@ -1,0 +1,6 @@
+<div class="example-container">
+    <mat-card class="card_add" (click)="createNewChapter()"></mat-card>
+    <div *ngFor="let c of mChapter">
+        <app-template-item [templateItem]="c"></app-template-item>
+    </div>
+</div>
