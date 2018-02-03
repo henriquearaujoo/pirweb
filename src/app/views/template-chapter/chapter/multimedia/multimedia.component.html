@@ -13,8 +13,8 @@
                             </div>
                           </div>
                           <div class="row">
-                            <div class="col">
-                                <app-multimedia-gallery [datasource]="multimedias" (remove)="removeMultimedia($event)" *ngIf="canReload"></app-multimedia-gallery>
+                            <div class="col" *ngIf="hasData">
+                                <app-multimedia-gallery #gallery [datasource]="multimedias" (remove)="removeMultimedia($event)"></app-multimedia-gallery>
                             </div>
                           </div>
                         </div>

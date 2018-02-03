@@ -24,7 +24,7 @@
             <div class="col-sm-12">
               <div id="_filter" class="dataTables_filter">
                 <label>
-                <input type="text" class="form-control form-border " name="name" id="filter" (keyup)="getUsers()" [(ngModel)]="filter.name" placeholder="Filtro">
+                <input type="text" class="form-control form-border " name="name" id="filter"  [pattern]="pattern" maxlength="15" (keyup)="getUsers()" [(ngModel)]="filter.name" placeholder="Filtro">
                 </label>
               </div>
             </div>

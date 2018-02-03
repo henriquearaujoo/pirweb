@@ -27,67 +27,19 @@ export class Interceptor extends XHRBackend {
     // tslint:disable-next-line:prefer-const
     let token = localStorage.getItem('tokenPir');
     request.headers.set('Authorization', `PIRFAS=${token}`);
-    // this.loaderService.show();
-    // tslint:disable-next-line:prefer-const
-    let xhrConnection = super.createConnection(request);
+    // request.headers.set('Content-Type', 'application/json');
+    const xhrConnection = super.createConnection(request);
     xhrConnection.response = xhrConnection.response.catch((error: Response) => {
-        console.log('ERROR', error);
-        if (error.status === 401 || error.status === 403) {
-          // this.loaderService.hide();
-          console.log('acesso não autorizado');
-          this.toastService.toastMsgError('Atenção', 'Sessão expirada!');
-          localStorage.removeItem('tokenPir');
-          localStorage.removeItem('profileId_rules');
-          localStorage.removeItem('currentUserPir');
-          this.router.navigate(['/login']);
-        } else {
-          if (error.status === 0) {
-            // this.loaderService.hide();
-            this.toastService.toastMsgError('Erro', 'Sem conexão com o servidor!');
-            localStorage.removeItem('tokenPir');
-            localStorage.removeItem('profileId_rules');
-            localStorage.removeItem('currentUserPir');
-            this.router.navigate(['/login']);
-          }
-        }
-        // switch (error.status) {
-        //   case 401:
-        //     console.log('acesso não autorizado');
-        //     // this.modalService.modalSessionExpired();
-        //     this.toastService.toastMsgError('Atenção', 'Sessão expirada!');
-        //     localStorage.removeItem('tokenPir');
-        //     localStorage.removeItem('profileId_rules');
-        //     localStorage.removeItem('currentUserPir');
-        //     this.router.navigate(['/login']);
-        //     location.reload();
-        //     break;
-        //   case 403:
-        //     console.log('acesso não autorizado');
-        //     // this.modalService.modalSessionExpired();
-        //     this.toastService.toastMsgError('Atenção', 'Sessão expirada!');
-        //     localStorage.removeItem('tokenPir');
-        //     localStorage.removeItem('profileId_rules');
-        //     localStorage.removeItem('currentUserPir');
-        //     // alert('test');
-        //     this.router.navigate(['/login']);
-        //     location.reload();
-        //     break;
-        //   case 0:
-        //     this.toastService.toastMsgError('Error', 'Sem conexão com o servidor!');
-        //     localStorage.removeItem('tokenPir');
-        //     localStorage.removeItem('profileId_rules');
-        //     localStorage.removeItem('currentUserPir');
-        //     this.router.navigate(['/login']);
-        //     // location.reload();
-        //     break;
-        //   default:
-        //     this.router.navigate(['/login']);
-        //     break;
-        // }
-
-      return Observable.throw(error);
+        localStorage.removeItem('tokenPir');
+        localStorage.removeItem('profileId_rules');
+        localStorage.removeItem('currentUserPir');
+        // this.toastService.toastMsgError('Erro', 'Sessão expirada!');
+        alert('Sessão expirada!');
+        setTimeout(() => {
+          window.location.href = window.location.href + '?' + new Date().getMilliseconds();
+        }, 500);
+        return Observable.throw(error);
     });
-    // this.loaderService.hide();
     return xhrConnection;
   }
 // tslint:disable-next-line:eofline

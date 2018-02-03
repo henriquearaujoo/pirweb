@@ -1,3 +1,4 @@
+import { MultimediaGalleryComponent } from './../../../../components/multimedia-gallery/multimedia-gallery.component';
 import { ModalService } from './../../../../components/modal/modal.service';
 import { Permissions, RuleState } from './../../../../helpers/permissions';
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
@@ -21,7 +22,7 @@ export class MultimediaComponent implements OnInit {
   private canUpdate: boolean;
   private canCreate: boolean;
   private canDelete: boolean;
-
+  private hasData = false;
   private images: any;
   private multimedias: any[];
   private medias: any;
@@ -34,6 +35,8 @@ export class MultimediaComponent implements OnInit {
   private item_remove: any;
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
   private canReload: boolean;
+  @ViewChild('gallery')
+  gallery: MultimediaGalleryComponent;
 
   media: any = {};
   thumbnail: any = {};
@@ -109,9 +112,12 @@ export class MultimediaComponent implements OnInit {
     this.chapterService.load(chapter).subscribe(
       success => {
         this.chapter = success;
-        this.reload();
+        // this.reload();
         this.isNewData = false;
-        // this.multimedias = this.chapter.medias;
+        this.multimedias = this.chapter.medias;
+        this.hasData = true;
+        this.gallery.datasource = this.chapter.medias;
+        this.gallery.reload();
         // console.log('MULTIMEDIAs:', this.multimedias);
         //  for (let i = 0; i < this.multimedias.length; i++) {
         //     this.multimedias[i].path = Constant.BASE_URL + 'file/download/' + this.multimedias[i].id;
@@ -133,7 +139,7 @@ export class MultimediaComponent implements OnInit {
     console.log('isNewData', this.isNewData);
     // if (this.media && this.media.id) {
       if (!this.isNewData) {
-        this.media.path = Constant.BASE_URL + 'filetest/download/' + this.media.id;
+        // this.media.path = Constant.BASE_URL + 'filetest/download/' + this.media.id;
         for (let i = 0; i < this.media.length; i++) {
           this.chapter.medias.push(this.media[i]);
         }
@@ -143,9 +149,10 @@ export class MultimediaComponent implements OnInit {
           s => {
             this.toastService.toastSuccess();
             this.chapter = s;
+            this.multimedias = this.chapter.medias;
             console.log('UPDATE CHAPTER:', this.chapter);
-            this.canReload = false;
-            this.reload();
+            // this.canReload = false;
+            // this.gallery.reload();
           },
           e => {
             console.log(e);
@@ -156,16 +163,15 @@ export class MultimediaComponent implements OnInit {
     // }
   }
 
-  reload() {
-    this.multimedias = this.chapter.medias;
-    console.log('Multimedias:', this.multimedias);
-    for (let i = 0; i < this.multimedias.length; i++) {
-      this.multimedias[i].path = Constant.BASE_URL + 'filetest/download/' + this.multimedias[i].id;
-      if ( i === (this.multimedias.length - 1 )) {
-        this.canReload = true;
-      }
-     }
-  }
+  // reload() {
+  //   this.multimedias = this.chapter.medias;
+  //   for (let i = 0; i < this.multimedias.length; i++) {
+  //     this.multimedias[i].path = Constant.BASE_URL + 'filetest/download/' + this.multimedias[i].id;
+  //     if ( i === (this.multimedias.length - 1 )) {
+  //       this.canReload = true;
+  //     }
+  //    }
+  // }
 
   removeMultimedia(item: any) {
     this.item_remove = item;

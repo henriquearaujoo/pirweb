@@ -11,7 +11,7 @@
         <div class="content-header ">
             <h5 class="content-title">CADASTRO DE USUÁRIO</h5>
         </div>
-        <form name="form" (ngSubmit)="f.form.valid && saveData()" #f="ngForm" novalidate>
+        <form name="form" (ngSubmit)=" saveData()" #f="ngForm" novalidate>
             <!-- Custom Tabs -->
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
@@ -112,7 +112,7 @@
                                                     <div class="col-sm-12">
                                                             <div class="form-group" [ngClass]="applyCssError(f, password)">
                                                                     <label class="control-label">Senha</label>
-                                                                    <input type="password" [(ngModel)]="user.password" #password="ngModel" name="password" id="user_password" class="form-control" required minlength="8" placeholder="Inserir uma senha">
+                                                                    <input type="password" [(ngModel)]="user.password" #password="ngModel" name="password" id="user_password" class="form-control" required minlength="8" placeholder="Inserir uma senha (Digite uma senha. Mínimo 8 caracteres)">
                                                                     <app-control-field-error [showError]="verifyValidSubmitted(f, password)" msgError="Digite uma senha. Mínimo 8 caracteres">
                                                                     </app-control-field-error>
                                                             </div>
@@ -171,7 +171,7 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group left" [ngClass]="applyCssError(f, rg)" *ngIf="!show_pjur">
                                                             <label class="control-label">RG</label>
-                                                            <input type="text" [(ngModel)]="person.rg" #rg="ngModel" name="rg" id="user_rg" class="form-control" placeholder="Inserir RG ..." required>
+                                                            <input type="text" [(ngModel)]="person.rg" #rg="ngModel" name="rg" id="user_rg" class="form-control" [textMask]="{mask: maskRg}" placeholder="Inserir RG ..." required>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f, rg)" msgError="RG">
                                                             </app-control-field-error>
                                                         </div>
@@ -190,7 +190,7 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group" [ngClass]="applyCssError(f, cpf)" *ngIf="!show_pjur">
                                                             <label class="control-label">CPF</label>
-                                                            <input type="text" [(ngModel)]="person.cpf" #cpf="ngModel" name="cpf" pattern="[0-9]{11}" id="user_cpf" minlength="11" maxlength="11" class="form-control" placeholder="CPF" required>
+                                                            <input type="text" [(ngModel)]="person.cpf" [textMask]="{mask: maskCPF}"  #cpf="ngModel" name="cpf"  id="user_cpf" class="form-control" placeholder="CPF" required>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f, cpf)" msgError="CPF Inválido">
                                                             </app-control-field-error>
                                                         </div>
@@ -209,7 +209,7 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group" [ngClass]="applyCssError(f, cnpj)" *ngIf="show_pjur">
                                                             <label class="control-label">CNPJ</label>
-                                                            <input type="text" [(ngModel)]="org.cnpj" #cnpj="ngModel" name="cnpj" pattern="[0-9]{14}" id="user_cnpj" minlength="14" maxlength="14" class="form-control" placeholder="CNPJ" required>
+                                                            <input type="number" [(ngModel)]="org.cnpj" #cnpj="ngModel" name="cnpj" pattern="[0-9]{14}" id="user_cnpj" minlength="14" maxlength="14" class="form-control" placeholder="CNPJ" required>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f, cnpj)" msgError="CNPJ Inválido">
                                                             </app-control-field-error>
                                                         </div>
@@ -293,7 +293,7 @@
                                                         <div class="col-sm-6">
                                                             <div class="form-group left" [ngClass]="applyCssError(f, cep)">
                                                                 <label class="control-label">CEP</label>
-                                                                <input type="text" #cep="ngModel" [(ngModel)]="user.address.postalcode" name="cep" id="user_cep" class="form-control" placeholder="CEP" required>
+                                                                <input type="text" #cep="ngModel" [textMask]="{mask: maskCEP}" [(ngModel)]="user.address.postalcode" name="cep" id="user_cep" class="form-control" placeholder="CEP" required>
                                                                 <app-control-field-error [showError]="verifyValidSubmitted(f, cep)" msgError="Digite um CEP">
                                                                 </app-control-field-error>
                                                             </div>

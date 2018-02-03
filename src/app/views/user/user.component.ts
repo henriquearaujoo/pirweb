@@ -24,6 +24,7 @@ import { Permissions, RuleState } from '../../helpers/permissions';
 })
 export class UserComponent implements OnInit {
 
+  private isOk = false;
   private user: User;
   private types: Types[] = [new Types('PFIS', 'Pessoa Fi­sica'), new Types('PJUR', 'Pessoa Jurídica')];
   private communities: Community[] = new Array();
@@ -41,7 +42,9 @@ export class UserComponent implements OnInit {
   private error_list = new Array();
   private error_item = new Array<string>();
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
-
+  private maskCEP = [ /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/];
+  private maskCPF = [ /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/];
+  private maskRg = [ /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/];
   private accountTab: string;
   private personalTab: string;
   private adressTab: string;
@@ -122,6 +125,7 @@ export class UserComponent implements OnInit {
   }
 
   saveData() {
+
     this.modalOpened = false;
     this.verifyType();
     // console.log(this.user.profile);
@@ -136,6 +140,7 @@ export class UserComponent implements OnInit {
           // this.router.navigate(['/user-list']);
         },
         error => {
+          this.toastService.toastError();
           this.error_list = error;
           this.verifyError();
         }
@@ -150,6 +155,7 @@ export class UserComponent implements OnInit {
           },
           error => {
             this.error_list = error;
+            this.toastService.toastError();
             this.verifyError();
           }
         );
@@ -415,6 +421,7 @@ export class UserComponent implements OnInit {
   }
 
   verifyValidSubmitted(form, field) {
+    this.isOk = form.submitted && !field.valid;
     return form.submitted && !field.valid;
   }
 

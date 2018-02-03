@@ -66,7 +66,7 @@ export class UploadMultimediaComponent implements OnInit {
       {
         'name': 'PDF',
         'type': 'FILE',
-        'size': 20318,
+        'size': 5047944,
         'accept': 'application/pdf'
         }
     ];

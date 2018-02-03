@@ -28,7 +28,6 @@ export class UserListComponent implements OnInit, OnDestroy {
   private profile: Profile = new Profile();
   private profiles: Profile[] = new Array();
   hasdata: boolean;
-
   private user: User = new User();
   private paginate: Paginate = new Paginate();
   @Output() page: number;
@@ -38,6 +37,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   private canUpdate: boolean;
   private canCreate: boolean;
   private canDelete: boolean;
+  private pattern = '[a-zA-Z]+';
 
   constructor(
     private pagerService: PageService,

@@ -35,33 +35,22 @@ export class MultimediaGalleryComponent implements OnInit {
      }
 
   ngOnInit() {
-    // if (this.datasource) {
-    //   console.log('Datasource:', this.datasource);
-    //   for (let i = 0; i < this.datasource.length; i++) {
-    //     if (this.datasource[i].type === 'PICTURE2D') {
-    //       this.images = this.datasource[i];
-    //       continue;
-    //     }
-    //     if (this.datasource[i].type === 'VIDEO2D') {
-    //       this.videos = this.datasource[i];
-    //       continue;
-    //     }
-    //     if (this.datasource[i].type === 'FILE') {
-    //       this.files = this.datasource[i];
-    //     }
-    //   }
-    //   this.allItems = this.datasource;
-    //   this.setPage(1);
-    // }
-    // if ( this.images.length > 0) {
-    //   this.setPageImages(1);
-    // }
+    if (this.datasource) {
+      console.log('Datasource:', this.datasource);
+      this.reload();
+    }
   }
 
   setSelectedItem(item: any) {
     this.selectedItem = item;
     console.log('selectedItem', this.selectedItem);
  }
+
+ reload() {
+  for (let i = 0; i < this.datasource.length; i++) {
+    this.datasource[i].path = Constant.BASE_URL + 'file/download/' + this.datasource[i].id;
+   }
+  }
 
  removeMultimedia(item: any) {
   this.remove.emit(item);
