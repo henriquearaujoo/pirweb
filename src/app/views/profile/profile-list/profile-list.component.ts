@@ -1,3 +1,4 @@
+import { PaginateComponent } from './../../../components/paginate/paginate.component';
 import { LoaderService } from './../../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../../helpers/permissions';
 import { ToastService } from './../../../services/toast-notification/toast.service';
@@ -50,6 +51,8 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
     private canUpdate: boolean;
     private canCreate: boolean;
     private canDelete: boolean;
+    @ViewChild('paginate') _paginate: PaginateComponent;
+    private index: number;
 
     constructor(
       pagerService: PageService,
@@ -68,6 +71,7 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
         this.canUpdate = false;
         this.canRead = false;
         this.canDelete = false;
+        this.index = 1;
       }
 
     ngOnInit() {
@@ -98,6 +102,10 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
         success => {
           this.paginate = success;
           this.profiles = this.paginate.content;
+          this.index = 1;
+          this.profiles.forEach( el => {
+            el.number = this.index ++;
+          });
           console.log('Paginate:', this.paginate);
           this.hasdata = true;
           setTimeout(() => {

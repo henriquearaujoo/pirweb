@@ -78,7 +78,7 @@
                                                     </thead>
                                                     <tbody>
                                                       <tr *ngFor="let item of profiles; let i = index">
-                                                        <td> {{ i + 1 }}</td>
+                                                        <td> {{ item.number }}</td>
                                                         <td>  
                                                             {{ item.title }} 
                                                         </td>            
@@ -168,8 +168,8 @@
           <div class="modal-icon">
               <i class="material-icons" style="font-size: 60px;">error_outline</i>
           </div>          
-            <h5  *ngIf="profile.status"> Deseja realmente desativar o perfil <strong> {{ profile.title | uppercase}} </strong> ?</h5>
-            <h5  *ngIf="!profile.status"> Deseja realmente ativar o perfil <strong> {{ profile.title | uppercase}} </strong> ?</h5>
+            <h5  *ngIf="profile.status"> Deseja realmente desativar o perfil <strong> <p class="limit-text">{{ profile.title | uppercase}} </p> </strong> ?</h5>
+            <h5  *ngIf="!profile.status"> Deseja realmente ativar o perfil <strong class="limit-text"> <p class="limit-text"> {{ profile.title | uppercase}} </p> </strong> ?</h5>
         </div>
         <div class="modal-footer_">
             <div class="modal-btn-cancel">

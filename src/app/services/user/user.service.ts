@@ -47,12 +47,12 @@ export class UserService extends RestService {
     return this.put(saveUserUrl, user);
   }
 
-  public saveEditPerson(person: Person): Observable<Person> {
+  public saveEditPerson(person: Person) {
     const saveUserUrl = this.apiurl.concat('users/person/');
     return this.put(saveUserUrl, person);
   }
 
-  public saveEditEntity(org: Org): Observable<Org> {
+  public saveEditEntity(org: Org) {
     const saveUserUrl = this.apiurl.concat('users/entity/');
     return this.put(saveUserUrl, org);
   }

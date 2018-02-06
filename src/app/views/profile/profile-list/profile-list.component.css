@@ -284,3 +284,13 @@ td  {
 tbody {
     background-color: white;
 }
+
+.limit-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.modal-body {
+    padding: 0px;
+}

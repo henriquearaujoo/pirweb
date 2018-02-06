@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { ModalService } from '../components/modal/modal.service';
+import swal from 'sweetalert';
 @Injectable()
 export class Interceptor extends XHRBackend {
 
@@ -35,9 +36,16 @@ export class Interceptor extends XHRBackend {
         localStorage.removeItem('currentUserPir');
         // this.toastService.toastMsgError('Erro', 'Sessão expirada!');
         alert('Sessão expirada!');
-        setTimeout(() => {
-          window.location.href = window.location.href + '?' + new Date().getMilliseconds();
-        }, 500);
+        // swal('Sessão expirada!');
+        // swal({
+        //   title: 'Atenção',
+        //   text: 'Sessão expirada!',
+        //   icon: 'warning',
+        //   timer: 3000
+        // });
+        // setTimeout(() => {
+        //   window.location.href = window.location.href + '?' + new Date().getMilliseconds();
+        // }, 1000);
         return Observable.throw(error);
     });
     return xhrConnection;

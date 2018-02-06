@@ -1,5 +1,5 @@
 import { ToastService } from './../../services/toast-notification/toast.service';
-import {Component, OnInit, OnChanges, EventEmitter, Output, Input} from '@angular/core';
+import { Component, OnInit, OnChanges, EventEmitter, Output, Input, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { ProfileService } from '../../services/profile/profile.service';
@@ -42,7 +42,7 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
 
     ngOnInit() { }
 
-    ngOnChanges() {
+    ngOnChanges(changes: SimpleChanges) {
       this.hasdata = false;
       this.editProfile = this.selectedProfile.title;
     }

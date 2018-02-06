@@ -54,20 +54,26 @@ export class UploadMultimediaComponent implements OnInit {
       {
         'name': 'Imagem',
         'type': 'IMAGE',
-        'size': 5047944,
-        'accept': 'image/png, image/jpeg'
+        'size': 1e+7,
+        'accept': 'image/png, image/jpeg',
+        'types': 'PNG e JPEG',
+        'size_show': '10MB'
       },
       {
         'name': 'Vídeo',
         'type': 'VIDEO',
-        'size': 3e+7,
-        'accept': 'video/mp4'
+        'size': 5e+7,
+        'accept': 'video/mp4',
+        'types': 'MP4',
+        'size_show': '50MB'
         },
       {
         'name': 'PDF',
         'type': 'FILE',
-        'size': 5047944,
-        'accept': 'application/pdf'
+        'size': 1e+7,
+        'accept': 'application/pdf',
+        'types': 'PDF',
+        'size_show': '10MB'
         }
     ];
 

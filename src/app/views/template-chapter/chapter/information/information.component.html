@@ -7,24 +7,24 @@
                         <div class="box-body">
                             <div class="form-group" [ngClass]="applyCssError(f, title)">
                                 <label class="control-label">Título</label>
-                                <input type="text" id="chapter_title" name="chapter_title" #title="ngModel" [(ngModel)]="chapter.title" value="{{chapter.title}}" class="form-control" placeholder="Inserir Título..." required>
+                                <input type="text" id="chapter_title" name="chapter_title" #title="ngModel" maxlength="100" [(ngModel)]="chapter.title" value="{{chapter.title}}" class="form-control" placeholder="Inserir Título..." required>
                                 <app-control-field-error [showError]="verifyValidSubmitted(f, title)" msgError="Digite um título">
                                 </app-control-field-error>
                             </div>
                             <div class="form-group" [ngClass]="applyCssError(f, subtitle)">
                                 <label class="control-label">Subtítulo</label>
-                                <input type="text" id="chapter_subtitle" name="chapter_subtitle" #subtitle="ngModel" class="form-control" [(ngModel)]="chapter.subtitle" value="{{chapter.subtitle}}" placeholder="Inserir Subtítulo..." required>
+                                <input type="text" id="chapter_subtitle" name="chapter_subtitle" #subtitle="ngModel" maxlength="100" class="form-control" [(ngModel)]="chapter.subtitle" value="{{chapter.subtitle}}" placeholder="Inserir Subtítulo..." required>
                                 <app-control-field-error [showError]="verifyValidSubmitted(f, subtitle)" msgError="Digite um título"></app-control-field-error>
                             </div>
 
                             <div class="form-group" *ngIf="isNewData">
                                 <label class="control-label">Versão</label>
-                                <input type="text" readonly id="chapter_version" name="chapter_version" [(ngModel)]="lastVersion" value="lastVersion" class="form-control">
+                                <input type="text" readonly id="chapter_version" name="chapter_version" maxlength="100" [(ngModel)]="lastVersion" value="lastVersion" class="form-control">
                             </div>
 
                             <div class="form-group" *ngIf="!isNewData">
                                 <label class="control-label">Versão</label>
-                                <input type="text" readonly id="chapter_version" name="chapter_version" [(ngModel)]="chapter.version" value="chapter.version" class="form-control">
+                                <input type="text" readonly id="chapter_version" name="chapter_version" maxlength="100" [(ngModel)]="chapter.version" value="chapter.version" class="form-control">
                             </div>
 
                             <div class="form-group" [ngClass]="applyCssError(f, description)">
@@ -53,14 +53,14 @@
                         <div class="box-body">
                             <div class="form-group" [ngClass]="applyCssError(f, resource)">
                                 <label class="control-label">Recursos da Visita</label>
-                                <input type="text" id="chapter_resource" name="chapter_resource" #resource="ngModel" [(ngModel)]="chapter.resources" value="{{chapter.resources}}" class="form-control" placeholder="Inserir Recursos da Visita..." required>
+                                <input type="text" id="chapter_resource" name="chapter_resource" maxlength="100" #resource="ngModel" [(ngModel)]="chapter.resources" value="{{chapter.resources}}" class="form-control" placeholder="Inserir Recursos da Visita..." required>
                                 <app-control-field-error [showError]="verifyValidSubmitted(f, resource)" msgError="Digite os recursos da visita">
                                 </app-control-field-error>
                             </div>
 
                             <div class="form-group" [ngClass]="applyCssError(f, time)">
                                 <label class="control-label">Estimativa de Tempo (em minutos)</label>
-                                <input type="number" min="1" id="chapter_estimated_time" name="chapter_estimated_time" #time="ngModel" [(ngModel)]="chapter.estimated_time" value="chapter.estimated_time" class="form-control" placeholder="Inserir Estimativa de Tempo..." required>
+                                <input type="number" min="1" id="chapter_estimated_time" name="chapter_estimated_time" maxlength="50" #time="ngModel" [(ngModel)]="chapter.estimated_time" value="chapter.estimated_time" class="form-control" placeholder="Inserir Estimativa de Tempo..." required>
                                 <app-control-field-error [showError]="verifyValidSubmitted(f, time)" msgError="Digite uma Estimativa de Tempo (minutos)">
                                 </app-control-field-error>
                             </div>

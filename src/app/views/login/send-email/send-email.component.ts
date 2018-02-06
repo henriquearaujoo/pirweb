@@ -30,7 +30,7 @@ export class SendEmailComponent implements OnInit {
       },
       error => {
         console.log(error);
-        if ( error === 'login.email.notfound' ) {
+        if ( error[0] === 'email.invalid' ) {
           this.toastService.toastMsgError('Atenção', 'E-mail não encontrado!');
         }
       }

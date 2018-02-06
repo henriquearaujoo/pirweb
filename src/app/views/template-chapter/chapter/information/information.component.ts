@@ -39,7 +39,8 @@ export class InformationComponent implements OnInit {
       ]
     },
     placeholder: '...',
-    theme: 'snow'
+    theme: 'snow',
+    maxlength: '5'
   };
 
   onCancel() {
