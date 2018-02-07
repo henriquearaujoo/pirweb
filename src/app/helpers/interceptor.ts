@@ -31,7 +31,7 @@ export class Interceptor extends XHRBackend {
     // request.headers.set('Content-Type', 'application/json');
     const xhrConnection = super.createConnection(request);
     xhrConnection.response = xhrConnection.response.catch((error: Response) => {
-        if ( error.status === 401) {
+        if ( error.status === 401 ) {
           localStorage.removeItem('tokenPir');
           localStorage.removeItem('profileId_rules');
           localStorage.removeItem('currentUserPir');
