@@ -90,11 +90,11 @@ export class PageComponent extends PagenateComponent implements OnInit {
   }
 
   getProfile() {
-    this.profileService.getProfile().subscribe(
+    this.profileService.getAllProfiles().subscribe(
       success => {
-        this.paginate = success;
-        this.profiles = this.paginate.content;
-        console.log('Paginate:', this.paginate);
+        // this.paginate = success;
+        this.profiles = success;
+        // console.log('Paginate:', this.paginate);
       },
       error => console.log(error)
     );

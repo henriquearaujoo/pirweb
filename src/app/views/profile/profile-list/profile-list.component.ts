@@ -102,7 +102,7 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
         success => {
           this.paginate = success;
           this.profiles = this.paginate.content;
-          this.index = 1;
+          this.index = (this.paginate.number * 10) + 1;
           this.profiles.forEach( el => {
             el.number = this.index ++;
           });
