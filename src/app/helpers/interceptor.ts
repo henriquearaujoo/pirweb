@@ -31,22 +31,17 @@ export class Interceptor extends XHRBackend {
     // request.headers.set('Content-Type', 'application/json');
     const xhrConnection = super.createConnection(request);
     xhrConnection.response = xhrConnection.response.catch((error: Response) => {
-        localStorage.removeItem('tokenPir');
-        localStorage.removeItem('profileId_rules');
-        localStorage.removeItem('currentUserPir');
-        // this.toastService.toastMsgError('Erro', 'Sessão expirada!');
-        alert('Sessão expirada!');
-        // swal('Sessão expirada!');
-        // swal({
-        //   title: 'Atenção',
-        //   text: 'Sessão expirada!',
-        //   icon: 'warning',
-        //   timer: 3000
-        // });
-        // setTimeout(() => {
-        //   window.location.href = window.location.href + '?' + new Date().getMilliseconds();
-        // }, 1000);
-        return Observable.throw(error);
+        if ( error.status === 401) {
+          localStorage.removeItem('tokenPir');
+          localStorage.removeItem('profileId_rules');
+          localStorage.removeItem('currentUserPir');
+
+          alert('Sessão expirada!');
+          setTimeout(() => {
+            window.location.href = '/login';
+          }, 1000);
+        }
+        return Observable.throw(error.text);
     });
     return xhrConnection;
   }
