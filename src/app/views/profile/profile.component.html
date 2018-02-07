@@ -46,7 +46,7 @@
                     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !title.valid}">
                       <div class="col-md-9">          
                         <div class="input-group">
-                          <input type="text" #input class="form-control" id="title_edit" name="title" maxlength="40"
+                          <input type="text" #input autofocus class="form-control" id="title_edit" name="title" maxlength="40"
                             placeholder="Descrição do perfil de usuário" 
                             [(ngModel)]="editProfile"
                             #title="ngModel" required>
