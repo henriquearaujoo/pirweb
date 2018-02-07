@@ -1,5 +1,6 @@
 import { ToastService } from './../../services/toast-notification/toast.service';
-import { Component, OnInit, OnChanges, EventEmitter, Output, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, EventEmitter, Output,
+         Input, SimpleChanges, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { ProfileService } from '../../services/profile/profile.service';
@@ -7,6 +8,7 @@ import { Profile } from '../../models/profile';
 import { PagenateComponent } from '../../components/pagenate/pagenate.component';
 import { PageService } from '../../services/pagenate/page.service';
 import { Rule } from '../../models/rule';
+import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 
 
 @Component({
@@ -14,7 +16,7 @@ import { Rule } from '../../models/rule';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent extends PagenateComponent implements OnInit, OnChanges {
+export class ProfileComponent extends PagenateComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
 
   @Input() profiles: Profile[] = new Array();
   profile: Profile = new Profile();
@@ -29,6 +31,7 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
   editProfile: string;
   @Input() canUpdate: boolean;
   @Input() canCreate: boolean;
+  @ViewChild('input') inputEdit: ElementRef;
 
   constructor (
     pagerService: PageService,
@@ -45,6 +48,23 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
     ngOnChanges(changes: SimpleChanges) {
       this.hasdata = false;
       this.editProfile = this.selectedProfile.title;
+      if ( changes.edit) {
+        if (!this.edit) {
+          this.ngOnDestroy();
+        }
+      }
+    }
+
+    ngOnDestroy() {
+      console.log('ngOnDestroy');
+     }
+
+    ngAfterViewInit() {
+      console.log('ngAfterViewInit');
+      // (<HTMLButtonElement>document.getElementById('title')).focus();
+      if (this.edit) {
+        // (<HTMLButtonElement>document.getElementById('title')).focus();
+      }
     }
 
     save() {

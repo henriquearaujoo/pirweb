@@ -1,5 +1,6 @@
+import { SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 import { ModalService } from './../modal/modal.service';
-import { Component, OnInit, Input, ViewChild, ElementRef, HostListener, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, HostListener, EventEmitter, Output, OnChanges } from '@angular/core';
 import { Constant } from '../../constant/constant';
 import { PageService } from '../../services/pagenate/page.service';
 import { PagenateComponent } from '../pagenate/pagenate.component';
@@ -11,7 +12,7 @@ declare function require(name: string): any;
   templateUrl: './multimedia-gallery.component.html',
   styleUrls: ['./multimedia-gallery.component.css']
 })
-export class MultimediaGalleryComponent implements OnInit {
+export class MultimediaGalleryComponent implements OnInit, OnChanges {
 
   @Input() datasource: any[];
   private selectedItem: any;
@@ -33,6 +34,12 @@ export class MultimediaGalleryComponent implements OnInit {
     private modalService: ModalService,
     private pagerService: PageService ) {
      }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.datasource) {
+      this.reload();
+    }
+  }
 
   ngOnInit() {
     if (this.datasource) {

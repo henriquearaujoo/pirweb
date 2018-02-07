@@ -160,7 +160,7 @@ export class UserEditComponent implements OnInit {
               console.log(data);
               // const token = data.headers.get('authorization');
               this.openModal();
-              this.openModal();
+              // this.openModal();
             },
             error => {
               this.error_list = error;

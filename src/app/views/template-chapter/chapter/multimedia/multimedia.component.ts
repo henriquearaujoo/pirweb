@@ -35,8 +35,7 @@ export class MultimediaComponent implements OnInit {
   private item_remove: any;
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
   private canReload: boolean;
-  @ViewChild('gallery')
-  gallery: MultimediaGalleryComponent;
+  @ViewChild('gallery') gallery: MultimediaGalleryComponent;
 
   media: any = {};
   thumbnail: any = {};
@@ -116,8 +115,11 @@ export class MultimediaComponent implements OnInit {
         this.isNewData = false;
         this.multimedias = this.chapter.medias;
         this.hasData = true;
-        this.gallery.datasource = this.chapter.medias;
-        this.gallery.reload();
+        // console.log('this.gallery.datasource', this.gallery.datasource);
+        // this.gallery.datasource = this.chapter.medias;
+        if ( this.gallery.datasource !== undefined) {
+          this.gallery.reload();
+        }
         // console.log('MULTIMEDIAs:', this.multimedias);
         //  for (let i = 0; i < this.multimedias.length; i++) {
         //     this.multimedias[i].path = Constant.BASE_URL + 'file/download/' + this.multimedias[i].id;
@@ -134,24 +136,24 @@ export class MultimediaComponent implements OnInit {
       this.btn_cancel = false;
       return false;
     }
-    this.media = media;
-    console.log('MEDIA ##', this.media);
+    // this.media = media;
+    console.log('MEDIA ##', media);
     console.log('isNewData', this.isNewData);
     // if (this.media && this.media.id) {
       if (!this.isNewData) {
         // this.media.path = Constant.BASE_URL + 'filetest/download/' + this.media.id;
-        for (let i = 0; i < this.media.length; i++) {
-          this.chapter.medias.push(this.media[i]);
+        for (let i = 0; i < media.length; i++) {
+          this.chapter.medias.push(media[i]);
         }
         console.log('CHAPTER:', this.chapter);
         this.chapter.thumbnails = [];
         this.chapterService.update(this.chapter).subscribe(
           s => {
             this.toastService.toastSuccess();
-            this.chapter = s;
-            this.multimedias = this.chapter.medias;
+            // this.chapter = s;
+            // this.multimedias = this.chapter.medias;
             console.log('UPDATE CHAPTER:', this.chapter);
-            // this.canReload = false;
+            this.load(this.chapter.id);
             // this.gallery.reload();
           },
           e => {

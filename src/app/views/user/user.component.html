@@ -359,7 +359,7 @@
                                                                 <div class="form-group" [ngClass]="applyCssError(f3, city)">
                                                                     <label class="control-label">Cidade</label>
                                                                     <select class="form-control" #city="ngModel" name="city_id_fk" id="user_city" [(ngModel)]="user.address.city" required>
-                                                                        <option> Cidade </option>
+                                                                        <!-- <option> Cidade </option> -->
                                                                         <option *ngFor="let c of cities" [value]='c.id'>{{c.name}}</option>
                                                                     </select>
                                                                     <app-control-field-error [showError]="verifyValidSubmitted(f3, city)" msgError="Selecione uma cidade">
