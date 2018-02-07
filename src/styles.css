@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+.swal-button-container {
+    width: 100%;
+    margin: 0px;
+}
+
+button.swal-button.swal-button--confirm.swal-btn-close {
+    width: 100%;
+    margin-right: 10px;
+    border-radius: 0;
+    background-color: #373d40!important;
+    padding: 19px 28px;
+    margin-top: 40px!important;
+}
+
+button.swal-button.swal-button--ok.swal-btn-ok {
+    padding: 14px 28px;
+    margin: 10px;
+    background-color: #373d40!important;
+}
+
+.swal-footer {
+    padding: 0!important;
+}

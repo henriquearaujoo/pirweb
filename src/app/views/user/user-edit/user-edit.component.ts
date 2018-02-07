@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import { Community } from '../../../models/community';
 import { sha256, sha224 } from 'js-sha256';
+import { ModalService } from '../../../components/modal/modal.service';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-user-edit',
@@ -66,13 +68,15 @@ export class UserEditComponent implements OnInit {
   private isFormValid: boolean;
   private tab: string;
   private _isSave: boolean;
+  private currentId: string;
 
   constructor(
     private userService: UserService,
     private profileService: ProfileService,
     private router: Router,
     private toastService: ToastService,
-    private permissions: Permissions) {
+    private permissions: Permissions,
+    private modalService: ModalService) {
       this.user = new User();
       this.org = new Org();
       this.person = new Person();
@@ -158,9 +162,68 @@ export class UserEditComponent implements OnInit {
           this.userService.saveEditPerson(this.person).subscribe(
             (data: Response) => {
               console.log(data);
-              // const token = data.headers.get('authorization');
-              this.openModal();
-              // this.openModal();
+              this.currentId = localStorage.getItem('currentIdPir');
+              if (this.currentId === this.user.id) {
+                localStorage.removeItem('tokenPir');
+                localStorage.removeItem('profileId_rules');
+                localStorage.removeItem('currentUserPir');
+                localStorage.removeItem('currentIdPir');
+                swal( {
+                  title: '',
+                  text: 'Informações atualizadas com Sucesso!',
+                  icon: 'success',
+                  buttons: {
+                    confirm: {
+                      text: 'Fechar',
+                      className: 'swal-btn-close'
+                    }
+                  },
+                  closeOnClickOutside: false,
+                  className: 'swal-add-success'
+                })
+                .then((confirm) => {
+                  if (confirm) {
+                    swal({
+                      title: 'Sessão expirada!',
+                      text: 'Você precisa efetuar o login novamente!',
+                      icon: 'warning',
+                      buttons: {
+                        ok: {
+                          text: 'Ok',
+                          className: 'swal-btn-ok'
+                        }
+                      },
+                      closeOnClickOutside: false,
+                      className: 'swal-btn-ok'
+                    })
+                    .then((c) => {
+                      if (c) {
+                        location.reload();
+                      }
+                    });
+                  }
+                });
+
+              } else {
+                swal( {
+                  title: '',
+                  text: 'Informações atualizadas com Sucesso!',
+                  icon: 'success',
+                  buttons: {
+                    confirm: {
+                      text: 'Fechar',
+                      className: 'swal-btn-close'
+                    }
+                  },
+                  closeOnClickOutside: false,
+                  className: 'swal-add-success'
+                })
+                .then((confirm) => {
+                  if (confirm) {
+                    this.router.navigate(['user-list']);
+                  }
+                });
+              }
             },
             error => {
               this.error_list = error;
@@ -378,6 +441,12 @@ export class UserEditComponent implements OnInit {
             this.toastService.toastErrorExists(this.error_item[this.error_item.length - 2]);
             break;
           }
+          case 'user.type.pfis.cpf.invalid': {
+            this.error_item = er.toUpperCase().split('.');
+            console.log(this.error_item);
+            this.toastService.toastErrorValid(this.error_item[this.error_item.length - 2]);
+            break;
+          }
           case 'user.type.pjur.cnpj.valid': {
             this.error_item = er.toUpperCase().split('.');
             console.log(this.error_item);
@@ -469,23 +538,28 @@ export class UserEditComponent implements OnInit {
     this._isSave = true;
   }
 
-  isActive(tab: boolean, t?: number) {
+  isActive(tab: boolean, t?: number, p?: number) {
     console.log('currentTab', this.currentTab);
-    if (t === 1) {
-      this.openSaveButtonTab1.click();
-      console.log('openSaveButtonTab1');
-    } else {
-      if ( t === 2) {
-        this.openSaveButtonTab2.click();
-        console.log('openSaveButtonTab2');
+    if ( p !== 0) {
+      if (t === 1) {
+        this.openSaveButtonTab1.click();
+        console.log('openSaveButtonTab1');
       } else {
-        if (t === 3) {
-          this.isFormValid = true;
-          // this.openSaveButtonTab3.click();
-          // console.log('openSaveButtonTab3');
+        if ( t === 2) {
+          this.openSaveButtonTab2.click();
+          console.log('openSaveButtonTab2');
+        } else {
+          if (t === 3) {
+            this.isFormValid = true;
+            // this.openSaveButtonTab3.click();
+            // console.log('openSaveButtonTab3');
+          }
         }
       }
+    } else {
+      this.isFormValid = true;
     }
+
 
     if ( this.isFormValid) {
       if (tab) {

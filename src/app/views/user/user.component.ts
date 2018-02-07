@@ -178,12 +178,30 @@ export class UserComponent implements OnInit {
   }
 
   openModalSuccess() {
-    if (!this.modalOpened) {
-      this.modalOpened = true;
-      // this.openModalButton.click();
-      this.modalService.modalSuccess('/user-list');
-      return false;
-    }
+    // if (!this.modalOpened) {
+    //   this.modalOpened = true;
+    //   // this.openModalButton.click();
+    //   this.modalService.modalSuccess('/user-list');
+    //   return false;
+    // }
+    swal( {
+      title: '',
+      text: 'Cadastro realizado com Sucesso!',
+      icon: 'success',
+      buttons: {
+        confirm: {
+          text: 'Fechar',
+          className: 'swal-btn-close'
+        }
+      },
+      closeOnClickOutside: false,
+      className: 'swal-add-success'
+    })
+    .then((confirm) => {
+      if (confirm) {
+        this.router.navigate(['user-list']);
+      }
+    });
   }
 
   openModal() {
@@ -405,24 +423,29 @@ export class UserComponent implements OnInit {
     this._isSave = true;
   }
 
-   isActive(tab: boolean, t?: number) {
+   isActive(tab: boolean, t?: number,  p?: number) {
     //  this.tab = t ;
     console.log('currentTab', this.currentTab);
-    if (t === 1) {
-      this.openSaveButtonTab1.click();
-      console.log('openSaveButtonTab1');
-    } else {
-      if ( t === 2) {
-        this.openSaveButtonTab2.click();
-        console.log('openSaveButtonTab2');
+    if ( p !== 0 ) {
+      if (t === 1) {
+        this.openSaveButtonTab1.click();
+        console.log('openSaveButtonTab1');
       } else {
-        if (t === 3) {
-          this.isFormValid = true;
-          // this.openSaveButtonTab3.click();
-          // console.log('openSaveButtonTab3');
+        if ( t === 2) {
+          this.openSaveButtonTab2.click();
+          console.log('openSaveButtonTab2');
+        } else {
+          if (t === 3) {
+            this.isFormValid = true;
+            // this.openSaveButtonTab3.click();
+            // console.log('openSaveButtonTab3');
+          }
         }
       }
+    } else {
+      this.isFormValid = true;
     }
+
 
     if ( this.isFormValid) {
       this.isFormValid = false;
