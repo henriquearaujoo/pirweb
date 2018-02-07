@@ -1,5 +1,5 @@
 import { ToastService } from './../../services/toast-notification/toast.service';
-import { Component, OnInit, OnChanges, EventEmitter, Output, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, EventEmitter, Output, Input, SimpleChanges, ViewChild, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { ProfileService } from '../../services/profile/profile.service';
@@ -29,6 +29,7 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
   editProfile: string;
   @Input() canUpdate: boolean;
   @Input() canCreate: boolean;
+  @ViewChild('input') inputEdit: HTMLInputElement;
 
   constructor (
     pagerService: PageService,
@@ -45,7 +46,16 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
     ngOnChanges(changes: SimpleChanges) {
       this.hasdata = false;
       this.editProfile = this.selectedProfile.title;
+      if ( changes.edit) {
+        // if (this.edit) {
+        //   this.inputEdit.focus();
+        // }
+      }
     }
+
+  //   ngAfterViewInit() {
+  //     this.inputEdit
+  // }
 
     save() {
        this.profile.status = true;
