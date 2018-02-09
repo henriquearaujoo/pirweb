@@ -92,10 +92,10 @@ export class UploadMultimediaComponent implements OnInit {
 
   onChange(files) {
     const fi = this.fileInput.nativeElement;
+    console.log('FILE ###:', this.fileInput.nativeElement.files);
     if (fi.files && fi.files.length > 0) {
       for (let i = 0 ; i < fi.files.length ; i ++ ) {
         const fileToUpload = fi.files[i];
-        console.log('FILE ###:', fileToUpload);
         if ( this.selectedType.accept.includes(fileToUpload.type) ) {
           if ( fileToUpload.size <= this.selectedType.size) {
             this.files.push(fileToUpload);
@@ -103,10 +103,13 @@ export class UploadMultimediaComponent implements OnInit {
           } else {
             this.toastService.toastMsgError('Erro', 'Não foi possível carregar o arquivo ' + fileToUpload.name +
             '. Verifique o tamanho máximo permitido para o tipo de mídia selecionado');
+            console.log('fileToUpload ###:', fileToUpload);
+            this.reset();
           }
         } else {
           this.toastService.toastMsgError('Erro', 'Não foi possível carregar o arquivo ' + fileToUpload.name +
             '. Verifique as extensões permitidas para o tipo de mídia selecionado');
+            this.reset();
         }
       }
     }
@@ -128,9 +131,6 @@ export class UploadMultimediaComponent implements OnInit {
       return;
     }
 
-    // tslint:disable-next-line:prefer-const
-    // let fi = this.fileInput.nativeElement;
-    // fi.files = this.files;
     if ( this.files.length > 0) {
       if (this.files && this.files.length > 0) {
         for (let i = 0 ; i < this.files.length ; i ++ ) {

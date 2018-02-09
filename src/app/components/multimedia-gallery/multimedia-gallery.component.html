@@ -22,7 +22,7 @@
         <div class=" col column" *ngFor="let item of datasource; let i = index">
           <div class="content" *ngIf="item.content === 'video/mp4'">
             <div class="_item v">
-              <video controls id="myVideo" width="191" height="146" 
+              <video id="myVideo" width="191" height="146" 
                 data-toggle="modal" data-target="#selectedItemModal"
                 (click)=setSelectedItem(item) >
                   <source src="{{ item.path }}" type="video/mp4" /> Browser not sxupported
@@ -102,7 +102,7 @@
         <div class=" col column" *ngFor="let item of datasource; let i = index">
           <div class="content" *ngIf="item.content === 'video/mp4'">
             <div class="_item v">
-              <video controls id="myVideo" width="191" height="146" 
+              <video id="myVideo" width="191" height="146" controlsList="nodownload"
                 data-toggle="modal" data-target="#selectedItemModal"
                 (click)=setSelectedItem(item) >
                   <source src="{{ item.path }}" type="video/mp4" /> Browser not sxupported
@@ -121,9 +121,7 @@
         <div class=" col column" *ngFor="let item of datasource; let i = index">
           <div class="content" *ngIf="item.content === 'application/pdf'">
             <div class="_item">
-                <a  href="{{ item.path }}" target="_blank">
-                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-              </a>   
+              <i class="fa fa-file-pdf-o" (click)=downloadFile(item) aria-hidden="true"></i>
             </div>    
             <a class="delete-item" (click)="removeMultimedia(item)"><i class="fa fa-trash"></i></a>
             <p class="limit-text">{{ item.name }} </p>

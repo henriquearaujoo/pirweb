@@ -76,7 +76,9 @@ export class Interceptor extends XHRBackend {
           })
           .then((c) => {
             if (c) {
-              this.router.navigate(['/login']);
+              setTimeout(() => {
+                window.location.href = '/login';
+              }, 1000);
             }
           });
         }
