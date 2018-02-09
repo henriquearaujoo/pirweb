@@ -30,11 +30,13 @@ export class Interceptor extends XHRBackend {
     request.headers.set('Authorization', `PIRFAS=${token}`);
     // request.headers.set('Content-Type', 'application/json');
     const xhrConnection = super.createConnection(request);
+    // console.log('xhrConnection', xhrConnection);
     xhrConnection.response = xhrConnection.response.catch((error: Response) => {
       if ( error.status === 401 ) {
         localStorage.removeItem('tokenPir');
         localStorage.removeItem('profileId_rules');
         localStorage.removeItem('currentUserPir');
+        localStorage.removeItem('currentIdPir');
 
         swal({
           title: 'Sessão expirada!',
@@ -57,6 +59,27 @@ export class Interceptor extends XHRBackend {
         // setTimeout(() => {
         //   window.location.href = '/login';
         // }, 1000);
+      } else {
+        if ( error.status === 0 ) {
+          swal({
+            title: '',
+            text: 'Sem conexão com a internet',
+            icon: 'warning',
+            buttons: {
+              ok: {
+                text: 'Ok',
+                className: 'swal-btn-ok'
+              }
+            },
+            closeOnClickOutside: false,
+            className: 'swal-btn-ok'
+          })
+          .then((c) => {
+            if (c) {
+              this.router.navigate(['/login']);
+            }
+          });
+        }
       }
       return Observable.throw(error);
     });

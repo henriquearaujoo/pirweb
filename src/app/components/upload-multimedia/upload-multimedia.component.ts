@@ -113,9 +113,14 @@ export class UploadMultimediaComponent implements OnInit {
   }
   remove(file) {
     this.files.splice(file, 1);
+    this.reset();
     if (this.files.length === 0) {
       this.hasFile = false;
     }
+  }
+
+  reset() {
+    this.fileInput.nativeElement.value = '';
   }
 
   upload(): void {
@@ -141,6 +146,7 @@ export class UploadMultimediaComponent implements OnInit {
             if (this.uploaded) {
               this.uploaded.emit(this._fileData);
               this.selectedType = '';
+              this.reset();
               // this._fileData = null;
             }
           }, error => console.log('ERROR UPLOAD:', error)
@@ -151,38 +157,6 @@ export class UploadMultimediaComponent implements OnInit {
       this.toastService.toastMsgWarn('Atenção', 'Selecione um ou mais arquivos para upload!');
     }
   }
-
-  // upload(): void {
-  //   if (this._fileData && !this._fileData.mediaType) {
-  //     return;
-  //   }
-
-  //   const fi = this.fileInput.nativeElement;
-  //   if ( this.files.length > 0) {
-  //     if (fi.files && fi.files.length > 0) {
-  //       for (let i = 0 ; i < fi.files.length ; i ++ ) {
-  //         const fileToUpload = fi.files[i];
-  //         this.fileService.upload(this._fileData.mediaType, fileToUpload).subscribe(
-  //         res => {
-  //           this._fileData = JSON.parse(res.text());
-  //           console.log('_fileData', JSON.parse(res.text()));
-
-  //           this.files = [];
-  //           this.hasFile = false;
-
-  //           if (this.uploaded) {
-  //             this.uploaded.emit(this._fileData);
-  //             this.selectedType = '';
-  //             // this._fileData = null;
-  //           }
-  //         }, error => console.log('ERROR UPLOAD:', error)
-  //       );
-  //       }
-  //     }
-  //   } else {
-  //     this.toastService.toastMsgWarn('Atenção', 'Selecione um ou mais arquivos para upload!');
-  //   }
-  // }
 
   loadInfo() {
     if ( this.type_file !== undefined) {

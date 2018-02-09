@@ -273,6 +273,7 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
   ],
   providers: [
     { provide: XHRBackend, useClass: Interceptor },
+    // { provide: Http, useClass: Interceptor },
     RestService,
     PageService,
     CostumerService,

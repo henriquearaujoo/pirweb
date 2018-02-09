@@ -65,27 +65,6 @@ export class MultimediaComponent implements OnInit {
       {'path': '../../../../../assets/img_test/itn.mp4', 'type': 'VIDEO2D'},
       {'path': '../../../../../assets/img_test/FAS.pdf', 'type': 'FILE'}
           ];
-
-    // this.type_file = [
-    //   {
-    //     'id': 1,
-    //     'type': 'image',
-    //     'size': 10318,
-    //     'accept': 'image/png'
-    //   },
-    //   {
-    //     'id': 2,
-    //     'type': 'video',
-    //     'size': 10318,
-    //     'accept': 'mp4'
-    //     },
-    //   {
-    //     'id': 3,
-    //     'type': 'pdf',
-    //     'size': 10318,
-    //     'accept': 'pdf'
-    //     }
-    // ];
    }
 
   ngOnInit() {
@@ -111,19 +90,9 @@ export class MultimediaComponent implements OnInit {
     this.chapterService.load(chapter).subscribe(
       success => {
         this.chapter = success;
-        // this.reload();
         this.isNewData = false;
         this.multimedias = this.chapter.medias;
         this.hasData = true;
-        // console.log('this.gallery.datasource', this.gallery.datasource);
-        // this.gallery.datasource = this.chapter.medias;
-        if ( this.gallery.datasource !== undefined) {
-          this.gallery.reload();
-        }
-        // console.log('MULTIMEDIAs:', this.multimedias);
-        //  for (let i = 0; i < this.multimedias.length; i++) {
-        //     this.multimedias[i].path = Constant.BASE_URL + 'file/download/' + this.multimedias[i].id;
-        // }
       },
       e => {
         console.log('PirError:' + e);
@@ -131,7 +100,7 @@ export class MultimediaComponent implements OnInit {
     );
   }
 
-  upload(media) {
+  uploadMedia(media) {
     if (this.btn_cancel) {
       this.btn_cancel = false;
       return false;
@@ -150,7 +119,7 @@ export class MultimediaComponent implements OnInit {
         this.chapterService.update(this.chapter).subscribe(
           s => {
             this.toastService.toastSuccess();
-            // this.chapter = s;
+            this.chapter = s;
             // this.multimedias = this.chapter.medias;
             console.log('UPDATE CHAPTER:', this.chapter);
             this.load(this.chapter.id);

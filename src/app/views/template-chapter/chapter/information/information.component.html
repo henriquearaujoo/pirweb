@@ -67,7 +67,7 @@
 
                             <div class="form-group" [ngClass]="applyCssError(f, timeNextVisit)">
                                 <label class="control-label">Digite uma Estimativa de Tempo (em dias)</label>
-                                <input type="number" min="1" id="chapter_time_next_visit" name="chapter_time_next_visit" #timeNextVisit="ngModel" [(ngModel)]="chapter.time_next_visit" value="chapter.time_next_visit" class="form-control" placeholder="Tempo para a próxima visita..." required>
+                                <input type="number" min="0" id="chapter_time_next_visit" name="chapter_time_next_visit" #timeNextVisit="ngModel" [(ngModel)]="chapter.time_next_visit" value="chapter.time_next_visit" class="form-control" placeholder="Tempo para a próxima visita..." required>
                                 <app-control-field-error [showError]="verifyValidSubmitted(f, timeNextVisit)" msgError="Digite uma Estimativa de Tempo (em dia)">
                                 </app-control-field-error>
                             </div>

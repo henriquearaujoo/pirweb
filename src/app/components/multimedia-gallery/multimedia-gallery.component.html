@@ -17,6 +17,9 @@
               <a class="delete-item" (click)="removeMultimedia(item)"><i class="fa fa-trash"></i></a>
               <p class="limit-text">{{ item.name }} </p>
           </div>
+        </div>      
+
+        <div class=" col column" *ngFor="let item of datasource; let i = index">
           <div class="content" *ngIf="item.content === 'video/mp4'">
             <div class="_item v">
               <video controls id="myVideo" width="191" height="146" 
@@ -28,36 +31,54 @@
             </div>
             <p class="limit-text">{{ item.name }} </p>
           </div>
+        </div>      
+
+        <div class=" col column" *ngFor="let item of datasource">
           <div class="content" *ngIf="item.content === 'application/pdf'">
-            <div class="_item">
-                <a  href="{{ item.path }}" target="_blank">
-                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+            <div class="_item">                
+              
+                <i class="fa fa-file-pdf-o" (click)=downloadFile(item) aria-hidden="true"></i>
+              
+            </div>    
+            <a class="delete-item" (click)="removeMultimedia(item)"><i class="fa fa-trash"></i></a>
+            <p class="limit-text">{{ item.name }} </p>
+          </div>
+        </div>  
+      <!-- END GRID -->
+      </div>
+
+      <!-- Gallery Grid -->
+      <!-- <div class="row">
+        <div class=" col column" *ngFor="let item of datasource; let i = index">
+          <div class="content" *ngIf="item.content === 'video/mp4'">
+            <div class="_item v">
+              <video controls id="myVideo" width="191" height="146" 
+                data-toggle="modal" data-target="#selectedItemModal"
+                (click)=setSelectedItem(item) >
+                  <source src="{{ item.path }}" type="video/mp4" /> Browser not sxupported
+              </video>
+              <a class="delete-item" (click)="removeMultimedia(item)"><i class="fa fa-trash"></i></a>
+            </div>
+            <p class="limit-text">{{ item.name }} </p>
+          </div>
+        </div>       -->
+      <!-- END GRID -->
+      <!-- </div> -->
+      <!-- Gallery Grid -->
+      <!-- <div class="row">
+        <div class=" col column" *ngFor="let item of datasource">
+          <div class="content" *ngIf="item.content === 'application/pdf'">
+            <div class="_item">                
+              <a  href="{{ item.path }}">
+                <i class="fa fa-file-pdf-o" (click)=setSelectedItem(item) aria-hidden="true"></i>
               </a>   
             </div>    
             <a class="delete-item" (click)="removeMultimedia(item)"><i class="fa fa-trash"></i></a>
             <p class="limit-text">{{ item.name }} </p>
           </div>
-        </div>      
+        </div>       -->
       <!-- END GRID -->
-      </div>
-      <!-- pager -->
-      <!-- <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-        <li [ngClass]="{disabled:pager.currentPage === 1}">
-            <a (click)="setPage(1)">Primeiro</a>
-        </li>
-        <li [ngClass]="{disabled:pager.currentPage === 1}">
-            <a (click)="setPage(pager.currentPage - 1)">Anterior</a>
-        </li>
-        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-            <a (click)="setPage(page)">{{page}}</a>
-        </li>
-        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-            <a (click)="setPage(pager.currentPage + 1)">Próximo</a>
-        </li>
-        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-            <a (click)="setPage(pager.totalPages)">Último</a>
-        </li>
-      </ul> -->
+      <!-- </div> -->
 
     </div>
     <div class="tab-pane fade" id="tab_i">

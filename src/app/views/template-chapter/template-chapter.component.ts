@@ -47,9 +47,9 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
   ) {
       this.hasdata = false;
       this.page = 0;
-      this.size = 10;
-      this.size_active = 10;
-      this.size_inactive = 10;
+      this.size = 1;
+      this.size_active = 1;
+      this.size_inactive = 1;
       this.canCreate = false;
       this.canUpdate = false;
       this.canRead = false;
@@ -84,8 +84,8 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
       this.filter.name = '';
     }
     this.chapterService.getChapters(this.filter.name, this.size).subscribe(
-      success => {
-        this.paginate = success;
+      s1 => {
+        this.paginate = s1;
         this.chapters = this.paginate.content;
         this.hasdata = true;
 
@@ -112,9 +112,10 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
   }
 
   getChapterActive() {
+    this.loaderService.show();
     this.chapterService.getChapterActive(this.filter.name, this.size_active).subscribe(
-      success => {
-        this.paginate_active = success;
+      s2 => {
+        this.paginate_active = s2;
         this.chapters_active = this.paginate_active.content;
         this.hasdata = true;
         // Remove duplicates chapters
@@ -124,18 +125,26 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
           hash[chapter.number] = true;
           return exists;
         });
+        setTimeout(() => {
+          this.loaderService.hide();
+        }, 500);
       },
       error => {
         console.log('ERROR', error);
         this.hasdata = false;
+        setTimeout(() => {
+          this.loaderService.hide();
+        }, 500);
       }
     );
   }
 
   getChapterInactive() {
+    this.loaderService.show();
     this.chapterService.getChapterInactive(this.filter.name, this.size_inactive).subscribe(
-      success => {
-        this.paginate_inactive = success;
+      s3 => {
+        console.log('inactives:', s3);
+        this.paginate_inactive = s3;
         this.chapters_inactive = this.paginate_inactive.content;
         this.hasdata = true;
         // Remove duplicates chapters
@@ -145,29 +154,35 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
           hash[chapter.number] = true;
           return exists;
         });
+        setTimeout(() => {
+          this.loaderService.hide();
+        }, 500);
       },
       error => {
         console.log('ERROR', error);
         this.hasdata = false;
+        setTimeout(() => {
+          this.loaderService.hide();
+        }, 500);
       }
     );
   }
 
   setPage() {
     // this.page++;
-    this.size = this.size + 10 ;
+    this.size = this.size + 1 ;
     this.getChapters();
   }
 
   setPageChapterActive() {
     // this.page++;
-    this.size_active = this.size_active + 10 ;
+    this.size_active = this.size_active + 1 ;
     this.getChapterActive();
   }
 
   setPageChapterInactive() {
     // this.page++;
-    this.size_inactive = this.size_inactive + 10 ;
+    this.size_inactive = this.size_inactive + 1 ;
     this.getChapterInactive();
   }
 
