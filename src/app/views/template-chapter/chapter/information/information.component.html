@@ -30,8 +30,8 @@
                             <div class="form-group" [ngClass]="applyCssError(f, description)">
                                 <label class="control-label">Descrição</label>
 
-                                <quill-editor [options]="editorOptions" id="chapter_description" name="editor_description" #description="ngModel" 
-                                    [(ngModel)]="chapter.description" required>
+                                <quill-editor [options]="editorOptions" id="chapter_descriptio" name="editor_description" #description="ngModel" 
+                                    [(ngModel)]="chapter.description" required class="validate[required,maxSize[10]] ">
                                 </quill-editor>
                                
                                 <app-control-field-error [showError]="verifyValidSubmitted(f, description)" msgError="Digite uma descrição">
@@ -40,7 +40,7 @@
 
                             <div class="form-group" [ngClass]="applyCssError(f, content)">
                                 <label class="control-label">Conteúdo</label>
-                                <quill-editor [options]="editorOptions" id="chapter_content" name="editor_content" #content="ngModel" [(ngModel)]="chapter.content" required></quill-editor>
+                                <quill-editor [options]="editorOptions"  id="chapter_content" name="editor_content" #content="ngModel" [(ngModel)]="chapter.content" required></quill-editor>
                                 <!-- <ck-editor id="chapter_content" name="editor_content" #content="ngModel" [(ngModel)]="chapter.content" skin="moono-lisa" [fullPage]="false" required></ck-editor> -->
                                 <app-control-field-error [showError]="verifyValidSubmitted(f, content)" msgError="Digite um conteúdo">
                                 </app-control-field-error>

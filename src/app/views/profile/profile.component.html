@@ -49,6 +49,7 @@
                           <input type="text" #inputEdit class="form-control" id="title_edit" name="title" maxlength="40"
                             placeholder="Descrição do perfil de usuário" 
                             [(ngModel)]="editProfile"
+                            autofocus
                             #title="ngModel" required>
                             <span class="input-group-addon" title="Cancelar edição do perfil" (click)="cancelEdit()"><i class="fa fa-times"></i></span>
                         </div>   

@@ -63,7 +63,7 @@ export class Interceptor extends XHRBackend {
         if ( error.status === 0 ) {
           swal({
             title: '',
-            text: 'Sem conexão com a internet',
+            text: 'Falha na conexão com o servidor!',
             icon: 'warning',
             buttons: {
               ok: {

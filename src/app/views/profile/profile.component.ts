@@ -48,6 +48,7 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
     ngOnInit() { }
 
     ngOnChanges(changes: SimpleChanges) {
+      
       this.hasdata = false;
       this.editProfile = this.selectedProfile.title;
       if ( changes.edit) {
@@ -117,5 +118,10 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
     cancelEdit() {
       this.insertValue.emit(this.profile);
       this.profile.title = '';
+    }
+
+    public inputEnable() {
+      (<HTMLElement>document.getElementById('title_edit')).blur();
+      (<HTMLElement>document.getElementById('title_edit')).focus();
     }
 }
