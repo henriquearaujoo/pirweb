@@ -40,7 +40,8 @@ export class InformationComponent implements OnInit {
     },
     placeholder: '...',
     theme: 'snow',
-    maxlength: '5'
+    length: '5',
+    max: '2'
   };
 
   onCancel() {
@@ -75,6 +76,10 @@ export class InformationComponent implements OnInit {
     if (!this.lastVersion) {
       this.lastVersion = 0;
     }
+  }
+
+  onContentChanged({ quill, html, text }) {
+    console.log('quill content is changed!', quill, html, text);
   }
 
   getNextChapterNumber() {

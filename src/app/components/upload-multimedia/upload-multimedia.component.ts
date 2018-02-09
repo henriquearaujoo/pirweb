@@ -96,7 +96,7 @@ export class UploadMultimediaComponent implements OnInit {
     if (fi.files && fi.files.length > 0) {
       for (let i = 0 ; i < fi.files.length ; i ++ ) {
         const fileToUpload = fi.files[i];
-        if ( this.selectedType.accept.includes(fileToUpload.type) ) {
+        if ( (this.selectedType.accept.includes(fileToUpload.type) && (fileToUpload.type !== '')) ) {
           if ( fileToUpload.size <= this.selectedType.size) {
             this.files.push(fileToUpload);
             this.hasFile = true;

@@ -16,7 +16,7 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent extends PagenateComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
+export class ProfileComponent extends PagenateComponent implements OnInit, OnChanges, AfterViewInit {
 
   @Input() profiles: Profile[] = new Array();
   profile: Profile = new Profile();
@@ -31,7 +31,9 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
   editProfile: string;
   @Input() canUpdate: boolean;
   @Input() canCreate: boolean;
-  @ViewChild('input') inputEdit: ElementRef;
+  @ViewChild('inputEdit') inputEdit: ElementRef;
+
+  log: string;
 
   constructor (
     pagerService: PageService,
@@ -49,22 +51,19 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
       this.hasdata = false;
       this.editProfile = this.selectedProfile.title;
       if ( changes.edit) {
-        if (!this.edit) {
-          this.ngOnDestroy();
+        if (this.edit) {
+          this.ngAfterViewInit();
+          this.focusInput();
         }
       }
     }
 
-    ngOnDestroy() {
-      console.log('ngOnDestroy');
-     }
+    focusInput() {
+      this.inputEdit.nativeElement.focus();
+    }
 
     ngAfterViewInit() {
-      console.log('ngAfterViewInit');
-      // (<HTMLButtonElement>document.getElementById('title')).focus();
-      if (this.edit) {
-        // (<HTMLButtonElement>document.getElementById('title')).focus();
-      }
+      this.log = `inputEdit is ${this.inputEdit.nativeElement}`;
     }
 
     save() {
