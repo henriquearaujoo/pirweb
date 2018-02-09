@@ -4,7 +4,7 @@
     <div class="row upload-multimedia">
       <div class="col-md-6">
         <div class="select-multimedia">
-          <div class="form-group" [ngClass]="applyCssError(fMultimedia, mediaType)">
+          <div class="form-group" [ngClass]="{ 'has-error':!isNewData && !mediaType.valid }">
             <label class="control-label">Tipo de Midia:</label>
             <div class="row">
               <div class="col-md-8">           
@@ -12,13 +12,12 @@
                   [(ngModel)]="_fileData.mediaType" (change)="clear()" required>       
                   <option *ngFor="let item of type_file"
                     [value]="item.type"> {{ item.name }} </option>
-                </select>   
+                </select>                   
               </div> 
-            </div>
-            <app-control-field-error [showError]="verifyValidSubmitted(fMultimedia, mediaType)" msgError="Selecione o tipo de arquivo">
-            </app-control-field-error>   
-            </div>
-          </div>        
+            </div>   
+            <div *ngIf="!isNewData && !mediaType.valid" class="help-block"> Selecione o tipo de mídia</div>        
+          </div>
+        </div>        
       </div>
       <div class="col-md-6 ">
         <div class="info-select" *ngIf="selectedType !== ''">
