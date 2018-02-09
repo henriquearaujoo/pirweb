@@ -29,6 +29,7 @@ export class InformationComponent implements OnInit {
   @Output() returnEvent = new EventEmitter();
   @Output() cancelEvent = new EventEmitter();
 
+  private limit = 5;
   public editorOptions = {
     modules: {
       toolbar: [
