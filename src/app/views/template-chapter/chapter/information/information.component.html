@@ -31,7 +31,7 @@
                                 <label class="control-label">Descrição</label>
 
                                 <quill-editor [options]="editorOptions" id="chapter_description" name="editor_description" #description="ngModel" 
-                                    [(ngModel)]="chapter.description" (change)="onContentChanged($event)" required>
+                                    [(ngModel)]="chapter.description" required>
                                 </quill-editor>
                                
                                 <app-control-field-error [showError]="verifyValidSubmitted(f, description)" msgError="Digite uma descrição">

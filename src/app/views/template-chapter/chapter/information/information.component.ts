@@ -29,6 +29,7 @@ export class InformationComponent implements OnInit {
   @Output() returnEvent = new EventEmitter();
   @Output() cancelEvent = new EventEmitter();
 
+  public editorContent = '';
   private limit = 5;
   public editorOptions = {
     modules: {
@@ -80,7 +81,12 @@ export class InformationComponent implements OnInit {
   }
 
   onContentChanged({ quill, html, text }) {
+    const textEditor = <string>text;
     console.log('quill content is changed!', quill, html, text);
+    console.log('text', <string>text.length);
+    if ( textEditor.length > this.limit) {
+      this.chapter.description = this.chapter.description.substr(1, this.limit);
+    }
   }
 
   getNextChapterNumber() {
