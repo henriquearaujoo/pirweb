@@ -116,8 +116,13 @@
           </div>
           <div class="modal-body">
             <div *ngIf="!show">
-                <quill-editor [options]="editorOptions" id="answer_description" name="answer_description" 
-                #description="ngModel" [(ngModel)]="answer.description" required></quill-editor>
+                <quill-editor 
+                  (change)="onKey($event)"
+                  [options]="editorOptions" id="answer_description" 
+                  name="answer_description" 
+                  #description="ngModel" 
+                  [(ngModel)]="answer.description" required>
+                </quill-editor>
             </div>  
             <div *ngIf="show">
               <p style="text-align: center;" [innerHTML]="answer.description"></p>

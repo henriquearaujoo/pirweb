@@ -26,8 +26,13 @@
                         <div class="form-group" [ngClass]="applyCssError(fQuestion, description)">
                           <label class="control-label">Descrição da questão</label>                       
                             <div class="box-body pad">                            
-                              <quill-editor [options]="editorOptions" id="question_description" name="question_description" 
-                                #description="ngModel" [(ngModel)]="question.description" required></quill-editor>
+                              <quill-editor 
+                                (change)="onKey($event)"
+                                [options]="editorOptions" id="question_description" 
+                                name="question_description" 
+                                #description="ngModel" 
+                                [(ngModel)]="question.description" required>
+                              </quill-editor>
                               <app-control-field-error [showError]="verifyValidSubmitted(fQuestion, description)" msgError="Digite a descrição">
                               </app-control-field-error>
                             </div>

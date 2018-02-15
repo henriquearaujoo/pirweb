@@ -1,3 +1,4 @@
+import { Constant } from './../../../../constant/constant';
 import { element } from 'protractor';
 import { Permissions, RuleState } from './../../../../helpers/permissions';
 import { ToastService } from './../../../../services/toast-notification/toast.service';
@@ -32,7 +33,7 @@ export class InformationComponent implements OnInit {
   @Output() cancelEvent = new EventEmitter();
 
   public editorContent = '';
-  private limit = 500;
+  private limit = Constant.LIMIT_CHARACTERS;
   private characters =  this.limit;
   public editorOptions = {
     modules: {
@@ -65,7 +66,6 @@ export class InformationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.characters = this.limit;
     this.permissions.canActivate('/chapter-dashboard');
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {

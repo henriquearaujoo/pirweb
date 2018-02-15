@@ -9,5 +9,7 @@ export const Constant = {
             VIDEO_2D: 'VIDEO_2D',
             VIDEO_360: 'VIDEO_360',
             FILE: 'FILE'
-        }
+        },
+
+       LIMIT_CHARACTERS: 3000
 };

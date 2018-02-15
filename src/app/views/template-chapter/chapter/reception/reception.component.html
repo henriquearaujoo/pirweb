@@ -54,8 +54,13 @@
                         <div class="box-body">
                             <div class="form-group" [ngClass]="applyCssError(fReception, description)">
                                 <label class="control-label">Descrição do Acolhimento</label>
-                                <quill-editor style="height: 150px;" [options]="editorOptions" id="reception_description" name="reception_description" #description="ngModel" [(ngModel)]="reception.description" required></quill-editor>
-                                <!-- <ck-editor style="height: 150px;" id="reception_description" name="reception_description" #description="ngModel" [(ngModel)]="reception.description" skin="moono-lisa" [fullPage]="false" required [config]="config"></ck-editor> -->
+                                <quill-editor 
+                                    (change)="onKey($event)"
+                                    style="height: 150px;" 
+                                    [options]="editorOptions" id="reception_description" 
+                                    name="reception_description" #description="ngModel" 
+                                    [(ngModel)]="reception.description" required>
+                                </quill-editor>                                
                                 <app-control-field-error [showError]="verifyValidSubmitted(fReception, description)" msgError="Digite a descrição">
                                 </app-control-field-error>
                             </div>
