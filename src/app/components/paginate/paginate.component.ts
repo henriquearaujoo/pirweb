@@ -1,16 +1,17 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Paginate } from '../../models/paginate';
+import { Paginate } from './../../models/paginate';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+
 
 @Component({
   selector: 'app-paginate',
   templateUrl: './paginate.component.html',
   styleUrls: ['./paginate.component.css']
 })
-export class PaginateComponent implements OnInit {
+export class PaginateComponent implements OnInit, OnChanges {
 
   private pages: any[] = Array();
   @Output() eventPage = new EventEmitter<number>();
-  @Input() private paginate: Paginate;
+  @Input()  paginate: Paginate;
 
   constructor() {
   }
@@ -19,10 +20,20 @@ export class PaginateComponent implements OnInit {
     this.getPages();
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.paginate) {
+      console.log('changes');
+      this.getPages();
+    }
+
+  }
+
   getPages() {
     this.pages = [];
-    for (let i = 1; i <= this.paginate.totalPages; i++) {
-      this.pages.push(i);
+    if (this.paginate !== undefined) {
+      for (let i = 1; i <= this.paginate.totalPages; i++) {
+        this.pages.push(i);
+      }
     }
   }
 

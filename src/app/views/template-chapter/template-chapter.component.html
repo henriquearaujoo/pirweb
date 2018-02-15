@@ -117,7 +117,7 @@
                                         </div>
 
                                     </div>
-                                    <div class="paginate" *ngIf="paginate_inactive.size < paginate_inactive.totalElements">
+                                    <div class="paginate" *ngIf="!paginate_inactive.last">
                                         <button class="btn btn-default" (click)="setPageChapterInactive()">Carregar mais capítulos</button>
                                     </div>
                                     <!-- <div class="paginate" *ngIf="paginate_inactive.size > paginate_inactive.totalElements">

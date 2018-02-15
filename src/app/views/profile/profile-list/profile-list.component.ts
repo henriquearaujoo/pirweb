@@ -1,3 +1,5 @@
+import { ProfileComponent } from './../profile.component';
+import { PaginateComponent } from './../../../components/paginate/paginate.component';
 import { LoaderService } from './../../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../../helpers/permissions';
 import { ToastService } from './../../../services/toast-notification/toast.service';
@@ -27,6 +29,7 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
     profile: Profile = new Profile();
     private paginate: Paginate = new Paginate();
 
+    @Output() inputFocus = new EventEmitter();
     @Input() profile_id: number;
 
     @Output() page: number;
@@ -50,6 +53,9 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
     private canUpdate: boolean;
     private canCreate: boolean;
     private canDelete: boolean;
+    @ViewChild('paginate') _paginate: PaginateComponent;
+    private index: number;
+    @ViewChild('profile') profileChild: ProfileComponent;
 
     constructor(
       pagerService: PageService,
@@ -68,6 +74,7 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
         this.canUpdate = false;
         this.canRead = false;
         this.canDelete = false;
+        this.index = 1;
       }
 
     ngOnInit() {
@@ -98,6 +105,10 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
         success => {
           this.paginate = success;
           this.profiles = this.paginate.content;
+          this.index = (this.paginate.number * 10) + 1;
+          this.profiles.forEach( el => {
+            el.number = this.index ++;
+          });
           console.log('Paginate:', this.paginate);
           this.hasdata = true;
           setTimeout(() => {
@@ -170,6 +181,7 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
     editProfile(profile: Profile) {
       this.edit = true;
       this.selectedProfile = profile;
+      this.profileChild.inputEnable();
     }
 
     isActive(tab: boolean) {

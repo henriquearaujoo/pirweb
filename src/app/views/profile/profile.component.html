@@ -12,7 +12,7 @@
                   
                   <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !title.valid}">                    
                     <div class="col-md-9">          
-                    <input type="text" class="form-control" id="title" name="title"
+                    <input type="text" class="form-control" id="title" name="title" maxlength="40"
                       placeholder="TIPO DO PERFIL" 
                       [(ngModel)]="profile.title"
                       #title="ngModel" required>
@@ -46,9 +46,10 @@
                     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !title.valid}">
                       <div class="col-md-9">          
                         <div class="input-group">
-                          <input type="text" class="form-control" id="title" name="title"
+                          <input type="text" #inputEdit class="form-control" id="title_edit" name="title" maxlength="40"
                             placeholder="Descrição do perfil de usuário" 
                             [(ngModel)]="editProfile"
+                            autofocus
                             #title="ngModel" required>
                             <span class="input-group-addon" title="Cancelar edição do perfil" (click)="cancelEdit()"><i class="fa fa-times"></i></span>
                         </div>   

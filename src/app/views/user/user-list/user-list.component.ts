@@ -37,7 +37,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   private canUpdate: boolean;
   private canCreate: boolean;
   private canDelete: boolean;
-  private pattern = '[a-zA-Z]+';
+  private pattern = '^[a-zA-Z';
 
   constructor(
     private pagerService: PageService,
@@ -47,6 +47,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     private router: Router,
     private permissions: Permissions,
     private loaderService: LoaderService) {
+      this.filter.name = '';
       this.hasdata = false;
       this.page = 0;
       this.canCreate = false;
@@ -81,6 +82,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   getUsers() {
+    console.log(this.filter.name);
     if ( this.filter.name !== '') { this.page = 0; }
     this.loaderService.show();
     this.userService.getUsers(this.filter.name, this.page).subscribe(

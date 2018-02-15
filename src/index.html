@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="assets/adminlte/plugins/datatables/dataTables.bootstrap.css">
     <link href="assets/adminlte/plugins/iCheck/flat/flat.css" rel="stylesheet">
 
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href="assets/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
@@ -45,11 +47,59 @@
     <script type="text/javascript" src="assets/adminlte/plugins/iCheck/icheck.js"></script>
     <script type="text/javascript" src="assets/js/gallery.js"></script>
     <script type="text/javascript" src="assets/js/upload_file.js"></script>
-    <!-- <script type="text/javascript" src="assets/js/icheck.js"></script> -->
-    <!-- <script src="https://cdn.ckeditor.com/4.7.0/standard/ckeditor.js"></script> -->
+    
+    <!-- <script src="assets/adminlte/plugins/ckeditor/ckeditor.js"></script> -->
+    <!-- <script src="https://cdn.ckeditor.com/4.7.0/basic/ckeditor.js"></script>
+    <script src="assets/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script> -->
+    <script>
+    $(function () {
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+        //CKEDITOR.replace('editor1')
+        //bootstrap WYSIHTML5 - text editor
+        // $('.textarea').wysihtml5()
+    })
+    </script>
+    
     <!-- <script type="text/javascript" src="../node_modules/materialize-css/dist/js/materialize.min.js"></script> -->
     <!-- <script>
-        CKEDITOR.replace('editor');
+       function addLoadEvent(func) {
+    if(typeof window.onload != 'function') {
+        window.onload = func;
+    }
+    else {
+        if(func) {
+            var oldLoad = window.onload;
+
+            window.onload = function() {
+                if(oldLoad)
+                        oldLoad();
+
+                func();
+            }
+        }
+    }
+}
+
+// The setCaretPosition function belongs right here!
+
+function setTextAreasOnFocus() {
+/***
+ * This function will force the keyboard caret to be positioned
+ * at the end of all textareas when they receive focus.
+ */
+    var textAreas = document.getElementsByTagName('quill-editor');
+
+    for(var i = 0; i < textAreas.length; i++) {
+        textAreas[i].onfocus = function() {
+            setCaretPosition(this.id, this.value.length);
+        }
+    }
+
+    textAreas = null;
+}
+
+addLoadEvent(setTextAreasOnFocus);
     </script> -->
 </body>
 

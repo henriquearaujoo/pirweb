@@ -1,3 +1,4 @@
+import { Constant } from './../../../../constant/constant';
 import { Permissions, RuleState } from './../../../../helpers/permissions';
 import { Question } from './../../../../models/question';
 import { error } from 'util';
@@ -39,6 +40,9 @@ export class ConclusionComponent implements OnInit {
   private canCreate: boolean;
   private canDelete: boolean;
 
+  private limit = Constant.LIMIT_CHARACTERS;
+  private characters =  this.limit;
+
   public editorOptions = {
     modules: {
       toolbar: [
@@ -48,7 +52,7 @@ export class ConclusionComponent implements OnInit {
         [{ 'align': [] }]
       ]
     },
-    placeholder: '...',
+    placeholder: '',
     theme: 'snow'
   };
 
@@ -250,5 +254,13 @@ export class ConclusionComponent implements OnInit {
       'has-error': this.verifyValidSubmitted(form, field),
       'has-feedback': this.verifyValidSubmitted(form, field)
     };
+  }
+
+  onKey(event) {
+    this.characters = (this.limit - event.editor.getLength()) + 1;
+    if (event.editor.getLength() - 1 > this.limit) {
+      event.editor.deleteText(this.limit, event.editor.getLength());
+      event.editor.update();
+    }
   }
 }

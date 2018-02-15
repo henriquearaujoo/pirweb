@@ -1,3 +1,4 @@
+import { Constant } from './../../../../../../constant/constant';
 import { PagenateComponent } from './../../../../../../components/pagenate/pagenate.component';
 import { Paginate } from '../../../../../../models/paginate';
 import { Answer } from './../../../../../../models/answer';
@@ -29,6 +30,9 @@ export class AnswerListComponent extends PagenateComponent implements OnInit {
   private index: number;
   private paginate: Paginate = new Paginate();
 
+  private limit = Constant.LIMIT_CHARACTERS;
+  private characters =  this.limit;
+
   public editorOptions = {
     modules: {
       toolbar: [
@@ -38,7 +42,7 @@ export class AnswerListComponent extends PagenateComponent implements OnInit {
         [{ 'align': [] }]
       ]
     },
-    placeholder: '...',
+    placeholder: '',
     theme: 'snow'
   };
 
@@ -61,8 +65,6 @@ export class AnswerListComponent extends PagenateComponent implements OnInit {
     this.question.id = localStorage.getItem('questionId');
     this.conclusionService.getAnswer(this.question.id).subscribe(
       success => {
-        // this.paginate = success;
-        // this.answers = this.paginate.content;
         this.answers = success;
         this.index = 1;
         this.answers.forEach( el => {
@@ -164,12 +166,6 @@ export class AnswerListComponent extends PagenateComponent implements OnInit {
    );
   }
 
-  // setPage(page: number) {
-  //   this.page = page;
-  //   console.log('Página:', this.page);
-  //   this.getAnswers();
-  // }
-
   verifyValidSubmitted(form, field) {
     return form.submitted && !field.valid;
   }
@@ -179,5 +175,13 @@ export class AnswerListComponent extends PagenateComponent implements OnInit {
       'has-error': this.verifyValidSubmitted(form, field),
       'has-feedback': this.verifyValidSubmitted(form, field)
     };
+  }
+
+  onKey(event) {
+    this.characters = (this.limit - event.editor.getLength()) + 1;
+    if (event.editor.getLength() - 1 > this.limit) {
+      event.editor.deleteText(this.limit, event.editor.getLength());
+      event.editor.update();
+    }
   }
 }

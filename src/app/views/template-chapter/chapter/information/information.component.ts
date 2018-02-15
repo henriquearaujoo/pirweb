@@ -1,3 +1,5 @@
+import { Constant } from './../../../../constant/constant';
+import { element } from 'protractor';
 import { Permissions, RuleState } from './../../../../helpers/permissions';
 import { ToastService } from './../../../../services/toast-notification/toast.service';
 import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
@@ -6,6 +8,7 @@ import * as $ from 'jquery';
 import { Chapter } from '../../../../models/chapter';
 import { ChapterService } from '../../../../services/chapter/chapter.service';
 import { Observable } from 'rxjs/Observable';
+import { Delta } from 'quill';
 
 
 @Component({
@@ -29,6 +32,9 @@ export class InformationComponent implements OnInit {
   @Output() returnEvent = new EventEmitter();
   @Output() cancelEvent = new EventEmitter();
 
+  public editorContent = '';
+  private limit = Constant.LIMIT_CHARACTERS;
+  private characters =  this.limit;
   public editorOptions = {
     modules: {
       toolbar: [
@@ -38,8 +44,8 @@ export class InformationComponent implements OnInit {
         [{ 'align': [] }]
       ]
     },
-    placeholder: '...',
-    theme: 'snow'
+    placeholder: '',
+    theme: 'snow',
   };
 
   onCancel() {
@@ -75,6 +81,15 @@ export class InformationComponent implements OnInit {
       this.lastVersion = 0;
     }
   }
+
+  // onContentChanged({ quill, html, text }) {
+  //   // const textEditor = <string>text;
+  //   // console.log('quill content is changed!', quill, html, text);
+  //   // console.log('text', <string>text.length);
+  //   // if ( textEditor.length > this.limit) {
+  //   //   this.chapter.description = this.chapter.description.substr(1, this.limit);
+  //   // }
+  // }
 
   getNextChapterNumber() {
     return this.chapterService.select();
@@ -141,4 +156,11 @@ export class InformationComponent implements OnInit {
     };
   }
 
+  onKey(event) {
+    this.characters = (this.limit - event.editor.getLength()) + 1;
+    if (event.editor.getLength() - 1 > this.limit) {
+      event.editor.deleteText(this.limit, event.editor.getLength());
+      event.editor.update();
+    }
+  }
 }
