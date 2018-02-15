@@ -144,6 +144,7 @@ import { EqualValidatorDirective } from './directives/equal-validator.directive'
 import { Ng2InputMaskModule } from 'ng2-input-mask';
 import { TextMaskModule } from 'angular2-text-mask';
 import {NgxMaskModule} from 'ngx-mask';
+// import { QuillModule } from 'ngx-quill';
 // import { EqualValidator } from './directives/equal-validator.directive';
 
 // import { PdfViewerModule } from 'ng2-pdf-viewer';
@@ -265,7 +266,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     QuillEditorModule,
     ToastyModule.forRoot(),
     HttpClientModule,
-    NgxMaskModule
+    NgxMaskModule,
+    // QuillModule
     // Ng2InputMaskModule
     // PdfViewerModule
     // NgProgressModule
