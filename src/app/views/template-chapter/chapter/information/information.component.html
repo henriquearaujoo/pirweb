@@ -36,9 +36,9 @@
                                     name="editor_description" #description="ngModel" 
                                     [(ngModel)]="chapter.description" required>
                                 </quill-editor>
-                                <div style="text-align: right;">
+                                <!-- <div style="text-align: right;">
                                     <small>Caracteres restantes: {{ characters }}</small>
-                                </div>                               
+                                </div>                                -->
                                 <app-control-field-error [showError]="verifyValidSubmitted(f, description)" msgError="Digite uma descrição">
                                 </app-control-field-error>
                             </div>

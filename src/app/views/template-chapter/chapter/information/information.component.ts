@@ -32,7 +32,7 @@ export class InformationComponent implements OnInit {
   @Output() cancelEvent = new EventEmitter();
 
   public editorContent = '';
-  private limit = 5;
+  private limit = 500;
   private characters =  this.limit;
   public editorOptions = {
     modules: {
