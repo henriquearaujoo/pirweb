@@ -194,9 +194,9 @@ i.fa.fa-user {
     border-top: 0;
 }
 
-.nav-tabs-custom > .nav-tabs > li.active > a {
-    /* margin-right: 14px; */
-}
+/* .nav-tabs-custom > .nav-tabs > li.active > a {
+    margin-right: 14px;
+} */
 
 a.tab-pane {
     padding-left: 0;
