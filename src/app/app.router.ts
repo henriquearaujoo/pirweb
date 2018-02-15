@@ -1,3 +1,4 @@
+import { ChildComponent } from './views/child/child.component';
 import { ResetPasswordComponent } from './views/login/reset-password/reset-password.component';
 import { ChapterDashboardComponent } from './views/template-chapter/chapter/chapter-dashboard/chapter-dashboard.component';
 import { TemplateSelectModelComponent } from './views/template-chapter/template-select-model/template-select-model.component';
@@ -47,7 +48,7 @@ const App_Router: Routes = [
     {
         path: '',
         component: HomeLayoutComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         children: [
           {
             path: '',
@@ -84,9 +85,14 @@ const App_Router: Routes = [
             // canActivate: [PageGuard]
           },
           {
+            path: 'child',
+            component: ChildComponent
+            // canActivate: [PageGuard]
+          },
+          {
             path: 'template-chapter',
             component: TemplateChapterComponent,
-              canActivate: [PageGuard]
+              // canActivate: [PageGuard]
           },
           // {
           //   path: 'selectModel',
@@ -127,7 +133,7 @@ const App_Router: Routes = [
           {
             path: 'chapter-dashboard',
             component: ChapterDashboardComponent,
-              canActivate: [PageGuard]
+              // canActivate: [PageGuard]
           },
           {
             path: 'chapter-dashboard/:id',

@@ -144,6 +144,7 @@ import { EqualValidatorDirective } from './directives/equal-validator.directive'
 import { Ng2InputMaskModule } from 'ng2-input-mask';
 import { TextMaskModule } from 'angular2-text-mask';
 import {NgxMaskModule} from 'ngx-mask';
+import { ChildComponent } from './views/child/child.component';
 // import { QuillModule } from 'ngx-quill';
 // import { EqualValidator } from './directives/equal-validator.directive';
 
@@ -211,7 +212,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     MultimediaGalleryComponent,
     UploadMultimediaComponent,
     ResetPasswordComponent,
-    EqualValidatorDirective
+    EqualValidatorDirective,
+    ChildComponent
 
   ],
   imports: [
@@ -257,7 +259,6 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDo5LxyVUv5EwGQBwaveIF4d0MaIVD_Dd8'
     }),
-    BrowserAnimationsModule,
     SimpleNotificationsModule.forRoot(),
     NgxPaginationModule,
     JasperoAlertsModule,
@@ -266,7 +267,7 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     QuillEditorModule,
     ToastyModule.forRoot(),
     HttpClientModule,
-    NgxMaskModule,
+    NgxMaskModule
     // QuillModule
     // Ng2InputMaskModule
     // PdfViewerModule

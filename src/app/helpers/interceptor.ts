@@ -53,7 +53,7 @@ export class Interceptor extends XHRBackend {
         })
         .then((c) => {
           if (c) {
-            window.location.href = '/login';
+            // window.location.href = '/login';
           }
         });
         // setTimeout(() => {
@@ -77,7 +77,7 @@ export class Interceptor extends XHRBackend {
           .then((c) => {
             if (c) {
               setTimeout(() => {
-                window.location.href = '/login';
+                // window.location.href = '/login';
               }, 1000);
             }
           });
