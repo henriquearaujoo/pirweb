@@ -35,8 +35,7 @@ export class MultimediaComponent implements OnInit {
   private item_remove: any;
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
   private canReload: boolean;
-  @ViewChild('gallery')
-  gallery: MultimediaGalleryComponent;
+  @ViewChild('gallery') gallery: MultimediaGalleryComponent;
 
   media: any = {};
   thumbnail: any = {};
@@ -66,27 +65,6 @@ export class MultimediaComponent implements OnInit {
       {'path': '../../../../../assets/img_test/itn.mp4', 'type': 'VIDEO2D'},
       {'path': '../../../../../assets/img_test/FAS.pdf', 'type': 'FILE'}
           ];
-
-    // this.type_file = [
-    //   {
-    //     'id': 1,
-    //     'type': 'image',
-    //     'size': 10318,
-    //     'accept': 'image/png'
-    //   },
-    //   {
-    //     'id': 2,
-    //     'type': 'video',
-    //     'size': 10318,
-    //     'accept': 'mp4'
-    //     },
-    //   {
-    //     'id': 3,
-    //     'type': 'pdf',
-    //     'size': 10318,
-    //     'accept': 'pdf'
-    //     }
-    // ];
    }
 
   ngOnInit() {
@@ -112,16 +90,9 @@ export class MultimediaComponent implements OnInit {
     this.chapterService.load(chapter).subscribe(
       success => {
         this.chapter = success;
-        // this.reload();
         this.isNewData = false;
         this.multimedias = this.chapter.medias;
         this.hasData = true;
-        this.gallery.datasource = this.chapter.medias;
-        this.gallery.reload();
-        // console.log('MULTIMEDIAs:', this.multimedias);
-        //  for (let i = 0; i < this.multimedias.length; i++) {
-        //     this.multimedias[i].path = Constant.BASE_URL + 'file/download/' + this.multimedias[i].id;
-        // }
       },
       e => {
         console.log('PirError:' + e);
@@ -129,19 +100,19 @@ export class MultimediaComponent implements OnInit {
     );
   }
 
-  upload(media) {
+  uploadMedia(media) {
     if (this.btn_cancel) {
       this.btn_cancel = false;
       return false;
     }
-    this.media = media;
-    console.log('MEDIA ##', this.media);
+    // this.media = media;
+    console.log('MEDIA ##', media);
     console.log('isNewData', this.isNewData);
     // if (this.media && this.media.id) {
       if (!this.isNewData) {
         // this.media.path = Constant.BASE_URL + 'filetest/download/' + this.media.id;
-        for (let i = 0; i < this.media.length; i++) {
-          this.chapter.medias.push(this.media[i]);
+        for (let i = 0; i < media.length; i++) {
+          this.chapter.medias.push(media[i]);
         }
         console.log('CHAPTER:', this.chapter);
         this.chapter.thumbnails = [];
@@ -149,9 +120,9 @@ export class MultimediaComponent implements OnInit {
           s => {
             this.toastService.toastSuccess();
             this.chapter = s;
-            this.multimedias = this.chapter.medias;
+            // this.multimedias = this.chapter.medias;
             console.log('UPDATE CHAPTER:', this.chapter);
-            // this.canReload = false;
+            this.load(this.chapter.id);
             // this.gallery.reload();
           },
           e => {

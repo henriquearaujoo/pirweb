@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import { Community } from '../../../models/community';
 import { sha256, sha224 } from 'js-sha256';
+import { ModalService } from '../../../components/modal/modal.service';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-user-edit',
@@ -60,13 +62,21 @@ export class UserEditComponent implements OnInit {
   private canCreate: boolean;
   private canDelete: boolean;
 
+  private openSaveButtonTab1: HTMLButtonElement;
+  private openSaveButtonTab2: HTMLButtonElement;
+  private openSaveButtonTab3: HTMLButtonElement;
+  private isFormValid: boolean;
+  private tab: string;
+  private _isSave: boolean;
+  private currentId: string;
 
   constructor(
     private userService: UserService,
     private profileService: ProfileService,
     private router: Router,
     private toastService: ToastService,
-    private permissions: Permissions) {
+    private permissions: Permissions,
+    private modalService: ModalService) {
       this.user = new User();
       this.org = new Org();
       this.person = new Person();
@@ -108,47 +118,119 @@ export class UserEditComponent implements OnInit {
 
     this.enable_save = false;
 
+    this.openSaveButtonTab1 = (<HTMLButtonElement>document.getElementById('btn_tab1'));
+    this.openSaveButtonTab1.style.display = 'none';
+
+    this.openSaveButtonTab2 = (<HTMLButtonElement>document.getElementById('btn_tab2'));
+    this.openSaveButtonTab2.style.display = 'none';
+
+    this.openSaveButtonTab3 = (<HTMLButtonElement>document.getElementById('btn_tab3'));
+    this.openSaveButtonTab3.style.display = 'none';
+
     this.openModalButton = (<HTMLButtonElement>document.getElementById('openModalButton'));
     this.openModalButton.style.display = 'none';
     (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
   }
 
-  editData() {
+  saveData(isValid: boolean) {
     if (this.btn_cancel) {
       this.btn_cancel = false;
       return false;
     }
     this.modalOpened = false;
     this.verifyType();
-    // console.log('EDITAR',  this.user);
-    // this.user.address.city = Number(this.user.address.city);
-    // this.user.name = this.first_name + ' ' + this.last_name;
 
-    if (this.type === 'PJUR') {
-      console.log('SAVE ORG', this.org);
-      this.userService.saveEditEntity(this.org).subscribe(
-        s_org => {
-          this.openModal();
-          // this.router.navigate(['/user-list']);
-        },
-        error => {
-          this.error_list = error;
-          this.verifyError();
-        }
-      );
-    } else {
-      if (this.type === 'PFIS') {
-        console.log('SAVE PERSON', this.person);
-        this.userService.saveEditPerson(this.person).subscribe(
-          s_person => {
+    console.log('isValid', isValid);
+    if (isValid && this._isSave) {
+
+      if (this.type === 'PJUR') {
+        console.log('SAVE ORG', this.org);
+        this.userService.saveEditEntity(this.org).subscribe(
+          (data: Response) => {
+            console.log(data.headers.get('authorization'));
+            const token = data.headers.get('authorization');
             this.openModal();
-            // this.router.navigate(['/user-list']);
           },
           error => {
             this.error_list = error;
             this.verifyError();
           }
         );
+      } else {
+        if (this.type === 'PFIS') {
+          console.log('SAVE PERSON', this.person);
+          this.userService.saveEditPerson(this.person).subscribe(
+            (data: Response) => {
+              console.log(data);
+              this.currentId = localStorage.getItem('currentIdPir');
+              if (this.currentId === this.user.id) {
+                localStorage.removeItem('tokenPir');
+                localStorage.removeItem('profileId_rules');
+                localStorage.removeItem('currentUserPir');
+                localStorage.removeItem('currentIdPir');
+                swal( {
+                  title: '',
+                  text: 'Informações atualizadas com Sucesso!',
+                  icon: 'success',
+                  buttons: {
+                    confirm: {
+                      text: 'Fechar',
+                      className: 'swal-btn-close'
+                    }
+                  },
+                  closeOnClickOutside: false,
+                  className: 'swal-add-success'
+                })
+                .then((confirm) => {
+                  if (confirm) {
+                    swal({
+                      title: 'Sessão expirada!',
+                      text: 'Você precisa efetuar o login novamente!',
+                      icon: 'warning',
+                      buttons: {
+                        ok: {
+                          text: 'Ok',
+                          className: 'swal-btn-ok'
+                        }
+                      },
+                      closeOnClickOutside: false,
+                      className: 'swal-btn-ok'
+                    })
+                    .then((c) => {
+                      if (c) {
+                        location.reload();
+                      }
+                    });
+                  }
+                });
+
+              } else {
+                swal( {
+                  title: '',
+                  text: 'Informações atualizadas com Sucesso!',
+                  icon: 'success',
+                  buttons: {
+                    confirm: {
+                      text: 'Fechar',
+                      className: 'swal-btn-close'
+                    }
+                  },
+                  closeOnClickOutside: false,
+                  className: 'swal-add-success'
+                })
+                .then((confirm) => {
+                  if (confirm) {
+                    this.router.navigate(['user-list']);
+                  }
+                });
+              }
+            },
+            error => {
+              this.error_list = error;
+              this.verifyError();
+            }
+          );
+        }
       }
     }
   }
@@ -280,6 +362,9 @@ export class UserEditComponent implements OnInit {
         {
           this.show_pjur = false;
 
+          this.person.cpf = this.person.cpf.split('.').join('');
+          this.person.cpf = this.person.cpf.split('-').join('');
+          this.user.address.postalcode = this.user.address.postalcode.replace('-', '');
           this.person.id = this.user.id;
           this.person.address = this.user.address;
           this.person.email = this.user.email;
@@ -299,7 +384,7 @@ export class UserEditComponent implements OnInit {
         case 'PJUR':
         {
           this.show_pjur = true;
-
+          this.user.address.postalcode = this.user.address.postalcode.replace('-', '');
           this.org.id = this.user.id;
           this.org.address = this.user.address;
           this.org.email = this.user.email;
@@ -354,6 +439,12 @@ export class UserEditComponent implements OnInit {
             this.error_item = er.toUpperCase().split('.');
             console.log(this.error_item);
             this.toastService.toastErrorExists(this.error_item[this.error_item.length - 2]);
+            break;
+          }
+          case 'user.type.pfis.cpf.invalid': {
+            this.error_item = er.toUpperCase().split('.');
+            console.log(this.error_item);
+            this.toastService.toastErrorValid(this.error_item[this.error_item.length - 2]);
             break;
           }
           case 'user.type.pjur.cnpj.valid': {
@@ -434,47 +525,94 @@ export class UserEditComponent implements OnInit {
     };
   }
 
-  isActive(tab: boolean) {
-    if (tab) {
-      if (this.currentTab === -1) {
-            this.currentTab = 0;
-      } else if (this.currentTab < 2) {
-            this.currentTab++;
-        }
-    }else {
-      if (this.currentTab > 0) {
-            this.currentTab--;
-          }
-    }
-      this.previousTab = '#tab_' + (this.currentTab + 1);
-      this.nextTab = '#tab_' + (this.currentTab + 1);
+  save(tab: string, isValid: boolean) {
+    this.isFormValid = isValid;
+    this.tab = tab;
+    this._isSave = false;
+    console.log('tab:', tab);
+    console.log('isValid:', isValid);
+    console.log('isSave:', this._isSave);
+  }
 
-      if (this.nextTab === '#tab_3') {
-        this.enable_save = true;
+  isSave() {
+    this._isSave = true;
+  }
+
+  isActive(tab: boolean, t?: number, p?: number) {
+    console.log('currentTab', this.currentTab);
+    if ( p !== 0) {
+      if (t === 1) {
+        this.openSaveButtonTab1.click();
+        console.log('openSaveButtonTab1');
       } else {
-        this.enable_save = false;
-      }
-
-      if (this.currentTab === 0) {
-          (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
-          this.accountTab = '../../../assets/img/user/ic_account_enable.png';
-          this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
-          this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
-
-      }else if (this.currentTab === 1) {
-          this.accountTab = '../../../assets/img/user/ic_account_disable.png';
-          this.personalTab = '../../../assets/img/user/ic_personal_enable.png';
-          this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
-          (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
-          (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
-
-      }else {
-          (<HTMLButtonElement>document.getElementById('btn_next')).style.display = 'none';
-          this.accountTab = '../../../assets/img/user/ic_account_disable.png';
-          this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
-          this.adressTab = '../../../assets/img/user/ic_adress_enable.png';
-          this.next = 'Salvar';
+        if ( t === 2) {
+          this.openSaveButtonTab2.click();
+          console.log('openSaveButtonTab2');
+        } else {
+          if (t === 3) {
+            this.isFormValid = true;
+            // this.openSaveButtonTab3.click();
+            // console.log('openSaveButtonTab3');
+          }
         }
+      }
+    } else {
+      this.isFormValid = true;
+    }
+
+
+    if ( this.isFormValid) {
+      if (tab) {
+        if (this.currentTab === -1) {
+              this.currentTab = 0;
+        } else if (this.currentTab < 2) {
+              this.currentTab++;
+          }
+      }else {
+        if (this.currentTab > 0) {
+              this.currentTab--;
+            }
+      }
+        this.previousTab = '#tab_' + (this.currentTab + 1);
+        this.nextTab = '#tab_' + (this.currentTab + 1);
+
+        if (this.nextTab === '#tab_3') {
+          this.enable_save = true;
+        } else {
+          this.enable_save = false;
+        }
+
+        if (this.currentTab === 0) {
+            (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
+            this.accountTab = '../../../assets/img/user/ic_account_enable.png';
+            this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
+            this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
+
+        }else if (this.currentTab === 1) {
+            this.accountTab = '../../../assets/img/user/ic_account_disable.png';
+            this.personalTab = '../../../assets/img/user/ic_personal_enable.png';
+            this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
+            (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
+            (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
+
+        }else {
+            (<HTMLButtonElement>document.getElementById('btn_next')).style.display = 'none';
+            this.accountTab = '../../../assets/img/user/ic_account_disable.png';
+            this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
+            this.adressTab = '../../../assets/img/user/ic_adress_enable.png';
+            this.next = 'Salvar';
+          }
+      } else {
+        if (t === 1) {
+          this.nextTab = '#tab_1';
+          console.log('nextTab:', this.nextTab);
+        } else {
+          if (t === 2) {
+            this.nextTab = '#tab_2';
+            console.log('nextTab:', this.nextTab);
+          }
+        }
+      }
   }
 
   backToList() {

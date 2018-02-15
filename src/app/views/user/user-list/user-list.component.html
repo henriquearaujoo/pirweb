@@ -24,8 +24,17 @@
             <div class="col-sm-12">
               <div id="_filter" class="dataTables_filter">
                 <label>
-                <input type="text" class="form-control form-border " name="name" id="filter"  [pattern]="pattern" maxlength="15" (keyup)="getUsers()" [(ngModel)]="filter.name" placeholder="Filtro">
+                <input type="text" class="form-control form-border"  [(ngModel)]="filter.name" #f="ngModel" mask="SSSSSSSSSSSSSSSSSS" name="filter" id="filter" maxlength="15" (keyup)="getUsers()" placeholder="Filtro">
                 </label>
+                <!-- <input type='text' mask="000.000.000-00" > -->
+                <!-- <div>
+                  <div *ngIf="f.errors?.pattern">
+                    <p class="has-error">
+                        Somente letras são permitidos
+                    </p>
+                    Erro: {{f.errors | json}}
+                  </div>
+                </div> -->
               </div>
             </div>
         </div>

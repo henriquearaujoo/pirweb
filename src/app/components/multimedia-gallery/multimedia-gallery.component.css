@@ -331,3 +331,7 @@ h1 {
     -webkit-filter: brightness(0.5);
    
   }
+
+  video#myVideo:focus {
+    outline: none;
+}

@@ -41,7 +41,7 @@
                                 </thead>
                                 <tbody *ngIf="currentProfile.id === undefined">
                                     <tr  *ngFor="let item of all_pages">
-                                        <th scope="row" class="page-route">{{item.route}}</th>
+                                        <th scope="row" class="page-route">{{item.title}}</th>
                                         <td>
                                             <input type="checkbox" 
                                                 [value]="1" disabled/>

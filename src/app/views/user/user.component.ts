@@ -58,7 +58,9 @@ export class UserComponent implements OnInit {
   private modalSave: string;
 
   private modalOpened: boolean;
-  // private openModalButton: HTMLButtonElement;
+  private openSaveButtonTab1: HTMLButtonElement;
+  private openSaveButtonTab2: HTMLButtonElement;
+  private openSaveButtonTab3: HTMLButtonElement;
   private type: any;
   // private openModalCancel: HTMLButtonElement;
   private show_community: boolean;
@@ -66,6 +68,9 @@ export class UserComponent implements OnInit {
   private canUpdate: boolean;
   private canCreate: boolean;
   private canDelete: boolean;
+  private isFormValid: boolean;
+  private tab: string;
+  private _isSave: boolean;
 
   constructor(
     private userService: UserService,
@@ -114,8 +119,14 @@ export class UserComponent implements OnInit {
     this.cont = 0;
     this.modalSave = '#modal-default';
 
-    // this.openModalButton = (<HTMLButtonElement>document.getElementById('openModalButton'));
-    // this.openModalButton.style.display = 'none';
+    this.openSaveButtonTab1 = (<HTMLButtonElement>document.getElementById('btn_tab1'));
+    this.openSaveButtonTab1.style.display = 'none';
+
+    this.openSaveButtonTab2 = (<HTMLButtonElement>document.getElementById('btn_tab2'));
+    this.openSaveButtonTab2.style.display = 'none';
+
+    this.openSaveButtonTab3 = (<HTMLButtonElement>document.getElementById('btn_tab3'));
+    this.openSaveButtonTab3.style.display = 'none';
 
     // this.openModalCancel = (<HTMLButtonElement>document.getElementById('openModalCancel'));
     // this.openModalCancel.style.display = 'none';
@@ -124,52 +135,73 @@ export class UserComponent implements OnInit {
 
   }
 
-  saveData() {
+  saveData(isValid: boolean) {
+    console.log('isValid', isValid);
 
-    this.modalOpened = false;
-    this.verifyType();
-    // console.log(this.user.profile);
-    // this.user.name = this.first_name + ' ' + this.last_name;
-    // this.user.address.city = Number(this.user.address.city);
-    this.success = true;
-    if (this.type === 'PJUR') {
-      console.log('SAVE ORG', this.org);
-      this.userService.createEntity(this.org).subscribe(
-        s_org => {
-          this.openModalSuccess();
-          // this.router.navigate(['/user-list']);
-        },
-        error => {
-          this.toastService.toastError();
-          this.error_list = error;
-          this.verifyError();
-        }
-      );
-    } else {
-      if (this.type === 'PFIS') {
-        console.log('SAVE PERSON', this.person);
-        this.userService.createPerson(this.person).subscribe(
-          s_person => {
+    if (isValid && this._isSave) {
+      this.modalOpened = false;
+      this.verifyType();
+      // console.log(this.user.profile);
+      // this.user.name = this.first_name + ' ' + this.last_name;
+      // this.user.address.city = Number(this.user.address.city);
+      this.success = true;
+      if (this.type === 'PJUR') {
+        console.log('SAVE ORG', this.org);
+        this.userService.createEntity(this.org).subscribe(
+          s_org => {
             this.openModalSuccess();
             // this.router.navigate(['/user-list']);
           },
           error => {
-            this.error_list = error;
             this.toastService.toastError();
+            this.error_list = error;
             this.verifyError();
           }
         );
+      } else {
+        if (this.type === 'PFIS') {
+          console.log('SAVE PERSON', this.person);
+          this.userService.createPerson(this.person).subscribe(
+            s_person => {
+              this.openModalSuccess();
+              // this.router.navigate(['/user-list']);
+            },
+            error => {
+              this.error_list = error;
+              this.toastService.toastError();
+              this.verifyError();
+            }
+          );
+        }
       }
     }
   }
 
   openModalSuccess() {
-    if (!this.modalOpened) {
-      this.modalOpened = true;
-      // this.openModalButton.click();
-      this.modalService.modalSuccess('/user-list');
-      return false;
-    }
+    // if (!this.modalOpened) {
+    //   this.modalOpened = true;
+    //   // this.openModalButton.click();
+    //   this.modalService.modalSuccess('/user-list');
+    //   return false;
+    // }
+    swal( {
+      title: '',
+      text: 'Cadastro realizado com Sucesso!',
+      icon: 'success',
+      buttons: {
+        confirm: {
+          text: 'Fechar',
+          className: 'swal-btn-close'
+        }
+      },
+      closeOnClickOutside: false,
+      className: 'swal-add-success'
+    })
+    .then((confirm) => {
+      if (confirm) {
+        this.router.navigate(['user-list']);
+      }
+    });
   }
 
   openModal() {
@@ -265,6 +297,9 @@ export class UserComponent implements OnInit {
       case 'PFIS':
       {
         // this.user.pfis = this.person;
+        this.person.cpf = this.person.cpf.split('.').join('');
+        this.person.cpf = this.person.cpf.split('-').join('');
+        this.user.address.postalcode = this.user.address.postalcode.replace('-', '');
         this.person.address = this.user.address;
         this.person.email = this.user.email;
         this.person.login = this.user.login;
@@ -280,6 +315,7 @@ export class UserComponent implements OnInit {
 
       case 'PJUR':
       {
+        this.user.address.postalcode = this.user.address.postalcode.replace('-', '');
         this.org.address = this.user.address;
         this.org.email = this.user.email;
         this.org.login = this.user.login;
@@ -374,50 +410,100 @@ export class UserComponent implements OnInit {
     }
    }
 
-   isActive(tab: boolean) {
-    if (tab) {
-      if (this.currentTab === -1) {
-            this.currentTab = 0;
-      } else if (this.currentTab < 2) {
-            this.currentTab++;
-            this.cont++;
-            console.log('TAB:', this.cont);
-        }
-    }else {
-      if (this.currentTab > 0) {
-            this.currentTab--;
-            this.cont--;
-            console.log('TAB:', this.cont);
-          }
-    }
-      this.previousTab = '#tab_' + (this.currentTab + 1);
-      this.nextTab = '#tab_' + (this.currentTab + 1);
+  save(tab: string, isValid: boolean) {
+    this.isFormValid = isValid;
+    this.tab = tab;
+    this._isSave = false;
+    console.log('tab:', tab);
+    console.log('isValid:', isValid);
+    console.log('isSave:', this._isSave);
+  }
 
-      if (this.nextTab === '#tab_3') {
-        this.enable_save = true;
+  isSave() {
+    this._isSave = true;
+  }
+
+   isActive(tab: boolean, t?: number,  p?: number) {
+    //  this.tab = t ;
+    console.log('currentTab', this.currentTab);
+    if ( p !== 0 ) {
+      if (t === 1) {
+        this.openSaveButtonTab1.click();
+        console.log('openSaveButtonTab1');
       } else {
-        this.enable_save = false;
+        if ( t === 2) {
+          this.openSaveButtonTab2.click();
+          console.log('openSaveButtonTab2');
+        } else {
+          if (t === 3) {
+            this.isFormValid = true;
+            // this.openSaveButtonTab3.click();
+            // console.log('openSaveButtonTab3');
+          }
+        }
+      }
+    } else {
+      this.isFormValid = true;
+    }
+
+
+    if ( this.isFormValid) {
+      this.isFormValid = false;
+      if (tab) {
+        if (this.currentTab === -1) {
+              this.currentTab = 0;
+        } else if (this.currentTab < 2) {
+              this.currentTab++;
+              this.cont++;
+              console.log('TAB:', this.cont);
+          }
+      }else {
+        if (this.currentTab > 0) {
+              this.currentTab--;
+              this.cont--;
+              console.log('TAB:', this.cont);
+            }
+      }
+        this.previousTab = '#tab_' + (this.currentTab + 1);
+        this.nextTab = '#tab_' + (this.currentTab + 1);
+
+        if (this.nextTab === '#tab_3') {
+          this.enable_save = true;
+        } else {
+          this.enable_save = false;
+        }
+
+        if (this.currentTab === 0) {
+            (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
+            this.accountTab = '../../../assets/img/user/ic_account_enable.png';
+            this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
+            this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
+
+        }else if (this.currentTab === 1) {
+            this.accountTab = '../../../assets/img/user/ic_account_disable.png';
+            this.personalTab = '../../../assets/img/user/ic_personal_enable.png';
+            this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
+            (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
+            (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
+        }else {
+            (<HTMLButtonElement>document.getElementById('btn_next')).style.display = 'none';
+            this.accountTab = '../../../assets/img/user/ic_account_disable.png';
+            this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
+            this.adressTab = '../../../assets/img/user/ic_adress_enable.png';
+            this.next = 'Salvar';
+          }
+      } else {
+        if (t === 1) {
+          this.nextTab = '#tab_1';
+          console.log('nextTab:', this.nextTab);
+        } else {
+          if (t === 2) {
+            this.nextTab = '#tab_2';
+            console.log('nextTab:', this.nextTab);
+          }
+        }
       }
 
-      if (this.currentTab === 0) {
-          (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
-          this.accountTab = '../../../assets/img/user/ic_account_enable.png';
-          this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
-          this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
-
-      }else if (this.currentTab === 1) {
-          this.accountTab = '../../../assets/img/user/ic_account_disable.png';
-          this.personalTab = '../../../assets/img/user/ic_personal_enable.png';
-          this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
-          (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
-          (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
-      }else {
-          (<HTMLButtonElement>document.getElementById('btn_next')).style.display = 'none';
-          this.accountTab = '../../../assets/img/user/ic_account_disable.png';
-          this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
-          this.adressTab = '../../../assets/img/user/ic_adress_enable.png';
-          this.next = 'Salvar';
-        }
   }
 
   verifyValidSubmitted(form, field) {

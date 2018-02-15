@@ -4,7 +4,7 @@
     <div class="row upload-multimedia">
       <div class="col-md-6">
         <div class="select-multimedia">
-          <div class="form-group" [ngClass]="applyCssError(fMultimedia, mediaType)">
+          <div class="form-group" [ngClass]="{ 'has-error':!isNewData && !mediaType.valid }">
             <label class="control-label">Tipo de Midia:</label>
             <div class="row">
               <div class="col-md-8">           
@@ -12,18 +12,17 @@
                   [(ngModel)]="_fileData.mediaType" (change)="clear()" required>       
                   <option *ngFor="let item of type_file"
                     [value]="item.type"> {{ item.name }} </option>
-                </select>   
+                </select>                   
               </div> 
-            </div>
-            <app-control-field-error [showError]="verifyValidSubmitted(fMultimedia, mediaType)" msgError="Selecione o tipo de arquivo">
-            </app-control-field-error>   
-            </div>
-          </div>        
+            </div>   
+            <div *ngIf="!isNewData && !mediaType.valid" class="help-block"> Selecione o tipo de mídia</div>        
+          </div>
+        </div>        
       </div>
       <div class="col-md-6 ">
         <div class="info-select" *ngIf="selectedType !== ''">
-            Tamanho máximo do arquivo: {{ selectedType.size }} <br/>
-            Extensões permitidas: {{ selectedType.accept }} <br/>
+            Tamanho máximo do arquivo: {{ selectedType.size_show }} <br/>
+            Extensões permitidas: {{ selectedType.types }} <br/>
         </div>        
       </div>
     </div>
@@ -45,7 +44,7 @@
                       multiple (change)="onChange()" id="files" size="3"
                       [disabled]="(isNewData || (selectedType === ''))"/>
                   </div>                
-                  <button type="submit" class="btn btn-labeled btn-default" [disabled]="(isNewData || (selectedType === ''))"> <span class="btn-label"><i class="glyphicon glyphicon-upload"></i> </span>Upload</button>
+                  <button type="submit" class="btn btn-labeled btn-default" [disabled]="(isNewData || (selectedType === ''))"> <span class="btn-label"><i class="glyphicon glyphicon-upload"></i> </span>Carregar</button>
                 </span>
               </div>
             </div>

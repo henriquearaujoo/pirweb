@@ -1,5 +1,6 @@
 import { ToastService } from './../../services/toast-notification/toast.service';
-import {Component, OnInit, OnChanges, EventEmitter, Output, Input} from '@angular/core';
+import { Component, OnInit, OnChanges, EventEmitter, Output,
+         Input, SimpleChanges, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { ProfileService } from '../../services/profile/profile.service';
@@ -7,6 +8,7 @@ import { Profile } from '../../models/profile';
 import { PagenateComponent } from '../../components/pagenate/pagenate.component';
 import { PageService } from '../../services/pagenate/page.service';
 import { Rule } from '../../models/rule';
+import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 
 
 @Component({
@@ -14,7 +16,7 @@ import { Rule } from '../../models/rule';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent extends PagenateComponent implements OnInit, OnChanges {
+export class ProfileComponent extends PagenateComponent implements OnInit, OnChanges, AfterViewInit {
 
   @Input() profiles: Profile[] = new Array();
   profile: Profile = new Profile();
@@ -29,6 +31,9 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
   editProfile: string;
   @Input() canUpdate: boolean;
   @Input() canCreate: boolean;
+  @ViewChild('inputEdit') inputEdit: ElementRef;
+
+  log: string;
 
   constructor (
     pagerService: PageService,
@@ -42,10 +47,25 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
 
     ngOnInit() { }
 
-    ngOnChanges() {
+    ngOnChanges(changes: SimpleChanges) {
+      
       this.hasdata = false;
       this.editProfile = this.selectedProfile.title;
+      if ( changes.edit) {
+        if (this.edit) {
+          // this.ngAfterViewInit();
+          // this.focusInput();
+        }
+      }
     }
+
+    focusInput() {
+      this.inputEdit.nativeElement.focus();
+    }
+
+    ngAfterViewInit() {
+    //   this.log = `inputEdit is ${this.inputEdit.nativeElement}`;
+     }
 
     save() {
        this.profile.status = true;
@@ -98,5 +118,10 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
     cancelEdit() {
       this.insertValue.emit(this.profile);
       this.profile.title = '';
+    }
+
+    public inputEnable() {
+      (<HTMLElement>document.getElementById('title_edit')).blur();
+      (<HTMLElement>document.getElementById('title_edit')).focus();
     }
 }

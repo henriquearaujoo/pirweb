@@ -39,6 +39,7 @@ th {
 .tbl-right {
     text-align: right;  
     width: 50px;
+    padding-right: 30px!important;
 }
 
 tr, th {
@@ -283,4 +284,18 @@ td  {
 }
 tbody {
     background-color: white;
+}
+
+.limit-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.modal-body {
+    padding: 0px;
+}
+
+td.profile-id {
+    width: 198px;
 }

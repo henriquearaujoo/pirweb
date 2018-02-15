@@ -84,8 +84,9 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
       this.filter.name = '';
     }
     this.chapterService.getChapters(this.filter.name, this.size).subscribe(
-      success => {
-        this.paginate = success;
+      s1 => {
+        console.log('ALL:', s1);
+        this.paginate = s1;
         this.chapters = this.paginate.content;
         this.hasdata = true;
 
@@ -112,9 +113,11 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
   }
 
   getChapterActive() {
+    this.loaderService.show();
     this.chapterService.getChapterActive(this.filter.name, this.size_active).subscribe(
-      success => {
-        this.paginate_active = success;
+      s2 => {
+        console.log('ACTIVES:', s2);
+        this.paginate_active = s2;
         this.chapters_active = this.paginate_active.content;
         this.hasdata = true;
         // Remove duplicates chapters
@@ -124,18 +127,26 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
           hash[chapter.number] = true;
           return exists;
         });
+        setTimeout(() => {
+          this.loaderService.hide();
+        }, 500);
       },
       error => {
         console.log('ERROR', error);
         this.hasdata = false;
+        setTimeout(() => {
+          this.loaderService.hide();
+        }, 500);
       }
     );
   }
 
   getChapterInactive() {
+    this.loaderService.show();
     this.chapterService.getChapterInactive(this.filter.name, this.size_inactive).subscribe(
-      success => {
-        this.paginate_inactive = success;
+      s3 => {
+        console.log('INACTIVES:', s3);
+        this.paginate_inactive = s3;
         this.chapters_inactive = this.paginate_inactive.content;
         this.hasdata = true;
         // Remove duplicates chapters
@@ -145,10 +156,16 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
           hash[chapter.number] = true;
           return exists;
         });
+        setTimeout(() => {
+          this.loaderService.hide();
+        }, 500);
       },
       error => {
         console.log('ERROR', error);
         this.hasdata = false;
+        setTimeout(() => {
+          this.loaderService.hide();
+        }, 500);
       }
     );
   }
@@ -182,10 +199,8 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
   }
 
   changeStatus(event) {
-    if (event) {
-      this.getChapters();
-      this.getChapterActive();
-      this.getChapterInactive();
-    }
+    this.getChapters();
+    this.getChapterActive();
+    this.getChapterInactive();
   }
 }
