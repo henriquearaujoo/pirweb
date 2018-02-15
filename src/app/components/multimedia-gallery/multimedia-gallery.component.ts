@@ -1,7 +1,7 @@
 import { FileService } from './../../services/file/file.service';
 import { SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 import { ModalService } from './../modal/modal.service';
-import { Component, OnInit, Input, ViewChild, ElementRef, HostListener, EventEmitter, Output, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, HostListener, EventEmitter, Output, OnChanges, OnDestroy } from '@angular/core';
 import { Constant } from '../../constant/constant';
 import { PageService } from '../../services/pagenate/page.service';
 import { PagenateComponent } from '../pagenate/pagenate.component';
@@ -15,10 +15,10 @@ declare function require(name: string): any;
   templateUrl: './multimedia-gallery.component.html',
   styleUrls: ['./multimedia-gallery.component.css']
 })
-export class MultimediaGalleryComponent implements OnInit, OnChanges {
+export class MultimediaGalleryComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() datasource: any[];
-  private selectedItem: any;
+  private selectedItem: any = '';
   @Output() remove = new EventEmitter<any>();
 
    // array of all items to be paged
@@ -69,6 +69,11 @@ export class MultimediaGalleryComponent implements OnInit, OnChanges {
       );
   }
 
+  close() {
+    // this.selectedItem.path = '';
+    this.ngOnDestroy();
+  }
+
  reload() {
   for (let i = 0; i < this.datasource.length; i++) {
     this.datasource[i].path = Constant.BASE_URL + 'file/download/' + this.datasource[i].id;
@@ -107,20 +112,7 @@ setPageImages(page: number) {
      this.selectedItem = this.datasource[index];
   }
 }
-/* download to zip
-getZip(path: string, params: URLSearchParams = new URLSearchParams()): Observable<any> {
- let headers = this.setHeaders({
-      'Content-Type': 'application/zip',
-      'Accept': 'application/zip'
-    });
-
- return this.http.get(`${environment.apiUrl}${path}`, {
-   headers: headers,
-   search: params,
-   responseType: ResponseContentType.ArrayBuffer //magic
- })
-          .catch(this.formatErrors)
-          .map((res:Response) => res['_body']);
-}
-*/
+  ngOnDestroy() {
+    this.selectedItem = '';
+  }
 }
