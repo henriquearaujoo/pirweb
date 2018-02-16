@@ -109,8 +109,8 @@ label {
     /* padding-bottom: 92px!important; */
 }
 
-section.content {
-    /* margin-right: 15px; */
+.nav > li > a {
+    padding: 10px 0 0 0;
 }
 
 .content_fa {
@@ -194,13 +194,18 @@ i.fa.fa-user {
     border-top: 0;
 }
 
-.nav-tabs-custom > .nav-tabs > li.active > a {
+/* .nav-tabs-custom > .nav-tabs > li.active > a {
     margin-right: 14px;
-}
+} */
 
 a.tab-pane {
     padding-left: 0;
 }
+
+/* a.tab-pane {
+    width: 152px;
+    height: 51px;
+} */
 
 section.content_user {
     padding: 24px;

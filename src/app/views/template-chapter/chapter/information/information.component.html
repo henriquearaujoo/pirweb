@@ -71,14 +71,14 @@
 
                             <div class="form-group" [ngClass]="applyCssError(f, time)">
                                 <label class="control-label">Estimativa de Tempo (em minutos)</label>
-                                <input type="number" min="1" id="chapter_estimated_time" name="chapter_estimated_time" maxlength="50" #time="ngModel" [(ngModel)]="chapter.estimated_time" value="chapter.estimated_time" class="form-control" placeholder="Inserir Estimativa de Tempo..." required>
+                                <input type="number" min="1" id="chapter_estimated_time" mask="00000000000000000000" name="chapter_estimated_time" maxlength="20" #time="ngModel" [(ngModel)]="chapter.estimated_time" value="chapter.estimated_time" class="form-control" placeholder="Inserir Estimativa de Tempo..." required>
                                 <app-control-field-error [showError]="verifyValidSubmitted(f, time)" msgError="Digite uma Estimativa de Tempo (minutos)">
                                 </app-control-field-error>
                             </div>
 
                             <div class="form-group" [ngClass]="applyCssError(f, timeNextVisit)">
                                 <label class="control-label">Digite uma Estimativa de Tempo (em dias)</label>
-                                <input type="number" min="0" id="chapter_time_next_visit" name="chapter_time_next_visit" #timeNextVisit="ngModel" [(ngModel)]="chapter.time_next_visit" value="chapter.time_next_visit" class="form-control" placeholder="Tempo para a próxima visita..." required>
+                                <input type="number" min="0" id="chapter_time_next_visit" mask="00000000000000000000" name="chapter_time_next_visit" maxlength="20" #timeNextVisit="ngModel" [(ngModel)]="chapter.time_next_visit" value="chapter.time_next_visit" class="form-control" placeholder="Tempo para a próxima visita..." required>
                                 <app-control-field-error [showError]="verifyValidSubmitted(f, timeNextVisit)" msgError="Digite uma Estimativa de Tempo (em dia)">
                                 </app-control-field-error>
                             </div>

@@ -47,39 +47,6 @@
       <!-- END GRID -->
       </div>
 
-      <!-- Gallery Grid -->
-      <!-- <div class="row">
-        <div class=" col column" *ngFor="let item of datasource; let i = index">
-          <div class="content" *ngIf="item.content === 'video/mp4'">
-            <div class="_item v">
-              <video controls id="myVideo" width="191" height="146" 
-                data-toggle="modal" data-target="#selectedItemModal"
-                (click)=setSelectedItem(item) >
-                  <source src="{{ item.path }}" type="video/mp4" /> Browser not sxupported
-              </video>
-              <a class="delete-item" (click)="removeMultimedia(item)"><i class="fa fa-trash"></i></a>
-            </div>
-            <p class="limit-text">{{ item.name }} </p>
-          </div>
-        </div>       -->
-      <!-- END GRID -->
-      <!-- </div> -->
-      <!-- Gallery Grid -->
-      <!-- <div class="row">
-        <div class=" col column" *ngFor="let item of datasource">
-          <div class="content" *ngIf="item.content === 'application/pdf'">
-            <div class="_item">                
-              <a  href="{{ item.path }}">
-                <i class="fa fa-file-pdf-o" (click)=setSelectedItem(item) aria-hidden="true"></i>
-              </a>   
-            </div>    
-            <a class="delete-item" (click)="removeMultimedia(item)"><i class="fa fa-trash"></i></a>
-            <p class="limit-text">{{ item.name }} </p>
-          </div>
-        </div>       -->
-      <!-- END GRID -->
-      <!-- </div> -->
-
     </div>
     <div class="tab-pane fade" id="tab_i">
       <!-- Gallery Grid -->
@@ -137,16 +104,16 @@
     <!-- <div class="modal-content"> -->
       <div class="modal-header">
          
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" (click)="close()"class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
         <div *ngIf="selectedItem">
             <div *ngIf="selectedItem.content === 'image/jpeg' || selectedItem.content === 'image/png'">
-              <img class="modal-content" src="{{ selectedItem.path }}" >
+              <img class="modal-content" [src]="selectedItem.path" >
             </div>   
             <div *ngIf="selectedItem.content === 'video/mp4'">
               <video class="modal-content video-modal" controls #videoplayer controlsList="nodownload">
-                <source src="{{ selectedItem.path }}" type="video/mp4" /> Browser not supported
+                <source [src]="selectedItem.path" type="video/mp4" /> Browser not supported
               </video>
             </div>
             <button class="modal-content" (click)="downloadFile(selectedItem) ">

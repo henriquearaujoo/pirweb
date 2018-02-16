@@ -143,15 +143,6 @@ span.version-add {
     text-align: center;
 }
 
-/* .card[_ngcontent-c7] .card-content[_ngcontent-c7] {
-    padding: 0px 15px;
-    height: 250px;
-}
-
-.card[_ngcontent-c7][_ngcontent-c7] {
-    height: 368px;
-    width: 234px;
-} */
 
 .card.sticky-action .card-action {
     padding: 10px;
@@ -163,15 +154,14 @@ span.version-add {
     width: 90%;
     left: 5%;
 }
-/* .card[_ngcontent-c7] .card-action[_ngcontent-c7]{
-    padding: 10px;
+
+.limit-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 34px;
 }
-.card[_ngcontent-c7] .card-reveal[_ngcontent-c7] {
-    padding: 10px;
-    top: 97%;
-    width: 90%;
-    left: 5%;
-} */
+
 button.btn.status, button.btn.edit {
     height: 26px;
     width: 90px;
