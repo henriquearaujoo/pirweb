@@ -1,3 +1,4 @@
+import { PregnantComponent } from './views/pregnant/pregnant.component';
 import { ChildComponent } from './views/child/child.component';
 import { ResetPasswordComponent } from './views/login/reset-password/reset-password.component';
 import { ChapterDashboardComponent } from './views/template-chapter/chapter/chapter-dashboard/chapter-dashboard.component';
@@ -87,6 +88,11 @@ const App_Router: Routes = [
           {
             path: 'child',
             component: ChildComponent
+            // canActivate: [PageGuard]
+          },
+          {
+            path: 'pregnant',
+            component: PregnantComponent
             // canActivate: [PageGuard]
           },
           {

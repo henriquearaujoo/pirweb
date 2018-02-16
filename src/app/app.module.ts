@@ -53,6 +53,7 @@ import {
 import { NgForm } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { MatIconModule } from '@angular/material/icon';
+import {MyDatePickerModule} from 'mydatepicker';
 
 import { RestService } from './services/rest/rest.service';
 import { CostumerService } from './services/costumer/costumer.service';
@@ -145,6 +146,8 @@ import { Ng2InputMaskModule } from 'ng2-input-mask';
 import { TextMaskModule } from 'angular2-text-mask';
 import {NgxMaskModule} from 'ngx-mask';
 import { ChildComponent } from './views/child/child.component';
+import { PregnantComponent } from './views/pregnant/pregnant.component';
+import { PregnantService } from './services/pregnant/pregnant.service';
 // import { QuillModule } from 'ngx-quill';
 // import { EqualValidator } from './directives/equal-validator.directive';
 
@@ -213,7 +216,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     UploadMultimediaComponent,
     ResetPasswordComponent,
     EqualValidatorDirective,
-    ChildComponent
+    ChildComponent,
+    PregnantComponent
 
   ],
   imports: [
@@ -267,7 +271,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     QuillEditorModule,
     ToastyModule.forRoot(),
     HttpClientModule,
-    NgxMaskModule
+    NgxMaskModule,
+    MyDatePickerModule
     // QuillModule
     // Ng2InputMaskModule
     // PdfViewerModule
@@ -301,7 +306,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     PageGuard,
     ModalService,
     CommunityService,
-    FileService
+    FileService,
+    PregnantService
   ],
   bootstrap: [AppComponent]
 })

@@ -5,4 +5,5 @@ export class Community {
     public regional: string;
     public status: boolean;
 
+// tslint:disable-next-line:eofline
 }

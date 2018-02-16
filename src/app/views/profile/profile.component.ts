@@ -48,7 +48,6 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
     ngOnInit() { }
 
     ngOnChanges(changes: SimpleChanges) {
-      
       this.hasdata = false;
       this.editProfile = this.selectedProfile.title;
       if ( changes.edit) {
@@ -105,6 +104,7 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
             this.toastService.toastSuccess();
           },
           error => {
+            this.insertValue.emit(this.profile);
             if ( error === 'profile.title.exists') {
               this.toastService.toastErrorExist();
             } else {
@@ -121,7 +121,9 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
     }
 
     public inputEnable() {
-      (<HTMLElement>document.getElementById('title_edit')).blur();
-      (<HTMLElement>document.getElementById('title_edit')).focus();
+      if ( (<HTMLElement>document.getElementById('title_edit')) !== null) {
+        (<HTMLElement>document.getElementById('title_edit')).blur();
+        (<HTMLElement>document.getElementById('title_edit')).focus();
+      }
     }
 }
