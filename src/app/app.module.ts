@@ -28,7 +28,6 @@ import {
   MatDatepickerModule,
   MatExpansionModule,
   MatGridListModule,
-  MatIconModule,
   MatInputModule,
   MatListModule,
   MatMenuModule,
@@ -53,6 +52,7 @@ import {
 } from '@angular/material';
 import { NgForm } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
+import { MatIconModule } from '@angular/material/icon';
 
 import { RestService } from './services/rest/rest.service';
 import { CostumerService } from './services/costumer/costumer.service';
