@@ -48,7 +48,7 @@ const App_Router: Routes = [
     {
         path: '',
         component: HomeLayoutComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         children: [
           {
             path: '',
@@ -92,7 +92,7 @@ const App_Router: Routes = [
           {
             path: 'template-chapter',
             component: TemplateChapterComponent,
-              // canActivate: [PageGuard]
+              canActivate: [PageGuard]
           },
           // {
           //   path: 'selectModel',
@@ -133,7 +133,7 @@ const App_Router: Routes = [
           {
             path: 'chapter-dashboard',
             component: ChapterDashboardComponent,
-              // canActivate: [PageGuard]
+              canActivate: [PageGuard]
           },
           {
             path: 'chapter-dashboard/:id',

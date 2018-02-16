@@ -236,10 +236,11 @@ export class UserEditComponent implements OnInit {
   }
 
   openModal() {
-    if (!this.modalOpened) {
-      this.modalOpened = true;
-      this.openModalButton.click();
-    }
+    // if (!this.modalOpened) {
+    //   this.modalOpened = true;
+    //   this.openModalButton.click();
+    // }
+    this.modalService.modalCancel('/user-list');
   }
 
   public loadProfiles() {
