@@ -1,3 +1,5 @@
+import { ChildService } from './services/child/child.service';
+import { ResponsibleService } from './services/responsible/responsible.service';
 import { FileService } from './services/file/file.service';
 // import { NgxSpinnerModule } from 'ngx-spinner';
 import { ReceptionService } from './services/reception/reception.service';
@@ -148,6 +150,9 @@ import {NgxMaskModule} from 'ngx-mask';
 import { ChildComponent } from './views/child/child.component';
 import { PregnantComponent } from './views/pregnant/pregnant.component';
 import { PregnantService } from './services/pregnant/pregnant.service';
+import { PregnantListComponent } from './views/pregnant/pregnant-list/pregnant-list.component';
+import { ResponsibleComponent } from './views/responsible/responsible.component';
+import { ResponsibleListComponent } from './views/responsible/responsible-list/responsible-list.component';
 // import { QuillModule } from 'ngx-quill';
 // import { EqualValidator } from './directives/equal-validator.directive';
 
@@ -217,7 +222,10 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ResetPasswordComponent,
     EqualValidatorDirective,
     ChildComponent,
-    PregnantComponent
+    PregnantComponent,
+    PregnantListComponent,
+    ResponsibleComponent,
+    ResponsibleListComponent
 
   ],
   imports: [
@@ -307,7 +315,9 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ModalService,
     CommunityService,
     FileService,
-    PregnantService
+    PregnantService,
+    ResponsibleService,
+    ChildService
   ],
   bootstrap: [AppComponent]
 })

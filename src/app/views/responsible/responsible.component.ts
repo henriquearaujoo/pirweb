@@ -1,3 +1,5 @@
+import { ResponsibleService } from './../../services/responsible/responsible.service';
+import { ResponsibleChild } from './../../models/responsible-child';
 import { PregnantService } from './../../services/pregnant/pregnant.service';
 import { Pregnant } from './../../models/pregnant';
 import { error } from 'util';
@@ -10,13 +12,13 @@ import { ModalService } from '../../components/modal/modal.service';
 import { IMyDpOptions } from 'mydatepicker';
 
 @Component({
-  selector: 'app-pregnant',
-  templateUrl: './pregnant.component.html',
-  styleUrls: ['./pregnant.component.css']
+  selector: 'app-responsible',
+  templateUrl: './responsible.component.html',
+  styleUrls: ['./responsible.component.css']
 })
-export class PregnantComponent implements OnInit {
+export class ResponsibleComponent implements OnInit {
 
-  private pregnant: Pregnant = new Pregnant();
+  private responsible: ResponsibleChild = new ResponsibleChild();
   private subscription: Subscription;
   private isNewData: boolean;
   private urlId: string;
@@ -51,7 +53,7 @@ export class PregnantComponent implements OnInit {
 
   constructor(
     private communityService: CommunityService,
-    private pregnantService: PregnantService,
+    private responsibleService: ResponsibleService,
     private toastService: ToastService,
     private modalService: ModalService
   ) { }
@@ -59,10 +61,10 @@ export class PregnantComponent implements OnInit {
   ngOnInit() {
     /*check if is a new or update*/
     this.isNewData = true;
-    this.urlId = localStorage.getItem('pregnantId');
+    this.urlId = localStorage.getItem('responsibleId');
     if (this.urlId !== null && this.urlId !== '') {
       this.isNewData = false;
-      localStorage.removeItem('pregnantId');
+      localStorage.removeItem('responsibleId');
       this.load();
     }
 
@@ -70,9 +72,9 @@ export class PregnantComponent implements OnInit {
     this.previousTab = '#tab_1';
     this.nextTab = '#tab_2';
 
-    this.data1Tab = '../../../assets/img/pregnant/ic_data_enable.png';
-    this.data2Tab = '../../../assets/img/pregnant/ic_data_disable.png';
-    this.data3Tab = '../../../assets/img/pregnant/ic_data_disable.png';
+    this.data1Tab = '../../../assets/img/responsible/ic_data_enable.png';
+    this.data2Tab = '../../../assets/img/responsible/ic_data_disable.png';
+    this.data3Tab = '../../../assets/img/responsible/ic_data_disable.png';
 
     this.openSaveButtonTab1 = (<HTMLButtonElement>document.getElementById('btn_tab1'));
     this.openSaveButtonTab1.style.display = 'none';
@@ -88,7 +90,7 @@ export class PregnantComponent implements OnInit {
     console.log('isValid', isValid);
 
     if (isValid && this._isSave) {
-      if (this.isNewData || this.pregnant.id === undefined) {
+      if (this.isNewData || this.responsible.id === undefined) {
         console.log('save');
         // this.communityService.insert(this.pregnant).subscribe(
         //   success => {
@@ -104,7 +106,7 @@ export class PregnantComponent implements OnInit {
         // );
       } else {
         console.log('update');
-        this.pregnantService.update(this.pregnant).subscribe(
+        this.responsibleService.update(this.responsible).subscribe(
           success => {
             this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso!');
           },
@@ -117,10 +119,10 @@ export class PregnantComponent implements OnInit {
   load() {
     this.communityService.load(this.urlId).subscribe(
       success => {
-        this.pregnant = success[0];
-        console.log('Load:', this.pregnant);
-        if (this.pregnant === undefined) {
-          this.pregnant = new Pregnant();
+        this.responsible = success[0];
+        console.log('Load:', this.responsible);
+        if (this.responsible === undefined) {
+          this.responsible = new ResponsibleChild();
         }
       },
       error => console.log(error)
@@ -128,7 +130,7 @@ export class PregnantComponent implements OnInit {
   }
 
   openModal() {
-    this.modalService.modalCancel('/pregnant-list');
+    this.modalService.modalCancel('/responsible-list');
 
   }
 
@@ -197,21 +199,21 @@ export class PregnantComponent implements OnInit {
 
         if (this.currentTab === 0) {
           (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
-          this.data1Tab = '../../../assets/img/pregnant/ic_data_enable.png';
-          this.data2Tab = '../../../assets/img/pregnant/ic_data_disable.png';
-          this.data3Tab = '../../../assets/img/pregnant/ic_data_disable.png';
+          this.data1Tab = '../../../assets/img/responsible/ic_data_enable.png';
+          this.data2Tab = '../../../assets/img/responsible/ic_data_disable.png';
+          this.data3Tab = '../../../assets/img/responsible/ic_data_disable.png';
 
         }else if (this.currentTab === 1) {
-          this.data1Tab = '../../../assets/img/pregnant/ic_data_disable.png';
-          this.data2Tab = '../../../assets/img/pregnant/ic_data_enable.png';
-          this.data3Tab = '../../../assets/img/pregnant/ic_data_disable.png';
+          this.data1Tab = '../../../assets/img/responsible/ic_data_disable.png';
+          this.data2Tab = '../../../assets/img/responsible/ic_data_enable.png';
+          this.data3Tab = '../../../assets/img/responsible/ic_data_disable.png';
           (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
           (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
         }else {
           (<HTMLButtonElement>document.getElementById('btn_next')).style.display = 'none';
-          this.data1Tab = '../../../assets/img/pregnant/ic_data_disable.png';
-          this.data2Tab = '../../../assets/img/pregnant/ic_data_disable.png';
-          this.data3Tab = '../../../assets/img/pregnant/ic_data_enable.png';
+          this.data1Tab = '../../../assets/img/responsible/ic_data_disable.png';
+          this.data2Tab = '../../../assets/img/responsible/ic_data_disable.png';
+          this.data3Tab = '../../../assets/img/responsible/ic_data_enable.png';
           this.next = 'Salvar';
           }
       } else {

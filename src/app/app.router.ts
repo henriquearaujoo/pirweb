@@ -1,3 +1,6 @@
+import { ResponsibleListComponent } from './views/responsible/responsible-list/responsible-list.component';
+import { ResponsibleComponent } from './views/responsible/responsible.component';
+import { PregnantListComponent } from './views/pregnant/pregnant-list/pregnant-list.component';
 import { PregnantComponent } from './views/pregnant/pregnant.component';
 import { ChildComponent } from './views/child/child.component';
 import { ResetPasswordComponent } from './views/login/reset-password/reset-password.component';
@@ -81,6 +84,16 @@ const App_Router: Routes = [
             // canActivate: [PageGuard]
           },
           {
+            path: 'pregnant-list',
+            component: PregnantListComponent
+            // canActivate: [PageGuard]
+          },
+          {
+            path: 'responsible-list',
+            component: ResponsibleListComponent
+            // canActivate: [PageGuard]
+          },
+          {
             path: 'community',
             component: CommunityComponent
             // canActivate: [PageGuard]
@@ -96,46 +109,15 @@ const App_Router: Routes = [
             // canActivate: [PageGuard]
           },
           {
+            path: 'responsible',
+            component: ResponsibleComponent
+            // canActivate: [PageGuard]
+          },
+          {
             path: 'template-chapter',
             component: TemplateChapterComponent,
               canActivate: [PageGuard]
           },
-          // {
-          //   path: 'selectModel',
-          //   component: TemplateSelectModelComponent
-          // },
-          // {
-          //   path: 'template-chapter-option',
-          //   component: TemplateChapterOptionComponent
-          // },
-          // {
-          //   path: 'chapterInformation',
-          //   component: InformationComponent
-          // },
-          // {
-          //   path: 'reception',
-          //   component: ReceptionComponent
-          // },
-          // {
-          //   path: 'intervention',
-          //   component: InterventionComponent
-          // },
-          // {
-          //   path: 'task',
-          //   component: TaskComponent
-          // },
-          // {
-          //   path: 'collect-data',
-          //   component: TemplateCollectDataComponent
-          // },
-          // {
-          //   path: 'chapter-details',
-          //   component: ChapterDetailsComponent
-          // },
-          // {
-          //   path: 'chapter-edit',
-          //   component: ChapterEditComponent
-          // },
           {
             path: 'chapter-dashboard',
             component: ChapterDashboardComponent,

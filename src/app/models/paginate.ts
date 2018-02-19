@@ -10,4 +10,5 @@ export class Paginate {
     public sort: any[] = new Array();
     public first: boolean;
     public numberOfElements: boolean;
+// tslint:disable-next-line:eofline
 }

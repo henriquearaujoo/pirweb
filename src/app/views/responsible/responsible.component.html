@@ -3,12 +3,12 @@
 <!-- <button data-toggle="modal" data-target="#modal-cancel" id="openModalCancel">Open Modal</button> -->
 <div class="content_">
     <div class="content-top">
-        <div class="content_fa"> <i class="fa fa-user"></i> Criança > Editar</div>
+        <div class="content_fa"> <i class="fa fa-user"></i> Responsável > Editar</div>
     </div>
 
     <section class="content_user">
       <div class="content-header ">
-        <h5 class="content-title">CRIANÇA</h5>
+        <h5 class="content-title">RESPONSÁVEL</h5>
       </div>
       <!-- <form name="form" (ngSubmit)="f.form.valid && saveData()" #f="ngForm" novalidate> -->
           <!-- Custom Tabs -->
@@ -45,26 +45,36 @@
                     <div class="col-sm-12">
                       <form name="form" (ngSubmit)="save(1,f1.valid)" id="f_1" #f1="ngForm" novalidate>
                         <div class="box box-primary">
-                          <div class="box-body">                            
+                          <div class="box-body">
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <div class="form-group" [ngClass]="applyCssError(f1, acsName)">
+                                  <label class="control-label">Nome do ACS</label>
+                                  <input type="text" #acsName="ngModel" name="acsName" [(ngModel)]="responsible.acsName" id="acsName" class="form-control" placeholder="Nome" required>
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, acsName)" msgError="Digite um nome para o ACS">
+                                  </app-control-field-error>
+                                </div>
+                              </div>
+                            </div>
                             <div class="row">
                               <div class="col-sm-6">
                                     <!-- select UC-->
-                                <div class="form-group" [ngClass]="applyCssError(f1, childUC)">
+                                <div class="form-group" [ngClass]="applyCssError(f1, pregnantUC)">
                                   <label class="control-label">UC</label>
-                                  <select class="form-control" #childUC="ngModel" name="child_uc" [(ngModel)]="child.uc" id="child_uc" required>
+                                  <select class="form-control" #pregnantUC="ngModel" name="pregnant_uc" [(ngModel)]="responsible.uc" id="pregnant_uc" required>
                                     <option value="true">UC 1</option>
                                     <option value="false">UC 2</option>
                                   </select>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, childUC)" msgError="Selecione o UC">
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, pregnantUC)" msgError="Selecione o UC">
                                   </app-control-field-error>
                                 </div>
                                   <!-- end select UC-->
                               </div>
                               <div class="col-sm-6">
-                                <div class="form-group" [ngClass]="applyCssError(f1, childRegional)">
+                                <div class="form-group" [ngClass]="applyCssError(f1, pregnantRegional)">
                                   <label class="control-label">Regional</label>
-                                  <input class="form-control" #childRegional="ngModel" [(ngModel)]="child.regional" name="child_regional" id="child_regional" placeholder="Regional" required>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, childRegional)" msgError="Selecione um regional">
+                                  <input class="form-control" #pregnantRegional="ngModel" [(ngModel)]="responsible.regional" name="pregnant_regional" id="pregnant_regional" placeholder="Regional" required>
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, pregnantRegional)" msgError="Selecione um regional">
                                   </app-control-field-error>
                                 </div>
                               </div> 
@@ -72,13 +82,13 @@
                             <div class="row">
                               
                               <div class="col-sm-12">
-                                <div class="form-group" [ngClass]="applyCssError(f1, childCommunity)">
+                                <div class="form-group" [ngClass]="applyCssError(f1, pregnantCommunity)">
                                   <label class="control-label">Comunidade</label>
-                                  <select class="form-control" #childCommunity="ngModel" name="childCommunity" [(ngModel)]="child.community_id" id="child_community" required>
+                                  <select class="form-control" #pregnantCommunity="ngModel" name="pregnantCommunity" [(ngModel)]="responsible.community_id" id="pregnant_community" required>
                                     <option value="true">Comunidade 01</option>
                                     <option value="false">Comunidade 01</option>
                                   </select>                                
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, childCommunity)" msgError="Selecione uma comunidade">
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, pregnantCommunity)" msgError="Selecione uma comunidade">
                                   </app-control-field-error>
                                 </div>
                               </div>                            
@@ -87,80 +97,49 @@
                             <div class="row">
                               <div class="col-sm-12">
                                 <div class="form-group" [ngClass]="applyCssError(f1, nameChild)">
-                                  <label class="control-label">Nome completo da criança</label>
-                                  <input type="text" #nameChild="ngModel" name="name_child" [(ngModel)]="child.name" id="name_child" class="form-control" placeholder="Nome completo da criança" required>
+                                  <label class="control-label">Nome da criança</label>
+                                  <input type="text" #nameChild="ngModel" name="name_child" [(ngModel)]="responsible.nameChild" id="name_child" class="form-control" placeholder="Nome completo da gestante" required>
                                   <app-control-field-error [showError]="verifyValidSubmitted(f1, nameChild)" msgError="Digite um nome para a criança">
                                   </app-control-field-error>
                                 </div>
                               </div>
-                            </div>                                           
+                            </div>  
                             <div class="row">
-                              <div class="col-sm-4">
+                              <div class="col-sm-12">
+                                <div class="form-group" [ngClass]="applyCssError(f1, nameResponsible)">
+                                  <label class="control-label">Nome do responsável</label>
+                                  <input type="text" #nameResponsible="ngModel" name="name_responsible" [(ngModel)]="responsible.nameResponsible" id="name_responsible" class="form-control" placeholder="Nome completo do responsável" required>
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, nameResponsible)" msgError="Digite um nome para o responsável">
+                                  </app-control-field-error>
+                                </div>
+                              </div>
+                            </div>                        
+                            <div class="row">
+                              <div class="col-sm-6">
+                                <div class="form-group" [ngClass]="applyCssError(f1, dateBirthChild)">
+                                  <label class="control-label">Data de nascimento da criança</label>
+                                  <my-date-picker 
+                                    name="dateBirthChild" [options]="myDatePickerOptions" id="dateBirthChild"
+                                    #dateBirthChild="ngModel"
+                                    [(ngModel)]="responsible.dateBirthChild" required>
+                                  </my-date-picker>
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, dateBirthChild)" msgError="Informe uma data de nascimento">
+                                  </app-control-field-error>
+                                </div>                       
+                              </div>
+                              <div class="col-sm-6">
                                 <div class="form-group" [ngClass]="applyCssError(f1, dateBirth)">
                                   <label class="control-label">Data de nascimento</label>
                                   <my-date-picker 
                                     name="dateBirth" [options]="myDatePickerOptions" id="dateBirth"
                                     #dateBirth="ngModel"
-                                    [(ngModel)]="child.dateBirth" required>
+                                    [(ngModel)]="responsible.dateBirth" required>
                                   </my-date-picker>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, dateBirth)" msgError="Informe uma data de nascimento">
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, dateBirth)" msgError="Informe uma data de nascimento para o responsável">
                                   </app-control-field-error>
-                                </div>                       
-                              </div>
-                              <div class="col-sm-4">
-                                <div class="form-group" [ngClass]="applyCssError(f1, gender)">
-                                  <label class="control-label">Sexo</label> <br/>                                  
-                                  <label class="radio-inline">                          
-                                    <input type="radio" #gender="ngModel" name="gender" [(ngModel)]="child.gender" id="gender" value=true required>
-                                    Sim
-                                  </label>
-                                  <label class="radio-inline"> 
-                                    <input type="radio" #gender="ngModel" name="gender" [(ngModel)]="child.gender" id="gender" value=false required>
-                                    Não
-                                  </label>    
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, gender)" msgError="Escolha uma das alternativas">
-                                  </app-control-field-error>  
                                 </div>                                
                               </div>
-                              <div class="col-sm-4">
-                                <div class="form-group" [ngClass]="applyCssError(f1, age)">
-                                  <label class="control-label">Idade</label>
-                                  <select class="form-control" name="age" id="age" #age="ngModel" [(ngModel)]="child.age" required>
-                                    <option value="1"> 0 a 3 meses</option>
-                                    <option value="2"> 3 a 6 meses</option>
-                                    <option value="3"> 6 a 9 meses</option>
-                                    <option value="4"> 9 a 12 meses</option>
-                                    <option value="5"> 1 a 2 anos</option>
-                                    <option value="6"> 2 a 3 anos</option>
-                                    <option value="7"> 3 a 4 anos</option>
-                                    <option value="8"> 4 a 5 anos</option>
-                                    <option value="9"> 5 a 6 anos</option>
-                                  </select>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, age)" msgError="Escolha uma das alternativas">
-                                  </app-control-field-error> 
-                                </div>
-                              </div>
-                            </div>    
-                            <div class="row">
-                              <div class="col-sm-12">
-                                <div class="form-group" [ngClass]="applyCssError(f1, nameFather)">
-                                  <label class="control-label">Nome do pai</label>
-                                  <input type="text" #nameFather="ngModel" name="name_father" [(ngModel)]="child.nameFather" id="name_father" class="form-control" placeholder="Nome completo do pai" required>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, nameFather)" msgError="Digite um nome para o pai da criança">
-                                  </app-control-field-error>
-                                </div>
-                              </div>
-                            </div>      
-                            <div class="row">
-                              <div class="col-sm-12">
-                                <div class="form-group" [ngClass]="applyCssError(f1, nameMother)">
-                                  <label class="control-label">Nome da Mãe</label>
-                                  <input type="text" #nameMother="ngModel" name="name_mother" [(ngModel)]="child.nameMother" id="name_mother" class="form-control" placeholder="Nome completo da mãe" required>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, nameMother)" msgError="Digite um nome para a mãe da criança">
-                                  </app-control-field-error>
-                                </div>
-                              </div>
-                            </div>                          
+                            </div>  
                           </div>
                         </div>
                         <div class="content-control">
@@ -203,179 +182,153 @@
                           <div class="box-body">          
                             <div class="row">
                               <div class="col-sm-3">
-                                <div class="form-group" [ngClass]="applyCssError(f2, civilRegistry)">
-                                  <label class="control-label">A criança possui registro civil?</label> <br/>
+                                <div class="form-group" [ngClass]="applyCssError(f2, programs)">
+                                  <label class="control-label">Participa de programas do governo?</label> <br/>
                                   <label class="radio-inline">                          
-                                    <input type="radio" #civilRegistry="ngModel" name="civilRegistry" [(ngModel)]="child.civilRegistry" id="programs" value=true required>
+                                    <input type="radio" #programs="ngModel" name="programs" [(ngModel)]="responsible.programs" id="programs" value=true required>
                                     Sim
                                   </label>
                                   <label class="radio-inline"> 
-                                    <input type="radio" #civilRegistry="ngModel" name="civilRegistry" [(ngModel)]="child.civilRegistry" id="programs" value=false required>
+                                    <input type="radio" #programs="ngModel" name="programs" [(ngModel)]="responsible.programs" id="programs" value=false required>
                                     Não
                                   </label>    
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, civilRegistry)" msgError="Escolha uma das alternativas">
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, programs)" msgError="Escolha uma das alternativas">
                                   </app-control-field-error>                            
                                 </div>
-                              </div>    
-                              <div class="col-sm-3" *ngIf="child.civilRegistry === 'false'">
-                                <div class="form-group" [ngClass]="applyCssError(f2, civilRegistryJustify)">
-                                  <label class="control-label">Justifique</label>
-                                  <input type="text" #civilRegistryJustify="ngModel" name="civilRegistryJustify" id="civilRegistry_justify" [(ngModel)]="child.civilRegistry_justify" class="form-control" placeholder="Justifique" required>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, civilRegistryJustify)" msgError="Justifique a ausência do registro civil">
-                                  </app-control-field-error>
-                                </div>                              
-                              </div> 
+                              </div>     
                               <div class="col-sm-3">
-                                  <div class="form-group" [ngClass]="applyCssError(f2, socioEducationalPrograms)">
-                                    <label class="control-label">A criança participa de outros programas sócio-educativos</label> <br/>
+                                  <div class="form-group" [ngClass]="applyCssError(f2, otherChildren)">
+                                    <label class="control-label">Há outras crianças na família?</label> <br/>
                                     <label class="radio-inline">                          
-                                      <input type="radio" #socioEducationalPrograms="ngModel" name="socioEducationalPrograms" [(ngModel)]="child.socioEducational_programs" id="socioEducationalPrograms" value=true required>
+                                      <input type="radio" #otherChildren="ngModel" name="other_children" [(ngModel)]="responsible.hasOtherChildren" id="other_children" value=true required>
                                       Sim
                                     </label>
                                     <label class="radio-inline"> 
-                                      <input type="radio" #socioEducationalPrograms="ngModel" name="socioEducationalPrograms" [(ngModel)]="child.socioEducational_programs" id="socioEducationalPrograms" value=false required>
+                                      <input type="radio" #otherChildren="ngModel" name="other_children" [(ngModel)]="responsible.hasOtherChildren" id="other_children" value=false required>
                                       Não
                                     </label>
-                                    <app-control-field-error [showError]="verifyValidSubmitted(f2, socioEducationalPrograms)" msgError="Escolha uma das alternativas">
+                                    <app-control-field-error [showError]="verifyValidSubmitted(f2, otherChildren)" msgError="Escolha uma das alternativas">
                                     </app-control-field-error>
                                   </div>
-                              </div>    
-                              <div class="col-sm-3">
-                                <div class="form-group" [ngClass]="applyCssError(f2, prematureBirth)">
-                                  <label class="control-label">Nascimento prematuro?</label> <br/>
-                                  <label class="radio-inline">                          
-                                    <input type="radio" #prematureBirth="ngModel" name="prematureBirth" [(ngModel)]="child.prematureBirth" id="prematureBirth" value=true required>
-                                    Sim
-                                  </label>
-                                  <label class="radio-inline"> 
-                                    <input type="radio" #prematureBirth="ngModel" name="prematureBirth" [(ngModel)]="child.prematureBirth" id="prematureBirth" value=false required>
-                                    Não
-                                  </label>    
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, prematureBirth)" msgError="Escolha uma das alternativas">
-                                  </app-control-field-error>                            
-                                </div>
-                              </div>    
-                              <div class="col-sm-3" *ngIf="child.prematureBirth === 'true'">
-                                <div class="form-group" [ngClass]="applyCssError(f2, prematureBirthWeek)">
-                                  <label class="control-label">No de semanas</label>
-                                  <input type="text" #prematureBirthWeek="ngModel" name="prematureBirthWeek" id="prematureBirthWeek" [(ngModel)]="child.prematureBirth_week" class="form-control" placeholder="No de semanas" required>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, prematureBirthWeek)" msgError="Digite o número de semanas">
+                              </div>                             
+                              <div class="col-sm-3" *ngIf="responsible.hasOtherChildren === 'true'">
+                                <div class="form-group" [ngClass]="applyCssError(f2, numberChildren)">
+                                  <label class="control-label">Quantas?</label>
+                                  <input type="number" #numberChildren="" name="number_children" mask="000000" id="number_children" class="form-control" placeholder="No de crianças" required>
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, numberChildren)" msgError="Digite o número de crianças">
                                   </app-control-field-error>
                                 </div>                              
-                              </div>                                    
+                              </div>
+                              <div [ngClass]="responsible.hasOtherChildren === 'true' ? 'col-sm-3' : 'col-sm-6'">
+                                  <div class="form-group" [ngClass]="applyCssError(f2, typeHousing)">
+                                    <label class="control-label">Tipo de moradia?</label>
+                                    <select class="form-control" #typeHousing="ngModel" name="type_housing" [(ngModel)]="responsible.typeHousing" id="type_housing" required>
+                                      <option value="1">Própria</option>
+                                      <option value="2">Alugada</option>
+                                      <option value="3">Cedida</option>
+                                    </select>  
+                                    <app-control-field-error [showError]="verifyValidSubmitted(f2, typeHousing)" msgError="Selecione o tipo de moradia">
+                                    </app-control-field-error>                                   
+                                  </div>
+                                </div>                         
                             </div>
                             <div class="row">
  
                             </div>
                             <div class="row">
-                              <div class="col-sm-4">
-                                <div class="form-group" [ngClass]="applyCssError(f2, weightMonthly)">
-                                  <label class="control-label">A criança está sendo pesada mensalmente?</label> <br/>
-                                  <label class="radio-inline">                          
-                                      <input type="radio" #weightMonthly="ngModel" name="weightMonthly" [(ngModel)]="child.weightMonthly" id="prematureBirth" value=true required>
-                                      Sim
-                                    </label>
-                                    <label class="radio-inline"> 
-                                      <input type="radio" #weightMonthly="ngModel" name="weightMonthly" [(ngModel)]="child.weightMonthly" id="prematureBirth" value=false required>
-                                      Não
-                                    </label>    
-                                    <app-control-field-error [showError]="verifyValidSubmitted(f2, weightMonthly)" msgError="Escolha uma das alternativas">
-                                    </app-control-field-error>                                 
+                              <div class="col-sm-6">
+                                <div class="form-group" [ngClass]="applyCssError(f2, currently)">
+                                  <label class="control-label">Com quem mora atualmente?</label>
+                                  <select class="form-control" #currently="ngModel" name="currently" [(ngModel)]="responsible.currently" id="currently" required>
+                                    <option value="1">Pais ou Parentes</option>
+                                    <option value="2">Esposo e filhos</option>
+                                    <option value="3">Amigos</option>
+                                    <option value="4"> Sozinho</option>
+                                  </select>   
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, currently)" msgError="Selecione com quem mora atualmente">
+                                  </app-control-field-error>   
                                 </div>
                               </div>
-                              <div class="col-sm-4">
-                                <div class="form-group" [ngClass]="applyCssError(f2, vaccination)">
-                                  <label class="control-label">O calendário de vacinação da criança está em dia?</label> <br/>
-                                  <label class="radio-inline">                          
-                                      <input type="radio" #vaccination="ngModel" name="vaccination" [(ngModel)]="child.vaccination" id="vaccination" value=true required>
-                                      Sim
-                                    </label>
-                                    <label class="radio-inline"> 
-                                      <input type="radio" #vaccination="ngModel" name="vaccination" [(ngModel)]="child.vaccination" id="vaccination" value=false required>
-                                      Não
-                                    </label>    
-                                    <app-control-field-error [showError]="verifyValidSubmitted(f2, vaccination)" msgError="Escolha uma das alternativas">
-                                    </app-control-field-error>        
+                              <div class="col-sm-6">
+                                <div class="form-group" [ngClass]="applyCssError(f2, numberPeople)">
+                                  <label class="control-label">Quantas pessoas moram em sua casa (incluindo você)?</label>
+                                  <input type="number" class="form-control" mask="000000000" #numberPeople="ngModel" name="number_of_people" id="number_of_people" [(ngModel)]="responsible.numberPeople" required>
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, numberPeople)" msgError="Digite quantas pessoas moram em sua casa">
+                                  </app-control-field-error>   
                                 </div>
-                              </div>
-                              <div class="col-sm-4">
-                                <div class="form-group" [ngClass]="applyCssError(f2, relationOtherChildren)">
-                                  <label class="control-label">A criança apresenta dificuldade para se relacionar com outras crianças?</label> <br/>
-                                  <label class="radio-inline">                          
-                                      <input type="radio" #relationOtherChildren="ngModel" name="relationOtherChildren" [(ngModel)]="child.relationOtherChildren" id="relationOtherChildren" value=true required>
-                                      Sim
-                                    </label>
-                                    <label class="radio-inline"> 
-                                      <input type="radio" #relationOtherChildren="ngModel" name="relationOtherChildren" [(ngModel)]="child.relationOtherChildren" id="relationOtherChildren" value=false required>
-                                      Não
-                                    </label>    
-                                    <app-control-field-error [showError]="verifyValidSubmitted(f2, relationOtherChildren)" msgError="Escolha uma das alternativas">
-                                    </app-control-field-error>        
                                 </div>
-                              </div>
                             </div>
                             <div class="row">
-                              <div class="col-sm-4">
-                                <div class="form-group" [ngClass]="applyCssError(f2, whoCaresChild)">
-                                  <label class="control-label">Quem cuida da criança? </label>
+                              <div class="col-sm-6">
+                                <div class="form-group" [ngClass]="applyCssError(f2, participationFamilyGroup)">
+                                  <label class="control-label">Qual é a sua participação na vida econômica do seu grupo familiar? </label>
                                   <div class="radio">                          
                                     <label>
-                                      <input type="radio" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" value="1">
-                                      Mãe
+                                      <input type="radio" #participationFamilyGroup name="participationFamilyGroup" id="participationFamilyGroup" value="1">
+                                      Não trabalha e é sustentado pela família
                                     </label>                                 
                                   </div>
                                   <div class="radio"> 
                                     <label>
-                                      <input type="radio" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" value="2">
-                                      Pai
+                                      <input type="radio" #participationFamilyGroup name="participationFamilyGroup" id="participationFamilyGroup" value="2">
+                                      Trabalha e recebe ajuda financeira
                                     </label>                                  
                                   </div>
                                   <div class="radio"> 
                                     <label>
-                                      <input type="radio"#whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" value="3">
-                                      Irmão / Irmã
+                                      <input type="radio" #participationFamilyGroup name="participationFamilyGroup" id="participationFamilyGroup" value="3">
+                                      Trabalha e é responsável pelo próprio sustento
                                     </label>                                  
                                   </div>
                                   <div class="radio"> 
                                     <label>
-                                      <input type="radio" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" value="4">
-                                      Avô / Avó
+                                      <input type="radio" #participationFamilyGroup name="participationFamilyGroup" id="participationFamilyGroup" value="4">
+                                      Trabalha e contribui parcialmente em casa
                                     </label>                                 
                                   </div>
                                   <div class="radio"> 
                                     <label>
-                                      <input type="radio" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" value="5">
-                                      Tio / Tia
-                                    </label>                                  
-                                  </div>
-                                  <div class="radio"> 
-                                    <label>
-                                      <input type="radio" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" value="6">
-                                      Primo / Prima 
+                                      <input type="radio" #participationFamilyGroup name="participationFamilyGroup" id="participationFamilyGroup" value="5">
+                                      Trabalha e é a principal responsável pelo sustento da família
                                     </label>                                  
                                   </div>
                                   <app-control-field-error [showError]="verifyValidSubmitted(f2, participationFamilyGroup)" msgError="Escolha uma das alternativas">
                                   </app-control-field-error>   
                                 </div>
                               </div>   
-                              <div class="col-sm-4">
-                                <div class="form-group"  [ngClass]="applyCssError(f2, difficultyCareChild)">
-                                  <label class="control-label">A família encontra alguma dificuldade para educar a criança? </label>
-                                  <div class="radio-inline">      
+                              <div class="col-sm-6">
+                                <div class="form-group"  [ngClass]="applyCssError(f2, sourceOfIncome)">
+                                  <label class="control-label">Qual a principal fonte de renda da família? </label>
+                                  <div class="radio">      
                                     <label>
-                                      <input type="radio" #difficultyCareChild="ngModel" [(ngModel)]="child.difficultyCareChild" name="difficultyCareChild" id="difficultyCareChild" value=true required>
-                                      Sim
+                                      <input type="radio" #sourceOfIncome="ngModel" [(ngModel)]="responsible.mainSourceOfIncome" name="sourceOfIncome" id="sourceOfIncome" value="1" required>
+                                      Pesca
                                     </label>
                                   </div>
-                                  <div class="radio-inline"> 
+                                  <div class="radio"> 
                                     <label>
-                                      <input type="radio" #difficultyCareChild="ngModel" [(ngModel)]="child.difficultyCareChild" name="difficultyCareChild" id="difficultyCareChild" value=false required>
-                                      Não
+                                      <input type="radio" #sourceOfIncome="ngModel" [(ngModel)]="responsible.mainSourceOfIncome" name="sourceOfIncome" id="sourceOfIncome" value="2" required>
+                                      Farinha
                                     </label>                                  
                                   </div>
-                                 
-                                    <div class="form-group" [ngClass]="applyCssError(f2, sourceOfIncomeOther)" *ngIf="child.difficultyCareChild==='5'">
-                                      <label class="label-control"> Justifique</label>
+                                  <div class="radio"> 
+                                    <label>
+                                      <input type="radio" #sourceOfIncome="ngModel" [(ngModel)]="responsible.mainSourceOfIncome" name="sourceOfIncome" id="sourceOfIncome" value="3" required>
+                                      Caça
+                                    </label>                                  
+                                  </div>
+                                  <div class="radio"> 
+                                    <label>
+                                      <input type="radio" #sourceOfIncome="ngModel" [(ngModel)]="responsible.mainSourceOfIncome" name="sourceOfIncome" id="sourceOfIncome" value="4" required>
+                                      Roçado
+                                    </label>                                  
+                                  </div>
+                                  <div class="radio">
+                                    <label>
+                                      <input type="radio" #sourceOfIncome="ngModel" [(ngModel)]="responsible.mainSourceOfIncome" name="sourceOfIncome" id="sourceOfIncome" value="5" required>
+                                      Outra
+                                    </label>  
+                                    <div class="form-group" [ngClass]="applyCssError(f2, sourceOfIncomeOther)" *ngIf="responsible.mainSourceOfIncome==='5'">
                                       <input class="form-control" #sourceOfIncomeOther name="sourceOfIncome_other" id="sourceOfIncome_other" required>
                                       <app-control-field-error [showError]="verifyValidSubmitted(f2, sourceOfIncomeOther)" msgError="Especifique a fonte de renda">
                                       </app-control-field-error>
