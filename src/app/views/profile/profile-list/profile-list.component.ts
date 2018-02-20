@@ -87,8 +87,8 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
           this.canDelete = rules.canDelete;
         }
       );
-      this.profileTab = '../../../assets/img/profile/ic_profile_enable.png';
-      this.permissionTab = '../../../assets/img/profile/ic_permission_disable.png';
+      this.profileTab = './assets/img/profile/ic_profile_enable.png';
+      this.permissionTab = './assets/img/profile/ic_permission_disable.png';
       this.profileTabActive = true;
       this.permissionTabActive = false;
       this.hasdata = false;
@@ -191,8 +191,8 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
     walk ( tab: number) {
       switch (tab) {
         case 0: {
-          this.profileTab = '../../../assets/img/profile/ic_profile_enable.png';
-          this.permissionTab = '../../../assets/img/profile/ic_permission_disable.png';
+          this.profileTab = './assets/img/profile/ic_profile_enable.png';
+          this.permissionTab = './assets/img/profile/ic_permission_disable.png';
           this.profileTabActive = true;
           this.permissionTabActive = false;
           break;
@@ -201,8 +201,8 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
           if (this.accessPageService.getProfile().id !== undefined) {
             this.pageComponent.getCurrentProfile();
           }
-          this.profileTab = '../../../assets/img/profile/ic_profile_disable.png';
-          this.permissionTab = '../../../assets/img/profile/ic_permission_enable.png';
+          this.profileTab = './assets/img/profile/ic_profile_disable.png';
+          this.permissionTab = './assets/img/profile/ic_permission_enable.png';
           this.profileTabActive = false;
           this.permissionTabActive = true;
         break;
@@ -217,8 +217,8 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
       if (this.accessPageService.getProfile().id !== undefined) {
           this.pageComponent.getCurrentProfile();
       }
-      this.profileTab = '../../../assets/img/profile/ic_profile_disable.png';
-      this.permissionTab = '../../../assets/img/profile/ic_permission_enable.png';
+      this.profileTab = './assets/img/profile/ic_profile_disable.png';
+      this.permissionTab = './assets/img/profile/ic_permission_enable.png';
       this.profileTabActive = false;
       this.permissionTabActive = true;
     }

@@ -21,9 +21,9 @@ export class UserPersonalInformationComponent implements OnInit {
     this.currentTab = 0;
     this.previousTab = '#tab_1';
     this.nextTab = '#tab_2';
-    this.accountTab = '../../../assets/img/user/ic_account_enable.png';
-    this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
-    this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
+    this.accountTab = './assets/img/user/ic_account_enable.png';
+    this.personalTab = './assets/img/user/ic_personal_disable.png';
+    this.adressTab = './assets/img/user/ic_adress_disable.png';
   }
 
   isActive(tab: boolean) {
@@ -43,19 +43,19 @@ export class UserPersonalInformationComponent implements OnInit {
     this.nextTab = '#tab_' + (this.currentTab + 1);
 
     if (this.currentTab === 0) {
-      this.accountTab = '../../../assets/img/user/ic_account_enable.png';
-      this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
-      this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
+      this.accountTab = './assets/img/user/ic_account_enable.png';
+      this.personalTab = './assets/img/user/ic_personal_disable.png';
+      this.adressTab = './assets/img/user/ic_adress_disable.png';
 
     }else if (this.currentTab === 1) {
-      this.accountTab = '../../../assets/img/user/ic_account_disable.png';
-      this.personalTab = '../../../assets/img/user/ic_personal_enable.png';
-      this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
+      this.accountTab = './assets/img/user/ic_account_disable.png';
+      this.personalTab = './assets/img/user/ic_personal_enable.png';
+      this.adressTab = './assets/img/user/ic_adress_disable.png';
 
     }else {
-      this.accountTab = '../../../assets/img/user/ic_account_disable.png';
-      this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
-      this.adressTab = '../../../assets/img/user/ic_adress_enable.png';
+      this.accountTab = './assets/img/user/ic_account_disable.png';
+      this.personalTab = './assets/img/user/ic_personal_disable.png';
+      this.adressTab = './assets/img/user/ic_adress_enable.png';
       this.next = 'Salvar';
     }
   }

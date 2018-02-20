@@ -65,11 +65,11 @@ export class ChapterDashboardComponent implements OnInit {
     // this.openModalButton = (<HTMLButtonElement>document.getElementById('openModalButton'));
     // this.openModalButton.style.display = 'none';
 
-    this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_enable.png';
-    this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_disable.png';
-    this.interventionTab = '../../../assets/img/chapter/ic_chapter_tab_intervention_disable.png';
-    this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_conclusion_disable.png';
-    this.multimediaTab = '../../../assets/img/chapter/ic_chapter_tab_multimedia_disable.png';
+    this.informationTab = './assets/img/chapter/ic_chapter_tab_information_enable.png';
+    this.receptionTab = './assets/img/chapter/ic_chapter_tab_reception_disable.png';
+    this.interventionTab = './assets/img/chapter/ic_chapter_tab_intervention_disable.png';
+    this.conclusionTab = './assets/img/chapter/ic_chapter_tab_conclusion_disable.png';
+    this.multimediaTab = './assets/img/chapter/ic_chapter_tab_multimedia_disable.png';
 
     /*check if is a new or update*/
     this.isNewData = true;
@@ -173,39 +173,39 @@ export class ChapterDashboardComponent implements OnInit {
   walk ( tab: number) {
     switch (tab) {
       case 0:
-        this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_enable.png';
-        this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_disable.png';
-        this.interventionTab = '../../../assets/img/chapter/ic_chapter_tab_intervention_disable.png';
-        this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_conclusion_disable.png';
-        this.multimediaTab = '../../../assets/img/chapter/ic_chapter_tab_multimedia_disable.png';
+        this.informationTab = './assets/img/chapter/ic_chapter_tab_information_enable.png';
+        this.receptionTab = './assets/img/chapter/ic_chapter_tab_reception_disable.png';
+        this.interventionTab = './assets/img/chapter/ic_chapter_tab_intervention_disable.png';
+        this.conclusionTab = './assets/img/chapter/ic_chapter_tab_conclusion_disable.png';
+        this.multimediaTab = './assets/img/chapter/ic_chapter_tab_multimedia_disable.png';
       break;
       case 1:
-        this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_disable.png';
-        this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_enable.png';
-        this.interventionTab = '../../../assets/img/chapter/ic_chapter_tab_intervention_disable.png';
-        this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_conclusion_disable.png';
-        this.multimediaTab = '../../../assets/img/chapter/ic_chapter_tab_multimedia_disable.png';
+        this.informationTab = './assets/img/chapter/ic_chapter_tab_information_disable.png';
+        this.receptionTab = './assets/img/chapter/ic_chapter_tab_reception_enable.png';
+        this.interventionTab = './assets/img/chapter/ic_chapter_tab_intervention_disable.png';
+        this.conclusionTab = './assets/img/chapter/ic_chapter_tab_conclusion_disable.png';
+        this.multimediaTab = './assets/img/chapter/ic_chapter_tab_multimedia_disable.png';
       break;
       case 2:
-        this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_disable.png';
-        this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_disable.png';
-        this.interventionTab = '../../../assets/img/chapter/ic_chapter_tab_intervention_enable.png';
-        this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_conclusion_disable.png';
-        this.multimediaTab = '../../../assets/img/chapter/ic_chapter_tab_multimedia_disable.png';
+        this.informationTab = './assets/img/chapter/ic_chapter_tab_information_disable.png';
+        this.receptionTab = './assets/img/chapter/ic_chapter_tab_reception_disable.png';
+        this.interventionTab = './assets/img/chapter/ic_chapter_tab_intervention_enable.png';
+        this.conclusionTab = './assets/img/chapter/ic_chapter_tab_conclusion_disable.png';
+        this.multimediaTab = './assets/img/chapter/ic_chapter_tab_multimedia_disable.png';
       break;
       case 3:
-        this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_disable.png';
-        this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_disable.png';
-        this.interventionTab = '../../../assets/img/chapter/ic_chapter_tab_intervention_disable.png';
-        this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_conclusion_enable.png';
-        this.multimediaTab = '../../../assets/img/chapter/ic_chapter_tab_multimedia_disable.png';
+        this.informationTab = './assets/img/chapter/ic_chapter_tab_information_disable.png';
+        this.receptionTab = './assets/img/chapter/ic_chapter_tab_reception_disable.png';
+        this.interventionTab = './assets/img/chapter/ic_chapter_tab_intervention_disable.png';
+        this.conclusionTab = './assets/img/chapter/ic_chapter_tab_conclusion_enable.png';
+        this.multimediaTab = './assets/img/chapter/ic_chapter_tab_multimedia_disable.png';
       break;
       case 4:
-        this.informationTab = '../../../assets/img/chapter/ic_chapter_tab_information_disable.png';
-        this.receptionTab = '../../../assets/img/chapter/ic_chapter_tab_reception_disable.png';
-        this.interventionTab = '../../../assets/img/chapter/ic_chapter_tab_intervention_disable.png';
-        this.conclusionTab = '../../../assets/img/chapter/ic_chapter_tab_conclusion_disable.png';
-        this.multimediaTab = '../../../assets/img/chapter/ic_chapter_tab_multimedia_enable.png';
+        this.informationTab = './assets/img/chapter/ic_chapter_tab_information_disable.png';
+        this.receptionTab = './assets/img/chapter/ic_chapter_tab_reception_disable.png';
+        this.interventionTab = './assets/img/chapter/ic_chapter_tab_intervention_disable.png';
+        this.conclusionTab = './assets/img/chapter/ic_chapter_tab_conclusion_disable.png';
+        this.multimediaTab = './assets/img/chapter/ic_chapter_tab_multimedia_enable.png';
       break;
     }
   }
