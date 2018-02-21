@@ -181,7 +181,7 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
     editProfile(profile: Profile) {
       this.edit = true;
       this.selectedProfile = profile;
-      this.profileChild.inputEnable();
+      // this.profileChild.inputEnable();
     }
 
     isActive(tab: boolean) {

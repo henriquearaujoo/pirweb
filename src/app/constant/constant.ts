@@ -1,5 +1,5 @@
 export const Constant = {
-    //  BASE_URL : 'http://10.10.3.88:2020/pir/',
+    // BASE_URL : 'http://10.10.3.88:2020/pir/rest/',
     BASE_URL : 'http://10.10.1.130:8280/pir/rest/',
 
     MEDIA_TYPE:
