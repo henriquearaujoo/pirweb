@@ -8,15 +8,20 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class CommunityService extends RestService {
 
-  private apiurl = 'http://localhost:3000/community';
-  // private apiurl = Constant.BASE_URL + 'community';
+  private apiurl = Constant.BASE_URL + 'community/';
+  private size: number;
 
   constructor(http: Http) {
     super(http);
+    this.size = 10;
    }
 
-  public getCommunity() {
-    return this.get(this.apiurl);
+  public getCommunities(filter?: any, page?: number) {
+    if ( filter === undefined ) {
+      return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page + '&sort=name,asc');
+    } else {
+      return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page + '&name=' + filter + '&sort=name,asc');
+    }
   }
 
   public insert(community: Community): Observable<Community> {
@@ -28,8 +33,16 @@ export class CommunityService extends RestService {
   }
 
   public load(id: string) {
-    // return this.get(this.apiurl + 'search/?community_id=' + id);
-    return this.get(this.apiurl + '?id=' + id);
+    console.log('id', id);
+    return this.get(this.apiurl + id);
   }
+
+  public getCities() {
+    return this.get(Constant.BASE_URL + 'states/state/3/cities');
+  }
+
+  public getCity(city_id?: number) {
+    return this.get(Constant.BASE_URL + 'states/city/' + city_id + '/');
+ }
 
 }

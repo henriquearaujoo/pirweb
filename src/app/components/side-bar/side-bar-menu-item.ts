@@ -54,7 +54,19 @@ export const MENU = [
         'category': 'child',
         'hasChild': false,
         'parent': 4
-    }
+    },
+    {
+        'id': 6,
+        'title': 'Comunidade',
+        'route': '',
+        'routes': ['/', '/community-list', '/community'],
+        'read': false,
+        'iClass': 'fa fa-users',
+        'category': 'parent',
+        'hasChild': false,
+        'parent': 0
+    },
+
 
 // tslint:disable-next-line:eofline
 ];

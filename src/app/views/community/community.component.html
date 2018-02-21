@@ -1,7 +1,7 @@
 <simple-notifications></simple-notifications>
 <div class="content_">
     <div class="content-top">
-        <div class="content_fa"> <i class="fa fa-user"></i> COmunidade > Cadastro</div>
+        <div class="content_fa"> <i class="fa fa-user"></i> Comunidade > Cadastro</div>
     </div>
 
     <section class="content_user">
@@ -12,20 +12,18 @@
           <ul class="nav nav-tabs">
             <li>
               <!-- <a class="tab-pane active" (click)="walk(0)" href="#tab_1" data-toggle="tab"> -->
-              <label class="lb-tab"> Dados de Identificação </label>
+              <label class="lb-tab"> Informaçoes das comunidade </label>
               <img src="{{ data1Tab }}"/>
               <!-- </a>               -->
             </li>
-            <li>
-              <!-- <a class="tab-pane" (click)="walk(1)" href="#tab_2" data-toggle="tab"> -->
+            <!-- <li>           
               <label class="lb-tab"> Recursos </label>
               <img src="{{ data2Tab }}"/>
-              <!-- </a>                -->
-            </li>
+            </li> -->
             <li>
               <!-- <a class="tab-pane" (click)="walk(2)" href="#tab_3" data-toggle="tab"> -->
               <label class="lb-tab"> Serviços</label>
-              <img src="{{ data3Tab }}"/>
+              <img src="{{ data2Tab }}"/>
               <!-- </a> -->
             </li> 
           </ul>
@@ -42,9 +40,9 @@
                       <form name="form" (ngSubmit)="save(1,f1.valid)" id="f_1" #f1="ngForm" novalidate>
                         <div class="box box-primary">
                           <div class="box-body">
-                            <div class="row">
+                            <!-- <div class="row">
                               <div class="col-sm-6">
-                                    <!-- select UC-->
+                               
                                 <div class="form-group" [ngClass]="applyCssError(f1, uc)">
                                   <label class="control-label">UC</label>
                                   <select class="form-control" #uc="ngModel" name="uc" [(ngModel)]="community.uc" id="community_uc" required>
@@ -55,7 +53,7 @@
                                   <app-control-field-error [showError]="verifyValidSubmitted(f1, uc)" msgError="Selecione o UC">
                                   </app-control-field-error>
                                 </div>
-                                  <!-- end select UC-->
+                                 
                               </div>
                               <div class="col-sm-6">
                                 <div class="form-group profile" [ngClass]="applyCssError(f1, regional)">
@@ -65,39 +63,32 @@
                                   </app-control-field-error>
                                 </div>
                               </div> 
-                            </div>
+                            </div> -->
                             <div class="row">
                               
                             <div class="col-sm-6">
-                              <div class="form-group" [ngClass]="applyCssError(f1, fullName)">
+                              <div class="form-group" [ngClass]="applyCssError(f1, name)">
                                   <label class="control-label">Nome completo da comunidade</label>
-                                  <input type="text" #fullName="ngModel" [(ngModel)]="community.fullName" name="fullName" id="fullName" class="form-control" placeholder="Nome completo da comunidade" required>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, fullName)" msgError="Digite um nome completo da comunidade">
+                                  <input type="text" #name="ngModel" [(ngModel)]="community.name" name="name" id="name" class="form-control" placeholder="Nome completo da comunidade" required>
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, name)" msgError="Digite um nome completo da comunidade">
                                   </app-control-field-error>
                                 </div>
                               </div>     
                               <div class="col-sm-6">
                                 <div class="form-group profile" [ngClass]="applyCssError(f1, country)">
                                   <label class="control-label">Município</label>
-                                  <input class="form-control" #country="ngModel" name="community_country" id="community_country" [(ngModel)]="community.country"  placeholder="Município" required>
+                                  <select class="form-control" #country="ngModel" name="community_country" id="community_country" [(ngModel)]="community.city_id" required>
+                                    <option [ngValue]="item.id" *ngFor="let item of cities"> {{ item.name }} </option>
+                                  </select>                                  
                                   <app-control-field-error [showError]="verifyValidSubmitted(f1, country)" msgError="Selecione um município">
                                   </app-control-field-error>
                                 </div>
                               </div>  
                                 
                             </div>
-                            <!-- <div class="row">
-                              <div class="col-sm-12">
-                                <div class="form-group" [ngClass]="applyCssError(f1, fullName)">
-                                  <label class="control-label">Nome completo da comunidade</label>
-                                  <input type="text" #fullName="ngModel" [(ngModel)]="community.fullName" name="fullName" id="fullName" class="form-control" placeholder="Nome completo da comunidade" required>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, fullName)" msgError="Digite um nome completo da comunidade">
-                                  </app-control-field-error>
-                                </div>
-                              </div>
-                            </div> -->
+                           
                             <div class="row">
-                              <div class="col-sm-12">
+                              <div class="col-sm-6">
                                 <div class="form-group" [ngClass]="applyCssError(f1, zone)">
                                   <label class="control-label">Zona de Localização</label> <br/>
                                   <label class="radio-inline">                          
@@ -112,6 +103,97 @@
                                   </app-control-field-error>
                                 </div>
                               </div>
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                  <label class="control-label">Fornecimento de água</label> <br/>
+                                  <label class="checkbox-inline" *ngFor="let item of _waterSupply">                          
+                                    <input type="checkbox" name="waterSupply"
+                                      id="waterSupply"
+                                      [value]="item.type"
+                                      [checked]="item.checked"
+                                      (change)="verifyCheckbox(2, $event)" required>
+                                      {{ item.type }} 
+                                  </label>           
+                                                     
+                                  <!-- <select class="form-control"  #waterSupply="ngModel" name="waterSupply" [(ngModel)]="community.water_supply" id="waterSupply" required>
+                                    <option value="Encanada"> Encanada </option>
+                                    <option value="Tratada"> Tratada </option>
+                                    <option value="Poços"> Poços </option>
+                                    <option value="Caixa d'água"> Caixa d'água </option>
+                                  </select> -->
+                                  <!-- <app-control-field-error [showError]="verifyValidSubmitted(f1, waterSupply)" msgError="Selecione o tipo de fornecimento de água">
+                                  </app-control-field-error> -->
+                                </div>
+                              </div>
+                            </div> 
+                            <div class="row">
+                      
+                              <div class="col-sm-6">
+                                <div class="form-group" [ngClass]="applyCssError(f1, hasEletricity)">
+                                  <label class="control-label">Fornecimento de energia elétrica</label> <br/>
+                                  <label class="radio-inline">                          
+                                    <input type="radio" #hasEletricity="ngModel" name="hasEletricity" [(ngModel)]="community.has_eletricity" id="hasEletricity" [value]="true" required>
+                                    Sim
+                                  </label>
+                                  <label class="radio-inline"> 
+                                    <input type="radio" #hasEletricity="ngModel" name="hasEletricity" [(ngModel)]="community.has_eletricity" id="hasEletricity" [value]="false" required>
+                                    Não
+                                  </label>
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, hasEletricity)" msgError="Escolha uma das alternativas">
+                                  </app-control-field-error>
+                                </div>
+                              </div>     
+                              <div class="col-sm-6">
+                                <div class="form-group" [ngClass]="applyCssError(f1, garbageDestination)">
+                                  <label class="control-label">Destino do lixo</label>
+                                  <select class="form-control"  #garbageDestination="ngModel" name="garbage_destination" [(ngModel)]="community.garbage_destination" id="garbage_destination" required>
+                                    <option value="Reciclagem"> Reciclagem </option>
+                                    <option value="Incineração"> Incineração </option>
+                                    <option value="Depósito a céu aberto">  Depósito a céu aberto </option>
+                                    <option value="Aterro sanitário">  Aterro sanitário </option>
+                                    <option value="Coleta">  Coleta </option>
+                                  </select>                                  
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, garbageDestination)" msgError="Escolha uma das alternativas">
+                                  </app-control-field-error>
+                                </div>
+                              </div>                        
+                            </div>                            
+                            <div class="row">                              
+                              <div class="col-sm-6">
+                                <div class="form-group" [ngClass]="applyCssError(f1, accessVia)">
+                                  <label class="control-label">Vias de acesso ä comunidade</label>
+                                  <select class="form-control"  #accessVia="ngModel" name="access_via" [(ngModel)]="community.access_via" id="access_via" required>
+                                    <option value="Estrada"> Estrada </option>
+                                    <option value="Rios"> Rios </option>
+                                  </select>
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, accessVia)" msgError="Selecione uma via de acesso ä comunidade">
+                                  </app-control-field-error>                                
+                                </div>
+                              </div>   
+                              <div class="col-sm-6">
+                                <div class="form-group" [ngClass]="applyCssError(f1, mainIncome)">
+                                  <label class="label-control"> Principal fonte de renda da comunidade</label>
+                                  <select class="form-control" #mainIncome="ngModel" name="main_income" [(ngModel)]="community.main_income" id="main_income" required>
+                                      <option value="Pesca">Pesca</option>
+                                      <option value="Farinha">Farinha</option>
+                                      <option value="Caça">Caça</option>
+                                      <option value="Roçado"> Roçado</option>
+                                      <option value="Outra"> Outra</option>
+                                    </select>                                      
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, mainIncome)" msgError="Digite a principal fonte de renda da comunidade">
+                                  </app-control-field-error>
+                                </div>
+                              </div>                              
+                            </div>
+                            <div class="row">                              
+                              <div class="col-sm-6">
+                                <div class="form-group" [ngClass]="applyCssError(f1, sourceOfIncomeOther)" *ngIf="community.main_income === 'Outra'">
+                                  <label class="label-control"> Especifique</label>
+                                  <input class="form-control" #sourceOfIncomeOther="ngModel" name="sourceOfIncome_other" [(ngModel)]="community.sourceOfIncomeOther" id="sourceOfIncome_other" required>
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, sourceOfIncomeOther)" msgError="Especifique a fonte de renda">
+                                  </app-control-field-error>
+                                </div>   
+                              </div>                              
                             </div> 
                           </div>
                         </div>
@@ -130,7 +212,7 @@
                         </div>
                         <div class="col-md-3">
                           <div class="form-group">
-                            <button class="btn btn-default btn-block" (click)="openModal()" id="btn_return1"> Cancelar</button>
+                            <button type="button" class="btn btn-default btn-block" (click)="openModal()" id="btn_return1"> Cancelar</button>
                           </div>
                         </div>
                       </form>
@@ -139,134 +221,9 @@
 
                 </section>
               </div>
-            </div>
+            </div>           
             <!-- /.tab-pane -->
             <div class="tab-pane" id="tab_2">
-              <div class="content">
-                <section class="content">
-                  <div class="box-header with-border">
-                      <h5 class="box-title"> Recursos da Comunidade
-                      </h5>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <form name="form" (ngSubmit)="save(2,f2.valid)" #f2="ngForm" novalidate>
-                        <div class="box box-primary">
-                          <div class="box-body">
-                            <div class="row">
-                              <div class="col-sm-12">
-                                <div class="form-group" [ngClass]="applyCssError(f2, waterSupply)">
-                                  <label class="control-label">Fornecimento de água</label> <br/>
-                                  <select class="form-control"  #waterSupply="ngModel" name="water_service" [(ngModel)]="community.water_supply" id="water_service1">
-                                    <option value="Encanada"> Encanada </option>
-                                    <option value="Tratada"> Tratada </option>
-                                    <option value="Poços"> Poços </option>
-                                    <option value="Caixa d'água"> Caixa d'água </option>
-                                  </select>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, waterSupply)" msgError="Selecione o tipo de fornecimento de água">
-                                  </app-control-field-error>
-                                </div>
-                              </div>                             
-                            </div>
-                            <div class="row">
-                              <div class="col-sm-12">
-                                <div class="form-group" [ngClass]="applyCssError(f2, electricPower)">
-                                  <label class="control-label">Fornecimento de energia elétrica</label> <br/>
-                                  <label class="radio-inline">                          
-                                    <input type="radio" #electricPower="ngModel" name="electricPower" [(ngModel)]="community.electricPower" id="electricPower" value=true required>
-                                    Sim
-                                  </label>
-                                  <label class="radio-inline"> 
-                                    <input type="radio" #electricPower="ngModel" name="electricPower" [(ngModel)]="community.electricPower" id="electricPower" value=false required>
-                                    Não
-                                  </label>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, electricPower)" msgError="Escolha uma das alternativas">
-                                  </app-control-field-error>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-sm-12">
-                                <div class="form-group" [ngClass]="applyCssError(f2, garbageDestination)">
-                                  <label class="control-label">Destino do lixo</label>
-                                  <select class="form-control"  #garbageDestination="ngModel" name="garbage_destination" [(ngModel)]="community.garbage_destination" id="garbage_destination">
-                                    <option value="Reciclagem"> Reciclagem </option>
-                                    <option value="Incineração"> Incineração </option>
-                                    <option value="Depósito a céu aberto">  Depósito a céu aberto </option>
-                                    <option value="Aterro sanitário">  Aterro sanitário </option>
-                                    <option value="Coleta">  Coleta </option>
-                                  </select>                                  
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, garbageDestination)" msgError="Escolha uma das alternativas">
-                                  </app-control-field-error>
-                                </div>
-                              </div>                            
-                            </div>
-
-                            <div class="row">
-                              <div class="col-sm-12">
-                                <div class="form-group" [ngClass]="applyCssError(f2, accessVia)">
-                                  <label class="control-label">Vias de acesso ä comunidade</label>
-                                  <select class="form-control"  #accessVia="ngModel" name="access_via" [(ngModel)]="community.access_via" id="access_via">
-                                    <option value="Estrada"> Estrada </option>
-                                    <option value="Rios"> Rios </option>
-                                  </select>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, accessVia)" msgError="Selecione uma via de acesso ä comunidade">
-                                  </app-control-field-error>                                
-                                </div>
-                              </div>                            
-                            </div>
-                              <div class="row">
-                                <div class="col-sm-6">
-                                  <div class="form-group" [ngClass]="applyCssError(f2, mainIncome)">
-                                    <label class="label-control"> Principal fonte de renda da comunidade</label>
-                                    <select class="form-control" #mainIncome="ngModel" name="main_income" [(ngModel)]="community.main_income" id="main_income" required>
-                                        <option value="Pesca">Pesca</option>
-                                        <option value="Farinha">Farinha</option>
-                                        <option value="Caça">Caça</option>
-                                        <option value="Roçado"> Roçado</option>
-                                        <option value="Outra"> Outra</option>
-                                      </select>                                      
-                                    <app-control-field-error [showError]="verifyValidSubmitted(f2, mainIncome)" msgError="Digite a principal fonte de renda da comunidade">
-                                    </app-control-field-error>
-                                  </div>
-                                </div>  
-                                <div class="col-sm-6">
-                                  <div class="form-group" [ngClass]="applyCssError(f2, sourceOfIncomeOther)" *ngIf="community.communityIncome==='5'">
-                                    <label class="label-control"> Especifique</label>
-                                    <input class="form-control" #sourceOfIncomeOther="ngModel" name="sourceOfIncome_other" [(ngModel)]="community.sourceOfIncomeOther" id="sourceOfIncome_other" required>
-                                    <app-control-field-error [showError]="verifyValidSubmitted(f2, sourceOfIncomeOther)" msgError="Especifique a fonte de renda">
-                                    </app-control-field-error>
-                                  </div>   
-                                </div>                              
-                              </div> 
-                          </div>
-                        </div>
-                        <div class="content-control">
-                          <div class="control">
-                            <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false, 2, 0)" id="btn_previous">
-                              <img src="./assets/img/global/ic_previous.png" />
-                              <b>Anterior</b>
-                            </a>
-                            <a href="{{nextTab}}" data-toggle="tab" (click)="isActive(true, 2)" id="btn_next">
-                              <b>Próximo</b>
-                              <img src="./assets/img/global/ic_next.png" />
-                            </a>
-                            <button type="submit" id="btn_tab2"></button>
-                          </div>
-                        </div>
-                        <div class="col-md-3">
-                          <div class="form-group">
-                            <button class="btn btn-default btn-block" (click)="openModal()" id="btn_return2"> Cancelar</button>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </section>
-              </div>
-            </div>
-            <!-- /.tab-pane -->
-            <div class="tab-pane" id="tab_3">
               <div class="content">
                 <section class="content">                                
                   <div class="box-header with-border">
@@ -275,175 +232,171 @@
                   </div>
                   <div class="row">
                     <div class="col-sm-12">
-                      <form name="form" (ngSubmit)="saveData(f3.valid) && save(3, f3.valid)" #f3="ngForm" novalidate>
+                      <form name="form" (ngSubmit)="saveData(f2.valid) && save(3, f2.valid)" #f2="ngForm" novalidate>
                         <div class="box box-primary">
                           <div class="box-body">
                             <div class="row">
                               <div class="col-sm-12">
-                                <div class="form-group left" [ngClass]="applyCssError(f3, healthService)">
+                                <div class="form-group left" [ngClass]="applyCssError(f2, healthService)">
                                   <label class="control-label">Serviços de saúde existentes na comunidade</label>
                                   <input type="text" #healthService="ngModel" name="health_service" [(ngModel)]="community.health_service" id="health_service" class="form-control" placeholder="serviços de saúde existentes na comunidade" required>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f3, healthService)" msgError="Digite os serviços de saúde existentes na comunidade">
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, healthService)" msgError="Digite os serviços de saúde existentes na comunidade">
                                   </app-control-field-error>
                                 </div>
                               </div>                            
                             </div>
                             <div class="row">
                               <div class="col-sm-3">
-                                <div class="form-group" [ngClass]="applyCssError(f3, hasKindergarten)">
+                                <div class="form-group" [ngClass]="applyCssError(f2, hasKindergarten)">
                                   <label class="control-label">Escolas de Educação Infantil</label> <br/>
                                   <label class="radio-inline">                          
-                                    <input type="radio" #hasKindergarten="ngModel" name="hasKindergarten" [(ngModel)]="community.has_kindergarten" id="hasKindergarten" value=true required>
+                                    <input type="radio" #hasKindergarten="ngModel" name="hasKindergarten" [(ngModel)]="community.has_kindergarten" id="hasKindergarten" [value]="true" required>
                                     Sim
                                   </label>
                                   <label class="radio-inline"> 
-                                    <input type="radio" #hasKindergarten="ngModel" name="hasKindergarten" [(ngModel)]="community.has_kindergarten" id="hasKindergarten" value=false required>
+                                    <input type="radio" #hasKindergarten="ngModel" name="hasKindergarten" [(ngModel)]="community.has_kindergarten" id="hasKindergarten" [value]="false" required>
                                     Não
                                   </label>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f3, hasKindergarten)" msgError="Escolha uma das alternativas">
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, hasKindergarten)" msgError="Escolha uma das alternativas">
                                   </app-control-field-error>
                                 </div>
                               </div>
                               <div class="col-sm-3">
-                                <div class="form-group" [ngClass]="applyCssError(f3, elementarySchools)">
+                                <div class="form-group" [ngClass]="applyCssError(f2, hasElementarySchool)">
                                   <label class="control-label">Escolas de Ensino Fundamental</label> <br/>
                                   <label class="radio-inline">                          
-                                    <input type="radio" #elementarySchools="ngModel" name="elementary_schools" [(ngModel)]="community.elementarySchools" id="elementary_schools" value=true required>
+                                    <input type="radio" #hasElementarySchool="ngModel" name="hasElementarySchool" [(ngModel)]="community.has_elementary_school" id="hasElementarySchool" [value]="true" required>
                                     Sim
                                   </label>
                                   <label class="radio-inline">
-                                    <input type="radio" #elementarySchools="ngModel" name="elementary_schools" [(ngModel)]="community.elementarySchools" id="elementary_schools" value=false required>
+                                    <input type="radio" #hasElementarySchool="ngModel" name="hasElementarySchool" [(ngModel)]="community.has_elementary_school" id="hasElementarySchool" [value]="false" required>
                                     Não
                                   </label>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f3, elementarySchools)" msgError="Escolha uma das alternativas">
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, hasElementarySchool)" msgError="Escolha uma das alternativas">
                                   </app-control-field-error>
                                 </div>
                               </div>
                               <div class="col-sm-3">
-                                <div class="form-group" [ngClass]="applyCssError(f3, highSchools)">
+                                <div class="form-group" [ngClass]="applyCssError(f2, hasHighSchool)">
                                   <label class="control-label">Escolas de Ensino Médio</label> <br/>
                                   <label class="radio-inline">                          
-                                    <input type="radio" #highSchools="ngModel" name="highSchools" [(ngModel)]="community.highSchools" id="highSchools" value=true required>
+                                    <input type="radio" #hasHighSchool="ngModel" name="hasHighSchool" [(ngModel)]="community.has_high_school" id="hasHighSchool" [value]="true" required>
                                     Sim
                                   </label>
                                   <label class="radio-inline">
-                                    <input type="radio" #highSchools="ngModel" name="highSchools" [(ngModel)]="community.highSchools" id="highSchools" value=false required>
+                                    <input type="radio" #hasHighSchool="ngModel" name="hasHighSchool" [(ngModel)]="community.has_high_school" id="hasHighSchool" [value]="false" required>
                                     Não
                                   </label>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f3, highSchools)" msgError="Escolha uma das alternativas">
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, hasHighSchool)" msgError="Escolha uma das alternativas">
                                   </app-control-field-error>
                                 </div>
                               </div>
-                              <div class="col-sm-3" [ngClass]="applyCssError(f3, higherEducationSchools)">
+                              <div class="col-sm-3" [ngClass]="applyCssError(f2, hasCollege)">
                                 <div class="form-group">
                                   <label class="control-label">Escolas de Educação Superior</label> <br/>
                                   <label class="radio-inline">                          
-                                    <input type="radio" #higherEducationSchools="ngModel" name="higherEducationSchools" [(ngModel)]="community.higherEducationSchools" id="higherEducationSchools" value=true required>
+                                    <input type="radio" #hasCollege="ngModel" name="hasCollege" [(ngModel)]="community.has_college" id="hasCollege" [value]="true" required>
                                     Sim
                                   </label>
                                   <label class="radio-inline">
-                                    <input type="radio" #higherEducationSchools="ngModel" name="higherEducationSchools" [(ngModel)]="community.higherEducationSchools" id="higherEducationSchools" value=false required>
+                                    <input type="radio" #hasCollege="ngModel" name="hasCollege" [(ngModel)]="community.has_college" id="hasCollege" [value]="false" required>
                                     Não
                                   </label>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f3, higherEducationSchools)" msgError="Escolha uma das alternativas">
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, hasCollege)" msgError="Escolha uma das alternativas">
                                   </app-control-field-error>
                                 </div>
                               </div>
                             </div>
                             <div class="row">
                               <div class="col-sm-3">
-                                <div class="form-group" [ngClass]="applyCssError(f3, communityCenter)">
+                                <div class="form-group" [ngClass]="applyCssError(f2, hasCommunityCenter)">
                                   <label class="control-label">Centro Comunitário</label> <br/>
                                   <label class="radio-inline">                          
-                                    <input type="radio" #communityCenter="ngModel" name="community_center" [(ngModel)]="community.communityCenter" id="community_center" value=true required>
+                                    <input type="radio" #hasCommunityCenter="ngModel" name="hasCommunityCenter" [(ngModel)]="community.has_community_center" id="hasCommunityCenter" [value]="true" required>
                                     Sim
                                   </label>
                                   <label class="radio-inline">
-                                    <input type="radio" #communityCenter="ngModel" name="community_center" [(ngModel)]="community.communityCenter" id="community_center" value=false required>
+                                    <input type="radio" #hasCommunityCenter="ngModel" name="hasCommunityCenter" [(ngModel)]="community.has_community_center" id="hasCommunityCenter" [value]="false" required>
                                     Não
                                   </label>
-                                <app-control-field-error [showError]="verifyValidSubmitted(f3, communityCenter)" msgError="Escolha uma das alternativas">
+                                <app-control-field-error [showError]="verifyValidSubmitted(f2, hasCommunityCenter)" msgError="Escolha uma das alternativas">
                                 </app-control-field-error>
                                 </div>
                               </div>
                               <div class="col-sm-3">
-                                <div class="form-group" [ngClass]="applyCssError(f3, placeReligion)">
+                                <div class="form-group" [ngClass]="applyCssError(f2, hasReligiousPlace)">
                                   <label class="control-label">Local Religioso</label> <br/>
                                   <label class="radio-inline">                          
-                                    <input type="radio" #placeReligion="ngModel" name="place_religion" [(ngModel)]="community.placeReligion" id="place_religion1" value=true required>
+                                    <input type="radio" #hasReligiousPlace="ngModel" name="hasReligiousPlace" [(ngModel)]="community.has_religious_place" id="hasReligiousPlace" [value]="true" required>
                                     Sim
                                   </label>
                                   <label class="radio-inline">
-                                    <input type="radio" #placeReligion="ngModel" name="place_religion" [(ngModel)]="community.placeReligion" id="place_religion" value=false required>
+                                    <input type="radio" #hasReligiousPlace="ngModel" name="hasReligiousPlace" [(ngModel)]="community.has_religious_place" id="hasReligiousPlace" [value]="false" required>
                                     Não
                                   </label>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f3, placeReligion)" msgError="Escolha uma das alternativas">
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, hasReligiousPlace)" msgError="Escolha uma das alternativas">
                                   </app-control-field-error>
                                 </div>
                               </div>
                               <div class="col-sm-3">
-                                <div class="form-group" [ngClass]="applyCssError(f3, culturalEvents)">
+                                <div class="form-group" [ngClass]="applyCssError(f2, hasCulturalEvents)">
                                   <label class="control-label">Eventos Culturais</label> <br/>
                                   <label class="radio-inline">                          
-                                    <input type="radio" #culturalEvents="ngModel" name="cultural_events" [(ngModel)]="community.culturalEvents" id="cultural_events" value=true required>
+                                    <input type="radio" #hasCulturalEvents="ngModel" name="hasCulturalEvents" [(ngModel)]="community.has_cultural_events" id="hasCulturalEvents" [value]="true" required>
                                     Sim
                                   </label>
                                   <label class="radio-inline">
-                                    <input type="radio" #culturalEvents="ngModel" name="cultural_events" [(ngModel)]="community.culturalEvents" id="cultural_events" value=false required>
+                                    <input type="radio" #hasCulturalEvents="ngModel" name="hasCulturalEvents" [(ngModel)]="community.has_cultural_events" id="hasCulturalEvents" [value]="false" required>
                                     Não
                                   </label>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f3, culturalEvents)" msgError="Escolha uma das alternativas">
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, hasCulturalEvents)" msgError="Escolha uma das alternativas">
                                   </app-control-field-error>
                                 </div>
                               </div>
                               <div class="col-sm-3">
-                                <div class="form-group" [ngClass]="applyCssError(f3, patron)">
+                                <div class="form-group" [ngClass]="applyCssError(f2, hasPatron)">
                                   <label class="control-label">Patrono</label> <br/>
                                   <label class="radio-inline">                          
-                                    <input type="radio" #patron="ngModel" name="patron" [(ngModel)]="community.patron" id="patron" value=true required>
+                                    <input type="radio" #hasPatron="ngModel" name="hasPatron" [(ngModel)]="community.has_patron" id="hasPatron" [value]="true" required>
                                     Sim
                                   </label>
                                   <label class="radio-inline">
-                                    <input type="radio" #patron="ngModel" name="patron" [(ngModel)]="community.patron" id="patron" value=false required>
+                                    <input type="radio" #hasPatron="ngModel" name="hasPatron" [(ngModel)]="community.has_patron" id="hasPatron" [value]="false" required>
                                     Não
                                   </label>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f3, patron)" msgError="Escolha uma das alternativas">
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, hasPatron)" msgError="Escolha uma das alternativas">
                                   </app-control-field-error>
                                 </div>
                               </div>
                             </div>
                             <div class="row">
                               <div class="col-sm-6">
-                                <div class="form-group" [ngClass]="applyCssError(f3, culturalProductions)">
+                                <div class="form-group">
                                   <label class="control-label">Produções culturais</label> <br/>
-                                  <label class="checkbox-inline">                          
-                                    <input type="checkbox" #culturalProductions="ngModel" name="cultural_productions" [(ngModel)]="community.culturalProductions" id="cultural_productions" value="1" required>
-                                    Artesanato
+                                  <label class="checkbox-inline" *ngFor="let item of _culturalProducion">                          
+                                    <input type="checkbox" name="culturalProduction"  
+                                      id="culturalProduction" [value]="item.type" 
+                                      [checked]="item.checked"
+                                      (change)="verifyCheckbox(1, $event)" required>
+                                     {{ item.type }}
                                   </label>
-                                  <label class="checkbox-inline"> 
-                                    <input type="checkbox" #culturalProductions="ngModel" name="cultural_productions" [(ngModel)]="community.culturalProductions" id="cultural_productions" value="2" required>
-                                    Música
-                                  </label>
-                                  <label class="checkbox-inline"> 
-                                    <input type="checkbox"#culturalProductions="ngModel" name="cultural_productions" [(ngModel)]="community.culturalProductions" id="cultural_productions" value="3" required>
-                                    Dança
-                                  </label>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f3, culturalProductions)" msgError="Escolha uma das alternativas">
-                                  </app-control-field-error>
+                                  
+                                  <!-- <app-control-field-error [showError]="verifyValidSubmitted(f2, culturalProduction)" msgError="Escolha uma das alternativas">
+                                  </app-control-field-error> -->
                                 </div>                                
                               </div>
                               <div class="col-sm-6">
-                                <div class="form-group" [ngClass]="applyCssError(f3, communityLeaders)">
+                                <div class="form-group" [ngClass]="applyCssError(f2, hasCommunityLeaders)">
                                   <label class="control-label">Existem líderes comunitário</label> <br/>
                                   <label class="radio-inline">                          
-                                    <input type="radio" #communityLeaders="ngModel" name="communityLeaders" [(ngModel)]="community.communityLeaders" id="communityLeaders" value=true required>
+                                    <input type="radio" #hasCommunityLeaders="ngModel" name="hasCommunityLeaders" [(ngModel)]="community.has_community_leaders" id="hasCommunityLeaders" [value]="true" required>
                                     Sim
                                   </label>
                                   <label class="radio-inline">
-                                    <input type="radio" #communityLeaders="ngModel" name="communityLeaders" [(ngModel)]="community.communityLeaders" id="communityLeaders" value=false required>
+                                    <input type="radio" #hasCommunityLeaders="ngModel" name="hasCommunityLeaders" [(ngModel)]="community.has_community_leaders" id="hasCommunityLeaders" [value]="false" required>
                                     Não
                                   </label>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f3, communityLeaders)" msgError="Escolha uma das alternativas">
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, hasCommunityLeaders)" msgError="Escolha uma das alternativas">
                                   </app-control-field-error>
                                 </div>
                               </div>
@@ -452,16 +405,16 @@
                         </div>
                         <div class="content-control">
                           <div class="control">
-                            <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false, 3, 0)" id="btn_previous">
+                            <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false, 2, 0)" id="btn_previous">
                                 <img src="./assets/img/global/ic_previous.png" />
                                 <b>Anterior</b>
                             </a>
-                            <button type="submit" id="btn_tab3"></button>
+                            <button type="submit" id="btn_tab2"></button>
                           </div>
                         </div>
                         <div class="col-md-3">
                           <div class="form-group">
-                              <button class="btn btn-default btn-block" (click)="openModal()" id="btn_return3"> Cancelar</button>
+                              <button type="button" class="btn btn-default btn-block" (click)="openModal()" id="btn_return3"> Cancelar</button>
                           </div>
                         </div>
                         <div class="col-md-3 col-md-offset-6">

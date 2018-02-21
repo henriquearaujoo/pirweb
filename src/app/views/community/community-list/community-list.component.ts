@@ -1,7 +1,7 @@
 import { ToastService } from './../../../services/toast-notification/toast.service';
 import { Paginate } from './../../../models/paginate';
 import { Community } from './../../../models/community';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { CommunityService } from '../../../services/community/community.service';
 import { Router } from '@angular/router';
@@ -13,13 +13,14 @@ import { Router } from '@angular/router';
 })
 export class CommunityListComponent implements OnInit, OnDestroy {
 
+  private cities: any[] = new Array();
   private community: Community = new Community();
   private communities: Community[] = new Array();
   private paginate: Paginate = new Paginate();
   private subscription: Subscription;
   private hasdata: boolean;
   private filter: any = { name: ''};
-  private page: number;
+  @Output() page: number;
 
   constructor(
     private router: Router,
@@ -28,24 +29,36 @@ export class CommunityListComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.page = 0;
     this.hasdata = false;
     this.getCommunities();
+    localStorage.removeItem('communityId');
   }
 
   getCommunities() {
-    this.subscription = this.communityService.getCommunity().subscribe(
+    console.log(this.filter.name);
+    if ( this.filter.name !== '') { this.page = 0; }
+    this.subscription = this.communityService.getCommunities(this.filter.name, this.page).subscribe(
       success => {
-        // this.paginate = success;
-        // this.communities = this.paginate.content;
-        this.communities = success;
+        this.paginate = success;
+        this.communities = this.paginate.content;
+        this.communities.forEach( el => {
+          this.communityService.getCity(el.city_id).subscribe(
+            s => {
+              el.city_id = s.name;
+            },
+            error => console.log(error)
+          );
+        });
         this.hasdata = true;
       },
       error => console.log(error)
     );
 
   }
+
   setCommunity(community: Community) {
-    localStorage.setItem('communityId', community.id.toString());
+    localStorage.setItem('communityId', community.id);
     this.router.navigate(['community']);
   }
 
