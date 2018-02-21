@@ -1,3 +1,4 @@
+import { ChildListComponent } from './views/child/child-list/child-list.component';
 import { ResponsibleListComponent } from './views/responsible/responsible-list/responsible-list.component';
 import { ResponsibleComponent } from './views/responsible/responsible.component';
 import { PregnantListComponent } from './views/pregnant/pregnant-list/pregnant-list.component';
@@ -81,6 +82,11 @@ const App_Router: Routes = [
           {
             path: 'community-list',
             component: CommunityListComponent
+            // canActivate: [PageGuard]
+          },
+          {
+            path: 'child-list',
+            component: ChildListComponent
             // canActivate: [PageGuard]
           },
           {

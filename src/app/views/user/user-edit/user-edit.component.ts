@@ -1,3 +1,4 @@
+import { SweetAlertService } from './../../../services/sweetalert/sweet-alert.service';
 import { Permissions, RuleState } from './../../../helpers/permissions';
 import { ToastService } from './../../../services/toast-notification/toast.service';
 import { Component, OnInit} from '@angular/core';
@@ -76,7 +77,8 @@ export class UserEditComponent implements OnInit {
     private router: Router,
     private toastService: ToastService,
     private permissions: Permissions,
-    private modalService: ModalService) {
+    private modalService: ModalService,
+    private sweetAlertService: SweetAlertService) {
       this.user = new User();
       this.org = new Org();
       this.person = new Person();
@@ -112,9 +114,9 @@ export class UserEditComponent implements OnInit {
     this.currentTab = 0;
     this.previousTab = '#tab_1';
     this.nextTab = '#tab_2';
-    this.accountTab = '../../../assets/img/user/ic_account_enable.png';
-    this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
-    this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
+    this.accountTab = './assets/img/user/ic_account_enable.png';
+    this.personalTab = './assets/img/user/ic_personal_disable.png';
+    this.adressTab = './assets/img/user/ic_adress_disable.png';
 
     this.enable_save = false;
 
@@ -146,10 +148,8 @@ export class UserEditComponent implements OnInit {
       if (this.type === 'PJUR') {
         console.log('SAVE ORG', this.org);
         this.userService.saveEditEntity(this.org).subscribe(
-          (data: Response) => {
-            console.log(data.headers.get('authorization'));
-            const token = data.headers.get('authorization');
-            this.openModal();
+          success => {
+
           },
           error => {
             this.error_list = error;
@@ -160,8 +160,7 @@ export class UserEditComponent implements OnInit {
         if (this.type === 'PFIS') {
           console.log('SAVE PERSON', this.person);
           this.userService.saveEditPerson(this.person).subscribe(
-            (data: Response) => {
-              console.log(data);
+            success2 => {
               this.currentId = localStorage.getItem('currentIdPir');
               if (this.currentId === this.user.id) {
                 localStorage.removeItem('tokenPir');
@@ -205,24 +204,7 @@ export class UserEditComponent implements OnInit {
                 });
 
               } else {
-                swal( {
-                  title: '',
-                  text: 'Informações atualizadas com Sucesso!',
-                  icon: 'success',
-                  buttons: {
-                    confirm: {
-                      text: 'Fechar',
-                      className: 'swal-btn-close'
-                    }
-                  },
-                  closeOnClickOutside: false,
-                  className: 'swal-add-success'
-                })
-                .then((confirm) => {
-                  if (confirm) {
-                    this.router.navigate(['user-list']);
-                  }
-                });
+                this.sweetAlertService.alertSuccessUpdate('user-list');
               }
             },
             error => {
@@ -236,10 +218,6 @@ export class UserEditComponent implements OnInit {
   }
 
   openModal() {
-    // if (!this.modalOpened) {
-    //   this.modalOpened = true;
-    //   this.openModalButton.click();
-    // }
     this.modalService.modalCancel('/user-list');
   }
 
@@ -585,22 +563,22 @@ export class UserEditComponent implements OnInit {
 
         if (this.currentTab === 0) {
             (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
-            this.accountTab = '../../../assets/img/user/ic_account_enable.png';
-            this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
-            this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
+            this.accountTab = './assets/img/user/ic_account_enable.png';
+            this.personalTab = './assets/img/user/ic_personal_disable.png';
+            this.adressTab = './assets/img/user/ic_adress_disable.png';
 
         }else if (this.currentTab === 1) {
-            this.accountTab = '../../../assets/img/user/ic_account_disable.png';
-            this.personalTab = '../../../assets/img/user/ic_personal_enable.png';
-            this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
+            this.accountTab = './assets/img/user/ic_account_disable.png';
+            this.personalTab = './assets/img/user/ic_personal_enable.png';
+            this.adressTab = './assets/img/user/ic_adress_disable.png';
             (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
             (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
 
         }else {
             (<HTMLButtonElement>document.getElementById('btn_next')).style.display = 'none';
-            this.accountTab = '../../../assets/img/user/ic_account_disable.png';
-            this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
-            this.adressTab = '../../../assets/img/user/ic_adress_enable.png';
+            this.accountTab = './assets/img/user/ic_account_disable.png';
+            this.personalTab = './assets/img/user/ic_personal_disable.png';
+            this.adressTab = './assets/img/user/ic_adress_enable.png';
             this.next = 'Salvar';
           }
       } else {

@@ -52,19 +52,19 @@ export class MultimediaComponent implements OnInit {
     this.canRead = false;
     this.canDelete = false;
 
-    this.images = [
-      {'path': '../../../../../assets/img_test/img1.jpg', 'type': 'PICTURE2D'},
-      {'path': '../../../../../assets/img_test/itn.mp4', 'type': 'VIDEO2D'},
-      {'path': '../../../../../assets/img_test/img2.jpg', 'type': 'PICTURE2D'},
-      {'path': '../../../../../assets/img_test/img3.jpg', 'type': 'PICTURE2D'},
-      {'path': '../../../../../assets/img_test/img4.jpg', 'type': 'PICTURE2D'},
-      {'path': '../../../../../assets/img_test/itn.mp4', 'type': 'VIDEO2D'},
-      {'path': '../../../../../assets/img_test/img5.jpg', 'type': 'PICTURE2D'},
-      {'path': '../../../../../assets/img_test/img6.png', 'type': 'PICTURE2D'},
-      {'path': '../../../../../assets/img_test/itn.mp4', 'type': 'VIDEO2D'},
-      {'path': '../../../../../assets/img_test/itn.mp4', 'type': 'VIDEO2D'},
-      {'path': '../../../../../assets/img_test/FAS.pdf', 'type': 'FILE'}
-          ];
+    // this.images = [
+    //   {'path': '../../../../../assets/img_test/img1.jpg', 'type': 'PICTURE2D'},
+    //   {'path': '../../../../../assets/img_test/itn.mp4', 'type': 'VIDEO2D'},
+    //   {'path': '../../../../../assets/img_test/img2.jpg', 'type': 'PICTURE2D'},
+    //   {'path': '../../../../../assets/img_test/img3.jpg', 'type': 'PICTURE2D'},
+    //   {'path': '../../../../../assets/img_test/img4.jpg', 'type': 'PICTURE2D'},
+    //   {'path': '../../../../../assets/img_test/itn.mp4', 'type': 'VIDEO2D'},
+    //   {'path': '../../../../../assets/img_test/img5.jpg', 'type': 'PICTURE2D'},
+    //   {'path': '../../../../../assets/img_test/img6.png', 'type': 'PICTURE2D'},
+    //   {'path': '../../../../../assets/img_test/itn.mp4', 'type': 'VIDEO2D'},
+    //   {'path': '../../../../../assets/img_test/itn.mp4', 'type': 'VIDEO2D'},
+    //   {'path': '../../../../../assets/img_test/FAS.pdf', 'type': 'FILE'}
+    //       ];
    }
 
   ngOnInit() {

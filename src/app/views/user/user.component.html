@@ -110,17 +110,17 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                        <div class="col-sm-12">
-                                                                <div class="form-group" [ngClass]="applyCssError(f1, password)">
-                                                                        <label class="control-label">Senha</label>
-                                                                        <input type="password" [(ngModel)]="user.password" #password="ngModel" name="password" id="user_password" class="form-control" required minlength="8" placeholder="Inserir uma senha (Digite uma senha. Mínimo 8 caracteres)">
-                                                                        <app-control-field-error [showError]="verifyValidSubmitted(f1, password)" msgError="Digite uma senha. Mínimo 8 caracteres">
-                                                                        </app-control-field-error>
-                                                                </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group" [ngClass]="applyCssError(f1, password)">
+                                                            <label class="control-label">Senha</label>
+                                                            <input type="password" [(ngModel)]="user.password" #password="ngModel" name="password" id="user_password" class="form-control" required minlength="8" placeholder="Inserir uma senha (Digite uma senha. Mínimo 8 caracteres)">
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, password)" msgError="Digite uma senha. Mínimo 8 caracteres">
+                                                            </app-control-field-error>
                                                         </div>
-                                                    </div>                                              
+                                                    </div>
+                                                </div>                                              
                                                 
-                                                </div>
+                                            </div>
                                             </div>
                                             <div class="content-control">
                                                 <div class="control">

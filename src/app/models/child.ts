@@ -21,5 +21,6 @@ export class Child {
     public difficultyCareChild: boolean;
     public difficultyCareChild_justify: boolean;
     public whoChildPlay: string;
+    public status: boolean;
 
 }

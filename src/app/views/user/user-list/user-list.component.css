@@ -31,6 +31,7 @@ th {
 .tbl-right {
     text-align: right;  
     width: 50px;
+    height: 42px;
 }
 
 thead {
@@ -71,7 +72,7 @@ div.dataTables_filter {
 }
 
 .box-body {
-    /* padding-right: 50px; */
+    padding: 0;
 }
 
 section.content {

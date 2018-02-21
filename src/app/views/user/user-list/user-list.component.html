@@ -66,22 +66,25 @@
                     {{ item.status === true ? 'Ativo': 'Inativo' }}
                 </td -->
                 <td class="tbl-right">              
-                  <a (click)="setUser(item)" id="btn_details" [routerLink]="['/user-details']" title="Ver detalhes">
+                  <a (click)="setUser(item)" id="btn_details" [routerLink]="['/user-details']" title="Ver detalhes"
+                    *ngIf="item.name  !== 'Administrator'">
                       <i class="large material-icons">visibility</i>
                   </a>
                 </td>
                 <td class="tbl-right" *ngIf="canUpdate">          
                   <a title="Editar" id="btn_edit"
-                    (click)="setUser(item)" [routerLink]="['/user-edit']" >
+                    (click)="setUser(item)" [routerLink]="['/user-edit']" 
+                    *ngIf="item.name  !== 'Administrator'">
                     <i class="fa fa-pencil fa-fw"></i>
                   </a>
                 </td>
                 <td class="tbl-right" *ngIf="canDelete">
-                    <a href="" [title]="item.status === true ? 'Desativar': 'Ativar'"
-                      data-toggle="modal" data-target="#modal-default"
-                      (click)="changeStatus(item)" id="btn_status" >              
-                      <i [ngClass]="item.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
-                    </a>      
+                  <a href="" [title]="item.status === true ? 'Desativar': 'Ativar'"
+                    data-toggle="modal" data-target="#modal-default"
+                    (click)="changeStatus(item)" id="btn_status" 
+                    *ngIf="item.name  !== 'Administrator'">              
+                    <i [ngClass]="item.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
+                  </a>      
                 </td>
               </tr>
             </tbody>

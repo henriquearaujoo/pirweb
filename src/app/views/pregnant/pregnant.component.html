@@ -138,12 +138,12 @@
                         <div class="content-control">
                           <div class="control">
                             <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false, 1, 0)" id="btn_previous">
-                                <img src="../../../assets/img/global/ic_previous.png" />
+                                <img src="./assets/img/global/ic_previous.png" />
                                 <b>Anterior</b>
                             </a>
                             <a href="{{nextTab}}" data-toggle="tab" (click)="isActive(true, 1)" id="btn_next">
                                 <b>Próximo</b>
-                                <img src="../../../assets/img/global/ic_next.png" />
+                                <img src="./assets/img/global/ic_next.png" />
                             </a>
                             <button type="submit" id="btn_tab1"></button>
                           </div>
@@ -190,7 +190,7 @@
                                 </div>
                               </div>  
                               <div class="col-sm-3">
-                                <div class="form-group" [ngClass]="applyCssError(f1, otherChildren)">
+                                <div class="form-group" [ngClass]="applyCssError(f2, otherChildren)">
                                   <label class="control-label">Tem outros filhos?</label> <br/>
                                   <label class="radio-inline">                          
                                     <input type="radio" #otherChildren="ngModel" name="other_children" [(ngModel)]="pregnant.hasOtherChildren" id="other_children" value=true required>
@@ -200,7 +200,7 @@
                                     <input type="radio" #otherChildren="ngModel" name="other_children" [(ngModel)]="pregnant.hasOtherChildren" id="other_children" value=false required>
                                     Não
                                   </label>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, otherChildren)" msgError="Escolha uma das alternativas">
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, otherChildren)" msgError="Escolha uma das alternativas">
                                   </app-control-field-error>
                                 </div>
                               </div>                             
@@ -334,12 +334,12 @@
                         <div class="content-control">
                           <div class="control">
                             <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false, 2, 0)" id="btn_previous">
-                                <img src="../../../assets/img/global/ic_previous.png" />
+                                <img src="./assets/img/global/ic_previous.png" />
                                 <b>Anterior</b>
                             </a>
                             <a href="{{nextTab}}" data-toggle="tab" (click)="isActive(true, 2)" id="btn_next">
                                 <b>Próximo</b>
-                                <img src="../../../assets/img/global/ic_next.png" />
+                                <img src="./assets/img/global/ic_next.png" />
                             </a>
                             <button type="submit" id="btn_tab2"></button>
                           </div>
@@ -451,13 +451,9 @@
                         <div class="content-control">
                             <div class="control">
                                 <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false, 3, 0)" id="btn_previous">
-                                    <img src="../../../assets/img/global/ic_previous.png" />
+                                    <img src="./assets/img/global/ic_previous.png" />
                                     <b>Anterior</b>
-                                </a>
-                                <!-- <a href="{{nextTab}}" data-toggle="tab" (click)="isActive(true)" id="btn_next">
-                                    <b>Próximo</b>
-                                    <img src="../../../assets/img/global/ic_next.png" />
-                                </a> -->
+                                </a>                               
                                 <button type="submit" id="btn_tab3"></button>
                             </div>
                         </div>
@@ -478,30 +474,6 @@
               </div>
             </div>
             <!-- /.tab-pane -->
-            <div class="content-control">
-                <!-- <div class="control">
-                    <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false)" id="btn_previous">
-                        <img src="../../../assets/img/global/ic_previous.png" />
-                        <b>Anterior</b>
-                    </a>
-                    <a href="{{nextTab}}" data-toggle="tab" (click)="isActive(true)" id="btn_next">
-                        <b>Próximo</b>
-                        <img src="../../../assets/img/global/ic_next.png" />
-                    </a>
-                </div> -->
-            </div>
-            <div class="row footer">
-                <!-- <div class="col-md-3">
-                    <div class="form-group">
-                        <button type="button" class="btn btn-default btn-block" (click)="openModal()" id="btn_return"> Cancelar</button>
-                    </div>
-                </div>
-                <div class="col-md-3 col-md-offset-6">
-                    <div class="form-group save">
-                        <button class="btn btn-primary btn-block" name="submit" id="btn_save">Cadastrar</button>                                
-                    </div>
-                </div> -->
-            </div>
           </div>
           <!-- /.tab-content -->
         </div>
@@ -510,23 +482,3 @@
 </div>
 
 <app-modal></app-modal> 
-
-<!-- Modal Add -->
-<!-- <div class="modal fade" id="modal-default" (click)='backToList()'>
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content" [ngStyle]="object">
-            <div class="modal-body">
-                <div class="modal-icon">
-                    <i class="material-icons" style="font-size: 60px;">done</i>
-                </div>
-                <h5> Cadastro realizado com Sucesso!</h5>
-            </div>
-            <div class="modal-footer" data-dismiss="modal" id="btn_confirm" (click)='backToList()'>
-                <label>Fechar</label>
-            </div>
-        </div> -->
-        <!-- /.modal-content -->
-    <!-- </div> -->
-    <!-- /.modal-dialog -->
-<!-- </div> -->
-<!-- /.modal -->

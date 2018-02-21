@@ -153,6 +153,8 @@ import { PregnantService } from './services/pregnant/pregnant.service';
 import { PregnantListComponent } from './views/pregnant/pregnant-list/pregnant-list.component';
 import { ResponsibleComponent } from './views/responsible/responsible.component';
 import { ResponsibleListComponent } from './views/responsible/responsible-list/responsible-list.component';
+import { ChildListComponent } from './views/child/child-list/child-list.component';
+import { SweetAlertService } from './services/sweetalert/sweet-alert.service';
 // import { QuillModule } from 'ngx-quill';
 // import { EqualValidator } from './directives/equal-validator.directive';
 
@@ -225,7 +227,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     PregnantComponent,
     PregnantListComponent,
     ResponsibleComponent,
-    ResponsibleListComponent
+    ResponsibleListComponent,
+    ChildListComponent
 
   ],
   imports: [
@@ -317,7 +320,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     FileService,
     PregnantService,
     ResponsibleService,
-    ChildService
+    ChildService,
+    SweetAlertService
   ],
   bootstrap: [AppComponent]
 })

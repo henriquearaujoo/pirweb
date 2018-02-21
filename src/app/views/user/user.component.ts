@@ -1,3 +1,4 @@
+import { SweetAlertService } from './../../services/sweetalert/sweet-alert.service';
 import { Community } from './../../models/community';
 import { ToastService } from './../../services/toast-notification/toast.service';
 import { UserDetailsComponent } from './user-details/user-details.component';
@@ -79,7 +80,8 @@ export class UserComponent implements OnInit {
     private route: ActivatedRoute,
     private toastService: ToastService,
     private modalService: ModalService,
-    private permissions: Permissions) {
+    private permissions: Permissions,
+    private sweetAlertService: SweetAlertService) {
       this.user = new User();
       this.org = new Org();
       this.person = new Person();
@@ -111,9 +113,9 @@ export class UserComponent implements OnInit {
     this.currentTab = 0;
     this.previousTab = '#tab_1';
     this.nextTab = '#tab_2';
-    this.accountTab = '../../../assets/img/user/ic_account_enable.png';
-    this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
-    this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
+    this.accountTab = './assets/img/user/ic_account_enable.png';
+    this.personalTab = './assets/img/user/ic_personal_disable.png';
+    this.adressTab = './assets/img/user/ic_adress_disable.png';
 
     this.enable_save = false;
     this.cont = 0;
@@ -178,30 +180,7 @@ export class UserComponent implements OnInit {
   }
 
   openModalSuccess() {
-    // if (!this.modalOpened) {
-    //   this.modalOpened = true;
-    //   // this.openModalButton.click();
-    //   this.modalService.modalSuccess('/user-list');
-    //   return false;
-    // }
-    swal( {
-      title: '',
-      text: 'Cadastro realizado com Sucesso!',
-      icon: 'success',
-      buttons: {
-        confirm: {
-          text: 'Fechar',
-          className: 'swal-btn-close'
-        }
-      },
-      closeOnClickOutside: false,
-      className: 'swal-add-success'
-    })
-    .then((confirm) => {
-      if (confirm) {
-        this.router.navigate(['user-list']);
-      }
-    });
+    this.sweetAlertService.alertSuccess('user-list');
   }
 
   openModal() {
@@ -475,21 +454,21 @@ export class UserComponent implements OnInit {
 
         if (this.currentTab === 0) {
             (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
-            this.accountTab = '../../../assets/img/user/ic_account_enable.png';
-            this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
-            this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
+            this.accountTab = './assets/img/user/ic_account_enable.png';
+            this.personalTab = './assets/img/user/ic_personal_disable.png';
+            this.adressTab = './assets/img/user/ic_adress_disable.png';
 
         }else if (this.currentTab === 1) {
-            this.accountTab = '../../../assets/img/user/ic_account_disable.png';
-            this.personalTab = '../../../assets/img/user/ic_personal_enable.png';
-            this.adressTab = '../../../assets/img/user/ic_adress_disable.png';
+            this.accountTab = './assets/img/user/ic_account_disable.png';
+            this.personalTab = './assets/img/user/ic_personal_enable.png';
+            this.adressTab = './assets/img/user/ic_adress_disable.png';
             (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
             (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
         }else {
             (<HTMLButtonElement>document.getElementById('btn_next')).style.display = 'none';
-            this.accountTab = '../../../assets/img/user/ic_account_disable.png';
-            this.personalTab = '../../../assets/img/user/ic_personal_disable.png';
-            this.adressTab = '../../../assets/img/user/ic_adress_enable.png';
+            this.accountTab = './assets/img/user/ic_account_disable.png';
+            this.personalTab = './assets/img/user/ic_personal_disable.png';
+            this.adressTab = './assets/img/user/ic_adress_enable.png';
             this.next = 'Salvar';
           }
       } else {

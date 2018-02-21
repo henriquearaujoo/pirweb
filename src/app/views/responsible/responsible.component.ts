@@ -72,9 +72,9 @@ export class ResponsibleComponent implements OnInit {
     this.previousTab = '#tab_1';
     this.nextTab = '#tab_2';
 
-    this.data1Tab = '../../../assets/img/responsible/ic_data_enable.png';
-    this.data2Tab = '../../../assets/img/responsible/ic_data_disable.png';
-    this.data3Tab = '../../../assets/img/responsible/ic_data_disable.png';
+    this.data1Tab = './assets/img/responsible/ic_data_enable.png';
+    this.data2Tab = './assets/img/responsible/ic_data_disable.png';
+    this.data3Tab = './assets/img/responsible/ic_data_disable.png';
 
     this.openSaveButtonTab1 = (<HTMLButtonElement>document.getElementById('btn_tab1'));
     this.openSaveButtonTab1.style.display = 'none';
@@ -84,6 +84,8 @@ export class ResponsibleComponent implements OnInit {
 
     this.openSaveButtonTab3 = (<HTMLButtonElement>document.getElementById('btn_tab3'));
     this.openSaveButtonTab3.style.display = 'none';
+
+    (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
   }
 
   saveData(isValid: boolean) {
@@ -199,21 +201,21 @@ export class ResponsibleComponent implements OnInit {
 
         if (this.currentTab === 0) {
           (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
-          this.data1Tab = '../../../assets/img/responsible/ic_data_enable.png';
-          this.data2Tab = '../../../assets/img/responsible/ic_data_disable.png';
-          this.data3Tab = '../../../assets/img/responsible/ic_data_disable.png';
+          this.data1Tab = './assets/img/responsible/ic_data_enable.png';
+          this.data2Tab = './assets/img/responsible/ic_data_disable.png';
+          this.data3Tab = './assets/img/responsible/ic_data_disable.png';
 
         }else if (this.currentTab === 1) {
-          this.data1Tab = '../../../assets/img/responsible/ic_data_disable.png';
-          this.data2Tab = '../../../assets/img/responsible/ic_data_enable.png';
-          this.data3Tab = '../../../assets/img/responsible/ic_data_disable.png';
+          this.data1Tab = './assets/img/responsible/ic_data_disable.png';
+          this.data2Tab = './assets/img/responsible/ic_data_enable.png';
+          this.data3Tab = './assets/img/responsible/ic_data_disable.png';
           (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
           (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
         }else {
           (<HTMLButtonElement>document.getElementById('btn_next')).style.display = 'none';
-          this.data1Tab = '../../../assets/img/responsible/ic_data_disable.png';
-          this.data2Tab = '../../../assets/img/responsible/ic_data_disable.png';
-          this.data3Tab = '../../../assets/img/responsible/ic_data_enable.png';
+          this.data1Tab = './assets/img/responsible/ic_data_disable.png';
+          this.data2Tab = './assets/img/responsible/ic_data_disable.png';
+          this.data3Tab = './assets/img/responsible/ic_data_enable.png';
           this.next = 'Salvar';
           }
       } else {

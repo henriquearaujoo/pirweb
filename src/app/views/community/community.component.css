@@ -96,7 +96,7 @@ label {
 }
 
 .form-group {
-    padding-bottom: 10px;
+    padding-bottom: 1px;
 }
 
 .content-header {
@@ -165,6 +165,10 @@ section.content_user {
     margin-bottom: 20px;
 }
 
+.nav > li > a {
+    padding: 10px 0 0 0px;
+}
+
 .nav-tabs-custom {
     background-color: #f4f4f4;
     padding: 20px;    
@@ -188,4 +192,26 @@ section.content_user {
     background-color: #f4f4f4;
     border-bottom: 0;
     margin-top: 20px;
+}
+
+input#waterDrink2 {
+    width: 60%;
+}
+
+label.lb-tab {
+    position: absolute;
+    color: white;
+    font-family: -webkit-pictograph;
+    text-align: center;
+    top: 8px;
+    left: 20px;
+    right: 20px;
+}
+
+.nav-tabs-custom > .nav-tabs > li.active > a, .nav-tabs-custom > .nav-tabs > li.active:hover > a {
+    background-color: #fff0;
+}
+
+.nav-tabs-custom > .nav-tabs > li.active {
+    border-top: 0;
 }

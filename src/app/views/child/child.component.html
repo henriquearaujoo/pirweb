@@ -25,13 +25,7 @@
                   <label class="lb-tab"> Dados 02 </label>
                   <img src="{{ data2Tab }}"/>
                 <!-- </a>                -->
-              </li>
-              <li>
-                <!-- <a class="tab-pane" (click)="walk(2)" href="#tab_3" data-toggle="tab"> -->
-                  <label class="lb-tab"> Dados 03</label>
-                  <img src="{{ data3Tab }}"/>
-                <!-- </a> -->
-              </li>            
+              </li>                
           </ul>
           <div class="tab-content">
             <div class="tab-pane active" id="tab_1">
@@ -112,11 +106,11 @@
                                   <label class="control-label">Sexo</label> <br/>                                  
                                   <label class="radio-inline">                          
                                     <input type="radio" #gender="ngModel" name="gender" [(ngModel)]="child.gender" id="gender" value=true required>
-                                    Sim
+                                    Masculino
                                   </label>
                                   <label class="radio-inline"> 
                                     <input type="radio" #gender="ngModel" name="gender" [(ngModel)]="child.gender" id="gender" value=false required>
-                                    Não
+                                    Feminino
                                   </label>    
                                   <app-control-field-error [showError]="verifyValidSubmitted(f2, gender)" msgError="Escolha uma das alternativas">
                                   </app-control-field-error>  
@@ -166,12 +160,12 @@
                         <div class="content-control">
                           <div class="control">
                             <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false, 1, 0)" id="btn_previous">
-                                <img src="../../../assets/img/global/ic_previous.png" />
+                                <img src="./assets/img/global/ic_previous.png" />
                                 <b>Anterior</b>
                             </a>
                             <a href="{{nextTab}}" data-toggle="tab" (click)="isActive(true, 1)" id="btn_next">
                                 <b>Próximo</b>
-                                <img src="../../../assets/img/global/ic_next.png" />
+                                <img src="./assets/img/global/ic_next.png" />
                             </a>
                             <button type="submit" id="btn_tab1"></button>
                           </div>
@@ -198,11 +192,11 @@
                   </div>
                   <div class="row">
                     <div class="col-sm-12">
-                      <form name="form" (ngSubmit)="save(2,f2.valid)" #f2="ngForm" novalidate>
+                      <form name="form" (ngSubmit)="saveData(f2.valid) && save(2, f2.valid)" #f2="ngForm" novalidate>
                         <div class="box box-primary">
                           <div class="box-body">          
                             <div class="row">
-                              <div class="col-sm-3">
+                              <div class="col-sm-4">
                                 <div class="form-group" [ngClass]="applyCssError(f2, civilRegistry)">
                                   <label class="control-label">A criança possui registro civil?</label> <br/>
                                   <label class="radio-inline">                          
@@ -216,101 +210,109 @@
                                   <app-control-field-error [showError]="verifyValidSubmitted(f2, civilRegistry)" msgError="Escolha uma das alternativas">
                                   </app-control-field-error>                            
                                 </div>
+                              </div> 
+                              
+                              <div class="col-sm-4">
+                                <div class="form-group" [ngClass]="applyCssError(f2, socioEducationalPrograms)">
+                                  <label class="control-label">A criança participa de outros programas sócio-educativos</label> <br/>
+                                  <label class="radio-inline">                          
+                                    <input type="radio" #socioEducationalPrograms="ngModel" name="socioEducationalPrograms" [(ngModel)]="child.socioEducational_programs" id="socioEducationalPrograms" value=true required>
+                                    Sim
+                                  </label>
+                                  <label class="radio-inline"> 
+                                    <input type="radio" #socioEducationalPrograms="ngModel" name="socioEducationalPrograms" [(ngModel)]="child.socioEducational_programs" id="socioEducationalPrograms" value=false required>
+                                    Não
+                                  </label>
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, socioEducationalPrograms)" msgError="Escolha uma das alternativas">
+                                  </app-control-field-error>
+                                </div>
                               </div>    
-                              <div class="col-sm-3" *ngIf="child.civilRegistry === 'false'">
+                              <div class="col-sm-4">                                
+                                <div class="row">
+                                  <div class="col-xs-8 col-sm-6">
+                                    <div class="form-group" [ngClass]="applyCssError(f2, prematureBirth)">
+                                      <label class="control-label">Nascimento prematuro?</label> <br/>
+                                      <label class="radio-inline">                          
+                                        <input type="radio" #prematureBirth="ngModel" name="prematureBirth" [(ngModel)]="child.prematureBirth" id="prematureBirth" value=true required>
+                                        Sim
+                                      </label>
+                                      <label class="radio-inline"> 
+                                        <input type="radio" #prematureBirth="ngModel" name="prematureBirth" [(ngModel)]="child.prematureBirth" id="prematureBirth" value=false required>
+                                        Não
+                                      </label>    
+                                      <app-control-field-error [showError]="verifyValidSubmitted(f2, prematureBirth)" msgError="Escolha uma das alternativas">
+                                      </app-control-field-error>                            
+                                    </div>
+                                  </div>
+                                  <div class="col-xs-4 col-sm-6">
+                                    <div class="form-group" [ngClass]="applyCssError(f2, prematureBirthWeek)" *ngIf="child.prematureBirth === 'true'">
+                                      <label class="control-label">No de semanas</label>
+                                      <input type="text" #prematureBirthWeek="ngModel" name="prematureBirthWeek" id="prematureBirthWeek" [(ngModel)]="child.prematureBirth_week" class="form-control" placeholder="No de semanas" required>
+                                      <app-control-field-error [showError]="verifyValidSubmitted(f2, prematureBirthWeek)" msgError="Digite o número de semanas">
+                                      </app-control-field-error>
+                                    </div>    
+                                  </div>
+                                </div>                                
+                              </div>    
+                                                              
+                            </div> 
+                            <div class="row">
+                              <div class="col-sm-12" *ngIf="child.civilRegistry === 'false'">
                                 <div class="form-group" [ngClass]="applyCssError(f2, civilRegistryJustify)">
                                   <label class="control-label">Justifique</label>
-                                  <input type="text" #civilRegistryJustify="ngModel" name="civilRegistryJustify" id="civilRegistry_justify" [(ngModel)]="child.civilRegistry_justify" class="form-control" placeholder="Justifique" required>
+                                  <textarea type="text" #civilRegistryJustify="ngModel" name="civilRegistryJustify" id="civilRegistry_justify" 
+                                    [(ngModel)]="child.civilRegistry_justify" class="form-control" 
+                                    placeholder="Por que a criança não possui registro civil? " required>
+                                  </textarea>
                                   <app-control-field-error [showError]="verifyValidSubmitted(f2, civilRegistryJustify)" msgError="Justifique a ausência do registro civil">
                                   </app-control-field-error>
                                 </div>                              
                               </div> 
-                              <div class="col-sm-3">
-                                  <div class="form-group" [ngClass]="applyCssError(f2, socioEducationalPrograms)">
-                                    <label class="control-label">A criança participa de outros programas sócio-educativos</label> <br/>
-                                    <label class="radio-inline">                          
-                                      <input type="radio" #socioEducationalPrograms="ngModel" name="socioEducationalPrograms" [(ngModel)]="child.socioEducational_programs" id="socioEducationalPrograms" value=true required>
-                                      Sim
-                                    </label>
-                                    <label class="radio-inline"> 
-                                      <input type="radio" #socioEducationalPrograms="ngModel" name="socioEducationalPrograms" [(ngModel)]="child.socioEducational_programs" id="socioEducationalPrograms" value=false required>
-                                      Não
-                                    </label>
-                                    <app-control-field-error [showError]="verifyValidSubmitted(f2, socioEducationalPrograms)" msgError="Escolha uma das alternativas">
-                                    </app-control-field-error>
-                                  </div>
-                              </div>    
-                              <div class="col-sm-3">
-                                <div class="form-group" [ngClass]="applyCssError(f2, prematureBirth)">
-                                  <label class="control-label">Nascimento prematuro?</label> <br/>
-                                  <label class="radio-inline">                          
-                                    <input type="radio" #prematureBirth="ngModel" name="prematureBirth" [(ngModel)]="child.prematureBirth" id="prematureBirth" value=true required>
-                                    Sim
-                                  </label>
-                                  <label class="radio-inline"> 
-                                    <input type="radio" #prematureBirth="ngModel" name="prematureBirth" [(ngModel)]="child.prematureBirth" id="prematureBirth" value=false required>
-                                    Não
-                                  </label>    
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, prematureBirth)" msgError="Escolha uma das alternativas">
-                                  </app-control-field-error>                            
-                                </div>
-                              </div>    
-                              <div class="col-sm-3" *ngIf="child.prematureBirth === 'true'">
-                                <div class="form-group" [ngClass]="applyCssError(f2, prematureBirthWeek)">
-                                  <label class="control-label">No de semanas</label>
-                                  <input type="text" #prematureBirthWeek="ngModel" name="prematureBirthWeek" id="prematureBirthWeek" [(ngModel)]="child.prematureBirth_week" class="form-control" placeholder="No de semanas" required>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, prematureBirthWeek)" msgError="Digite o número de semanas">
-                                  </app-control-field-error>
-                                </div>                              
-                              </div>                                    
-                            </div>
-                            <div class="row">
- 
-                            </div>
+                            </div>                           
                             <div class="row">
                               <div class="col-sm-4">
                                 <div class="form-group" [ngClass]="applyCssError(f2, weightMonthly)">
                                   <label class="control-label">A criança está sendo pesada mensalmente?</label> <br/>
                                   <label class="radio-inline">                          
-                                      <input type="radio" #weightMonthly="ngModel" name="weightMonthly" [(ngModel)]="child.weightMonthly" id="prematureBirth" value=true required>
+                                    <input type="radio" #weightMonthly="ngModel" name="weightMonthly" [(ngModel)]="child.weightMonthly" id="prematureBirth" value=true required>
                                       Sim
-                                    </label>
-                                    <label class="radio-inline"> 
-                                      <input type="radio" #weightMonthly="ngModel" name="weightMonthly" [(ngModel)]="child.weightMonthly" id="prematureBirth" value=false required>
-                                      Não
-                                    </label>    
-                                    <app-control-field-error [showError]="verifyValidSubmitted(f2, weightMonthly)" msgError="Escolha uma das alternativas">
-                                    </app-control-field-error>                                 
+                                  </label>
+                                  <label class="radio-inline"> 
+                                    <input type="radio" #weightMonthly="ngModel" name="weightMonthly" [(ngModel)]="child.weightMonthly" id="prematureBirth" value=false required>
+                                    Não
+                                  </label>    
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, weightMonthly)" msgError="Escolha uma das alternativas">
+                                  </app-control-field-error>                                 
                                 </div>
                               </div>
                               <div class="col-sm-4">
                                 <div class="form-group" [ngClass]="applyCssError(f2, vaccination)">
                                   <label class="control-label">O calendário de vacinação da criança está em dia?</label> <br/>
                                   <label class="radio-inline">                          
-                                      <input type="radio" #vaccination="ngModel" name="vaccination" [(ngModel)]="child.vaccination" id="vaccination" value=true required>
-                                      Sim
-                                    </label>
-                                    <label class="radio-inline"> 
-                                      <input type="radio" #vaccination="ngModel" name="vaccination" [(ngModel)]="child.vaccination" id="vaccination" value=false required>
-                                      Não
-                                    </label>    
-                                    <app-control-field-error [showError]="verifyValidSubmitted(f2, vaccination)" msgError="Escolha uma das alternativas">
-                                    </app-control-field-error>        
+                                    <input type="radio" #vaccination="ngModel" name="vaccination" [(ngModel)]="child.vaccination" id="vaccination" value=true required>
+                                    Sim
+                                  </label>
+                                  <label class="radio-inline"> 
+                                    <input type="radio" #vaccination="ngModel" name="vaccination" [(ngModel)]="child.vaccination" id="vaccination" value=false required>
+                                    Não
+                                  </label>    
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, vaccination)" msgError="Escolha uma das alternativas">
+                                  </app-control-field-error>        
                                 </div>
                               </div>
                               <div class="col-sm-4">
                                 <div class="form-group" [ngClass]="applyCssError(f2, relationOtherChildren)">
                                   <label class="control-label">A criança apresenta dificuldade para se relacionar com outras crianças?</label> <br/>
                                   <label class="radio-inline">                          
-                                      <input type="radio" #relationOtherChildren="ngModel" name="relationOtherChildren" [(ngModel)]="child.relationOtherChildren" id="relationOtherChildren" value=true required>
-                                      Sim
-                                    </label>
-                                    <label class="radio-inline"> 
-                                      <input type="radio" #relationOtherChildren="ngModel" name="relationOtherChildren" [(ngModel)]="child.relationOtherChildren" id="relationOtherChildren" value=false required>
-                                      Não
-                                    </label>    
-                                    <app-control-field-error [showError]="verifyValidSubmitted(f2, relationOtherChildren)" msgError="Escolha uma das alternativas">
-                                    </app-control-field-error>        
+                                    <input type="radio" #relationOtherChildren="ngModel" name="relationOtherChildren" [(ngModel)]="child.relationOtherChildren" id="relationOtherChildren" value=true required>
+                                    Sim
+                                  </label>
+                                  <label class="radio-inline"> 
+                                    <input type="radio" #relationOtherChildren="ngModel" name="relationOtherChildren" [(ngModel)]="child.relationOtherChildren" id="relationOtherChildren" value=false required>
+                                    Não
+                                  </label>    
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, relationOtherChildren)" msgError="Escolha uma das alternativas">
+                                  </app-control-field-error>        
                                 </div>
                               </div>
                             </div>
@@ -318,247 +320,119 @@
                               <div class="col-sm-4">
                                 <div class="form-group" [ngClass]="applyCssError(f2, whoCaresChild)">
                                   <label class="control-label">Quem cuida da criança? </label>
-                                  <div class="radio">                          
+                                  <div class="checkbox">                          
                                     <label>
-                                      <input type="radio" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" value="1">
+                                      <input type="checkbox" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" value="1">
                                       Mãe
                                     </label>                                 
                                   </div>
-                                  <div class="radio"> 
+                                  <div class="checkbox"> 
                                     <label>
-                                      <input type="radio" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" value="2">
+                                      <input type="checkbox" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" value="2">
                                       Pai
                                     </label>                                  
                                   </div>
-                                  <div class="radio"> 
+                                  <div class="checkbox"> 
                                     <label>
-                                      <input type="radio"#whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" value="3">
+                                      <input type="checkbox"#whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" value="3">
                                       Irmão / Irmã
                                     </label>                                  
                                   </div>
-                                  <div class="radio"> 
+                                  <div class="checkbox"> 
                                     <label>
-                                      <input type="radio" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" value="4">
+                                      <input type="checkbox" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" value="4">
                                       Avô / Avó
                                     </label>                                 
                                   </div>
-                                  <div class="radio"> 
+                                  <div class="checkbox"> 
                                     <label>
-                                      <input type="radio" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" value="5">
+                                      <input type="checkbox" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" value="5">
                                       Tio / Tia
                                     </label>                                  
                                   </div>
-                                  <div class="radio"> 
+                                  <div class="checkbox"> 
                                     <label>
-                                      <input type="radio" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" value="6">
+                                      <input type="checkbox" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" value="6">
                                       Primo / Prima 
                                     </label>                                  
                                   </div>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, participationFamilyGroup)" msgError="Escolha uma das alternativas">
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, whoCaresChild)" msgError="Escolha uma das alternativas">
                                   </app-control-field-error>   
                                 </div>
                               </div>   
-                              <div class="col-sm-4">
-                                <div class="form-group"  [ngClass]="applyCssError(f2, difficultyCareChild)">
-                                  <label class="control-label">A família encontra alguma dificuldade para educar a criança? </label>
-                                  <div class="radio-inline">      
-                                    <label>
-                                      <input type="radio" #difficultyCareChild="ngModel" [(ngModel)]="child.difficultyCareChild" name="difficultyCareChild" id="difficultyCareChild" value=true required>
-                                      Sim
-                                    </label>
+                              <div class="col-sm-4">                                
+                                <div class="row">
+                                  <div class="col">
+                                    <div class="form-group"  [ngClass]="applyCssError(f2, difficultyCareChild)">
+                                      <label class="control-label">A família encontra alguma dificuldade para educar a criança? </label>
+                                      <div class="radio-inline">      
+                                        <label>
+                                          <input type="radio" #difficultyCareChild="ngModel" [(ngModel)]="child.difficultyCareChild" name="difficultyCareChild" id="difficultyCareChild" value=true required>
+                                          Sim
+                                        </label>
+                                      </div>
+                                      <div class="radio-inline"> 
+                                        <label>
+                                          <input type="radio" #difficultyCareChild="ngModel" [(ngModel)]="child.difficultyCareChild" name="difficultyCareChild" id="difficultyCareChild" value=false required>
+                                          Não
+                                        </label>                                  
+                                      </div>                       
+                                    </div>   
                                   </div>
-                                  <div class="radio-inline"> 
-                                    <label>
-                                      <input type="radio" #difficultyCareChild="ngModel" [(ngModel)]="child.difficultyCareChild" name="difficultyCareChild" id="difficultyCareChild" value=false required>
-                                      Não
-                                    </label>                                  
-                                  </div>
-                                 
-                                    <div class="form-group" [ngClass]="applyCssError(f2, sourceOfIncomeOther)" *ngIf="child.difficultyCareChild==='5'">
+                                  <div class="col">
+                                    <div class="form-group" [ngClass]="applyCssError(f2, sourceOfIncomeOther)" *ngIf="child.difficultyCareChild==='true'">
                                       <label class="label-control"> Justifique</label>
-                                      <input class="form-control" #sourceOfIncomeOther name="sourceOfIncome_other" id="sourceOfIncome_other" required>
+                                      <textarea class="form-control" #sourceOfIncomeOther name="sourceOfIncome_other" id="sourceOfIncome_other" required>
+                                      </textarea>
                                       <app-control-field-error [showError]="verifyValidSubmitted(f2, sourceOfIncomeOther)" msgError="Especifique a fonte de renda">
                                       </app-control-field-error>
-                                    </div>                                
-                                  </div>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, sourceOfIncome)" msgError="Escolha uma das alternativas">
-                                  </app-control-field-error>   
-                                </div>                                   
+                                    </div>   
+                                      <app-control-field-error [showError]="verifyValidSubmitted(f2, difficultyCareChild)" msgError="Escolha uma das alternativas">
+                                      </app-control-field-error> 
+                                  </div>                            
+                                </div>                                
+                              </div>   
+                              <div class="col-sm-4">
+                                <div class="form-group" [ngClass]="applyCssError(f2, whoChildPlay)">
+                                  <label class="control-label">Com quem a criança brinca?</label>
+                                  <select class="form-control" name="whoChildPlay" id="whoChildPlay" #whoChildPlay="ngModel" [(ngModel)]="child.whoChildPlay" required>
+                                    <option value="1"> Com adulto</option>
+                                    <option value="2"> Com adulto e criança</option>
+                                    <option value="3"> Com criança</option>
+                                    <option value="4"> Sozinha</option>
+                                  </select>
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, whoChildPlay)" msgError="Selecione com quem a criança brinca">
+                                  </app-control-field-error> 
+                                </div>
+                              </div>                                
                               </div>                          
                             </div>
-                          </div>
                         </div>
                         <div class="content-control">
                           <div class="control">
                             <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false, 2, 0)" id="btn_previous">
-                                <img src="../../../assets/img/global/ic_previous.png" />
+                                <img src="./assets/img/global/ic_previous.png" />
                                 <b>Anterior</b>
-                            </a>
-                            <a href="{{nextTab}}" data-toggle="tab" (click)="isActive(true, 2)" id="btn_next">
-                                <b>Próximo</b>
-                                <img src="../../../assets/img/global/ic_next.png" />
-                            </a>
+                            </a>                           
                             <button type="submit" id="btn_tab2"></button>
                           </div>
                         </div>
                         <div class="col-md-3">
                           <div class="form-group">
-                            <button class="btn btn-default btn-block" (click)="openModal()" id="btn_return2"> Cancelar</button>
+                            <button class="btn btn-default btn-block" (click)="openModal()" id="btn_return3"> Cancelar</button>
                           </div>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </section>
-              </div>
-            </div>
-            <!-- /.tab-pane -->
-            <div class="tab-pane" id="tab_3">
-              <div class="content">
-                <section class="content">                                
-                  <div class="box-header with-border">
-                      <h5 class="box-title"> Dados 3
-                      </h5>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <form name="form" (ngSubmit)="saveData(f3.valid) && save(3, f3.valid)" #f3="ngForm" novalidate>
-                        <div class="box box-primary">
-                          <div class="box-body">                 
-                            <div class="row">
-                              <div class="col-sm-4">
-                                <div class="form-group"  [ngClass]="applyCssError(f3, basicUnity)">
-                                  <label class="control-label">Há unidade básica na comunidade ou próximo de onde reside?</label> <br/>
-                                  <label class="radio-inline">                          
-                                    <input type="radio" #basicUnity name="basicUnity" id="basicUnity" value="">
-                                    Sim
-                                  </label>
-                                  <label class="radio-inline"> 
-                                    <input type="radio" #basicUnity name="basicUnity" id="basicUnity" value="">
-                                    Não
-                                  </label>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f3, basicUnity)" msgError="Escolha uma das alternativas">
-                                  </app-control-field-error>   
-                                </div>
-                              </div>
-                              <div class="col-sm-4">
-                                <div class="form-group" [ngClass]="applyCssError(f3, basicSanitation)">
-                                  <label class="control-label">Na comunidade há sanemaneto básico? </label> <br/>
-                                  <label class="radio-inline">                          
-                                    <input type="radio" #basicSanitation name="basicSanitation" id="basicSanitation" value="1">
-                                    Sim
-                                  </label>
-                                  <label class="radio-inline">
-                                    <input type="radio" #basicSanitation name="basicSanitation" id="basicSanitation" value="2">
-                                    Não
-                                  </label>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f3, basicSanitation)" msgError="Escolha uma das alternativas">
-                                  </app-control-field-error>   
-                                </div>
-                              </div>
-                              <div class="col-sm-4">
-                                <div class="form-group" [ngClass]="applyCssError(f3, water)">
-                                  <label class="control-label">A água é encanada?</label> <br/>
-                                  <label class="radio-inline">                          
-                                    <input type="radio" #water name="water" id="water" value=true>
-                                    Sim
-                                  </label>
-                                  <label class="radio-inline">
-                                    <input type="radio" #water name="highSchools" id="water" value=false>
-                                    Não
-                                  </label>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f3, water)" msgError="Escolha uma das alternativas">
-                                  </app-control-field-error>   
-                                </div>
-                              </div>                      
-                            </div>
-                            <div class="row">
-                              <div class="col-sm-12">
-                                <div class="form-group" [ngClass]="applyCssError(f3, treatmentWaterDrink)">
-                                  <label class="control-label">A água utilizada para beber recebe algum tratamento?</label> <br/>
-                                  <label class="radio-inline">                          
-                                    <input type="radio" #treatmentWaterDrink="ngModel" [(ngModel)]="responsible.treatmentWaterDrink" name="treatmentWaterDrink" id="treatmentWaterDrink" value=true required>
-                                    Sim
-                                  </label>
-                                  <label class="radio-inline">
-                                    <input type="radio" #treatmentWaterDrink="ngModel" [(ngModel)]="responsible.treatmentWaterDrink" name="treatmentWaterDrink" id="treatmentWaterDrink" value=false required>
-                                    Não
-                                  </label> 
-                                  <div class="form-group" [ngClass]="applyCssError(f3, waterDrink2)" *ngIf="responsible.treatmentWaterDrink === 'true'">
-                                    <label class="control-label"> Qual?</label>
-                                    <input class="form-control" #waterDrink2 name="waterDrink2" id="waterDrink2" required>
-                                    <app-control-field-error [showError]="verifyValidSubmitted(f3, waterDrink2)" msgError="Especifique o tratamento">
-                                    </app-control-field-error>
-                                  </div>          
-                                    <app-control-field-error [showError]="verifyValidSubmitted(f3, treatmentWaterDrink)" msgError="Escolha uma das alternativas">
-                                    </app-control-field-error>                      
-                                </div>
-                              </div>                     
-                            </div>
-                            <div class="row">
-                              <div class="col-sm-12">
-                                <div class="form-group">
-                                  <label class="control-label">Observações gerais</label> <br/>
-                                  <textarea class="form-control" rows="5" name="generalObservations" id="generalObservations"></textarea>
-                                </div>                                
-                              </div>                      
-                            </div>
-                          </div>
-                        </div>
-                        <div class="content-control">
-                            <div class="control">
-                                <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false, 3, 0)" id="btn_previous">
-                                    <img src="../../../assets/img/global/ic_previous.png" />
-                                    <b>Anterior</b>
-                                </a>
-                                <!-- <a href="{{nextTab}}" data-toggle="tab" (click)="isActive(true)" id="btn_next">
-                                    <b>Próximo</b>
-                                    <img src="../../../assets/img/global/ic_next.png" />
-                                </a> -->
-                                <button type="submit" id="btn_tab3"></button>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <button class="btn btn-default btn-block" (click)="openModal()" id="btn_return3"> Cancelar</button>
-                            </div>
                         </div>
                         <div class="col-md-3 col-md-offset-6">
-                            <div class="form-group save">
-                                <button class="btn btn-primary btn-block"  (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save">Cadastrar</button>                                
-                            </div>
+                          <div class="form-group save">
+                            <button class="btn btn-primary btn-block"  (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save">Cadastrar</button>                                
+                          </div>
                         </div>
                       </form>
                     </div>
-                  </div>                               
+                  </div>
                 </section>
               </div>
-            </div>
-            <!-- /.tab-pane -->
-            <div class="content-control">
-                <!-- <div class="control">
-                    <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false)" id="btn_previous">
-                        <img src="../../../assets/img/global/ic_previous.png" />
-                        <b>Anterior</b>
-                    </a>
-                    <a href="{{nextTab}}" data-toggle="tab" (click)="isActive(true)" id="btn_next">
-                        <b>Próximo</b>
-                        <img src="../../../assets/img/global/ic_next.png" />
-                    </a>
-                </div> -->
-            </div>
-            <div class="row footer">
-                <!-- <div class="col-md-3">
-                    <div class="form-group">
-                        <button type="button" class="btn btn-default btn-block" (click)="openModal()" id="btn_return"> Cancelar</button>
-                    </div>
-                </div>
-                <div class="col-md-3 col-md-offset-6">
-                    <div class="form-group save">
-                        <button class="btn btn-primary btn-block" name="submit" id="btn_save">Cadastrar</button>                                
-                    </div>
-                </div> -->
-            </div>
+            </div>      
           </div>
           <!-- /.tab-content -->
         </div>
@@ -587,3 +461,4 @@
     <!-- /.modal-dialog -->
 <!-- </div> -->
 <!-- /.modal -->
+

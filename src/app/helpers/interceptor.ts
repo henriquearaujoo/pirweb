@@ -1,3 +1,4 @@
+import { SweetAlertService } from './../services/sweetalert/sweet-alert.service';
 import { LoaderService } from './../services/loader/loader.service';
 import { error } from 'util';
 import { ToastService } from './../services/toast-notification/toast.service';
@@ -20,7 +21,8 @@ export class Interceptor extends XHRBackend {
     private router: Router,
     private modalService: ModalService,
     private toastService: ToastService,
-    private loaderService: LoaderService ) {
+    private loaderService: LoaderService,
+    private sweetAlertService: SweetAlertService ) {
     super(browserXhr, baseResponseOptions, xsrfStrategy);
   }
 
@@ -38,49 +40,10 @@ export class Interceptor extends XHRBackend {
         localStorage.removeItem('currentUserPir');
         localStorage.removeItem('currentIdPir');
 
-        swal({
-          title: 'Sessão expirada!',
-          text: 'Você precisa efetuar o login novamente!',
-          icon: 'warning',
-          buttons: {
-            ok: {
-              text: 'Ok',
-              className: 'swal-btn-ok'
-            }
-          },
-          closeOnClickOutside: false,
-          className: 'swal-btn-ok'
-        })
-        .then((c) => {
-          if (c) {
-            // window.location.href = '/login';
-          }
-        });
-        // setTimeout(() => {
-        //   window.location.href = '/login';
-        // }, 1000);
+        this.sweetAlertService.alertSessionExpired();
       } else {
         if ( error.status === 0 ) {
-          swal({
-            title: '',
-            text: 'Falha na conexão com o servidor!',
-            icon: 'warning',
-            buttons: {
-              ok: {
-                text: 'Ok',
-                className: 'swal-btn-ok'
-              }
-            },
-            closeOnClickOutside: false,
-            className: 'swal-btn-ok'
-          })
-          .then((c) => {
-            if (c) {
-              setTimeout(() => {
-                // window.location.href = '/login';
-              }, 1000);
-            }
-          });
+          this.sweetAlertService.connectionError();
         }
       }
       return Observable.throw(error);
