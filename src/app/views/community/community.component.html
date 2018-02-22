@@ -104,7 +104,7 @@
                                 </div>
                               </div>
                               <div class="col-sm-6">
-                                <div class="form-group">
+                                <div class="form-group"  [ngClass]="{ 'has-error': f1.submitted && waterSupply_list.length === 0 }">
                                   <label class="control-label">Fornecimento de água</label> <br/>
                                   <label class="checkbox-inline" *ngFor="let item of _waterSupply">                          
                                     <input type="checkbox" name="waterSupply"
@@ -113,7 +113,8 @@
                                       [checked]="item.checked"
                                       (change)="verifyCheckbox(2, $event)" required>
                                       {{ item.type }} 
-                                  </label>           
+                                  </label>   
+                                  <div *ngIf="f1.submitted && waterSupply_list.length === 0" class="help-block"> Escolha uma ou mais alternativas</div>        
                                                      
                                   <!-- <select class="form-control"  #waterSupply="ngModel" name="waterSupply" [(ngModel)]="community.water_supply" id="waterSupply" required>
                                     <option value="Encanada"> Encanada </option>
@@ -371,7 +372,7 @@
                             </div>
                             <div class="row">
                               <div class="col-sm-6">
-                                <div class="form-group">
+                                <div class="form-group" [ngClass]="{ 'has-error': f2.submitted && culturalProduction_list.length === 0 }">
                                   <label class="control-label">Produções culturais</label> <br/>
                                   <label class="checkbox-inline" *ngFor="let item of _culturalProducion">                          
                                     <input type="checkbox" name="culturalProduction"  
@@ -380,9 +381,8 @@
                                       (change)="verifyCheckbox(1, $event)" required>
                                      {{ item.type }}
                                   </label>
-                                  
-                                  <!-- <app-control-field-error [showError]="verifyValidSubmitted(f2, culturalProduction)" msgError="Escolha uma das alternativas">
-                                  </app-control-field-error> -->
+                                  <div *ngIf="f2.submitted && culturalProduction_list.length === 0" class="help-block"> Escolha uma ou mais alternativas</div>        
+                                 
                                 </div>                                
                               </div>
                               <div class="col-sm-6">

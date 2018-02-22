@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Paginate } from './../../../models/paginate';
 import { ResponsibleChild } from './../../../models/responsible-child';
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CommunityService } from '../../../services/community/community.service';
 
 @Component({
   selector: 'app-responsible-list',
@@ -25,6 +26,7 @@ export class ResponsibleListComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private responsibleService: ResponsibleService,
+    private communityService: CommunityService,
     private toastService: ToastService
   ) { }
 
@@ -36,17 +38,25 @@ export class ResponsibleListComponent implements OnInit, OnDestroy {
   getResponsible() {
     this.subscription = this.responsibleService.getResponsible().subscribe(
       success => {
-        // this.paginate = success;
-        // this.pregnants = this.paginate.content;
-        this.responsibleList = success;
+        this.paginate = success;
+        this.responsibleList = this.paginate.content;
+        this.responsibleList.forEach( el => {
+          this.communityService.load(el.community_id).subscribe(
+            s => {
+              el.community_id = s.name;
+            },
+            error => console.log(error)
+          );
+        });
+        console.log('responsibleList', this.responsibleList);
         this.hasdata = true;
       },
       error => console.log(error)
     );
-
   }
+
   setResponsible(responsible: ResponsibleChild) {
-    localStorage.setItem('responsibleId', responsible.id.toString());
+    localStorage.setItem('responsibleId', responsible.id);
     this.router.navigate(['responsible']);
   }
 

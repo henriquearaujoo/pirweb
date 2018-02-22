@@ -105,11 +105,11 @@
                                 <div class="form-group" [ngClass]="applyCssError(f1, gender)">
                                   <label class="control-label">Sexo</label> <br/>                                  
                                   <label class="radio-inline">                          
-                                    <input type="radio" #gender="ngModel" name="gender" [(ngModel)]="child.gender" id="gender" value=true required>
+                                    <input type="radio" #gender="ngModel" name="gender" [(ngModel)]="child.gender" id="gender" [value]="1" required>
                                     Masculino
                                   </label>
                                   <label class="radio-inline"> 
-                                    <input type="radio" #gender="ngModel" name="gender" [(ngModel)]="child.gender" id="gender" value=false required>
+                                    <input type="radio" #gender="ngModel" name="gender" [(ngModel)]="child.gender" id="gender" [value]="2" required>
                                     Feminino
                                   </label>    
                                   <app-control-field-error [showError]="verifyValidSubmitted(f2, gender)" msgError="Escolha uma das alternativas">
@@ -200,11 +200,11 @@
                                 <div class="form-group" [ngClass]="applyCssError(f2, civilRegistry)">
                                   <label class="control-label">A criança possui registro civil?</label> <br/>
                                   <label class="radio-inline">                          
-                                    <input type="radio" #civilRegistry="ngModel" name="civilRegistry" [(ngModel)]="child.civilRegistry" id="programs" value=true required>
+                                    <input type="radio" #civilRegistry="ngModel" name="civilRegistry" [(ngModel)]="child.civilRegistry" id="programs" [value]="true" required>
                                     Sim
                                   </label>
                                   <label class="radio-inline"> 
-                                    <input type="radio" #civilRegistry="ngModel" name="civilRegistry" [(ngModel)]="child.civilRegistry" id="programs" value=false required>
+                                    <input type="radio" #civilRegistry="ngModel" name="civilRegistry" [(ngModel)]="child.civilRegistry" id="programs" [value]="false" required>
                                     Não
                                   </label>    
                                   <app-control-field-error [showError]="verifyValidSubmitted(f2, civilRegistry)" msgError="Escolha uma das alternativas">
@@ -216,11 +216,11 @@
                                 <div class="form-group" [ngClass]="applyCssError(f2, socioEducationalPrograms)">
                                   <label class="control-label">A criança participa de outros programas sócio-educativos</label> <br/>
                                   <label class="radio-inline">                          
-                                    <input type="radio" #socioEducationalPrograms="ngModel" name="socioEducationalPrograms" [(ngModel)]="child.socioEducational_programs" id="socioEducationalPrograms" value=true required>
+                                    <input type="radio" #socioEducationalPrograms="ngModel" name="socioEducationalPrograms" [(ngModel)]="child.socioEducational_programs" id="socioEducationalPrograms" [value]="true" required>
                                     Sim
                                   </label>
                                   <label class="radio-inline"> 
-                                    <input type="radio" #socioEducationalPrograms="ngModel" name="socioEducationalPrograms" [(ngModel)]="child.socioEducational_programs" id="socioEducationalPrograms" value=false required>
+                                    <input type="radio" #socioEducationalPrograms="ngModel" name="socioEducationalPrograms" [(ngModel)]="child.socioEducational_programs" id="socioEducationalPrograms" [value]="false" required>
                                     Não
                                   </label>
                                   <app-control-field-error [showError]="verifyValidSubmitted(f2, socioEducationalPrograms)" msgError="Escolha uma das alternativas">
@@ -233,11 +233,11 @@
                                     <div class="form-group" [ngClass]="applyCssError(f2, prematureBirth)">
                                       <label class="control-label">Nascimento prematuro?</label> <br/>
                                       <label class="radio-inline">                          
-                                        <input type="radio" #prematureBirth="ngModel" name="prematureBirth" [(ngModel)]="child.prematureBirth" id="prematureBirth" value=true required>
+                                        <input type="radio" #prematureBirth="ngModel" name="prematureBirth" [(ngModel)]="child.prematureBirth" id="prematureBirth" [value]="true" required>
                                         Sim
                                       </label>
                                       <label class="radio-inline"> 
-                                        <input type="radio" #prematureBirth="ngModel" name="prematureBirth" [(ngModel)]="child.prematureBirth" id="prematureBirth" value=false required>
+                                        <input type="radio" #prematureBirth="ngModel" name="prematureBirth" [(ngModel)]="child.prematureBirth" id="prematureBirth" [value]="false" required>
                                         Não
                                       </label>    
                                       <app-control-field-error [showError]="verifyValidSubmitted(f2, prematureBirth)" msgError="Escolha uma das alternativas">
@@ -274,11 +274,11 @@
                                 <div class="form-group" [ngClass]="applyCssError(f2, weightMonthly)">
                                   <label class="control-label">A criança está sendo pesada mensalmente?</label> <br/>
                                   <label class="radio-inline">                          
-                                    <input type="radio" #weightMonthly="ngModel" name="weightMonthly" [(ngModel)]="child.weightMonthly" id="prematureBirth" value=true required>
+                                    <input type="radio" #weightMonthly="ngModel" name="weightMonthly" [(ngModel)]="child.weightMonthly" id="prematureBirth" [value]="true" required>
                                       Sim
                                   </label>
                                   <label class="radio-inline"> 
-                                    <input type="radio" #weightMonthly="ngModel" name="weightMonthly" [(ngModel)]="child.weightMonthly" id="prematureBirth" value=false required>
+                                    <input type="radio" #weightMonthly="ngModel" name="weightMonthly" [(ngModel)]="child.weightMonthly" id="prematureBirth" [value]="false" required>
                                     Não
                                   </label>    
                                   <app-control-field-error [showError]="verifyValidSubmitted(f2, weightMonthly)" msgError="Escolha uma das alternativas">
@@ -289,11 +289,11 @@
                                 <div class="form-group" [ngClass]="applyCssError(f2, vaccination)">
                                   <label class="control-label">O calendário de vacinação da criança está em dia?</label> <br/>
                                   <label class="radio-inline">                          
-                                    <input type="radio" #vaccination="ngModel" name="vaccination" [(ngModel)]="child.vaccination" id="vaccination" value=true required>
+                                    <input type="radio" #vaccination="ngModel" name="vaccination" [(ngModel)]="child.vaccination" id="vaccination" [value]="true" required>
                                     Sim
                                   </label>
                                   <label class="radio-inline"> 
-                                    <input type="radio" #vaccination="ngModel" name="vaccination" [(ngModel)]="child.vaccination" id="vaccination" value=false required>
+                                    <input type="radio" #vaccination="ngModel" name="vaccination" [(ngModel)]="child.vaccination" id="vaccination" [value]="false" required>
                                     Não
                                   </label>    
                                   <app-control-field-error [showError]="verifyValidSubmitted(f2, vaccination)" msgError="Escolha uma das alternativas">
@@ -304,11 +304,11 @@
                                 <div class="form-group" [ngClass]="applyCssError(f2, relationOtherChildren)">
                                   <label class="control-label">A criança apresenta dificuldade para se relacionar com outras crianças?</label> <br/>
                                   <label class="radio-inline">                          
-                                    <input type="radio" #relationOtherChildren="ngModel" name="relationOtherChildren" [(ngModel)]="child.relationOtherChildren" id="relationOtherChildren" value=true required>
+                                    <input type="radio" #relationOtherChildren="ngModel" name="relationOtherChildren" [(ngModel)]="child.relationOtherChildren" id="relationOtherChildren" [value]="true" required>
                                     Sim
                                   </label>
                                   <label class="radio-inline"> 
-                                    <input type="radio" #relationOtherChildren="ngModel" name="relationOtherChildren" [(ngModel)]="child.relationOtherChildren" id="relationOtherChildren" value=false required>
+                                    <input type="radio" #relationOtherChildren="ngModel" name="relationOtherChildren" [(ngModel)]="child.relationOtherChildren" id="relationOtherChildren" [value]="false" required>
                                     Não
                                   </label>    
                                   <app-control-field-error [showError]="verifyValidSubmitted(f2, relationOtherChildren)" msgError="Escolha uma das alternativas">
@@ -322,37 +322,37 @@
                                   <label class="control-label">Quem cuida da criança? </label>
                                   <div class="checkbox">                          
                                     <label>
-                                      <input type="checkbox" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" value="1">
+                                      <input type="checkbox" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" [value]="1">
                                       Mãe
                                     </label>                                 
                                   </div>
                                   <div class="checkbox"> 
                                     <label>
-                                      <input type="checkbox" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" value="2">
+                                      <input type="checkbox" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" [value]="2">
                                       Pai
                                     </label>                                  
                                   </div>
                                   <div class="checkbox"> 
                                     <label>
-                                      <input type="checkbox"#whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" value="3">
+                                      <input type="checkbox"#whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" [value]="3">
                                       Irmão / Irmã
                                     </label>                                  
                                   </div>
                                   <div class="checkbox"> 
                                     <label>
-                                      <input type="checkbox" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" value="4">
+                                      <input type="checkbox" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" [value]="4">
                                       Avô / Avó
                                     </label>                                 
                                   </div>
                                   <div class="checkbox"> 
                                     <label>
-                                      <input type="checkbox" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" value="5">
+                                      <input type="checkbox" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" [value]="5">
                                       Tio / Tia
                                     </label>                                  
                                   </div>
                                   <div class="checkbox"> 
                                     <label>
-                                      <input type="checkbox" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" value="6">
+                                      <input type="checkbox" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" [value]="6">
                                       Primo / Prima 
                                     </label>                                  
                                   </div>
@@ -367,13 +367,13 @@
                                       <label class="control-label">A família encontra alguma dificuldade para educar a criança? </label>
                                       <div class="radio-inline">      
                                         <label>
-                                          <input type="radio" #difficultyCareChild="ngModel" [(ngModel)]="child.difficultyCareChild" name="difficultyCareChild" id="difficultyCareChild" value=true required>
+                                          <input type="radio" #difficultyCareChild="ngModel" [(ngModel)]="child.difficultyCareChild" name="difficultyCareChild" id="difficultyCareChild" [value]="true" required>
                                           Sim
                                         </label>
                                       </div>
                                       <div class="radio-inline"> 
                                         <label>
-                                          <input type="radio" #difficultyCareChild="ngModel" [(ngModel)]="child.difficultyCareChild" name="difficultyCareChild" id="difficultyCareChild" value=false required>
+                                          <input type="radio" #difficultyCareChild="ngModel" [(ngModel)]="child.difficultyCareChild" name="difficultyCareChild" id="difficultyCareChild" [value]="false" required>
                                           Não
                                         </label>                                  
                                       </div>                       

@@ -24,6 +24,10 @@ export class CommunityService extends RestService {
     }
   }
 
+  public _getCommunities() {
+      return this.get(this.apiurl + 'search/');
+  }
+
   public insert(community: Community): Observable<Community> {
     return this.post(this.apiurl, community);
   }

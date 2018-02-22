@@ -8,14 +8,24 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ResponsibleService extends RestService {
 
-  private apiurl = Constant.BASE_URL + 'responsible';
+  private apiurl = Constant.BASE_URL + 'responsible/';
+  private size: number;
 
   constructor( http: Http) {
     super(http);
+    this.size = 10;
    }
 
-  public getResponsible() {
-    return this.get(this.apiurl);
+  public getResponsible(filter?: any, page?: number) {
+    if ( filter === undefined ) {
+      return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page);
+    } else {
+      return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page);
+    }
+  }
+
+  public insert(responsible: ResponsibleChild): Observable<ResponsibleChild> {
+    return this.post(this.apiurl, responsible);
   }
 
   public update(responsible: ResponsibleChild): Observable<ResponsibleChild> {
@@ -23,7 +33,7 @@ export class ResponsibleService extends RestService {
   }
 
   public load(id: string) {
-     return this.get(this.apiurl + 'search/?responsible_id=' + id);
-    // return this.get(this.apiurl + '?id=' + id);
+    console.log('id', id);
+    return this.get(this.apiurl + id);
   }
 }

@@ -1,3 +1,4 @@
+import { SweetAlertService } from './../../services/sweetalert/sweet-alert.service';
 import { Types } from './../../models/types';
 import { IMyDpOptions } from 'mydatepicker';
 import { error } from 'util';
@@ -7,6 +8,7 @@ import { Community } from '../../models/community';
 import { Subscription } from 'rxjs/Subscription';
 import { CommunityService } from '../../services/community/community.service';
 import { ModalService } from '../../components/modal/modal.service';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-community',
   templateUrl: './community.component.html',
@@ -31,11 +33,13 @@ export class CommunityComponent implements OnInit {
   private cities: any[] = new Array();
 
   private isFormValid: boolean;
+  private isCkeckboxValid: boolean;
   private tab: string;
   private _isSave: boolean;
   private openSaveButtonTab1: HTMLButtonElement;
   private openSaveButtonTab2: HTMLButtonElement;
   private openSaveButtonTab3: HTMLButtonElement;
+
   private type: any;
   private culturalProduction: string;
   private culturalProduction_list: any[] = new Array();
@@ -76,6 +80,9 @@ export class CommunityComponent implements OnInit {
     }
   ];
 
+  private index1: any;
+  private index2: any;
+
 
   public myDatePickerOptions: IMyDpOptions = {
     // other options...
@@ -89,7 +96,8 @@ export class CommunityComponent implements OnInit {
   constructor(
     private communityService: CommunityService,
     private toastService: ToastService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private sweetAlertService: SweetAlertService
   ) { }
 
   ngOnInit() {
@@ -107,9 +115,8 @@ export class CommunityComponent implements OnInit {
     this.previousTab = '#tab_1';
     this.nextTab = '#tab_2';
 
-    this.data1Tab = './assets/img/community/ic_data_enable.png';
-    this.data2Tab = './assets/img/community/ic_data_disable.png';
-    this.data3Tab = './assets/img/community/ic_data_disable.png';
+    this.data1Tab = './assets/img/community/ic_dataTab1_enable.png';
+    this.data2Tab = './assets/img/community/ic_dataTab2_disable.png';
 
     this.openSaveButtonTab1 = (<HTMLButtonElement>document.getElementById('btn_tab1'));
     this.openSaveButtonTab1.style.display = 'none';
@@ -123,6 +130,7 @@ export class CommunityComponent implements OnInit {
     (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
 
     this.culturalProduction = '';
+    this.isCkeckboxValid = true;
 
     this.getCities();
   }
@@ -138,7 +146,7 @@ export class CommunityComponent implements OnInit {
           success => {
             this.community = success;
             this.isNewData  = false;
-            this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
+            this.sweetAlertService.alertSuccess('community-list');
             console.log('saved with success!', this.community);
           },
           error => {
@@ -152,7 +160,7 @@ export class CommunityComponent implements OnInit {
           success => {
             this.community = success;
             console.log('updated with success!', this.community);
-            this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso!');
+            this.sweetAlertService.alertSuccessUpdate('community-list');
           },
           error => {
             this.toastService.toastError();
@@ -166,11 +174,9 @@ export class CommunityComponent implements OnInit {
   verifyDataCheckbox() {
     this.culturalProduction = this.community.cultural_production;
     this.culturalProduction_list = this.culturalProduction.split('|');
+
     this.waterSupply = this.community.water_supply;
     this.waterSupply_list = this.waterSupply.split('|');
-
-    console.log('waterSupply_list', this.waterSupply_list);
-    console.log('culturalProduction_list', this.culturalProduction_list);
 
     for (let i = 0; i < this._waterSupply.length; i++) {
       for (let j = 0; j < this.waterSupply_list.length; j++ ) {
@@ -189,17 +195,17 @@ export class CommunityComponent implements OnInit {
     }
     console.log('_waterSupply', this._waterSupply);
 
-    for (let i = 0; i < this.waterSupply_list.length; i++) {
-      if ( i === 0 ) {
-        this.waterSupply = this.waterSupply_list[i];
-      } else {
-        this.waterSupply = this.waterSupply + '|' + this.waterSupply_list[i];
-      }
-    }
-    this.community.cultural_production = this.culturalProduction;
-    this.community.water_supply = this.waterSupply;
-    console.log('culturalProduction', this.community.cultural_production );
-    console.log('water_supply', this.community.water_supply);
+    // for (let i = 0; i < this.waterSupply_list.length; i++) {
+    //   if ( i === 0 ) {
+    //     this.waterSupply = this.waterSupply_list[i];
+    //   } else {
+    //     this.waterSupply = this.waterSupply + '|' + this.waterSupply_list[i];
+    //   }
+    // }
+    // this.community.cultural_production = this.culturalProduction;
+    // this.community.water_supply = this.waterSupply;
+    // console.log('culturalProduction', this.community.cultural_production );
+    // console.log('water_supply', this.community.water_supply);
   }
 
   load() {
@@ -256,28 +262,52 @@ export class CommunityComponent implements OnInit {
     // * CHECKED * /
     console.log('event.target.value ' + event.target.value);
     const value = event.target.value;
-    const index1 = this.culturalProduction_list.indexOf(value);
-    const index2 = this.waterSupply_list.indexOf(value);
+    // const index1 = this.culturalProduction_list.indexOf(value);
+    // const index2 = this.waterSupply_list.indexOf(value);
     if (event.target.checked) {
+      console.log('insert');
       switch (option) {
         case 1:
-          console.log('insert');
           this.culturalProduction_list.push(value);
+
+          if (this.culturalProduction_list.length === 0) {
+            this.isCkeckboxValid = false;
+          } else {
+            this.isCkeckboxValid = true;
+          }
           break;
         case 2:
-          console.log('insert');
           this.waterSupply_list.push(value);
+
+          if (this.waterSupply_list.length === 0) {
+            this.isCkeckboxValid = false;
+          } else {
+            this.isCkeckboxValid = true;
+          }
         break;
       }
     } else {
+      console.log('delete');
       switch (option) {
         case 1:
-          console.log('delete');
-          this.culturalProduction_list.splice(index1, 1);
-          break;
+          this.index1 = this.culturalProduction_list.indexOf(value);
+          this.culturalProduction_list.splice(this.index1, 1);
+
+          if (this.culturalProduction_list.length === 0) {
+            this.isCkeckboxValid = false;
+          } else {
+            this.isCkeckboxValid = true;
+          }
+        break;
         case 2:
-          console.log('delete');
-          this.waterSupply_list.splice(index2, 1);
+          this.index2 = this.waterSupply_list.indexOf(value);
+          this.waterSupply_list.splice(this.index2, 1);
+
+          if (this.waterSupply_list.length === 0) {
+            this.isCkeckboxValid = false;
+          } else {
+            this.isCkeckboxValid = true;
+          }
         break;
       }
     }
@@ -299,6 +329,7 @@ export class CommunityComponent implements OnInit {
     console.log('tab:', tab);
     console.log('isValid:', isValid);
     console.log('isSave:', this._isSave);
+    console.log('isCkeckboxValid:', this.isCkeckboxValid);
   }
 
   isSave() {
@@ -324,7 +355,7 @@ export class CommunityComponent implements OnInit {
     }
 
 
-    if ( this.isFormValid) {
+    if ( this.isFormValid && this.isCkeckboxValid) {
       this.isFormValid = false;
       if (tab) {
         if (this.currentTab === -1) {
@@ -352,12 +383,12 @@ export class CommunityComponent implements OnInit {
 
         if (this.currentTab === 0) {
           (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
-          this.data1Tab = './assets/img/community/ic_data_enable.png';
-          this.data2Tab = './assets/img/community/ic_data_disable.png';
+          this.data1Tab = './assets/img/community/ic_dataTab1_enable.png';
+          this.data2Tab = './assets/img/community/ic_dataTab2_disable.png';
 
         }else if (this.currentTab === 1) {
-          this.data1Tab = './assets/img/community/ic_data_disable.png';
-          this.data2Tab = './assets/img/community/ic_data_enable.png';
+          this.data1Tab = './assets/img/community/ic_dataTab1_disable.png';
+          this.data2Tab = './assets/img/community/ic_dataTab2_enable.png';
           (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
           (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
         }

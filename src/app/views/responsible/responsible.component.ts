@@ -9,7 +9,7 @@ import { Community } from '../../models/community';
 import { Subscription } from 'rxjs/Subscription';
 import { CommunityService } from '../../services/community/community.service';
 import { ModalService } from '../../components/modal/modal.service';
-import { IMyDpOptions } from 'mydatepicker';
+import { IMyDpOptions, IMyDateModel, IMyDate, IMyInputFieldChanged } from 'mydatepicker';
 
 @Component({
   selector: 'app-responsible',
@@ -40,6 +40,7 @@ export class ResponsibleComponent implements OnInit {
   private openSaveButtonTab2: HTMLButtonElement;
   private openSaveButtonTab3: HTMLButtonElement;
   private type: any;
+  private communities: Community[] = new Array();
 
 
   public myDatePickerOptions: IMyDpOptions = {
@@ -50,6 +51,9 @@ export class ResponsibleComponent implements OnInit {
                    8: 'Ago', 9: 'Set', 10: 'Out', 11: 'Nov', 12: 'Dez' },
     todayBtnTxt: 'Hoje'
 };
+
+  private selDate: IMyDate = {year: 0, month: 0, day: 0};
+  private isValidDate: boolean;
 
   constructor(
     private communityService: CommunityService,
@@ -64,10 +68,11 @@ export class ResponsibleComponent implements OnInit {
     this.urlId = localStorage.getItem('responsibleId');
     if (this.urlId !== null && this.urlId !== '') {
       this.isNewData = false;
-      localStorage.removeItem('responsibleId');
+      // localStorage.removeItem('responsibleId');
       this.load();
     }
 
+    this.getCommunities();
     this.currentTab = 0;
     this.previousTab = '#tab_1';
     this.nextTab = '#tab_2';
@@ -86,46 +91,84 @@ export class ResponsibleComponent implements OnInit {
     this.openSaveButtonTab3.style.display = 'none';
 
     (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
+
+    this.isValidDate = true;
   }
 
   saveData(isValid: boolean) {
     console.log('isValid', isValid);
-
+    console.log('isFormValid', this.isFormValid);
+    this.responsible.habitation_members_count = Number(this.responsible.habitation_members_count);
     if (isValid && this._isSave) {
       if (this.isNewData || this.responsible.id === undefined) {
-        console.log('save');
-        // this.communityService.insert(this.pregnant).subscribe(
-        //   success => {
-        //     this.community = success;
-        //     this.isNewData  = false;
-        //     this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
-        //     console.log('saved with success!', this.community);
-        //   },
-        //   error => {
-        //     this.toastService.toastError();
-        //     console.log('update error:', error);
-        //   }
-        // );
+        console.log('save', this.responsible);
+        this.responsibleService.insert(this.responsible).subscribe(
+          success => {
+            this.responsible = success;
+            this.isNewData  = false;
+            this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
+            console.log('saved with success!', this.responsible);
+          },
+          error => {
+            this.toastService.toastError();
+            console.log('save error:', error);
+          }
+        );
       } else {
-        console.log('update');
+        console.log('update', this.responsible);
         this.responsibleService.update(this.responsible).subscribe(
           success => {
+            this.responsible = success;
             this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso!');
+            console.log('updated with success!', success);
           },
-          error => console.log(error)
+          error => {
+            this.toastService.toastError();
+            console.log('updated error:', error);
+          }
         );
       }
     }
   }
 
+  onDateChanged(event: IMyDateModel) {
+    this.selDate = event.date;
+    const date = event.date.day + '-' + event.date.month + '-' + event.date.year;
+    this.responsible.birth = date;
+    console.log('Date', date);
+    console.log('responsible.birth', this.responsible.birth );
+  }
+
+  onInputFieldChanged(event: IMyInputFieldChanged) {
+    this.isValidDate = event.valid;
+    console.log(this.isValidDate);
+  }
+
   load() {
-    this.communityService.load(this.urlId).subscribe(
+    this.responsibleService.load(this.urlId).subscribe(
       success => {
-        this.responsible = success[0];
+        this.responsible = success;
         console.log('Load:', this.responsible);
+        const d: Date = new Date(this.responsible.birth);
+        d.setMinutes( d.getMinutes() + d.getTimezoneOffset() );
+        console.log('Date:', d);
+        this.selDate = {year: d.getFullYear(),
+                        month: d.getMonth() + 1,
+                        day: d.getDate()};
+        this.selDate = this.selDate;
+
         if (this.responsible === undefined) {
           this.responsible = new ResponsibleChild();
         }
+      },
+      error => console.log(error)
+    );
+  }
+
+  getCommunities() {
+    this.communityService._getCommunities().subscribe(
+      s => {
+        this.communities = s;
       },
       error => console.log(error)
     );
@@ -163,8 +206,6 @@ export class ResponsibleComponent implements OnInit {
         } else {
           if (t === 3) {
             this.isFormValid = true;
-            // this.openSaveButtonTab3.click();
-            // console.log('openSaveButtonTab3');
           }
         }
       }
@@ -172,8 +213,7 @@ export class ResponsibleComponent implements OnInit {
       this.isFormValid = true;
     }
 
-
-    if ( this.isFormValid) {
+    if ( this.isFormValid && this.isValidDate) {
       this.isFormValid = false;
       if (tab) {
         if (this.currentTab === -1) {
