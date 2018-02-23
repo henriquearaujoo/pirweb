@@ -1,14 +1,14 @@
-import { Responsible } from './../../models/responsible';
 import { Observable } from 'rxjs/Observable';
-import { RestService } from './../rest/rest.service';
+import { Mother } from './../../models/mother';
 import { Http } from '@angular/http';
 import { Constant } from './../../constant/constant';
 import { Injectable } from '@angular/core';
+import { RestService } from '../rest/rest.service';
 
 @Injectable()
-export class ResponsibleService extends RestService {
+export class MotherService extends RestService {
 
-  private apiurl = Constant.BASE_URL + 'responsible/';
+  private apiurl = Constant.BASE_URL + 'mother/';
   private size: number;
 
   constructor( http: Http) {
@@ -16,7 +16,7 @@ export class ResponsibleService extends RestService {
     this.size = 10;
    }
 
-  public getResponsible(filter?: any, page?: number) {
+  public getMothers(filter?: any, page?: number) {
     if ( filter === undefined ) {
       return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page);
     } else {
@@ -24,12 +24,12 @@ export class ResponsibleService extends RestService {
     }
   }
 
-  public insert(responsible: Responsible): Observable<Responsible> {
-    return this.post(this.apiurl, responsible);
+  public insert(mother: Mother): Observable<Mother> {
+    return this.post(this.apiurl, mother);
   }
 
-  public update(responsible: Responsible): Observable<Responsible> {
-    return this.put(this.apiurl, responsible);
+  public update(pregant: Mother): Observable<Mother> {
+    return this.put(this.apiurl, pregant);
   }
 
   public load(id: string) {

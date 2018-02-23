@@ -4,7 +4,7 @@ export class Child {
     public uc: string;
     public regional: string;
     public community_id: string;
-    public dateBirth: string;
+    public birth: string;
     public gender: string;
     public age: string;
     public nameFather: string;
@@ -18,8 +18,7 @@ export class Child {
     public vaccination: boolean;
     public relationOtherChildren: boolean;
     public whoCaresChild: string;
-    public difficultyCareChild: boolean;
-    public difficultyCareChild_justify: boolean;
+    public difficultyCareChild: string;
     public whoChildPlay: string;
     public status: boolean;
 

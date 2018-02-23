@@ -22,7 +22,7 @@
               </li>
               <li>
                 <!-- <a class="tab-pane" (click)="walk(1)" href="#tab_2" data-toggle="tab"> -->
-                  <label class="lb-tab"> Dados 02 </label>
+                  <label class="lb-tab"> Informações Sociais </label>
                   <img src="{{ data2Tab }}"/>
                 <!-- </a>                -->
               </li>                
@@ -40,9 +40,8 @@
                       <form name="form" (ngSubmit)="save(1,f1.valid)" id="f_1" #f1="ngForm" novalidate>
                         <div class="box box-primary">
                           <div class="box-body">                            
-                            <div class="row">
-                              <div class="col-sm-6">
-                                    <!-- select UC-->
+                            <!-- <div class="row">
+                              <div class="col-sm-6">                              
                                 <div class="form-group" [ngClass]="applyCssError(f1, childUC)">
                                   <label class="control-label">UC</label>
                                   <select class="form-control" #childUC="ngModel" name="child_uc" [(ngModel)]="child.uc" id="child_uc" required>
@@ -51,8 +50,7 @@
                                   </select>
                                   <app-control-field-error [showError]="verifyValidSubmitted(f1, childUC)" msgError="Selecione o UC">
                                   </app-control-field-error>
-                                </div>
-                                  <!-- end select UC-->
+                                </div>                                 
                               </div>
                               <div class="col-sm-6">
                                 <div class="form-group" [ngClass]="applyCssError(f1, childRegional)">
@@ -62,9 +60,8 @@
                                   </app-control-field-error>
                                 </div>
                               </div> 
-                            </div>
-                            <div class="row">
-                              
+                            </div> -->
+                            <div class="row">                              
                               <div class="col-sm-12">
                                 <div class="form-group" [ngClass]="applyCssError(f1, childCommunity)">
                                   <label class="control-label">Comunidade</label>
@@ -90,15 +87,16 @@
                             </div>                                           
                             <div class="row">
                               <div class="col-sm-4">
-                                <div class="form-group" [ngClass]="applyCssError(f1, dateBirth)">
+                                <div class="form-group" [ngClass]="{ 'has-error': !isValidDate }">
                                   <label class="control-label">Data de nascimento</label>
                                   <my-date-picker 
                                     name="dateBirth" [options]="myDatePickerOptions" id="dateBirth"
-                                    #dateBirth="ngModel"
-                                    [(ngModel)]="child.dateBirth" required>
+                                    [selDate]="selDate"                                    
+                                    (dateChanged)="onDateChanged($event)"
+                                    (inputFieldChanged)="onInputFieldChanged($event)"
+                                    required>
                                   </my-date-picker>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, dateBirth)" msgError="Informe uma data de nascimento">
-                                  </app-control-field-error>
+                                  <div *ngIf="!isValidDate" class="help-block"> Data de nascimento inválida</div>
                                 </div>                       
                               </div>
                               <div class="col-sm-4">
@@ -187,7 +185,7 @@
               <div class="content">
                 <section class="content">
                   <div class="box-header with-border">
-                      <h5 class="box-title"> Dados 2
+                      <h5 class="box-title"> Informações Sociais
                       </h5>
                   </div>
                   <div class="row">
@@ -318,46 +316,16 @@
                             </div>
                             <div class="row">
                               <div class="col-sm-4">
-                                <div class="form-group" [ngClass]="applyCssError(f2, whoCaresChild)">
-                                  <label class="control-label">Quem cuida da criança? </label>
-                                  <div class="checkbox">                          
-                                    <label>
-                                      <input type="checkbox" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" [value]="1">
-                                      Mãe
-                                    </label>                                 
-                                  </div>
-                                  <div class="checkbox"> 
-                                    <label>
-                                      <input type="checkbox" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" [value]="2">
-                                      Pai
-                                    </label>                                  
-                                  </div>
-                                  <div class="checkbox"> 
-                                    <label>
-                                      <input type="checkbox"#whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" [value]="3">
-                                      Irmão / Irmã
-                                    </label>                                  
-                                  </div>
-                                  <div class="checkbox"> 
-                                    <label>
-                                      <input type="checkbox" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" [value]="4">
-                                      Avô / Avó
-                                    </label>                                 
-                                  </div>
-                                  <div class="checkbox"> 
-                                    <label>
-                                      <input type="checkbox" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" [value]="5">
-                                      Tio / Tia
-                                    </label>                                  
-                                  </div>
-                                  <div class="checkbox"> 
-                                    <label>
-                                      <input type="checkbox" #whoCaresChild="ngModel" name="whoCaresChild" [(ngModel)]="child.whoCaresChild" id="whoCaresChild" [value]="6">
-                                      Primo / Prima 
-                                    </label>                                  
-                                  </div>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f2, whoCaresChild)" msgError="Escolha uma das alternativas">
-                                  </app-control-field-error>   
+                                <div class="form-group" [ngClass]="{ 'has-error': f2.submitted && whoCaresChild_list.length === 0 }">
+                                  <label class="control-label">Quem cuida da criança? </label> <br/>
+                                  <label class="checkbox" *ngFor="let item of _whoCaresChild">                          
+                                    <input type="checkbox" name="whoCaresChild"  
+                                      id="whoCaresChild" [value]="item.description" 
+                                      [checked]="item.checked"
+                                      (change)="verifyCheckbox(1, $event)" required>
+                                      {{ item.description }}
+                                  </label>
+                                  <div *ngIf="f2.submitted && whoCaresChild_list.length === 0" class="help-block"> Escolha uma ou mais alternativas</div>        
                                 </div>
                               </div>   
                               <div class="col-sm-4">                                
@@ -367,28 +335,28 @@
                                       <label class="control-label">A família encontra alguma dificuldade para educar a criança? </label>
                                       <div class="radio-inline">      
                                         <label>
-                                          <input type="radio" #difficultyCareChild="ngModel" [(ngModel)]="child.difficultyCareChild" name="difficultyCareChild" id="difficultyCareChild" [value]="true" required>
+                                          <input type="radio" #difficultyCareChild="ngModel" [(ngModel)]="child.difficultyCareChild" name="difficultyCareChild" id="difficultyCareChild" value="SIm" required>
                                           Sim
                                         </label>
                                       </div>
                                       <div class="radio-inline"> 
                                         <label>
-                                          <input type="radio" #difficultyCareChild="ngModel" [(ngModel)]="child.difficultyCareChild" name="difficultyCareChild" id="difficultyCareChild" [value]="false" required>
+                                          <input type="radio" #difficultyCareChild="ngModel" [(ngModel)]="child.difficultyCareChild" name="difficultyCareChild" id="difficultyCareChild" value="Não" required>
                                           Não
                                         </label>                                  
-                                      </div>                       
+                                      </div>    
+                                      <app-control-field-error [showError]="verifyValidSubmitted(f2, difficultyCareChild)" msgError="Escolha uma das alternativas">
+                                      </app-control-field-error>                    
                                     </div>   
                                   </div>
                                   <div class="col">
-                                    <div class="form-group" [ngClass]="applyCssError(f2, sourceOfIncomeOther)" *ngIf="child.difficultyCareChild==='true'">
+                                    <div class="form-group" [ngClass]="applyCssError(f2, difficultyCareChild2)" *ngIf="child.difficultyCareChild !=='Não'">
                                       <label class="label-control"> Justifique</label>
-                                      <textarea class="form-control" #sourceOfIncomeOther name="sourceOfIncome_other" id="sourceOfIncome_other" required>
+                                      <textarea class="form-control" #difficultyCareChild2  [(ngModel)]="child.difficultyCareChild" name="difficultyCareChild2" id="difficultyCareChild2" required>
                                       </textarea>
-                                      <app-control-field-error [showError]="verifyValidSubmitted(f2, sourceOfIncomeOther)" msgError="Especifique a fonte de renda">
+                                      <app-control-field-error [showError]="verifyValidSubmitted(f2, difficultyCareChild2)" msgError="Especifique a fonte de renda">
                                       </app-control-field-error>
-                                    </div>   
-                                      <app-control-field-error [showError]="verifyValidSubmitted(f2, difficultyCareChild)" msgError="Escolha uma das alternativas">
-                                      </app-control-field-error> 
+                                    </div>                                      
                                   </div>                            
                                 </div>                                
                               </div>   

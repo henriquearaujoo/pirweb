@@ -1,22 +1,22 @@
+import { CommunityService } from './../../../services/community/community.service';
 import { ToastService } from './../../../services/toast-notification/toast.service';
-import { ResponsibleService } from './../../../services/responsible/responsible.service';
+import { MotherService } from './../../../services/mother/mother.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Paginate } from './../../../models/paginate';
-import { Responsible } from './../../../models/responsible';
+import { Mother } from './../../../models/mother';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommunityService } from '../../../services/community/community.service';
 
 @Component({
-  selector: 'app-responsible-list',
-  templateUrl: './responsible-list.component.html',
-  styleUrls: ['./responsible-list.component.css']
+  selector: 'app-mother-list',
+  templateUrl: './mother-list.component.html',
+  styleUrls: ['./mother-list.component.css']
 })
-export class ResponsibleListComponent implements OnInit, OnDestroy {
+export class MotherListComponent implements OnInit, OnDestroy {
 
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
-  private responsible: Responsible = new Responsible();
-  private responsibleList: Responsible[] = new Array();
+  private mother: Mother = new Mother();
+  private mothers: Mother[] = new Array();
   private paginate: Paginate = new Paginate();
   private subscription: Subscription;
   private hasdata: boolean;
@@ -25,25 +25,26 @@ export class ResponsibleListComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private responsibleService: ResponsibleService,
+    private motherService: MotherService,
     private communityService: CommunityService,
     private toastService: ToastService
   ) { }
 
   ngOnInit() {
     this.hasdata = false;
-    this.getResponsible();
-    localStorage.removeItem('responsibleId');
+    this.page = 0;
+    this.getMothers();
+    localStorage.removeItem('motherId');
   }
 
-  getResponsible() {
+  getMothers() {
     console.log(this.filter.name);
     if ( this.filter.name !== '') { this.page = 0; }
-    this.subscription = this.responsibleService.getResponsible(this.filter.name, this.page).subscribe(
+    this.subscription = this.motherService.getMothers(this.filter.name, this.page).subscribe(
       success => {
         this.paginate = success;
-        this.responsibleList = this.paginate.content;
-        this.responsibleList.forEach( el => {
+        this.mothers = this.paginate.content;
+        this.mothers.forEach( el => {
           this.communityService.load(el.community_id).subscribe(
             s => {
               el.community_id = s.name;
@@ -51,34 +52,33 @@ export class ResponsibleListComponent implements OnInit, OnDestroy {
             error => console.log(error)
           );
         });
-        console.log('responsibleList', this.responsibleList);
         this.hasdata = true;
       },
       error => console.log(error)
     );
+
+  }
+  setMother(mother: Mother) {
+    localStorage.setItem('motherId', mother.id);
+    this.router.navigate(['mother']);
   }
 
-  setResponsible(responsible: Responsible) {
-    localStorage.setItem('responsibleId', responsible.id);
-    this.router.navigate(['responsible']);
+  changeStatus(mother: Mother) {
+    this.mother = mother;
   }
 
-  changeStatus(responsible: Responsible) {
-    this.responsible = responsible;
-  }
-
-  disableEnableResponsible() {
-    if (this.responsible.status === true) {
-      this.responsible.status = false;
+  disableEnableMother() {
+    if (this.mother.status === true) {
+      this.mother.status = false;
     } else {
-      this.responsible.status = true;
+      this.mother.status = true;
     }
-    console.log(this.responsible.status);
+    console.log(this.mother.status);
 
-    this.responsibleService.update(this.responsible).subscribe(
+    this.motherService.update(this.mother).subscribe(
       success => {
         this.toastService.toastSuccess();
-        this.getResponsible();
+        this.getMothers();
       },
       error => console.log(error)
     );
@@ -94,5 +94,4 @@ export class ResponsibleListComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
     console.log('OnDestroy()');
   }
-
 }

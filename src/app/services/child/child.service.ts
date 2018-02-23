@@ -8,14 +8,24 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ChildService extends RestService {
 
-  private apiurl = Constant.BASE_URL + 'child';
+  private apiurl = Constant.BASE_URL + 'child;';
+  private size: number;
 
-  constructor( http: Http) {
+  constructor(http: Http) {
     super(http);
+    this.size = 10;
    }
 
-  public getChildren() {
-    return this.get(this.apiurl);
+  public getChildren(filter?: any, page?: number) {
+    if ( filter === undefined ) {
+      return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page + '&sort=name,asc');
+    } else {
+      return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page + '&name=' + filter + '&sort=name,asc');
+    }
+  }
+
+  public insert(child: Child): Observable<Child> {
+    return this.post(this.apiurl, child);
   }
 
   public update(child: Child): Observable<Child> {
@@ -23,7 +33,7 @@ export class ChildService extends RestService {
   }
 
   public load(id: string) {
-     return this.get(this.apiurl + 'search/?child_id=' + id);
-    // return this.get(this.apiurl + '?id=' + id);
+    console.log('id', id);
+    return this.get(this.apiurl + id);
   }
 }

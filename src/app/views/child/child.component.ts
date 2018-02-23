@@ -1,5 +1,6 @@
+import { SweetAlertService } from './../../services/sweetalert/sweet-alert.service';
 import { ChildService } from './../../services/child/child.service';
-import { IMyDpOptions } from 'mydatepicker';
+import { IMyDpOptions, IMyDateModel, IMyDate, IMyInputFieldChanged } from 'mydatepicker';
 import { Child } from './../../models/child';
 import { error } from 'util';
 import { ToastService } from './../../services/toast-notification/toast.service';
@@ -30,6 +31,7 @@ export class ChildComponent implements OnInit {
   private enable_previous: boolean;
   private cont: number;
 
+  private isCkeckboxValid: boolean;
   private isFormValid: boolean;
   private tab: string;
   private _isSave: boolean;
@@ -37,6 +39,36 @@ export class ChildComponent implements OnInit {
   private openSaveButtonTab2: HTMLButtonElement;
   private type: any;
 
+  private index1: any;
+  private index2: any;
+  private whoCaresChild: string;
+  private whoCaresChild_list: any[] = new Array();
+  private _whoCaresChild: any = [
+    {
+      description: 'Mãe',
+      checked: null,
+    },
+    {
+      description: 'Pai',
+      checked: null
+    },
+    {
+      description: 'Irmão / Irmã',
+      checked: null
+    },
+    {
+      description: 'Avô / Avó',
+      checked: null
+    },
+    {
+      description: 'Tio / Tia',
+      checked: null
+    },
+    {
+      description: 'Primo / Prima',
+      checked: null
+    }
+  ];
 
   public myDatePickerOptions: IMyDpOptions = {
     // other options...
@@ -46,12 +78,15 @@ export class ChildComponent implements OnInit {
                    8: 'Ago', 9: 'Set', 10: 'Out', 11: 'Nov', 12: 'Dez' },
     todayBtnTxt: 'Hoje'
 };
+  private selDate: IMyDate = {year: 0, month: 0, day: 0};
+  private isValidDate: boolean;
 
   constructor(
     private communityService: CommunityService,
     private childService: ChildService,
     private toastService: ToastService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private sweetAlertService: SweetAlertService
   ) { }
 
   ngOnInit() {
@@ -78,49 +113,133 @@ export class ChildComponent implements OnInit {
     this.openSaveButtonTab2.style.display = 'none';
 
     (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
+
+    this.isValidDate = true;
+    this.isCkeckboxValid = true;
   }
 
   saveData(isValid: boolean) {
     console.log('isValid', isValid);
+    this.updateOptions();
 
     if (isValid && this._isSave) {
       if (this.isNewData || this.child.id === undefined) {
         console.log('save');
-        // this.communityService.insert(this.pregnant).subscribe(
+        // this.childService.insert(this.child).subscribe(
         //   success => {
-        //     this.community = success;
+        //     this.child = success;
         //     this.isNewData  = false;
         //     this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
-        //     console.log('saved with success!', this.community);
+        //     console.log('saved with success!', this.child);
         //   },
         //   error => {
         //     this.toastService.toastError();
-        //     console.log('update error:', error);
+        //     console.log('save error:', error);
         //   }
         // );
       } else {
         console.log('update');
         this.childService.update(this.child).subscribe(
           success => {
-            this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso!');
+            this.child = success;
+            console.log('updated with success!', this.child);
+            this.sweetAlertService.alertSuccessUpdate('community-list');
           },
-          error => console.log(error)
+          error => {
+            this.toastService.toastError();
+            console.log('update error:', error);
+          }
         );
       }
     }
   }
 
   load() {
-    this.communityService.load(this.urlId).subscribe(
+    this.childService.load(this.urlId).subscribe(
       success => {
-        this.child = success[0];
+        this.child = success;
         console.log('Load:', this.child);
+        this.verifyDataCheckbox();
         if (this.child === undefined) {
           this.child = new Child();
         }
       },
       error => console.log(error)
     );
+  }
+
+  onDateChanged(event: IMyDateModel) {
+    this.selDate = event.date;
+    const date = event.date.day + '-' + event.date.month + '-' + event.date.year;
+    this.child.birth = date;
+    console.log('Date', date);
+    console.log('child.birth', this.child.birth );
+  }
+
+  onInputFieldChanged(event: IMyInputFieldChanged) {
+    this.isValidDate = event.valid;
+    console.log(this.isValidDate);
+  }
+
+  verifyDataCheckbox() {
+    this.whoCaresChild = this.child.whoCaresChild;
+    this.whoCaresChild_list = this.whoCaresChild.split('|');
+
+    this.whoCaresChild = this.child.whoCaresChild;
+    this.whoCaresChild_list = this.whoCaresChild.split('|');
+
+    for (let i = 0; i < this._whoCaresChild.length; i++) {
+      for (let j = 0; j < this.whoCaresChild_list.length; j++ ) {
+        if ( this._whoCaresChild[i].type === this.whoCaresChild_list[j]) {
+          this._whoCaresChild[i].checked = true;
+        }
+      }
+    }
+    console.log('_whoCaresChild', this._whoCaresChild);
+  }
+
+  updateOptions() {
+    if (this.whoCaresChild_list.length > 0) {
+      for (let i = 0; i < this.whoCaresChild_list.length; i++) {
+        if ( i === 0 ) {
+          this.whoCaresChild = this.whoCaresChild_list[i];
+        } else {
+          this.whoCaresChild = this.whoCaresChild + '|' + this.whoCaresChild_list[i];
+        }
+      }
+    } else {
+      this.whoCaresChild = '';
+    }
+
+    this.child.whoCaresChild = this.whoCaresChild;
+    console.log('child.whoCaresChild', this.child.whoCaresChild);
+  }
+
+  verifyCheckbox(option, event) {
+    // * CHECKED * /
+    console.log('event.target.value ' + event.target.value);
+    const value = event.target.value;
+    if (event.target.checked) {
+      console.log('insert');
+      this.whoCaresChild_list.push(value);
+
+      if (this.whoCaresChild_list.length === 0) {
+        this.isCkeckboxValid = false;
+      } else {
+        this.isCkeckboxValid = true;
+      }
+
+    } else {
+      console.log('delete');
+      this.index1 = this.whoCaresChild_list.indexOf(value);
+      this.whoCaresChild_list.splice(this.index1, 1);
+
+      if (this.whoCaresChild_list.length === 0) {
+        this.isCkeckboxValid = false;
+      } else {
+        this.isCkeckboxValid = true;
+      }
+    }
   }
 
   openModal() {
@@ -159,7 +278,7 @@ export class ChildComponent implements OnInit {
     }
 
 
-    if ( this.isFormValid) {
+    if ( this.isFormValid && this.isValidDate ) {
       this.isFormValid = false;
       if (tab) {
         if (this.currentTab === -1) {

@@ -1,8 +1,8 @@
 import { ChildListComponent } from './views/child/child-list/child-list.component';
 import { ResponsibleListComponent } from './views/responsible/responsible-list/responsible-list.component';
 import { ResponsibleComponent } from './views/responsible/responsible.component';
-import { PregnantListComponent } from './views/pregnant/pregnant-list/pregnant-list.component';
-import { PregnantComponent } from './views/pregnant/pregnant.component';
+import { MotherListComponent } from './views/mother/mother-list/mother-list.component';
+import { MotherComponent } from './views/mother/mother.component';
 import { ChildComponent } from './views/child/child.component';
 import { ResetPasswordComponent } from './views/login/reset-password/reset-password.component';
 import { ChapterDashboardComponent } from './views/template-chapter/chapter/chapter-dashboard/chapter-dashboard.component';
@@ -90,8 +90,8 @@ const App_Router: Routes = [
             // canActivate: [PageGuard]
           },
           {
-            path: 'pregnant-list',
-            component: PregnantListComponent
+            path: 'mother-list',
+            component: MotherListComponent
             // canActivate: [PageGuard]
           },
           {
@@ -110,8 +110,8 @@ const App_Router: Routes = [
             // canActivate: [PageGuard]
           },
           {
-            path: 'pregnant',
-            component: PregnantComponent
+            path: 'mother',
+            component: MotherComponent
             // canActivate: [PageGuard]
           },
           {

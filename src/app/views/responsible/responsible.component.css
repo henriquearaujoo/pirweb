@@ -201,7 +201,7 @@ input#waterDrink2 {
 label.lb-tab {
     position: absolute;
     color: white;
-    font-family: -webkit-pictograph;
+    font-size: 14px;
     text-align: center;
     top: 8px;
     left: 20px;

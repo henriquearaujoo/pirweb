@@ -1,7 +1,6 @@
+import { SweetAlertService } from './../../services/sweetalert/sweet-alert.service';
 import { ResponsibleService } from './../../services/responsible/responsible.service';
-import { ResponsibleChild } from './../../models/responsible-child';
-import { PregnantService } from './../../services/pregnant/pregnant.service';
-import { Pregnant } from './../../models/pregnant';
+import { Responsible } from './../../models/responsible';
 import { error } from 'util';
 import { ToastService } from './../../services/toast-notification/toast.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -10,6 +9,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { CommunityService } from '../../services/community/community.service';
 import { ModalService } from '../../components/modal/modal.service';
 import { IMyDpOptions, IMyDateModel, IMyDate, IMyInputFieldChanged } from 'mydatepicker';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-responsible',
@@ -18,7 +18,7 @@ import { IMyDpOptions, IMyDateModel, IMyDate, IMyInputFieldChanged } from 'mydat
 })
 export class ResponsibleComponent implements OnInit {
 
-  private responsible: ResponsibleChild = new ResponsibleChild();
+  private responsible: Responsible = new Responsible();
   private subscription: Subscription;
   private isNewData: boolean;
   private urlId: string;
@@ -54,12 +54,14 @@ export class ResponsibleComponent implements OnInit {
 
   private selDate: IMyDate = {year: 0, month: 0, day: 0};
   private isValidDate: boolean;
+  private income_participation: any[] = new Array();
 
   constructor(
     private communityService: CommunityService,
     private responsibleService: ResponsibleService,
     private toastService: ToastService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private sweetAlertService: SweetAlertService
   ) { }
 
   ngOnInit() {
@@ -68,7 +70,6 @@ export class ResponsibleComponent implements OnInit {
     this.urlId = localStorage.getItem('responsibleId');
     if (this.urlId !== null && this.urlId !== '') {
       this.isNewData = false;
-      // localStorage.removeItem('responsibleId');
       this.load();
     }
 
@@ -93,11 +94,18 @@ export class ResponsibleComponent implements OnInit {
     (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
 
     this.isValidDate = true;
+
+    this.income_participation = [
+      'Não trabalha e é sustentado pela família',
+      'Trabalha e recebe ajuda financeira',
+      'Trabalha e é responsável pelo próprio sustento',
+      'Trabalha e contribui parcialmente em casa',
+      'Trabalha e é a principal responsável pelo sustento da família'
+    ];
   }
 
   saveData(isValid: boolean) {
     console.log('isValid', isValid);
-    console.log('isFormValid', this.isFormValid);
     this.responsible.habitation_members_count = Number(this.responsible.habitation_members_count);
     if (isValid && this._isSave) {
       if (this.isNewData || this.responsible.id === undefined) {
@@ -119,7 +127,7 @@ export class ResponsibleComponent implements OnInit {
         this.responsibleService.update(this.responsible).subscribe(
           success => {
             this.responsible = success;
-            this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso!');
+            this.sweetAlertService.alertSuccessUpdate('responsible-list');
             console.log('updated with success!', success);
           },
           error => {
@@ -149,20 +157,25 @@ export class ResponsibleComponent implements OnInit {
       success => {
         this.responsible = success;
         console.log('Load:', this.responsible);
-        const d: Date = new Date(this.responsible.birth);
-        d.setMinutes( d.getMinutes() + d.getTimezoneOffset() );
-        console.log('Date:', d);
-        this.selDate = {year: d.getFullYear(),
-                        month: d.getMonth() + 1,
-                        day: d.getDate()};
-        this.selDate = this.selDate;
-
+        this.alterDate();
         if (this.responsible === undefined) {
-          this.responsible = new ResponsibleChild();
+          this.responsible = new Responsible();
         }
       },
       error => console.log(error)
     );
+  }
+
+  alterDate() {
+    const dateList = this.responsible.birth.split('-');
+    this.responsible.birth = dateList[2] + '-' + dateList[1] + '-' + dateList[0];
+    const d = new Date(this.responsible.birth);
+    d.setMinutes( d.getMinutes() + d.getTimezoneOffset() );
+    console.log('Date:', d);
+    this.selDate = {year: d.getFullYear(),
+                    month: d.getMonth() + 1,
+                    day: d.getDate()};
+    this.selDate = this.selDate;
   }
 
   getCommunities() {

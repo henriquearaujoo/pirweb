@@ -194,18 +194,6 @@ export class CommunityComponent implements OnInit {
       }
     }
     console.log('_waterSupply', this._waterSupply);
-
-    // for (let i = 0; i < this.waterSupply_list.length; i++) {
-    //   if ( i === 0 ) {
-    //     this.waterSupply = this.waterSupply_list[i];
-    //   } else {
-    //     this.waterSupply = this.waterSupply + '|' + this.waterSupply_list[i];
-    //   }
-    // }
-    // this.community.cultural_production = this.culturalProduction;
-    // this.community.water_supply = this.waterSupply;
-    // console.log('culturalProduction', this.community.cultural_production );
-    // console.log('water_supply', this.community.water_supply);
   }
 
   load() {

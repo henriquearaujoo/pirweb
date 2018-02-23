@@ -148,9 +148,9 @@ import { Ng2InputMaskModule } from 'ng2-input-mask';
 import { TextMaskModule } from 'angular2-text-mask';
 import {NgxMaskModule} from 'ngx-mask';
 import { ChildComponent } from './views/child/child.component';
-import { PregnantComponent } from './views/pregnant/pregnant.component';
-import { PregnantService } from './services/pregnant/pregnant.service';
-import { PregnantListComponent } from './views/pregnant/pregnant-list/pregnant-list.component';
+import { MotherComponent } from './views/mother/mother.component';
+import { MotherService } from './services/mother/mother.service';
+import { MotherListComponent } from './views/mother/mother-list/mother-list.component';
 import { ResponsibleComponent } from './views/responsible/responsible.component';
 import { ResponsibleListComponent } from './views/responsible/responsible-list/responsible-list.component';
 import { ChildListComponent } from './views/child/child-list/child-list.component';
@@ -224,8 +224,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ResetPasswordComponent,
     EqualValidatorDirective,
     ChildComponent,
-    PregnantComponent,
-    PregnantListComponent,
+    MotherComponent,
+    MotherListComponent,
     ResponsibleComponent,
     ResponsibleListComponent,
     ChildListComponent
@@ -318,7 +318,7 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ModalService,
     CommunityService,
     FileService,
-    PregnantService,
+    MotherService,
     ResponsibleService,
     ChildService,
     SweetAlertService
