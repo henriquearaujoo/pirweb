@@ -209,8 +209,7 @@
                         </div>
                         <div class="col-md-3">
                           <div class="form-group">
-                            <button type="button" class="btn btn-default btn-block" (click)="openModal()" id="btn_return1" *ngIf="isNewData && canCreate"> Cancelar</button>
-                            <button type="button" class="btn btn-default btn-block" (click)="openModal()" id="btn_return1" *ngIf="!isNewData && canUpdate"> Editar</button>
+                            <button type="button" class="btn btn-default btn-block" (click)="openModal()" id="btn_return1"> Cancelar</button>
                           </div>
                         </div>
                       </form>
@@ -416,7 +415,8 @@
                         </div>
                         <div class="col-md-3 col-md-offset-6">
                           <div class="form-group save">
-                              <button class="btn btn-primary btn-block"  (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save">Cadastrar</button>                                
+                              <button class="btn btn-primary btn-block"  (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save" *ngIf="isNewData && canCreate">Cadastrar</button>   
+                              <button class="btn btn-primary btn-block"  (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save" *ngIf="!isNewData && canUpdate"> Editar</button>                             
                           </div>
                         </div>
                       </form>
