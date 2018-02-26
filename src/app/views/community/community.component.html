@@ -40,17 +40,13 @@
                       <form name="form" (ngSubmit)="save(1,f1.valid)" id="f_1" #f1="ngForm" novalidate>
                         <div class="box box-primary">
                           <div class="box-body">
-                            <!-- <div class="row">
+                            <div class="row">
                               <div class="col-sm-6">
                                
                                 <div class="form-group" [ngClass]="applyCssError(f1, uc)">
                                   <label class="control-label">UC</label>
-                                  <select class="form-control" #uc="ngModel" name="uc" [(ngModel)]="community.uc" id="community_uc" required>
-                                    <option disabled>UC</option>
-                                    <option value="true">UC 1</option>
-                                    <option value="false">UC 2</option>
-                                  </select>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, uc)" msgError="Selecione o UC">
+                                  <input class="form-control" #uc="ngModel" [(ngModel)]="community.uc" name="community_uc" id="community_uc" placeholder="UC" required>
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, uc)" msgError="Digite um UC">
                                   </app-control-field-error>
                                 </div>
                                  
@@ -63,7 +59,7 @@
                                   </app-control-field-error>
                                 </div>
                               </div> 
-                            </div> -->
+                            </div>
                             <div class="row">
                               
                             <div class="col-sm-6">
@@ -213,7 +209,8 @@
                         </div>
                         <div class="col-md-3">
                           <div class="form-group">
-                            <button type="button" class="btn btn-default btn-block" (click)="openModal()" id="btn_return1"> Cancelar</button>
+                            <button type="button" class="btn btn-default btn-block" (click)="openModal()" id="btn_return1" *ngIf="isNewData && canCreate"> Cancelar</button>
+                            <button type="button" class="btn btn-default btn-block" (click)="openModal()" id="btn_return1" *ngIf="!isNewData && canUpdate"> Editar</button>
                           </div>
                         </div>
                       </form>

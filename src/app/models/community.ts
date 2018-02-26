@@ -1,6 +1,8 @@
 export class Community {
     public id: string;
     public name: string;
+    public regional: string;
+    public uc: string;
     public city_id: number;
     public zone: string;
     public water_supply: string;

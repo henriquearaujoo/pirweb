@@ -57,14 +57,25 @@ export const MENU = [
     },
     {
         'id': 6,
-        'title': 'Comunidade',
+        'title': 'Comunidades',
         'route': '',
         'routes': ['/', '/community-list', '/community'],
         'read': false,
         'iClass': 'fa fa-users',
         'category': 'parent',
-        'hasChild': false,
+        'hasChild': true,
         'parent': 0
+    },
+    {
+        'id': 8,
+        'title': 'Registros',
+        'route': 'community-list',
+        'routes': ['/community-list', '/community'],
+        'read': false,
+        'iClass': 'fa fa-circle-o',
+        'category': 'child',
+        'hasChild': false,
+        'parent': 6
     },
     {
         'id': 7,

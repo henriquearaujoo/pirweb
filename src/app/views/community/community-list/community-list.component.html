@@ -43,7 +43,7 @@
               <!--th class="tbl-left">Status
                   <span class="glyphicon" ></span>
                 </th -->
-              <th colspan="2" class="tbl-center"> AÇÃO</th>
+              <th colspan="1" class="tbl-center"> AÇÃO</th>
             </tr>
           </thead>
           <tbody>
@@ -55,16 +55,16 @@
                   {{ item.city_id }}
               </td>
               <td class="tbl-left">  
-                  {{ item.zone }}
+                  {{ item.zone === 'URBAN' ? 'Urbana': 'Rural' }}
               </td>               
-              <td class="tbl-right">              
+              <!-- <td class="tbl-right">              
                 <a (click)="setCommunity(item)" id="btn_details" title="Ver detalhes">
                     <i class="large material-icons">visibility</i>
                 </a>
-              </td>
+              </td> -->
               <td class="tbl-right">          
                 <a title="Editar" id="btn_edit"
-                  (click)="setCommunity(item)">
+                  (click)="setCommunity(item)" *ngIf="canUpdate">
                   <i class="fa fa-pencil fa-fw"></i>
                 </a>
               </td>
