@@ -32,58 +32,17 @@ export class Interceptor extends XHRBackend {
     const xhrConnection = super.createConnection(request);
     // console.log('xhrConnection', xhrConnection);
     xhrConnection.response = xhrConnection.response.catch((error: Response) => {
-      if ( error.status === 401 ) {
-        localStorage.removeItem('tokenPir');
-        localStorage.removeItem('profileId_rules');
-        localStorage.removeItem('currentUserPir');
-        localStorage.removeItem('currentIdPir');
+        if ( error.status === 401 ) {
+          localStorage.removeItem('tokenPir');
+          localStorage.removeItem('profileId_rules');
+          localStorage.removeItem('currentUserPir');
 
-        swal({
-          title: 'Sessão expirada!',
-          text: 'Você precisa efetuar o login novamente!',
-          icon: 'warning',
-          buttons: {
-            ok: {
-              text: 'Ok',
-              className: 'swal-btn-ok'
-            }
-          },
-          closeOnClickOutside: false,
-          className: 'swal-btn-ok'
-        })
-        .then((c) => {
-          if (c) {
+          alert('Sessão expirada!');
+          setTimeout(() => {
             window.location.href = '/login';
-          }
-        });
-        // setTimeout(() => {
-        //   window.location.href = '/login';
-        // }, 1000);
-      } else {
-        if ( error.status === 0 ) {
-          swal({
-            title: '',
-            text: 'Falha na conexão com o servidor!',
-            icon: 'warning',
-            buttons: {
-              ok: {
-                text: 'Ok',
-                className: 'swal-btn-ok'
-              }
-            },
-            closeOnClickOutside: false,
-            className: 'swal-btn-ok'
-          })
-          .then((c) => {
-            if (c) {
-              setTimeout(() => {
-                window.location.href = '/login';
-              }, 1000);
-            }
-          });
+          }, 1000);
         }
-      }
-      return Observable.throw(error);
+        return Observable.throw(error.text);
     });
     return xhrConnection;
   }
