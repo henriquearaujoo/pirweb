@@ -129,7 +129,7 @@ export class CommunityComponent implements OnInit {
     console.log('urlId', this.urlId);
     if (this.urlId !== null && this.urlId !== '') {
       this.isNewData = false;
-      localStorage.removeItem('communityId');
+      // localStorage.removeItem('communityId');
       this.load();
     }
 
