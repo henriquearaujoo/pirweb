@@ -1,3 +1,4 @@
+import { Permissions, RuleState } from './../../helpers/permissions';
 import { Mother } from './../../models/mother';
 import { ResponsibleService } from './../../services/responsible/responsible.service';
 import { Responsible } from './../../models/responsible';
@@ -44,6 +45,10 @@ export class ChildComponent implements OnInit {
   private openSaveButtonTab1: HTMLButtonElement;
   private openSaveButtonTab2: HTMLButtonElement;
   private type: any;
+  private canRead: boolean;
+  private canUpdate: boolean;
+  private canCreate: boolean;
+  private canDelete: boolean;
 
   private index1: any;
   private index2: any;
@@ -93,10 +98,26 @@ export class ChildComponent implements OnInit {
     private responsibleService: ResponsibleService,
     private toastService: ToastService,
     private modalService: ModalService,
-    private sweetAlertService: SweetAlertService
-  ) { }
+    private sweetAlertService: SweetAlertService,
+    private permissions: Permissions,
+  ) {
+      this.canCreate = false;
+      this.canUpdate = false;
+      this.canRead = false;
+      this.canDelete = false;
+    }
 
   ngOnInit() {
+    this.permissions.canActivate('/child');
+    this.permissions.permissionsState.subscribe(
+      (rules: RuleState) => {
+        this.canCreate = rules.canCreate;
+        this.canUpdate = rules.canUpdate;
+        this.canRead = rules.canRead;
+        this.canDelete = rules.canDelete;
+        // this.loaderService.hide();
+      }
+    );
     /*check if is a new or update*/
     this.isNewData = true;
     this.urlId = localStorage.getItem('childId');

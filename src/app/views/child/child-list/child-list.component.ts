@@ -1,3 +1,4 @@
+import { Permissions, RuleState } from './../../../helpers/permissions';
 import { CommunityService } from './../../../services/community/community.service';
 import { ResponsibleService } from './../../../services/responsible/responsible.service';
 import { ToastService } from './../../../services/toast-notification/toast.service';
@@ -23,16 +24,36 @@ export class ChildListComponent implements OnInit, OnDestroy {
   private hasdata: boolean;
   private filter: any = { name: ''};
   private page: number;
+  private canRead: boolean;
+  private canUpdate: boolean;
+  private canCreate: boolean;
+  private canDelete: boolean;
 
   constructor(
     private router: Router,
     private childService: ChildService,
     private responsibleService: ResponsibleService,
     private communityService: CommunityService,
-    private toastService: ToastService
-  ) { }
+    private toastService: ToastService,
+    private permissions: Permissions,
+  ) {
+      this.canCreate = false;
+      this.canUpdate = false;
+      this.canRead = false;
+      this.canDelete = false;
+    }
 
   ngOnInit() {
+    this.permissions.canActivate('/child-list');
+    this.permissions.permissionsState.subscribe(
+      (rules: RuleState) => {
+        this.canCreate = rules.canCreate;
+        this.canUpdate = rules.canUpdate;
+        this.canRead = rules.canRead;
+        this.canDelete = rules.canDelete;
+        // this.loaderService.hide();
+      }
+    );
     this.hasdata = false;
     this.getChildren();
     localStorage.removeItem('childId');

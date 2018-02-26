@@ -55,13 +55,13 @@
                   {{ item.birth }}
               </td>               
               <td class="tbl-right">              
-                <a (click)="setPregnant(item)" id="btn_details" title="Ver detalhes">
+                <a (click)="setResponsible(item)" id="btn_details" title="Ver detalhes">
                     <i class="large material-icons">visibility</i>
                 </a>
               </td>
-              <td class="tbl-right">          
+              <td class="tbl-right" *ngIf="canUpdate">          
                 <a title="Editar" id="btn_edit"
-                  (click)="setResponsible(item)">
+                  (click)="setResponsible(item)" >
                   <i class="fa fa-pencil fa-fw"></i>
                 </a>
               </td>
@@ -90,7 +90,7 @@
 </div>
 
  <!-- Modal Disable -->
- <div class="modal fade" id="modal-default">
+ <!-- <div class="modal fade" id="modal-default">
   <div class="modal-dialog modal-sm">
     <div class="modal-content" [ngStyle]="object">
       <div class="modal-body">
@@ -109,8 +109,8 @@
         </div>
       </div>
     </div>
-    <!-- /.modal-content -->
+  
   </div>
-  <!-- /.modal-dialog -->
-</div>
+ 
+</div> -->
 <!-- /.modal -->

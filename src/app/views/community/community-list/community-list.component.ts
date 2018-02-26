@@ -1,3 +1,4 @@
+import { Permissions, RuleState } from './../../../helpers/permissions';
 import { ToastService } from './../../../services/toast-notification/toast.service';
 import { Paginate } from './../../../models/paginate';
 import { Community } from './../../../models/community';
@@ -22,13 +23,34 @@ export class CommunityListComponent implements OnInit, OnDestroy {
   private filter: any = { name: ''};
   @Output() page: number;
 
+  private canRead: boolean;
+  private canUpdate: boolean;
+  private canCreate: boolean;
+  private canDelete: boolean;
+
   constructor(
     private router: Router,
     private communityService: CommunityService,
-    private toastService: ToastService
-  ) { }
+    private toastService: ToastService,
+    private permissions: Permissions
+  ) {
+      this.canCreate = false;
+      this.canUpdate = false;
+      this.canRead = false;
+      this.canDelete = false;
+    }
 
   ngOnInit() {
+    this.permissions.canActivate('/community-list');
+    this.permissions.permissionsState.subscribe(
+      (rules: RuleState) => {
+        this.canCreate = rules.canCreate;
+        this.canUpdate = rules.canUpdate;
+        this.canRead = rules.canRead;
+        this.canDelete = rules.canDelete;
+        // this.loaderService.hide();
+      }
+    );
     this.page = 0;
     this.hasdata = false;
     this.getCommunities();

@@ -1,3 +1,4 @@
+import { Permissions, RuleState } from './../../../helpers/permissions';
 import { PageService } from './../../../services/pagenate/page.service';
 import { PagenateComponent } from './../../../components/pagenate/pagenate.component';
 import { CommunityService } from './../../../services/community/community.service';
@@ -26,17 +27,37 @@ export class MotherListComponent implements OnInit, OnDestroy {
   private filter: any = { name: ''};
   private page: number;
 
+  private canRead: boolean;
+  private canUpdate: boolean;
+  private canCreate: boolean;
+  private canDelete: boolean;
+
   constructor(
     private router: Router,
     private responsibleService: ResponsibleService,
     private communityService: CommunityService,
     private toastService: ToastService,
-    private servicePage: PageService
+    private servicePage: PageService,
+    private permissions: Permissions
   ) {
       this.page = 0;
+      this.canCreate = false;
+      this.canUpdate = false;
+      this.canRead = false;
+      this.canDelete = false;
    }
 
   ngOnInit() {
+    this.permissions.canActivate('/mother-list');
+    this.permissions.permissionsState.subscribe(
+      (rules: RuleState) => {
+        this.canCreate = rules.canCreate;
+        this.canUpdate = rules.canUpdate;
+        this.canRead = rules.canRead;
+        this.canDelete = rules.canDelete;
+        // this.loaderService.hide();
+      }
+    );
     this.hasdata = false;
     this.page = 0;
     this.getMothers();

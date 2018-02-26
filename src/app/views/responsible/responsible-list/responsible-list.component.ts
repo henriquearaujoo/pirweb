@@ -1,3 +1,4 @@
+import { Permissions, RuleState } from './../../../helpers/permissions';
 import { ToastService } from './../../../services/toast-notification/toast.service';
 import { ResponsibleService } from './../../../services/responsible/responsible.service';
 import { Router } from '@angular/router';
@@ -23,14 +24,35 @@ export class ResponsibleListComponent implements OnInit, OnDestroy {
   private filter: any = { name: ''};
   private page: number;
 
+  private canRead: boolean;
+  private canUpdate: boolean;
+  private canCreate: boolean;
+  private canDelete: boolean;
+
   constructor(
     private router: Router,
     private responsibleService: ResponsibleService,
     private communityService: CommunityService,
-    private toastService: ToastService
-  ) { }
+    private toastService: ToastService,
+    private permissions: Permissions
+  ) {
+    this.canCreate = false;
+    this.canUpdate = false;
+    this.canRead = false;
+    this.canDelete = false;
+  }
 
   ngOnInit() {
+    this.permissions.canActivate('/responsible');
+    this.permissions.permissionsState.subscribe(
+      (rules: RuleState) => {
+        this.canCreate = rules.canCreate;
+        this.canUpdate = rules.canUpdate;
+        this.canRead = rules.canRead;
+        this.canDelete = rules.canDelete;
+        // this.loaderService.hide();
+      }
+    );
     this.hasdata = false;
     this.getResponsible();
     localStorage.removeItem('responsibleId');

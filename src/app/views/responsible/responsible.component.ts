@@ -1,3 +1,4 @@
+import { Permissions, RuleState } from './../../helpers/permissions';
 import { SweetAlertService } from './../../services/sweetalert/sweet-alert.service';
 import { ResponsibleService } from './../../services/responsible/responsible.service';
 import { Responsible } from './../../models/responsible';
@@ -56,15 +57,36 @@ export class ResponsibleComponent implements OnInit {
   private isValidDate: boolean;
   private income_participation: any[] = new Array();
 
+  private canRead: boolean;
+  private canUpdate: boolean;
+  private canCreate: boolean;
+  private canDelete: boolean;
+
   constructor(
     private communityService: CommunityService,
     private responsibleService: ResponsibleService,
     private toastService: ToastService,
     private modalService: ModalService,
-    private sweetAlertService: SweetAlertService
-  ) { }
+    private sweetAlertService: SweetAlertService,
+    private permissions: Permissions
+  ) {
+      this.canCreate = false;
+      this.canUpdate = false;
+      this.canRead = false;
+      this.canDelete = false;
+  }
 
   ngOnInit() {
+    this.permissions.canActivate('/responsible');
+    this.permissions.permissionsState.subscribe(
+      (rules: RuleState) => {
+        this.canCreate = rules.canCreate;
+        this.canUpdate = rules.canUpdate;
+        this.canRead = rules.canRead;
+        this.canDelete = rules.canDelete;
+        // this.loaderService.hide();
+      }
+    );
     /*check if is a new or update*/
     this.isNewData = true;
     this.urlId = localStorage.getItem('responsibleId');

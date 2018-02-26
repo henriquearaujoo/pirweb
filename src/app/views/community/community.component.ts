@@ -1,3 +1,4 @@
+import { Permissions, RuleState } from './../../helpers/permissions';
 import { SweetAlertService } from './../../services/sweetalert/sweet-alert.service';
 import { Types } from './../../models/types';
 import { IMyDpOptions } from 'mydatepicker';
@@ -39,6 +40,11 @@ export class CommunityComponent implements OnInit {
   private openSaveButtonTab1: HTMLButtonElement;
   private openSaveButtonTab2: HTMLButtonElement;
   private openSaveButtonTab3: HTMLButtonElement;
+
+  private canRead: boolean;
+  private canUpdate: boolean;
+  private canCreate: boolean;
+  private canDelete: boolean;
 
   private type: any;
   private culturalProduction: string;
@@ -97,10 +103,26 @@ export class CommunityComponent implements OnInit {
     private communityService: CommunityService,
     private toastService: ToastService,
     private modalService: ModalService,
-    private sweetAlertService: SweetAlertService
-  ) { }
+    private sweetAlertService: SweetAlertService,
+    private permissions: Permissions
+  ) {
+      this.canCreate = false;
+      this.canUpdate = false;
+      this.canRead = false;
+      this.canDelete = false;
+   }
 
   ngOnInit() {
+    this.permissions.canActivate('/community');
+    this.permissions.permissionsState.subscribe(
+      (rules: RuleState) => {
+        this.canCreate = rules.canCreate;
+        this.canUpdate = rules.canUpdate;
+        this.canRead = rules.canRead;
+        this.canDelete = rules.canDelete;
+        // this.loaderService.hide();
+      }
+    );
     /*check if is a new or update*/
     this.isNewData = true;
     this.urlId = localStorage.getItem('communityId');

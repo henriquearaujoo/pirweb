@@ -66,7 +66,7 @@ export class SweetAlertService {
     })
     .then((c) => {
       if (c) {
-        // window.location.href = '/login';
+        window.location.href = '/login';
       }
     });
   }
@@ -88,7 +88,7 @@ export class SweetAlertService {
     .then((c) => {
       if (c) {
         setTimeout(() => {
-          // window.location.href = '/login';
+          window.location.href = '/login';
         }, 1000);
       }
     });

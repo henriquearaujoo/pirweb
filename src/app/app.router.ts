@@ -81,43 +81,43 @@ const App_Router: Routes = [
           },
           {
             path: 'community-list',
-            component: CommunityListComponent
-            // canActivate: [PageGuard]
+            component: CommunityListComponent,
+            canActivate: [PageGuard]
           },
           {
             path: 'child-list',
-            component: ChildListComponent
-            // canActivate: [PageGuard]
+            component: ChildListComponent,
+            canActivate: [PageGuard]
           },
           {
             path: 'mother-list',
-            component: MotherListComponent
-            // canActivate: [PageGuard]
+            component: MotherListComponent,
+            canActivate: [PageGuard]
           },
           {
             path: 'responsible-list',
-            component: ResponsibleListComponent
-            // canActivate: [PageGuard]
+            component: ResponsibleListComponent,
+            canActivate: [PageGuard]
           },
           {
             path: 'community',
-            component: CommunityComponent
-            // canActivate: [PageGuard]
+            component: CommunityComponent,
+            canActivate: [PageGuard]
           },
           {
             path: 'child',
-            component: ChildComponent
-            // canActivate: [PageGuard]
+            component: ChildComponent,
+            canActivate: [PageGuard]
           },
           {
             path: 'mother',
-            component: MotherComponent
-            // canActivate: [PageGuard]
+            component: MotherComponent,
+            canActivate: [PageGuard]
           },
           {
             path: 'responsible',
-            component: ResponsibleComponent
-            // canActivate: [PageGuard]
+            component: ResponsibleComponent,
+            canActivate: [PageGuard]
           },
           {
             path: 'template-chapter',
