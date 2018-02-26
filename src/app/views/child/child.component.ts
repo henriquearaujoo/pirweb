@@ -1,3 +1,6 @@
+import { Mother } from './../../models/mother';
+import { ResponsibleService } from './../../services/responsible/responsible.service';
+import { Responsible } from './../../models/responsible';
 import { SweetAlertService } from './../../services/sweetalert/sweet-alert.service';
 import { ChildService } from './../../services/child/child.service';
 import { IMyDpOptions, IMyDateModel, IMyDate, IMyInputFieldChanged } from 'mydatepicker';
@@ -30,6 +33,9 @@ export class ChildComponent implements OnInit {
   private enable_save: boolean;
   private enable_previous: boolean;
   private cont: number;
+  private mothers: Responsible[] = new Array();
+  private responsible: Responsible[] = new Array();
+  private communities: Community[] = new Array();
 
   private isCkeckboxValid: boolean;
   private isFormValid: boolean;
@@ -41,9 +47,9 @@ export class ChildComponent implements OnInit {
 
   private index1: any;
   private index2: any;
-  private whoCaresChild: string;
-  private whoCaresChild_list: any[] = new Array();
-  private _whoCaresChild: any = [
+  private who_take_care: string;
+  private who_take_care_list: any[] = new Array();
+  private _who_take_care: any = [
     {
       description: 'Mãe',
       checked: null,
@@ -53,19 +59,19 @@ export class ChildComponent implements OnInit {
       checked: null
     },
     {
-      description: 'Irmão / Irmã',
+      description: 'Irmão/Irmã',
       checked: null
     },
     {
-      description: 'Avô / Avó',
+      description: 'Avô/Avó',
       checked: null
     },
     {
-      description: 'Tio / Tia',
+      description: 'Tio/Tia',
       checked: null
     },
     {
-      description: 'Primo / Prima',
+      description: 'Primo/Prima',
       checked: null
     }
   ];
@@ -84,6 +90,7 @@ export class ChildComponent implements OnInit {
   constructor(
     private communityService: CommunityService,
     private childService: ChildService,
+    private responsibleService: ResponsibleService,
     private toastService: ToastService,
     private modalService: ModalService,
     private sweetAlertService: SweetAlertService
@@ -95,10 +102,12 @@ export class ChildComponent implements OnInit {
     this.urlId = localStorage.getItem('childId');
     if (this.urlId !== null && this.urlId !== '') {
       this.isNewData = false;
-      localStorage.removeItem('childId');
       this.load();
     }
 
+    this.getMothers();
+    this.getResponsible();
+    this.getCommunities();
     this.currentTab = 0;
     this.previousTab = '#tab_1';
     this.nextTab = '#tab_2';
@@ -123,27 +132,34 @@ export class ChildComponent implements OnInit {
     this.updateOptions();
 
     if (isValid && this._isSave) {
+      if (this.child.is_premature_born === false) {
+        this.child.born_week = 1;
+      }
+      if ( !this.child.has_education_diff) {
+        this.child.education_diff_specification = '';
+      }
+      this.child.born_week = Number(this.child.born_week);
       if (this.isNewData || this.child.id === undefined) {
-        console.log('save');
-        // this.childService.insert(this.child).subscribe(
-        //   success => {
-        //     this.child = success;
-        //     this.isNewData  = false;
-        //     this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
-        //     console.log('saved with success!', this.child);
-        //   },
-        //   error => {
-        //     this.toastService.toastError();
-        //     console.log('save error:', error);
-        //   }
-        // );
+        console.log('save', this.child);
+        this.childService.insert(this.child).subscribe(
+          success => {
+            this.child = success;
+            this.isNewData  = false;
+            this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
+            console.log('saved with success!', this.child);
+          },
+          error => {
+            this.toastService.toastError();
+            console.log('save error:', error);
+          }
+        );
       } else {
-        console.log('update');
+        console.log('update', this.child);
         this.childService.update(this.child).subscribe(
           success => {
             this.child = success;
             console.log('updated with success!', this.child);
-            this.sweetAlertService.alertSuccessUpdate('community-list');
+            this.sweetAlertService.alertSuccessUpdate('child-list');
           },
           error => {
             this.toastService.toastError();
@@ -160,9 +176,52 @@ export class ChildComponent implements OnInit {
         this.child = success;
         console.log('Load:', this.child);
         this.verifyDataCheckbox();
+        this.alterDate();
         if (this.child === undefined) {
           this.child = new Child();
         }
+      },
+      error => console.log(error)
+    );
+  }
+
+  alterDate() {
+    const dateList = this.child.birth.split('-');
+    this.child.birth = dateList[2] + '-' + dateList[1] + '-' + dateList[0];
+    const d = new Date(this.child.birth);
+    d.setMinutes( d.getMinutes() + d.getTimezoneOffset() );
+    console.log('Date:', d);
+    this.selDate = {year: d.getFullYear(),
+                    month: d.getMonth() + 1,
+                    day: d.getDate()};
+    this.selDate = this.selDate;
+  }
+
+  getCommunities() {
+    this.communityService._getCommunities().subscribe(
+      s => {
+        this.communities = s;
+      },
+      error => console.log(error)
+    );
+  }
+
+  getMothers() {
+    this.subscription = this.responsibleService._getMothers().subscribe(
+      success => {
+        this.mothers = success;
+      },
+      error => console.log(error)
+    );
+
+  }
+
+
+  getResponsible() {
+    this.subscription = this.responsibleService._getResponsible().subscribe(
+      success => {
+        this.responsible = success;
+        console.log('responsibleList', this.responsible);
       },
       error => console.log(error)
     );
@@ -182,37 +241,34 @@ export class ChildComponent implements OnInit {
   }
 
   verifyDataCheckbox() {
-    this.whoCaresChild = this.child.whoCaresChild;
-    this.whoCaresChild_list = this.whoCaresChild.split('|');
+    this.who_take_care = this.child.who_take_care;
+    this.who_take_care_list = this.who_take_care.split('|');
 
-    this.whoCaresChild = this.child.whoCaresChild;
-    this.whoCaresChild_list = this.whoCaresChild.split('|');
-
-    for (let i = 0; i < this._whoCaresChild.length; i++) {
-      for (let j = 0; j < this.whoCaresChild_list.length; j++ ) {
-        if ( this._whoCaresChild[i].type === this.whoCaresChild_list[j]) {
-          this._whoCaresChild[i].checked = true;
+    for (let i = 0; i < this._who_take_care.length; i++) {
+      for (let j = 0; j < this.who_take_care_list.length; j++ ) {
+        if ( this._who_take_care[i].description === this.who_take_care_list[j]) {
+          this._who_take_care[i].checked = true;
         }
       }
     }
-    console.log('_whoCaresChild', this._whoCaresChild);
+    console.log('_who_take_care', this._who_take_care);
   }
 
   updateOptions() {
-    if (this.whoCaresChild_list.length > 0) {
-      for (let i = 0; i < this.whoCaresChild_list.length; i++) {
+    if (this.who_take_care_list.length > 0) {
+      for (let i = 0; i < this.who_take_care_list.length; i++) {
         if ( i === 0 ) {
-          this.whoCaresChild = this.whoCaresChild_list[i];
+          this.who_take_care = this.who_take_care_list[i];
         } else {
-          this.whoCaresChild = this.whoCaresChild + '|' + this.whoCaresChild_list[i];
+          this.who_take_care = this.who_take_care + '|' + this.who_take_care_list[i];
         }
       }
     } else {
-      this.whoCaresChild = '';
+      this.who_take_care = '';
     }
 
-    this.child.whoCaresChild = this.whoCaresChild;
-    console.log('child.whoCaresChild', this.child.whoCaresChild);
+    this.child.who_take_care = this.who_take_care;
+    console.log('child.who_take_care', this.child.who_take_care);
   }
 
   verifyCheckbox(option, event) {
@@ -221,9 +277,9 @@ export class ChildComponent implements OnInit {
     const value = event.target.value;
     if (event.target.checked) {
       console.log('insert');
-      this.whoCaresChild_list.push(value);
+      this.who_take_care_list.push(value);
 
-      if (this.whoCaresChild_list.length === 0) {
+      if (this.who_take_care_list.length === 0) {
         this.isCkeckboxValid = false;
       } else {
         this.isCkeckboxValid = true;
@@ -231,10 +287,10 @@ export class ChildComponent implements OnInit {
 
     } else {
       console.log('delete');
-      this.index1 = this.whoCaresChild_list.indexOf(value);
-      this.whoCaresChild_list.splice(this.index1, 1);
+      this.index1 = this.who_take_care_list.indexOf(value);
+      this.who_take_care_list.splice(this.index1, 1);
 
-      if (this.whoCaresChild_list.length === 0) {
+      if (this.who_take_care_list.length === 0) {
         this.isCkeckboxValid = false;
       } else {
         this.isCkeckboxValid = true;

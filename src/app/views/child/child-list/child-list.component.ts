@@ -1,3 +1,5 @@
+import { CommunityService } from './../../../services/community/community.service';
+import { ResponsibleService } from './../../../services/responsible/responsible.service';
 import { ToastService } from './../../../services/toast-notification/toast.service';
 import { ChildService } from './../../../services/child/child.service';
 import { Router } from '@angular/router';
@@ -25,20 +27,33 @@ export class ChildListComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private childService: ChildService,
+    private responsibleService: ResponsibleService,
+    private communityService: CommunityService,
     private toastService: ToastService
   ) { }
 
   ngOnInit() {
     this.hasdata = false;
     this.getChildren();
+    localStorage.removeItem('childId');
   }
 
   getChildren() {
-    this.subscription = this.childService.getChildren().subscribe(
+    console.log(this.filter.name);
+    if ( this.filter.name !== '') { this.page = 0; }
+    this.subscription = this.childService.getChildren(this.filter.name, this.page).subscribe(
       success => {
-        // this.paginate = success;
-        // this.pregnants = this.paginate.content;
-        this.children = success;
+        this.paginate = success;
+        this.children = this.paginate.content;
+        this.children.forEach( el => {
+          this.responsibleService.load(el.responsible_id).subscribe(
+            s1 => {
+              el.responsible_id = s1.name;
+            }
+          );
+        });
+
+        console.log(this.children);
         this.hasdata = true;
       },
       error => console.log(error)
@@ -54,22 +69,22 @@ export class ChildListComponent implements OnInit, OnDestroy {
     this.child = child;
   }
 
-  disableEnableChild() {
-    if (this.child.status === true) {
-      this.child.status = false;
-    } else {
-      this.child.status = true;
-    }
-    console.log(this.child.status);
+  // disableEnableChild() {
+  //   if (this.child.status === true) {
+  //     this.child.status = false;
+  //   } else {
+  //     this.child.status = true;
+  //   }
+  //   console.log(this.child.status);
 
-    this.childService.update(this.child).subscribe(
-      success => {
-        this.toastService.toastSuccess();
-        this.getChildren();
-      },
-      error => console.log(error)
-    );
-  }
+  //   this.childService.update(this.child).subscribe(
+  //     success => {
+  //       this.toastService.toastSuccess();
+  //       this.getChildren();
+  //     },
+  //     error => console.log(error)
+  //   );
+  // }
 
   setPage(page: number) {
     this.page = page;

@@ -1,10 +1,12 @@
+import { PageService } from './../../../services/pagenate/page.service';
+import { PagenateComponent } from './../../../components/pagenate/pagenate.component';
 import { CommunityService } from './../../../services/community/community.service';
 import { ToastService } from './../../../services/toast-notification/toast.service';
-import { MotherService } from './../../../services/mother/mother.service';
+import { ResponsibleService } from './../../../services/responsible/responsible.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Paginate } from './../../../models/paginate';
-import { Mother } from './../../../models/mother';
+import { Responsible } from './../../../models/responsible';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
@@ -15,8 +17,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 export class MotherListComponent implements OnInit, OnDestroy {
 
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
-  private mother: Mother = new Mother();
-  private mothers: Mother[] = new Array();
+  private responsible: Responsible = new Responsible();
+  private responsibleList: Responsible[] = new Array();
+  private mothers: Responsible[] = new Array();
   private paginate: Paginate = new Paginate();
   private subscription: Subscription;
   private hasdata: boolean;
@@ -25,10 +28,13 @@ export class MotherListComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private motherService: MotherService,
+    private responsibleService: ResponsibleService,
     private communityService: CommunityService,
-    private toastService: ToastService
-  ) { }
+    private toastService: ToastService,
+    private servicePage: PageService
+  ) {
+      this.page = 0;
+   }
 
   ngOnInit() {
     this.hasdata = false;
@@ -40,11 +46,12 @@ export class MotherListComponent implements OnInit, OnDestroy {
   getMothers() {
     console.log(this.filter.name);
     if ( this.filter.name !== '') { this.page = 0; }
-    this.subscription = this.motherService.getMothers(this.filter.name, this.page).subscribe(
+    // this.mothers = [];
+    this.subscription = this.responsibleService.getMothers(this.filter.name, this.page).subscribe(
       success => {
         this.paginate = success;
-        this.mothers = this.paginate.content;
-        this.mothers.forEach( el => {
+        this.responsibleList = this.paginate.content;
+        this.responsibleList.forEach( el => {
           this.communityService.load(el.community_id).subscribe(
             s => {
               el.community_id = s.name;
@@ -52,37 +59,42 @@ export class MotherListComponent implements OnInit, OnDestroy {
             error => console.log(error)
           );
         });
+
+        // this.responsibleList = this.responsibleList.filter( el => el.mother !== undefined);
+        // this.pagedItems = this.responsibleList;
+        // this.allItems = this.responsibleList;
+        // this.setPage(1);
         this.hasdata = true;
       },
       error => console.log(error)
     );
 
   }
-  setMother(mother: Mother) {
-    localStorage.setItem('motherId', mother.id);
+  setMother(responsible: Responsible) {
+    localStorage.setItem('motherId', responsible.id);
     this.router.navigate(['mother']);
   }
 
-  changeStatus(mother: Mother) {
-    this.mother = mother;
+  changeStatus(responsible: Responsible) {
+    this.responsible = responsible;
   }
 
-  disableEnableMother() {
-    if (this.mother.status === true) {
-      this.mother.status = false;
-    } else {
-      this.mother.status = true;
-    }
-    console.log(this.mother.status);
+  // disableEnableMother() {
+  //   if (this.responsible.status === true) {
+  //     this.responsible.status = false;
+  //   } else {
+  //     this.responsible.status = true;
+  //   }
+  //   console.log(this.responsible.status);
 
-    this.motherService.update(this.mother).subscribe(
-      success => {
-        this.toastService.toastSuccess();
-        this.getMothers();
-      },
-      error => console.log(error)
-    );
-  }
+  //   this.motherService.update(this.responsible).subscribe(
+  //     success => {
+  //       this.toastService.toastSuccess();
+  //       this.getMothers();
+  //     },
+  //     error => console.log(error)
+  //   );
+  // }
 
   setPage(page: number) {
     this.page = page;

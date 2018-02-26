@@ -85,7 +85,7 @@ section.content {
 }
 
 div.box-footer {
-    text-align: center;
+    /* text-align: center; */
     padding: 0!important;
     background-color: #f4f4f4;
 }
@@ -181,4 +181,18 @@ button#btn_confirm {
     text-align: center;
 }
 
+/*/// PAGINATION /// */
 
+.pagination>.active>a {
+    background-color: #373d40;
+    border-color:  #373d40;
+}
+
+.pagination {
+    margin: 0;
+}
+
+.box-footer.pagination1 {
+    text-align: right;
+    margin-right: 10px;
+}

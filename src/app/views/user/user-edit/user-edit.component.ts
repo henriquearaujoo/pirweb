@@ -161,6 +161,7 @@ export class UserEditComponent implements OnInit {
           console.log('SAVE PERSON', this.person);
           this.userService.saveEditPerson(this.person).subscribe(
             success2 => {
+              console.log('SAVE PERSON2', success2);
               this.currentId = localStorage.getItem('currentIdPir');
               if (this.currentId === this.user.id) {
                 localStorage.removeItem('tokenPir');

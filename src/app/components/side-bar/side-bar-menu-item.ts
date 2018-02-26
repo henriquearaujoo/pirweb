@@ -66,6 +66,50 @@ export const MENU = [
         'hasChild': false,
         'parent': 0
     },
+    {
+        'id': 7,
+        'title': 'Família',
+        'route': '',
+        'routes': ['/', '/mother-list', '/mother', '/responsible-list', '/responsible', '/child-list', '/child'],
+        'read': false,
+        'iClass': 'fa fa-users',
+        'category': 'parent',
+        'hasChild': true,
+        'parent': 0
+    },
+    {
+        'id': 8,
+        'title': 'Mãe',
+        'route': 'mother-list',
+        'routes': ['/mother-list', '/mother'],
+        'read': false,
+        'iClass': 'fa fa-circle-o',
+        'category': 'child',
+        'hasChild': false,
+        'parent': 7
+    },
+    {
+        'id': 9,
+        'title': 'Responsável',
+        'route': 'responsible-list',
+        'routes': ['/responsible-list', '/responsible'],
+        'read': false,
+        'iClass': 'fa fa-circle-o',
+        'category': 'child',
+        'hasChild': false,
+        'parent': 7
+    },
+    {
+        'id': 10,
+        'title': 'Criança',
+        'route': 'child-list',
+        'routes': ['/child-list', '/child'],
+        'read': false,
+        'iClass': 'fa fa-circle-o',
+        'category': 'child',
+        'hasChild': false,
+        'parent': 7
+    },
 
 
 // tslint:disable-next-line:eofline

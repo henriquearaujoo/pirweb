@@ -67,22 +67,22 @@ export class ResponsibleListComponent implements OnInit, OnDestroy {
     this.responsible = responsible;
   }
 
-  disableEnableResponsible() {
-    if (this.responsible.status === true) {
-      this.responsible.status = false;
-    } else {
-      this.responsible.status = true;
-    }
-    console.log(this.responsible.status);
+  // disableEnableResponsible() {
+  //   if (this.responsible.status === true) {
+  //     this.responsible.status = false;
+  //   } else {
+  //     this.responsible.status = true;
+  //   }
+  //   console.log(this.responsible.status);
 
-    this.responsibleService.update(this.responsible).subscribe(
-      success => {
-        this.toastService.toastSuccess();
-        this.getResponsible();
-      },
-      error => console.log(error)
-    );
-  }
+  //   this.responsibleService.update(this.responsible).subscribe(
+  //     success => {
+  //       this.toastService.toastSuccess();
+  //       this.getResponsible();
+  //     },
+  //     error => console.log(error)
+  //   );
+  // }
 
   setPage(page: number) {
     this.page = page;

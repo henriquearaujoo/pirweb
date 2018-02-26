@@ -20,8 +20,24 @@ export class ResponsibleService extends RestService {
     if ( filter === undefined ) {
       return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page);
     } else {
-      return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page);
+      return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page + '&name=' + filter);
     }
+  }
+
+  public getMothers(filter?: any, page?: number) {
+    if ( filter === undefined ) {
+      return this.get(Constant.BASE_URL + 'mother/search/page/?size=' + this.size + '&page=' + page);
+    } else {
+      return this.get( Constant.BASE_URL + 'mother/search/page/?size=' + this.size + '&page=' + page + '&mother.name=' + filter);
+    }
+  }
+
+  public _getMothers() {
+    return this.get(Constant.BASE_URL + 'mother/');
+  }
+
+  public _getResponsible(filter?: any) {
+      return this.get(this.apiurl);
   }
 
   public insert(responsible: Responsible): Observable<Responsible> {

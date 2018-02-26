@@ -1,25 +1,27 @@
 export class Child {
     public id: string;
     public name: string;
-    public uc: string;
-    public regional: string;
-    public community_id: string;
+    // public uc: string;
+    // public regional: string;
+    public responsible_id: string;
+    // public community_id: string;
     public birth: string;
     public gender: string;
     public age: string;
-    public nameFather: string;
-    public nameMother: string;
-    public civilRegistry: boolean;
-    public civilRegistry_justify: string;
-    public socioEducational_programs: boolean;
-    public prematureBirth: boolean;
-    public prematureBirth_week: number;
-    public weightMonthly: boolean;
-    public vaccination: boolean;
-    public relationOtherChildren: boolean;
-    public whoCaresChild: string;
-    public difficultyCareChild: string;
-    public whoChildPlay: string;
-    public status: boolean;
+    public father_name: string;
+    public mohter_id: string;
+    public has_civil_registration: boolean;
+    public civil_reg_justificative: string;
+    public is_in_social_program: boolean;
+    public is_premature_born: boolean;
+    public born_week: number;
+    public is_mensaly_weighted: boolean;
+    public is_vacination_uptodate: boolean;
+    public has_relation_diff: boolean;
+    public who_take_care: string;
+    public has_education_diff: boolean;
+    public education_diff_specification: string;
+    public plays_with_who: string;
+    // public status: boolean;
 
 }

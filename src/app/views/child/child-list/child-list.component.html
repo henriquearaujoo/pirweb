@@ -34,28 +34,28 @@
               <th class="tbl-left">NOME
                 <span class="glyphicon" ></span>
               </th>
-              <th class="tbl-left">COMUNIDADE
+              <th class="tbl-left">DATA DE NASCIMENTO
                 <span class="glyphicon" ></span>
               </th>
-              <th class="tbl-left">REGIONAL
+              <th class="tbl-left">RESPONSÁVEL
                   <span class="glyphicon" ></span>
               </th>
               <!--th class="tbl-left">Status
                   <span class="glyphicon" ></span>
                 </th -->
-              <th colspan="3" class="tbl-center"> AÇÃO</th>
+              <th colspan="2" class="tbl-center"> AÇÃO</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of pregnants">
+            <tr *ngFor="let item of children">
               <td class="tbl-left">  
-                  {{ item.name }}
+                {{ item.name }}
               </td>
               <td class="tbl-left">  
-                  {{ item.community_id }}
+                {{ item.birth }}
               </td>
               <td class="tbl-left">  
-                  {{ item.regional }}
+                {{ item.responsible_id }}
               </td>               
               <td class="tbl-right">              
                 <a (click)="setChild(item)" id="btn_details" title="Ver detalhes">
@@ -68,13 +68,13 @@
                   <i class="fa fa-pencil fa-fw"></i>
                 </a>
               </td>
-              <td class="tbl-right">
+              <!-- <td class="tbl-right">
                   <a href="" [title]="item.status === true ? 'Desativar': 'Ativar'"
                     data-toggle="modal" data-target="#modal-default"
                     (click)="changeStatus(item)" id="btn_status">              
                     <i [ngClass]="item.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
                   </a>      
-              </td>
+              </td> -->
             </tr>
           </tbody>
         </table>
@@ -88,7 +88,7 @@
 </div>
 
  <!-- Modal Disable -->
- <div class="modal fade" id="modal-default">
+ <!-- <div class="modal fade" id="modal-default">
   <div class="modal-dialog modal-sm">
     <div class="modal-content" [ngStyle]="object">
       <div class="modal-body">
@@ -107,8 +107,8 @@
         </div>
       </div>
     </div>
-    <!-- /.modal-content -->
+ 
   </div>
-  <!-- /.modal-dialog -->
-</div>
+
+</div> -->
 <!-- /.modal -->

@@ -44,7 +44,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of pregnants">
+            <tr *ngFor="let item of responsibleList">
               <td class="tbl-left">  
                   {{ item.name }}
               </td>
@@ -76,8 +76,28 @@
           </tbody>
         </table>
       </div>
-      <div class="box-footer">
+      <div class="box-footer pagination1">
         <app-paginate [paginate]="paginate" (eventPage)="setPage($event)"></app-paginate>
+        <!-- <div class="col-sm-6 pagination1"> -->
+          <!-- <app-paginate [paginate]="paginate" (eventPage)="setPage($event)"></app-paginate>
+          <ul *ngIf="pager.pages && pager.pages.length" class="pagination stylepage">
+            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                <a (click)="setPage(1)">Primeiro</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                <a (click)="setPage(pager.currentPage - 1)">Anterior</a>
+            </li>
+            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                <a (click)="setPage(page)">{{page}}</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a (click)="setPage(pager.currentPage + 1)">Próxima</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a (click)="setPage(pager.totalPages)">Último</a>
+            </li>
+        </ul> -->
+      <!-- </div> -->
       </div>
     </div>
     <!-- <div class="row">
@@ -90,7 +110,7 @@
 </div>
 
  <!-- Modal Disable -->
- <div class="modal fade" id="modal-default">
+ <!-- <div class="modal fade" id="modal-default">
   <div class="modal-dialog modal-sm">
     <div class="modal-content" [ngStyle]="object">
       <div class="modal-body">
@@ -109,8 +129,6 @@
         </div>
       </div>
     </div>
-    <!-- /.modal-content -->
   </div>
-  <!-- /.modal-dialog -->
-</div>
+</div> -->
 <!-- /.modal -->

@@ -1,6 +1,8 @@
+import { Mother } from './../../models/mother';
+import { ResponsibleService } from './../../services/responsible/responsible.service';
+import { Responsible } from './../../models/responsible';
 import { SweetAlertService } from './../../services/sweetalert/sweet-alert.service';
 import { MotherService } from './../../services/mother/mother.service';
-import { Mother } from './../../models/mother';
 import { error } from 'util';
 import { ToastService } from './../../services/toast-notification/toast.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -17,7 +19,7 @@ import { IMyDpOptions, IMyDate, IMyDateModel, IMyInputFieldChanged } from 'mydat
 })
 export class MotherComponent implements OnInit {
 
-  private mother: Mother = new Mother();
+  private responsible: Responsible = new Responsible();
   private subscription: Subscription;
   private communities: Community[] = new Array();
   private isNewData: boolean;
@@ -57,7 +59,7 @@ export class MotherComponent implements OnInit {
 
   constructor(
     private communityService: CommunityService,
-    private motherService: MotherService,
+    private responsibleService: ResponsibleService,
     private toastService: ToastService,
     private modalService: ModalService,
     private sweetAlertService: SweetAlertService
@@ -109,20 +111,20 @@ export class MotherComponent implements OnInit {
     console.log('isValid', isValid);
 
     if (isValid && this._isSave) {
-      this.mother.habitation_members_count = Number(this.mother.habitation_members_count);
-      this.mother.children_count = Number(this.mother.children_count);
+      this.responsible.habitation_members_count = Number(this.responsible.habitation_members_count);
+      this.responsible.mother.children_count = Number(this.responsible.mother.children_count);
       if (!this.otherChildren.has) {
-        this.mother.children_count = 0;
+        this.responsible.mother.children_count = 0;
       }
 
-      if (this.isNewData || this.mother.id === undefined) {
-        console.log('save', this.mother);
-        this.motherService.insert(this.mother).subscribe(
+      if (this.isNewData || this.responsible.id === undefined) {
+        console.log('save', this.responsible);
+        this.responsibleService.insert(this.responsible).subscribe(
           success => {
-            this.mother = success;
+            this.responsible = success;
             this.isNewData  = false;
             this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
-            console.log('saved with success!', this.mother);
+            console.log('saved with success!', this.responsible);
           },
           error => {
             this.toastService.toastError();
@@ -130,11 +132,11 @@ export class MotherComponent implements OnInit {
           }
         );
       } else {
-        console.log('update', this.mother);
-        this.motherService.update(this.mother).subscribe(
+        console.log('update', this.responsible);
+        this.responsibleService.update(this.responsible).subscribe(
           success => {
             this.sweetAlertService.alertSuccessUpdate('mother-list');
-            console.log('saved with success!', this.mother);
+            console.log('saved with success!', this.responsible);
           },
           error => {
             this.toastService.toastError();
@@ -148,9 +150,9 @@ export class MotherComponent implements OnInit {
   onDateChanged(event: IMyDateModel) {
     this.selDate = event.date;
     const date = event.date.day + '-' + event.date.month + '-' + event.date.year;
-    this.mother.birth = date;
+    this.responsible.birth = date;
     console.log('Date', date);
-    console.log('mother.birth', this.mother.birth );
+    console.log('mother.birth', this.responsible.birth );
   }
 
   onInputFieldChanged(event: IMyInputFieldChanged) {
@@ -159,18 +161,18 @@ export class MotherComponent implements OnInit {
   }
 
   load() {
-    this.motherService.load(this.urlId).subscribe(
+    this.responsibleService.load(this.urlId).subscribe(
       success => {
-        this.mother = success;
-        console.log('Load:', this.mother);
+        this.responsible = success;
+        console.log('Load:', this.responsible);
         this.alterDate();
-        if (this.mother.children_count === 0) {
+        if (this.responsible.mother.children_count === 0) {
           this.otherChildren.has = false;
         } else {
           this.otherChildren.has = true;
         }
-        if (this.mother === undefined) {
-          this.mother = new Mother();
+        if (this.responsible.mother === undefined) {
+          this.responsible.mother = new Mother();
         }
       },
       error => console.log(error)
@@ -178,9 +180,9 @@ export class MotherComponent implements OnInit {
   }
 
   alterDate() {
-    const dateList = this.mother.birth.split('-');
-    this.mother.birth = dateList[2] + '-' + dateList[1] + '-' + dateList[0];
-    const d = new Date(this.mother.birth);
+    const dateList = this.responsible.birth.split('-');
+    this.responsible.birth = dateList[2] + '-' + dateList[1] + '-' + dateList[0];
+    const d = new Date(this.responsible.birth);
     d.setMinutes( d.getMinutes() + d.getTimezoneOffset() );
     console.log('Date:', d);
     this.selDate = {year: d.getFullYear(),

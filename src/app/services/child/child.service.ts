@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ChildService extends RestService {
 
-  private apiurl = Constant.BASE_URL + 'child;';
+  private apiurl = Constant.BASE_URL + 'child/';
   private size: number;
 
   constructor(http: Http) {
@@ -17,11 +17,15 @@ export class ChildService extends RestService {
    }
 
   public getChildren(filter?: any, page?: number) {
-    if ( filter === undefined ) {
+    if ( filter === undefined || filter === '' ) {
       return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page + '&sort=name,asc');
     } else {
       return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page + '&name=' + filter + '&sort=name,asc');
     }
+  }
+
+  public getMothers() {
+   return this.get(Constant.BASE_URL + 'responsible/search/');
   }
 
   public insert(child: Child): Observable<Child> {
