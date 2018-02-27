@@ -24,3 +24,14 @@ button.swal-button.swal-button--ok.swal-btn-ok {
 .swal-footer {
     padding: 0!important;
 }
+@media (max-height: 719px) {
+    .wrapper {
+        min-height: 663px!important;
+    }
+}
+
+@media (min-height: 720px) {
+    .wrapper {
+        min-height: 960px!important;
+    }
+}

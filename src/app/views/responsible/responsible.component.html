@@ -97,7 +97,7 @@
                               <div class="col-sm-12">
                                 <div class="form-group" [ngClass]="applyCssError(f1, nameResponsible)">
                                   <label class="control-label">Nome do responsável</label>
-                                  <input type="text" #nameResponsible="ngModel" name="name_responsible" [(ngModel)]="responsible.name" id="name_responsible" class="form-control" placeholder="Nome completo do responsável">
+                                  <input type="text" #nameResponsible="ngModel" name="name_responsible" [(ngModel)]="responsible.name" id="name_responsible" class="form-control" placeholder="Nome completo do responsável" required>
                                   <app-control-field-error [showError]="verifyValidSubmitted(f1, nameResponsible)" msgError="Digite um nome para o responsável">
                                   </app-control-field-error>
                                 </div>
@@ -178,11 +178,11 @@
                                   <div class="form-group" [ngClass]="applyCssError(f2, hasOtherChildren)">
                                     <label class="control-label">Há outras crianças na família?</label> <br/>
                                     <label class="radio-inline">                          
-                                      <input type="radio" #hasOtherChildren="ngModel" name="has_other_children" [(ngModel)]="responsible.has_other_children" id="has_other_children" [value]="true" >
+                                      <input type="radio" #hasOtherChildren="ngModel" name="has_other_children" [(ngModel)]="responsible.has_other_children" id="has_other_children" [value]="true" required>
                                       Sim
                                     </label>
                                     <label class="radio-inline"> 
-                                      <input type="radio" #hasOtherChildren="ngModel" name="has_other_children" [(ngModel)]="responsible.has_other_children" id="has_other_children" [value]="false" >
+                                      <input type="radio" #hasOtherChildren="ngModel" name="has_other_children" [(ngModel)]="responsible.has_other_children" id="has_other_children" [value]="false" required>
                                       Não
                                     </label>
                                     <app-control-field-error [showError]="verifyValidSubmitted(f2, hasOtherChildren)" msgError="Escolha uma das alternativas">
@@ -308,11 +308,11 @@
                                 <div class="form-group"  [ngClass]="applyCssError(f3, hasHospitalNearby)">
                                   <label class="control-label">Há unidade básica na comunidade ou próximo de onde reside?</label> <br/>
                                   <label class="radio-inline">                          
-                                    <input type="radio" #hasHospitalNearby="ngModel" [(ngModel)]="responsible.has_hospital_nearby" name="hasHospitalNearby" id="hasHospitalNearby" [value]="true">
+                                    <input type="radio" #hasHospitalNearby="ngModel" [(ngModel)]="responsible.has_hospital_nearby" name="hasHospitalNearby" id="hasHospitalNearby" [value]="true" required>
                                     Sim
                                   </label>
                                   <label class="radio-inline"> 
-                                    <input type="radio" #hasHospitalNearby="ngModel" [(ngModel)]="responsible.has_hospital_nearby" name="hasHospitalNearby" id="hasHospitalNearby" [value]="false">
+                                    <input type="radio" #hasHospitalNearby="ngModel" [(ngModel)]="responsible.has_hospital_nearby" name="hasHospitalNearby" id="hasHospitalNearby" [value]="false" required>
                                     Não
                                   </label>
                                   <app-control-field-error [showError]="verifyValidSubmitted(f3, hasHospitalNearby)" msgError="Escolha uma das alternativas">
@@ -323,11 +323,11 @@
                                 <div class="form-group" [ngClass]="applyCssError(f3, hasSanitation)">
                                   <label class="control-label">Na comunidade há sanemaneto básico? </label> <br/>
                                   <label class="radio-inline">                          
-                                    <input type="radio" #hasSanitation="ngModel" [(ngModel)]="responsible.has_sanitation" name="hasSanitation" id="hasSanitation" [value]="true">
+                                    <input type="radio" #hasSanitation="ngModel" [(ngModel)]="responsible.has_sanitation" name="hasSanitation" id="hasSanitation" [value]="true" required>
                                     Sim
                                   </label>
                                   <label class="radio-inline">
-                                    <input type="radio" #hasSanitation="ngModel" [(ngModel)]="responsible.has_sanitation" name="hasSanitation" id="hasSanitation" [value]="false">
+                                    <input type="radio" #hasSanitation="ngModel" [(ngModel)]="responsible.has_sanitation" name="hasSanitation" id="hasSanitation" [value]="false" required>
                                     Não
                                   </label>
                                   <app-control-field-error [showError]="verifyValidSubmitted(f3, hasSanitation)" msgError="Escolha uma das alternativas">
@@ -338,11 +338,11 @@
                                 <div class="form-group" [ngClass]="applyCssError(f3, hasWaterTreatment)">
                                   <label class="control-label">A água é encanada?</label> <br/>
                                   <label class="radio-inline">                          
-                                    <input type="radio" #hasWaterTreatment="ngModel" [(ngModel)]="responsible.has_water_treatment" name="hasWaterTreatment" id="hasWaterTreatment" [value]="true">
+                                    <input type="radio" #hasWaterTreatment="ngModel" [(ngModel)]="responsible.has_water_treatment" name="hasWaterTreatment" id="hasWaterTreatment" [value]="true" required>
                                     Sim
                                   </label>
                                   <label class="radio-inline">
-                                    <input type="radio" #hasWaterTreatment="ngModel" [(ngModel)]="responsible.has_water_treatment" name="hasWaterTreatment" id="hasWaterTreatment" [value]="false">
+                                    <input type="radio" #hasWaterTreatment="ngModel" [(ngModel)]="responsible.has_water_treatment" name="hasWaterTreatment" id="hasWaterTreatment" [value]="false" required>
                                     Não
                                   </label>
                                   <app-control-field-error [showError]="verifyValidSubmitted(f3, hasWaterTreatment)" msgError="Escolha uma das alternativas">

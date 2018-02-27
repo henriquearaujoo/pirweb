@@ -44,6 +44,7 @@ export class MotherComponent implements OnInit {
   private openSaveButtonTab3: HTMLButtonElement;
   private type: any;
   private otherChildren: any  = { has: null};
+  private familyIncomeOther: any = {other: ''};
 
   private canRead: boolean;
   private canUpdate: boolean;
@@ -136,6 +137,11 @@ export class MotherComponent implements OnInit {
       this.responsible.mother.children_count = Number(this.responsible.mother.children_count);
       if (!this.otherChildren.has) {
         this.responsible.mother.children_count = 0;
+      }
+
+      if ( this.responsible.family_income === '0') {
+        console.log('Outra', this.familyIncomeOther);
+        this.responsible.family_income = this.familyIncomeOther.other;
       }
 
       if (this.isNewData || this.responsible.id === undefined) {

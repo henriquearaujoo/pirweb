@@ -18,9 +18,9 @@ export class ResponsibleService extends RestService {
 
   public getResponsible(filter?: any, page?: number) {
     if ( filter === undefined ) {
-      return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page);
+      return this.get(this.apiurl + 'responsibles/search/page/?size=' + this.size + '&page=' + page);
     } else {
-      return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page + '&name=' + filter);
+      return this.get(this.apiurl + 'responsibles/search/page/?size=' + this.size + '&page=' + page + '&name=' + filter);
     }
   }
 

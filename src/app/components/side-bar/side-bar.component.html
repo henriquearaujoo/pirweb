@@ -2,7 +2,8 @@
     <section class="sidebar">
       <ul class="sidebar-menu" data-widget="tree" *ngFor="let item of menu">
         
-        <li class="treeview" [class.active]="isActive(item.routes)" *ngIf="item.read">
+        <li class="treeview" [class.active]="isActive(item.routes)" 
+            *ngIf="item.read">
             <a href="#" *ngIf="item.category === 'parent'">
               <i class="{{ item.iClass }}"></i> <span>{{ item.title }}</span>
               <span class="pull-right-container" *ngIf="item.hasChild">
@@ -10,14 +11,12 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              
               <li [class.active]="isActive(sub.routes)" *ngFor="let sub of menu">
                 <a class="menu" (click)="redirectTo(sub.route)"  *ngIf="sub.category === 'child' && sub.parent === item.id && sub.read">
                     <i class="{{ sub.iClass }}" aria-hidden="true"></i>
                     <span>{{ sub.title }}</span>
                 </a>
-              </li>         
-              
+              </li>  
             </ul>
         </li> 
       </ul>
