@@ -264,21 +264,16 @@
                                   <div class="form-group"  [ngClass]="applyCssError(f2, familyIncome)">
                                       <label class="control-label">Qual a principal fonte de renda da família? </label>
                                       <select class="form-control" #familyIncome="ngModel" name="familyIncome" [(ngModel)]="responsible.family_income" id="familyIncome" required>
-                                        <option value="Pesca">Pesca</option>
-                                        <option value="Farinha">Farinha</option>
-                                        <option value="Caça">Caça</option>
-                                        <option value="Roçado"> Roçado</option>
-                                        <option value="0"> Outra</option>
-                                      </select>  
-                                     
+                                        <option [value]="item" *ngFor="let item of family_income">{{ item }}</option>
+                                      </select> 
                                       <app-control-field-error [showError]="verifyValidSubmitted(f2, familyIncome)" msgError="Selecione uma principal fonte de renda">
                                       </app-control-field-error>   
                                   </div>
                                 </div> 
                                 <div class="row">
-                                  <div class="form-group col" [ngClass]="applyCssError(f2, familyIncomeOther)" *ngIf="responsible.family_income==='0'">
-                                    <input class="form-control" #familyIncomeOther="ngModel" name="familyIncomeOther" placeholder="Especifique a fonte de renda" [(ngModel)]="familyIncomeOther.other" id="familyIncomeOther" required>
-                                    {{ familyIncomeOther.other }}
+                                  <div class="form-group col" [ngClass]="applyCssError(f2, familyIncomeOther)" *ngIf="responsible.family_income === 'Outra'">
+                                    <input class="form-control" #familyIncomeOther="ngModel" name="familyIncomeOther" placeholder="Especifique a fonte de renda" [(ngModel)]="responsible.family_income_other" id="familyIncomeOther" required>
+                                  
                                     <app-control-field-error [showError]="verifyValidSubmitted(f2, familyIncomeOther)" msgError="Especifique a fonte de renda">
                                     </app-control-field-error>
                                   </div>  
@@ -376,17 +371,18 @@
                                 <div class="form-group" [ngClass]="applyCssError(f3, treatmentWaterDrink)">
                                   <label class="control-label">A água utilizada para beber recebe algum tratamento?</label> <br/>
                                   <label class="radio-inline">                          
-                                    <input type="radio" #treatmentWaterDrink="ngModel" [(ngModel)]="responsible.drinking_water_treatment" name="treatmentWaterDrink" id="treatmentWaterDrink" value="Sim" required>
+                                    <input type="radio" #treatmentWaterDrink="ngModel" [(ngModel)]="responsible.drinking_water_treatment2" name="treatmentWaterDrink" id="treatmentWaterDrink" [value]="true" required>
                                     Sim
                                   </label>
                                   <label class="radio-inline">
-                                    <input type="radio" #treatmentWaterDrink="ngModel" [(ngModel)]="responsible.drinking_water_treatment" name="treatmentWaterDrink" id="treatmentWaterDrink" value="Não" required>
+                                    <input type="radio" #treatmentWaterDrink="ngModel" [(ngModel)]="responsible.drinking_water_treatment2" name="treatmentWaterDrink" id="treatmentWaterDrink" [value]="false" required>
                                     Não
                                   </label> 
-                                  <div class="form-group" [ngClass]="applyCssError(f3, treatmentWaterDrink2)" *ngIf="responsible.drinking_water_treatment === 'Sim'">
+                                  <div class="form-group" [ngClass]="applyCssError(f3, treatmentWater)" *ngIf="responsible.drinking_water_treatment2">
                                     <label class="control-label"> Qual?</label>
-                                    <input class="form-control" #treatmentWaterDrink2="ngModel" [(ngModel)]="responsible.drinking_water_treatment" name="treatmentWaterDrink2" id="treatmentWaterDrink2" required>
-                                    <app-control-field-error [showError]="verifyValidSubmitted(f3, treatmentWaterDrink2)" msgError="Especifique o tratamento">
+                                    <input class="form-control" #treatmentWater="ngModel" [(ngModel)]="responsible.drinking_water_treatment" 
+                                      name="treatmentWater" id="treatmentWater" placeholder="Especifique o tratamento" required>
+                                    <app-control-field-error [showError]="verifyValidSubmitted(f3, treatmentWater)" msgError="Especifique o tratamento">
                                     </app-control-field-error>
                                   </div>                     
                                 </div>
@@ -419,7 +415,7 @@
                         <div class="col-md-3 col-md-offset-6">
                           <div class="form-group save">
                               <button class="btn btn-primary btn-block"  (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save" *ngIf="isNewData && canCreate">Cadastrar</button>
-                              <button class="btn btn-primary btn-block"  (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save" *ngIf="!isNewData && canUpdate">Editar</button>                                
+                              <button class="btn btn-primary btn-block"  (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save" *ngIf="!isNewData && canUpdate">Salvar</button>                                
                           </div>
                         </div>
                       </form>

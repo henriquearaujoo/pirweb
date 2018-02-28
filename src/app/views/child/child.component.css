@@ -198,9 +198,14 @@ input#waterDrink2 {
     width: 60%;
 }
 
-input[type="radio"] {
+input[type="radio"], input[type="checkbox"] {
     cursor: pointer;
 }
+
+/* .checkbox {
+    cursor: pointer;
+    margin-left: 22px;
+} */
 
 label.lb-tab {
     position: absolute;

@@ -332,13 +332,15 @@
                             <div class="row">
                               <div class="col-sm-4">
                                 <div class="form-group" [ngClass]="{ 'has-error': f2.submitted && who_take_care_list.length === 0 }">
-                                  <label class="control-label">Quem cuida da criança? </label>
-                                  <div class="checkbox_" *ngFor="let item of _who_take_care">                          
-                                    <input type="checkbox" name="_who_take_care"  
+                                  <label class="control-label">Quem cuida da criança? </label>                                 
+                                  <div class="checkbox" *ngFor="let item of _who_take_care">  
+                                    <label>
+                                      <input type="checkbox" name="_who_take_care"  
                                       id="_who_take_care" [value]="item.description" 
                                       [checked]="item.checked"
                                       (change)="verifyCheckbox(1, $event)" required>
                                       {{ item.description }}
+                                    </label>    
                                   </div>
                                   <div *ngIf="f2.submitted && who_take_care_list.length === 0" class="help-block"> Escolha uma ou mais alternativas</div>        
                                 </div>
@@ -408,7 +410,7 @@
                         <div class="col-md-3 col-md-offset-6">
                           <div class="form-group save">
                             <button class="btn btn-primary btn-block"  (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save" *ngIf="isNewData && canCreate">Cadastrar</button>
-                            <button class="btn btn-primary btn-block"  (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save" *ngIf="!isNewData && canUpdate">Editar</button>
+                            <button class="btn btn-primary btn-block"  (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save" *ngIf="!isNewData && canUpdate">Salvar</button>
                           </div>
                         </div>
                       </form>

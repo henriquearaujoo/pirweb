@@ -191,4 +191,4 @@ const App_Router: Routes = [
       { path: '**', redirectTo: '' }
 ];
 
-export const routing: ModuleWithProviders = RouterModule.forRoot(App_Router);
+export const routing: ModuleWithProviders = RouterModule.forRoot(App_Router, {useHash: true});

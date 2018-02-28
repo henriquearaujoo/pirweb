@@ -129,6 +129,7 @@ export class MotherListComponent implements OnInit, OnDestroy {
     this.page = page;
     console.log('Página:', this.page);
     console.log('Filtro:', this.filter.name);
+    this.getMothers();
   }
 
   ngOnDestroy() {

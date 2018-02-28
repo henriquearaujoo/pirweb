@@ -153,6 +153,7 @@ export class ChildComponent implements OnInit {
     this.updateOptions();
 
     if (isValid && this._isSave) {
+      this.verifyDate();
       if (this.child.is_premature_born === false) {
         this.child.born_week = 1;
       }
@@ -254,6 +255,11 @@ export class ChildComponent implements OnInit {
     this.child.birth = date;
     console.log('Date', date);
     console.log('child.birth', this.child.birth );
+  }
+
+  verifyDate() {
+    const date = this.selDate.day + '-' + this.selDate.month + '-' + this.selDate.year;
+    this.child.birth = date;
   }
 
   onInputFieldChanged(event: IMyInputFieldChanged) {

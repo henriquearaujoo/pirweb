@@ -14,8 +14,8 @@
     <!-- when there's not record -->
     <div *ngIf="!hasdata">
       <section class="content">
-          <div class="feedback-icon fa fa-users"></div><br><br>
-          <span class="feedback-message">Não há dados cadastrados</span>
+          <!-- <div class="feedback-icon fa fa-users"></div><br><br> -->
+          <!-- <span class="feedback-message">Não há dados cadastrados</span> -->
       </section>
     </div>
 
@@ -25,7 +25,7 @@
               <div id="_filter" class="dataTables_filter">
                 <label>
                 <input type="text" class="form-control form-border"  [(ngModel)]="filter.name" #f="ngModel" 
-                  mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" name="filter" id="filter" (keyup)="getUsers()" placeholder="Filtro">
+                  mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" name="filter" id="filter" (keyup)="getUsers()" placeholder="Nome do usuário">
                 </label>
                 <!-- <input type='text' mask="000.000.000-00" > -->
                 <!-- <div>
@@ -55,7 +55,13 @@
                 <th colspan="3" class="tbl-center"> AÇÃO</th>
               </tr>
             </thead>
-            <tbody>
+
+            <div class="feedback" *ngIf="users.length === 0">
+                <i class="material-icons" style="font-size: 24px;">error_outline</i>
+              <span class="feedback-message">Nenhum registro encontrado</span>
+            </div> 
+
+            <tbody *ngIf="users.length !== 0">
               <tr *ngFor="let item of users">
                 <td class="tbl-left">  
                     {{ item.name }}

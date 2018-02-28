@@ -44,7 +44,8 @@ export class MotherComponent implements OnInit {
   private openSaveButtonTab3: HTMLButtonElement;
   private type: any;
   private otherChildren: any  = { has: null};
-  private familyIncomeOther: any = {other: ''};
+  private family_income_other_count: number;
+  private family_income: any[] = new Array();
 
   private canRead: boolean;
   private canUpdate: boolean;
@@ -127,21 +128,30 @@ export class MotherComponent implements OnInit {
       'Trabalha e contribui parcialmente em casa',
       'Trabalha e é a principal responsável pelo sustento da família'
     ];
+
+    this.family_income = ['Pesca', 'Farinha', 'Caça', 'Roçado', 'Outra'];
+    this.family_income_other_count = 0;
   }
 
   saveData(isValid: boolean) {
     console.log('isValid', isValid);
+    console.log('responsible.family_income_other', this.responsible.family_income_other);
 
     if (isValid && this._isSave) {
+      this.verifyDate();
       this.responsible.habitation_members_count = Number(this.responsible.habitation_members_count);
       this.responsible.mother.children_count = Number(this.responsible.mother.children_count);
+
       if (!this.otherChildren.has) {
         this.responsible.mother.children_count = 0;
       }
 
-      if ( this.responsible.family_income === '0') {
-        console.log('Outra', this.familyIncomeOther);
-        this.responsible.family_income = this.familyIncomeOther.other;
+      if ( this.responsible.family_income === 'Outra') {
+        this.responsible.family_income = this.responsible.family_income_other;
+      }
+
+      if ( !this.responsible.drinking_water_treatment2) {
+        this.responsible.drinking_water_treatment = 'Não';
       }
 
       if (this.isNewData || this.responsible.id === undefined) {
@@ -182,6 +192,11 @@ export class MotherComponent implements OnInit {
     console.log('mother.birth', this.responsible.birth );
   }
 
+  verifyDate() {
+    const date = this.selDate.day + '-' + this.selDate.month + '-' + this.selDate.year;
+    this.responsible.birth = date;
+  }
+
   onInputFieldChanged(event: IMyInputFieldChanged) {
     this.isValidDate = event.valid;
     console.log(this.isValidDate);
@@ -192,7 +207,7 @@ export class MotherComponent implements OnInit {
       success => {
         this.responsible = success;
         console.log('Load:', this.responsible);
-        this.alterDate();
+        this.alterData();
         if (this.responsible.mother.children_count === 0) {
           this.otherChildren.has = false;
         } else {
@@ -206,7 +221,8 @@ export class MotherComponent implements OnInit {
     );
   }
 
-  alterDate() {
+  alterData() {
+    // ALTER DATE
     const dateList = this.responsible.birth.split('-');
     this.responsible.birth = dateList[2] + '-' + dateList[1] + '-' + dateList[0];
     const d = new Date(this.responsible.birth);
@@ -216,6 +232,25 @@ export class MotherComponent implements OnInit {
                     month: d.getMonth() + 1,
                     day: d.getDate()};
     this.selDate = this.selDate;
+
+    // VERIFY family_income
+    for ( let i = 0; i < this.family_income.length; i++ ) {
+      if ( this.responsible.family_income === this.family_income[i]) {
+        this.family_income_other_count = 1;
+      }
+    }
+    if ( this.family_income_other_count !== 1 ) {
+      this.responsible.family_income_other = this.responsible.family_income;
+      this.responsible.family_income = 'Outra';
+    }
+
+    // VERIFY drinking_water_treatment
+    if (this.responsible.drinking_water_treatment === 'Não') {
+      this.responsible.drinking_water_treatment2 = false;
+      this.responsible.drinking_water_treatment = '';
+    } else {
+      this.responsible.drinking_water_treatment2 = true;
+    }
   }
 
   getCommunities() {

@@ -57,6 +57,9 @@ export class ResponsibleComponent implements OnInit {
   private isValidDate: boolean;
   private income_participation: any[] = new Array();
 
+  private family_income_other_count: number;
+  private family_income: any[] = new Array();
+
   private canRead: boolean;
   private canUpdate: boolean;
   private canCreate: boolean;
@@ -124,12 +127,28 @@ export class ResponsibleComponent implements OnInit {
       'Trabalha e contribui parcialmente em casa',
       'Trabalha e é a principal responsável pelo sustento da família'
     ];
+
+    this.family_income = ['Pesca', 'Farinha', 'Caça', 'Roçado', 'Outra'];
+    this.family_income_other_count = 0;
   }
 
   saveData(isValid: boolean) {
     console.log('isValid', isValid);
-    this.responsible.habitation_members_count = Number(this.responsible.habitation_members_count);
+    console.log('selDate', this.selDate);
+
     if (isValid && this._isSave) {
+      this.verifyDate();
+
+      this.responsible.habitation_members_count = Number(this.responsible.habitation_members_count);
+
+      if ( this.responsible.family_income === 'Outra') {
+        this.responsible.family_income = this.responsible.family_income_other;
+      }
+
+      if ( !this.responsible.drinking_water_treatment2) {
+        this.responsible.drinking_water_treatment = 'Não';
+      }
+
       if (this.isNewData || this.responsible.id === undefined) {
         console.log('save', this.responsible);
         this.responsibleService.insert(this.responsible).subscribe(
@@ -169,6 +188,11 @@ export class ResponsibleComponent implements OnInit {
     console.log('responsible.birth', this.responsible.birth );
   }
 
+  verifyDate() {
+    const date = this.selDate.day + '-' + this.selDate.month + '-' + this.selDate.year;
+    this.responsible.birth = date;
+  }
+
   onInputFieldChanged(event: IMyInputFieldChanged) {
     this.isValidDate = event.valid;
     console.log(this.isValidDate);
@@ -179,7 +203,7 @@ export class ResponsibleComponent implements OnInit {
       success => {
         this.responsible = success;
         console.log('Load:', this.responsible);
-        this.alterDate();
+        this.alterData();
         if (this.responsible === undefined) {
           this.responsible = new Responsible();
         }
@@ -188,7 +212,7 @@ export class ResponsibleComponent implements OnInit {
     );
   }
 
-  alterDate() {
+  alterData() {
     const dateList = this.responsible.birth.split('-');
     this.responsible.birth = dateList[2] + '-' + dateList[1] + '-' + dateList[0];
     const d = new Date(this.responsible.birth);
@@ -198,6 +222,25 @@ export class ResponsibleComponent implements OnInit {
                     month: d.getMonth() + 1,
                     day: d.getDate()};
     this.selDate = this.selDate;
+
+    // VERIFY family_income
+    for ( let i = 0; i < this.family_income.length; i++ ) {
+      if ( this.responsible.family_income === this.family_income[i]) {
+        this.family_income_other_count = 1;
+      }
+    }
+    if ( this.family_income_other_count !== 1 ) {
+      this.responsible.family_income_other = this.responsible.family_income;
+      this.responsible.family_income = 'Outra';
+    }
+
+    // VERIFY drinking_water_treatment
+    if (this.responsible.drinking_water_treatment === 'Não') {
+      this.responsible.drinking_water_treatment2 = false;
+      this.responsible.drinking_water_treatment = '';
+    } else {
+      this.responsible.drinking_water_treatment2 = true;
+    }
   }
 
   getCommunities() {

@@ -13,22 +13,24 @@ export class ResponsibleService extends RestService {
 
   constructor( http: Http) {
     super(http);
-    this.size = 2;
+    this.size = 10;
    }
 
   public getResponsible(filter?: any, page?: number) {
     if ( filter === undefined ) {
-      return this.get(this.apiurl + 'responsibles/search/page/?size=' + this.size + '&page=' + page);
+      return this.get(this.apiurl + 'responsibles/search/page/?size=' + this.size + '&page=' + page + '&sort=name,asc');
     } else {
-      return this.get(this.apiurl + 'responsibles/search/page/?size=' + this.size + '&page=' + page + '&name=' + filter);
+      return this.get(this.apiurl + 'responsibles/search/page/?size=' + this.size + '&page=' + page +
+      '&name=' + filter  + '&sort=name,asc');
     }
   }
 
   public getMothers(filter?: any, page?: number) {
     if ( filter === undefined ) {
-      return this.get(Constant.BASE_URL + 'mother/search/page/?size=' + this.size + '&page=' + page);
+      return this.get(Constant.BASE_URL + 'mother/search/page/?size=' + this.size + '&page=' + page + '&sort=name,asc');
     } else {
-      return this.get( Constant.BASE_URL + 'mother/search/page/?size=' + this.size + '&page=' + page + '&mother.name=' + filter);
+      return this.get( Constant.BASE_URL + 'mother/search/page/?size=' + this.size + '&page=' + page +
+      '&mother.name=' + filter);
     }
   }
 

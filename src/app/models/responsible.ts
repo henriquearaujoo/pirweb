@@ -17,7 +17,9 @@ export class Responsible {
     public has_sanitation: boolean;
     public has_other_children: boolean;
     public mother: Mother = new Mother();
-    // public status: boolean;
+
+    public family_income_other: string;
+    public drinking_water_treatment2: boolean;
 
 // tslint:disable-next-line:eofline
 }
