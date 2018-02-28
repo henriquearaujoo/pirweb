@@ -1,3 +1,4 @@
+import { LoaderService } from './../../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../../helpers/permissions';
 import { ToastService } from './../../../services/toast-notification/toast.service';
 import { Paginate } from './../../../models/paginate';
@@ -32,7 +33,8 @@ export class CommunityListComponent implements OnInit, OnDestroy {
     private router: Router,
     private communityService: CommunityService,
     private toastService: ToastService,
-    private permissions: Permissions
+    private permissions: Permissions,
+    private loaderService: LoaderService
   ) {
       this.canCreate = false;
       this.canUpdate = false;
@@ -60,6 +62,7 @@ export class CommunityListComponent implements OnInit, OnDestroy {
   getCommunities() {
     console.log(this.filter.name);
     if ( this.filter.name !== '') { this.page = 0; }
+    this.loaderService.show();
     this.subscription = this.communityService.getCommunities(this.filter.name, this.page).subscribe(
       success => {
         this.paginate = success;
@@ -73,8 +76,14 @@ export class CommunityListComponent implements OnInit, OnDestroy {
           );
         });
         this.hasdata = true;
+        setTimeout(() => {
+          this.loaderService.hide();
+        }, 400);
       },
-      error => console.log(error)
+      error => {
+        this.loaderService.hide();
+        this.hasdata = false;
+      }
     );
 
   }

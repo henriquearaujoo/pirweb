@@ -24,7 +24,8 @@
             <div class="col-sm-12">
               <div id="_filter" class="dataTables_filter">
                 <label>
-                <input type="text" class="form-control form-border"  [(ngModel)]="filter.name" #f="ngModel" mask="SSSSSSSSSSSSSSSSSS" name="filter" id="filter" maxlength="15" (keyup)="getUsers()" placeholder="Filtro">
+                <input type="text" class="form-control form-border"  [(ngModel)]="filter.name" #f="ngModel" 
+                  mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" name="filter" id="filter" (keyup)="getUsers()" placeholder="Filtro">
                 </label>
                 <!-- <input type='text' mask="000.000.000-00" > -->
                 <!-- <div>

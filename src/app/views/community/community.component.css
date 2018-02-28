@@ -165,6 +165,10 @@ section.content_user {
     margin-bottom: 20px;
 }
 
+input[type="radio"] {
+    cursor: pointer;
+}
+
 .nav > li > a {
     padding: 10px 0 0 0px;
 }

@@ -40,6 +40,10 @@ label {
     font-weight: normal;
 }
 
+input[type="radio"] {
+    cursor: pointer;
+}
+
 .form-group.has-error .form-control,
 .form-group.has-error .input-group-addon {
     border-color: #a94442;

@@ -198,6 +198,10 @@ input#waterDrink2 {
     width: 60%;
 }
 
+input[type="radio"] {
+    cursor: pointer;
+}
+
 label.lb-tab {
     position: absolute;
     color: white;

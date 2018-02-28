@@ -1,3 +1,4 @@
+import { LoaderService } from './../../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../../helpers/permissions';
 import { PageService } from './../../../services/pagenate/page.service';
 import { PagenateComponent } from './../../../components/pagenate/pagenate.component';
@@ -38,7 +39,8 @@ export class MotherListComponent implements OnInit, OnDestroy {
     private communityService: CommunityService,
     private toastService: ToastService,
     private servicePage: PageService,
-    private permissions: Permissions
+    private permissions: Permissions,
+    private loaderService: LoaderService
   ) {
       this.page = 0;
       this.canCreate = false;
@@ -67,7 +69,7 @@ export class MotherListComponent implements OnInit, OnDestroy {
   getMothers() {
     console.log(this.filter.name);
     if ( this.filter.name !== '') { this.page = 0; }
-    // this.mothers = [];
+    this.loaderService.show();
     this.subscription = this.responsibleService.getMothers(this.filter.name, this.page).subscribe(
       success => {
         this.paginate = success;
@@ -86,8 +88,14 @@ export class MotherListComponent implements OnInit, OnDestroy {
         // this.allItems = this.responsibleList;
         // this.setPage(1);
         this.hasdata = true;
+        setTimeout(() => {
+          this.loaderService.hide();
+        }, 400);
       },
-      error => console.log(error)
+      error => {
+        this.loaderService.hide();
+        this.hasdata = false;
+      }
     );
 
   }

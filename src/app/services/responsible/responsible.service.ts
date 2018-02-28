@@ -13,7 +13,7 @@ export class ResponsibleService extends RestService {
 
   constructor( http: Http) {
     super(http);
-    this.size = 10;
+    this.size = 2;
    }
 
   public getResponsible(filter?: any, page?: number) {

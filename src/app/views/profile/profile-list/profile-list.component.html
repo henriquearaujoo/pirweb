@@ -55,7 +55,8 @@
                                     <div class="col-sm-12">
                                       <div id="_filter" class="dataTables_filter">
                                         <label>
-                                          Filtro <input type="text" class="form-control form-border " name="title" (keyup)="getProfile()" [(ngModel)]="filter.title" placeholder="Tipo de Perfil">
+                                          Filtro <input type="text" class="form-control form-border " name="title" (keyup)="getProfile()" 
+                                            [(ngModel)]="filter.title" mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" placeholder="Tipo de Perfil">
                                         </label>
                                       </div>
                                     </div>

@@ -1,3 +1,4 @@
+import { LoaderService } from './../../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../../helpers/permissions';
 import { CommunityService } from './../../../services/community/community.service';
 import { ResponsibleService } from './../../../services/responsible/responsible.service';
@@ -36,6 +37,7 @@ export class ChildListComponent implements OnInit, OnDestroy {
     private communityService: CommunityService,
     private toastService: ToastService,
     private permissions: Permissions,
+    private loaderService: LoaderService
   ) {
       this.canCreate = false;
       this.canUpdate = false;
@@ -62,6 +64,7 @@ export class ChildListComponent implements OnInit, OnDestroy {
   getChildren() {
     console.log(this.filter.name);
     if ( this.filter.name !== '') { this.page = 0; }
+    this.loaderService.show();
     this.subscription = this.childService.getChildren(this.filter.name, this.page).subscribe(
       success => {
         this.paginate = success;
@@ -76,8 +79,14 @@ export class ChildListComponent implements OnInit, OnDestroy {
 
         console.log(this.children);
         this.hasdata = true;
+        setTimeout(() => {
+          this.loaderService.hide();
+        }, 400);
       },
-      error => console.log(error)
+      error => {
+        this.loaderService.hide();
+        this.hasdata = false;
+      }
     );
 
   }

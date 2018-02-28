@@ -1,3 +1,4 @@
+import { LoaderService } from './../../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../../helpers/permissions';
 import { ToastService } from './../../../services/toast-notification/toast.service';
 import { ResponsibleService } from './../../../services/responsible/responsible.service';
@@ -34,12 +35,14 @@ export class ResponsibleListComponent implements OnInit, OnDestroy {
     private responsibleService: ResponsibleService,
     private communityService: CommunityService,
     private toastService: ToastService,
-    private permissions: Permissions
+    private permissions: Permissions,
+    private loaderService: LoaderService
   ) {
     this.canCreate = false;
     this.canUpdate = false;
     this.canRead = false;
     this.canDelete = false;
+    this.page = 0;
   }
 
   ngOnInit() {
@@ -61,9 +64,11 @@ export class ResponsibleListComponent implements OnInit, OnDestroy {
   getResponsible() {
     console.log(this.filter.name);
     if ( this.filter.name !== '') { this.page = 0; }
+    this.loaderService.show();
     this.subscription = this.responsibleService.getResponsible(this.filter.name, this.page).subscribe(
       success => {
         this.paginate = success;
+        console.log('paginate', this.paginate);
         this.responsibleList = this.paginate.content;
         this.responsibleList.forEach( el => {
           this.communityService.load(el.community_id).subscribe(
@@ -75,8 +80,14 @@ export class ResponsibleListComponent implements OnInit, OnDestroy {
         });
         console.log('responsibleList', this.responsibleList);
         this.hasdata = true;
+        setTimeout(() => {
+          this.loaderService.hide();
+        }, 400);
       },
-      error => console.log(error)
+      error => {
+        this.loaderService.hide();
+        this.hasdata = false;
+      }
     );
   }
 
@@ -110,6 +121,7 @@ export class ResponsibleListComponent implements OnInit, OnDestroy {
     this.page = page;
     console.log('Página:', this.page);
     console.log('Filtro:', this.filter.name);
+    this.getResponsible();
   }
 
   ngOnDestroy() {
