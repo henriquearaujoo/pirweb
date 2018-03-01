@@ -213,6 +213,10 @@ label.lb-tab {
     cursor: pointer!important;
 }
 
+label.lb-tab.service {
+    top: 35%;
+}
+
 .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control, span.form-control {
     background-color: #fbfbfb;
     border: 0;

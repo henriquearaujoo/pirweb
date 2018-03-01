@@ -212,6 +212,10 @@ label.lb-tab {
     right: 20px;
 }
 
+label.lb-tab.service {
+    top: 25%;
+}
+
 .nav-tabs-custom > .nav-tabs > li.active > a, .nav-tabs-custom > .nav-tabs > li.active:hover > a {
     background-color: #fff0;
 }
