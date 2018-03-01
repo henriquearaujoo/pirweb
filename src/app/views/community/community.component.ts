@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { CommunityService } from '../../services/community/community.service';
 import { ModalService } from '../../components/modal/modal.service';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-community',
   templateUrl: './community.component.html',
@@ -104,7 +105,8 @@ export class CommunityComponent implements OnInit {
     private toastService: ToastService,
     private modalService: ModalService,
     private sweetAlertService: SweetAlertService,
-    private permissions: Permissions
+    private permissions: Permissions,
+    private route: Router
   ) {
       this.canCreate = false;
       this.canUpdate = false;
@@ -131,6 +133,8 @@ export class CommunityComponent implements OnInit {
       this.isNewData = false;
       // localStorage.removeItem('communityId');
       this.load();
+    } else {
+      this.route.navigate(['/community-list']);
     }
 
     this.currentTab = 0;

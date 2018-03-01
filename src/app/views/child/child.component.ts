@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Permissions, RuleState } from './../../helpers/permissions';
 import { Mother } from './../../models/mother';
 import { ResponsibleService } from './../../services/responsible/responsible.service';
@@ -100,6 +101,7 @@ export class ChildComponent implements OnInit {
     private modalService: ModalService,
     private sweetAlertService: SweetAlertService,
     private permissions: Permissions,
+    private route: Router
   ) {
       this.canCreate = false;
       this.canUpdate = false;
@@ -124,6 +126,8 @@ export class ChildComponent implements OnInit {
     if (this.urlId !== null && this.urlId !== '') {
       this.isNewData = false;
       this.load();
+    } else {
+      this.route.navigate(['/child-list']);
     }
 
     this.getMothers();

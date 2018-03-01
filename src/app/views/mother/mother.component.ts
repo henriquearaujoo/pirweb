@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Permissions, RuleState } from './../../helpers/permissions';
 import { Mother } from './../../models/mother';
 import { ResponsibleService } from './../../services/responsible/responsible.service';
@@ -71,7 +72,8 @@ export class MotherComponent implements OnInit {
     private toastService: ToastService,
     private modalService: ModalService,
     private sweetAlertService: SweetAlertService,
-    private permissions: Permissions
+    private permissions: Permissions,
+    private route: Router
   ) {
       this.canCreate = false;
       this.canUpdate = false;
@@ -97,6 +99,8 @@ export class MotherComponent implements OnInit {
     if (this.urlId !== null && this.urlId !== '') {
       this.isNewData = false;
       this.load();
+    }  else {
+      this.route.navigate(['/mother-list']);
     }
 
     this.getCommunities();

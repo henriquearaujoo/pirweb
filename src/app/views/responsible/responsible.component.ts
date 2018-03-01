@@ -11,6 +11,7 @@ import { CommunityService } from '../../services/community/community.service';
 import { ModalService } from '../../components/modal/modal.service';
 import { IMyDpOptions, IMyDateModel, IMyDate, IMyInputFieldChanged } from 'mydatepicker';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-responsible',
@@ -71,7 +72,8 @@ export class ResponsibleComponent implements OnInit {
     private toastService: ToastService,
     private modalService: ModalService,
     private sweetAlertService: SweetAlertService,
-    private permissions: Permissions
+    private permissions: Permissions,
+    private route: Router
   ) {
       this.canCreate = false;
       this.canUpdate = false;
@@ -96,6 +98,8 @@ export class ResponsibleComponent implements OnInit {
     if (this.urlId !== null && this.urlId !== '') {
       this.isNewData = false;
       this.load();
+    } else {
+      this.route.navigate(['/responsible-list']);
     }
 
     this.getCommunities();
