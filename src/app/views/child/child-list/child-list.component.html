@@ -44,7 +44,7 @@
               <!--th class="tbl-left">Status
                   <span class="glyphicon" ></span>
                 </th -->
-              <th colspan="1" class="tbl-center"> AÇÃO</th>
+              <th colspan="2" class="tbl-center"> AÇÃO</th>
             </tr>
           </thead>
 
@@ -64,11 +64,11 @@
               <td class="tbl-left">  
                 {{ item.responsible_id }}
               </td>               
-              <!-- <td class="tbl-right">              
-                <a (click)="setChild(item)" id="btn_details" title="Ver detalhes">
+              <td class="tbl-right">              
+                <a (click)="toView(item)" id="btn_details" title="Ver detalhes">
                     <i class="large material-icons">visibility</i>
                 </a>
-              </td> -->
+              </td>
               <td class="tbl-right">          
                 <a title="Editar" id="btn_edit"
                   (click)="setChild(item)" *ngIf="canUpdate">

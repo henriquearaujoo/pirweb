@@ -101,7 +101,11 @@ export class SideBarComponent implements OnInit, OnDestroy {
       this.router.navigate([this.urlToNavigate]);
     } else {
       this.isForm = (currentURL.toLowerCase() === '/chapter-dashboard') ||
-                    (currentURL.toLowerCase() === '/user');
+                    (currentURL.toLowerCase() === '/user') ||
+                    (currentURL.toLowerCase() === '/community') ||
+                    (currentURL.toLowerCase() === '/mother') ||
+                    (currentURL.toLowerCase() === '/responsible') ||
+                    (currentURL.toLowerCase() === '/child');
       if (this.isForm) {
         this.modalService.modalCancel(this.urlToNavigate);
         // (<HTMLButtonElement> document.getElementById('btnModal')).click();

@@ -104,6 +104,11 @@ export class MotherListComponent implements OnInit, OnDestroy {
     this.router.navigate(['mother']);
   }
 
+  toView(responsible: Responsible) {
+    localStorage.setItem('motherId', responsible.id);
+    this.router.navigate(['mother-details']);
+  }
+
   changeStatus(responsible: Responsible) {
     this.responsible = responsible;
   }

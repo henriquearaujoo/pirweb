@@ -1,3 +1,7 @@
+import { ChildDetailsComponent } from './views/child/child-details/child-details.component';
+import { ResponsibleDetailsComponent } from './views/responsible/responsible-details/responsible-details.component';
+import { MotherDetailsComponent } from './views/mother/mother-details/mother-details.component';
+import { CommunityDetailsComponent } from './views/community/community-details/community-details.component';
 import { ChildListComponent } from './views/child/child-list/child-list.component';
 import { ResponsibleListComponent } from './views/responsible/responsible-list/responsible-list.component';
 import { ResponsibleComponent } from './views/responsible/responsible.component';
@@ -90,8 +94,18 @@ const App_Router: Routes = [
             canActivate: [PageGuard]
           },
           {
+            path: 'child-details',
+            component: ChildDetailsComponent,
+            canActivate: [PageGuard]
+          },
+          {
             path: 'mother-list',
             component: MotherListComponent,
+            canActivate: [PageGuard]
+          },
+          {
+            path: 'mother-details',
+            component: MotherDetailsComponent,
             canActivate: [PageGuard]
           },
           {
@@ -100,8 +114,18 @@ const App_Router: Routes = [
             canActivate: [PageGuard]
           },
           {
+            path: 'responsible-details',
+            component: ResponsibleDetailsComponent,
+            canActivate: [PageGuard]
+          },
+          {
             path: 'community',
             component: CommunityComponent,
+            canActivate: [PageGuard]
+          },
+          {
+            path: 'community-details',
+            component: CommunityDetailsComponent,
             canActivate: [PageGuard]
           },
           {

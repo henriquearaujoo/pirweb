@@ -95,7 +95,7 @@ export class CommunityListComponent implements OnInit, OnDestroy {
 
   toView(community: Community) {
     localStorage.setItem('communityId', community.id);
-    this.router.navigate(['community']);
+    this.router.navigate(['community-details']);
   }
 
   changeStatus(community: Community) {

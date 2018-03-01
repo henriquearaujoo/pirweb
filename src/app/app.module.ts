@@ -155,6 +155,10 @@ import { ResponsibleComponent } from './views/responsible/responsible.component'
 import { ResponsibleListComponent } from './views/responsible/responsible-list/responsible-list.component';
 import { ChildListComponent } from './views/child/child-list/child-list.component';
 import { SweetAlertService } from './services/sweetalert/sweet-alert.service';
+import { CommunityDetailsComponent } from './views/community/community-details/community-details.component';
+import { MotherDetailsComponent } from './views/mother/mother-details/mother-details.component';
+import { ResponsibleDetailsComponent } from './views/responsible/responsible-details/responsible-details.component';
+import { ChildDetailsComponent } from './views/child/child-details/child-details.component';
 // import { QuillModule } from 'ngx-quill';
 // import { EqualValidator } from './directives/equal-validator.directive';
 
@@ -228,7 +232,11 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     MotherListComponent,
     ResponsibleComponent,
     ResponsibleListComponent,
-    ChildListComponent
+    ChildListComponent,
+    CommunityDetailsComponent,
+    MotherDetailsComponent,
+    ResponsibleDetailsComponent,
+    ChildDetailsComponent
 
   ],
   imports: [

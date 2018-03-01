@@ -108,8 +108,8 @@
                                     <select class="form-control" #civilState="ngModel" name="civil_state" [(ngModel)]="responsible.mother.civil_state" id="civil_state" required>
                                       <option value="MARRIED">Casada</option>
                                       <option value="SINGLE">Solteira</option>
-                                      <option value="DIVORCED">Separada</option>
-                                      <option value="SEPARATED">Divorciada</option>
+                                      <option value="DIVORCED">Divorciada</option>
+                                      <option value="SEPARATED">Separada</option>
                                       <option value="WIDOWED">Viúva</option>
                                     </select>  
                                     <app-control-field-error [showError]="verifyValidSubmitted(f1, civilState)" msgError="Selecione um estado civil">

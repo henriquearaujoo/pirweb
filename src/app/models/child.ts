@@ -9,7 +9,7 @@ export class Child {
     public gender: string;
     public age: string;
     public father_name: string;
-    public mohter_id: string;
+    public mother_id: string;
     public has_civil_registration: boolean;
     public civil_reg_justificative: string;
     public is_in_social_program: boolean;

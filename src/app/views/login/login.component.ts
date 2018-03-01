@@ -100,6 +100,10 @@ export class LoginComponent implements OnInit, OnDestroy {
                 this.toastService.toastMsgWarn('Atenção', 'Autenticação incorreta!');
                 break;
             }
+            case 'user.disabled': {
+                this.toastService.toastMsgWarn('Atenção', 'Usuário desativado!');
+                break;
+            }
         }
     }
 

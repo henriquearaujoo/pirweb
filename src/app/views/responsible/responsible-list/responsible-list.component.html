@@ -41,7 +41,7 @@
               <th class="tbl-left">DATA DE NASCIMENTO
                   <span class="glyphicon" ></span>
               </th>             
-              <th colspan="1" class="tbl-center"> AÇÃO</th>
+              <th colspan="2" class="tbl-center"> AÇÃO</th>
             </tr>
           </thead>
 
@@ -61,11 +61,11 @@
               <td class="tbl-left">  
                   {{ item.birth }}
               </td>               
-              <!-- <td class="tbl-right">              
-                <a (click)="setResponsible(item)" id="btn_details" title="Ver detalhes">
+              <td class="tbl-right">              
+                <a (click)="toView(item)" id="btn_details" title="Ver detalhes">
                     <i class="large material-icons">visibility</i>
                 </a>
-              </td> -->
+              </td>
               <td class="tbl-right">          
                 <a title="Editar" id="btn_edit"
                   (click)="setResponsible(item)" *ngIf="canUpdate">
