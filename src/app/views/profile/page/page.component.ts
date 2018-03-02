@@ -254,10 +254,7 @@ export class PageComponent extends PagenateComponent implements OnInit {
 
   setProfile() {
     this.accessPageService.profileSelected(this.currentProfile);
-    this.loadPageFromProfile_();
     this.loadAllPermissions();
-    console.log('Perfil selecionado:', this.accessPageService.getProfile().id);
-    this.loadAllPages();
   }
 
   updatePermission(page: Page, option, event) {

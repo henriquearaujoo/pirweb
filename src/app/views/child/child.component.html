@@ -146,11 +146,9 @@
                                 </div>
                               </div>
                               <div class="col-sm-6">
-                                <div class="form-group" [ngClass]="applyCssError(f1, fatherName)">
+                                <div class="form-group">
                                   <label class="control-label">Nome do pai</label>
-                                  <input type="text" #fatherName="ngModel" name="fatherName" [(ngModel)]="child.father_name" id="fatherName" class="form-control" placeholder="Nome completo do pai" required>
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, fatherName)" msgError="Digite um nome para o pai da criança">
-                                  </app-control-field-error>
+                                  <input type="text" #fatherName="ngModel" name="fatherName" [(ngModel)]="child.father_name" id="fatherName" class="form-control" placeholder="Nome completo do pai">                                 
                                 </div>
                               </div>
                             </div> 
