@@ -85,7 +85,6 @@ export class PageComponent extends PagenateComponent implements OnInit {
 
   getCurrentProfile() {
     this.currentProfile = this.accessPageService.getProfile();
-    console.log('getCurrentProfile()');
     this.loadAllPermissions();
   }
 
@@ -122,7 +121,6 @@ export class PageComponent extends PagenateComponent implements OnInit {
         setTimeout( () => {
           this.loaderService.hide();
         }, 200);
-        console.log('loadAllPermissions()', this.permissionsFromProfile);
       },
       error => {
         console.log(error);
