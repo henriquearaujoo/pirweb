@@ -12,7 +12,7 @@ import { Community } from '../../models/community';
 import { Subscription } from 'rxjs/Subscription';
 import { CommunityService } from '../../services/community/community.service';
 import { ModalService } from '../../components/modal/modal.service';
-import { IMyDpOptions, IMyDate, IMyDateModel, IMyInputFieldChanged } from 'mydatepicker';
+import { IMyDpOptions, IMyDate, IMyDateModel, IMyInputFieldChanged, MyDatePickerModule } from 'mydatepicker';
 
 @Component({
   selector: 'app-mother',
@@ -52,15 +52,9 @@ export class MotherComponent implements OnInit {
   private canUpdate: boolean;
   private canCreate: boolean;
   private canDelete: boolean;
+  private dateDisable = new Date();
 
-  public myDatePickerOptions: IMyDpOptions = {
-    // other options...
-    dateFormat: 'dd/mm/yyyy',
-    dayLabels: {su: 'Dom', mo: 'Seg', tu: 'Ter', we: 'Qua', th: 'Qui', fr: 'Sex', sa: 'Sab'},
-    monthLabels: { 1: 'Jan', 2: 'Fev', 3: 'Mar', 4: 'Abr', 5: 'Mai', 6: 'Jun', 7: 'Jul',
-                   8: 'Ago', 9: 'Set', 10: 'Out', 11: 'Nov', 12: 'Dez' },
-    todayBtnTxt: 'Hoje'
-  };
+  public myDatePickerOptions: IMyDpOptions;
 
   private selDate: IMyDate = {year: 0, month: 0, day: 0};
   private isValidDate: boolean;
@@ -102,6 +96,20 @@ export class MotherComponent implements OnInit {
     }  else {
       this.route.navigate(['/mother-list']);
     }
+
+    this.dateDisable.setMinutes( this.dateDisable.getMinutes() + this.dateDisable.getTimezoneOffset() );
+    console.log('Date:', this.dateDisable);
+
+    this.myDatePickerOptions = {
+      // other options...
+      dateFormat: 'dd/mm/yyyy',
+      dayLabels: {su: 'Dom', mo: 'Seg', tu: 'Ter', we: 'Qua', th: 'Qui', fr: 'Sex', sa: 'Sab'},
+      monthLabels: { 1: 'Jan', 2: 'Fev', 3: 'Mar', 4: 'Abr', 5: 'Mai', 6: 'Jun', 7: 'Jul',
+                     8: 'Ago', 9: 'Set', 10: 'Out', 11: 'Nov', 12: 'Dez' },
+      todayBtnTxt: 'Hoje',
+      showTodayBtn: false,
+      disableSince: {year: this.dateDisable.getFullYear(), month: this.dateDisable.getMonth() + 1, day: this.dateDisable.getDate()}
+    };
 
     this.getCommunities();
     this.currentTab = 0;
