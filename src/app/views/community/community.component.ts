@@ -128,10 +128,8 @@ export class CommunityComponent implements OnInit {
     /*check if is a new or update*/
     this.isNewData = true;
     this.urlId = localStorage.getItem('communityId');
-    console.log('urlId', this.urlId);
     if (this.urlId !== null && this.urlId !== '') {
       this.isNewData = false;
-      // localStorage.removeItem('communityId');
       this.load();
     } else {
       this.route.navigate(['/community-list']);
@@ -150,9 +148,6 @@ export class CommunityComponent implements OnInit {
     this.openSaveButtonTab2 = (<HTMLButtonElement>document.getElementById('btn_tab2'));
     this.openSaveButtonTab2.style.display = 'none';
 
-    // this.openSaveButtonTab3 = (<HTMLButtonElement>document.getElementById('btn_tab3'));
-    // this.openSaveButtonTab3.style.display = 'none';
-
     (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
 
     this.culturalProduction = '';
@@ -167,13 +162,11 @@ export class CommunityComponent implements OnInit {
 
     if (isValid && this._isSave) {
       if (this.isNewData || this.community.id === undefined) {
-        console.log('save', this.community);
         this.communityService.insert(this.community).subscribe(
           success => {
             this.community = success;
             this.isNewData  = false;
             this.sweetAlertService.alertSuccess('community-list');
-            console.log('saved with success!', this.community);
           },
           error => {
             this.toastService.toastError();
@@ -181,11 +174,9 @@ export class CommunityComponent implements OnInit {
           }
         );
       } else {
-        console.log('update', this.community);
         this.communityService.update(this.community).subscribe(
           success => {
             this.community = success;
-            console.log('updated with success!', this.community);
             this.sweetAlertService.alertSuccessUpdate('community-list');
           },
           error => {
@@ -219,14 +210,12 @@ export class CommunityComponent implements OnInit {
         }
       }
     }
-    console.log('_waterSupply', this._waterSupply);
   }
 
   load() {
     this.communityService.load(this.urlId).subscribe(
       success => {
         this.community = success;
-        console.log('Load:', this.community);
         this.verifyDataCheckbox();
         if (this.community === undefined) {
           this.community = new Community();
@@ -268,18 +257,12 @@ export class CommunityComponent implements OnInit {
 
     this.community.cultural_production = this.culturalProduction;
     this.community.water_supply = this.waterSupply;
-    console.log('culturalProduction', this.community.cultural_production );
-    console.log('water_supply', this.community.water_supply);
   }
 
   verifyCheckbox(option, event) {
     // * CHECKED * /
-    console.log('event.target.value ' + event.target.value);
     const value = event.target.value;
-    // const index1 = this.culturalProduction_list.indexOf(value);
-    // const index2 = this.waterSupply_list.indexOf(value);
     if (event.target.checked) {
-      console.log('insert');
       switch (option) {
         case 1:
           this.culturalProduction_list.push(value);
@@ -301,7 +284,6 @@ export class CommunityComponent implements OnInit {
         break;
       }
     } else {
-      console.log('delete');
       switch (option) {
         case 1:
           this.index1 = this.culturalProduction_list.indexOf(value);
@@ -340,10 +322,6 @@ export class CommunityComponent implements OnInit {
     this.isFormValid = isValid;
     this.tab = tab;
     this._isSave = false;
-    console.log('tab:', tab);
-    console.log('isValid:', isValid);
-    console.log('isSave:', this._isSave);
-    console.log('isCkeckboxValid:', this.isCkeckboxValid);
   }
 
   isSave() {
@@ -351,17 +329,12 @@ export class CommunityComponent implements OnInit {
   }
 
    isActive(tab: boolean, t?: number,  p?: number) {
-    //  this.tab = t ;
-    console.log('currentTab', this.currentTab);
     if ( p !== 0 ) {
       if (t === 1) {
         this.openSaveButtonTab1.click();
-        console.log('openSaveButtonTab1');
       } else {
         if ( t === 2) {
           this.isFormValid = true;
-          // this.openSaveButtonTab2.click();
-          // console.log('openSaveButtonTab2');
         }
       }
     } else {
@@ -377,13 +350,11 @@ export class CommunityComponent implements OnInit {
         } else if (this.currentTab < 2) {
               this.currentTab++;
               this.cont++;
-              console.log('TAB:', this.cont);
           }
       }else {
         if (this.currentTab > 0) {
               this.currentTab--;
               this.cont--;
-              console.log('TAB:', this.cont);
             }
       }
         this.previousTab = '#tab_' + (this.currentTab + 1);
@@ -409,7 +380,6 @@ export class CommunityComponent implements OnInit {
       } else {
         if (t === 1) {
           this.nextTab = '#tab_1';
-          console.log('nextTab:', this.nextTab);
         }
       }
 

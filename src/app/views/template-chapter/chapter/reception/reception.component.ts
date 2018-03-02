@@ -115,7 +115,6 @@ export class ReceptionComponent implements OnInit {
     this.service.load(chapter).subscribe(
       s => {
         this.reception = s[0];
-        console.log('Load:', this.reception);
         if (this.reception === undefined) {
           this.reception = new Reception();
         }

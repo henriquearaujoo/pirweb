@@ -68,7 +68,6 @@ export class ResponsibleListComponent implements OnInit, OnDestroy {
     this.subscription = this.responsibleService.getResponsible(this.filter.name, this.page).subscribe(
       success => {
         this.paginate = success;
-        console.log('paginate', this.paginate);
         this.responsibleList = this.paginate.content;
         this.responsibleList.forEach( el => {
           this.communityService.load(el.community_id).subscribe(
@@ -78,7 +77,6 @@ export class ResponsibleListComponent implements OnInit, OnDestroy {
             error => console.log(error)
           );
         });
-        console.log('responsibleList', this.responsibleList);
         this.hasdata = true;
         setTimeout(() => {
           this.loaderService.hide();
@@ -124,14 +122,11 @@ export class ResponsibleListComponent implements OnInit, OnDestroy {
 
   setPage(page: number) {
     this.page = page;
-    console.log('Página:', this.page);
-    console.log('Filtro:', this.filter.name);
     this.getResponsible();
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-    console.log('OnDestroy()');
   }
 
 }

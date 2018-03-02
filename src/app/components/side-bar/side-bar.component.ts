@@ -75,9 +75,6 @@ export class SideBarComponent implements OnInit, OnDestroy {
       }
 
       });
-
-      // console.log('HOST:', window.location.host);
-      // console.log('MENU:', this.menu);
   }
 
   isActive(instruction: String[]): boolean {
@@ -108,7 +105,6 @@ export class SideBarComponent implements OnInit, OnDestroy {
                     (currentURL.toLowerCase() === '/child');
       if (this.isForm) {
         this.modalService.modalCancel(this.urlToNavigate);
-        // (<HTMLButtonElement> document.getElementById('btnModal')).click();
       } else {
         this.router.navigate([this.urlToNavigate]);
       }
@@ -117,10 +113,5 @@ export class SideBarComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-    console.log('Destroy!!');
   }
-
-//  confirmModalToLeavePage() {
-//     this.router.navigate([this.urlToNavigate]);
-//   }
 }

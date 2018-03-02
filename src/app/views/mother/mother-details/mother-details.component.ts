@@ -44,7 +44,6 @@ export class MotherDetailsComponent implements OnInit {
       }
     );
     this.urlId = localStorage.getItem('motherId');
-    console.log('urlId', this.urlId);
     if (this.urlId !== null && this.urlId !== '') {
       this.load();
     }
@@ -57,7 +56,6 @@ export class MotherDetailsComponent implements OnInit {
     this.responsibleService.load(this.urlId).subscribe(
       success => {
         this.responsible = success;
-        console.log('Load:', this.responsible);
         this.communityService.load(this.responsible.community_id).subscribe(
           s => {
             this.responsible.community_id = s.name;

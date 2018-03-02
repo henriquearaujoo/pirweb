@@ -50,7 +50,6 @@ export class CommunityListComponent implements OnInit, OnDestroy {
         this.canUpdate = rules.canUpdate;
         this.canRead = rules.canRead;
         this.canDelete = rules.canDelete;
-        // this.loaderService.hide();
       }
     );
     this.page = 0;
@@ -108,7 +107,6 @@ export class CommunityListComponent implements OnInit, OnDestroy {
     } else {
       this.community.status = true;
     }
-    console.log(this.community.status);
 
     this.communityService.update(this.community).subscribe(
       success => {
@@ -121,12 +119,9 @@ export class CommunityListComponent implements OnInit, OnDestroy {
 
   setPage(page: number) {
     this.page = page;
-    console.log('Página:', this.page);
-    console.log('Filtro:', this.filter.name);
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-    console.log('OnDestroy()');
   }
 }

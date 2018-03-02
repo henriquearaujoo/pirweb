@@ -117,7 +117,6 @@ export class ChildComponent implements OnInit {
         this.canUpdate = rules.canUpdate;
         this.canRead = rules.canRead;
         this.canDelete = rules.canDelete;
-        // this.loaderService.hide();
       }
     );
     /*check if is a new or update*/
@@ -153,7 +152,6 @@ export class ChildComponent implements OnInit {
   }
 
   saveData(isValid: boolean) {
-    console.log('isValid', isValid);
     this.updateOptions();
 
     if (isValid && this._isSave) {
@@ -166,25 +164,20 @@ export class ChildComponent implements OnInit {
       }
       this.child.born_week = Number(this.child.born_week);
       if (this.isNewData || this.child.id === undefined) {
-        console.log('save', this.child);
         this.childService.insert(this.child).subscribe(
           success => {
             this.child = success;
             this.isNewData  = false;
             this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
-            console.log('saved with success!', this.child);
           },
           error => {
             this.toastService.toastError();
-            console.log('save error:', error);
           }
         );
       } else {
-        console.log('update', this.child);
         this.childService.update(this.child).subscribe(
           success => {
             this.child = success;
-            console.log('updated with success!', this.child);
             this.sweetAlertService.alertSuccessUpdate('child-list');
           },
           error => {
@@ -200,7 +193,6 @@ export class ChildComponent implements OnInit {
     this.childService.load(this.urlId).subscribe(
       success => {
         this.child = success;
-        console.log('Load:', this.child);
         this.verifyDataCheckbox();
         this.alterDate();
         if (this.child === undefined) {
@@ -216,7 +208,6 @@ export class ChildComponent implements OnInit {
     this.child.birth = dateList[2] + '-' + dateList[1] + '-' + dateList[0];
     const d = new Date(this.child.birth);
     d.setMinutes( d.getMinutes() + d.getTimezoneOffset() );
-    console.log('Date:', d);
     this.selDate = {year: d.getFullYear(),
                     month: d.getMonth() + 1,
                     day: d.getDate()};
@@ -247,7 +238,6 @@ export class ChildComponent implements OnInit {
     this.subscription = this.responsibleService._getResponsible().subscribe(
       success => {
         this.responsible = success;
-        console.log('responsibleList', this.responsible);
       },
       error => console.log(error)
     );
@@ -257,8 +247,6 @@ export class ChildComponent implements OnInit {
     this.selDate = event.date;
     const date = event.date.day + '-' + event.date.month + '-' + event.date.year;
     this.child.birth = date;
-    console.log('Date', date);
-    console.log('child.birth', this.child.birth );
   }
 
   verifyDate() {
@@ -282,7 +270,6 @@ export class ChildComponent implements OnInit {
         }
       }
     }
-    console.log('_who_take_care', this._who_take_care);
   }
 
   updateOptions() {
@@ -299,15 +286,12 @@ export class ChildComponent implements OnInit {
     }
 
     this.child.who_take_care = this.who_take_care;
-    console.log('child.who_take_care', this.child.who_take_care);
   }
 
   verifyCheckbox(option, event) {
     // * CHECKED * /
-    console.log('event.target.value ' + event.target.value);
     const value = event.target.value;
     if (event.target.checked) {
-      console.log('insert');
       this.who_take_care_list.push(value);
 
       if (this.who_take_care_list.length === 0) {
@@ -317,7 +301,6 @@ export class ChildComponent implements OnInit {
       }
 
     } else {
-      console.log('delete');
       this.index1 = this.who_take_care_list.indexOf(value);
       this.who_take_care_list.splice(this.index1, 1);
 
@@ -338,9 +321,6 @@ export class ChildComponent implements OnInit {
     this.isFormValid = isValid;
     this.tab = tab;
     this._isSave = false;
-    console.log('tab:', tab);
-    console.log('isValid:', isValid);
-    console.log('isSave:', this._isSave);
   }
 
   isSave() {
@@ -348,16 +328,12 @@ export class ChildComponent implements OnInit {
   }
 
    isActive(tab: boolean, t?: number,  p?: number) {
-    //  this.tab = t ;
-    console.log('currentTab', this.currentTab);
     if ( p !== 0 ) {
       if (t === 1) {
         this.openSaveButtonTab1.click();
-        console.log('openSaveButtonTab1');
       } else {
         if ( t === 2) {
           this.isFormValid = true;
-          console.log('openSaveButtonTab2');
         }
       }
     } else {
@@ -373,13 +349,11 @@ export class ChildComponent implements OnInit {
         } else if (this.currentTab < 2) {
               this.currentTab++;
               this.cont++;
-              console.log('TAB:', this.cont);
           }
       }else {
         if (this.currentTab > 0) {
               this.currentTab--;
               this.cont--;
-              console.log('TAB:', this.cont);
             }
       }
         this.previousTab = '#tab_' + (this.currentTab + 1);

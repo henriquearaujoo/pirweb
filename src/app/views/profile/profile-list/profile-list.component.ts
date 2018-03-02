@@ -109,7 +109,6 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
           this.profiles.forEach( el => {
             el.number = this.index ++;
           });
-          console.log('Paginate:', this.paginate);
           this.hasdata = true;
           setTimeout(() => {
             this.loaderService.hide();
@@ -124,17 +123,12 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
 
     setPage(page: number) {
       this.page = page;
-      console.log('Página:', this.page);
-      console.log('Paginate:', this.paginate);
-      console.log('Filtro:', this.filter.title);
       this.getProfile();
     }
 
     setProfile(profile: Profile) {
       this.selectedProfile = profile;
-      // localStorage.setItem('currentProfile', JSON.stringify(profile));
       this.accessPageService.profileSelected(profile);
-      console.log(this.accessPageService.getProfile().title);
     }
 
     changeStatus(profile: Profile) {
@@ -147,12 +141,10 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
       } else {
         this.profile.status = true;
       }
-      console.log(this.profile.status);
 
       this.profile.description = '';
       this.profile.created_by = '';
       this.profile.modified_by = '';
-      console.log('Disable:', this.profile);
       this.profileService.disableProfile(this.profile).subscribe(
         success => {
           this.router.navigate(['profile-list']);
@@ -168,7 +160,6 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
 
     onInsertValue(evento: Profile) {
       this.profiles.push(evento);
-      console.log('Event profile');
       this.filter.title = '';
       this.getProfile();
       this.edit = false;

@@ -62,7 +62,6 @@ export class ChildListComponent implements OnInit, OnDestroy {
   }
 
   getChildren() {
-    console.log(this.filter.name);
     if ( this.filter.name !== '') { this.page = 0; }
     this.loaderService.show();
     this.subscription = this.childService.getChildren(this.filter.name, this.page).subscribe(
@@ -76,8 +75,6 @@ export class ChildListComponent implements OnInit, OnDestroy {
             }
           );
         });
-
-        console.log(this.children);
         this.hasdata = true;
         setTimeout(() => {
           this.loaderService.hide();
@@ -123,12 +120,9 @@ export class ChildListComponent implements OnInit, OnDestroy {
 
   setPage(page: number) {
     this.page = page;
-    console.log('Página:', this.page);
-    console.log('Filtro:', this.filter.name);
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-    console.log('OnDestroy()');
   }
 }

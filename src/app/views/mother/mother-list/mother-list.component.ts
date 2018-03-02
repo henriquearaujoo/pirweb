@@ -57,7 +57,6 @@ export class MotherListComponent implements OnInit, OnDestroy {
         this.canUpdate = rules.canUpdate;
         this.canRead = rules.canRead;
         this.canDelete = rules.canDelete;
-        // this.loaderService.hide();
       }
     );
     this.hasdata = false;
@@ -67,7 +66,6 @@ export class MotherListComponent implements OnInit, OnDestroy {
   }
 
   getMothers() {
-    console.log(this.filter.name);
     if ( this.filter.name !== '') { this.page = 0; }
     this.loaderService.show();
     this.subscription = this.responsibleService.getMothers(this.filter.name, this.page).subscribe(
@@ -108,32 +106,12 @@ export class MotherListComponent implements OnInit, OnDestroy {
     this.responsible = responsible;
   }
 
-  // disableEnableMother() {
-  //   if (this.responsible.status === true) {
-  //     this.responsible.status = false;
-  //   } else {
-  //     this.responsible.status = true;
-  //   }
-  //   console.log(this.responsible.status);
-
-  //   this.motherService.update(this.responsible).subscribe(
-  //     success => {
-  //       this.toastService.toastSuccess();
-  //       this.getMothers();
-  //     },
-  //     error => console.log(error)
-  //   );
-  // }
-
   setPage(page: number) {
     this.page = page;
-    console.log('Página:', this.page);
-    console.log('Filtro:', this.filter.name);
     this.getMothers();
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-    console.log('OnDestroy()');
   }
 }

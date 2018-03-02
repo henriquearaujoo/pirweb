@@ -58,7 +58,6 @@ export class ResponsibleDetailsComponent implements OnInit {
     this.responsibleService.load(this.urlId).subscribe(
       success => {
         this.responsible = success;
-        console.log('Load:', this.responsible);
         this.communityService.load(this.responsible.community_id).subscribe(
           s => {
             this.responsible.community_id = s.name;

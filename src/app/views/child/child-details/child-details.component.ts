@@ -57,15 +57,12 @@ export class ChildDetailsComponent implements OnInit {
     this.childService.load(this.urlId).subscribe(
       success => {
         this.child = success;
-        console.log('Load:', this.child);
         this.who_take_care = this.child.who_take_care.split('|');
-        console.log('who_take_care', this.who_take_care);
         this.child.who_take_care = this.child.who_take_care.replace('|', ' / ');
         if ( this.child.mother_id !== undefined) {
           this.responsibleService.load(this.child.mother_id).subscribe(
             s1 => {
               this.child.mother_id = s1.name;
-              console.log('Mother child', this.child.mother_id);
             },
             error => console.log(error)
           );
@@ -77,8 +74,6 @@ export class ChildDetailsComponent implements OnInit {
           },
           error => console.log(error)
         );
-        // this.verifyDataCheckbox();
-        // this.alterDate();
         if (this.child === undefined) {
           this.child = new Child();
         }

@@ -40,7 +40,6 @@ export class CommunityDetailsComponent implements OnInit {
       }
     );
     this.urlId = localStorage.getItem('communityId');
-    console.log('urlId', this.urlId);
     if (this.urlId !== null && this.urlId !== '') {
       this.load();
     }
@@ -52,7 +51,6 @@ export class CommunityDetailsComponent implements OnInit {
     this.communityService.load(this.urlId).subscribe(
       success => {
         this.community = success;
-        console.log('Load:', this.community);
         this.community.water_supply = this.community.water_supply.replace('|', ' / ');
         this.community.cultural_production = this.community.cultural_production.replace('|', ' / ');
         this.communityService.getCity(this.community.city_id).subscribe(

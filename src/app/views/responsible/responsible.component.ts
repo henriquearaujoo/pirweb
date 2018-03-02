@@ -82,7 +82,6 @@ export class ResponsibleComponent implements OnInit {
         this.canUpdate = rules.canUpdate;
         this.canRead = rules.canRead;
         this.canDelete = rules.canDelete;
-        // this.loaderService.hide();
       }
     );
     /*check if is a new or update*/
@@ -157,13 +156,11 @@ export class ResponsibleComponent implements OnInit {
       }
 
       if (this.isNewData || this.responsible.id === undefined) {
-        console.log('save', this.responsible);
         this.responsibleService.insert(this.responsible).subscribe(
           success => {
             this.responsible = success;
             this.isNewData  = false;
             this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
-            console.log('saved with success!', this.responsible);
           },
           error => {
             this.toastService.toastError();
@@ -171,11 +168,9 @@ export class ResponsibleComponent implements OnInit {
           }
         );
       } else {
-        console.log('update', this.responsible);
         this.responsibleService.update(this.responsible).subscribe(
           success => {
             this.sweetAlertService.alertSuccessUpdate('responsible-list');
-            console.log('updated with success!', success);
           },
           error => {
             this.toastService.toastError();
@@ -190,8 +185,6 @@ export class ResponsibleComponent implements OnInit {
     this.selDate = event.date;
     const date = event.date.day + '-' + event.date.month + '-' + event.date.year;
     this.responsible.birth = date;
-    console.log('Date', date);
-    console.log('responsible.birth', this.responsible.birth );
   }
 
   verifyDate() {
@@ -208,7 +201,6 @@ export class ResponsibleComponent implements OnInit {
     this.responsibleService.load(this.urlId).subscribe(
       success => {
         this.responsible = success;
-        console.log('Load:', this.responsible);
         this.alterData();
         if (this.responsible === undefined) {
           this.responsible = new Responsible();
@@ -223,7 +215,6 @@ export class ResponsibleComponent implements OnInit {
     this.responsible.birth = dateList[2] + '-' + dateList[1] + '-' + dateList[0];
     const d = new Date(this.responsible.birth);
     d.setMinutes( d.getMinutes() + d.getTimezoneOffset() );
-    console.log('Date:', d);
     this.selDate = {year: d.getFullYear(),
                     month: d.getMonth() + 1,
                     day: d.getDate()};
@@ -267,9 +258,6 @@ export class ResponsibleComponent implements OnInit {
     this.isFormValid = isValid;
     this.tab = tab;
     this._isSave = false;
-    console.log('tab:', tab);
-    console.log('isValid:', isValid);
-    console.log('isSave:', this._isSave);
   }
 
   isSave() {
@@ -277,16 +265,12 @@ export class ResponsibleComponent implements OnInit {
   }
 
    isActive(tab: boolean, t?: number,  p?: number) {
-    //  this.tab = t ;
-    console.log('currentTab', this.currentTab);
     if ( p !== 0 ) {
       if (t === 1) {
         this.openSaveButtonTab1.click();
-        console.log('openSaveButtonTab1');
       } else {
         if ( t === 2) {
           this.openSaveButtonTab2.click();
-          console.log('openSaveButtonTab2');
         } else {
           if (t === 3) {
             this.isFormValid = true;
@@ -305,13 +289,11 @@ export class ResponsibleComponent implements OnInit {
         } else if (this.currentTab < 2) {
               this.currentTab++;
               this.cont++;
-              console.log('TAB:', this.cont);
           }
       }else {
         if (this.currentTab > 0) {
               this.currentTab--;
               this.cont--;
-              console.log('TAB:', this.cont);
             }
       }
         this.previousTab = '#tab_' + (this.currentTab + 1);
@@ -345,11 +327,9 @@ export class ResponsibleComponent implements OnInit {
       } else {
         if (t === 1) {
           this.nextTab = '#tab_1';
-          console.log('nextTab:', this.nextTab);
         } else {
           if (t === 2) {
             this.nextTab = '#tab_2';
-            console.log('nextTab:', this.nextTab);
           }
         }
       }

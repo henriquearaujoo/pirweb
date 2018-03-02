@@ -213,14 +213,6 @@ export class ChapterDashboardComponent implements OnInit {
 
   openModal() {
    this.modalService.modalCancel('/template-chapter');
-    // this.openModalButton.click();
-    console.log('openModal dashboard');
   }
-
-  // modalConfirm() {
-  //   this.canChangePage = true;
-  //   this.router.navigate(['/template-chapter']);
-  //   return true;
-  // }
 
 }

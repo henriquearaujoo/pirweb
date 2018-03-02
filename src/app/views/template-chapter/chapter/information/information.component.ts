@@ -82,15 +82,6 @@ export class InformationComponent implements OnInit {
     }
   }
 
-  // onContentChanged({ quill, html, text }) {
-  //   // const textEditor = <string>text;
-  //   // console.log('quill content is changed!', quill, html, text);
-  //   // console.log('text', <string>text.length);
-  //   // if ( textEditor.length > this.limit) {
-  //   //   this.chapter.description = this.chapter.description.substr(1, this.limit);
-  //   // }
-  // }
-
   getNextChapterNumber() {
     return this.chapterService.select();
   }
@@ -115,7 +106,6 @@ export class InformationComponent implements OnInit {
           this.returnEvent.emit(s);
           this.isNewData  = false;
           this.chapter.version = this.lastVersion;
-          console.log('saved with success!', this.chapter);
         },
         e => {
           this.returnEvent.emit(false);
@@ -127,7 +117,6 @@ export class InformationComponent implements OnInit {
         s => {
           this.chapter = s;
           this.returnEvent.emit(s);
-          console.log('updated with success!');
         },
         e => {
           this.returnEvent.emit(null);

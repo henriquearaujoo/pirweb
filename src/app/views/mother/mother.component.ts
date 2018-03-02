@@ -83,7 +83,6 @@ export class MotherComponent implements OnInit {
         this.canUpdate = rules.canUpdate;
         this.canRead = rules.canRead;
         this.canDelete = rules.canDelete;
-        // this.loaderService.hide();
       }
     );
     /*check if is a new or update*/
@@ -144,8 +143,6 @@ export class MotherComponent implements OnInit {
   }
 
   saveData(isValid: boolean) {
-    console.log('isValid', isValid);
-    console.log('responsible.family_income_other', this.responsible.family_income_other);
 
     if (isValid && this._isSave) {
       this.verifyDate();
@@ -165,13 +162,11 @@ export class MotherComponent implements OnInit {
       }
 
       if (this.isNewData || this.responsible.id === undefined) {
-        console.log('save', this.responsible);
         this.responsibleService.insert(this.responsible).subscribe(
           success => {
             this.responsible = success;
             this.isNewData  = false;
             this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
-            console.log('saved with success!', this.responsible);
           },
           error => {
             this.toastService.toastError();
@@ -179,11 +174,9 @@ export class MotherComponent implements OnInit {
           }
         );
       } else {
-        console.log('update', this.responsible);
         this.responsibleService.update(this.responsible).subscribe(
           success => {
             this.sweetAlertService.alertSuccessUpdate('pregnant-list');
-            console.log('saved with success!', this.responsible);
           },
           error => {
             this.toastService.toastError();
@@ -207,14 +200,12 @@ export class MotherComponent implements OnInit {
 
   onInputFieldChanged(event: IMyInputFieldChanged) {
     this.isValidDate = event.valid;
-    console.log(this.isValidDate);
   }
 
   load() {
     this.responsibleService.load(this.urlId).subscribe(
       success => {
         this.responsible = success;
-        console.log('Load:', this.responsible);
         this.alterData();
         if (this.responsible.mother.children_count === 0) {
           this.otherChildren.has = false;
@@ -348,11 +339,9 @@ export class MotherComponent implements OnInit {
       } else {
         if (t === 1) {
           this.nextTab = '#tab_1';
-          console.log('nextTab:', this.nextTab);
         } else {
           if (t === 2) {
             this.nextTab = '#tab_2';
-            console.log('nextTab:', this.nextTab);
           }
         }
       }

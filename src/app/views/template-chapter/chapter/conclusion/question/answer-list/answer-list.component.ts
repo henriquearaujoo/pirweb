@@ -86,7 +86,6 @@ export class AnswerListComponent extends PagenateComponent implements OnInit {
     }
     if (this.isNewData || this.answer.id === undefined) {
       this.answer.for_question = this.question.id;
-      console.log('answer.for_question:', this.answer.for_question);
       this.conclusionService.insertAnswer(this.answer).subscribe(
         success => {
           this.toastService.toastSuccess();
@@ -153,7 +152,6 @@ export class AnswerListComponent extends PagenateComponent implements OnInit {
   }
 
   onDelete(answer: Answer) {
-    console.log('Delete!', answer);
    this.conclusionService.deleteAnswer(answer.id).subscribe(
      success => {
        this.toastService.toastSuccess();
