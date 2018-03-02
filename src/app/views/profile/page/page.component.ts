@@ -71,12 +71,6 @@ export class PageComponent extends PagenateComponent implements OnInit {
     this.currentProfile = this.accessPageService.getProfile();
     this.currentPage.id = '';
     console.log('currentProfile', this.currentProfile.id);
-    if ( this.currentProfile.id === undefined) {
-      // this.currentProfile.id = '';
-      // this.loadAllPages();
-     } // else {
-    //   this.loadPageFromProfile();
-    // }
     this.loadAllPages();
 
   }
@@ -91,9 +85,7 @@ export class PageComponent extends PagenateComponent implements OnInit {
   getProfile() {
     this.profileService.getAllProfiles().subscribe(
       success => {
-        // this.paginate = success;
         this.profiles = success;
-        // console.log('Paginate:', this.paginate);
       },
       error => console.log(error)
     );
