@@ -76,7 +76,7 @@ export class MotherComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.permissions.canActivate('/mother');
+    this.permissions.canActivate('/pregnant');
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -94,7 +94,7 @@ export class MotherComponent implements OnInit {
       this.isNewData = false;
       this.load();
     }  else {
-      this.route.navigate(['/mother-list']);
+      this.route.navigate(['/pregnant-list']);
     }
 
     this.dateDisable.setMinutes( this.dateDisable.getMinutes() + this.dateDisable.getTimezoneOffset() );
@@ -182,7 +182,7 @@ export class MotherComponent implements OnInit {
         console.log('update', this.responsible);
         this.responsibleService.update(this.responsible).subscribe(
           success => {
-            this.sweetAlertService.alertSuccessUpdate('mother-list');
+            this.sweetAlertService.alertSuccessUpdate('pregnant-list');
             console.log('saved with success!', this.responsible);
           },
           error => {
@@ -198,8 +198,6 @@ export class MotherComponent implements OnInit {
     this.selDate = event.date;
     const date = event.date.day + '-' + event.date.month + '-' + event.date.year;
     this.responsible.birth = date;
-    console.log('Date', date);
-    console.log('mother.birth', this.responsible.birth );
   }
 
   verifyDate() {
@@ -237,7 +235,6 @@ export class MotherComponent implements OnInit {
     this.responsible.birth = dateList[2] + '-' + dateList[1] + '-' + dateList[0];
     const d = new Date(this.responsible.birth);
     d.setMinutes( d.getMinutes() + d.getTimezoneOffset() );
-    console.log('Date:', d);
     this.selDate = {year: d.getFullYear(),
                     month: d.getMonth() + 1,
                     day: d.getDate()};
@@ -273,7 +270,7 @@ export class MotherComponent implements OnInit {
   }
 
   openModal() {
-    this.modalService.modalCancel('/mother-list');
+    this.modalService.modalCancel('/pregnant-list');
 
   }
 
@@ -281,9 +278,6 @@ export class MotherComponent implements OnInit {
     this.isFormValid = isValid;
     this.tab = tab;
     this._isSave = false;
-    console.log('tab:', tab);
-    console.log('isValid:', isValid);
-    console.log('isSave:', this._isSave);
   }
 
   isSave() {
@@ -291,21 +285,15 @@ export class MotherComponent implements OnInit {
   }
 
    isActive(tab: boolean, t?: number,  p?: number) {
-    //  this.tab = t ;
-    console.log('currentTab', this.currentTab);
     if ( p !== 0 ) {
       if (t === 1) {
         this.openSaveButtonTab1.click();
-        console.log('openSaveButtonTab1');
       } else {
         if ( t === 2) {
           this.openSaveButtonTab2.click();
-          console.log('openSaveButtonTab2');
         } else {
           if (t === 3) {
             this.isFormValid = true;
-            // this.openSaveButtonTab3.click();
-            // console.log('openSaveButtonTab3');
           }
         }
       }
@@ -322,13 +310,11 @@ export class MotherComponent implements OnInit {
         } else if (this.currentTab < 2) {
               this.currentTab++;
               this.cont++;
-              console.log('TAB:', this.cont);
           }
       }else {
         if (this.currentTab > 0) {
               this.currentTab--;
               this.cont--;
-              console.log('TAB:', this.cont);
             }
       }
         this.previousTab = '#tab_' + (this.currentTab + 1);

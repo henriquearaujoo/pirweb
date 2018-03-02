@@ -1,13 +1,13 @@
 <simple-notifications></simple-notifications>
 <div class="content_">
   <div class="content-top">
-    <div class="content_fa"> <i class="fa fa-user"></i> Família > Mãe > Lista de Mães</div>
+    <div class="content_fa"> <i class="fa fa-user"></i> Família > Gestante > Lista de Gestantes</div>
     
   </div>
 <section class="content">
   <div class="box"> 
     <div class="box-header ">
-      <h5 class="box-title">LISTA DE MÃES</h5>
+      <h5 class="box-title">LISTA DE GESTANTES</h5>
     </div>    
     <!-- when there's not record -->
     <div *ngIf="!hasdata">
@@ -23,7 +23,7 @@
             <div id="_filter" class="dataTables_filter">
               <label>
               <input type="text" class="form-control form-border " name="name" id="filter" (keyup)="getMothers()" 
-                [(ngModel)]="filter.name"mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" placeholder="Nome da mãe">
+                [(ngModel)]="filter.name"mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" placeholder="Nome da gestante">
               </label>
             </div>
           </div>
@@ -85,57 +85,10 @@
       </div>
       <div class="box-footer pagination1">
         <app-paginate [paginate]="paginate" (eventPage)="setPage($event)"></app-paginate>
-        <!-- <div class="col-sm-6 pagination1"> -->
-          <!-- <app-paginate [paginate]="paginate" (eventPage)="setPage($event)"></app-paginate>
-          <ul *ngIf="pager.pages && pager.pages.length" class="pagination stylepage">
-            <li [ngClass]="{disabled:pager.currentPage === 1}">
-                <a (click)="setPage(1)">Primeiro</a>
-            </li>
-            <li [ngClass]="{disabled:pager.currentPage === 1}">
-                <a (click)="setPage(pager.currentPage - 1)">Anterior</a>
-            </li>
-            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-                <a (click)="setPage(page)">{{page}}</a>
-            </li>
-            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-                <a (click)="setPage(pager.currentPage + 1)">Próxima</a>
-            </li>
-            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-                <a (click)="setPage(pager.totalPages)">Último</a>
-            </li>
-        </ul> -->
-      <!-- </div> -->
+        
       </div>
     </div>
-    <!-- <div class="row">
-      <div class="btn-col">
-        <button class="btn btn-primary" [routerLink]="['/pregnant']" id="btn_new"> Novo </button>
-      </div>
-    </div> -->
+   
   </div>
 </section>
 </div>
-
- <!-- Modal Disable -->
- <!-- <div class="modal fade" id="modal-default">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content" [ngStyle]="object">
-      <div class="modal-body">
-        <div class="modal-icon">
-            <i class="material-icons" style="font-size: 60px;">error_outline</i>
-        </div>          
-          <h5  *ngIf="pregnant.status"> Deseja realmente desativar a gestante <strong> {{ pregnant.name | uppercase}} </strong> ?</h5>
-          <h5  *ngIf="!pregnant.status"> Deseja realmente ativar a gestante <strong> {{ pregnant.name | uppercase}} </strong> ?</h5>
-      </div>
-      <div class="modal-footer_">
-        <div class="modal-btn-cancel">
-            <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal" id="btn_cancel">Cancelar</button>
-        </div>
-        <div class="modal-btn-confirm">
-            <button type="button" (click)="disableEnableMother()" class="btn btn-primary btn-md btn-block" data-dismiss="modal" id="btn_confirm">Confirmar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
-<!-- /.modal -->

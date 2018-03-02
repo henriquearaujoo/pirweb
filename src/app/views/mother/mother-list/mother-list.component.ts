@@ -50,7 +50,7 @@ export class MotherListComponent implements OnInit, OnDestroy {
    }
 
   ngOnInit() {
-    this.permissions.canActivate('/mother-list');
+    this.permissions.canActivate('/pregnant-list');
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -82,11 +82,6 @@ export class MotherListComponent implements OnInit, OnDestroy {
             error => console.log(error)
           );
         });
-
-        // this.responsibleList = this.responsibleList.filter( el => el.mother !== undefined);
-        // this.pagedItems = this.responsibleList;
-        // this.allItems = this.responsibleList;
-        // this.setPage(1);
         this.hasdata = true;
         setTimeout(() => {
           this.loaderService.hide();
@@ -101,12 +96,12 @@ export class MotherListComponent implements OnInit, OnDestroy {
   }
   setMother(responsible: Responsible) {
     localStorage.setItem('motherId', responsible.id);
-    this.router.navigate(['mother']);
+    this.router.navigate(['pregnant']);
   }
 
   toView(responsible: Responsible) {
     localStorage.setItem('motherId', responsible.id);
-    this.router.navigate(['mother-details']);
+    this.router.navigate(['pregnant-details']);
   }
 
   changeStatus(responsible: Responsible) {

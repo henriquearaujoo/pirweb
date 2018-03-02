@@ -34,7 +34,7 @@ export class MotherDetailsComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.permissions.canActivate('/mother-details');
+    this.permissions.canActivate('/pregnant-details');
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;

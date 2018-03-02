@@ -142,8 +142,6 @@ export class ResponsibleComponent implements OnInit {
   }
 
   saveData(isValid: boolean) {
-    console.log('isValid', isValid);
-    console.log('selDate', this.selDate);
 
     if (isValid && this._isSave) {
       this.verifyDate();
@@ -176,7 +174,6 @@ export class ResponsibleComponent implements OnInit {
         console.log('update', this.responsible);
         this.responsibleService.update(this.responsible).subscribe(
           success => {
-            this.responsible = success;
             this.sweetAlertService.alertSuccessUpdate('responsible-list');
             console.log('updated with success!', success);
           },

@@ -99,12 +99,12 @@ const App_Router: Routes = [
             canActivate: [PageGuard]
           },
           {
-            path: 'mother-list',
+            path: 'pregnant-list',
             component: MotherListComponent,
             canActivate: [PageGuard]
           },
           {
-            path: 'mother-details',
+            path: 'pregnant-details',
             component: MotherDetailsComponent,
             canActivate: [PageGuard]
           },
@@ -134,7 +134,7 @@ const App_Router: Routes = [
             canActivate: [PageGuard]
           },
           {
-            path: 'mother',
+            path: 'pregnant',
             component: MotherComponent,
             canActivate: [PageGuard]
           },
