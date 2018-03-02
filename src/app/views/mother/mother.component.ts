@@ -98,8 +98,6 @@ export class MotherComponent implements OnInit {
     }
 
     this.dateDisable.setMinutes( this.dateDisable.getMinutes() + this.dateDisable.getTimezoneOffset() );
-    console.log('Date:', this.dateDisable);
-
     this.myDatePickerOptions = {
       // other options...
       dateFormat: 'dd/mm/yyyy',
