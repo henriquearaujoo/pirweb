@@ -1,0 +1,209 @@
+<simple-notifications></simple-notifications>
+<!-- <button data-toggle="modal" data-target="#modal-default" id="openModalButton">Open Modal</button> -->
+<!-- <button data-toggle="modal" data-target="#modal-cancel" id="openModalCancel">Open Modal</button> -->
+<div class="content_">
+    <div class="content-top">
+        <div class="content_fa"> <i class="fa fa-list-alt"></i> Formulário > Registros > Cadastro</div>
+    </div>
+
+    <section class="content_user">
+      <div class="content-header ">
+        <h5 class="content-title">FORMULÁRIO</h5>
+      </div>
+
+      <div class="content_">        
+        <!-- <form name="f" (ngSubmit)="f.form.valid && saveData()" #f="ngForm" novalidate>            -->
+          <div class="form-template">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="box box-primary">
+                  <div class="box-body">
+                    <form name="f" (ngSubmit)="f.form.valid && saveData()" #f="ngForm" novalidate>    
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <div class="form-group" [ngClass]="applyCssError(f, range)">
+                            <label class="control-label"> Faixa </label>                     
+                              <select class="form-control" name="range" #range="ngModel" [(ngModel)]="form.range">
+                                <option [value]="i" *ngFor="let i of band"> {{ i }} </option>
+                              </select>
+                              <app-control-field-error [showError]="verifyValidSubmitted(f, range)" msgError="Selecione a faixa">
+                              </app-control-field-error>                    
+                          </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                            <label class="control-label">Indicadores</label>
+                            <div class="form-inline" [ngClass]="applyCssError(f, range)">
+                              <label class="control-label"> De</label>                     
+                                <select class="form-control indicators1" name="indicators1" #indicators1>
+                                  <option value="1"> 1 </option>
+                                  <option value="2"> 2 </option>
+                                </select>
+                              <label class="control-label"> até </label>                     
+                                <select class="form-control indicators2" name="indicators2" #indicators2>
+                                  <option value="1"> 1 </option>
+                                  <option value="2"> 2 </option>
+                                </select>
+                                <app-control-field-error [showError]="verifyValidSubmitted(f, range)" msgError="Selecione a faixa">
+                                </app-control-field-error>                    
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <div class="form-group" [ngClass]="applyCssError(f, optradio)">
+                            <label class="control-label"> Tipo de questão </label> <br/>  
+                            <label class="radio-inline">
+                              <input type="radio" name="optradio" #optradio="ngModel" value="1" [(ngModel)]="form.type">
+                              Presente/Ausente
+                            </label>
+                            <label class="radio-inline">
+                              <input type="radio" name="optradio" #optradio="ngModel" value="2" [(ngModel)]="form.type">
+                              Dimensão
+                            </label>                
+                            <!-- <select class="form-control indicators2" name="indicators2" #indicators2>
+                              <option value="1"> Presente/Ausente </option>
+                              <option value="2"> Dimensão </option>
+                            </select> -->
+                              <app-control-field-error [showError]="verifyValidSubmitted(f, optradio)" msgError="Selecione a faixa">
+                              </app-control-field-error>                    
+                          </div>
+                        </div>
+                      </div>                    
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+              <div class="row">
+                  <div class="col-sm-12">
+                      <!-- Custom Tabs -->
+                      <div class="box box-primary">
+                          <div class="box-header">
+                              <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="box-title">QUESTÕES</div>
+                                </div>
+                                <div class="col-sm-6 actions">
+                                  <button class="btn btn-primary add"
+                                    data-toggle="modal" data-target="#modal-answer">
+                                    <i class="fa fa-plus"></i>ADICIONAR
+                                  </button>
+                                </div>
+                              </div>                            
+                          </div>                           
+                          <div class="box-body">
+                            <table id="example2" class="table table-hover ">
+                              <thead>
+                                <tr>
+                                  <th class="tbl-left">NÚMERO </th> 
+                                  <th>QUESTÃO
+                                    <span class="glyphicon" ></span>
+                                  </th>           
+                                  <th colspan="3"> AÇÃO</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let item of pagedItems">
+                                <!-- <tr *ngFor="let item of answers"> -->
+                                  <td class="tbl-left">
+                                    {{ item.number }}
+                                  </td>
+                                  <td> 
+                                    <p class="limit-text" [innerHTML]="item.description"></p>
+                                  </td>         
+                                
+                                  <td class="tbl-right">              
+                                      <a href="" title="Ver detalhes" id="btn_details"  data-toggle="modal" data-target="#modal-answer"
+                                        (click)="showAnswer(item)" >
+                                        <i class="large material-icons">visibility</i>
+                                      </a>
+                                    </td>
+                                    <td class="tbl-right">          
+                                      <a href="" title="Editar" id="btn_edit" data-toggle="modal" data-target="#modal-answer"
+                                        (click)="onEdit(item)">
+                                        <i class="fa fa-pencil fa-fw"></i>
+                                      </a>
+                                    </td>
+                                    <td class="tbl-right">
+                                        <a href="" title="Excluir Resposta"
+                                          data-toggle="modal" data-target="#modal-default"
+                                          (click)="onDelete(item)" id="btn_delete">              
+                                          <i class="fa fa-trash "  aria-hidden="true"></i>
+                                        </a>      
+                                    </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>        
+                          <div class="box-footer"> 
+            
+                          </div>
+                      </div>
+                  </div>
+                  <!-- col -->
+              </div>
+              <!-- /.row -->
+          </div>
+          
+            <div class="row footer">
+                <div class="col-md-2">
+                    <div>
+                        <button class="btn btn-default btn-block" (click)="onCancel()" id="btn_return"> Cancelar</button>
+                    </div>
+                </div>
+                <div class="col-md-2 col-md-offset-8">
+                    <div class="form-group save">
+                        <button class="btn btn-primary btn-block" name="submit" id="btn_save" (click)="saveData()">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        <!-- </form>        -->
+      </div>     
+    </section>
+</div>
+
+<app-modal></app-modal>
+
+<!-- Modal Answer -->
+<div class="modal fade" id="modal-answer" (click)="getQuestions()">
+  <div class="modal-dialog">
+    <div class="modal-content" [ngStyle]="object">
+      <div class="modal-header question">
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label class="control-label">Pergunta</label>
+              <textarea class="form-control" rows="3"></textarea>
+            </div>           
+          </div>  
+        </div>
+        <div class="row" *ngIf="form.type === '2'">
+          <div class="col-sm-12">
+              <div class="form-group">
+                <label class="control-label"> Dimensão</label>
+                <select class="form-control" name="dimension" #dimension>
+                  <option value="1"> Socioafetiva </option>
+                  <option value="2"> Motora </option>
+                  <option value="3"> Cognitiva </option>
+                  <option value="4"> Comunicação e linguagem </option>
+                </select>
+              </div>            
+            </div> 
+        </div> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveQuestion()">Salvar</button>
+      </div>
+      <!-- <div class="modal-footer" *ngIf="show">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="cancel_()">Fechar</button>
+      </div> -->
+    </div>
+      <!-- /.modal-content -->   
+  </div> 
+</div>
+<!-- /.modal -->

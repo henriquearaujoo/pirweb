@@ -1,3 +1,5 @@
+import { FormTemplateListComponent } from './views/form-template/form-template-list/form-template-list.component';
+import { FormTemplateComponent } from './views/form-template/form-template.component';
 import { ChildDetailsComponent } from './views/child/child-details/child-details.component';
 import { ResponsibleDetailsComponent } from './views/responsible/responsible-details/responsible-details.component';
 import { MotherDetailsComponent } from './views/mother/mother-details/mother-details.component';
@@ -81,6 +83,16 @@ const App_Router: Routes = [
           {
             path: 'maps',
             component: MapsComponent
+              // canActivate: [PageGuard]
+          },
+          {
+            path: 'form-template',
+            component: FormTemplateComponent
+              // canActivate: [PageGuard]
+          },
+          {
+            path: 'form-template-list',
+            component: FormTemplateListComponent
               // canActivate: [PageGuard]
           },
           {
@@ -178,10 +190,6 @@ const App_Router: Routes = [
             component: UserEditComponent,
               canActivate: [PageGuard]
           },
-          // {
-          //   path: 'user-personal-info',
-          //   component: UserPersonalInformationComponent
-          // },
           {
             path: 'profile',
             component: ProfileComponent
@@ -191,12 +199,6 @@ const App_Router: Routes = [
             component: ProfileListComponent,
               canActivate: [PageGuard]
           }
-          // {
-          //   path: 'page-list',
-          //   component: PageComponent,
-          //     canActivate: [PageGuard]
-          // }
-
         ]
       },
 

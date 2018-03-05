@@ -1,3 +1,4 @@
+import { FormService } from './services/form/form.service';
 import { ChildService } from './services/child/child.service';
 import { ResponsibleService } from './services/responsible/responsible.service';
 import { FileService } from './services/file/file.service';
@@ -159,6 +160,8 @@ import { CommunityDetailsComponent } from './views/community/community-details/c
 import { MotherDetailsComponent } from './views/mother/mother-details/mother-details.component';
 import { ResponsibleDetailsComponent } from './views/responsible/responsible-details/responsible-details.component';
 import { ChildDetailsComponent } from './views/child/child-details/child-details.component';
+import { FormTemplateComponent } from './views/form-template/form-template.component';
+import { FormTemplateListComponent } from './views/form-template/form-template-list/form-template-list.component';
 // import { QuillModule } from 'ngx-quill';
 // import { EqualValidator } from './directives/equal-validator.directive';
 
@@ -236,7 +239,9 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     CommunityDetailsComponent,
     MotherDetailsComponent,
     ResponsibleDetailsComponent,
-    ChildDetailsComponent
+    ChildDetailsComponent,
+    FormTemplateComponent,
+    FormTemplateListComponent
 
   ],
   imports: [
@@ -329,7 +334,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     MotherService,
     ResponsibleService,
     ChildService,
-    SweetAlertService
+    SweetAlertService,
+    FormService
   ],
   bootstrap: [AppComponent]
 })

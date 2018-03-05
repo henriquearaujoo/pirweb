@@ -123,6 +123,28 @@ export const MENU = [
         'hasChild': false,
         'parent': 7
     },
+    {
+        'id': 11,
+        'title': 'Formulário',
+        'route': '',
+        'routes': ['/', '/form-template', '/form-template-list'],
+        'read': true,
+        'iClass': 'fa fa-list-alt',
+        'category': 'parent',
+        'hasChild': true,
+        'parent': 0
+    },
+    {
+        'id': 12,
+        'title': 'Registros',
+        'route': 'form-template-list',
+        'routes': ['/form-template', '/form-template-list'],
+        'read': true,
+        'iClass': 'fa fa-circle-o',
+        'category': 'child',
+        'hasChild': false,
+        'parent': 11
+    },
 
 
 // tslint:disable-next-line:eofline
