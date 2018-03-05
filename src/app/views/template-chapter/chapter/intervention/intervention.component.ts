@@ -76,7 +76,6 @@ export class InterventionComponent implements OnInit {
           this.isNewData  = false;
           this.intervention = s;
           this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
-          console.log('saved with success!');
         },
         e => {
           if ( e[0] === 'chapter.intervention.chapter.missing') {
@@ -92,7 +91,6 @@ export class InterventionComponent implements OnInit {
         s => {
           this.intervention = s;
           this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso');
-          console.log('saved with success!');
         },
         e => {
           this.toastService.toastError();
@@ -107,7 +105,6 @@ export class InterventionComponent implements OnInit {
     this.service.load(chapter).subscribe(
       success => {
           this.intervention = success[0];
-          console.log('Load:', this.intervention);
           if (this.intervention === undefined) {
             this.intervention = new Intervention();
           }

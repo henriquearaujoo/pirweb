@@ -16,7 +16,7 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent extends PagenateComponent implements OnInit, OnChanges, AfterViewInit {
+export class ProfileComponent extends PagenateComponent implements OnInit, OnChanges {
 
   @Input() profiles: Profile[] = new Array();
   profile: Profile = new Profile();
@@ -48,7 +48,6 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
     ngOnInit() { }
 
     ngOnChanges(changes: SimpleChanges) {
-
       this.hasdata = false;
       this.editProfile = this.selectedProfile.title;
       if ( changes.edit) {
@@ -62,10 +61,6 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
     focusInput() {
       this.inputEdit.nativeElement.focus();
     }
-
-    ngAfterViewInit() {
-    //   this.log = `inputEdit is ${this.inputEdit.nativeElement}`;
-     }
 
     save() {
        this.profile.status = true;
@@ -92,7 +87,6 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
     }
 
     saveEdit() {
-        console.log('perfi editado:', this.selectedProfile);
         this.selectedProfile.title = this.editProfile;
         this.selectedProfile.description = '';
         this.selectedProfile.created_by = '';
@@ -105,6 +99,7 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
             this.toastService.toastSuccess();
           },
           error => {
+            this.insertValue.emit(this.profile);
             if ( error === 'profile.title.exists') {
               this.toastService.toastErrorExist();
             } else {
@@ -121,7 +116,9 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
     }
 
     public inputEnable() {
-      // (<HTMLElement>document.getElementById('title_edit')).blur();
-      (<HTMLElement>document.getElementById('title_edit')).focus();
+      if ( (<HTMLElement>document.getElementById('title_edit')) !== null) {
+        (<HTMLElement>document.getElementById('title_edit')).blur();
+        (<HTMLElement>document.getElementById('title_edit')).focus();
+      }
     }
 }

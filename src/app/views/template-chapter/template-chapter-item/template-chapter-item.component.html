@@ -29,141 +29,45 @@
         </div>
         <img class="ic_image" src="./assets/img/chapter/ic_image.png">
     </div>
-    <div class="card-action">
-        <div class="chapter-progress">
-            <div class="progress progress-xs">
-                <div class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" aria-valuenow="currentVersion.percentage" aria-valuemin="0" aria-valuemax="100" [style.width]="currentVersion.percentage + '%'">
-                </div>
+</div>
+<img class="ic_image" src="./assets/img/chapter/ic_image.png">
+</div>
+<div class="card-action">
+    <div class="chapter-progress">
+        <div class="progress progress-xs">
+            <div class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" aria-valuenow="currentVersion.percentage" aria-valuemin="0" aria-valuemax="100" [style.width]="currentVersion.percentage + '%'">
             </div>
-            <span class="percentage"><strong> {{ currentVersion.percentage }}%</strong> Completo</span> <br/>
         </div>
-        <button class="btn edit" (click)="editChapter(currentVersion)" *ngIf="canUpdate">
+        <span class="percentage"><strong> {{ currentVersion.percentage }}%</strong> Completo</span> <br/>
+    </div>
+    <button class="btn edit" (click)="editChapter(currentVersion)" *ngIf="canUpdate">
                     <i class="fa fa-pencil" aria-hidden="true" (click)='editChapter(currentVersion)'> </i> Editar
                 </button>
-        <button class="btn status" (click)="disableEnableVersion(currentVersion)" *ngIf="canDelete">
+    <button class="btn status" (click)="disableEnableVersion(currentVersion)" *ngIf="canDelete">
                     <i [ngClass]="currentVersion.status === true ? 'fa fa-ban': 'fa fa-check' " aria-hidden="true"></i>           
                     {{ currentVersion.status === true ? 'Desativar': 'Ativar'}} 
                 </button>
-    </div>
-    <div class="card-reveal">
-        <span class="card-title grey-text text-darken-4">
+</div>
+<div class="card-reveal">
+    <span class="card-title grey-text text-darken-4">
                     <i [ngClass]="currentVersion.status === true ? 'fa fa-circle active_circle': 'fa fa-circle inactive_circle' " style="margin-top: 15px;"  aria-hidden="true"></i>
                     <i class="medium material-icons right">arrow_drop_up</i></span>
-        <div class="version">
-            <ul class="list-version">
-                <li class="version-header">Capítulo {{ currentVersion.number }}</li>
-                <li *ngFor="let item of chapter.versions" class="li-version">
-                    <span class="version-title">Versão {{ item.version }}</span>
-                    <a [title]="Editar" (click)=editChapter(item) *ngIf="canUpdate">
-                        <i class="fa fa-pencil edit-version" aria-hidden="true"></i>
-                    </a>
-                    <a [title]="item.status === true ? 'Desativar': 'Ativar'" (click)="disableEnableVersion(item)" class="version-status" *ngIf="canDelete">
-                        <i [ngClass]="item.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' " aria-hidden="true"></i>
-                    </a>
-                </li>
-                <li *ngIf="canCreate"> <span class="version-add"> Adicionar </span>
-                    <a (click)="addVersion(currentVersion)"> <i class="fa fa-plus" aria-hidden="true"></i> </a>
-                </li>
-            </ul>
-        </div>
+    <div class="version">
+        <ul class="list-version">
+            <li class="version-header">Capítulo {{ currentVersion.number }}</li>
+            <li *ngFor="let item of chapter.versions" class="li-version">
+                <span class="version-title">Versão {{ item.version }}</span>
+                <a [title]="Editar" (click)=editChapter(item) *ngIf="canUpdate">
+                    <i class="fa fa-pencil edit-version" aria-hidden="true"></i>
+                </a>
+                <a [title]="item.status === true ? 'Desativar': 'Ativar'" (click)="disableEnableVersion(item)" class="version-status" *ngIf="canDelete">
+                    <i [ngClass]="item.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' " aria-hidden="true"></i>
+                </a>
+            </li>
+            <li *ngIf="canCreate"> <span class="version-add"> Adicionar </span>
+                <a (click)="addVersion(currentVersion)"> <i class="fa fa-plus" aria-hidden="true"></i> </a>
+            </li>
+        </ul>
     </div>
 </div>
-<!-- </div> -->
-<!-- </div> -->
-
-<!-- <mat-card class="card"> 
-    <mat-card-header>
-        <div class="content_">
-        <div class="row">
-            <div class="col-sm-6">
-                <i [ngClass]="chapter.status === true ? 'fa fa-circle active_circle': 'fa fa-circle inactive_circle' "  aria-hidden="true"></i>
-            </div>
-            <div class="col-sm-6">
-                <ul class="dp-version">
-                    <li class="dropdown">
-                        <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" >
-                            <li class="dropdown-header">Capítulo {{ chapter.number }}</li>
-                            <li *ngFor="let item of chapter.versions" class="dp-version">                               
-                                <a [title]="item.status === true ? 'Desativar': 'Ativar'"                                  
-                                    (click)="disableEnableVersion(item)" id="btn_status"> 
-                                        Versão {{ item.version }}           
-                                    <i [ngClass]="item.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
-                                </a>     
-                            </li>                                                
-                        </ul>
-                    </li>
-                </ul>    
-            </div>                        
-        </div>  
-        <div class="row">
-            <div class="col-sm-12">
-               Capítulo {{ chapter.number }}
-            </div>
-        </div>       
-       <div class="row">
-           <div class="col-sm-12">
-                Versão {{ chapter.version }}
-           </div>
-       </div>
-       <div class="row">
-            <div class="col-sm-12">
-                <h5> {{ chapter.title }} </h5>
-            </div>
-        </div>
-    </div>
-    </mat-card-header> 
-  
-    <i class="fa fa-picture-o" aria-hidden="true"></i>   
-    <div class="content-card">
-        
-        <div class="progress progress-xs">
-            <div class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" 
-                aria-valuenow="chapter.percentage" aria-valuemin="0" aria-valuemax="100" 
-                [style.width]="chapter.percentage + '%'">                
-            </div>
-        </div>
-        <span class="percentage"><strong> {{ chapter.percentage }}%</strong> Completo</span>
-    </div>    
-
-    <mat-card-actions>
-        <button class="btn btn-primary btn-xs">
-            <i class="fa fa-pencil" aria-hidden="true" (click)='editChapter()'> </i> Editar
-        </button>       
-        <button class="btn btn-primary btn-xs" (click)="disableEnableVersion(chapter)">
-            <i [ngClass]="chapter.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' " aria-hidden="true"></i>           
-            {{ chapter.status === true ? 'Desativar': 'Ativar'}} 
-        </button>       
-    </mat-card-actions>
-    <mat-card-footer>
-        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-    </mat-card-footer>
-</mat-card> -->
-
-<!-- Modal Disable -->
-<!-- <div class="modal fade" id="modal-default">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content" [ngStyle]="object">
-            <div class="modal-body">
-              <div class="modal-icon">
-                  <i class="material-icons" style="font-size: 60px;">error_outline</i>
-              </div>        
-                <h5  *ngIf="version.status"> Deseja realmente desativar a <strong> versão  {{ version.version }} </strong> ?</h5>
-                <h5  *ngIf="!version.status"> Deseja realmente ativar a <strong> versão {{ version.version }} </strong> ?</h5>
-            </div>
-            <div class="modal-footer_">
-              <div class="modal-btn-cancel">
-                  <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal" id="btn_cancel">Cancelar</button>
-              </div>
-              <div class="modal-btn-confirm">
-                  <button type="button" (click)="disableEnableVersion()" class="btn btn-primary btn-md btn-block" data-dismiss="modal" id="btn_confirm">Confirmar</button>
-              </div>
-            </div>
-        </div>
-       
-    </div>
-   
-</div> -->
-<!-- /.modal -->
+</div>

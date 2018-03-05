@@ -1,8 +1,11 @@
 .content-wrapper {
     background-color: #fff; 
-    min-height: 601px!important;
+    /* min-height: 613px!important; */
+    min-height: 960px!important;
 }
 
-/* .content-wrapper.black-overlay {
-    height: 130%!important;
+/* @media (min-height: 950px) {
+    .content-wrapper {
+        min-height: 960px!important;
+    }
 } */

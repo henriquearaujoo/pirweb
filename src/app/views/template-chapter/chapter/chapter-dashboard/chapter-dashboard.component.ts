@@ -74,6 +74,7 @@ export class ChapterDashboardComponent implements OnInit {
     /*check if is a new or update*/
     this.isNewData = true;
     this.urlId = localStorage.getItem('chapterId');
+    console.log('chapterId from Dashboard', this.urlId);
     if (this.urlId !== null && this.urlId !== '') {
       this.isNewData = false;
       this.information.isNewData = false;
@@ -212,14 +213,6 @@ export class ChapterDashboardComponent implements OnInit {
 
   openModal() {
    this.modalService.modalCancel('/template-chapter');
-    // this.openModalButton.click();
-    console.log('openModal dashboard');
   }
-
-  // modalConfirm() {
-  //   this.canChangePage = true;
-  //   this.router.navigate(['/template-chapter']);
-  //   return true;
-  // }
 
 }

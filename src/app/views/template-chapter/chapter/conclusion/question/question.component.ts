@@ -80,7 +80,6 @@ export class QuestionComponent implements OnInit {
         s => {
           this.question = s;
           this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso');
-          console.log('saved with success!', this.question);
         },
         error => {
           if ( error === 'question.exists') {
@@ -101,12 +100,10 @@ export class QuestionComponent implements OnInit {
           this.question = this.paginate.content[0];
           this.isNewData = false;
           this.indexEdit = Number(localStorage.getItem('questionIndex'));
-          console.log('LoadQuestion:', this.question);
           this.answer.getAnswers();
           if (this.question === undefined) {
             this.question = new Question();
           }
-          // localStorage.removeItem('questionId');
       },
       e => {
         console.log('PirError:' + e);
@@ -116,7 +113,6 @@ export class QuestionComponent implements OnInit {
 
   onCancel() {
     this.btn_cancel = true;
-    console.log('onCancel()');
   }
 
   onCancelAddAnswer(event) {

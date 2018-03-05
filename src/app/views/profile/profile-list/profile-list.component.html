@@ -13,8 +13,8 @@
     <!-- when there's not record -->
     <div *ngIf="!hasdata">
       <section class="content">
-          <div class="feedback-icon fa fa-users"></div><br><br>
-          <span class="feedback-message">Não há dados cadastrados</span>
+          <!-- <div class="feedback-icon fa fa-users"></div><br><br> -->
+          <!-- <span class="feedback-message">Não há dados cadastrados</span> -->
       </section>
     </div>
 
@@ -55,7 +55,8 @@
                                     <div class="col-sm-12">
                                       <div id="_filter" class="dataTables_filter">
                                         <label>
-                                          Filtro <input type="text" class="form-control form-border " name="title" (keyup)="getProfile()" [(ngModel)]="filter.title" placeholder="Tipo de Perfil">
+                                          Filtro <input type="text" class="form-control form-border " name="title" id="filter"  (keyup)="getProfile()" 
+                                            [(ngModel)]="filter.title" mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" placeholder="Tipo de Perfil">
                                         </label>
                                       </div>
                                     </div>
@@ -76,7 +77,13 @@
                                                         <th colspan="3"> <span *ngIf="canUpdate || canDelete">AÇÃO </span></th>
                                                       </tr>
                                                     </thead>
-                                                    <tbody>
+
+                                                    <div class="feedback" *ngIf="profiles.length === 0">
+                                                        <i class="material-icons" style="font-size: 24px;">error_outline</i>
+                                                      <span class="feedback-message">Nenhum registro encontrado</span>
+                                                    </div> 
+
+                                                    <tbody *ngIf="profiles.length !== 0">
                                                       <tr *ngFor="let item of profiles; let i = index">
                                                         <td class="profile-id"> {{ item.number }}</td>
                                                         <td>  

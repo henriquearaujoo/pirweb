@@ -38,7 +38,7 @@
                                 </quill-editor>
                                 <!-- <div style="float: right; color: #999;">
                                     <small>Caracteres restantes: {{ characters }}</small>
-                                </div>                                -->
+                                </div>  -->                                                          
                                 <app-control-field-error [showError]="verifyValidSubmitted(f, description)" msgError="Digite uma descrição">
                                 </app-control-field-error>
                             </div>
@@ -96,7 +96,7 @@
                             </div>
 
                             <div class="form-group" [ngClass]="applyCssError(f, task)">
-                                <label class="control-label">Tarefa para a familia</label>
+                                <label class="control-label">Tarefa para a família</label>
                                 <quill-editor 
                                     (change)="onKey($event)"
                                     [options]="editorOptions" id="chapter_task" 

@@ -1,3 +1,13 @@
+import { ChildDetailsComponent } from './views/child/child-details/child-details.component';
+import { ResponsibleDetailsComponent } from './views/responsible/responsible-details/responsible-details.component';
+import { MotherDetailsComponent } from './views/mother/mother-details/mother-details.component';
+import { CommunityDetailsComponent } from './views/community/community-details/community-details.component';
+import { ChildListComponent } from './views/child/child-list/child-list.component';
+import { ResponsibleListComponent } from './views/responsible/responsible-list/responsible-list.component';
+import { ResponsibleComponent } from './views/responsible/responsible.component';
+import { MotherListComponent } from './views/mother/mother-list/mother-list.component';
+import { MotherComponent } from './views/mother/mother.component';
+import { ChildComponent } from './views/child/child.component';
 import { ResetPasswordComponent } from './views/login/reset-password/reset-password.component';
 import { ChapterDashboardComponent } from './views/template-chapter/chapter/chapter-dashboard/chapter-dashboard.component';
 import { TemplateSelectModelComponent } from './views/template-chapter/template-select-model/template-select-model.component';
@@ -75,55 +85,69 @@ const App_Router: Routes = [
           },
           {
             path: 'community-list',
-            component: CommunityListComponent
-            // canActivate: [PageGuard]
+            component: CommunityListComponent,
+            canActivate: [PageGuard]
+          },
+          {
+            path: 'child-list',
+            component: ChildListComponent,
+            canActivate: [PageGuard]
+          },
+          {
+            path: 'child-details',
+            component: ChildDetailsComponent,
+            canActivate: [PageGuard]
+          },
+          {
+            path: 'pregnant-list',
+            component: MotherListComponent,
+            canActivate: [PageGuard]
+          },
+          {
+            path: 'pregnant-details',
+            component: MotherDetailsComponent,
+            canActivate: [PageGuard]
+          },
+          {
+            path: 'responsible-list',
+            component: ResponsibleListComponent,
+            canActivate: [PageGuard]
+          },
+          {
+            path: 'responsible-details',
+            component: ResponsibleDetailsComponent,
+            canActivate: [PageGuard]
           },
           {
             path: 'community',
-            component: CommunityComponent
-            // canActivate: [PageGuard]
+            component: CommunityComponent,
+            canActivate: [PageGuard]
+          },
+          {
+            path: 'community-details',
+            component: CommunityDetailsComponent,
+            canActivate: [PageGuard]
+          },
+          {
+            path: 'child',
+            component: ChildComponent,
+            canActivate: [PageGuard]
+          },
+          {
+            path: 'pregnant',
+            component: MotherComponent,
+            canActivate: [PageGuard]
+          },
+          {
+            path: 'responsible',
+            component: ResponsibleComponent,
+            canActivate: [PageGuard]
           },
           {
             path: 'template-chapter',
             component: TemplateChapterComponent,
               canActivate: [PageGuard]
           },
-          // {
-          //   path: 'selectModel',
-          //   component: TemplateSelectModelComponent
-          // },
-          // {
-          //   path: 'template-chapter-option',
-          //   component: TemplateChapterOptionComponent
-          // },
-          // {
-          //   path: 'chapterInformation',
-          //   component: InformationComponent
-          // },
-          // {
-          //   path: 'reception',
-          //   component: ReceptionComponent
-          // },
-          // {
-          //   path: 'intervention',
-          //   component: InterventionComponent
-          // },
-          // {
-          //   path: 'task',
-          //   component: TaskComponent
-          // },
-          // {
-          //   path: 'collect-data',
-          //   component: TemplateCollectDataComponent
-          // },
-          // {
-          //   path: 'chapter-details',
-          //   component: ChapterDetailsComponent
-          // },
-          // {
-          //   path: 'chapter-edit',
-          //   component: ChapterEditComponent
-          // },
           {
             path: 'chapter-dashboard',
             component: ChapterDashboardComponent,
@@ -191,4 +215,4 @@ const App_Router: Routes = [
       { path: '**', redirectTo: '' }
 ];
 
-export const routing: ModuleWithProviders = RouterModule.forRoot(App_Router);
+export const routing: ModuleWithProviders = RouterModule.forRoot(App_Router, {useHash: true});

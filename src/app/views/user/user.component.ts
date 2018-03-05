@@ -1,3 +1,4 @@
+import { SweetAlertService } from './../../services/sweetalert/sweet-alert.service';
 import { Community } from './../../models/community';
 import { ToastService } from './../../services/toast-notification/toast.service';
 import { UserDetailsComponent } from './user-details/user-details.component';
@@ -79,7 +80,8 @@ export class UserComponent implements OnInit {
     private route: ActivatedRoute,
     private toastService: ToastService,
     private modalService: ModalService,
-    private permissions: Permissions) {
+    private permissions: Permissions,
+    private sweetAlertService: SweetAlertService) {
       this.user = new User();
       this.org = new Org();
       this.person = new Person();
@@ -178,30 +180,7 @@ export class UserComponent implements OnInit {
   }
 
   openModalSuccess() {
-    // if (!this.modalOpened) {
-    //   this.modalOpened = true;
-    //   // this.openModalButton.click();
-    //   this.modalService.modalSuccess('/user-list');
-    //   return false;
-    // }
-    swal( {
-      title: '',
-      text: 'Cadastro realizado com Sucesso!',
-      icon: 'success',
-      buttons: {
-        confirm: {
-          text: 'Fechar',
-          className: 'swal-btn-close'
-        }
-      },
-      closeOnClickOutside: false,
-      className: 'swal-add-success'
-    })
-    .then((confirm) => {
-      if (confirm) {
-        this.router.navigate(['user-list']);
-      }
-    });
+    this.sweetAlertService.alertSuccess('user-list');
   }
 
   openModal() {

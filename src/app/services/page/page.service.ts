@@ -55,7 +55,6 @@ export class AccessPageService extends RestService implements OnInit {
   }
 
   profileSelected(profile: Profile): void {
-    console.log('perfil retornado so service: ', profile);
     this.profile = profile;
   }
 

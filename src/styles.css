@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 .swal-button-container {
     width: 100%;
     margin: 0px;
@@ -21,4 +23,15 @@ button.swal-button.swal-button--ok.swal-btn-ok {
 
 .swal-footer {
     padding: 0!important;
+}
+@media (max-height: 719px) {
+    .wrapper {
+        min-height: 663px!important;
+    }
+}
+
+@media (min-height: 720px) {
+    .wrapper {
+        min-height: 960px!important;
+    }
 }

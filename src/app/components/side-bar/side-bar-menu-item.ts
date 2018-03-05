@@ -54,7 +54,76 @@ export const MENU = [
         'category': 'child',
         'hasChild': false,
         'parent': 4
-    }
+    },
+    {
+        'id': 6,
+        'title': 'Comunidades',
+        'route': '',
+        'routes': ['/', '/community-list', '/community', '/community-details'],
+        'read': false,
+        'iClass': 'fa fa-users',
+        'category': 'parent',
+        'hasChild': true,
+        'parent': 0
+    },
+    {
+        'id': 8,
+        'title': 'Registros',
+        'route': 'community-list',
+        'routes': ['/community-list', '/community', '/community-details'],
+        'read': false,
+        'iClass': 'fa fa-circle-o',
+        'category': 'child',
+        'hasChild': false,
+        'parent': 6
+    },
+    {
+        'id': 7,
+        'title': 'Família',
+        'route': '',
+        'routes': ['/', '/pregnant-list', '/pregnant-details', '/pregnant',
+                   '/responsible-list', '/responsible', '/responsible-details',
+                   '/child-list', '/child', '/child-details'],
+        'read': false,
+        'iClass': 'fa fa-users',
+        'category': 'parent',
+        'hasChild': true,
+        'parent': 0
+    },
+    {
+        'id': 8,
+        'title': 'Gestante',
+        'route': 'pregnant-list',
+        'routes': ['/pregnant-list', '/pregnant', '/pregnant-details'],
+        'read': false,
+        'iClass': 'fa fa-circle-o',
+        'category': 'child',
+        'hasChild': false,
+        'parent': 7
+    },
+    {
+        'id': 9,
+        'title': 'Responsável',
+        'route': 'responsible-list',
+        'routes': ['/responsible-list', '/responsible', '/responsible-details'],
+        'read': false,
+        'iClass': 'fa fa-circle-o',
+        'category': 'child',
+        'hasChild': false,
+        'parent': 7
+    },
+    {
+        'id': 10,
+        'title': 'Criança',
+        'route': 'child-list',
+        'routes': ['/child-list', '/child', '/child-details'],
+        'read': false,
+        'iClass': 'fa fa-circle-o',
+        'category': 'child',
+        'hasChild': false,
+        'parent': 7
+    },
+
 
 // tslint:disable-next-line:eofline
 ];

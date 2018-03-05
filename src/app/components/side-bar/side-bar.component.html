@@ -2,7 +2,8 @@
     <section class="sidebar">
       <ul class="sidebar-menu" data-widget="tree" *ngFor="let item of menu">
         
-        <li class="treeview" [class.active]="isActive(item.routes)" *ngIf="item.read">
+        <li class="treeview" [class.active]="isActive(item.routes)" 
+            *ngIf="item.read">
             <a href="#" *ngIf="item.category === 'parent'">
               <i class="{{ item.iClass }}"></i> <span>{{ item.title }}</span>
               <span class="pull-right-container" *ngIf="item.hasChild">
@@ -10,69 +11,14 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              
               <li [class.active]="isActive(sub.routes)" *ngFor="let sub of menu">
                 <a class="menu" (click)="redirectTo(sub.route)"  *ngIf="sub.category === 'child' && sub.parent === item.id && sub.read">
                     <i class="{{ sub.iClass }}" aria-hidden="true"></i>
                     <span>{{ sub.title }}</span>
                 </a>
-              </li>         
-              
+              </li>  
             </ul>
         </li> 
-      
-        <!-- <li class="treeview" [class.active]="isActive(['/','/user-list', '/user', '/user-edit', '/user-details', '/profile-list', '/page-list'])"
-        *ngIf="item.page_id === 'user-list' && item.read && show === 0">
-            <a href="#">
-              <i class="fa fa-users"></i> <span>Usuários</span>
-              <i class="fa fa-angle-left pull-right"></i>
-            </a>
-            <ul class="treeview-menu">
-              
-              <li [class.active]="isActive(['/user-list', '/user', '/user-edit', '/user-details'])"
-                *ngIf="item.page_id === 'user-list' && item.read && show === 0">
-                <a class="menu" (click)="redirectTo('user-list')">
-                    <i class="fa fa-circle-o" aria-hidden="true"
-                    ></i>
-                    <span>Registros</span>
-                </a>
-              
-              </li>         
-              <li [class.active]="isActive(['/profile-list', '/page-list'])">
-                <a class="menu" (click)="redirectTo('profile-list')">
-                    <i class="fa fa-circle-o" aria-hidden="true"></i> 
-                    <span>Perfil</span>                   
-                </a>             
-              </li>
-            </ul>
-          </li> 
-          
-          <li [class.active]="isActive(['/','/template-chapter'])">
-            <a href="#">
-              <i class="fa fa-file-text"></i> <span>Livro</span>
-              <i class="fa fa-angle-left pull-right"></i>
-            </a>
-            <ul class="treeview-menu">
-              <li [class.active]="isActive(['/template-chapter'])">
-                <a class="menu" (click)="redirectTo('template-chapter')">
-                    <i class="fa fa-circle-o" aria-hidden="true"></i>
-                    <span>Capítulos </span>
-                </a>                
-              </li> 
-            </ul>
-          </li> -->
-
-          <!-- <li [class.active]="isActive(['/','/community-list', '/community'])">
-            <a (click)="redirectTo('community-list')">
-              <i class="fa fa-users"></i> <span>Comunidade</span>
-            </a>           
-          </li> -->
-
-          <!-- <li> -->
-              <!-- <button [style.visibility]="'hidden'" id="btnModal" type="button"  data-toggle="modal" data-target="#sideModal">
-                  Launch demo modal
-              </button>                   -->
-          <!-- </li>          -->
       </ul>
     </section>
   </aside>

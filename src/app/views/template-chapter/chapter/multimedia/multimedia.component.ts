@@ -51,20 +51,6 @@ export class MultimediaComponent implements OnInit {
     this.canUpdate = false;
     this.canRead = false;
     this.canDelete = false;
-
-    this.images = [
-      {'path': '../../../../../assets/img_test/img1.jpg', 'type': 'PICTURE2D'},
-      {'path': '../../../../../assets/img_test/itn.mp4', 'type': 'VIDEO2D'},
-      {'path': '../../../../../assets/img_test/img2.jpg', 'type': 'PICTURE2D'},
-      {'path': '../../../../../assets/img_test/img3.jpg', 'type': 'PICTURE2D'},
-      {'path': '../../../../../assets/img_test/img4.jpg', 'type': 'PICTURE2D'},
-      {'path': '../../../../../assets/img_test/itn.mp4', 'type': 'VIDEO2D'},
-      {'path': '../../../../../assets/img_test/img5.jpg', 'type': 'PICTURE2D'},
-      {'path': '../../../../../assets/img_test/img6.png', 'type': 'PICTURE2D'},
-      {'path': '../../../../../assets/img_test/itn.mp4', 'type': 'VIDEO2D'},
-      {'path': '../../../../../assets/img_test/itn.mp4', 'type': 'VIDEO2D'},
-      {'path': '../../../../../assets/img_test/FAS.pdf', 'type': 'FILE'}
-          ];
    }
 
   ngOnInit() {
@@ -105,25 +91,18 @@ export class MultimediaComponent implements OnInit {
       this.btn_cancel = false;
       return false;
     }
-    // this.media = media;
-    console.log('MEDIA ##', media);
-    console.log('isNewData', this.isNewData);
-    // if (this.media && this.media.id) {
       if (!this.isNewData) {
         // this.media.path = Constant.BASE_URL + 'filetest/download/' + this.media.id;
         for (let i = 0; i < media.length; i++) {
           this.chapter.medias.push(media[i]);
         }
-        console.log('CHAPTER:', this.chapter);
+
         this.chapter.thumbnails = [];
         this.chapterService.update(this.chapter).subscribe(
           s => {
             this.toastService.toastSuccess();
             this.chapter = s;
-            // this.multimedias = this.chapter.medias;
-            console.log('UPDATE CHAPTER:', this.chapter);
             this.load(this.chapter.id);
-            // this.gallery.reload();
           },
           e => {
             console.log(e);
@@ -134,23 +113,12 @@ export class MultimediaComponent implements OnInit {
     // }
   }
 
-  // reload() {
-  //   this.multimedias = this.chapter.medias;
-  //   for (let i = 0; i < this.multimedias.length; i++) {
-  //     this.multimedias[i].path = Constant.BASE_URL + 'filetest/download/' + this.multimedias[i].id;
-  //     if ( i === (this.multimedias.length - 1 )) {
-  //       this.canReload = true;
-  //     }
-  //    }
-  // }
-
   removeMultimedia(item: any) {
     this.item_remove = item;
     this.openModalRemove.click();
   }
 
   confirmRemove() {
-    console.log('REMOVE:', this.item_remove);
     this.fileService.remove(this.item_remove.id).subscribe(
       success => {
         this.toastService.toastSuccess();
