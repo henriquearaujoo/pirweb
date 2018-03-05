@@ -1,3 +1,4 @@
+import { Constant } from './../../../../constant/constant';
 import { Permissions, RuleState } from './../../../../helpers/permissions';
 import { ToastService } from './../../../../services/toast-notification/toast.service';
 import { InterventionService } from './../../../../services/intervention/intervention.service';
@@ -23,6 +24,9 @@ export class InterventionComponent implements OnInit {
   private canCreate: boolean;
   private canDelete: boolean;
 
+  private limit = Constant.LIMIT_CHARACTERS;
+  private characters =  this.limit;
+
   public editorOptions = {
     modules: {
       toolbar: [
@@ -32,7 +36,7 @@ export class InterventionComponent implements OnInit {
         [{ 'align': [] }]
       ]
     },
-    placeholder: '...',
+    placeholder: '',
     theme: 'snow'
   };
 
@@ -72,7 +76,6 @@ export class InterventionComponent implements OnInit {
           this.isNewData  = false;
           this.intervention = s;
           this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
-          console.log('saved with success!');
         },
         e => {
           if ( e[0] === 'chapter.intervention.chapter.missing') {
@@ -88,7 +91,6 @@ export class InterventionComponent implements OnInit {
         s => {
           this.intervention = s;
           this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso');
-          console.log('saved with success!');
         },
         e => {
           this.toastService.toastError();
@@ -103,7 +105,6 @@ export class InterventionComponent implements OnInit {
     this.service.load(chapter).subscribe(
       success => {
           this.intervention = success[0];
-          console.log('Load:', this.intervention);
           if (this.intervention === undefined) {
             this.intervention = new Intervention();
           }
@@ -128,5 +129,13 @@ export class InterventionComponent implements OnInit {
       'has-error': this.verifyValidSubmitted(form, field),
       'has-feedback': this.verifyValidSubmitted(form, field)
     };
+  }
+
+  onKey(event) {
+    this.characters = (this.limit - event.editor.getLength()) + 1;
+    if (event.editor.getLength() - 1 > this.limit) {
+      event.editor.deleteText(this.limit, event.editor.getLength());
+      event.editor.update();
+    }
   }
 }

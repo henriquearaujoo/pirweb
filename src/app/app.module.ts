@@ -1,3 +1,5 @@
+import { ChildService } from './services/child/child.service';
+import { ResponsibleService } from './services/responsible/responsible.service';
 import { FileService } from './services/file/file.service';
 // import { NgxSpinnerModule } from 'ngx-spinner';
 import { ReceptionService } from './services/reception/reception.service';
@@ -28,7 +30,6 @@ import {
   MatDatepickerModule,
   MatExpansionModule,
   MatGridListModule,
-  MatIconModule,
   MatInputModule,
   MatListModule,
   MatMenuModule,
@@ -53,6 +54,8 @@ import {
 } from '@angular/material';
 import { NgForm } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
+import { MatIconModule } from '@angular/material/icon';
+import {MyDatePickerModule} from 'mydatepicker';
 
 import { RestService } from './services/rest/rest.service';
 import { CostumerService } from './services/costumer/costumer.service';
@@ -144,6 +147,19 @@ import { EqualValidatorDirective } from './directives/equal-validator.directive'
 import { Ng2InputMaskModule } from 'ng2-input-mask';
 import { TextMaskModule } from 'angular2-text-mask';
 import {NgxMaskModule} from 'ngx-mask';
+import { ChildComponent } from './views/child/child.component';
+import { MotherComponent } from './views/mother/mother.component';
+import { MotherService } from './services/mother/mother.service';
+import { MotherListComponent } from './views/mother/mother-list/mother-list.component';
+import { ResponsibleComponent } from './views/responsible/responsible.component';
+import { ResponsibleListComponent } from './views/responsible/responsible-list/responsible-list.component';
+import { ChildListComponent } from './views/child/child-list/child-list.component';
+import { SweetAlertService } from './services/sweetalert/sweet-alert.service';
+import { CommunityDetailsComponent } from './views/community/community-details/community-details.component';
+import { MotherDetailsComponent } from './views/mother/mother-details/mother-details.component';
+import { ResponsibleDetailsComponent } from './views/responsible/responsible-details/responsible-details.component';
+import { ChildDetailsComponent } from './views/child/child-details/child-details.component';
+// import { QuillModule } from 'ngx-quill';
 // import { EqualValidator } from './directives/equal-validator.directive';
 
 // import { PdfViewerModule } from 'ng2-pdf-viewer';
@@ -210,7 +226,17 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     MultimediaGalleryComponent,
     UploadMultimediaComponent,
     ResetPasswordComponent,
-    EqualValidatorDirective
+    EqualValidatorDirective,
+    ChildComponent,
+    MotherComponent,
+    MotherListComponent,
+    ResponsibleComponent,
+    ResponsibleListComponent,
+    ChildListComponent,
+    CommunityDetailsComponent,
+    MotherDetailsComponent,
+    ResponsibleDetailsComponent,
+    ChildDetailsComponent
 
   ],
   imports: [
@@ -256,7 +282,6 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDo5LxyVUv5EwGQBwaveIF4d0MaIVD_Dd8'
     }),
-    BrowserAnimationsModule,
     SimpleNotificationsModule.forRoot(),
     NgxPaginationModule,
     JasperoAlertsModule,
@@ -265,7 +290,9 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     QuillEditorModule,
     ToastyModule.forRoot(),
     HttpClientModule,
-    NgxMaskModule
+    NgxMaskModule,
+    MyDatePickerModule
+    // QuillModule
     // Ng2InputMaskModule
     // PdfViewerModule
     // NgProgressModule
@@ -273,6 +300,7 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
   ],
   providers: [
     { provide: XHRBackend, useClass: Interceptor },
+    // { provide: Http, useClass: Interceptor },
     RestService,
     PageService,
     CostumerService,
@@ -297,7 +325,11 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     PageGuard,
     ModalService,
     CommunityService,
-    FileService
+    FileService,
+    MotherService,
+    ResponsibleService,
+    ChildService,
+    SweetAlertService
   ],
   bootstrap: [AppComponent]
 })

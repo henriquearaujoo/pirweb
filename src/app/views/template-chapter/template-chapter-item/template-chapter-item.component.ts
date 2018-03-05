@@ -85,6 +85,7 @@ export class TemplateChapterItemComponent implements OnInit {
    }
 
    editChapter(chapter: Chapter) {
+    localStorage.removeItem('chapterId');
     localStorage.setItem('chapterId', chapter.id );
     console.log('chapterId', localStorage.getItem('chapterId'));
     this.router.navigate(['chapter-dashboard']);

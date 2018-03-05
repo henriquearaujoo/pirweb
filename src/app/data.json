@@ -215,5 +215,38 @@
          "status": false,
          "percentage": 45
          }
+  ],
+
+  "pregnant": [
+    {
+   "id": 1,
+    "name": "Maria Silva",
+    "community_id": "Comunidade 01",
+    "regional": "Regional 01",
+    "status": true
+    },
+    {
+   "id": 2,
+    "name": "Joana Souza",
+    "community_id": "comunidade 02",    
+    "regional": "Regional 02",
+    "status": false
+    }
+  ],
+  "responsible": [
+    {
+     "id": 1,
+      "nameResponsible": "Rodrigo Pereira",
+      "community_id": "comunidade 01",    
+      "nameChild": "criança 02",
+      "status": true
+    },
+    {
+    "id": 2,
+      "nameResponsible": "José Souza",
+      "community_id": "comunidade 02",    
+      "nameChild": "criança 01",
+      "status": false
+    }
   ]
 }

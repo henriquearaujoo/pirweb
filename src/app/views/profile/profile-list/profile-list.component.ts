@@ -1,3 +1,4 @@
+import { ProfileComponent } from './../profile.component';
 import { PaginateComponent } from './../../../components/paginate/paginate.component';
 import { LoaderService } from './../../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../../helpers/permissions';
@@ -28,6 +29,7 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
     profile: Profile = new Profile();
     private paginate: Paginate = new Paginate();
 
+    @Output() inputFocus = new EventEmitter();
     @Input() profile_id: number;
 
     @Output() page: number;
@@ -53,6 +55,7 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
     private canDelete: boolean;
     @ViewChild('paginate') _paginate: PaginateComponent;
     private index: number;
+    @ViewChild('profile') profileChild: ProfileComponent;
 
     constructor(
       pagerService: PageService,
@@ -84,8 +87,8 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
           this.canDelete = rules.canDelete;
         }
       );
-      this.profileTab = '../../../assets/img/profile/ic_profile_enable.png';
-      this.permissionTab = '../../../assets/img/profile/ic_permission_disable.png';
+      this.profileTab = './assets/img/profile/ic_profile_enable.png';
+      this.permissionTab = './assets/img/profile/ic_permission_disable.png';
       this.profileTabActive = true;
       this.permissionTabActive = false;
       this.hasdata = false;
@@ -106,7 +109,6 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
           this.profiles.forEach( el => {
             el.number = this.index ++;
           });
-          console.log('Paginate:', this.paginate);
           this.hasdata = true;
           setTimeout(() => {
             this.loaderService.hide();
@@ -121,17 +123,12 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
 
     setPage(page: number) {
       this.page = page;
-      console.log('Página:', this.page);
-      console.log('Paginate:', this.paginate);
-      console.log('Filtro:', this.filter.title);
       this.getProfile();
     }
 
     setProfile(profile: Profile) {
       this.selectedProfile = profile;
-      // localStorage.setItem('currentProfile', JSON.stringify(profile));
       this.accessPageService.profileSelected(profile);
-      console.log(this.accessPageService.getProfile().title);
     }
 
     changeStatus(profile: Profile) {
@@ -144,12 +141,10 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
       } else {
         this.profile.status = true;
       }
-      console.log(this.profile.status);
 
       this.profile.description = '';
       this.profile.created_by = '';
       this.profile.modified_by = '';
-      console.log('Disable:', this.profile);
       this.profileService.disableProfile(this.profile).subscribe(
         success => {
           this.router.navigate(['profile-list']);
@@ -165,10 +160,11 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
 
     onInsertValue(evento: Profile) {
       this.profiles.push(evento);
-      this.getProfile();
       this.filter.title = '';
+      this.getProfile();
       this.edit = false;
       this.pageComponent.getProfile();
+      (<HTMLInputElement>document.getElementById('filter')).value = '';
     }
 
     onFilter(evento) {
@@ -178,6 +174,7 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
     editProfile(profile: Profile) {
       this.edit = true;
       this.selectedProfile = profile;
+      this.profileChild.inputEnable();
     }
 
     isActive(tab: boolean) {
@@ -187,8 +184,8 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
     walk ( tab: number) {
       switch (tab) {
         case 0: {
-          this.profileTab = '../../../assets/img/profile/ic_profile_enable.png';
-          this.permissionTab = '../../../assets/img/profile/ic_permission_disable.png';
+          this.profileTab = './assets/img/profile/ic_profile_enable.png';
+          this.permissionTab = './assets/img/profile/ic_permission_disable.png';
           this.profileTabActive = true;
           this.permissionTabActive = false;
           break;
@@ -197,8 +194,8 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
           if (this.accessPageService.getProfile().id !== undefined) {
             this.pageComponent.getCurrentProfile();
           }
-          this.profileTab = '../../../assets/img/profile/ic_profile_disable.png';
-          this.permissionTab = '../../../assets/img/profile/ic_permission_enable.png';
+          this.profileTab = './assets/img/profile/ic_profile_disable.png';
+          this.permissionTab = './assets/img/profile/ic_permission_enable.png';
           this.profileTabActive = false;
           this.permissionTabActive = true;
         break;
@@ -213,8 +210,8 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
       if (this.accessPageService.getProfile().id !== undefined) {
           this.pageComponent.getCurrentProfile();
       }
-      this.profileTab = '../../../assets/img/profile/ic_profile_disable.png';
-      this.permissionTab = '../../../assets/img/profile/ic_permission_enable.png';
+      this.profileTab = './assets/img/profile/ic_profile_disable.png';
+      this.permissionTab = './assets/img/profile/ic_permission_enable.png';
       this.profileTabActive = false;
       this.permissionTabActive = true;
     }

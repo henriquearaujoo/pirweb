@@ -92,30 +92,38 @@ export class UploadMultimediaComponent implements OnInit {
 
   onChange(files) {
     const fi = this.fileInput.nativeElement;
+    console.log('FILE ###:', this.fileInput.nativeElement.files);
     if (fi.files && fi.files.length > 0) {
       for (let i = 0 ; i < fi.files.length ; i ++ ) {
         const fileToUpload = fi.files[i];
-        console.log('FILE ###:', fileToUpload);
-        if ( this.selectedType.accept.includes(fileToUpload.type) ) {
+        if ( (this.selectedType.accept.includes(fileToUpload.type) && (fileToUpload.type !== '')) ) {
           if ( fileToUpload.size <= this.selectedType.size) {
             this.files.push(fileToUpload);
             this.hasFile = true;
           } else {
             this.toastService.toastMsgError('Erro', 'Não foi possível carregar o arquivo ' + fileToUpload.name +
             '. Verifique o tamanho máximo permitido para o tipo de mídia selecionado');
+            console.log('fileToUpload ###:', fileToUpload);
+            this.reset();
           }
         } else {
           this.toastService.toastMsgError('Erro', 'Não foi possível carregar o arquivo ' + fileToUpload.name +
             '. Verifique as extensões permitidas para o tipo de mídia selecionado');
+            this.reset();
         }
       }
     }
   }
   remove(file) {
     this.files.splice(file, 1);
+    this.reset();
     if (this.files.length === 0) {
       this.hasFile = false;
     }
+  }
+
+  reset() {
+    this.fileInput.nativeElement.value = '';
   }
 
   upload(): void {
@@ -123,9 +131,6 @@ export class UploadMultimediaComponent implements OnInit {
       return;
     }
 
-    // tslint:disable-next-line:prefer-const
-    // let fi = this.fileInput.nativeElement;
-    // fi.files = this.files;
     if ( this.files.length > 0) {
       if (this.files && this.files.length > 0) {
         for (let i = 0 ; i < this.files.length ; i ++ ) {
@@ -141,6 +146,7 @@ export class UploadMultimediaComponent implements OnInit {
             if (this.uploaded) {
               this.uploaded.emit(this._fileData);
               this.selectedType = '';
+              this.reset();
               // this._fileData = null;
             }
           }, error => console.log('ERROR UPLOAD:', error)
@@ -151,38 +157,6 @@ export class UploadMultimediaComponent implements OnInit {
       this.toastService.toastMsgWarn('Atenção', 'Selecione um ou mais arquivos para upload!');
     }
   }
-
-  // upload(): void {
-  //   if (this._fileData && !this._fileData.mediaType) {
-  //     return;
-  //   }
-
-  //   const fi = this.fileInput.nativeElement;
-  //   if ( this.files.length > 0) {
-  //     if (fi.files && fi.files.length > 0) {
-  //       for (let i = 0 ; i < fi.files.length ; i ++ ) {
-  //         const fileToUpload = fi.files[i];
-  //         this.fileService.upload(this._fileData.mediaType, fileToUpload).subscribe(
-  //         res => {
-  //           this._fileData = JSON.parse(res.text());
-  //           console.log('_fileData', JSON.parse(res.text()));
-
-  //           this.files = [];
-  //           this.hasFile = false;
-
-  //           if (this.uploaded) {
-  //             this.uploaded.emit(this._fileData);
-  //             this.selectedType = '';
-  //             // this._fileData = null;
-  //           }
-  //         }, error => console.log('ERROR UPLOAD:', error)
-  //       );
-  //       }
-  //     }
-  //   } else {
-  //     this.toastService.toastMsgWarn('Atenção', 'Selecione um ou mais arquivos para upload!');
-  //   }
-  // }
 
   loadInfo() {
     if ( this.type_file !== undefined) {

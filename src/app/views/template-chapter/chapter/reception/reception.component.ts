@@ -1,3 +1,4 @@
+import { Constant } from './../../../../constant/constant';
 import { Permissions, RuleState } from './../../../../helpers/permissions';
 import { ToastService } from './../../../../services/toast-notification/toast.service';
 import { ReceptionService } from './../../../../services/reception/reception.service';
@@ -26,6 +27,9 @@ export class ReceptionComponent implements OnInit {
   @Output() returnEvent = new EventEmitter();
   @Output() cancelEvent = new EventEmitter();
 
+  private limit = Constant.LIMIT_CHARACTERS;
+  private characters =  this.limit;
+
   public editorOptions = {
     modules: {
       toolbar: [
@@ -35,7 +39,7 @@ export class ReceptionComponent implements OnInit {
         [{ 'align': [] }]
       ]
     },
-    placeholder: '...',
+    placeholder: '',
     theme: 'snow'
   };
 
@@ -111,7 +115,6 @@ export class ReceptionComponent implements OnInit {
     this.service.load(chapter).subscribe(
       s => {
         this.reception = s[0];
-        console.log('Load:', this.reception);
         if (this.reception === undefined) {
           this.reception = new Reception();
         }
@@ -131,5 +134,13 @@ export class ReceptionComponent implements OnInit {
       'has-error': this.verifyValidSubmitted(form, field),
       'has-feedback': this.verifyValidSubmitted(form, field)
     };
+  }
+
+  onKey(event) {
+    this.characters = (this.limit - event.editor.getLength()) + 1;
+    if (event.editor.getLength() - 1 > this.limit) {
+      event.editor.deleteText(this.limit, event.editor.getLength());
+      event.editor.update();
+    }
   }
 }

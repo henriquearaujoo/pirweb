@@ -14,7 +14,7 @@
                             Desligar os aparelhos
                         </div>
                         <div class="row img">
-                            <img src="../../../..//../assets/img/chapter/ic_reception_turnoff_eletronics.png">
+                            <img src="./assets/img/chapter/ic_reception_turnoff_eletronics.png">
                             <input type="checkbox" id="turnoff_eletronics" name="turn_off_tv" [(ngModel)]="reception.turnoff_eletronics" value='{{reception.turnoff_eletronics}}' />                           
                         </div>
                     </div>
@@ -23,7 +23,7 @@
                                 Apagar o fogão
                         </div>
                         <div class="row img">
-                            <img src="../../../..//../assets/img/chapter/ic_reception_turnoff_stove.png">
+                            <img src="./assets/img/chapter/ic_reception_turnoff_stove.png">
                             <input type="checkbox" id="turnoff_stove" name="turnoff_stove" [(ngModel)]="reception.turnoff_stove" value="{{reception.turnoff_stove}}">
                         </div>                        
                     </div>
@@ -32,7 +32,7 @@
                             Acalmar a Família
                         </div>
                         <div class="row img">
-                            <img src="../../../..//../assets/img/chapter/ic_reception_sit_down.png">
+                            <img src="./assets/img/chapter/ic_reception_sit_down.png">
                             <input type="checkbox" id="sit_down" name="sit_down" [(ngModel)]="reception.sit_down" value="{{reception.sit_down}}">
                         </div>                          
                     </div>
@@ -41,7 +41,7 @@
                                 Retomar visita anterior
                         </div>
                         <div class="row img">
-                            <img src="../../../..//../assets/img/chapter/ic_reception_goback_lastvisit.png">
+                            <img src="./assets/img/chapter/ic_reception_goback_lastvisit.png">
                             <input type="checkbox" id="goback_lastvisit" name="goback_lastvisit" [(ngModel)]="reception.goback_lastvisit" value="{{reception.goback_lastvisit}}">
                         </div>    
                         
@@ -54,8 +54,13 @@
                         <div class="box-body">
                             <div class="form-group" [ngClass]="applyCssError(fReception, description)">
                                 <label class="control-label">Descrição do Acolhimento</label>
-                                <quill-editor style="height: 150px;" [options]="editorOptions" id="reception_description" name="reception_description" #description="ngModel" [(ngModel)]="reception.description" required></quill-editor>
-                                <!-- <ck-editor style="height: 150px;" id="reception_description" name="reception_description" #description="ngModel" [(ngModel)]="reception.description" skin="moono-lisa" [fullPage]="false" required [config]="config"></ck-editor> -->
+                                <quill-editor 
+                                    (change)="onKey($event)"
+                                    style="height: 150px;" 
+                                    [options]="editorOptions" id="reception_description" 
+                                    name="reception_description" #description="ngModel" 
+                                    [(ngModel)]="reception.description" required>
+                                </quill-editor>                                
                                 <app-control-field-error [showError]="verifyValidSubmitted(fReception, description)" msgError="Digite a descrição">
                                 </app-control-field-error>
                             </div>

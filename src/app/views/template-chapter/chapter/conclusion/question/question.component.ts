@@ -1,3 +1,4 @@
+import { Constant } from './../../../../../constant/constant';
 import { error } from 'util';
 import { Component, OnInit, EventEmitter, Output, Input, ViewChild } from '@angular/core';
 import { Question } from '../../../../../models/question';
@@ -27,6 +28,9 @@ export class QuestionComponent implements OnInit {
   @Input() private index: number;
   private indexEdit: number;
 
+  private limit = Constant.LIMIT_CHARACTERS;
+  private characters =  this.limit;
+
   public editorOptions = {
     modules: {
       toolbar: [
@@ -36,7 +40,7 @@ export class QuestionComponent implements OnInit {
         [{ 'align': [] }]
       ]
     },
-    placeholder: '...',
+    placeholder: '',
     theme: 'snow'
   };
 
@@ -76,7 +80,6 @@ export class QuestionComponent implements OnInit {
         s => {
           this.question = s;
           this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso');
-          console.log('saved with success!', this.question);
         },
         error => {
           if ( error === 'question.exists') {
@@ -97,12 +100,10 @@ export class QuestionComponent implements OnInit {
           this.question = this.paginate.content[0];
           this.isNewData = false;
           this.indexEdit = Number(localStorage.getItem('questionIndex'));
-          console.log('LoadQuestion:', this.question);
           this.answer.getAnswers();
           if (this.question === undefined) {
             this.question = new Question();
           }
-          // localStorage.removeItem('questionId');
       },
       e => {
         console.log('PirError:' + e);
@@ -112,7 +113,6 @@ export class QuestionComponent implements OnInit {
 
   onCancel() {
     this.btn_cancel = true;
-    console.log('onCancel()');
   }
 
   onCancelAddAnswer(event) {
@@ -132,6 +132,14 @@ export class QuestionComponent implements OnInit {
       'has-error': this.verifyValidSubmitted(form, field),
       'has-feedback': this.verifyValidSubmitted(form, field)
     };
+  }
+
+  onKey(event) {
+    this.characters = (this.limit - event.editor.getLength()) + 1;
+    if (event.editor.getLength() - 1 > this.limit) {
+      event.editor.deleteText(this.limit, event.editor.getLength());
+      event.editor.update();
+    }
   }
 
 }

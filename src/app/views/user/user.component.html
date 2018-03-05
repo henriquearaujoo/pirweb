@@ -110,27 +110,27 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                        <div class="col-sm-12">
-                                                                <div class="form-group" [ngClass]="applyCssError(f1, password)">
-                                                                        <label class="control-label">Senha</label>
-                                                                        <input type="password" [(ngModel)]="user.password" #password="ngModel" name="password" id="user_password" class="form-control" required minlength="8" placeholder="Inserir uma senha (Digite uma senha. Mínimo 8 caracteres)">
-                                                                        <app-control-field-error [showError]="verifyValidSubmitted(f1, password)" msgError="Digite uma senha. Mínimo 8 caracteres">
-                                                                        </app-control-field-error>
-                                                                </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group" [ngClass]="applyCssError(f1, password)">
+                                                            <label class="control-label">Senha</label>
+                                                            <input type="password" [(ngModel)]="user.password" #password="ngModel" name="password" id="user_password" class="form-control" required minlength="8" placeholder="Inserir uma senha (Digite uma senha. Mínimo 8 caracteres)">
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, password)" msgError="Digite uma senha. Mínimo 8 caracteres">
+                                                            </app-control-field-error>
                                                         </div>
-                                                    </div>                                              
+                                                    </div>
+                                                </div>                                              
                                                 
-                                                </div>
+                                            </div>
                                             </div>
                                             <div class="content-control">
                                                 <div class="control">
-                                                    <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false, 1)" id="btn_previous">
-                                                        <img src="../../../assets/img/global/ic_previous.png" />
+                                                    <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false, 1, 0)" id="btn_previous">
+                                                        <img src="./assets/img/global/ic_previous.png" />
                                                         <b>Anterior</b>
                                                     </a>
                                                     <a href="{{nextTab}}" data-toggle="tab" (click)="isActive(true, 1)" id="btn_next">
                                                         <b>Próximo</b>
-                                                        <img src="../../../assets/img/global/ic_next.png" />
+                                                        <img src="./assets/img/global/ic_next.png" />
                                                     </a>
                                                     <button type="submit" id="btn_tab1"></button>
                                                 </div>
@@ -262,13 +262,13 @@
                                             </div>
                                             <div class="content-control">
                                                 <div class="control">
-                                                    <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false, 2)" id="btn_previous">
-                                                        <img src="../../../assets/img/global/ic_previous.png" />
+                                                    <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false, 2, 0)" id="btn_previous">
+                                                        <img src="./assets/img/global/ic_previous.png" />
                                                         <b>Anterior</b>
                                                     </a>
                                                     <a href="{{nextTab}}" data-toggle="tab" (click)="isActive(true, 2)" id="btn_next">
                                                         <b>Próximo</b>
-                                                        <img src="../../../assets/img/global/ic_next.png" />
+                                                        <img src="./assets/img/global/ic_next.png" />
                                                     </a>
                                                     <button type="submit" id="btn_tab2"></button>
                                                 </div>
@@ -371,8 +371,8 @@
                                                 </div>
                                                 <div class="content-control">
                                                     <div class="control">
-                                                        <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false, 3)" id="btn_previous">
-                                                            <img src="../../../assets/img/global/ic_previous.png" />
+                                                        <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false, 3, 0)" id="btn_previous">
+                                                            <img src="./assets/img/global/ic_previous.png" />
                                                             <b>Anterior</b>
                                                         </a>
                                                         <!-- <a href="{{nextTab}}" data-toggle="tab" (click)="isActive(true)" id="btn_next">

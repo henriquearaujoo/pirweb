@@ -2,7 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import { RestService } from './../rest/rest.service';
 import { Injectable } from '@angular/core';
 import { Constant } from '../../constant/constant';
-import { Http } from '@angular/http';
+import { Http, ResponseContentType } from '@angular/http';
 
 @Injectable()
 export class FileService extends RestService {
@@ -28,7 +28,12 @@ export class FileService extends RestService {
 
 
     public donwload(id: string) {
-        return this.get(this.apiurl + 'file/download/' + id);
+        return this.http.get(this.apiurl + 'file/download/' + id,
+            { responseType: ResponseContentType.Blob }).map(
+            (res) => {
+                return new Blob([res.blob()], { type: 'application/pdf' });
+            }
+        );
     }
 
     public remove(id: string) {

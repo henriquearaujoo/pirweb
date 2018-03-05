@@ -25,13 +25,13 @@ export class ProfileService extends RestService {
   }
 
   public getProfiles() {
-    const currentURL = this.apiurl + '/profiles/search/?status=true';
+    const currentURL = this.apiurl + 'profiles/search/?status=true';
     console.log(currentURL);
     return this.get(currentURL);
   }
 
   public getAllProfiles() {
-    const currentURL = this.apiurl + '/profiles/search/';
+    const currentURL = this.apiurl + 'profiles/search/';
     console.log(currentURL);
     return this.get(currentURL);
   }

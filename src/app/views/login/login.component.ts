@@ -76,6 +76,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                     console.log('Decode Token:', tokenData);
                     localStorage.setItem('profileId_rules', tokenData.payload.pfl);
                     localStorage.setItem('currentUserPir', tokenData.payload.unm);
+                    localStorage.setItem('currentIdPir', tokenData.payload.uid);
 
                     this.loaderService.hide();
                     this.router.navigate([this.returnUrl]);
@@ -97,6 +98,10 @@ export class LoginComponent implements OnInit, OnDestroy {
             }
             case 'login.username.notfound': {
                 this.toastService.toastMsgWarn('Atenção', 'Autenticação incorreta!');
+                break;
+            }
+            case 'user.disabled': {
+                this.toastService.toastMsgWarn('Atenção', 'Usuário desativado!');
                 break;
             }
         }

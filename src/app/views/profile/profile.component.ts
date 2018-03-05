@@ -16,7 +16,7 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent extends PagenateComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
+export class ProfileComponent extends PagenateComponent implements OnInit, OnChanges {
 
   @Input() profiles: Profile[] = new Array();
   profile: Profile = new Profile();
@@ -31,7 +31,9 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
   editProfile: string;
   @Input() canUpdate: boolean;
   @Input() canCreate: boolean;
-  @ViewChild('input') inputEdit: ElementRef;
+  @ViewChild('inputEdit') inputEdit: ElementRef;
+
+  log: string;
 
   constructor (
     pagerService: PageService,
@@ -49,22 +51,15 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
       this.hasdata = false;
       this.editProfile = this.selectedProfile.title;
       if ( changes.edit) {
-        if (!this.edit) {
-          this.ngOnDestroy();
+        if (this.edit) {
+          // this.ngAfterViewInit();
+          // this.focusInput();
         }
       }
     }
 
-    ngOnDestroy() {
-      console.log('ngOnDestroy');
-     }
-
-    ngAfterViewInit() {
-      console.log('ngAfterViewInit');
-      // (<HTMLButtonElement>document.getElementById('title')).focus();
-      if (this.edit) {
-        // (<HTMLButtonElement>document.getElementById('title')).focus();
-      }
+    focusInput() {
+      this.inputEdit.nativeElement.focus();
     }
 
     save() {
@@ -92,7 +87,6 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
     }
 
     saveEdit() {
-        console.log('perfi editado:', this.selectedProfile);
         this.selectedProfile.title = this.editProfile;
         this.selectedProfile.description = '';
         this.selectedProfile.created_by = '';
@@ -105,6 +99,7 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
             this.toastService.toastSuccess();
           },
           error => {
+            this.insertValue.emit(this.profile);
             if ( error === 'profile.title.exists') {
               this.toastService.toastErrorExist();
             } else {
@@ -118,5 +113,12 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
     cancelEdit() {
       this.insertValue.emit(this.profile);
       this.profile.title = '';
+    }
+
+    public inputEnable() {
+      if ( (<HTMLElement>document.getElementById('title_edit')) !== null) {
+        (<HTMLElement>document.getElementById('title_edit')).blur();
+        (<HTMLElement>document.getElementById('title_edit')).focus();
+      }
     }
 }

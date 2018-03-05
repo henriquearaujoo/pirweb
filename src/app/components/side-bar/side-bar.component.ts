@@ -48,6 +48,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
     this.subscription = this.permissions.ruleState.subscribe(
       (rules: RuleState) => {
         this.rules = rules.permissions;
+        // console.log('RULES:', this.rules);
 
        for (let i = 0; i < this.menu.length; i++) {
          for ( let j = 0; j < this.rules.length; j++) {
@@ -74,8 +75,6 @@ export class SideBarComponent implements OnInit, OnDestroy {
       }
 
       });
-
-      console.log('HOST:', window.location.host);
   }
 
   isActive(instruction: String[]): boolean {
@@ -99,10 +98,13 @@ export class SideBarComponent implements OnInit, OnDestroy {
       this.router.navigate([this.urlToNavigate]);
     } else {
       this.isForm = (currentURL.toLowerCase() === '/chapter-dashboard') ||
-                    (currentURL.toLowerCase() === '/user');
+                    (currentURL.toLowerCase() === '/user') ||
+                    (currentURL.toLowerCase() === '/community') ||
+                    (currentURL.toLowerCase() === '/mother') ||
+                    (currentURL.toLowerCase() === '/responsible') ||
+                    (currentURL.toLowerCase() === '/child');
       if (this.isForm) {
         this.modalService.modalCancel(this.urlToNavigate);
-        // (<HTMLButtonElement> document.getElementById('btnModal')).click();
       } else {
         this.router.navigate([this.urlToNavigate]);
       }
@@ -111,10 +113,5 @@ export class SideBarComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-    console.log('Destroy!!');
   }
-
-//  confirmModalToLeavePage() {
-//     this.router.navigate([this.urlToNavigate]);
-//   }
 }

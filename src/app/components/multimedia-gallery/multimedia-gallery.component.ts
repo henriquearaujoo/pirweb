@@ -1,9 +1,12 @@
+import { FileService } from './../../services/file/file.service';
 import { SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 import { ModalService } from './../modal/modal.service';
-import { Component, OnInit, Input, ViewChild, ElementRef, HostListener, EventEmitter, Output, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, HostListener, EventEmitter, Output, OnChanges, OnDestroy } from '@angular/core';
 import { Constant } from '../../constant/constant';
 import { PageService } from '../../services/pagenate/page.service';
 import { PagenateComponent } from '../pagenate/pagenate.component';
+import 'rxjs/Rx' ;
+import { saveAs } from 'file-saver/FileSaver';
 
 declare function require(name: string): any;
 
@@ -12,10 +15,10 @@ declare function require(name: string): any;
   templateUrl: './multimedia-gallery.component.html',
   styleUrls: ['./multimedia-gallery.component.css']
 })
-export class MultimediaGalleryComponent implements OnInit, OnChanges {
+export class MultimediaGalleryComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() datasource: any[];
-  private selectedItem: any;
+  private selectedItem: any = '';
   @Output() remove = new EventEmitter<any>();
 
    // array of all items to be paged
@@ -32,7 +35,8 @@ export class MultimediaGalleryComponent implements OnInit, OnChanges {
 
   constructor(
     private modalService: ModalService,
-    private pagerService: PageService ) {
+    private pagerService: PageService,
+    private fileService: FileService) {
      }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -42,16 +46,33 @@ export class MultimediaGalleryComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    if (this.datasource) {
-      console.log('Datasource:', this.datasource);
-      this.reload();
-    }
+    // if (this.datasource) {
+    //   console.log('Datasource:', this.datasource);
+    //   this.reload();
+    // }
   }
 
   setSelectedItem(item: any) {
     this.selectedItem = item;
-    console.log('selectedItem', this.selectedItem);
  }
+
+  downloadFile(item: any) {
+    this.fileService.donwload(item.id).subscribe(
+      data =>  {
+        const blob = new Blob([data], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        // window.open(url);
+        saveAs(blob, item.name);
+
+      },
+      error => console.log('Error downloading the file.')
+      );
+  }
+
+  close() {
+    // this.selectedItem.path = '';
+    this.ngOnDestroy();
+  }
 
  reload() {
   for (let i = 0; i < this.datasource.length; i++) {
@@ -91,5 +112,7 @@ setPageImages(page: number) {
      this.selectedItem = this.datasource[index];
   }
 }
-
+  ngOnDestroy() {
+    this.selectedItem = '';
+  }
 }

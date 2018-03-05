@@ -65,10 +65,13 @@ export class ChapterService extends RestService {
   }
 
   public getChapterInactive(param?: number, size?: number) {
-      return this.get(this.apiurl + 'inactive/search/page?size=' + size + '&number=' + param + '&sort=chapter,asc&sort=version,desc');
+    if (param === undefined) {
+      return this.get(this.apiurl + 'inactive/search/page?size=' + size + '&sort=chapter,asc');
+    }
+      return this.get(this.apiurl + 'inactive/search/page?size=' + size + '&number=' + param + '&sort=chapter,asc');
   }
 
   public getChapterActive(param?: number, size?: number) {
-    return this.get(this.apiurl + 'active/search/page?size=' + size + '&number=' + param + '&sort=chapter,asc&sort=version,desc');
+    return this.get(this.apiurl + 'active/search/page?size=' + size + '&number=' + param + '&sort=chapter,asc');
   }
 }

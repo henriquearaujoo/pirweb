@@ -23,16 +23,6 @@ export class PageGuard implements CanActivate {
         state: RouterStateSnapshot
         ): Observable<boolean> | boolean {
 
-        //  return this.permissions.canActivate(state.url).map(
-        //     (read: boolean) => {
-        //         if (read) {
-        //             console.log('Permitido');
-        //             return true;
-        //         }
-        //         console.log('Negado');
-        //         return false;
-        //     });
-
         this.permissions.canActivate(state.url);
         return this.permissions.permissionsState.map(
             (rules: RuleState) => {

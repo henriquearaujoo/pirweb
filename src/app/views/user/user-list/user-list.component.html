@@ -14,8 +14,8 @@
     <!-- when there's not record -->
     <div *ngIf="!hasdata">
       <section class="content">
-          <div class="feedback-icon fa fa-users"></div><br><br>
-          <span class="feedback-message">Não há dados cadastrados</span>
+          <!-- <div class="feedback-icon fa fa-users"></div><br><br> -->
+          <!-- <span class="feedback-message">Não há dados cadastrados</span> -->
       </section>
     </div>
 
@@ -24,7 +24,8 @@
             <div class="col-sm-12">
               <div id="_filter" class="dataTables_filter">
                 <label>
-                <input type="text" class="form-control form-border"  [(ngModel)]="filter.name" #f="ngModel" mask="SSSSSSSSSSSSSSSSSS" name="filter" id="filter" maxlength="15" (keyup)="getUsers()" placeholder="Filtro">
+                <input type="text" class="form-control form-border"  [(ngModel)]="filter.name" #f="ngModel" 
+                  mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" name="filter" id="filter" (keyup)="getUsers()" placeholder="Nome do usuário">
                 </label>
                 <!-- <input type='text' mask="000.000.000-00" > -->
                 <!-- <div>
@@ -54,7 +55,13 @@
                 <th colspan="3" class="tbl-center"> AÇÃO</th>
               </tr>
             </thead>
-            <tbody>
+
+            <div class="feedback" *ngIf="users.length === 0">
+                <i class="material-icons" style="font-size: 24px;">error_outline</i>
+              <span class="feedback-message">Nenhum registro encontrado</span>
+            </div> 
+
+            <tbody *ngIf="users.length !== 0">
               <tr *ngFor="let item of users">
                 <td class="tbl-left">  
                     {{ item.name }}
@@ -66,22 +73,25 @@
                     {{ item.status === true ? 'Ativo': 'Inativo' }}
                 </td -->
                 <td class="tbl-right">              
-                  <a (click)="setUser(item)" id="btn_details" [routerLink]="['/user-details']" title="Ver detalhes">
+                  <a (click)="setUser(item)" id="btn_details" [routerLink]="['/user-details']" title="Ver detalhes"
+                    *ngIf="item.name  !== 'Administrator'">
                       <i class="large material-icons">visibility</i>
                   </a>
                 </td>
                 <td class="tbl-right" *ngIf="canUpdate">          
                   <a title="Editar" id="btn_edit"
-                    (click)="setUser(item)" [routerLink]="['/user-edit']" >
+                    (click)="setUser(item)" [routerLink]="['/user-edit']" 
+                    *ngIf="item.name  !== 'Administrator'">
                     <i class="fa fa-pencil fa-fw"></i>
                   </a>
                 </td>
                 <td class="tbl-right" *ngIf="canDelete">
-                    <a href="" [title]="item.status === true ? 'Desativar': 'Ativar'"
-                      data-toggle="modal" data-target="#modal-default"
-                      (click)="changeStatus(item)" id="btn_status" >              
-                      <i [ngClass]="item.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
-                    </a>      
+                  <a href="" [title]="item.status === true ? 'Desativar': 'Ativar'"
+                    data-toggle="modal" data-target="#modal-default"
+                    (click)="changeStatus(item)" id="btn_status" 
+                    *ngIf="item.name  !== 'Administrator'">              
+                    <i [ngClass]="item.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
+                  </a>      
                 </td>
               </tr>
             </tbody>

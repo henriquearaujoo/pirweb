@@ -1,3 +1,4 @@
+import { Constant } from './../../../../constant/constant';
 import { Permissions, RuleState } from './../../../../helpers/permissions';
 import { Question } from './../../../../models/question';
 import { error } from 'util';
@@ -39,6 +40,9 @@ export class ConclusionComponent implements OnInit {
   private canCreate: boolean;
   private canDelete: boolean;
 
+  private limit = Constant.LIMIT_CHARACTERS;
+  private characters =  this.limit;
+
   public editorOptions = {
     modules: {
       toolbar: [
@@ -48,7 +52,7 @@ export class ConclusionComponent implements OnInit {
         [{ 'align': [] }]
       ]
     },
-    placeholder: '...',
+    placeholder: '',
     theme: 'snow'
   };
 
@@ -99,7 +103,6 @@ export class ConclusionComponent implements OnInit {
             this.hasdata = true;
             this.btn_save = false;
             this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
-            console.log('saved with success!', this.conclusion);
           },
           error => {
             if ( error[0] === 'chapter.conclusion.chapter.missing') {
@@ -116,7 +119,6 @@ export class ConclusionComponent implements OnInit {
             this.conclusion = s;
             this.hasdata = true;
             this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso');
-            console.log('updated with success!', this.conclusion);
           },
           error => {
             if ( error[0] === 'chapter.conclusion.chapter.missing') {
@@ -139,8 +141,6 @@ export class ConclusionComponent implements OnInit {
           this.conclusion = success[0];
           this.getQuestions();
           this.hasdata = true;
-          console.log('Load Conclusion!', this.conclusion);
-          console.log('Load:', this.conclusion);
           if (this.conclusion === undefined) {
             this.conclusion = new Conclusion();
             this.hasdata = false;
@@ -158,8 +158,6 @@ export class ConclusionComponent implements OnInit {
         success => {
           this.paginate = success;
           this.questions = this.paginate.content;
-          console.log('CONCLUSION:', this.conclusion.id);
-          console.log('QUESTIONS PAGINATE:', this.paginate);
         },
         error => console.log(error)
       );
@@ -170,10 +168,7 @@ export class ConclusionComponent implements OnInit {
     console.log('question.id:', question);
     this.conclusionService.getAnswer(question.id).subscribe(
       success => {
-       //  this.paginate = success;
-       //  this.answers = this.paginate.content;
         this.answers = success;
-        console.log('ANSWERS2:', this.answers);
       },
       error => {
          console.log(error);
@@ -186,10 +181,8 @@ export class ConclusionComponent implements OnInit {
     this.add_question = true;
     this.isNewQuestion = true;
     if (this.paginate.totalElements !== undefined) {
-      console.log('paginate1:', this.paginate.totalElements);
       this.index = this.paginate.totalElements + 1;
     } else {
-      console.log('paginate2:', this.paginate.totalElements);
       this.index = 1;
     }
   }
@@ -199,13 +192,10 @@ export class ConclusionComponent implements OnInit {
     index = index + 1;
     localStorage.setItem('questionIndex', index);
     this.add_question = true;
-    // const q = localStorage.getItem('questionId');
-    // console.log('CONCLUSION: onEdit()questionId', q);
     this.question.load(question.id);
   }
 
   onDelete(question: Question) {
-    console.log('Delete!');
     this.conclusionService.deleteQuestion(question.id).subscribe(
       success => {
         this.toastService.toastSuccess();
@@ -250,5 +240,13 @@ export class ConclusionComponent implements OnInit {
       'has-error': this.verifyValidSubmitted(form, field),
       'has-feedback': this.verifyValidSubmitted(form, field)
     };
+  }
+
+  onKey(event) {
+    this.characters = (this.limit - event.editor.getLength()) + 1;
+    if (event.editor.getLength() - 1 > this.limit) {
+      event.editor.deleteText(this.limit, event.editor.getLength());
+      event.editor.update();
+    }
   }
 }

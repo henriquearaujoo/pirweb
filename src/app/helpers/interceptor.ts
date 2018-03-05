@@ -1,3 +1,4 @@
+import { SweetAlertService } from './../services/sweetalert/sweet-alert.service';
 import { LoaderService } from './../services/loader/loader.service';
 import { error } from 'util';
 import { ToastService } from './../services/toast-notification/toast.service';
@@ -20,7 +21,8 @@ export class Interceptor extends XHRBackend {
     private router: Router,
     private modalService: ModalService,
     private toastService: ToastService,
-    private loaderService: LoaderService ) {
+    private loaderService: LoaderService,
+    private sweetAlertService: SweetAlertService ) {
     super(browserXhr, baseResponseOptions, xsrfStrategy);
   }
 
@@ -30,18 +32,21 @@ export class Interceptor extends XHRBackend {
     request.headers.set('Authorization', `PIRFAS=${token}`);
     // request.headers.set('Content-Type', 'application/json');
     const xhrConnection = super.createConnection(request);
+    // console.log('xhrConnection', xhrConnection);
     xhrConnection.response = xhrConnection.response.catch((error: Response) => {
-        if ( error.status === 401 ) {
-          localStorage.removeItem('tokenPir');
-          localStorage.removeItem('profileId_rules');
-          localStorage.removeItem('currentUserPir');
+      if ( error.status === 401 ) {
+        localStorage.removeItem('tokenPir');
+        localStorage.removeItem('profileId_rules');
+        localStorage.removeItem('currentUserPir');
+        localStorage.removeItem('currentIdPir');
 
-          alert('Sessão expirada!');
-          setTimeout(() => {
-            window.location.href = '/login';
-          }, 1000);
+        this.sweetAlertService.alertSessionExpired();
+      } else {
+        if ( error.status === 0 ) {
+          this.sweetAlertService.connectionError();
         }
-        return Observable.throw(error.text);
+      }
+      return Observable.throw(error);
     });
     return xhrConnection;
   }
