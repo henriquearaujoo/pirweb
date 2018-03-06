@@ -138,21 +138,14 @@ export class UserComponent implements OnInit {
   }
 
   saveData(isValid: boolean) {
-    console.log('isValid', isValid);
-
     if (isValid && this._isSave) {
       this.modalOpened = false;
       this.verifyType();
-      // console.log(this.user.profile);
-      // this.user.name = this.first_name + ' ' + this.last_name;
-      // this.user.address.city = Number(this.user.address.city);
       this.success = true;
       if (this.type === 'PJUR') {
-        console.log('SAVE ORG', this.org);
         this.userService.createEntity(this.org).subscribe(
           s_org => {
             this.openModalSuccess();
-            // this.router.navigate(['/user-list']);
           },
           error => {
             this.toastService.toastError();
@@ -162,11 +155,9 @@ export class UserComponent implements OnInit {
         );
       } else {
         if (this.type === 'PFIS') {
-          console.log('SAVE PERSON', this.person);
           this.userService.createPerson(this.person).subscribe(
             s_person => {
               this.openModalSuccess();
-              // this.router.navigate(['/user-list']);
             },
             error => {
               this.error_list = error;
@@ -185,15 +176,12 @@ export class UserComponent implements OnInit {
 
   openModal() {
     this.modalService.modalCancel('/user-list');
-    // this.openModalCancel.click();
-    // return false;
   }
 
   public loadProfiles() {
     this.profileService.getProfiles().subscribe(
       success => {
           this.profiles = success;
-          console.log(this.profiles);
           this.hasdata = true;
       },
       error => console.log(error)
@@ -207,7 +195,6 @@ export class UserComponent implements OnInit {
           this.hasdata = false;
         }
         this.states = success;
-        console.log(this.states);
         this.hasdata = true;
       },
       error => console.log(error)
@@ -253,7 +240,6 @@ export class UserComponent implements OnInit {
         }
       }
     });
-    console.log('Select Profile:', this.profile);
     switch (this.profile.toUpperCase()) {
       case 'AGENTE':
       {
@@ -275,7 +261,6 @@ export class UserComponent implements OnInit {
     switch (this.user.type) {
       case 'PFIS':
       {
-        // this.user.pfis = this.person;
         this.person.cpf = this.person.cpf.split('.').join('');
         this.person.cpf = this.person.cpf.split('-').join('');
         this.user.address.postalcode = this.user.address.postalcode.replace('-', '');
@@ -288,7 +273,6 @@ export class UserComponent implements OnInit {
         this.person.status = this.user.status;
         this.person.type = this.user.type;
         this.type = 'PFIS';
-        // this.org = null;
         break;
       }
 
@@ -304,8 +288,6 @@ export class UserComponent implements OnInit {
         this.org.status = this.user.status;
         this.org.type = this.user.type;
         this.type = 'PJUR';
-        // this.user.pjur = this.org;
-        // this.person = null;
         break;
       }
     }
@@ -393,9 +375,6 @@ export class UserComponent implements OnInit {
     this.isFormValid = isValid;
     this.tab = tab;
     this._isSave = false;
-    console.log('tab:', tab);
-    console.log('isValid:', isValid);
-    console.log('isSave:', this._isSave);
   }
 
   isSave() {
@@ -403,21 +382,15 @@ export class UserComponent implements OnInit {
   }
 
    isActive(tab: boolean, t?: number,  p?: number) {
-    //  this.tab = t ;
-    console.log('currentTab', this.currentTab);
     if ( p !== 0 ) {
       if (t === 1) {
         this.openSaveButtonTab1.click();
-        console.log('openSaveButtonTab1');
       } else {
         if ( t === 2) {
           this.openSaveButtonTab2.click();
-          console.log('openSaveButtonTab2');
         } else {
           if (t === 3) {
             this.isFormValid = true;
-            // this.openSaveButtonTab3.click();
-            // console.log('openSaveButtonTab3');
           }
         }
       }
@@ -434,13 +407,11 @@ export class UserComponent implements OnInit {
         } else if (this.currentTab < 2) {
               this.currentTab++;
               this.cont++;
-              console.log('TAB:', this.cont);
           }
       }else {
         if (this.currentTab > 0) {
               this.currentTab--;
               this.cont--;
-              console.log('TAB:', this.cont);
             }
       }
         this.previousTab = '#tab_' + (this.currentTab + 1);
@@ -474,11 +445,9 @@ export class UserComponent implements OnInit {
       } else {
         if (t === 1) {
           this.nextTab = '#tab_1';
-          console.log('nextTab:', this.nextTab);
         } else {
           if (t === 2) {
             this.nextTab = '#tab_2';
-            console.log('nextTab:', this.nextTab);
           }
         }
       }

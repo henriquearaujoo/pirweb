@@ -74,32 +74,26 @@ export class ModalComponent implements OnInit, OnDestroy {
     if (this.show_cancel) {
       this.openModalCancel.click();
       this.show_cancel = false;
-      console.log('Open Modal Cancel');
     } else {
       if (this.show_success) {
         this.openModalSuccess.click();
         this.show_success = false;
-        console.log('Open Modal Success');
       } else {
         if (this.show_SessionExpired) {
           this.openModalSessionExpired.click();
           this.show_SessionExpired = false;
-          console.log('Open Modal Session Expired');
         } else {
           if (this.show_Permission) {
             this.openModalPermission.click();
             this.show_Permission = false;
-            console.log('Open Modal Permission');
         } else {
           if (this.show_Remove) {
             this.openModalRemove.click();
             this.show_Remove = false;
-            console.log('Open Modal Remove');
           } else {
             if (this.show_Password) {
               this.openModalPassword.click();
               this.show_Password = false;
-              console.log('Open Modal Password');
             }
           }
         }

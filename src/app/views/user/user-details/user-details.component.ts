@@ -56,9 +56,7 @@ export class UserDetailsComponent implements OnInit {
       }
     );
     this.show_pjur = false;
-    // this.user = this.userService.getUser();
     this.urlId = localStorage.getItem('userId');
-    console.log('userId', this.urlId);
     if (this.urlId !== undefined || this.urlId !== '') {
       this.loadUser();
     }
@@ -96,7 +94,6 @@ export class UserDetailsComponent implements OnInit {
             } else {
               this.user.address = new Address();
             }
-            console.log(this.city_id);
             this.verifyType();
             this.loadCityState();
             setTimeout(() => {
@@ -134,10 +131,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   changeStatus(user: User) {
-    console.log(this.user);
     this.user.address.city = this.city_id;
-    console.log(this.user.address.city);
-
   }
 
   disableAbleUser() {
@@ -146,8 +140,6 @@ export class UserDetailsComponent implements OnInit {
     } else {
       this.user.status = true;
     }
-    console.log(this.user.status);
-
     this.profileService.getProfiles().subscribe(
       success_profiles => {
         this.profiles = success_profiles;

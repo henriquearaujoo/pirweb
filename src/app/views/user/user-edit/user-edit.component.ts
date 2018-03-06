@@ -96,18 +96,15 @@ export class UserEditComponent implements OnInit {
         this.canUpdate = rules.canUpdate;
         this.canRead = rules.canRead;
         this.canDelete = rules.canDelete;
-        // this.loaderService.hide();
       }
     );
     this.btn_cancel = false;
     this.show_pjur = false;
     this.show_community = false;
     this.urlId = localStorage.getItem('userId');
-    console.log('userId', this.urlId);
     if (this.urlId !== undefined || this.urlId !== '') {
       this.loadUser();
     }
-    // this.user = this.userService.getUser();
     this.modalSave = '#modal-default';
     this.modalOpened = false;
 
@@ -142,11 +139,9 @@ export class UserEditComponent implements OnInit {
     this.modalOpened = false;
     this.verifyType();
 
-    console.log('isValid', isValid);
     if (isValid && this._isSave) {
 
       if (this.type === 'PJUR') {
-        console.log('SAVE ORG', this.org);
         this.userService.saveEditEntity(this.org).subscribe(
           success => {
 
@@ -158,10 +153,8 @@ export class UserEditComponent implements OnInit {
         );
       } else {
         if (this.type === 'PFIS') {
-          console.log('SAVE PERSON', this.person);
           this.userService.saveEditPerson(this.person).subscribe(
             success2 => {
-              console.log('SAVE PERSON2', success2);
               this.currentId = localStorage.getItem('currentIdPir');
               if (this.currentId === this.user.id) {
                 localStorage.removeItem('tokenPir');
@@ -226,7 +219,6 @@ export class UserEditComponent implements OnInit {
     this.profileService.getProfiles().subscribe(
       success => {
           this.profiles = success;
-          console.log(this.profiles);
           this.hasdata = true;
           this.profiles.forEach( profile => {
             if (this.user !== undefined) {
@@ -247,7 +239,6 @@ export class UserEditComponent implements OnInit {
           this.hasdata = false;
         }
         this.states = success;
-        console.log(this.states);
         this.hasdata = true;
       },
       error => console.log(error)
@@ -350,7 +341,6 @@ export class UserEditComponent implements OnInit {
           this.person.email = this.user.email;
           this.person.login = this.user.login;
           this.person.name = this.user.name;
-          console.log('user.password', this.user.password);
           if (this.user.password !== undefined) {
             this.person.password = sha256(this.user.password);
           }
@@ -370,7 +360,6 @@ export class UserEditComponent implements OnInit {
           this.org.email = this.user.email;
           this.org.login = this.user.login;
           this.org.name = this.user.name;
-          console.log('user.password', this.user.password);
           if (this.user.password !== undefined) {
             this.org.password = sha256(this.user.password);
           }
@@ -392,7 +381,6 @@ export class UserEditComponent implements OnInit {
         }
       }
     });
-    console.log('Select Profile:', this.profile);
     switch (this.profile.toUpperCase()) {
       case 'AGENTE':
       {
@@ -509,9 +497,6 @@ export class UserEditComponent implements OnInit {
     this.isFormValid = isValid;
     this.tab = tab;
     this._isSave = false;
-    console.log('tab:', tab);
-    console.log('isValid:', isValid);
-    console.log('isSave:', this._isSave);
   }
 
   isSave() {
@@ -519,20 +504,15 @@ export class UserEditComponent implements OnInit {
   }
 
   isActive(tab: boolean, t?: number, p?: number) {
-    console.log('currentTab', this.currentTab);
     if ( p !== 0) {
       if (t === 1) {
         this.openSaveButtonTab1.click();
-        console.log('openSaveButtonTab1');
       } else {
         if ( t === 2) {
           this.openSaveButtonTab2.click();
-          console.log('openSaveButtonTab2');
         } else {
           if (t === 3) {
             this.isFormValid = true;
-            // this.openSaveButtonTab3.click();
-            // console.log('openSaveButtonTab3');
           }
         }
       }
@@ -585,11 +565,9 @@ export class UserEditComponent implements OnInit {
       } else {
         if (t === 1) {
           this.nextTab = '#tab_1';
-          console.log('nextTab:', this.nextTab);
         } else {
           if (t === 2) {
             this.nextTab = '#tab_2';
-            console.log('nextTab:', this.nextTab);
           }
         }
       }
@@ -600,7 +578,6 @@ export class UserEditComponent implements OnInit {
   }
 
   cancel() {
-    console.log('cancel', this.btn_cancel);
     this.btn_cancel = true;
   }
 

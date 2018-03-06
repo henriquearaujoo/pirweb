@@ -59,7 +59,6 @@ export class Permissions implements OnDestroy {
                                 for ( let i = 0; i < this.rules.length; i++) {
                                     if ( ('/' + this.rules[i].page_id ) === this.returnUrl) {
                                         if ( this.rules[i].read) {
-                                            console.log('Pode ativar rota!');
                                             this.permissionsSubject.next(<RuleState>{
                                                 canRead: this.rules[i].read,
                                                 canCreate: this.rules[i].create,
@@ -75,8 +74,6 @@ export class Permissions implements OnDestroy {
                                                 canDelete: this.rules[i].delete
                                             });
                                             this.loaderService.hide();
-                                            console.log('Não pode ativar rota!');
-                                            // this.router.navigate(['/home']);
                                         }
                                     }
                                 }
@@ -90,7 +87,6 @@ export class Permissions implements OnDestroy {
                 }
             );
         }
-        // return this.canRead;
       }
 
       setPermission(permission: boolean) {
@@ -135,5 +131,4 @@ export class Permissions implements OnDestroy {
     canUpdate: boolean;
     canCreate: boolean;
     canDelete: boolean;
-  // tslint:disable-next-line:eofline
   }

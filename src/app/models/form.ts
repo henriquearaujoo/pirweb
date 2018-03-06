@@ -3,4 +3,5 @@ export class Form {
     public range: string;
     public indicators: string;
     public type: string;
+    public status: boolean;
 }

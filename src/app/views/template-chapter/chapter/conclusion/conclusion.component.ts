@@ -165,7 +165,6 @@ export class ConclusionComponent implements OnInit {
   }
 
   getAnswers(question: Question) {
-    console.log('question.id:', question);
     this.conclusionService.getAnswer(question.id).subscribe(
       success => {
         this.answers = success;

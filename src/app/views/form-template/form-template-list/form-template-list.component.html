@@ -75,13 +75,13 @@
                   <i class="fa fa-pencil fa-fw"></i>
                 </a>
               </td>
-              <!-- <td class="tbl-right">
+              <td class="tbl-right">
                   <a href="" [title]="item.status === true ? 'Desativar': 'Ativar'"
                     data-toggle="modal" data-target="#modal-default"
                     (click)="changeStatus(item)" id="btn_status">              
                     <i [ngClass]="item.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
                   </a>      
-              </td> -->
+              </td>
             </tr>
           </tbody>
         </table>
@@ -98,3 +98,29 @@
   </div>
 </section>
 </div>
+
+<!-- Modal Disable -->
+<div class="modal fade" id="modal-default">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content" [ngStyle]="object">
+      <div class="modal-body">
+        <div class="modal-icon">
+            <i class="material-icons" style="font-size: 60px;">error_outline</i>
+        </div>          
+          <h5  *ngIf="form.status"> Deseja realmente desativar o formulário <strong> </strong> ?</h5>
+          <h5  *ngIf="!form.status"> Deseja realmente ativar o formulário <strong>  </strong> ?</h5>
+      </div>
+      <div class="modal-footer_">
+        <div class="modal-btn-cancel">
+            <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal" id="btn_cancel">Cancelar</button>
+        </div>
+        <div class="modal-btn-confirm">
+            <button type="button" (click)="disableEnableForm()" class="btn btn-primary btn-md btn-block" data-dismiss="modal" id="btn_confirm">Confirmar</button>
+        </div>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

@@ -88,7 +88,6 @@ export class MotherComponent implements OnInit {
     /*check if is a new or update*/
     this.isNewData = true;
     this.urlId = localStorage.getItem('motherId');
-    console.log('urlId', this.urlId);
     if (this.urlId !== null && this.urlId !== '') {
       this.isNewData = false;
       this.load();

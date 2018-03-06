@@ -59,7 +59,6 @@ export class CommunityListComponent implements OnInit, OnDestroy {
   }
 
   getCommunities() {
-    console.log(this.filter.name);
     if ( this.filter.name !== '') { this.page = 0; }
     this.loaderService.show();
     this.subscription = this.communityService.getCommunities(this.filter.name, this.page).subscribe(

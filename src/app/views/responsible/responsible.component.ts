@@ -194,7 +194,6 @@ export class ResponsibleComponent implements OnInit {
 
   onInputFieldChanged(event: IMyInputFieldChanged) {
     this.isValidDate = event.valid;
-    console.log(this.isValidDate);
   }
 
   load() {

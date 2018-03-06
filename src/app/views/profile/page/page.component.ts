@@ -34,11 +34,6 @@ export class PageComponent extends PagenateComponent implements OnInit {
   permissionsFromProfile: Rule[] = new Array();
   public page_allowed = new Array();
 
-  // private selected: any[] = new Array();
-  // private allowed_selected: any[] = new Array();
-  // private matPermissions: boolean[][];
-  // private confirm_rules: boolean;
-  // private paginate: Paginate = new Paginate();
   private profiles: Profile[] = new Array();
   private rule: Rule = new Rule();
 
@@ -110,30 +105,6 @@ export class PageComponent extends PagenateComponent implements OnInit {
       }
     );
   }
-
-  // loadPageFromProfile() {
-  //   this.profileService.getPages(this.accessPageService.getProfile().id).subscribe(
-  //     s => {
-  //       this.pagesFromProfile = s;
-  //       this.accessPageService.getAllPages().subscribe(
-  //         s2 => {
-  //           this.pageFromServer = s2;
-  //           for ( let i = 0 ; i < this.pagesFromProfile.length; i++) {
-  //             for (let j = 0 ; j < this.pageFromServer.length; j++) {
-  //               if ( this.pagesFromProfile[i].route === this.pageFromServer[j].route) {
-  //                 this.pageFromServer.splice(j, 1);
-  //               }
-  //             }
-  //           }
-  //         },
-  //         e2 => {
-  //           console.log(e2);
-  //         }
-  //       );
-  //     },
-  //     e => console.log(e)
-  //   );
-  // }
 
   setProfile() {
     this.accessPageService.profileSelected(this.currentProfile);

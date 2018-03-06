@@ -50,7 +50,6 @@ export class InformationComponent implements OnInit {
 
   onCancel() {
     this.cancelEvent.emit();
-    console.log('cancel', this.btn_cancel);
     this.btn_cancel = true;
   }
 

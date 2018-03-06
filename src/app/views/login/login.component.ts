@@ -49,16 +49,12 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.user.login = login;
         this.user.password = psw;
         this.checked = true;
-        // this.toastService.toastSuccess();
-        // this.loaderService.show();
-        // console.log('OnInit');
       }
    // reset login
     this.authenticationService.logout();
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.authenticationService.eventReset.subscribe(
         s => {
-            console.log('eventReset');
             this.toastService.toastMsg('Sucesso', 'Senha alterada com sucesso!');
         }
     );
@@ -68,7 +64,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.loaderService.show();
         this.authenticationService.login(this.user.login, this.user.password).subscribe(
             (data: Response) => {
-                console.log(data.headers.get('authorization'));
                 const token = data.headers.get('authorization');
                 localStorage.setItem('tokenPir', token );
                 if (token) {

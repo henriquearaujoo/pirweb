@@ -53,7 +53,6 @@ export class ResponsibleListComponent implements OnInit, OnDestroy {
         this.canUpdate = rules.canUpdate;
         this.canRead = rules.canRead;
         this.canDelete = rules.canDelete;
-        // this.loaderService.hide();
       }
     );
     this.hasdata = false;
@@ -62,7 +61,6 @@ export class ResponsibleListComponent implements OnInit, OnDestroy {
   }
 
   getResponsible() {
-    console.log(this.filter.name);
     if ( this.filter.name !== '') { this.page = 0; }
     this.loaderService.show();
     this.subscription = this.responsibleService.getResponsible(this.filter.name, this.page).subscribe(
@@ -102,23 +100,6 @@ export class ResponsibleListComponent implements OnInit, OnDestroy {
   changeStatus(responsible: Responsible) {
     this.responsible = responsible;
   }
-
-  // disableEnableResponsible() {
-  //   if (this.responsible.status === true) {
-  //     this.responsible.status = false;
-  //   } else {
-  //     this.responsible.status = true;
-  //   }
-  //   console.log(this.responsible.status);
-
-  //   this.responsibleService.update(this.responsible).subscribe(
-  //     success => {
-  //       this.toastService.toastSuccess();
-  //       this.getResponsible();
-  //     },
-  //     error => console.log(error)
-  //   );
-  // }
 
   setPage(page: number) {
     this.page = page;

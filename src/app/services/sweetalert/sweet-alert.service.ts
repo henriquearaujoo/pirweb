@@ -50,6 +50,27 @@ export class SweetAlertService {
     });
   }
 
+  // alertCancel(route: string) {
+  //   swal( {
+  //     title: '',
+  //     text: 'Informações atualizadas com Sucesso!',
+  //     icon: 'success',
+  //     buttons: {
+  //       confirm: {
+  //         text: 'Fechar',
+  //         className: 'swal-btn-close'
+  //       }
+  //     },
+  //     closeOnClickOutside: false,
+  //     className: 'swal-add-success'
+  //   })
+  //   .then((confirm) => {
+  //     if (confirm) {
+  //       this.router.navigate([route]);
+  //     }
+  //   });
+  // }
+
   alertSessionExpired() {
     swal({
       title: 'Sessão expirada!',

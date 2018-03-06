@@ -27,8 +27,7 @@ export class Interceptor extends XHRBackend {
   }
 
   createConnection(request: Request) {
-    // tslint:disable-next-line:prefer-const
-    let token = localStorage.getItem('tokenPir');
+    const token = localStorage.getItem('tokenPir');
     request.headers.set('Authorization', `PIRFAS=${token}`);
     // request.headers.set('Content-Type', 'application/json');
     const xhrConnection = super.createConnection(request);

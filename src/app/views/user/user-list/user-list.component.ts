@@ -61,7 +61,6 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.getUsers();
     this.userService.disable.subscribe(
       success => {
-        console.log('Desabilitado: ', success);
         this.users = this.users.filter( user => user.id !== success.id);
         this.getUsers();
       }
@@ -82,7 +81,6 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   getUsers() {
-    console.log(this.filter.name);
     if ( this.filter.name !== '') { this.page = 0; }
     this.loaderService.show();
     this.userService.getUsers(this.filter.name, this.page).subscribe(
@@ -121,8 +119,6 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   setPage(page: number) {
     this.page = page;
-    console.log('Página:', this.page);
-    console.log('Filtro:', this.filter.name);
     this.getUsers();
   }
 
@@ -133,8 +129,6 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   changeStatus(user: User) {
     this.user = user;
-    console.log(this.user);
-    console.log(this.user.status);
   }
 
   disableEnableUser() {
@@ -143,7 +137,6 @@ export class UserListComponent implements OnInit, OnDestroy {
     } else {
       this.user.status = true;
     }
-    console.log('USER DISABLE', this.user);
 
     this.profileService.getProfiles().subscribe(
       success_profiles => {
@@ -155,7 +148,6 @@ export class UserListComponent implements OnInit, OnDestroy {
         });
         this.verifyType();
         if (this.user.type === 'PJUR') {
-          console.log('SAVE ORG', this.org);
           this.userService.saveEditEntity(this.org).subscribe(
             s_org => {
               this.getUsers();
@@ -168,7 +160,6 @@ export class UserListComponent implements OnInit, OnDestroy {
           );
         } else {
           if (this.user.type === 'PFIS') {
-            console.log('SAVE PERSON', this.person);
             this.userService.saveEditPerson(this.person).subscribe(
               s_person => {
                 this.getUsers();

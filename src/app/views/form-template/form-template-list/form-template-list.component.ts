@@ -15,6 +15,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormTemplateListComponent implements OnInit {
 
+  private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
   private form: Form = new Form();
   private forms: Form[] = new Array();
   private paginate: Paginate = new Paginate();
@@ -90,6 +91,29 @@ export class FormTemplateListComponent implements OnInit {
   setPage(page: number) {
     this.page = page;
     this.getForms();
+  }
+
+  changeStatus(form: Form) {
+    this.form = form;
+  }
+
+  disableEnableForm() {
+    if (this.form.status === true) {
+      this.form.status = false;
+    } else {
+      this.form.status = true;
+    }
+
+    this.formService.updateForm(this.form).subscribe(
+      success => {
+        this.form = success;
+        this.toastService.toastSuccess();
+      },
+      error => {
+        this.toastService.toastError();
+        this.getForms();
+      }
+    );
   }
 
 }

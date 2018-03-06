@@ -219,9 +219,9 @@ label.lb-tab {
     right: 20px;
 }
 
-/* .form-inline {
+.form-inline {
     padding-top: 25px;
-} */
+}
 
 .nav-tabs-custom > .nav-tabs > li.active > a, .nav-tabs-custom > .nav-tabs > li.active:hover > a {
     background-color: #fff0;

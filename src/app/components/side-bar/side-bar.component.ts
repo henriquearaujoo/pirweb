@@ -35,10 +35,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
     const state: RouterState = router.routerState;
       const snapshot: RouterStateSnapshot = state.snapshot;
       const root: ActivatedRouteSnapshot = snapshot.root;
-      console.log('state', state);
-      console.log('snapshot', snapshot.url);
       this.url = snapshot.url;
-      console.log('root', root);
   }
 
   ngOnInit() {
@@ -48,7 +45,6 @@ export class SideBarComponent implements OnInit, OnDestroy {
     this.subscription = this.permissions.ruleState.subscribe(
       (rules: RuleState) => {
         this.rules = rules.permissions;
-        // console.log('RULES:', this.rules);
 
        for (let i = 0; i < this.menu.length; i++) {
          for ( let j = 0; j < this.rules.length; j++) {

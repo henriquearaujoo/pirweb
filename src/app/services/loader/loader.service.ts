@@ -11,12 +11,10 @@ export class LoaderService {
 
   show() {
     this.loaderSubject.next(<LoaderState>{show: true});
-    // console.log('Show loader');
   }
 
   hide() {
       this.loaderSubject.next(<LoaderState>{show: false});
-      // console.log('Hide loader');
   }
 
 }

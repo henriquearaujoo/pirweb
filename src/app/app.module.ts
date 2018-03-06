@@ -96,12 +96,10 @@ import { UserListComponent } from './views/user/user-list/user-list.component';
 import { SendEmailComponent } from './views/login/send-email/send-email.component';
 import { ProfileComponent } from './views/profile/profile.component';
 import { ProfileListComponent } from './views/profile/profile-list/profile-list.component';
-import { RuleComponent } from './views/profile/rule/rule.component';
 import { PageComponent } from './views/profile/page/page.component';
 
 import { ProfilePipe } from './views/profile/profile-list/profile.pipe';
 // import { UserPipe } from './views/user/user-list/user.pipe';
-import { DefineRulesComponent } from './views/define-rules/define-rules.component';
 import { ToastService } from './services/toast-notification/toast.service';
 import { UserEditComponent } from './views/user/user-edit/user-edit.component';
 import { UserDetailsComponent } from './views/user/user-details/user-details.component';
@@ -109,24 +107,13 @@ import { TemplateSelectModelComponent } from './views/template-chapter/template-
 
 import { ReceptionComponent } from './views/template-chapter/chapter/reception/reception.component';
 import { TaskComponent } from './views/template-chapter/chapter/task/task.component';
-import { TemplateCollectDataComponent } from './views/template-chapter/template-collect-data/template-collect-data.component';
 import { PaginateComponent } from './components/paginate/paginate.component';
 import { ControlFieldErrorComponent } from './components/control-field-error/control-field-error.component';
 import { InterventionComponent } from './views/template-chapter/chapter/intervention/intervention.component';
 import { TaskListComponent } from './views/template-chapter/chapter/task/task-list/task-list.component';
-import { TemplateChapterOptionComponent } from './views/template-chapter/template-chapter-option/template-chapter-option.component';
 import { TemplateChapterItemComponent } from './views/template-chapter/template-chapter-item/template-chapter-item.component';
-import { TemplateCollectDataItemComponent } from './views/template-chapter/template-collect-data-item/template-collect-data-item.component';
 import { ChapterService } from './services/chapter/chapter.service';
-import { ChapterDetailsComponent } from './views/template-chapter/chapter/chapter-details/chapter-details.component';
-import { ChapterEditComponent } from './views/template-chapter/chapter/chapter-edit/chapter-edit.component';
 import { ChapterDashboardComponent } from './views/template-chapter/chapter/chapter-dashboard/chapter-dashboard.component';
-
-import { UserInformationAccountComponent } from './views/user/user-information-account/user-information-account.component';
-
-import { UserPersonalInformationComponent } from './views/user/user-personal-information/user-personal-information.component';
-
-import { UserAddressComponent } from './views/user/user-address/user-address.component';
 import { ConclusionComponent } from './views/template-chapter/chapter/conclusion/conclusion.component';
 import { InformationComponent } from './views/template-chapter/chapter/information/information.component';
 import { ModalWaitingAnswerComponent } from './components/modal-waiting-answer/modal-waiting-answer.component';
@@ -194,17 +181,12 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ProfileListComponent,
     // UserPipe,
     ProfilePipe,
-    RuleComponent,
     PageComponent,
-    DefineRulesComponent,
     UserEditComponent,
     UserDetailsComponent,
     TemplateSelectModelComponent,
-    TemplateChapterOptionComponent,
     ReceptionComponent,
     TaskComponent,
-    TemplateCollectDataComponent,
-    TemplateCollectDataItemComponent,
     PaginateComponent,
     ControlFieldErrorComponent,
     InterventionComponent,
@@ -212,12 +194,7 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     QuestionComponent,
     TemplateChapterItemComponent,
     AnswerListComponent,
-    ChapterDetailsComponent,
-    ChapterEditComponent,
     ChapterDashboardComponent,
-    UserInformationAccountComponent,
-    UserPersonalInformationComponent,
-    UserAddressComponent,
     ConclusionComponent,
     InformationComponent,
     ModalWaitingAnswerComponent,
