@@ -24,9 +24,9 @@
             <div class="col-md-6">
               <div class="box box-primary">
                 <div class="box-body">                  
-                  <div class="form-group">
+                  <div class="form-group" *ngIf="user.profile !== undefined">
                     <label>Perfil</label>
-                    <input type="text" name="profile" class="form-control" value="{{ user.profile }}" readonly>
+                    <input type="text" name="profile" class="form-control" value="{{ user.profile.title }}" readonly>
                   </div>                  
                   <div class="form-group">
                     <label>Tipo de usuário</label>                    
@@ -50,31 +50,31 @@
                   </div>
                   <div class="form-group" *ngIf="!show_pjur">
                     <label>CPF</label>
-                    <input type="text" name="cpf" class="form-control" value="{{ user.pfis?.cpf }}" readonly>
+                    <input type="text" name="cpf" class="form-control" value="{{ user.person?.cpf }}" readonly>
                   </div>
                   <div class="form-group" *ngIf="!show_pjur">
                     <label>RG</label>
-                    <input type="text" name="rg" class="form-control" value="{{ user.pfis?.rg }}" readonly>
+                    <input type="text" name="rg" class="form-control" value="{{ user.person?.rg }}" readonly>
                   </div>
                   <div class="form-group" *ngIf="!show_pjur">
                       <label>Orgão Emissor</label>
-                      <input type="text" name="rg_emitter" class="form-control" value="{{ user.pfis?.emitter }}" readonly>
+                      <input type="text" name="rg_emitter" class="form-control" value="{{ user.person?.emitter }}" readonly>
                     </div>
                   <div class="form-group" *ngIf="show_pjur">
                     <label>Inscrição Estadual</label>
-                    <input type="text" name="ie" class="form-control" value="{{ user.pjur?.ie }}" readonly>
+                    <input type="text" name="ie" class="form-control" value="{{ user.entity?.ie }}" readonly>
                   </div>
                   <div class="form-group" *ngIf="show_pjur">
                     <label>CNPJ</label>
-                    <input type="text" name="cnpj" class="form-control" value="{{ user.pjur?.cnpj }}" readonly>
+                    <input type="text" name="cnpj" class="form-control" value="{{ user.entity?.cnpj }}" readonly>
                   </div>
                   <div class="form-group" *ngIf="show_pjur">
                     <label>Razão Social</label>
-                    <input type="text" name="social_name" class="form-control"  value="{{ user.pjur?.social_name }}" readonly>
+                    <input type="text" name="social_name" class="form-control"  value="{{ user.entity?.social_name }}" readonly>
                   </div>
                   <div class="form-group" *ngIf="show_pjur">
                     <label>Nome Fantasia</label>
-                    <input type="text" name="fantasy_name" class="form-control" value="{{ user.pjur?.fantasy_name }}" readonly>
+                    <input type="text" name="fantasy_name" class="form-control" value="{{ user.entity?.fantasy_name }}" readonly>
                   </div>                   
                   <div class="form-group">
                     <label>Status</label>
@@ -90,27 +90,27 @@
                 <div class="box-body">
                     <div class="form-group">
                       <label>CEP</label>
-                      <input type="text" name="cep" class="form-control" value="{{ user.address.postalcode }}" readonly>
+                      <input type="text" name="cep" class="form-control" value="{{ user.address?.postalcode }}" readonly>
                     </div>                 
                     <div class="form-group">
                       <label>Estado</label>
-                      <input type="text" name="state" class="form-control" value="{{ user.address.state }}" readonly>
+                      <input type="text" name="state" class="form-control" value="{{ user.address?.city?.state.name }}" readonly>
                     </div>                   
                     <div class="form-group">
                       <label>Cidade</label>                      
-                      <input type="text" name="city" class="form-control" value="{{ user.address.city }}" readonly>
+                      <input type="text" name="city" class="form-control" value="{{ user.address?.city?.name }}" readonly>
                     </div>
                     <div class="form-group">
                       <label>Bairro</label>
-                      <input type="text" name="neighborhood" class="form-control" value="{{ user.address.neighborhood }}" readonly>
+                      <input type="text" name="neighborhood" class="form-control" value="{{ user.address?.neighborhood }}" readonly>
                     </div>
                     <div class="form-group">
                       <label>Rua</label>
-                      <input type="text" name="street" class="form-control" value="{{ user.address.street }}" readonly>
+                      <input type="text" name="street" class="form-control" value="{{ user.address?.street }}" readonly>
                     </div>
                     <div class="form-group">
                       <label>Número</label>
-                      <input type="text" name="number" class="form-control" value="{{ user.address.number }}" readonly>
+                      <input type="text" name="number" class="form-control" value="{{ user.address?.number }}" readonly>
                     </div>
                     <div class="form-group">
                       <label>Complemento</label>

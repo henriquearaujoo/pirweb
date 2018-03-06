@@ -42,22 +42,22 @@ export class Permissions implements OnDestroy {
                     this.loaderService.show();
                     this.rules = success_rules;
                     // PAGES
-                    this.accessPageService.getAllPages().subscribe(
-                        success => {
-                            this.pages = success;
-                            for ( let i = 0; i < this.pages.length; i++) {
-                                for ( let j = 0; j < this.rules.length; j++) {
-                                    if (this.pages[i].id === this.rules[j].page_id) {
-                                        this.rules[j].page_id = this.pages[i].route;
-                                        break;
-                                    }
-                                }
-                            }
+                    // this.accessPageService.getAllPages().subscribe(
+                    //     success => {
+                            // this.pages = success;
+                            // for ( let i = 0; i < this.pages.length; i++) {
+                            //     for ( let j = 0; j < this.rules.length; j++) {
+                            //         if (this.pages[i].id === this.rules[j].page_id) {
+                            //             this.rules[j].page_id = this.pages[i].route;
+                            //             break;
+                            //         }
+                            //     }
+                            // }
                             if (this.rules.length !== 0) {
                                 this.loaderService.hide();
                                 this.rulesSubject.next(<RuleState>{permissions: this.rules});
                                 for ( let i = 0; i < this.rules.length; i++) {
-                                    if ( ('/' + this.rules[i].page_id ) === this.returnUrl) {
+                                    if ( ('/' + this.rules[i].page.route ) === this.returnUrl) {
                                         if ( this.rules[i].read) {
                                             this.permissionsSubject.next(<RuleState>{
                                                 canRead: this.rules[i].read,
@@ -80,9 +80,9 @@ export class Permissions implements OnDestroy {
                             }
 
 
-                        },
-                        error => console.log(error)
-                    );
+                    //     },
+                    //     error => console.log(error)
+                    // );
 
                 }
             );
@@ -99,22 +99,23 @@ export class Permissions implements OnDestroy {
             this.authenticationService.getPermissions(profile).subscribe(
                 success_rules => {
                     this.rules = success_rules;
+                    this.rulesSubject.next(<RuleState>{permissions: this.rules});
                     // PAGES
-                    this.accessPageService.getAllPages().subscribe(
-                        success => {
-                            this.pages = success;
-                            for ( let i = 0; i < this.pages.length; i++) {
-                                for ( let j = 0; j < this.rules.length; j++) {
-                                    if (this.pages[i].id === this.rules[j].page_id) {
-                                        this.rules[j].page_id = this.pages[i].route;
-                                        break;
-                                    }
-                                }
-                            }
-                            this.rulesSubject.next(<RuleState>{permissions: this.rules});
-                        },
-                        error => console.log(error)
-                    );
+                    // this.accessPageService.getAllPages().subscribe(
+                    //     success => {
+                    //         this.pages = success;
+                    //         for ( let i = 0; i < this.pages.length; i++) {
+                    //             for ( let j = 0; j < this.rules.length; j++) {
+                    //                 if (this.pages[i].id === this.rules[j].page_id) {
+                    //                     this.rules[j].page_id = this.pages[i].route;
+                    //                     break;
+                    //                 }
+                    //             }
+                    //         }
+                    //         this.rulesSubject.next(<RuleState>{permissions: this.rules});
+                    //     },
+                    //     error => console.log(error)
+                    // );
 
                 }
             );

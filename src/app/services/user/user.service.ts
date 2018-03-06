@@ -71,10 +71,10 @@ export class UserService extends RestService {
   }
 
   public getCities(state_id?: string) {
-    if ( state_id === undefined ) {
-      return this.get(this.apiurl + 'states/');
-    }
-    return this.get(this.apiurl + 'states/state/' + state_id + '/cities');
+    // if ( state_id === undefined ) {
+    //   return this.get(this.apiurl + 'states/');
+    // }
+    return this.get(this.apiurl + 'states/' + state_id );
   }
 
   public getCity(city_id?: number) {

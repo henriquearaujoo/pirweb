@@ -57,6 +57,7 @@ export class UserComponent implements OnInit {
   private enable_previous: boolean;
   private cont: number;
   private modalSave: string;
+  private isNewData: boolean;
 
   private modalOpened: boolean;
   private openSaveButtonTab1: HTMLButtonElement;
@@ -72,6 +73,9 @@ export class UserComponent implements OnInit {
   private isFormValid: boolean;
   private tab: string;
   private _isSave: boolean;
+  private urlId: string;
+  private city_id: number;
+  private currentId: string;
 
   constructor(
     private userService: UserService,
@@ -102,6 +106,13 @@ export class UserComponent implements OnInit {
         // this.loaderService.hide();
       }
     );
+    /*check if is a new or update*/
+    this.isNewData = true;
+    this.urlId = localStorage.getItem('userId');
+    if (this.urlId !== undefined || this.urlId !== '') {
+      this.isNewData = false;
+      this.loadUser();
+    }
     this.loadStates();
     this.loadProfiles();
     this.show_pjur = false;
@@ -141,11 +152,13 @@ export class UserComponent implements OnInit {
     if (isValid && this._isSave) {
       this.modalOpened = false;
       this.verifyType();
-      this.success = true;
-      if (this.type === 'PJUR') {
-        this.userService.createEntity(this.org).subscribe(
-          s_org => {
-            this.openModalSuccess();
+      // this.success = true;
+      this.user.profile_id = this.user.profile.id;
+      if (this.isNewData || this.user.id === undefined) {
+        console.log('save', this.user);
+        this.userService.createUser(this.user).subscribe(
+          success => {
+            this.sweetAlertService.alertSuccess('user-list');
           },
           error => {
             this.toastService.toastError();
@@ -153,29 +166,158 @@ export class UserComponent implements OnInit {
             this.verifyError();
           }
         );
+        // if (this.type === 'PJUR') {
+        //   this.userService.createEntity(this.org).subscribe(
+        //     s_org => {
+        //       this.sweetAlertService.alertSuccess('user-list');
+        //     },
+        //     error => {
+        //       this.toastService.toastError();
+        //       this.error_list = error;
+        //       this.verifyError();
+        //     }
+        //   );
+        // } else {
+        //   if (this.type === 'PFIS') {
+        //     this.userService.createPerson(this.person).subscribe(
+        //       s_person => {
+        //         this.sweetAlertService.alertSuccess('user-list');
+        //       },
+        //       error => {
+        //         this.error_list = error;
+        //         this.toastService.toastError();
+        //         this.verifyError();
+        //       }
+        //     );
+        //   }
+        // }
       } else {
-        if (this.type === 'PFIS') {
-          this.userService.createPerson(this.person).subscribe(
-            s_person => {
-              this.openModalSuccess();
-            },
-            error => {
-              this.error_list = error;
-              this.toastService.toastError();
-              this.verifyError();
+        console.log('update', this.user);
+        this.userService.saveEditUser(this.user).subscribe(
+          success2 => {
+            this.currentId = localStorage.getItem('currentIdPir');
+            if (this.currentId === this.user.id) {
+              localStorage.removeItem('tokenPir');
+              localStorage.removeItem('profileId_rules');
+              localStorage.removeItem('currentUserPir');
+              localStorage.removeItem('currentIdPir');
+              swal( {
+                title: '',
+                text: 'Informações atualizadas com Sucesso!',
+                icon: 'success',
+                buttons: {
+                  confirm: {
+                    text: 'Fechar',
+                    className: 'swal-btn-close'
+                  }
+                },
+                closeOnClickOutside: false,
+                className: 'swal-add-success'
+              })
+              .then((confirm) => {
+                if (confirm) {
+                  swal({
+                    title: 'Sessão expirada!',
+                    text: 'Você precisa efetuar o login novamente!',
+                    icon: 'warning',
+                    buttons: {
+                      ok: {
+                        text: 'Ok',
+                        className: 'swal-btn-ok'
+                      }
+                    },
+                    closeOnClickOutside: false,
+                    className: 'swal-btn-ok'
+                  })
+                  .then((c) => {
+                    if (c) {
+                      location.reload();
+                    }
+                  });
+                }
+              });
+            } else {
+              this.sweetAlertService.alertSuccessUpdate('user-list');
             }
-          );
-        }
+          },
+          error => {
+            this.error_list = error;
+            this.verifyError();
+          }
+        );
+        // if (this.type === 'PJUR') {
+        //   this.userService.saveEditEntity(this.org).subscribe(
+        //     success => {
+        //       this.sweetAlertService.alertSuccessUpdate('user-list');
+        //     },
+        //     error => {
+        //       this.error_list = error;
+        //       this.verifyError();
+        //     }
+        //   );
+        // } else {
+        //   if (this.type === 'PFIS') {
+        //     this.userService.saveEditPerson(this.person).subscribe(
+        //       success2 => {
+        //         this.currentId = localStorage.getItem('currentIdPir');
+        //         if (this.currentId === this.user.id) {
+        //           localStorage.removeItem('tokenPir');
+        //           localStorage.removeItem('profileId_rules');
+        //           localStorage.removeItem('currentUserPir');
+        //           localStorage.removeItem('currentIdPir');
+        //           swal( {
+        //             title: '',
+        //             text: 'Informações atualizadas com Sucesso!',
+        //             icon: 'success',
+        //             buttons: {
+        //               confirm: {
+        //                 text: 'Fechar',
+        //                 className: 'swal-btn-close'
+        //               }
+        //             },
+        //             closeOnClickOutside: false,
+        //             className: 'swal-add-success'
+        //           })
+        //           .then((confirm) => {
+        //             if (confirm) {
+        //               swal({
+        //                 title: 'Sessão expirada!',
+        //                 text: 'Você precisa efetuar o login novamente!',
+        //                 icon: 'warning',
+        //                 buttons: {
+        //                   ok: {
+        //                     text: 'Ok',
+        //                     className: 'swal-btn-ok'
+        //                   }
+        //                 },
+        //                 closeOnClickOutside: false,
+        //                 className: 'swal-btn-ok'
+        //               })
+        //               .then((c) => {
+        //                 if (c) {
+        //                   location.reload();
+        //                 }
+        //               });
+        //             }
+        //           });
+        //         } else {
+        //           this.sweetAlertService.alertSuccessUpdate('user-list');
+        //         }
+        //       },
+        //       error => {
+        //         this.error_list = error;
+        //         this.verifyError();
+        //       }
+        //     );
+        //   }
+        // }
       }
     }
   }
 
-  openModalSuccess() {
-    this.sweetAlertService.alertSuccess('user-list');
-  }
-
   openModal() {
     this.modalService.modalCancel('/user-list');
+    // this.sweetAlertService.alertToCancel('user-list');
   }
 
   public loadProfiles() {
@@ -207,7 +349,7 @@ export class UserComponent implements OnInit {
         if (success == null) {
           this.hasdata = false;
         }
-        this.cities = success;
+        this.cities = success.cities;
         this.hasdata = true;
       },
       error => console.log(error)
@@ -215,27 +357,34 @@ export class UserComponent implements OnInit {
   }
 
   selectType() {
-    switch (this.user.type) {
-      case 'PFIS':
-      {
-        this.show_pjur = false;
-        this.person = new Person();
-        break;
-      }
-
-      case 'PJUR':
-      {
-        this.show_pjur = true;
-        this.org = new Org();
-        break;
-      }
+    if ( this.user.person !== undefined || this.user.person !== null) {
+      this.user.type = 'PFIS';
+      this.show_pjur = false;
+    } else {
+      this.user.type = 'PJUR';
+      this.show_pjur = true;
     }
+    // switch (this.user.type) {
+    //   case 'PFIS':
+    //   {
+    //     this.show_pjur = false;
+    //     this.person = new Person();
+    //     break;
+    //   }
+
+    //   case 'PJUR':
+    //   {
+    //     this.show_pjur = true;
+    //     this.org = new Org();
+    //     break;
+    //   }
+    // }
   }
 
   selectProfile() {
     this.profiles.forEach( elem => {
       if (this.user !== undefined) {
-        if (elem.id === this.user.profile) {
+        if (elem.id === this.user.profile_id) {
           this.profile = elem.title;
         }
       }
@@ -256,22 +405,23 @@ export class UserComponent implements OnInit {
 
   verifyType() {
     this.user.name = this.first_name + ' ' + this.last_name;
-    this.user.address.city = Number(this.user.address.city);
+    // this.user.address.city = Number(this.user.address.city);
 
     switch (this.user.type) {
       case 'PFIS':
       {
-        this.person.cpf = this.person.cpf.split('.').join('');
-        this.person.cpf = this.person.cpf.split('-').join('');
+        this.user.person.cpf = this.user.person.cpf.split('.').join('');
+        this.user.person.cpf = this.user.person.cpf.split('-').join('');
         this.user.address.postalcode = this.user.address.postalcode.replace('-', '');
-        this.person.address = this.user.address;
-        this.person.email = this.user.email;
-        this.person.login = this.user.login;
-        this.person.name = this.user.name;
-        this.person.password = sha256(this.user.password);
-        this.person.profile = this.user.profile;
-        this.person.status = this.user.status;
-        this.person.type = this.user.type;
+        // this.person.address = this.user.address;
+        // this.person.email = this.user.email;
+        // this.person.login = this.user.login;
+        // this.person.name = this.user.name;
+        this.user.password = sha256(this.user.password);
+        // this.person.profile = this.user.profile;
+        // this.person.status = this.user.status;
+        // this.person.type = this.user.type;
+        delete this.user.entity;
         this.type = 'PFIS';
         break;
       }
@@ -279,14 +429,15 @@ export class UserComponent implements OnInit {
       case 'PJUR':
       {
         this.user.address.postalcode = this.user.address.postalcode.replace('-', '');
-        this.org.address = this.user.address;
-        this.org.email = this.user.email;
-        this.org.login = this.user.login;
-        this.org.name = this.user.name;
-        this.org.password = sha256(this.user.password);
-        this.org.profile = this.user.profile;
-        this.org.status = this.user.status;
-        this.org.type = this.user.type;
+        // this.org.address = this.user.address;
+        // this.org.email = this.user.email;
+        // this.org.login = this.user.login;
+        // this.org.name = this.user.name;
+        this.user.password = sha256(this.user.password);
+        // this.org.profile = this.user.profile;
+        // this.org.status = this.user.status;
+        // this.org.type = this.user.type;
+        delete this.user.person;
         this.type = 'PJUR';
         break;
       }
@@ -379,6 +530,31 @@ export class UserComponent implements OnInit {
 
   isSave() {
     this._isSave = true;
+  }
+
+  loadUser() {
+    this.userService.load(this.urlId).subscribe(
+      success => {
+        this.user = success[0];
+        if (this.user !== undefined) {
+          // this.person = this.user.person;
+          // this.org = this.user.entity;
+          this.first_name = this.user.name.split(' ')[0];
+          this.last_name = this.user.name.split(' ')[1];
+
+          // this.city_id = this.user.address.city;
+          this.selectType();
+          this.loadStates(this.user.address.city_id);
+          this.loadProfiles();
+        } else {
+            this.user = new User();
+            this.org = new Org();
+            this.person = new Person();
+        }
+      },
+      error => console.log(error)
+    );
+
   }
 
    isActive(tab: boolean, t?: number,  p?: number) {

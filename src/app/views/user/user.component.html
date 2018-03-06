@@ -59,7 +59,7 @@
                                                         <div class="col-sm-6">
                                                             <div class="form-group profile" [ngClass]="applyCssError(f1, profile)">
                                                                 <label class="control-label">Perfil</label>
-                                                                <select class="form-control" name="profile" id="user_profile" [(ngModel)]="user.profile" 
+                                                                <select class="form-control" name="profile" id="user_profile" [(ngModel)]="user?.profile.id" 
                                                                     #profile="ngModel" (change)="selectProfile()" required>
                                                                     <!-- <option disabled> Perfil</option> -->
                                                                     <option *ngFor="let p of profiles" [value]="p.id" >{{p.title}}</option>
@@ -111,11 +111,15 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <div class="form-group" [ngClass]="applyCssError(f1, password)">
+                                                        <div class="form-group" [ngClass]="applyCssError(f1, password)" *ngIf="isNewDate">
                                                             <label class="control-label">Senha</label>
                                                             <input type="password" [(ngModel)]="user.password" #password="ngModel" name="password" id="user_password" class="form-control" required minlength="8" placeholder="Inserir uma senha (Digite uma senha. Mínimo 8 caracteres)">
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f1, password)" msgError="Digite uma senha. Mínimo 8 caracteres">
                                                             </app-control-field-error>
+                                                        </div>
+                                                        <div class="form-group" *ngIf="!isNewDate">
+                                                            <label class="control-label">Senha</label>
+                                                            <input type="password" [(ngModel)]="user.password" #password="ngModel" name="password" id="user_password" class="form-control" minlength="8" placeholder="Inserir uma senha (Digite uma senha. Mínimo 8 caracteres)">                                
                                                         </div>
                                                     </div>
                                                 </div>                                              
@@ -192,7 +196,7 @@
                                                         <div class="col-sm-6">
                                                             <div class="form-group left" [ngClass]="applyCssError(f2, rg)" *ngIf="!show_pjur">
                                                                 <label class="control-label">RG</label>
-                                                                <input type="text" [(ngModel)]="person.rg" #rg="ngModel" name="rg" id="user_rg" class="form-control"  mask="000000000000000" placeholder="Inserir RG ..." required>
+                                                                <input type="text" [(ngModel)]="user.person.rg" #rg="ngModel" name="rg" id="user_rg" class="form-control"  mask="000000000000000" placeholder="Inserir RG ..." required>
                                                                 <app-control-field-error [showError]="verifyValidSubmitted(f2, rg)" msgError="RG">
                                                                 </app-control-field-error>
                                                             </div>
@@ -200,7 +204,7 @@
                                                         <div class="col-sm-6">
                                                             <div class="form-group" [ngClass]="applyCssError(f2, emitter)" *ngIf="!show_pjur">
                                                                 <label class="control-label">Orgão Emissor</label>
-                                                                <input type="text" #emitter="ngModel" [(ngModel)]="person.emitter" name="rg_emitter" id="user_rgemitter" class="form-control" placeholder="Inserir Orgão Emissor ..." required>
+                                                                <input type="text" #emitter="ngModel" [(ngModel)]="user.person.emitter" name="rg_emitter" id="user_rgemitter" class="form-control" placeholder="Inserir Orgão Emissor ..." required>
                                                                 <app-control-field-error [showError]="verifyValidSubmitted(f2, emitter)" msgError="Orgão Emissor">
                                                                 </app-control-field-error>
                                                             </div>
@@ -212,7 +216,7 @@
                                                             <div class="form-group" [ngClass]="applyCssError(f2, cpf)" *ngIf="!show_pjur">
                                                                 <label class="control-label">CPF</label>
                                                                 <!-- <input type="text" [(ngModel)]="person.cpf" [textMask]="{mask: maskCPF}"  #cpf="ngModel" name="cpf"  id="user_cpf" class="form-control" placeholder="CPF" required> -->
-                                                                <input type="text" dropSpecialCharacters="true" mask="000.000.000-00" [(ngModel)]="person.cpf" #cpf="ngModel" name="cpf"  id="user_cpf" class="form-control" placeholder="CPF" required>
+                                                                <input type="text" dropSpecialCharacters="true" mask="000.000.000-00" [(ngModel)]="user.person.cpf" #cpf="ngModel" name="cpf"  id="user_cpf" class="form-control" placeholder="CPF" required>
                                                               
                                                                 <app-control-field-error [showError]="verifyValidSubmitted(f2, cpf)" msgError="CPF Inválido">
                                                                 </app-control-field-error>
@@ -224,7 +228,7 @@
                                                         <div class="col-sm-6">
                                                             <div class="form-group left" [ngClass]="applyCssError(f2, ie)" *ngIf="show_pjur">
                                                                 <label class="control-label">Inscrição Estadual</label>
-                                                                <input type="text" #ie="ngModel" [(ngModel)]="org.ie" name="ie" id="user_ie" class="form-control" placeholder="Inscrição Estadual" required>
+                                                                <input type="text" #ie="ngModel" [(ngModel)]="user.entity.ie" name="ie" id="user_ie" class="form-control" placeholder="Inscrição Estadual" required>
                                                                 <app-control-field-error [showError]="verifyValidSubmitted(f2, ie)" msgError="Digite uma inscrição estadual">
                                                                 </app-control-field-error>
                                                             </div>
@@ -232,7 +236,7 @@
                                                         <div class="col-sm-6">
                                                             <div class="form-group" [ngClass]="applyCssError(f2, cnpj)" *ngIf="show_pjur">
                                                                 <label class="control-label">CNPJ</label>
-                                                                <input type="number" [(ngModel)]="org.cnpj" #cnpj="ngModel" name="cnpj" pattern="[0-9]{14}" id="user_cnpj" minlength="14" maxlength="14" class="form-control" placeholder="CNPJ" required>
+                                                                <input type="number" [(ngModel)]="user.entity.cnpj" #cnpj="ngModel" name="cnpj" pattern="[0-9]{14}" id="user_cnpj" minlength="14" maxlength="14" class="form-control" placeholder="CNPJ" required>
                                                                 <app-control-field-error [showError]="verifyValidSubmitted(f2, cnpj)" msgError="CNPJ Inválido">
                                                                 </app-control-field-error>
                                                             </div>
@@ -242,7 +246,7 @@
                                                         <div class="col-sm-12">
                                                             <div class="form-group" [ngClass]="applyCssError(f2, socialname)" *ngIf="show_pjur">
                                                                 <label class="control-label">Razão Social</label>
-                                                                <input type="text" #socialname="ngModel" [(ngModel)]="org.social_name" name="social_name" id="user_socialname" class="form-control" placeholder="Razão Social" required>
+                                                                <input type="text" #socialname="ngModel" [(ngModel)]="user.entity.social_name" name="social_name" id="user_socialname" class="form-control" placeholder="Razão Social" required>
                                                                 <app-control-field-error [showError]="verifyValidSubmitted(f2, socialname)" msgError="Digite uma razão social">
                                                                 </app-control-field-error>
                                                             </div>
@@ -252,7 +256,7 @@
                                                         <div class="col-sm-12">
                                                             <div class="form-group" [ngClass]="applyCssError(f2, fantasyname)" *ngIf="show_pjur">
                                                                 <label class="control-label">Nome Fantasia</label>
-                                                                <input type="text" #fantasyname="ngModel" [(ngModel)]="org.fantasy_name" name="fantasy_name" id="user_fantasyname" class="form-control" placeholder="Nome Fantasia" required>
+                                                                <input type="text" #fantasyname="ngModel" [(ngModel)]="user.entity.fantasy_name" name="fantasy_name" id="user_fantasyname" class="form-control" placeholder="Nome Fantasia" required>
                                                                 <app-control-field-error [showError]="verifyValidSubmitted(f2, fantasyname)" msgError="Digite um nome fantasia">
                                                                 </app-control-field-error>
                                                             </div>
@@ -358,7 +362,7 @@
                                                             <div class="col-sm-6">
                                                                 <div class="form-group" [ngClass]="applyCssError(f3, city)">
                                                                     <label class="control-label">Cidade</label>
-                                                                    <select class="form-control" #city="ngModel" name="city_id_fk" id="user_city" [(ngModel)]="user.address.city" required>
+                                                                    <select class="form-control" #city="ngModel" name="city_id_fk" id="user_city" [(ngModel)]="user.address.city_id" required>
                                                                         <!-- <option> Cidade </option> -->
                                                                         <option *ngFor="let c of cities" [value]='c.id'>{{c.name}}</option>
                                                                     </select>
@@ -374,11 +378,7 @@
                                                         <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false, 3, 0)" id="btn_previous">
                                                             <img src="./assets/img/global/ic_previous.png" />
                                                             <b>Anterior</b>
-                                                        </a>
-                                                        <!-- <a href="{{nextTab}}" data-toggle="tab" (click)="isActive(true)" id="btn_next">
-                                                            <b>Próximo</b>
-                                                            <img src="../../../assets/img/global/ic_next.png" />
-                                                        </a> -->
+                                                        </a>                                                      
                                                         <button type="submit" id="btn_tab3"></button>
                                                     </div>
                                                 </div>

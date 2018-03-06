@@ -64,7 +64,6 @@ import { PageService } from './services/pagenate/page.service';
 import { AuthenticationService } from './services/login/authentication.service';
 import { AlertService } from './services/alert/alert.service';
 import { UserService } from './services/user/user.service';
-import { CreateUserService } from './services/user-create/create-user.service';
 import { ProfileService } from './services/profile/profile.service';
 import { RuleService } from './services/rule/rule.service';
 import { AccessPageService } from './services/page/page.service';
@@ -290,7 +289,6 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     AuthGuard,
     UserService,
     AlertService,
-    CreateUserService,
     ProfileService,
     RuleService,
     AccessPageService,

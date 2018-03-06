@@ -62,29 +62,29 @@
                                 </tbody>
                                 <tbody *ngFor="let item of all_pages">
                                     <tr *ngFor="let perm of permissionsFromProfile">
-                                        <th scope="row" *ngIf="perm.page_id === item.id" class="page-route">{{item.route}}</th>
-                                        <td *ngIf="perm.page_id === item.id">
+                                        <th scope="row" *ngIf="perm.page.id === item.id" class="page-route">{{item.route}}</th>
+                                        <td *ngIf="perm.page.id === item.id">
                                             <input type="checkbox" 
                                                 [value]="1"
-                                                [checked]='perm.page_id === item.id && perm.read'
+                                                [checked]='perm.page.id === item.id && perm.read'
                                                 (change)="updatePermission(item, 1, $event)"/>
                                         </td>
-                                        <td *ngIf="perm.page_id === item.id">
+                                        <td *ngIf="perm.page.id === item.id">
                                             <input type="checkbox"
                                                 [value]="2"
-                                                [checked]='perm.page_id === item.id && perm.create'
+                                                [checked]='perm.page.id === item.id && perm.create'
                                                 (change)="updatePermission(item, 2, $event)"/>
                                         </td>
-                                        <td *ngIf="perm.page_id === item.id">
+                                        <td *ngIf="perm.page.id === item.id">
                                             <input type="checkbox"
                                                 [value]="3"
-                                                [checked]='perm.page_id === item.id && perm.update'
+                                                [checked]='perm.page.id === item.id && perm.update'
                                                 (change)="updatePermission(item, 3, $event)" />
                                         </td>
-                                        <td *ngIf="perm.page_id === item.id">
+                                        <td *ngIf="perm.page.id === item.id">
                                             <input type="checkbox"
                                                 [value]="4"
-                                                [checked]='perm.page_id === item.id && perm.delete'
+                                                [checked]='perm.page.id === item.id && perm.delete'
                                                 (change)="updatePermission(item, 4, $event)" />
                                         </td>
                                     </tr>

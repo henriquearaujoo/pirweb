@@ -67,7 +67,7 @@
                     {{ item.name }}
                 </td>
                 <td class="tbl-left">  
-                    {{ item.profile }}
+                    {{ item.profile.title }}
                 </td>
                 <!--td class="tbl-left" >  
                     {{ item.status === true ? 'Ativo': 'Inativo' }}
@@ -80,7 +80,7 @@
                 </td>
                 <td class="tbl-right" *ngIf="canUpdate">          
                   <a title="Editar" id="btn_edit"
-                    (click)="setUser(item)" [routerLink]="['/user-edit']" 
+                    (click)="setUser(item)" [routerLink]="['/user']" 
                     *ngIf="item.name  !== 'Administrator'">
                     <i class="fa fa-pencil fa-fw"></i>
                   </a>

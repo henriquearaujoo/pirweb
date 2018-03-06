@@ -85,22 +85,32 @@ export class UserDetailsComponent implements OnInit {
     this.userService.load(this.urlId).subscribe(
       success => {
         this.user = success[0];
-        this.profileService.load(this.user.profile).subscribe(
-          s => {
-            this.profile = s[0];
-            this.user.profile = this.profile.title;
-            if (this.user.address !== undefined) {
-              this.city_id = this.user.address.city;
-            } else {
-              this.user.address = new Address();
-            }
-            this.verifyType();
-            this.loadCityState();
-            setTimeout(() => {
-              this.loaderService.hide();
-            }, 400);
-          }
-        );
+        // if (this.user.address !== undefined) {
+        //   this.city_id = this.user.address.city;
+        // } else {
+        //   this.user.address = new Address();
+        // }
+        this.verifyType();
+        // this.loadCityState();
+        setTimeout(() => {
+          this.loaderService.hide();
+        }, 400);
+        // this.profileService.load(this.user.profile).subscribe(
+        //   s => {
+        //     this.profile = s[0];
+        //     this.user.profile = this.profile.title;
+        //     if (this.user.address !== undefined) {
+        //       this.city_id = this.user.address.city;
+        //     } else {
+        //       this.user.address = new Address();
+        //     }
+        //     this.verifyType();
+        //     this.loadCityState();
+        //     setTimeout(() => {
+        //       this.loaderService.hide();
+        //     }, 400);
+        //   }
+        // );
       },
       error => {
         this.loaderService.hide();
@@ -109,30 +119,30 @@ export class UserDetailsComponent implements OnInit {
     );
   }
 
-  loadCityState() {
-    if (this.user.address.city !== undefined) {
-      this.userService.getCity(this.user.address.city).subscribe(
-        success_city => {
-          this.user.address.city = success_city.name;
-          this.userService.getStates(success_city.state_id).subscribe(
-            success_state => {
-              this.user.address.state = success_state.name;
-            },
-            error => console.log(error)
-          );
-        },
-        error => console.log(error)
-      );
-    }
-  }
+  // loadCityState() {
+  //   if (this.user.address.city !== undefined) {
+  //     this.userService.getCity(this.user.address.city).subscribe(
+  //       success_city => {
+  //         this.user.address.city = success_city.name;
+  //         this.userService.getStates(success_city.state_id).subscribe(
+  //           success_state => {
+  //             this.user.address.state = success_state.name;
+  //           },
+  //           error => console.log(error)
+  //         );
+  //       },
+  //       error => console.log(error)
+  //     );
+  //   }
+  // }
 
-  editUser() {
-    this.user.address.city = this.city_id;
-  }
+  // editUser() {
+  //   this.user.address.city = this.city_id;
+  // }
 
-  changeStatus(user: User) {
-    this.user.address.city = this.city_id;
-  }
+  // changeStatus(user: User) {
+  //   this.user.address.city = this.city_id;
+  // }
 
   disableAbleUser() {
     if (this.user.status === true) {
@@ -140,24 +150,25 @@ export class UserDetailsComponent implements OnInit {
     } else {
       this.user.status = true;
     }
-    this.profileService.getProfiles().subscribe(
-      success_profiles => {
-        this.profiles = success_profiles;
-        this.profiles.forEach( profile => {
-          if (this.user.profile === profile.title) {
-            this.user.profile = profile.id;
-          }
-        });
 
-        this.userService.disableUser(this.user).subscribe(
-          success => {
-            this.toastService.toastSuccess();
-            this.router.navigate(['/user-list']);
-          },
-          error => console.log(error)
-        );
-      }
+    this.userService.saveEditUser(this.user).subscribe(
+      success => {
+        this.toastService.toastSuccess();
+        this.router.navigate(['/user-list']);
+      },
+      error => console.log(error)
     );
-    console.log(this.user);
+
+    // this.profileService.getProfiles().subscribe(
+    //   success_profiles => {
+    //     this.profiles = success_profiles;
+    //     this.profiles.forEach( profile => {
+    //       if (this.user.profile === profile.title) {
+    //         this.user.profile = profile.id;
+    //       }
+    //     });
+    //   }
+    // );
+    // console.log(this.user);
   }
 }

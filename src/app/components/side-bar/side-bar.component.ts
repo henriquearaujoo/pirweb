@@ -48,7 +48,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
 
        for (let i = 0; i < this.menu.length; i++) {
          for ( let j = 0; j < this.rules.length; j++) {
-          if (this.menu[i].route === this.rules[j].page_id) {
+          if (this.menu[i].route === this.rules[j].page.route) {
             this.menu[i].read = this.rules[j].read;
             break;
           }

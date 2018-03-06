@@ -197,7 +197,8 @@ export class PageComponent extends PagenateComponent implements OnInit {
             }
           // }
         }
-
+        console.log('rule', this.rule);
+        console.log('all_pages_profile', this.all_pages_profile[0]);
         if (this.all_pages_profile.length > 0) {
           this.ruleService.editRule(this.all_pages_profile[0]).subscribe(
             s => {

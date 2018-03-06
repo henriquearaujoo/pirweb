@@ -50,26 +50,29 @@ export class SweetAlertService {
     });
   }
 
-  // alertCancel(route: string) {
-  //   swal( {
-  //     title: '',
-  //     text: 'Informações atualizadas com Sucesso!',
-  //     icon: 'success',
-  //     buttons: {
-  //       confirm: {
-  //         text: 'Fechar',
-  //         className: 'swal-btn-close'
-  //       }
-  //     },
-  //     closeOnClickOutside: false,
-  //     className: 'swal-add-success'
-  //   })
-  //   .then((confirm) => {
-  //     if (confirm) {
-  //       this.router.navigate([route]);
-  //     }
-  //   });
-  // }
+  alertToCancel(route: string) {
+    swal( {
+      title: '',
+      text: 'Deseja realmente CANCELAR?',
+      icon: 'warning',
+      buttons: {
+        confirm: {
+          text: 'Sim',
+          className: 'swal-btn-confirm'
+        },
+        cancel: {
+          text: 'Não',
+          className: 'swal-btn-cancel'
+        },
+      },
+      closeOnClickOutside: false
+    })
+    .then((confirm) => {
+      if (confirm) {
+        this.router.navigate([route]);
+      }
+    });
+  }
 
   alertSessionExpired() {
     swal({
