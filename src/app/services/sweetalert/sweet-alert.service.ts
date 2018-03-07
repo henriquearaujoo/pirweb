@@ -50,22 +50,45 @@ export class SweetAlertService {
     });
   }
 
+  alertPermission(route: string) {
+    swal( {
+      title: '',
+      text: 'Você não possui permissão para executar essa tarefa!',
+      icon: 'error',
+      buttons: {
+        confirm: {
+          text: 'Fechar',
+          className: 'swal-btn-close'
+        }
+      },
+      closeOnClickOutside: false,
+      className: 'swal-add-success'
+    })
+    .then((confirm) => {
+      if (confirm) {
+        this.router.navigate([route]);
+      }
+    });
+  }
+
   alertToCancel(route: string) {
     swal( {
       title: '',
       text: 'Deseja realmente CANCELAR?',
       icon: 'warning',
-      buttons: {
-        confirm: {
-          text: 'Sim',
-          className: 'swal-btn-confirm'
-        },
-        cancel: {
-          text: 'Não',
-          className: 'swal-btn-cancel'
-        },
-      },
-      closeOnClickOutside: false
+      buttons: ['Não', 'Sim'],
+      // buttons: {
+      //   confirm: {
+      //     text: 'Sim',
+      //     className: 'swal-btn-confirm'
+      //   },
+      //   cancel: {
+      //     text: 'Não',
+      //     className: 'swal-btn-cancel'
+      //   },
+      // },
+      closeOnClickOutside: false,
+      className: 'swal-btn-ok'
     })
     .then((confirm) => {
       if (confirm) {
@@ -112,7 +135,7 @@ export class SweetAlertService {
     .then((c) => {
       if (c) {
         setTimeout(() => {
-          window.location.href = '/login';
+          // window.location.href = '/login';
         }, 1000);
       }
     });

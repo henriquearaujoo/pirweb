@@ -1,3 +1,4 @@
+import { LoaderService } from './../../services/loader/loader.service';
 import { SweetAlertService } from './../../services/sweetalert/sweet-alert.service';
 import { Community } from './../../models/community';
 import { ToastService } from './../../services/toast-notification/toast.service';
@@ -33,7 +34,7 @@ export class UserComponent implements OnInit {
   private cities = new Array();
   private profiles: Profile[] = new Array();
   private profile: string;
-  private org: Org;
+  private entity: Org;
   private person: Person;
   private first_name: string;
   private last_name: string;
@@ -85,9 +86,10 @@ export class UserComponent implements OnInit {
     private toastService: ToastService,
     private modalService: ModalService,
     private permissions: Permissions,
-    private sweetAlertService: SweetAlertService) {
+    private sweetAlertService: SweetAlertService,
+    private loaderService: LoaderService) {
       this.user = new User();
-      this.org = new Org();
+      this.entity = new Org();
       this.person = new Person();
       this.canCreate = false;
       this.canUpdate = false;
@@ -109,7 +111,7 @@ export class UserComponent implements OnInit {
     /*check if is a new or update*/
     this.isNewData = true;
     this.urlId = localStorage.getItem('userId');
-    if (this.urlId !== undefined || this.urlId !== '') {
+    if (this.urlId !== undefined && this.urlId !== '' && this.urlId !== null) {
       this.isNewData = false;
       this.loadUser();
     }
@@ -152,165 +154,82 @@ export class UserComponent implements OnInit {
     if (isValid && this._isSave) {
       this.modalOpened = false;
       this.verifyType();
-      // this.success = true;
       this.user.profile_id = this.user.profile.id;
+      this.user.address.city_id = this.user.address.city.id;
       if (this.isNewData || this.user.id === undefined) {
-        console.log('save', this.user);
-        this.userService.createUser(this.user).subscribe(
-          success => {
-            this.sweetAlertService.alertSuccess('user-list');
-          },
-          error => {
-            this.toastService.toastError();
-            this.error_list = error;
-            this.verifyError();
-          }
-        );
-        // if (this.type === 'PJUR') {
-        //   this.userService.createEntity(this.org).subscribe(
-        //     s_org => {
-        //       this.sweetAlertService.alertSuccess('user-list');
-        //     },
-        //     error => {
-        //       this.toastService.toastError();
-        //       this.error_list = error;
-        //       this.verifyError();
-        //     }
-        //   );
-        // } else {
-        //   if (this.type === 'PFIS') {
-        //     this.userService.createPerson(this.person).subscribe(
-        //       s_person => {
-        //         this.sweetAlertService.alertSuccess('user-list');
-        //       },
-        //       error => {
-        //         this.error_list = error;
-        //         this.toastService.toastError();
-        //         this.verifyError();
-        //       }
-        //     );
-        //   }
-        // }
-      } else {
-        console.log('update', this.user);
-        this.userService.saveEditUser(this.user).subscribe(
-          success2 => {
-            this.currentId = localStorage.getItem('currentIdPir');
-            if (this.currentId === this.user.id) {
-              localStorage.removeItem('tokenPir');
-              localStorage.removeItem('profileId_rules');
-              localStorage.removeItem('currentUserPir');
-              localStorage.removeItem('currentIdPir');
-              swal( {
-                title: '',
-                text: 'Informações atualizadas com Sucesso!',
-                icon: 'success',
-                buttons: {
-                  confirm: {
-                    text: 'Fechar',
-                    className: 'swal-btn-close'
-                  }
-                },
-                closeOnClickOutside: false,
-                className: 'swal-add-success'
-              })
-              .then((confirm) => {
-                if (confirm) {
-                  swal({
-                    title: 'Sessão expirada!',
-                    text: 'Você precisa efetuar o login novamente!',
-                    icon: 'warning',
-                    buttons: {
-                      ok: {
-                        text: 'Ok',
-                        className: 'swal-btn-ok'
-                      }
-                    },
-                    closeOnClickOutside: false,
-                    className: 'swal-btn-ok'
-                  })
-                  .then((c) => {
-                    if (c) {
-                      location.reload();
-                    }
-                  });
-                }
-              });
-            } else {
-              this.sweetAlertService.alertSuccessUpdate('user-list');
+        if (this.canCreate) {
+          console.log('save', this.user);
+          this.userService.createUser(this.user).subscribe(
+            success => {
+              this.sweetAlertService.alertSuccess('user-list');
+            },
+            error => {
+              this.toastService.toastError();
+              this.error_list = error;
+              this.verifyError();
             }
-          },
-          error => {
-            this.error_list = error;
-            this.verifyError();
-          }
-        );
-        // if (this.type === 'PJUR') {
-        //   this.userService.saveEditEntity(this.org).subscribe(
-        //     success => {
-        //       this.sweetAlertService.alertSuccessUpdate('user-list');
-        //     },
-        //     error => {
-        //       this.error_list = error;
-        //       this.verifyError();
-        //     }
-        //   );
-        // } else {
-        //   if (this.type === 'PFIS') {
-        //     this.userService.saveEditPerson(this.person).subscribe(
-        //       success2 => {
-        //         this.currentId = localStorage.getItem('currentIdPir');
-        //         if (this.currentId === this.user.id) {
-        //           localStorage.removeItem('tokenPir');
-        //           localStorage.removeItem('profileId_rules');
-        //           localStorage.removeItem('currentUserPir');
-        //           localStorage.removeItem('currentIdPir');
-        //           swal( {
-        //             title: '',
-        //             text: 'Informações atualizadas com Sucesso!',
-        //             icon: 'success',
-        //             buttons: {
-        //               confirm: {
-        //                 text: 'Fechar',
-        //                 className: 'swal-btn-close'
-        //               }
-        //             },
-        //             closeOnClickOutside: false,
-        //             className: 'swal-add-success'
-        //           })
-        //           .then((confirm) => {
-        //             if (confirm) {
-        //               swal({
-        //                 title: 'Sessão expirada!',
-        //                 text: 'Você precisa efetuar o login novamente!',
-        //                 icon: 'warning',
-        //                 buttons: {
-        //                   ok: {
-        //                     text: 'Ok',
-        //                     className: 'swal-btn-ok'
-        //                   }
-        //                 },
-        //                 closeOnClickOutside: false,
-        //                 className: 'swal-btn-ok'
-        //               })
-        //               .then((c) => {
-        //                 if (c) {
-        //                   location.reload();
-        //                 }
-        //               });
-        //             }
-        //           });
-        //         } else {
-        //           this.sweetAlertService.alertSuccessUpdate('user-list');
-        //         }
-        //       },
-        //       error => {
-        //         this.error_list = error;
-        //         this.verifyError();
-        //       }
-        //     );
-        //   }
-        // }
+          );
+        } else {
+          this.sweetAlertService.alertPermission('user-list');
+        }
+      } else {
+        if (this.canUpdate) {
+          console.log('update', this.user);
+          this.userService.saveEditUser(this.user).subscribe(
+            success2 => {
+              this.currentId = localStorage.getItem('currentIdPir');
+              if (this.currentId === this.user.id) {
+                localStorage.removeItem('tokenPir');
+                localStorage.removeItem('profileId_rules');
+                localStorage.removeItem('currentUserPir');
+                localStorage.removeItem('currentIdPir');
+                swal( {
+                  title: '',
+                  text: 'Informações atualizadas com Sucesso!',
+                  icon: 'success',
+                  buttons: {
+                    confirm: {
+                      text: 'Fechar',
+                      className: 'swal-btn-close'
+                    }
+                  },
+                  closeOnClickOutside: false,
+                  className: 'swal-add-success'
+                })
+                .then((confirm) => {
+                  if (confirm) {
+                    swal({
+                      title: 'Sessão expirada!',
+                      text: 'Você precisa efetuar o login novamente!',
+                      icon: 'warning',
+                      buttons: {
+                        ok: {
+                          text: 'Ok',
+                          className: 'swal-btn-ok'
+                        }
+                      },
+                      closeOnClickOutside: false,
+                      className: 'swal-btn-ok'
+                    })
+                    .then((c) => {
+                      if (c) {
+                        location.reload();
+                      }
+                    });
+                  }
+                });
+              } else {
+                this.sweetAlertService.alertSuccessUpdate('user-list');
+              }
+            },
+            error => {
+              this.error_list = error;
+              this.verifyError();
+            }
+          );
+        } else {
+          this.sweetAlertService.alertPermission('/user-list');
+        }
       }
     }
   }
@@ -346,6 +265,7 @@ export class UserComponent implements OnInit {
   public loadCities(state_id: string) {
     this.userService.getCities(state_id).subscribe(
       success => {
+        console.log('cities', success);
         if (success == null) {
           this.hasdata = false;
         }
@@ -357,70 +277,57 @@ export class UserComponent implements OnInit {
   }
 
   selectType() {
-    if ( this.user.person !== undefined || this.user.person !== null) {
-      this.user.type = 'PFIS';
-      this.show_pjur = false;
-    } else {
-      this.user.type = 'PJUR';
-      this.show_pjur = true;
+    switch (this.user.type) {
+      case 'PFIS':
+      {
+        this.show_pjur = false;
+        break;
+      }
+
+      case 'PJUR':
+      {
+        this.show_pjur = true;
+        break;
+      }
     }
-    // switch (this.user.type) {
-    //   case 'PFIS':
+  }
+
+  selectProfile() {
+    // this.profiles.forEach( elem => {
+    //   if (this.user !== undefined) {
+    //     if (elem.id === this.user.profile_id) {
+    //       this.profile = elem.title;
+    //     }
+    //   }
+    // });
+    // switch (this.profile.toUpperCase()) {
+    //   case 'AGENTE':
     //   {
-    //     this.show_pjur = false;
-    //     this.person = new Person();
+    //     this.show_community = true;
     //     break;
     //   }
-
-    //   case 'PJUR':
+    //   default:
     //   {
-    //     this.show_pjur = true;
-    //     this.org = new Org();
+    //     this.show_community = false;
     //     break;
     //   }
     // }
   }
 
-  selectProfile() {
-    this.profiles.forEach( elem => {
-      if (this.user !== undefined) {
-        if (elem.id === this.user.profile_id) {
-          this.profile = elem.title;
-        }
-      }
-    });
-    switch (this.profile.toUpperCase()) {
-      case 'AGENTE':
-      {
-        this.show_community = true;
-        break;
-      }
-      default:
-      {
-        this.show_community = false;
-        break;
-      }
-    }
-  }
-
   verifyType() {
     this.user.name = this.first_name + ' ' + this.last_name;
-    // this.user.address.city = Number(this.user.address.city);
 
     switch (this.user.type) {
       case 'PFIS':
       {
-        this.user.person.cpf = this.user.person.cpf.split('.').join('');
-        this.user.person.cpf = this.user.person.cpf.split('-').join('');
+        console.log(this.person);
+        this.person.cpf = this.person.cpf.split('.').join('');
+        this.person.cpf = this.person.cpf.split('-').join('');
         this.user.address.postalcode = this.user.address.postalcode.replace('-', '');
-        // this.person.address = this.user.address;
-        // this.person.email = this.user.email;
-        // this.person.login = this.user.login;
-        // this.person.name = this.user.name;
-        this.user.password = sha256(this.user.password);
-        // this.person.profile = this.user.profile;
-        // this.person.status = this.user.status;
-        // this.person.type = this.user.type;
+        if (this.user.password !== undefined) {
+          this.user.password = sha256(this.user.password);
+        }
+        this.user.person = this.person;
         delete this.user.entity;
         this.type = 'PFIS';
         break;
@@ -428,15 +335,12 @@ export class UserComponent implements OnInit {
 
       case 'PJUR':
       {
+        console.log(this.entity);
         this.user.address.postalcode = this.user.address.postalcode.replace('-', '');
-        // this.org.address = this.user.address;
-        // this.org.email = this.user.email;
-        // this.org.login = this.user.login;
-        // this.org.name = this.user.name;
-        this.user.password = sha256(this.user.password);
-        // this.org.profile = this.user.profile;
-        // this.org.status = this.user.status;
-        // this.org.type = this.user.type;
+        if (this.user.password !== undefined) {
+          this.user.password = sha256(this.user.password);
+        }
+        this.user.entity = this.entity;
         delete this.user.person;
         this.type = 'PJUR';
         break;
@@ -533,6 +437,7 @@ export class UserComponent implements OnInit {
   }
 
   loadUser() {
+    this.loaderService.show();
     this.userService.load(this.urlId).subscribe(
       success => {
         this.user = success[0];
@@ -541,18 +446,34 @@ export class UserComponent implements OnInit {
           // this.org = this.user.entity;
           this.first_name = this.user.name.split(' ')[0];
           this.last_name = this.user.name.split(' ')[1];
-
+          console.log(this.user);
+          if (this.user.person !== undefined ) {
+            this.user.type = 'PFIS';
+            this.person = new Person();
+            this.person = this.user.person;
+            this.show_pjur = false;
+          } else {
+            this.user.type = 'PJUR';
+            this.entity = new Org();
+            this.entity = this.user.entity;
+            this.show_pjur = true;
+          }
           // this.city_id = this.user.address.city;
-          this.selectType();
-          this.loadStates(this.user.address.city_id);
+          // this.selectType();
+          // this.loadStates();
+          this.loadCities(this.user.address.city.state.id);
           this.loadProfiles();
+          this.loaderService.hide();
         } else {
             this.user = new User();
-            this.org = new Org();
+            this.entity = new Org();
             this.person = new Person();
         }
       },
-      error => console.log(error)
+      error => {
+        console.log(error);
+        this.loaderService.hide();
+      }
     );
 
   }

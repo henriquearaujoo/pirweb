@@ -24,6 +24,12 @@ button.swal-button.swal-button--ok.swal-btn-ok {
 .swal-footer {
     padding: 0!important;
 }
+
+/* SweetAlert2*/
+/* .swal2-popup.swal2-modal.swal2-show {
+    height: 250px;
+} */
+
 @media (max-height: 719px) {
     .wrapper {
         min-height: 663px!important;

@@ -145,6 +145,7 @@ export class MotherComponent implements OnInit {
 
     if (isValid && this._isSave) {
       this.verifyDate();
+      this.responsible.community_id = this.responsible.community.id;
       this.responsible.habitation_members_count = Number(this.responsible.habitation_members_count);
       this.responsible.mother.children_count = Number(this.responsible.mother.children_count);
 

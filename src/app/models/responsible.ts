@@ -1,3 +1,4 @@
+import { Community } from './community';
 import { Mother } from './mother';
 export class Responsible {
     public id: string;
@@ -20,6 +21,5 @@ export class Responsible {
 
     public family_income_other: string;
     public drinking_water_treatment2: boolean;
-
-// tslint:disable-next-line:eofline
+    public community: Community = new Community();
 }

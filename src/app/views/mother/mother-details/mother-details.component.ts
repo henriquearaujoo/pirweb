@@ -56,12 +56,12 @@ export class MotherDetailsComponent implements OnInit {
     this.responsibleService.load(this.urlId).subscribe(
       success => {
         this.responsible = success;
-        this.communityService.load(this.responsible.community_id).subscribe(
-          s => {
-            this.responsible.community_id = s.name;
-          },
-          error => console.log(error)
-        );
+        // this.communityService.load(this.responsible.community_id).subscribe(
+        //   s => {
+        //     this.responsible.community_id = s.name;
+        //   },
+        //   error => console.log(error)
+        // );
         if (this.responsible.mother === undefined) {
           this.responsible.mother = new Mother();
         }

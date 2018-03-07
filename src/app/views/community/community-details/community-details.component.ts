@@ -53,12 +53,12 @@ export class CommunityDetailsComponent implements OnInit {
         this.community = success;
         this.community.water_supply = this.community.water_supply.replace('|', ' / ');
         this.community.cultural_production = this.community.cultural_production.replace('|', ' / ');
-        this.communityService.getCity(this.community.city_id).subscribe(
-          s => {
-            this.community.city_id = s.name;
-          },
-          error => console.log(error)
-        );
+        // this.communityService.getCity(this.community.city_id).subscribe(
+        //   s => {
+        //     this.community.city_id = s.name;
+        //   },
+        //   error => console.log(error)
+        // );
         if (this.community === undefined) {
           this.community = new Community();
         }

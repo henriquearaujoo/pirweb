@@ -58,12 +58,12 @@ export class ResponsibleDetailsComponent implements OnInit {
     this.responsibleService.load(this.urlId).subscribe(
       success => {
         this.responsible = success;
-        this.communityService.load(this.responsible.community_id).subscribe(
-          s => {
-            this.responsible.community_id = s.name;
-          },
-          error => console.log(error)
-        );
+        // this.communityService.load(this.responsible.community_id).subscribe(
+        //   s => {
+        //     this.responsible.community_id = s.name;
+        //   },
+        //   error => console.log(error)
+        // );
         if (this.responsible === undefined) {
           this.responsible = new Responsible();
         }

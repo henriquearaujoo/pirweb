@@ -1,14 +1,14 @@
+<simple-notifications></simple-notifications>
 <div class="content">
     <section class="content">
       <div class="row">
         <div class="col-xs-1 col-sm-1 col-lg-1 col-xs-offset-10 col-sm-offset-10">
-          <button class="btn btn-default" (click)="editUser()" [routerLink]="['/user-edit']" 
+          <button class="btn btn-default" (click)="editUser()" 
           id="btn_edit" *ngIf="canUpdate"> <i class="fa fa-pencil" aria-hidden="true" ></i></button>
         </div>
         <div class="col-xs-1 col-sm-1 col-lg-1">
           <button class="btn btn-default" data-toggle="modal" data-target="#modal-default" 
             id="btn_delete"
-            (click)="changeStatus(item)"
             *ngIf="canDelete"> 
             <i [ngClass]="user.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
           </button>
@@ -150,7 +150,7 @@
             <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal" id="btn_cancel">Cancelar</button>
         </div>
         <div class="modal-btn-confirm">
-            <button type="button" (click)="disableAbleUser()" class="btn btn-primary btn-md btn-block" data-dismiss="modal" id="btn_confirm">Confirmar</button>
+            <button type="button" (click)="disableEnableUser()" class="btn btn-primary btn-md btn-block" data-dismiss="modal" id="btn_confirm">Confirmar</button>
         </div>
       </div>
     </div>

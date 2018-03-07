@@ -1,9 +1,10 @@
+import { City } from './city';
 export class Community {
     public id: string;
     public name: string;
     public regional: string;
     public uc: string;
-    public city_id: number;
+    public city_id: string;
     public zone: string;
     public water_supply: string;
     public has_eletricity: boolean;
@@ -21,8 +22,8 @@ export class Community {
     public has_patron: boolean;
     public cultural_production: string;
     public has_community_leaders: string;
-    // public sourceOfIncomeOther: string;
-    public status: boolean;
+    public city: City = new City();
+    // public status: boolean;
 
 // tslint:disable-next-line:eofline
 }

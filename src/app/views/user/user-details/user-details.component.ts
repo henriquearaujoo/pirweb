@@ -64,18 +64,12 @@ export class UserDetailsComponent implements OnInit {
 
   verifyType() {
     if (this.user !== undefined) {
-      switch (this.user.type) {
-        case 'PFIS':
-        {
-          this.show_pjur = false;
-          break;
-        }
-
-        case 'PJUR':
-        {
-          this.show_pjur = true;
-          break;
-        }
+      if (this.user.person !== undefined ) {
+        this.user.type = 'PFIS';
+        this.show_pjur = false;
+      } else {
+        this.user.type = 'PJUR';
+        this.show_pjur = true;
       }
     }
   }
@@ -85,13 +79,7 @@ export class UserDetailsComponent implements OnInit {
     this.userService.load(this.urlId).subscribe(
       success => {
         this.user = success[0];
-        // if (this.user.address !== undefined) {
-        //   this.city_id = this.user.address.city;
-        // } else {
-        //   this.user.address = new Address();
-        // }
         this.verifyType();
-        // this.loadCityState();
         setTimeout(() => {
           this.loaderService.hide();
         }, 400);
@@ -136,39 +124,31 @@ export class UserDetailsComponent implements OnInit {
   //   }
   // }
 
-  // editUser() {
-  //   this.user.address.city = this.city_id;
-  // }
+  editUser() {
+    localStorage.setItem('userId', this.user.id);
+    this.router.navigate(['/user']);
+  }
 
   // changeStatus(user: User) {
-  //   this.user.address.city = this.city_id;
+  //   this.user
   // }
 
-  disableAbleUser() {
+  disableEnableUser() {
     if (this.user.status === true) {
       this.user.status = false;
     } else {
       this.user.status = true;
     }
 
+    this.user.profile_id = this.user.profile.id;
+    this.user.address.city_id = this.user.address.city.id;
+
     this.userService.saveEditUser(this.user).subscribe(
       success => {
         this.toastService.toastSuccess();
-        this.router.navigate(['/user-list']);
+        // this.router.navigate(['/user-details']);
       },
       error => console.log(error)
     );
-
-    // this.profileService.getProfiles().subscribe(
-    //   success_profiles => {
-    //     this.profiles = success_profiles;
-    //     this.profiles.forEach( profile => {
-    //       if (this.user.profile === profile.title) {
-    //         this.user.profile = profile.id;
-    //       }
-    //     });
-    //   }
-    // );
-    // console.log(this.user);
   }
 }

@@ -20,7 +20,7 @@ import { Org } from '../../../models/org';
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
-export class UserListComponent implements OnInit, OnDestroy {
+export class UserListComponent implements OnInit {
 
   private users: User[] = new Array();
   private person: Person = new Person();
@@ -94,21 +94,6 @@ export class UserListComponent implements OnInit, OnDestroy {
         //   this.toastService.toastSuccess();
         //   this.userService.show_msg = false;
         // }
-        // this.profileService.getAllProfiles().subscribe(
-        //   success_profiles => {
-        //     this.profiles = success_profiles;
-        //     this.users.forEach( user => {
-        //       this.profiles.forEach( profile => {
-        //         if ( user.profile === profile.id) {
-        //           user.profile = profile.title;
-        //         }
-        //       });
-        //       }
-        //     );
-        //     this.hasdata = true;
-        //    },
-        //    error => console.log(error)
-        // );
         setTimeout(() => {
           this.loaderService.hide();
         }, 400);
@@ -140,7 +125,8 @@ export class UserListComponent implements OnInit, OnDestroy {
     } else {
       this.user.status = true;
     }
-
+    this.user.profile_id = this.user.profile.id;
+    this.user.address.city_id = this.user.address.city.id;
     this.userService.saveEditUser(this.user).subscribe(
       s_org => {
         this.getUsers();
@@ -151,89 +137,5 @@ export class UserListComponent implements OnInit, OnDestroy {
         this.toastService.toastError();
       }
     );
-
-    // this.profileService.getProfiles().subscribe(
-    //   success_profiles => {
-    //     this.profiles = success_profiles;
-    //     this.profiles.forEach( profile => {
-    //       if (this.user.profile === profile.title) {
-    //         this.user.profile = profile.id;
-    //       }
-    //     });
-        // this.verifyType();
-        // if (this.user.type === 'PJUR') {
-        //   this.userService.saveEditEntity(this.org).subscribe(
-        //     s_org => {
-        //       this.getUsers();
-        //       this.toastService.toastSuccess();
-        //     },
-        //     error => {
-        //       console.log(error);
-        //       this.toastService.toastError();
-        //     }
-        //   );
-        // } else {
-        //   if (this.user.type === 'PFIS') {
-        //     this.userService.saveEditPerson(this.person).subscribe(
-        //       s_person => {
-        //         this.getUsers();
-        //         this.toastService.toastSuccess();
-        //       },
-        //       error => {
-        //         console.log(error);
-        //       this.toastService.toastError();
-        //       }
-        //     );
-        //   }
-        // }
-    //   }
-    // );
-    // console.log(this.user);
   }
-
-  // verifyType() {
-  //   if (this.user !== undefined) {
-  //     switch (this.user.type) {
-  //       case 'PFIS':
-  //       {
-  //         this.person.id = this.user.id;
-  //         this.person.address = this.user.address;
-  //         this.person.email = this.user.email;
-  //         this.person.login = this.user.login;
-  //         this.person.name = this.user.name;
-  //         this.person.password = this.user.password;
-  //         this.person.profile = this.user.profile;
-  //         this.person.status = this.user.status;
-  //         this.person.type = this.user.type;
-  //         this.person.cpf = this.user.pfis.cpf;
-  //         this.person.emitter = this.user.pfis.emitter;
-  //         this.person.rg = this.user.pfis.rg;
-  //         break;
-  //       }
-
-  //       case 'PJUR':
-  //       {
-  //         this.org.id = this.user.id;
-  //         this.org.address = this.user.address;
-  //         this.org.email = this.user.email;
-  //         this.org.login = this.user.login;
-  //         this.org.name = this.user.name;
-  //         this.org.password = this.user.password;
-  //         this.org.profile = this.user.profile;
-  //         this.org.status = this.user.status;
-  //         this.org.type = this.user.type;
-  //         this.org.cnpj = this.user.pjur.cnpj;
-  //         this.org.ie = this.user.pjur.ie;
-  //         this.org.social_name = this.user.pjur.social_name;
-  //         this.org.fantasy_name = this.user.pjur.fantasy_name;
-  //         break;
-  //       }
-  //     }
-  //   }
-  // }
-
-  ngOnDestroy() {
-
-  }
-
 }

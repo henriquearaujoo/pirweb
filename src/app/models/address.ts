@@ -6,7 +6,7 @@ export class Address {
     // public id: string;
     public complement: string;
     public postalcode: string;
-    public city: City;
+    public city: City = new City();
     public city_id: string;
     public state: string;
 

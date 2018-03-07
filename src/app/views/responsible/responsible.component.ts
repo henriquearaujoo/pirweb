@@ -91,7 +91,7 @@ export class ResponsibleComponent implements OnInit {
       this.isNewData = false;
       this.load();
     } else {
-      this.route.navigate(['/responsible-list']);
+      // this.route.navigate(['/responsible-list']);
     }
 
     this.dateDisable.setMinutes( this.dateDisable.getMinutes() + this.dateDisable.getTimezoneOffset() );
@@ -144,7 +144,7 @@ export class ResponsibleComponent implements OnInit {
 
     if (isValid && this._isSave) {
       this.verifyDate();
-
+      this.responsible.community_id = this.responsible.community.id;
       this.responsible.habitation_members_count = Number(this.responsible.habitation_members_count);
 
       if ( this.responsible.family_income === 'Outra') {

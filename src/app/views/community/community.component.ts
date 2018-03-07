@@ -132,7 +132,7 @@ export class CommunityComponent implements OnInit {
       this.isNewData = false;
       this.load();
     } else {
-      this.route.navigate(['/community-list']);
+      // this.route.navigate(['/community-list']);
     }
 
     this.currentTab = 0;
@@ -161,6 +161,7 @@ export class CommunityComponent implements OnInit {
     this.updateOptions();
 
     if (isValid && this._isSave) {
+      this.community.city_id = this.community.city.id;
       if (this.isNewData || this.community.id === undefined) {
         this.communityService.insert(this.community).subscribe(
           success => {
@@ -310,11 +311,16 @@ export class CommunityComponent implements OnInit {
   }
 
   getCities() {
-    this.communityService.getCities().subscribe(
-      s => {
-        this.cities = s;
-      },
-      error => console.log(error)
+    this.communityService.getState().subscribe(
+      state => {
+        console.log(state[0].id);
+        this.communityService.getCities(state[0].id).subscribe(
+          states => {
+            this.cities = states.cities;
+          },
+          error => console.log(error)
+        );
+      }
     );
   }
 
