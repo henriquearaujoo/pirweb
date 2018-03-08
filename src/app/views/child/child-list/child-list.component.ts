@@ -68,13 +68,13 @@ export class ChildListComponent implements OnInit, OnDestroy {
       success => {
         this.paginate = success;
         this.children = this.paginate.content;
-        this.children.forEach( el => {
-          this.responsibleService.load(el.responsible_id).subscribe(
-            s1 => {
-              el.responsible_id = s1.name;
-            }
-          );
-        });
+        // this.children.forEach( el => {
+        //   this.responsibleService.load(el.responsible_id).subscribe(
+        //     s1 => {
+        //       el.responsible_id = s1.name;
+        //     }
+        //   );
+        // });
         this.hasdata = true;
         setTimeout(() => {
           this.loaderService.hide();

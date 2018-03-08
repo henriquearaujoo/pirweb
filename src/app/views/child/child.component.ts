@@ -126,7 +126,7 @@ export class ChildComponent implements OnInit {
       this.isNewData = false;
       this.load();
     } else {
-      this.route.navigate(['/child-list']);
+      // this.route.navigate(['/child-list']);
     }
 
     this.getMothers();
@@ -156,6 +156,7 @@ export class ChildComponent implements OnInit {
 
     if (isValid && this._isSave) {
       this.verifyDate();
+      this.child.responsible_id = this.child.responsible.id;
       if (this.child.is_premature_born === false) {
         this.child.born_week = 1;
       }

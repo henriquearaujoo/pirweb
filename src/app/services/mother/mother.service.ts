@@ -8,7 +8,7 @@ import { RestService } from '../rest/rest.service';
 @Injectable()
 export class MotherService extends RestService {
 
-  private apiurl = Constant.BASE_URL + 'mother/';
+  private apiurl = Constant.BASE_URL + 'mothers/';
   private size: number;
 
   constructor( http: Http) {

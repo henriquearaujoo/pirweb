@@ -37,10 +37,11 @@ export class Permissions implements OnDestroy {
         const profile = localStorage.getItem('profileId_rules');
 
         if (profile !== undefined || profile !== null) {
+            this.loaderService.show();
             this.authenticationService.getPermissions(profile).subscribe(
                 success_rules => {
-                    this.loaderService.show();
                     this.rules = success_rules;
+                    this.loaderService.hide();
                     // PAGES
                     // this.accessPageService.getAllPages().subscribe(
                     //     success => {
@@ -54,7 +55,6 @@ export class Permissions implements OnDestroy {
                             //     }
                             // }
                             if (this.rules.length !== 0) {
-                                this.loaderService.hide();
                                 this.rulesSubject.next(<RuleState>{permissions: this.rules});
                                 for ( let i = 0; i < this.rules.length; i++) {
                                     if ( ('/' + this.rules[i].page.route ) === this.returnUrl) {
@@ -73,7 +73,7 @@ export class Permissions implements OnDestroy {
                                                 canUpdate: this.rules[i].update,
                                                 canDelete: this.rules[i].delete
                                             });
-                                            this.loaderService.hide();
+                                            // this.loaderService.hide();
                                         }
                                     }
                                 }
@@ -84,6 +84,9 @@ export class Permissions implements OnDestroy {
                     //     error => console.log(error)
                     // );
 
+                },
+                error => {
+                    this.loaderService.hide();
                 }
             );
         }

@@ -1,3 +1,4 @@
+import { Responsible } from './responsible';
 export class Child {
     public id: string;
     public name: string;
@@ -22,6 +23,6 @@ export class Child {
     public has_education_diff: boolean;
     public education_diff_specification: string;
     public plays_with_who: string;
-    // public status: boolean;
+    public responsible: Responsible = new Responsible();
 
 }

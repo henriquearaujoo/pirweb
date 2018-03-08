@@ -68,12 +68,12 @@ export class ChildDetailsComponent implements OnInit {
           );
         }
 
-        this.responsibleService.load(this.child.responsible_id).subscribe(
-          s2 => {
-            this.child.responsible_id = s2.name;
-          },
-          error => console.log(error)
-        );
+        // this.responsibleService.load(this.child.responsible_id).subscribe(
+        //   s2 => {
+        //     this.child.responsible_id = s2.name;
+        //   },
+        //   error => console.log(error)
+        // );
         if (this.child === undefined) {
           this.child = new Child();
         }
