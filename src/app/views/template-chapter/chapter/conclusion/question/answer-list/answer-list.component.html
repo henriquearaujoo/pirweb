@@ -27,7 +27,7 @@
              {{ item.number }}
             </td>
             <td> 
-              <p class="limit-text" [innerHTML]="item.description"></p>
+              <p class="limit-text" [innerHTML]="item.answer"></p>
             </td>         
           
             <td class="tbl-right">              
@@ -121,11 +121,11 @@
                   [options]="editorOptions" id="answer_description" 
                   name="answer_description" 
                   #description="ngModel" 
-                  [(ngModel)]="answer.description" required>
+                  [(ngModel)]="answer.answer" required>
                 </quill-editor>
             </div>  
             <div *ngIf="show">
-              <p style="text-align: center;" [innerHTML]="answer.description"></p>
+              <p style="text-align: center;" [innerHTML]="answer.answer"></p>
             </div>    
           </div>
           <div class="modal-footer" *ngIf="!show">

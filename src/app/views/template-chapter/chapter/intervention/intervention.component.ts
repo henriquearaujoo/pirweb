@@ -69,7 +69,7 @@ export class InterventionComponent implements OnInit {
       this.btn_cancel = false;
       return false;
     }
-    this.intervention.chapter = this.chapter;
+    this.intervention.chapter_id = this.chapter;
     if (this.isNewData || this.intervention.id === undefined) {
       this.service.insert(this.intervention).subscribe(
         s => {

@@ -83,7 +83,7 @@ export class ReceptionComponent implements OnInit {
       return;
     }
 
-    this.reception.chapter = this.chapter;
+    this.reception.chapter_id = this.chapter;
     if (this.isNewData || this.reception.id === undefined) {
       this.service.insert(this.reception).subscribe(
         s => {

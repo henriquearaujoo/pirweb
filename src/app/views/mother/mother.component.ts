@@ -92,7 +92,7 @@ export class MotherComponent implements OnInit {
       this.isNewData = false;
       this.load();
     }  else {
-      this.route.navigate(['/pregnant-list']);
+      // this.route.navigate(['/pregnant-list']);
     }
 
     this.dateDisable.setMinutes( this.dateDisable.getMinutes() + this.dateDisable.getTimezoneOffset() );

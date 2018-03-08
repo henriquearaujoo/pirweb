@@ -24,5 +24,6 @@ export class Child {
     public education_diff_specification: string;
     public plays_with_who: string;
     public responsible: Responsible = new Responsible();
+    public mother: Responsible = new Responsible();
 
 }

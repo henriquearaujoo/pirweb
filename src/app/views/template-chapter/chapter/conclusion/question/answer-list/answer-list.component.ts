@@ -79,13 +79,14 @@ export class AnswerListComponent extends PagenateComponent implements OnInit {
   }
 
   saveData() {
-    if (this.answer.description === null || this.answer.description === undefined) {
+    console.log('answer', this.answer);
+    if (this.answer.answer === null || this.answer.answer === undefined) {
       this.toastService.toastMsgError('Erro', 'Descrição da resposta é um campo obrigatório!');
       this.getAnswers();
       return false;
     }
     if (this.isNewData || this.answer.id === undefined) {
-      this.answer.for_question = this.question.id;
+      this.answer.question_id = this.question.id;
       this.conclusionService.insertAnswer(this.answer).subscribe(
         success => {
           this.toastService.toastSuccess();
@@ -102,7 +103,7 @@ export class AnswerListComponent extends PagenateComponent implements OnInit {
         }
       );
     } else {
-      if (this.answer.description === null || this.answer.description === undefined) {
+      if (this.answer.answer === null || this.answer.answer === undefined) {
         this.toastService.toastMsgError('Erro', 'Descrição da resposta é um campo obrigatório!');
         this.getAnswers();
         return false;

@@ -56,7 +56,7 @@ export class QuestionComponent implements OnInit {
   }
 
   saveData() {
-    this.question.for_conclusion = this.conclusion.id;
+    this.question.conclusion_id = this.conclusion.id;
     if (this.isNewData || this.conclusion.id === undefined) {
       this.conclusionService.insertQuestion(this.question).subscribe(
         success => {

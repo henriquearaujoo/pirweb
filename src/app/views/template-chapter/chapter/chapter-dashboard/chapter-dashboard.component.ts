@@ -148,7 +148,7 @@ export class ChapterDashboardComponent implements OnInit {
   }
   /****Return of Event from children components ****/
   actionInformation(c: Chapter) {
-      if ( c !== null ) {
+      if ( c !== null) {
         this.chapter.id = c.id;
         // add id in all components
         this.reception.chapter = c.id;

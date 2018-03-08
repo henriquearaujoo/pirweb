@@ -235,8 +235,8 @@ export class UserComponent implements OnInit {
   }
 
   openModal() {
-    this.modalService.modalCancel('/user-list');
-    // this.sweetAlertService.alertToCancel('user-list');
+    // this.modalService.modalCancel('/user-list');
+    this.sweetAlertService.alertToCancel('user-list');
   }
 
   public loadProfiles() {
@@ -445,7 +445,7 @@ export class UserComponent implements OnInit {
           // this.person = this.user.person;
           // this.org = this.user.entity;
           this.first_name = this.user.name.split(' ')[0];
-          this.last_name = this.user.name.split(' ')[1];
+          this.last_name = this.user.name.substring(this.first_name.length + 1);
           console.log(this.user);
           if (this.user.person !== undefined ) {
             this.user.type = 'PFIS';

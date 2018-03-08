@@ -76,19 +76,16 @@ export class SweetAlertService {
       title: '',
       text: 'Deseja realmente CANCELAR?',
       icon: 'warning',
-      buttons: ['Não', 'Sim'],
-      // buttons: {
-      //   confirm: {
-      //     text: 'Sim',
-      //     className: 'swal-btn-confirm'
-      //   },
-      //   cancel: {
-      //     text: 'Não',
-      //     className: 'swal-btn-cancel'
-      //   },
-      // },
+      // buttons: ['Não', 'Sim'],
+      buttons: {
+        confirm: true,
+        cancel: {
+          text: 'Não',
+          className: 'swal-btn-cancel'
+        },
+      },
       closeOnClickOutside: false,
-      className: 'swal-btn-ok'
+      className: 'swal-cancel'
     })
     .then((confirm) => {
       if (confirm) {
@@ -135,7 +132,7 @@ export class SweetAlertService {
     .then((c) => {
       if (c) {
         setTimeout(() => {
-          // window.location.href = '/login';
+          window.location.href = '/login';
         }, 1000);
       }
     });

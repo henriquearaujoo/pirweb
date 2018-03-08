@@ -56,14 +56,14 @@ export class ResponsibleListComponent implements OnInit, OnDestroy {
       }
     );
     this.hasdata = false;
-    this.getResponsible();
+    this.getResponsibles();
     localStorage.removeItem('responsibleId');
   }
 
-  getResponsible() {
+  getResponsibles() {
     if ( this.filter.name !== '') { this.page = 0; }
     this.loaderService.show();
-    this.subscription = this.responsibleService.getResponsible(this.filter.name, this.page).subscribe(
+    this.subscription = this.responsibleService.getResponsibles(this.filter.name, this.page).subscribe(
       success => {
         this.paginate = success;
         this.responsibleList = this.paginate.content;
@@ -103,7 +103,7 @@ export class ResponsibleListComponent implements OnInit, OnDestroy {
 
   setPage(page: number) {
     this.page = page;
-    this.getResponsible();
+    this.getResponsibles();
   }
 
   ngOnDestroy() {

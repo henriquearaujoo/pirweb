@@ -93,7 +93,7 @@ export class ConclusionComponent implements OnInit {
       return false;
     }
     if (this.btn_save) {
-      this.conclusion.chapter = this.chapter;
+      this.conclusion.chapter_id = this.chapter;
       if (this.isNewData || this.conclusion.id === undefined) {
         this.conclusionService.insert(this.conclusion).subscribe(
           s => {

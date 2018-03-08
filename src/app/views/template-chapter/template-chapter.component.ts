@@ -49,7 +49,7 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
       this.page = 0;
       this.size = 10;
       this.size_active = 10;
-      this.size_inactive = 10;
+      this.size_inactive = 1;
       this.canCreate = false;
       this.canUpdate = false;
       this.canRead = false;

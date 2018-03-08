@@ -16,11 +16,11 @@ export class ResponsibleService extends RestService {
     this.size = 10;
    }
 
-  public getResponsible(filter?: any, page?: number) {
+  public getResponsibles(filter?: any, page?: number) {
     if ( filter === undefined ) {
-      return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page + '&sort=name,asc');
+      return this.get(this.apiurl + 'no-mother/search/page/?size=' + this.size + '&page=' + page + '&sort=name,asc');
     } else {
-      return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page +
+      return this.get(this.apiurl + 'no-mother/search/page/?size=' + this.size + '&page=' + page +
       '&name=' + filter  + '&sort=name,asc');
     }
   }

@@ -59,14 +59,14 @@ export class ChildDetailsComponent implements OnInit {
         this.child = success;
         this.who_take_care = this.child.who_take_care.split('|');
         this.child.who_take_care = this.child.who_take_care.replace('|', ' / ');
-        if ( this.child.mother_id !== undefined) {
-          this.responsibleService.load(this.child.mother_id).subscribe(
-            s1 => {
-              this.child.mother_id = s1.name;
-            },
-            error => console.log(error)
-          );
-        }
+        // if ( this.child.mother_id !== undefined) {
+        //   this.responsibleService.load(this.child.mother_id).subscribe(
+        //     s1 => {
+        //       this.child.mother_id = s1.name;
+        //     },
+        //     error => console.log(error)
+        //   );
+        // }
 
         // this.responsibleService.load(this.child.responsible_id).subscribe(
         //   s2 => {
