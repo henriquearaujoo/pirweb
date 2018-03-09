@@ -33,17 +33,40 @@
                         <div class="col-sm-6">
                           <div class="form-group">
                             <!-- <label class="control-label">Indicadores</label> -->
-                            <div class="form-inline" [ngClass]="applyCssError(f, range)">
+                            <div class="form-inline" [ngClass]="applyCssError(f, range)" *ngIf="form.range !== '1'">
                               <label class="control-label"> Indicadores de</label>                     
                                 <select class="form-control indicators1" name="indicators1" #indicators1>
-                                  <option value="1"> 0 </option>
+                                  <option value="0"> 0 </option>
+                                  <option value="1"> 1 </option>
                                   <option value="2"> 2 </option>
+                                  <option value="3"> 3 </option>
                                 </select>
                               <label class="control-label"> até </label>                     
                                 <select class="form-control indicators2" name="indicators2" #indicators2>
+                                  <option value="0"> 0 </option>
                                   <option value="1"> 1 </option>
                                   <option value="2"> 2 </option>
+                                  <option value="3"> 3 </option>
+                                </select>                              
+                                <app-control-field-error [showError]="verifyValidSubmitted(f, range)" msgError="Selecione a faixa">
+                                </app-control-field-error>                    
+                            </div>
+                            <div class="form-inline" [ngClass]="applyCssError(f, range)" *ngIf="form.range === '1'">
+                              <label class="control-label"> Indicadores de</label>                     
+                                <select class="form-control indicators1" name="indicators1" #indicators1>
+                                  <option value="0"> 0 </option>
+                                  <option value="1"> 1 </option>
+                                  <option value="2"> 2 </option>
+                                  <option value="3"> 3 </option>
                                 </select>
+                              <label class="control-label"> até </label>                     
+                                <select class="form-control indicators2" name="indicators2" #indicators2>
+                                  <option value="0"> 0 </option>
+                                  <option value="1"> 1 </option>
+                                  <option value="2"> 2 </option>
+                                  <option value="3"> 3 </option>
+                                </select>
+                                <label class="control-label"> meses </label>
                                 <app-control-field-error [showError]="verifyValidSubmitted(f, range)" msgError="Selecione a faixa">
                                 </app-control-field-error>                    
                             </div>

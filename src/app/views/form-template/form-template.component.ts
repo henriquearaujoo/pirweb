@@ -23,6 +23,7 @@ export class FormTemplateComponent implements OnInit {
   private canDelete: boolean;
   private band: any[] = Array();
   private indicators: any[] = Array();
+  private band1: any[] = Array();
 
   constructor(
     private formService: FormService,
