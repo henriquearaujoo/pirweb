@@ -77,13 +77,13 @@ i.fa.fa-circle {
 }
 
 /* VERSIONS*/
-ul.list-version {
+/* ul.list-version { */
     /* padding-top: 40px; */
-}
+/* } */
 .version {
     background-color: #f4f4f4;
     margin-top: 1px;
-    height: 250px;
+    /* height: 250px; */
 }
 li.version-header {
     background-color: #e8e8e8;

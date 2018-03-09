@@ -2,7 +2,7 @@
     <section class="sidebar">
       <ul class="sidebar-menu" data-widget="tree" *ngFor="let item of menu">
         
-        <li class="treeview" [class.active]="isActive(item.routes)" 
+        <li class="treeview" [class.active]="isActive(item.routes)"
             *ngIf="item.read">
             <a href="#" *ngIf="item.category === 'parent'">
               <i class="{{ item.iClass }}"></i> <span>{{ item.title }}</span>

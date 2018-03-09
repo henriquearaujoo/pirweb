@@ -47,8 +47,8 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
   ) {
       this.hasdata = false;
       this.page = 0;
-      this.size = 10;
-      this.size_active = 10;
+      this.size = 1;
+      this.size_active = 1;
       this.size_inactive = 1;
       this.canCreate = false;
       this.canUpdate = false;
@@ -85,6 +85,7 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
         this.paginate = s1;
         this.chapters = this.paginate.content;
         this.hasdata = true;
+        console.log('chapters', this.paginate);
 
         const hash = {};
         this.chapters = this.chapters.filter(chapter => {
@@ -92,6 +93,7 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
           hash[chapter.number] = true;
           return exists;
         });
+        this.paginate.totalElements = this.paginate_active.totalElements + this.paginate_inactive.totalElements;
         setTimeout(() => {
           this.loaderService.hide();
         }, 500);
@@ -165,17 +167,17 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
   }
 
   setPage() {
-    this.size = this.size + 10 ;
+    this.size = this.size + 1 ;
     this.getChapters();
   }
 
   setPageChapterActive() {
-    this.size_active = this.size_active + 10 ;
+    this.size_active = this.size_active + 1 ;
     this.getChapterActive();
   }
 
   setPageChapterInactive() {
-    this.size_inactive = this.size_inactive + 10 ;
+    this.size_inactive = this.size_inactive + 1 ;
     this.getChapterInactive();
   }
 
