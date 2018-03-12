@@ -69,3 +69,15 @@ button#btn_confirm {
     background-color: #373d40;
     border-color: #373d40;
 }
+
+/* UI */
+.main-sidebar {
+    padding-top: 70px;
+}
+
+/* .main-header .sidebar-toggle {
+    width: 21px;
+    height: 19px;
+    padding-right: 28px!important;
+    padding-top: 18px!important;
+} */

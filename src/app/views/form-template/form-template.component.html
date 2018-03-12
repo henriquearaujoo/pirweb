@@ -23,57 +23,46 @@
                         <div class="col-sm-6">
                           <div class="form-group" [ngClass]="applyCssError(f, range)">
                             <label class="control-label"> Faixa </label>                     
-                              <select class="form-control" name="range" #range="ngModel" [(ngModel)]="form.range">
-                                <option [value]="i" *ngFor="let i of band"> {{ i }} </option>
+                              <select class="form-control" name="range" id="range" #range="ngModel" [(ngModel)]="form.range">
+                                <option [value]="item" *ngFor="let item of _range"> {{ item }} </option>
                               </select>
                               <app-control-field-error [showError]="verifyValidSubmitted(f, range)" msgError="Selecione a faixa">
                               </app-control-field-error>                    
                           </div>
                         </div>
                         <div class="col-sm-6">
-                          <div class="form-group">
-                            <!-- <label class="control-label">Indicadores</label> -->
-                            <div class="form-inline" [ngClass]="applyCssError(f, range)" *ngIf="form.range !== '1'">
-                              <label class="control-label"> Indicadores de</label>                     
-                                <select class="form-control indicators1" name="indicators1" #indicators1>
-                                  <option value="0"> 0 </option>
-                                  <option value="1"> 1 </option>
-                                  <option value="2"> 2 </option>
-                                  <option value="3"> 3 </option>
-                                </select>
-                              <label class="control-label"> até </label>                     
-                                <select class="form-control indicators2" name="indicators2" #indicators2>
-                                  <option value="0"> 0 </option>
-                                  <option value="1"> 1 </option>
-                                  <option value="2"> 2 </option>
-                                  <option value="3"> 3 </option>
-                                </select>                              
-                                <app-control-field-error [showError]="verifyValidSubmitted(f, range)" msgError="Selecione a faixa">
-                                </app-control-field-error>                    
-                            </div>
-                            <div class="form-inline" [ngClass]="applyCssError(f, range)" *ngIf="form.range === '1'">
-                              <label class="control-label"> Indicadores de</label>                     
-                                <select class="form-control indicators1" name="indicators1" #indicators1>
-                                  <option value="0"> 0 </option>
-                                  <option value="1"> 1 </option>
-                                  <option value="2"> 2 </option>
-                                  <option value="3"> 3 </option>
-                                </select>
-                              <label class="control-label"> até </label>                     
-                                <select class="form-control indicators2" name="indicators2" #indicators2>
-                                  <option value="0"> 0 </option>
-                                  <option value="1"> 1 </option>
-                                  <option value="2"> 2 </option>
-                                  <option value="3"> 3 </option>
-                                </select>
-                                <label class="control-label"> meses </label>
-                                <app-control-field-error [showError]="verifyValidSubmitted(f, range)" msgError="Selecione a faixa">
-                                </app-control-field-error>                    
-                            </div>
+                          <div class="form-group" [ngClass]="applyCssError(f, inYears)">
+                            <label class="control-label">  </label> <br/>  
+                            <label class="radio-inline">
+                              <input type="radio" name="in_years" id="in_years" #inYears="ngModel" [value]="false" [(ngModel)]="form.in_years">
+                              Meses
+                            </label>
+                            <label class="radio-inline">
+                              <input type="radio" name="in_years" id="in_years" #inYears="ngModel" [value]="true" [(ngModel)]="form.in_years">
+                              Anos
+                            </label>
+                            <app-control-field-error [showError]="verifyValidSubmitted(f, inYears)" msgError="Escolha uma das opções">
+                            </app-control-field-error>                    
                           </div>
-                        </div>
+                          </div>
+   
                       </div>
                       <div class="row">
+                          <div class="col-sm-6">
+                              <div class="form-group">
+                                <!-- <label class="control-label">Indicadores</label> -->
+                                <div class="form-inline" [ngClass]="applyCssError(f, range)">
+                                  <label class="control-label"> Indicadores de</label>                     
+                                  <input class="form-control" type="number" mask="0000000000" name="from" id="from" #from="ngModel" [(ngModel)]="form.from">
+                                  <label class="control-label"> até </label>                   
+                                  <input class="form-control" type="number" mask="0000000000" name="to" id="to" #to="ngModel" [(ngModel)]="form.to">                        
+
+                                  <label class="control-label"> {{ form.in_years ? 'Anos' : 'Meses' }} </label>                   
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f, range)" msgError="Digite a faixa">
+                                  </app-control-field-error>                    
+                                </div>                     
+                              </div>
+                            </div>
                         <div class="col-sm-6">
                           <div class="form-group" [ngClass]="applyCssError(f, optradio)">
                             <label class="control-label"> Tipo de questão </label> <br/>  

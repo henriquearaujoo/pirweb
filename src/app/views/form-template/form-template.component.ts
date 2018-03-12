@@ -21,7 +21,7 @@ export class FormTemplateComponent implements OnInit {
   private canUpdate: boolean;
   private canCreate: boolean;
   private canDelete: boolean;
-  private band: any[] = Array();
+  private _range: number[] = Array();
   private indicators: any[] = Array();
   private band1: any[] = Array();
 
@@ -58,7 +58,7 @@ export class FormTemplateComponent implements OnInit {
     }
 
     for (let i = 1; i <= 11; i++) {
-      this.band.push(i);
+      this._range.push(i);
     }
 
   }

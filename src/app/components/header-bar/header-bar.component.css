@@ -1,5 +1,20 @@
+.main-header .logo {
+    height: 70px;
+}
+.skin-blue .main-header .navbar {
+    background-color: #0075BD;
+}
+
+.logo-pir {
+    width: 87px;
+    height: 60px;
+    top: 5px;
+    position: absolute;
+    left: 48px;
+}
+
 .padding {
-    padding: 0px;
+    /* padding: 0px; */
     color: #ffffff;
 }
 

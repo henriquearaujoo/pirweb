@@ -254,3 +254,7 @@ button.btn.btn-primary.add {
     font-size: 12px;
     padding: 8px 10px;
 }
+
+input#from, input#to  {
+    width: 80px;
+}
