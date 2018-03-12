@@ -112,16 +112,39 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <div class="form-group" [ngClass]="applyCssError(f1, password)" *ngIf="isNewDate">
+                                                        <div class="form-group" [ngClass]="applyCssError(f1, password)" *ngIf="isNewData">
                                                             <label class="control-label">Senha</label>
                                                             <input type="password" [(ngModel)]="user.password" #password="ngModel" name="password" id="user_password" class="form-control" required minlength="8" placeholder="Inserir uma senha (Digite uma senha. Mínimo 8 caracteres)">
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, password)" msgError="Digite uma senha. Mínimo 8 caracteres">
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, password)" msgError="">
                                                             </app-control-field-error>
+                                                            <div *ngIf="password.invalid && (password.dirty || password.touched)"
+                                                                class="text-danger">    
+                                                                <div *ngIf="password.errors.required">
+                                                                    Digite uma senha.
+                                                                </div>                                                       
+                                                                <div *ngIf="password.errors.minlength">
+                                                                    A senha precisa ter no mínimo 8 caracteres.
+                                                                </div>                                                              
+                                                            </div>
                                                         </div>
-                                                        <div class="form-group" *ngIf="!isNewDate">
+                                                        <div class="form-group" *ngIf="!isNewData">
                                                             <label class="control-label">Senha</label>
                                                             <input type="password" [(ngModel)]="user.password" #password="ngModel" name="password" id="user_password" class="form-control" minlength="8" placeholder="Inserir uma senha (Digite uma senha. Mínimo 8 caracteres)">                                
+                                                            <div *ngIf="password.invalid && (password.dirty || password.touched)"
+                                                                class="text-danger">
+                                                                <div *ngIf="password.errors.required">
+                                                                    Digite uma senha. Mínimo 8 caracteres
+                                                                </div>
+                                                                <div *ngIf="password.errors.minlength">
+                                                                    A senha precisa ter no mínimo 8 caracteres.
+                                                                </div>                                                              
+                                                            </div>
                                                         </div>
+                                                        <!-- <div class="form-group" *ngIf="user.password !== undefined">
+                                                            <label class="control-label">Senha</label>
+                                                            <input type="password" [(ngModel)]="user.password" #password="ngModel" name="password" id="user_password" class="form-control" minlength="8" placeholder="Inserir uma senha (Digite uma senha. Mínimo 8 caracteres)">                                
+                                                            
+                                                        </div> -->
                                                     </div>
                                                 </div>                                              
                                                 
@@ -389,9 +412,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3 col-md-offset-6">
-                                                    <div class="form-group save">
+                                                    <div class="form-group save" *ngIf="isNewData">
                                                         <button class="btn btn-primary btn-block"  (click)="isSave()" name="submit" id="btn_save" 
                                                             [disabled]="!enable_save">Cadastrar</button>                                
+                                                    </div>
+                                                    <div class="form-group save" *ngIf="!isNewData">
+                                                        <button class="btn btn-primary btn-block"  (click)="isSave()" name="submit" id="btn_save" 
+                                                            [disabled]="!enable_save">Salvar</button>                                
                                                     </div>
                                                 </div>
                                             </form>

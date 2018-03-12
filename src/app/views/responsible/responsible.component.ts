@@ -91,7 +91,7 @@ export class ResponsibleComponent implements OnInit {
       this.isNewData = false;
       this.load();
     } else {
-      // this.route.navigate(['/responsible-list']);
+      this.route.navigate(['/responsible-list']);
     }
 
     this.dateDisable.setMinutes( this.dateDisable.getMinutes() + this.dateDisable.getTimezoneOffset() );

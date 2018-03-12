@@ -21,7 +21,6 @@ export class SendEmailComponent implements OnInit {
   }
 
   sendEmail() {
-    console.log(this.user.email);
     this.authenticationService.recover(this.user.email).subscribe(
       success => {
         this.toastService.toastMsg('Sucesso', 'Um link para redefinição de senha foi enviado' +
@@ -29,7 +28,7 @@ export class SendEmailComponent implements OnInit {
       },
       error => {
         console.log(error);
-        if ( error[0] === 'email.invalid' ) {
+        if ( error === 'login.email.notfound' ) {
           this.toastService.toastMsgError('Atenção', 'E-mail não encontrado!');
         }
       }

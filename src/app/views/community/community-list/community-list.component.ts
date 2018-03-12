@@ -65,14 +65,6 @@ export class CommunityListComponent implements OnInit, OnDestroy {
       success => {
         this.paginate = success;
         this.communities = this.paginate.content;
-        // this.communities.forEach( el => {
-        //   this.communityService.getCity(el.city_id).subscribe(
-        //     s => {
-        //       el.city_id = s.name;
-        //     },
-        //     error => console.log(error)
-        //   );
-        // });
         this.hasdata = true;
         setTimeout(() => {
           this.loaderService.hide();
@@ -99,22 +91,6 @@ export class CommunityListComponent implements OnInit, OnDestroy {
   changeStatus(community: Community) {
     this.community = community;
   }
-
-  // disableEnableCommunity() {
-  //   if (this.community.status === true) {
-  //     this.community.status = false;
-  //   } else {
-  //     this.community.status = true;
-  //   }
-
-  //   this.communityService.update(this.community).subscribe(
-  //     success => {
-  //       this.toastService.toastSuccess();
-  //       this.getCommunities();
-  //     },
-  //     error => console.log(error)
-  //   );
-  // }
 
   setPage(page: number) {
     this.page = page;

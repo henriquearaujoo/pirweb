@@ -126,7 +126,7 @@ export class ChildComponent implements OnInit {
       this.isNewData = false;
       this.load();
     } else {
-      // this.route.navigate(['/child-list']);
+      this.route.navigate(['/child-list']);
     }
 
     this.getMothers();
@@ -259,7 +259,6 @@ export class ChildComponent implements OnInit {
 
   onInputFieldChanged(event: IMyInputFieldChanged) {
     this.isValidDate = event.valid;
-    console.log(this.isValidDate);
   }
 
   verifyDataCheckbox() {
@@ -384,7 +383,6 @@ export class ChildComponent implements OnInit {
       } else {
         if (t === 1) {
           this.nextTab = '#tab_1';
-          console.log('nextTab:', this.nextTab);
         }
       }
 

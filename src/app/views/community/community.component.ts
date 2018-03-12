@@ -132,7 +132,7 @@ export class CommunityComponent implements OnInit {
       this.isNewData = false;
       this.load();
     } else {
-      // this.route.navigate(['/community-list']);
+      this.route.navigate(['/community-list']);
     }
 
     this.currentTab = 0;
@@ -157,7 +157,6 @@ export class CommunityComponent implements OnInit {
   }
 
   saveData(isValid: boolean) {
-    console.log('isValid', isValid);
     this.updateOptions();
 
     if (isValid && this._isSave) {
@@ -313,7 +312,6 @@ export class CommunityComponent implements OnInit {
   getCities() {
     this.communityService.getState().subscribe(
       state => {
-        console.log(state[0].id);
         this.communityService.getCities(state[0].id).subscribe(
           states => {
             this.cities = states.cities;

@@ -154,11 +154,11 @@ export class UserComponent implements OnInit {
     if (isValid && this._isSave) {
       this.modalOpened = false;
       this.verifyType();
+      console.log(this.user);
       this.user.profile_id = this.user.profile.id;
       this.user.address.city_id = this.user.address.city.id;
       if (this.isNewData || this.user.id === undefined) {
         if (this.canCreate) {
-          console.log('save', this.user);
           this.userService.createUser(this.user).subscribe(
             success => {
               this.sweetAlertService.alertSuccess('user-list');
@@ -174,7 +174,6 @@ export class UserComponent implements OnInit {
         }
       } else {
         if (this.canUpdate) {
-          console.log('update', this.user);
           this.userService.saveEditUser(this.user).subscribe(
             success2 => {
               this.currentId = localStorage.getItem('currentIdPir');
@@ -235,8 +234,8 @@ export class UserComponent implements OnInit {
   }
 
   openModal() {
-    // this.modalService.modalCancel('/user-list');
-    this.sweetAlertService.alertToCancel('user-list');
+    this.modalService.modalCancel('/user-list');
+    // this.sweetAlertService.alertToCancel('user-list');
   }
 
   public loadProfiles() {
@@ -265,7 +264,6 @@ export class UserComponent implements OnInit {
   public loadCities(state_id: string) {
     this.userService.getCities(state_id).subscribe(
       success => {
-        console.log('cities', success);
         if (success == null) {
           this.hasdata = false;
         }
@@ -316,16 +314,25 @@ export class UserComponent implements OnInit {
 
   verifyType() {
     this.user.name = this.first_name + ' ' + this.last_name;
-
+    if ( (this.user.password !== undefined) &&
+        (this.user.password !== '') &&
+        (this.user.password !== null) ) {
+      this.user.password = sha256(this.user.password);
+    } else {
+        this.user.password = undefined;
+    }
+    this.user.address.postalcode = this.user.address.postalcode.replace('-', '');
     switch (this.user.type) {
       case 'PFIS':
       {
-        console.log(this.person);
         this.person.cpf = this.person.cpf.split('.').join('');
         this.person.cpf = this.person.cpf.split('-').join('');
-        this.user.address.postalcode = this.user.address.postalcode.replace('-', '');
-        if (this.user.password !== undefined) {
+        if ( (this.user.password !== undefined) &&
+           (this.user.password !== '') &&
+           (this.user.password !== null) ) {
           this.user.password = sha256(this.user.password);
+        } else {
+          this.user.password = undefined;
         }
         this.user.person = this.person;
         delete this.user.entity;
@@ -335,11 +342,10 @@ export class UserComponent implements OnInit {
 
       case 'PJUR':
       {
-        console.log(this.entity);
-        this.user.address.postalcode = this.user.address.postalcode.replace('-', '');
-        if (this.user.password !== undefined) {
-          this.user.password = sha256(this.user.password);
-        }
+        // this.user.address.postalcode = this.user.address.postalcode.replace('-', '');
+        // if (this.user.password !== undefined) {
+        //   this.user.password = sha256(this.user.password);
+        // }
         this.user.entity = this.entity;
         delete this.user.person;
         this.type = 'PJUR';

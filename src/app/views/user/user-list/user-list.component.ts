@@ -89,7 +89,6 @@ export class UserListComponent implements OnInit {
         this.paginate = success;
         this.users = success.content;
         this.hasdata = true;
-        console.log(this.users);
         // if (this.userService.show_msg) {
         //   this.toastService.toastSuccess();
         //   this.userService.show_msg = false;
