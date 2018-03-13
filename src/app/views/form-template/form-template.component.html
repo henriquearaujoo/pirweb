@@ -24,7 +24,7 @@
                           <div class="form-group" [ngClass]="applyCssError(f, range)">
                             <label class="control-label"> Faixa </label>                     
                               <select class="form-control" name="range" id="range" #range="ngModel" [(ngModel)]="form.range">
-                                <option [value]="item" *ngFor="let item of _range"> {{ item }} </option>
+                                <option [ngValue]="item" *ngFor="let item of _range"> {{ item }} </option>
                               </select>
                               <app-control-field-error [showError]="verifyValidSubmitted(f, range)" msgError="Selecione a faixa">
                               </app-control-field-error>                    
@@ -32,7 +32,7 @@
                         </div>
                         <div class="col-sm-6">
                           <div class="form-group" [ngClass]="applyCssError(f, inYears)">
-                            <label class="control-label">  </label> <br/>  
+                            <label class="control-label">  Faixa etária</label> <br/>  
                             <label class="radio-inline">
                               <input type="radio" name="in_years" id="in_years" #inYears="ngModel" [value]="false" [(ngModel)]="form.in_years">
                               Meses
@@ -64,21 +64,17 @@
                               </div>
                             </div>
                         <div class="col-sm-6">
-                          <div class="form-group" [ngClass]="applyCssError(f, optradio)">
+                          <div class="form-group" [ngClass]="applyCssError(f, type)">
                             <label class="control-label"> Tipo de questão </label> <br/>  
                             <label class="radio-inline">
-                              <input type="radio" name="optradio" #optradio="ngModel" value="1" [(ngModel)]="form.type">
-                              Presente/Ausente
+                              <input type="radio" name="type" id="type" #type="ngModel" value="A" [(ngModel)]="form.type">
+                              Dimensão
                             </label>
                             <label class="radio-inline">
-                              <input type="radio" name="optradio" #optradio="ngModel" value="2" [(ngModel)]="form.type">
-                              Dimensão
-                            </label>                
-                            <!-- <select class="form-control indicators2" name="indicators2" #indicators2>
-                              <option value="1"> Presente/Ausente </option>
-                              <option value="2"> Dimensão </option>
-                            </select> -->
-                              <app-control-field-error [showError]="verifyValidSubmitted(f, optradio)" msgError="Selecione a faixa">
+                              <input type="radio" name="type" id="type" #type="ngModel" value="B" [(ngModel)]="form.type">
+                              Presente/Ausente
+                            </label>   
+                              <app-control-field-error [showError]="verifyValidSubmitted(f, type)" msgError="Escolha o tipo da questão">
                               </app-control-field-error>                    
                           </div>
                         </div>
@@ -98,12 +94,18 @@
                                     <div class="box-title">QUESTÕES</div>
                                 </div>
                                 <div class="col-sm-6 actions">
+                                  <!-- <button class="btn btn-primary add"                                    
+                                    data-toggle="tooltip" data-placement="top" title="Salve o formulário para adicionar questões"                                                            
+                                    [disabled]="isNewData" *ngIf="isNewData">
+                                    <i class="fa fa-plus"></i>ADICIONAR
+                                  </button> -->
                                   <button class="btn btn-primary add"
-                                    data-toggle="modal" data-target="#modal-answer">
+                                    data-toggle="modal" data-target="#modal-answer"                                 
+                                    *ngIf="isNewData">
                                     <i class="fa fa-plus"></i>ADICIONAR
                                   </button>
                                 </div>
-                              </div>                            
+                              </div>   
                           </div>                           
                           <div class="box-body">
                             <table id="example2" class="table table-hover ">
@@ -179,7 +181,7 @@
 <app-modal></app-modal>
 
 <!-- Modal Answer -->
-<div class="modal fade" id="modal-answer" (click)="getQuestions()">
+<div class="modal fade" id="modal-answer">
   <div class="modal-dialog">
     <div class="modal-content" [ngStyle]="object">
       <div class="modal-header question">
@@ -189,22 +191,28 @@
           <div class="col-sm-12">
             <div class="form-group">
               <label class="control-label">Questão</label>
-              <textarea class="form-control" rows="3"></textarea>
+              <textarea class="form-control" rows="3" name="descriptionA" id="descriptionA" 
+                #descriptionA="ngModel" [(ngModel)]="questionA.description" *ngIf="form.type === 'A'">
+              </textarea>
+              <textarea class="form-control" rows="3" name="descriptionB" id="descriptionB" 
+                #descriptionB="ngModel" [(ngModel)]="questionB.description" *ngIf="form.type !== 'A'">
+              </textarea>
             </div>           
           </div>  
         </div>
-        <div class="row" *ngIf="form.type === '2'">
+        <div class="row" *ngIf="form.type === 'A'">
           <div class="col-sm-12">
-              <div class="form-group">
-                <label class="control-label"> Dimensão</label>
-                <select class="form-control" name="dimension" #dimension>
-                  <option value="1"> Socioafetiva </option>
-                  <option value="2"> Motora </option>
-                  <option value="3"> Cognitiva </option>
-                  <option value="4"> Comunicação e linguagem </option>
-                </select>
-              </div>            
-            </div> 
+            <div class="form-group">
+              <label class="control-label"> Dimensão</label>
+              <select class="form-control" name="dimension" id="dimension" 
+                #dimension="ngModel" [(ngModel)]="questionA.dimension" >
+                <option value="SOCIO_AFFECTIVE"> Socioafetiva </option>
+                <option value="MOTOR"> Motora </option>
+                <option value="COGNITIVE "> Cognitiva </option>
+                <option value="LANGUAGE"> Comunicação e linguagem </option>
+              </select>
+            </div>            
+          </div> 
         </div> 
       </div>
       <div class="modal-footer">

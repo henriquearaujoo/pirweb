@@ -1,3 +1,5 @@
+import { FormQuestionB } from './../../models/form-question-b';
+import { FormQuestionA } from './../../models/form-question-a';
 import { Observable } from 'rxjs/Observable';
 import { Form } from './../../models/form';
 import { RestService } from './../rest/rest.service';
@@ -7,7 +9,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class FormService extends RestService {
-  private apiurl = Constant.BASE_URL + 'form/';
+  private apiurl = Constant.BASE_URL + 'forms/';
   private size: number;
   constructor(http: Http) {
     super(http);
@@ -40,8 +42,21 @@ export class FormService extends RestService {
 
   /* QUESTIONS */
 
-  public insertQuestion(question: Form): Observable<Form> {
-    const currentURL = this.apiurl ;
+  public insertQuestionA(question: FormQuestionA): Observable<FormQuestionA> {
+    const currentURL = this.apiurl + 'questions/atype' ;
     return this.post(currentURL, question);
+  }
+
+  public insertQuestionB(question: FormQuestionB): Observable<FormQuestionB> {
+    const currentURL = this.apiurl + 'questions/btype' ;
+    return this.post(currentURL, question);
+  }
+
+  public getQuestions(filter?: any, page?: number) {
+    if ( filter === undefined ) {
+      return this.get(this.apiurl + 'questions/atype/search/page/?size=' + this.size + '&page=' + page);
+    } else {
+      return this.get(this.apiurl + 'questions/atype/search/page/?size=' + this.size + '&page=' + page);
+    }
   }
 }

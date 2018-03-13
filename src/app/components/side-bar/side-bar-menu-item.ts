@@ -61,7 +61,7 @@ export const MENU = [
         'route': '',
         'routes': ['/', '/community-list', '/community', '/community-details'],
         'read': false,
-        'iClass': 'fa fa-users',
+        'iClass': 'fa fa-home',
         'category': 'parent',
         'hasChild': true,
         'parent': 0

@@ -73,11 +73,41 @@ button#btn_confirm {
 /* UI */
 .main-sidebar {
     padding-top: 70px;
+    padding-top: 70px;
+    font-family: Roboto-Regular;
+    font-size: 14px;
 }
 
-/* .main-header .sidebar-toggle {
-    width: 21px;
-    height: 19px;
-    padding-right: 28px!important;
-    padding-top: 18px!important;
-} */
+section.sidebar.logout {
+    margin-top: 217px;
+    padding-left: 10px;
+}
+
+.sidebar-item {
+    padding-left: 18px;
+}
+
+span.lb-logout {
+    position: absolute;
+    left: 37px;
+    font-family: Roboto-Regular;
+    font-size: 18px;
+    color: #D8E9F4;
+}
+
+img.copyright {
+    width: 142px;
+    position: absolute;
+    top: 761px;
+    left: 10px;
+}
+
+i.fa.fa-user, i.fa.fa-users {
+    font-size: 20px;
+}
+i.fa.fa-file-text, i.fa.fa-list-alt {
+    font-size: 21px;
+}
+i.fa.fa-home {
+    font-size: 24px;
+}

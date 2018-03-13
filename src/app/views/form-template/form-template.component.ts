@@ -1,3 +1,5 @@
+import { FormQuestionB } from './../../models/form-question-b';
+import { FormQuestionA } from './../../models/form-question-a';
 import { ToastService } from './../../services/toast-notification/toast.service';
 import { Router } from '@angular/router';
 import { Permissions, RuleState } from './../../helpers/permissions';
@@ -15,6 +17,8 @@ import { ModalService } from '../../components/modal/modal.service';
 export class FormTemplateComponent implements OnInit {
 
   private form: Form = new Form();
+  private questionA: FormQuestionA = new FormQuestionA();
+  private questionB: FormQuestionB = new FormQuestionB();
   private isNewData: boolean;
   private urlId: string;
   private canRead: boolean;
@@ -64,10 +68,14 @@ export class FormTemplateComponent implements OnInit {
   }
 
   saveData() {
+    this.form.from = Number(this.form.from);
+    this.form.to = Number(this.form.to);
+      console.log(this.form);
       if (this.isNewData || this.form.id === undefined) {
         this.formService.insertForm(this.form).subscribe(
           success => {
             this.form = success;
+            console.log('save:', this.form);
             this.isNewData  = false;
             this.sweetAlertService.alertSuccess('form-template-list');
           },
@@ -90,7 +98,9 @@ export class FormTemplateComponent implements OnInit {
   }
 
   saveQuestion() {
-    this.formService.insertQuestion(this.form).subscribe(
+    console.log('A', this.questionA.dimension);
+    console.log('B', this.questionB);
+    this.formService.insertQuestionA(this.questionA).subscribe(
       success => {
         this.sweetAlertService.alertSuccess('form-template');
       },
@@ -107,7 +117,9 @@ export class FormTemplateComponent implements OnInit {
     );
   }
 
-  getQuestions() {}
+  loadQuestions() {
+    this.formService.getQuestions();
+  }
 
   createNewQuestion() { }
 

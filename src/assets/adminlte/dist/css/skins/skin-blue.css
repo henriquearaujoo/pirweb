@@ -75,7 +75,7 @@
 }
 .skin-blue .sidebar-menu > li:hover > a,
 .skin-blue .sidebar-menu > li.active > a {
-  color: #eaedef;
+  color: #D8E9F4;
   /* background: #1e282c;
   border-left-color: #3c8dbc; */
   background-image: url('/assets/css/sidebar/shape_selected.png')!important;
@@ -87,13 +87,13 @@
   background-image: linear-gradient(-90deg, #00426D 1%, #0079C0 99%);
 }
 .skin-blue .sidebar a {
-  color: #b8c7ce;
+  color: #63A8D3;
 }
 .skin-blue .sidebar a:hover {
   text-decoration: none;
 }
 .skin-blue .treeview-menu > li > a {
-  color: #8aa4af;
+  color: #63A8D3;
 }
 .skin-blue .treeview-menu > li.active > a,
 .skin-blue .treeview-menu > li > a:hover {
