@@ -50,3 +50,7 @@ button.swal-button.swal-button--ok.swal-btn-ok {
     .main-sidebar {padding-top: 15px;}
     .main-sidebar a {font-size: 18px;}
 }
+
+.tooltip.right {
+    border-right-color: #00acd6;
+  }

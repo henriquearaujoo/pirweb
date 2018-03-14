@@ -25,6 +25,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
   private rules: any[] = new Array();
   private show: number;
   private menu: any[] = MENU;
+  private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
 
   constructor(
     private router: Router,

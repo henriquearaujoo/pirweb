@@ -20,7 +20,6 @@
     height: 298px;
     float: left;
     margin: 10px;
-    cursor: pointer;
     text-align: center;
     border-radius: 10px;
     background-color: white;
@@ -107,12 +106,14 @@ li.li-version {
 i.fa.fa-toggle-on, i.fa.fa-toggle-off, i.fa.fa-plus {
     font-size: 24px;
     color: #373d40;
+    cursor: pointer;
 }
 
 i.fa.fa-pencil.edit-version {
     font-size: 22px;
     color: #373d40;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 span.version-add {

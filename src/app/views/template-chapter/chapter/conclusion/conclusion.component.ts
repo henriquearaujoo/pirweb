@@ -28,6 +28,7 @@ export class ConclusionComponent implements OnInit {
   private add_question: boolean;
   @ViewChild('question')
   question: QuestionComponent;
+  private questionDelete: Question = new Question();
   private questions: Question[] = new Array();
   private paginate: Paginate = new Paginate();
   private hasdata: boolean;
@@ -194,8 +195,12 @@ export class ConclusionComponent implements OnInit {
     this.question.load(question.id);
   }
 
-  onDelete(question: Question) {
-    this.conclusionService.deleteQuestion(question.id).subscribe(
+  setQuestion(question: Question) {
+    this.questionDelete = question;
+  }
+
+  onDelete() {
+    this.conclusionService.deleteQuestion(this.questionDelete.id).subscribe(
       success => {
         this.toastService.toastSuccess();
         this.getQuestions();

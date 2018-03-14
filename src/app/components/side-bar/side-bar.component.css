@@ -5,6 +5,10 @@
     
 }
 
+a.pointer {
+    cursor: pointer;
+}
+
 /******** Modal *********/
 
 .modal-footer {
@@ -80,7 +84,8 @@ button#btn_confirm {
 }
 
 section.sidebar.logout {
-    margin-top: 217px;
+    position: absolute;
+    bottom: 165px;
     padding-left: 10px;
 }
 
@@ -90,6 +95,7 @@ section.sidebar.logout {
 
 span.lb-logout {
     position: absolute;
+    top: 0;
     left: 37px;
     font-family: Roboto-Regular;
     font-size: 18px;
@@ -99,7 +105,7 @@ span.lb-logout {
 img.copyright {
     width: 142px;
     position: absolute;
-    top: 761px;
+    top: 71px;
     left: 10px;
 }
 

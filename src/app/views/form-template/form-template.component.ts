@@ -124,8 +124,8 @@ export class FormTemplateComponent implements OnInit {
   createNewQuestion() { }
 
   onCancel() {
-    // this.modalService.modalCancel('/form-template-list');
-    this.sweetAlertService.alertToCancel('/form-template-list');
+    this.modalService.modalCancel('/form-template-list');
+    // this.sweetAlertService.alertToCancel('/form-template-list');
   }
 
   verifyValidSubmitted(form, field) {
