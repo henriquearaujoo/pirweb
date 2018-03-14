@@ -23,6 +23,7 @@ export class ConclusionComponent implements OnInit {
   public isNewData: boolean;
   public isNewQuestion: boolean;
   @Output() cancelEvent = new EventEmitter();
+  @Output() returnEvent = new EventEmitter();
   private btn_cancel: boolean;
   private btn_save: boolean;
   private add_question: boolean;
@@ -92,6 +93,10 @@ export class ConclusionComponent implements OnInit {
     if (this.btn_cancel) {
       this.btn_cancel = false;
       return false;
+    }
+    if ( this.chapter === undefined) {
+      this.returnEvent.emit(false);
+      return;
     }
     if (this.btn_save) {
       this.conclusion.chapter_id = this.chapter;

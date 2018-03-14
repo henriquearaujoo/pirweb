@@ -18,6 +18,7 @@ export class InterventionComponent implements OnInit {
   public chapter: string;
   public isNewData: boolean;
   @Output() cancelEvent = new EventEmitter();
+  @Output() returnEvent = new EventEmitter();
   private btn_cancel: boolean;
   private canRead: boolean;
   private canUpdate: boolean;
@@ -68,6 +69,10 @@ export class InterventionComponent implements OnInit {
     if (this.btn_cancel) {
       this.btn_cancel = false;
       return false;
+    }
+    if ( this.chapter === undefined) {
+      this.returnEvent.emit(false);
+      return;
     }
     this.intervention.chapter_id = this.chapter;
     if (this.isNewData || this.intervention.id === undefined) {
