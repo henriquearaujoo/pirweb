@@ -43,9 +43,9 @@
                 </a>
               </td>
               <td class="tbl-right">
-                  <a href="" title="Excluir Resposta"
-                    data-toggle="modal" data-target="#modal-default"
-                    (click)="onDelete(item)" id="btn_delete">              
+                  <a href="" title="Excluir Resposta" 
+                    data-toggle="modal" data-target="#modal-delete"                   
+                    (click)="setAnswer(item)" id="btn_delete">              
                     <i class="fa fa-trash "  aria-hidden="true"></i>
                   </a>      
               </td>
@@ -138,6 +138,32 @@
       </div>
         <!-- /.modal-content -->   
   </div> 
+</div>
+<!-- /.modal -->
+
+<!-- Modal Remove -->
+<div class="modal fade" id="modal-delete">
+  <div class="modal-dialog modal-sm">
+      <div class="modal-content delete" [ngStyle]="object">
+          <div class="modal-body delete">
+              <div class="modal-icon">
+                  <i class="material-icons" style="font-size: 60px;">error_outline</i>
+              </div>
+              <h5> Deseja realmente <strong>EXCLUIR</strong> ?</h5>
+          </div>
+          <div class="modal-footer delete" data-dismiss="modal">
+              <!-- <div class="row"> -->
+              <div class="modal-btn-cancel">
+                  <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal" id="btn_cancel">Não</button>
+              </div>
+              <div class="modal-btn-confirm">
+                  <button type="button" (click)="onDelete()" class="btn btn-primary btn-md btn-block" data-dismiss="modal" id="btn_confirm">Sim</button>
+              </div>
+          </div>
+      </div>
+      <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
 

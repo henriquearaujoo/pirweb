@@ -152,8 +152,12 @@ export class AnswerListComponent extends PagenateComponent implements OnInit {
     this.getAnswers();
   }
 
-  onDelete(answer: Answer) {
-   this.conclusionService.deleteAnswer(answer.id).subscribe(
+  setAnswer(answer: Answer) {
+    this.answer = answer;
+  }
+
+  onDelete() {
+   this.conclusionService.deleteAnswer(this.answer.id).subscribe(
      success => {
        this.toastService.toastSuccess();
        this.getAnswers();

@@ -118,6 +118,8 @@ button {
     height: 64px;
     background-color: #e8e6e6;
     margin-bottom: 10px;
+    position: relative;
+    margin-top: 49px;
 }
 
 .content-title {

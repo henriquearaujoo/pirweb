@@ -358,27 +358,27 @@ export class UserComponent implements OnInit {
     if (this.error_list.length < 7) {
       this.error_list.forEach( er => {
         switch (er) {
-          case 'user.type.pfis.cpf.valid': {
+          case 'user.cpf.valid': {
             console.log(er);
             this.toastService.toastErrorValid('CPF');
             break;
           }
-          case 'user.type.pfis.cpf.invalid': {
+          case 'user.cpf.invalid': {
             console.log(er);
             this.toastService.toastErrorValid('CPF');
             break;
           }
-          case 'user.type.pjur.cnpj.valid': {
+          case 'user.cnpj.valid': {
             console.log(er);
             this.toastService.toastErrorValid('CNPJ');
             break;
           }
-          case 'user.type.pjur.cnpj.invalid': {
+          case 'user.cnpj.invalid': {
             console.log(er);
             this.toastService.toastErrorValid('CNPJ');
             break;
           }
-          case 'user.type.pfis.rg.short': {
+          case 'user.rg.short': {
             console.log(er);
             this.toastService.toastErrorValid('RG');
             break;
@@ -398,12 +398,12 @@ export class UserComponent implements OnInit {
           this.toastService.toastErrorExists('LOGIN');
           break;
         }
-        case 'user.type.pfis.cpf.exists': {
+        case 'user.cpf.exists': {
           console.log(er);
           this.toastService.toastErrorExists('CPF');
           break;
         }
-        case 'user.type.pjur.cnpj.exists': {
+        case 'user.cnpj.exists': {
           console.log(er);
           this.toastService.toastErrorExists('CNPJ');
           break;
@@ -413,12 +413,12 @@ export class UserComponent implements OnInit {
           this.toastService.toastErrorExists('EMAIL');
           break;
         }
-        case 'user.type.pfis.cpf.invalid': {
+        case 'user.cpf.invalid': {
           console.log(er);
           this.toastService.toastErrorValid('CPF');
           break;
         }
-        case 'user.type.pjur.cnpj.invalid': {
+        case 'user.cnpj.invalid': {
           console.log(er);
           this.toastService.toastErrorValid('CNPJ');
           break;

@@ -76,6 +76,7 @@ button#btn_confirm {
     padding-top: 70px;
     font-family: Roboto-Regular;
     font-size: 14px;
+    position: fixed;
 }
 
 section.sidebar.logout {

@@ -41,3 +41,12 @@ button.swal-button.swal-button--ok.swal-btn-ok {
         min-height: 960px!important;
     }
 }
+
+.content-top {
+    margin-top: 50px;
+}
+
+@media screen and (max-height: 450px) {
+    .main-sidebar {padding-top: 15px;}
+    .main-sidebar a {font-size: 18px;}
+}

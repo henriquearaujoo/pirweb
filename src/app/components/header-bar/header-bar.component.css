@@ -1,5 +1,6 @@
 .main-header .logo {
     height: 70px;
+    position: fixed;
 }
 .skin-blue .main-header .navbar {
     background-color: #0075BD;
