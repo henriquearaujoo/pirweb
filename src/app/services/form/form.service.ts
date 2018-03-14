@@ -28,10 +28,9 @@ export class FormService extends RestService {
 
   public getForms(filter?: any, page?: number) {
     if ( filter === undefined ) {
-      return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page + '&sort=name,asc');
+      return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page );
     } else {
-      return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page +
-      '&name=' + filter  + '&sort=name,asc');
+      return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page );
     }
   }
 
