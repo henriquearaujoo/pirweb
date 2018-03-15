@@ -199,7 +199,7 @@
             </app-control-field-error>                    
         </div>
       </div>
-      <div class="modal-body" *ngIf="form.type !== 'UNDEFINED' || type_question !== 'UNDEFINED'">
+      <div class="modal-body" *ngIf="form.type !== 'UNDEFINED'">
         <div class="row">
           <div class="col-sm-12">
             <div class="form-group">
@@ -230,7 +230,7 @@
       </div>
       <div class="modal-footer"  *ngIf="form.type === 'UNDEFINED'">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="()">Confirmar</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveQuestion()">Salvar</button>
         </div>
       <div class="modal-footer"  *ngIf="form.type !== 'UNDEFINED'">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
