@@ -23,7 +23,7 @@
                         <div class="col-sm-6">
                           <div class="form-group" [ngClass]="applyCssError(f, range)">
                             <label class="control-label"> Faixa </label>                     
-                              <select class="form-control" name="range" id="range" #range="ngModel" [(ngModel)]="form.range">
+                              <select class="form-control" name="range" id="range" #range="ngModel" [(ngModel)]="form.age_zone">
                                 <option [ngValue]="item" *ngFor="let item of _range"> {{ item }} </option>
                               </select>
                               <app-control-field-error [showError]="verifyValidSubmitted(f, range)" msgError="Selecione a faixa">

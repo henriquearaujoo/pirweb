@@ -1,6 +1,6 @@
 export class Form {
     public id: string;
-    public range: number;
+    public age_zone: number;
     public from: number;
     public to: number;
     public in_years: boolean;
