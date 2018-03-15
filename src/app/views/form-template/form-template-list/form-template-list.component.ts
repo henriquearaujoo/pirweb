@@ -98,10 +98,10 @@ export class FormTemplateListComponent implements OnInit {
   }
 
   disableEnableForm() {
-    if (this.form.status === true) {
-      this.form.status = false;
+    if (this.form.is_enabled === true) {
+      this.form.is_enabled = false;
     } else {
-      this.form.status = true;
+      this.form.is_enabled = true;
     }
 
     this.formService.updateForm(this.form).subscribe(

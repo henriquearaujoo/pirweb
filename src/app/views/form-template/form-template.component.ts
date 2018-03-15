@@ -16,6 +16,7 @@ import { ModalService } from '../../components/modal/modal.service';
 })
 export class FormTemplateComponent implements OnInit {
 
+  private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
   private form: Form = new Form();
   private questionA: FormQuestionA = new FormQuestionA();
   private questionB: FormQuestionB = new FormQuestionB();
@@ -28,6 +29,7 @@ export class FormTemplateComponent implements OnInit {
   private _range: number[] = Array();
   private indicators: any[] = Array();
   private band1: any[] = Array();
+  private type_question: string;
 
   constructor(
     private formService: FormService,
@@ -55,6 +57,7 @@ export class FormTemplateComponent implements OnInit {
     );
     /*check if is a new or update*/
     this.isNewData = true;
+    this.type_question = 'UNDEFINED';
     this.urlId = localStorage.getItem('formId');
     if (this.urlId !== null && this.urlId !== '') {
       this.isNewData = false;
@@ -112,6 +115,7 @@ export class FormTemplateComponent implements OnInit {
     this.formService.load(this.urlId).subscribe(
       success => {
         this.form = success;
+        this.type_question = this.form.type;
       },
       error => console.log(error)
     );
@@ -122,6 +126,10 @@ export class FormTemplateComponent implements OnInit {
   }
 
   createNewQuestion() { }
+
+  verifyType() {
+
+  }
 
   onCancel() {
     this.modalService.modalCancel('/form-template-list');
