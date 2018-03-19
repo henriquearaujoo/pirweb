@@ -177,3 +177,15 @@ th.page-route {
     border-bottom: 1px solid #f4f4f4;
 }
 /* END TABLE */
+
+input[type="radio"], input[type="checkbox"] {
+    cursor: pointer;
+}
+
+input[type="radio"][disabled], input[type="checkbox"][disabled], input[type="radio"].disabled, input[type="checkbox"].disabled, fieldset[disabled] input[type="radio"], fieldset[disabled] input[type="checkbox"] {
+    cursor: not-allowed;
+}
+
+.pointer {
+    cursor: pointer;
+}

@@ -22,7 +22,7 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
   private form: Form = new Form();
   private formQuestion: FormQuestion = new FormQuestion();
-  // private questionB: FormQuestionB = new FormQuestionB();
+  private questions: FormQuestion[] = new Array();
   private isNewData: boolean;
   private urlId: string;
   private canRead: boolean;
@@ -37,6 +37,7 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
   private show_a: boolean;
   private show_b: boolean;
   public isNewQuestion: boolean;
+  private index: number;
 
   constructor(
     private formService: FormService,
@@ -52,6 +53,7 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
     this.canUpdate = false;
     this.canRead = false;
     this.canDelete = false;
+    this.index = 1;
    }
 
   ngOnInit() {
@@ -85,26 +87,35 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
     // this.form.is_enabled = true;
     console.log(this.form);
     if (this.isNewData || this.form.id === undefined) {
-      this.formService.insertForm(this.form).subscribe(
-        success => {
-          this.form = success;
-          console.log('save:', this.form);
-          this.isNewData  = false;
-          this.sweetAlertService.alertSuccess('form-template');
-        },
-        error => {
-          this.verifyError(error);
-        }
-      );
+      if (this.canCreate) {
+        this.formService.insertForm(this.form).subscribe(
+          success => {
+            this.form = success;
+            console.log('save:', this.form);
+            this.urlId = this.form.id;
+            this.isNewData  = false;
+            this.sweetAlertService.alertSuccess('form-template');
+          },
+          error => {
+            this.verifyError(error);
+          }
+        );
+      } else {
+        this.sweetAlertService.alertPermission('/form-template-list');
+      }
     } else {
-      this.formService.updateForm(this.form).subscribe(
-        success => {
-          this.sweetAlertService.alertSuccessUpdate('form-template');
-        },
-        error => {
-          this.verifyError(error);
-        }
-      );
+      if (this.canUpdate) {
+        this.formService.updateForm(this.form).subscribe(
+          success => {
+            this.sweetAlertService.alertSuccessUpdate('form-template');
+          },
+          error => {
+            this.verifyError(error);
+          }
+        );
+      } else {
+        this.sweetAlertService.alertPermission('/form-template-list');
+      }
     }
   }
 
@@ -126,7 +137,8 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
   saveQuestion() {
     console.log(this.question);
     if ( this.isNewQuestion || this.question.id === undefined ) {
-      this.question.form_id = this.form.id;
+      if (this.canCreate) {
+        this.question.form_id = this.form.id;
       this.formService.insertQuestion(this.question).subscribe(
         success => {
           this.load();
@@ -134,14 +146,21 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
         },
         error => console.log(error)
       );
+      } else {
+        this.sweetAlertService.alertPermission('/form-template-list');
+      }
     } else {
-      this.formService.updateQuestion(this.question).subscribe(
-        success => {
-          this.load();
-          this.toastService.toastSuccess();
-        },
-        error => console.log(error)
-      );
+      if (this.canUpdate) {
+        this.formService.updateQuestion(this.question).subscribe(
+          success => {
+            this.load();
+            this.toastService.toastSuccess();
+          },
+          error => console.log(error)
+        );
+      } else {
+        this.sweetAlertService.alertPermission('/form-template-list');
+      }
     }
   }
 
@@ -149,11 +168,16 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
     this.formService.load(this.urlId).subscribe(
       success => {
         this.form = success;
-        this.form.questions = this.form.questions.sort(function (a, b) {
+        this.questions = this.form.questions;
+        this.questions = this.questions.sort(function (a, b) {
             return a.description.localeCompare(b.description);
         });
-        this.allItems = this.form.questions;
-        this.pagedItems = this.form.questions;
+        this.index = 1;
+        this.questions.forEach( el => {
+          el.number = this.index ++;
+        });
+        this.allItems = this.questions;
+        this.pagedItems = this.questions;
         this.setPage(1);
       },
       error => console.log(error)
@@ -180,6 +204,31 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
   showQuestion(item) {
     this.show = true;
     this.question = item;
+  }
+
+  changeStatus(item) {
+    this.question = item;
+  }
+
+  disableEnableQuestion() {
+    if (this.question.is_enabled === true) {
+      this.question.is_enabled = false;
+    } else {
+      this.question.is_enabled = true;
+    }
+    console.log(this.question);
+
+    this.formService.updateQuestion(this.question).subscribe(
+      success => {
+        this.question = success;
+        this.load();
+        this.toastService.toastSuccess();
+      },
+      error => {
+        this.toastService.toastError();
+        this.load();
+      }
+    );
   }
 
   onCancelType() {

@@ -290,28 +290,6 @@ export class UserComponent implements OnInit {
     }
   }
 
-  selectProfile() {
-    // this.profiles.forEach( elem => {
-    //   if (this.user !== undefined) {
-    //     if (elem.id === this.user.profile_id) {
-    //       this.profile = elem.title;
-    //     }
-    //   }
-    // });
-    // switch (this.profile.toUpperCase()) {
-    //   case 'AGENTE':
-    //   {
-    //     this.show_community = true;
-    //     break;
-    //   }
-    //   default:
-    //   {
-    //     this.show_community = false;
-    //     break;
-    //   }
-    // }
-  }
-
   verifyType() {
     this.user.name = this.first_name + ' ' + this.last_name;
     if ( (this.user.password !== undefined) &&
@@ -327,13 +305,6 @@ export class UserComponent implements OnInit {
       {
         this.person.cpf = this.person.cpf.split('.').join('');
         this.person.cpf = this.person.cpf.split('-').join('');
-        if ( (this.user.password !== undefined) &&
-           (this.user.password !== '') &&
-           (this.user.password !== null) ) {
-          this.user.password = sha256(this.user.password);
-        } else {
-          this.user.password = undefined;
-        }
         this.user.person = this.person;
         delete this.user.entity;
         this.type = 'PFIS';
@@ -342,10 +313,6 @@ export class UserComponent implements OnInit {
 
       case 'PJUR':
       {
-        // this.user.address.postalcode = this.user.address.postalcode.replace('-', '');
-        // if (this.user.password !== undefined) {
-        //   this.user.password = sha256(this.user.password);
-        // }
         this.user.entity = this.entity;
         delete this.user.person;
         this.type = 'PJUR';

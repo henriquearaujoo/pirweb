@@ -71,7 +71,7 @@
                       <div class="row">
                         <div class="col-sm-12">
                           <div class="form-group save">
-                            <button class="btn btn-primary" name="submit" id="btn_save">Salvar</button>
+                            <button class="btn btn-primary" name="submit" id="btn_save" *ngIf="canCreate || canUpdate">Salvar</button>
                           </div>
                         </div>
                       </div>                  
@@ -98,7 +98,7 @@
                                   <button class="btn btn-primary add"
                                     data-toggle="modal" data-target="#modal-question"
                                     (click)="createNewQuestion()"                              
-                                    *ngIf="!isNewData">
+                                    *ngIf="!isNewData && canCreate">
                                     <i class="fa fa-plus"></i>ADICIONAR
                                   </button>
                                 </div>
@@ -120,7 +120,7 @@
                                 <tr *ngFor="let item of pagedItems; let i = index">
                                 <!-- <tr *ngFor="let item of answers"> -->
                                   <td class="tbl-left">
-                                    {{ i + 1 }}
+                                    {{ item.number }}
                                   </td>
                                   <td class="tbl-left text-max">                                     
                                     <p class="limit-text">{{ item.description }}</p>                                 
@@ -139,15 +139,15 @@
                                       <i class="large material-icons">visibility</i>
                                     </a>
                                   </td>
-                                  <td class="tbl-right">          
+                                  <td class="tbl-right" *ngIf="canUpdate">          
                                     <a href="" title="Editar" id="btn_edit" data-toggle="modal" data-target="#modal-question"
                                       (click)="onEdit(item)">
                                       <i class="fa fa-pencil fa-fw"></i>
                                     </a>
                                   </td>
-                                  <td class="tbl-right">
+                                  <td class="tbl-right" *ngIf="canDelete">
                                     <a href="" [title]="item.is_enabled === true ? 'Desativar': 'Ativar'"
-                                      data-toggle="modal" data-target="#modal-default"
+                                      data-toggle="modal" data-target="#modal-status"
                                       (click)="changeStatus(item)" id="btn_status">              
                                       <i [ngClass]="item.is_enabled === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
                                     </a>      
@@ -157,7 +157,40 @@
                             </table>
                           </div>        
                           <div class="box-footer"> 
-            
+                            <div class="row">
+                                <div class="col-sm-6 pagination1" *ngIf="form.questions.length">
+                                  <div class="pag1" *ngIf="form.questions.length > 10">
+                                      Exibindo <strong>{{ pager.currentPage === 1 ? 1 : (pager.currentPage * 10) - 9 }} </strong> - 
+                                      <strong>{{ pager.currentPage === pager.totalPages ? form.questions.length : (pager.currentPage * 10)  }} </strong> 
+                                      &nbsp;de &nbsp;<strong>{{ form.questions.length }} </strong>
+                                  </div>
+                                  <div class="pag2" *ngIf="form.questions.length <= 10">
+                                      Exibindo <strong>{{ pager.currentPage === 1 ? 1 : (pager.currentPage * 10) - 9 }} </strong> - 
+                                      <strong>{{ form.questions.length }} </strong> 
+                                      &nbsp;de&nbsp; <strong>{{ form.questions.length }} </strong>
+                                  </div>            
+                                </div>      
+                                <div class="col-sm-6 pagination2">
+                                    <app-paginate [paginate]="paginate" (eventPage)="setPage($event)"></app-paginate>
+                                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination stylepage">
+                                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                            <a (click)="setPage(1)">Primeiro</a>
+                                        </li>
+                                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                            <a (click)="setPage(pager.currentPage - 1)">Anterior</a>
+                                        </li>
+                                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                            <a (click)="setPage(page)">{{page}}</a>
+                                        </li>
+                                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                            <a (click)="setPage(pager.currentPage + 1)">Próxima</a>
+                                        </li>
+                                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                            <a (click)="setPage(pager.totalPages)">Último</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                              </div>
                           </div>
                       </div>
                   </div>
@@ -232,5 +265,31 @@
     </div>
       <!-- /.modal-content -->   
   </div> 
+</div>
+<!-- /.modal -->
+
+<!-- Modal Disable -->
+<div class="modal fade" id="modal-status">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content" [ngStyle]="object">
+      <div class="modal-body disable">
+        <div class="modal-icon">
+            <i class="material-icons" style="font-size: 60px;">error_outline</i>
+        </div>          
+          <h5  *ngIf="form.is_enabled"> Deseja realmente desativar a questão <strong> </strong> ?</h5>
+          <h5  *ngIf="!form.is_enabled"> Deseja realmente ativar a questão <strong>  </strong> ?</h5>
+      </div>
+      <div class="modal-footer_">
+        <div class="modal-btn-cancel">
+            <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal" id="btn_cancel">Cancelar</button>
+        </div>
+        <div class="modal-btn-confirm">
+            <button type="button" (click)="disableEnableQuestion()" class="btn btn-primary btn-md btn-block" data-dismiss="modal" id="btn_confirm">Confirmar</button>
+        </div>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->

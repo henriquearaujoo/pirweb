@@ -279,7 +279,7 @@ export class PageComponent extends PagenateComponent implements OnInit {
     if (event.target.checked) {
       swal({
         title: 'Atenção',
-        text: 'Atribuir todas as permissões?',
+        text: 'Atribuir todas as permissões ao perfil?',
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -303,7 +303,7 @@ export class PageComponent extends PagenateComponent implements OnInit {
       console.log('isAllChecked 1', this.isAllChecked);
       swal({
         title: 'Atenção',
-        text: 'Remover todas as permissões?',
+        text: 'Remover todas as permissões do perfil?',
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',

@@ -82,18 +82,18 @@ const App_Router: Routes = [
           },
           {
             path: 'form-template',
-            component: FormTemplateComponent
-              // canActivate: [PageGuard]
+            component: FormTemplateComponent,
+              canActivate: [PageGuard]
           },
           {
             path: 'form-template-list',
-            component: FormTemplateListComponent
-              // canActivate: [PageGuard]
+            component: FormTemplateListComponent,
+              canActivate: [PageGuard]
           },
           {
             path: 'form-template-details',
-            component: FormTemplateDetailsComponent
-              // canActivate: [PageGuard]
+            component: FormTemplateDetailsComponent,
+              canActivate: [PageGuard]
           },
           {
             path: 'community-list',

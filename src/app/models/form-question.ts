@@ -5,4 +5,6 @@ export class FormQuestion {
     public description: string;
     public type: string;
     public form: Form = new Form();
+    public is_enabled: boolean;
+    public number: number;
 }
