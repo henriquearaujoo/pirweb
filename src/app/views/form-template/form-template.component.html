@@ -23,7 +23,7 @@
                         <div class="col-sm-6">
                           <div class="form-group" [ngClass]="applyCssError(f, range)">
                             <label class="control-label"> Faixa </label>                     
-                              <select class="form-control" name="range" id="range" #range="ngModel" [(ngModel)]="form.age_zone">
+                              <select class="form-control" name="range" id="range" #range="ngModel" [(ngModel)]="form.age_zone" required>
                                 <option [ngValue]="item" *ngFor="let item of _range"> {{ item }} </option>
                               </select>
                               <app-control-field-error [showError]="verifyValidSubmitted(f, range)" msgError="Selecione a faixa">
@@ -34,11 +34,11 @@
                           <div class="form-group" [ngClass]="applyCssError(f, inYears)">
                             <label class="control-label">  Faixa etária</label> <br/>  
                             <label class="radio-inline">
-                              <input type="radio" name="in_years" id="in_years" #inYears="ngModel" [value]="false" [(ngModel)]="form.in_years">
+                              <input type="radio" name="in_years" id="in_years" #inYears="ngModel" [value]="false" [(ngModel)]="form.in_years" required>
                               Meses
                             </label>
                             <label class="radio-inline">
-                              <input type="radio" name="in_years" id="in_years" #inYears="ngModel" [value]="true" [(ngModel)]="form.in_years">
+                              <input type="radio" name="in_years" id="in_years" #inYears="ngModel" [value]="true" [(ngModel)]="form.in_years" required>
                               Anos
                             </label>
                             <app-control-field-error [showError]="verifyValidSubmitted(f, inYears)" msgError="Escolha uma das opções">
@@ -48,37 +48,33 @@
    
                       </div>
                       <div class="row">
-                          <div class="col-sm-6">
+                          <div class="col-sm-12">
                               <div class="form-group">
                                 <!-- <label class="control-label">Indicadores</label> -->
-                                <div class="form-inline" [ngClass]="applyCssError(f, range)">
-                                  <label class="control-label"> Indicadores de</label>                     
-                                  <input class="form-control" type="number" mask="0000000000" name="from" id="from" #from="ngModel" [(ngModel)]="form.from">
-                                  <label class="control-label"> até </label>                   
-                                  <input class="form-control" type="number" mask="0000000000" name="to" id="to" #to="ngModel" [(ngModel)]="form.to">                        
-
-                                  <label class="control-label"> {{ form.in_years ? 'Anos' : 'Meses' }} </label>                   
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f, range)" msgError="Digite a faixa">
-                                  </app-control-field-error>                    
-                                </div>                     
+                                <div class="form-inline">
+                                  <label class="control-label" [ngClass]="applyCssError(f, from)"> Indicadores de                     
+                                    <input class="form-control" type="number"  name="from" id="from" #from="ngModel" min="0" maxlength="10" [(ngModel)]="form.from" required>                                   
+                                  </label>
+                                  <label class="control-label" [ngClass]="applyCssError(f, to)"> até                 
+                                    <input class="form-control" type="number" name="to" id="to" #to="ngModel" min="0" maxlength="10" [(ngModel)]="form.to" required>                        
+                                    <label class="control-label"> {{ form.in_years ? 'Anos' : 'Meses' }} </label>  
+                                  </label>                    
+                                                
+                                </div>   
+                                <app-control-field-error [ngClass]="applyCssError(f, from)" [showError]="verifyValidSubmitted(f, from)" msgError="Digite o valor inicial do indicador">
+                                  </app-control-field-error>
+                                <app-control-field-error [ngClass]="applyCssError(f, to)" [showError]="verifyValidSubmitted(f, to)" msgError="Digite o valor final do indicador">
+                                  </app-control-field-error>                     
                               </div>
-                            </div>
-                        <!-- <div class="col-sm-6">
-                          <div class="form-group" [ngClass]="applyCssError(f, type)">
-                            <label class="control-label"> Tipo de questão </label> <br/>  
-                            <label class="radio-inline">
-                              <input type="radio" name="type" id="type" #type="ngModel" value="A" [(ngModel)]="form.type">
-                              Dimensão
-                            </label>
-                            <label class="radio-inline">
-                              <input type="radio" name="type" id="type" #type="ngModel" value="B" [(ngModel)]="form.type">
-                              Presente/Ausente
-                            </label>   
-                              <app-control-field-error [showError]="verifyValidSubmitted(f, type)" msgError="Escolha o tipo da questão">
-                              </app-control-field-error>                    
+                            </div>                       
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <div class="form-group save">
+                            <button class="btn btn-primary" name="submit" id="btn_save">Salvar</button>
                           </div>
-                        </div> -->
-                      </div>                    
+                        </div>
+                      </div>                  
                     </form>
                   </div>
                 </div>
@@ -100,8 +96,8 @@
                                     <i class="fa fa-plus"></i>ADICIONAR
                                   </button>
                                   <button class="btn btn-primary add"
-                                    data-toggle="modal" data-target="#modal-answer"
-                                    (click)="verifyType()"                              
+                                    data-toggle="modal" data-target="#modal-question"
+                                    (click)="createNewQuestion()"                              
                                     *ngIf="!isNewData">
                                     <i class="fa fa-plus"></i>ADICIONAR
                                   </button>
@@ -115,39 +111,47 @@
                                   <th class="tbl-left">NÚMERO </th> 
                                   <th>QUESTÃO
                                     <span class="glyphicon" ></span>
-                                  </th>           
-                                  <th colspan="3"> AÇÃO</th>
+                                  </th>   
+                                  <th>TIPO</th>        
+                                  <th colspan="3" style="text-align: center;"> AÇÃO</th>
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr *ngFor="let item of pagedItems">
+                                <tr *ngFor="let item of pagedItems; let i = index">
                                 <!-- <tr *ngFor="let item of answers"> -->
                                   <td class="tbl-left">
-                                    {{ item.number }}
+                                    {{ i + 1 }}
                                   </td>
+                                  <td class="tbl-left text-max">                                     
+                                    <p class="limit-text">{{ item.description }}</p>                                 
+                                  </td>  
                                   <td> 
-                                    <p class="limit-text" [innerHTML]="item.description"></p>
-                                  </td>         
+                                    <span *ngIf="item.type === 'SOCIO_AFFECTIVE'"> Socioafetiva </span>
+                                    <span *ngIf="item.type === 'MOTOR'"> Motora </span>
+                                    <span *ngIf="item.type === 'COGNITIVE'"> Cognitiva </span>
+                                    <span *ngIf="item.type === 'LANGUAGE'"> Comunicação e linguagem </span>
+                                    <span *ngIf="item.type === 'UNDEFINED'"> Outros </span>                                                                  
+                                  </td>  
                                 
                                   <td class="tbl-right">              
-                                      <a href="" title="Ver detalhes" id="btn_details"  data-toggle="modal" data-target="#modal-answer"
-                                        (click)="showAnswer(item)" >
-                                        <i class="large material-icons">visibility</i>
-                                      </a>
-                                    </td>
-                                    <td class="tbl-right">          
-                                      <a href="" title="Editar" id="btn_edit" data-toggle="modal" data-target="#modal-answer"
-                                        (click)="onEdit(item)">
-                                        <i class="fa fa-pencil fa-fw"></i>
-                                      </a>
-                                    </td>
-                                    <td class="tbl-right">
-                                        <a href="" title="Excluir Resposta"
-                                          data-toggle="modal" data-target="#modal-default"
-                                          (click)="onDelete(item)" id="btn_delete">              
-                                          <i class="fa fa-trash "  aria-hidden="true"></i>
-                                        </a>      
-                                    </td>
+                                    <a href="" title="Ver detalhes" id="btn_details"  data-toggle="modal" data-target="#modal-question"
+                                      (click)="showQuestion(item)" >
+                                      <i class="large material-icons">visibility</i>
+                                    </a>
+                                  </td>
+                                  <td class="tbl-right">          
+                                    <a href="" title="Editar" id="btn_edit" data-toggle="modal" data-target="#modal-question"
+                                      (click)="onEdit(item)">
+                                      <i class="fa fa-pencil fa-fw"></i>
+                                    </a>
+                                  </td>
+                                  <td class="tbl-right">
+                                    <a href="" [title]="item.is_enabled === true ? 'Desativar': 'Ativar'"
+                                      data-toggle="modal" data-target="#modal-default"
+                                      (click)="changeStatus(item)" id="btn_status">              
+                                      <i [ngClass]="item.is_enabled === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
+                                    </a>      
+                                  </td>
                                 </tr>
                               </tbody>
                             </table>
@@ -167,12 +171,7 @@
                     <div>
                         <button class="btn btn-default btn-block" (click)="onCancel()" id="btn_return"> Cancelar</button>
                     </div>
-                </div>
-                <div class="col-md-2 col-md-offset-8">
-                    <div class="form-group save">
-                        <button class="btn btn-primary btn-block" name="submit" id="btn_save" (click)="saveData()">Salvar</button>
-                    </div>
-                </div>
+                </div>                
             </div>
         <!-- </form>        -->
       </div>     
@@ -181,64 +180,55 @@
 
 <app-modal></app-modal>
 
-<!-- Modal Answer -->
-<div class="modal fade" id="modal-answer">
+<!-- Modal Question-->
+<div class="modal fade" id="modal-question">
   <div class="modal-dialog">
     <div class="modal-content" [ngStyle]="object">
       <div class="modal-header question">
-      </div>
-      <div class="modal-body" *ngIf="form.type === 'UNDEFINED'">
-        <div class="form-group" [ngClass]="applyCssError(f, typeQuestion)">
-          <label class="label-control"> Tipo da Questão</label>
-            <select class="form-control" name="type_question" id="type_question" 
-              #typeQuestion="ngModel" [(ngModel)]="type_question">
-              <option [value]="ATYPE"> Com dimensão</option>
-              <option [value]="BTYPE"> Sem dimensão</option>
-            </select>
-            <app-control-field-error [showError]="verifyValidSubmitted(f, typeQuestion)" msgError="Escolha o tipo da questão">
-            </app-control-field-error>                    
-        </div>
-      </div>
-      <div class="modal-body" *ngIf="form.type !== 'UNDEFINED'">
+      </div>     
+      <div class="modal-body">
         <div class="row">
           <div class="col-sm-12">
             <div class="form-group">
-              <label class="control-label">Questão</label>
-              <textarea class="form-control" rows="3" name="descriptionA" id="descriptionA" 
-                #descriptionA="ngModel" [(ngModel)]="questionA.description" *ngIf="form.type === 'A'">
-              </textarea>
-              <textarea class="form-control" rows="3" name="descriptionB" id="descriptionB" 
-                #descriptionB="ngModel" [(ngModel)]="questionB.description" *ngIf="form.type !== 'A'">
+              <label class="control-label">Questão</label> <br/>
+              <!-- <textarea disabled *ngIf="show"> {{ question.description }}</textarea> -->
+              <textarea class="form-control" rows="3" name="description" id="description" 
+                #description="ngModel" [(ngModel)]="question.description" maxlength="200" 
+                [disabled]="show">
               </textarea>
             </div>           
           </div>  
         </div>
-        <div class="row" *ngIf="form.type === 'A'">
+        <div class="row">
           <div class="col-sm-12">
-            <div class="form-group">
-              <label class="control-label"> Dimensão</label>
-              <select class="form-control" name="dimension" id="dimension" 
-                #dimension="ngModel" [(ngModel)]="questionA.dimension" >
-                <option value="SOCIO_AFFECTIVE"> Socioafetiva </option>
-                <option value="MOTOR"> Motora </option>
-                <option value="COGNITIVE "> Cognitiva </option>
-                <option value="LANGUAGE"> Comunicação e linguagem </option>
-              </select>
-            </div>            
+            <div *ngIf="show">
+              <label class="label-control"> Tipo da Questão</label> <br/>
+              <span class="form-control" *ngIf="question.type === 'SOCIO_AFFECTIVE'"> Socioafetiva </span>
+              <span class="form-control" *ngIf="question.type === 'MOTOR'"> Motora </span>
+              <span class="form-control" *ngIf="question.type === 'COGNITIVE'"> Cognitiva </span>
+              <span class="form-control" *ngIf="question.type === 'LANGUAGE'"> Comunicação e linguagem </span>
+              <span class="form-control" *ngIf="question.type === 'UNDEFINED'"> Outros </span>
+            </div>
+            <div class="form-group" [ngClass]="applyCssError(f, typeQuestion)" *ngIf="!show">
+              <label class="label-control"> Tipo da Questão</label>               
+                <select class="form-control" name="type_question" id="type_question" 
+                  #typeQuestion="ngModel" [(ngModel)]="question.type">
+                  <option value="SOCIO_AFFECTIVE"> Socioafetiva </option>
+                  <option value="MOTOR"> Motora </option>
+                  <option value="COGNITIVE "> Cognitiva </option>
+                  <option value="LANGUAGE"> Comunicação e linguagem </option>
+                  <option value="UNDEFINED"> Outros </option>
+                </select>
+                <app-control-field-error [showError]="verifyValidSubmitted(f, typeQuestion)" msgError="Escolha o tipo da questão">
+                </app-control-field-error>                    
+            </div>        
           </div> 
         </div> 
-      </div>
-      <div class="modal-footer"  *ngIf="form.type === 'UNDEFINED'">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveQuestion()">Salvar</button>
-        </div>
-      <div class="modal-footer"  *ngIf="form.type !== 'UNDEFINED'">
+      </div>     
+      <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveQuestion()">Salvar</button>
-      </div>
-      <!-- <div class="modal-footer" *ngIf="show">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="cancel_()">Fechar</button>
-      </div> -->
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveQuestion()" *ngIf="!show">Salvar</button>
+      </div>     
     </div>
       <!-- /.modal-content -->   
   </div> 

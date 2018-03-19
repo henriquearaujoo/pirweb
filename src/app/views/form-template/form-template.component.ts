@@ -1,5 +1,7 @@
+import { PagenateComponent } from './../../components/pagenate/pagenate.component';
+import { PageService } from './../../services/pagenate/page.service';
+import { PageComponent } from './../profile/page/page.component';
 import { FormQuestionB } from './../../models/form-question-b';
-import { FormQuestionA } from './../../models/form-question-a';
 import { ToastService } from './../../services/toast-notification/toast.service';
 import { Router } from '@angular/router';
 import { Permissions, RuleState } from './../../helpers/permissions';
@@ -8,18 +10,19 @@ import { FormService } from './../../services/form/form.service';
 import { Form } from './../../models/form';
 import { Component, OnInit } from '@angular/core';
 import { ModalService } from '../../components/modal/modal.service';
+import { FormQuestion } from '../../models/form-question';
 
 @Component({
   selector: 'app-form-template',
   templateUrl: './form-template.component.html',
   styleUrls: ['./form-template.component.css']
 })
-export class FormTemplateComponent implements OnInit {
+export class FormTemplateComponent extends PagenateComponent implements OnInit {
 
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
   private form: Form = new Form();
-  private questionA: FormQuestionA = new FormQuestionA();
-  private questionB: FormQuestionB = new FormQuestionB();
+  private formQuestion: FormQuestion = new FormQuestion();
+  // private questionB: FormQuestionB = new FormQuestionB();
   private isNewData: boolean;
   private urlId: string;
   private canRead: boolean;
@@ -29,7 +32,11 @@ export class FormTemplateComponent implements OnInit {
   private _range: number[] = Array();
   private indicators: any[] = Array();
   private band1: any[] = Array();
-  private type_question: string;
+  private question: any = { type: ''};
+  private show: boolean;
+  private show_a: boolean;
+  private show_b: boolean;
+  public isNewQuestion: boolean;
 
   constructor(
     private formService: FormService,
@@ -37,8 +44,10 @@ export class FormTemplateComponent implements OnInit {
     private permissions: Permissions,
     private route: Router,
     private toastService: ToastService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private servicePage: PageService
   ) {
+    super(servicePage);
     this.canCreate = false;
     this.canUpdate = false;
     this.canRead = false;
@@ -57,7 +66,7 @@ export class FormTemplateComponent implements OnInit {
     );
     /*check if is a new or update*/
     this.isNewData = true;
-    this.type_question = 'UNDEFINED';
+    this.question.type = 'UNDEFINED';
     this.urlId = localStorage.getItem('formId');
     if (this.urlId !== null && this.urlId !== '') {
       this.isNewData = false;
@@ -73,62 +82,110 @@ export class FormTemplateComponent implements OnInit {
   saveData() {
     this.form.from = Number(this.form.from);
     this.form.to = Number(this.form.to);
-      console.log(this.form);
-      if (this.isNewData || this.form.id === undefined) {
-        this.formService.insertForm(this.form).subscribe(
-          success => {
-            this.form = success;
-            console.log('save:', this.form);
-            this.isNewData  = false;
-            this.sweetAlertService.alertSuccess('form-template-list');
-          },
-          error => {
-            this.toastService.toastError();
-            console.log('save error:', error);
-          }
-        );
-      } else {
-        this.formService.updateForm(this.form).subscribe(
-          success => {
-            this.sweetAlertService.alertSuccessUpdate('form-template-list');
-          },
-          error => {
-            this.toastService.toastError();
-            console.log('update error:', error);
-          }
-        );
-      }
+    // this.form.is_enabled = true;
+    console.log(this.form);
+    if (this.isNewData || this.form.id === undefined) {
+      this.formService.insertForm(this.form).subscribe(
+        success => {
+          this.form = success;
+          console.log('save:', this.form);
+          this.isNewData  = false;
+          this.sweetAlertService.alertSuccess('form-template');
+        },
+        error => {
+          this.verifyError(error);
+        }
+      );
+    } else {
+      this.formService.updateForm(this.form).subscribe(
+        success => {
+          this.sweetAlertService.alertSuccessUpdate('form-template');
+        },
+        error => {
+          this.verifyError(error);
+        }
+      );
+    }
+  }
+
+  verifyError(error) {
+    switch (error) {
+      case 'zone.found':
+      this.toastService.toastMsgError('Erro', 'Indicador já cadastrado');
+      break;
+      case 'invalid.indicator':
+      this.toastService.toastMsgError('Erro', 'Indicador inválido');
+      break;
+      default:
+      this.toastService.toastError();
+      console.log('update error:', error);
+      break;
+    }
   }
 
   saveQuestion() {
-    console.log('A', this.questionA.dimension);
-    console.log('B', this.questionB);
-    this.formService.insertQuestionA(this.questionA).subscribe(
-      success => {
-        this.sweetAlertService.alertSuccess('form-template');
-      },
-      error => console.log(error)
-    );
+    console.log(this.question);
+    if ( this.isNewQuestion || this.question.id === undefined ) {
+      this.question.form_id = this.form.id;
+      this.formService.insertQuestion(this.question).subscribe(
+        success => {
+          this.load();
+          this.toastService.toastSuccess();
+        },
+        error => console.log(error)
+      );
+    } else {
+      this.formService.updateQuestion(this.question).subscribe(
+        success => {
+          this.load();
+          this.toastService.toastSuccess();
+        },
+        error => console.log(error)
+      );
+    }
   }
 
   load() {
     this.formService.load(this.urlId).subscribe(
       success => {
         this.form = success;
-        this.type_question = this.form.type;
+        this.form.questions = this.form.questions.sort(function (a, b) {
+            return a.description.localeCompare(b.description);
+        });
+        this.allItems = this.form.questions;
+        this.pagedItems = this.form.questions;
+        this.setPage(1);
       },
       error => console.log(error)
     );
+  }
+
+  onEdit(item) {
+    console.log(item);
+    this.show = false;
+    this.isNewQuestion = false;
+    this.question = item;
   }
 
   loadQuestions() {
     this.formService.getQuestions();
   }
 
-  createNewQuestion() { }
+  createNewQuestion() {
+    this.show = false;
+    this.isNewQuestion = true;
+    this.question = new FormQuestion();
+  }
 
-  verifyType() {
+  showQuestion(item) {
+    this.show = true;
+    this.question = item;
+  }
 
+  onCancelType() {
+    if ( this.form.type === 'UNDEFINED') {
+      this.question.type = this.form.type;
+    }
   }
 
   onCancel() {

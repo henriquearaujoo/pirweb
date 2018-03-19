@@ -103,10 +103,12 @@ export class FormTemplateListComponent implements OnInit {
     } else {
       this.form.is_enabled = true;
     }
+    console.log(this.form);
 
     this.formService.updateForm(this.form).subscribe(
       success => {
         this.form = success;
+        this.getForms();
         this.toastService.toastSuccess();
       },
       error => {

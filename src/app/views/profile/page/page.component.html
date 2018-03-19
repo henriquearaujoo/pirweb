@@ -29,7 +29,13 @@
                                         <th>SESSÕES 
                                             <span class="glyphicon" ></span>
                                         </th>                                   
-                                        <th colspan="4"> PERMISSÕES</th>
+                                        <th colspan="3"> PERMISSÕES</th>
+                                        <th> 
+                                            <label>Selecionar Todos</label>
+                                            <input type="checkbox" name="all" [(checked)]="ngModel" [(ngModel)]="isAllChecked" 
+                                            [disabled]="currentProfile.id === undefined" (change)="checkAll($event)"/>
+                                            {{ isAllChecked }}
+                                        </th>
                                     </tr>
                                     <tr class="tr-permissions">
                                         <th scope="col" class="page-route"></th>

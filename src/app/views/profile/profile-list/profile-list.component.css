@@ -73,7 +73,11 @@ div.dataTables_filter {
 }
 
 .box-header_ {
-    background-color: #e8e6e6;
+    background-image: url('/assets/img/global/shape.png')!important;
+    background-repeat: no-repeat;
+    color: #FFFFFF;
+    font-family: Roboto-Regular;
+    font-size: 16px;
     height: 64px;
     padding: 16px 25px;
 }
@@ -161,7 +165,7 @@ input#filter {
 }
 
 .content_fa {
-    color: #777777;
+    color: #335164;
 }
 
 /* /// TABS /// */
@@ -300,4 +304,10 @@ tbody {
 
 td.profile-id {
     width: 198px;
+}
+
+/* UI */
+img.icon {
+    margin: 12px;
+    margin-left: 20px;
 }

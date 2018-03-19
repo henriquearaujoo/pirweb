@@ -57,6 +57,7 @@ import { NgForm } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { MatIconModule } from '@angular/material/icon';
 import {MyDatePickerModule} from 'mydatepicker';
+import { Ng2OrderModule } from 'ng2-order-pipe';
 
 import { RestService } from './services/rest/rest.service';
 import { CostumerService } from './services/costumer/costumer.service';
@@ -148,6 +149,7 @@ import { ResponsibleDetailsComponent } from './views/responsible/responsible-det
 import { ChildDetailsComponent } from './views/child/child-details/child-details.component';
 import { FormTemplateComponent } from './views/form-template/form-template.component';
 import { FormTemplateListComponent } from './views/form-template/form-template-list/form-template-list.component';
+import { FormTemplateDetailsComponent } from './views/form-template/form-template-details/form-template-details.component';
 // import { QuillModule } from 'ngx-quill';
 // import { EqualValidator } from './directives/equal-validator.directive';
 
@@ -217,7 +219,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ResponsibleDetailsComponent,
     ChildDetailsComponent,
     FormTemplateComponent,
-    FormTemplateListComponent
+    FormTemplateListComponent,
+    FormTemplateDetailsComponent
 
   ],
   imports: [
@@ -272,7 +275,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ToastyModule.forRoot(),
     HttpClientModule,
     NgxMaskModule,
-    MyDatePickerModule
+    MyDatePickerModule,
+    Ng2OrderModule
     // QuillModule
     // Ng2InputMaskModule
     // PdfViewerModule

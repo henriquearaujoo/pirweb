@@ -1,3 +1,4 @@
+import { FormTemplateDetailsComponent } from './views/form-template/form-template-details/form-template-details.component';
 import { FormTemplateListComponent } from './views/form-template/form-template-list/form-template-list.component';
 import { FormTemplateComponent } from './views/form-template/form-template.component';
 import { ChildDetailsComponent } from './views/child/child-details/child-details.component';
@@ -87,6 +88,11 @@ const App_Router: Routes = [
           {
             path: 'form-template-list',
             component: FormTemplateListComponent
+              // canActivate: [PageGuard]
+          },
+          {
+            path: 'form-template-details',
+            component: FormTemplateDetailsComponent
               // canActivate: [PageGuard]
           },
           {

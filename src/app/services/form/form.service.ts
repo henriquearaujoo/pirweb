@@ -1,11 +1,11 @@
 import { FormQuestionB } from './../../models/form-question-b';
-import { FormQuestionA } from './../../models/form-question-a';
 import { Observable } from 'rxjs/Observable';
 import { Form } from './../../models/form';
 import { RestService } from './../rest/rest.service';
 import { Http } from '@angular/http';
 import { Constant } from './../../constant/constant';
 import { Injectable } from '@angular/core';
+import { FormQuestion } from '../../models/form-question';
 
 @Injectable()
 export class FormService extends RestService {
@@ -31,7 +31,7 @@ export class FormService extends RestService {
       return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page);
     } else {
       return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page
-      + '&age_zone=' + filter );
+      + '&age_zone=' + filter);
     }
   }
 
@@ -42,21 +42,21 @@ export class FormService extends RestService {
 
   /* QUESTIONS */
 
-  public insertQuestionA(question: FormQuestionA): Observable<FormQuestionA> {
-    const currentURL = this.apiurl + 'questions/atype' ;
+  public insertQuestion(question: FormQuestion): Observable<FormQuestion> {
+    const currentURL = this.apiurl + 'questions' ;
     return this.post(currentURL, question);
   }
 
-  public insertQuestionB(question: FormQuestionB): Observable<FormQuestionB> {
-    const currentURL = this.apiurl + 'questions/btype' ;
-    return this.post(currentURL, question);
+  public updateQuestion(question: FormQuestion): Observable<FormQuestion> {
+    const currentURL = this.apiurl + 'questions' ;
+    return this.put(currentURL, question);
   }
 
   public getQuestions(filter?: any, page?: number) {
     if ( filter === undefined ) {
-      return this.get(this.apiurl + 'questions/atype/search/page/?size=' + this.size + '&page=' + page);
+      return this.get(this.apiurl + 'questions/search/page/?size=' + this.size + '&page=' + page);
     } else {
-      return this.get(this.apiurl + 'questions/atype/search/page/?size=' + this.size + '&page=' + page);
+      return this.get(this.apiurl + 'questions/search/page/?size=' + this.size + '&page=' + page);
     }
   }
 }

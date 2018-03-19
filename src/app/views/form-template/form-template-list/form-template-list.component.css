@@ -174,7 +174,7 @@ button#btn_confirm {
     float: right;  
 }
 
-.modal-body[_ngcontent-c5] {
+.modal-body {
     padding-top: 30px;
     margin-top: 20px;
 }
