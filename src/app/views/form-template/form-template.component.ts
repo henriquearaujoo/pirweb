@@ -169,6 +169,7 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
       success => {
         this.form = success;
         this.questions = this.form.questions;
+        console.log(this.questions);
         this.questions = this.questions.sort(function (a, b) {
             return a.description.localeCompare(b.description);
         });

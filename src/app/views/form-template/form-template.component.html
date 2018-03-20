@@ -258,10 +258,13 @@
           </div> 
         </div> 
       </div>     
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveQuestion()" *ngIf="!show">Salvar</button>
-      </div>     
+      <div class="modal-footer" *ngIf="!show">
+        <button type="button" class="btn btn-default" data-dismiss="modal" >Cancelar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveQuestion()">Salvar</button>
+      </div>
+      <div class="modal-footer" *ngIf="show">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" >Fechar</button>          
+      </div>  
     </div>
       <!-- /.modal-content -->   
   </div> 
