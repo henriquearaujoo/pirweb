@@ -64,7 +64,7 @@
                         <div class="box-body">
                             <div class="form-group" [ngClass]="applyCssError(f, resource)">
                                 <label class="control-label">Recursos da Visita</label>
-                                <input type="text" id="chapter_resource" name="chapter_resource" maxlength="100" #resource="ngModel" [(ngModel)]="chapter.resources" value="{{chapter.resources}}" class="form-control" placeholder="Inserir Recursos da Visita..." required>
+                                <input type="text" id="chapter_resource" name="chapter_resource" maxlength="300" #resource="ngModel" [(ngModel)]="chapter.resources" value="{{chapter.resources}}" class="form-control" placeholder="Inserir Recursos da Visita..." required>
                                 <app-control-field-error [showError]="verifyValidSubmitted(f, resource)" msgError="Digite os recursos da visita">
                                 </app-control-field-error>
                             </div>

@@ -78,6 +78,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                 }
             },
             error => {
+                console.log(sha256(this.user.password));
                 this.loaderService.hide();
                 this.verifyError(error);
                 console.log('Error:', error);

@@ -1,10 +1,10 @@
  <aside class="main-sidebar" *ngIf="rules.length !== 0">
     <section class="sidebar">
-      <ul class="sidebar-menu" data-widget="tree" *ngFor="let item of menu">
+      <ul class="sidebar-menu" data-widget="tree">
         
         <li class="treeview" [class.active]="isActive(item.routes)"
-            *ngIf="item.read">
-            <a href="#" *ngIf="item.category === 'parent'">
+            *ngFor="let item of menu">
+            <a href="#" *ngIf="(item.category === 'parent') && item.read">
               <i class="{{ item.iClass }}"></i> <span class="sidebar-item">{{ item.title }}</span>
               <span class="pull-right-container" *ngIf="item.hasChild">
                 <i class="fa fa-angle-left pull-right"></i>

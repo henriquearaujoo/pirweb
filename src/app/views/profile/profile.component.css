@@ -37,10 +37,12 @@
   }
 
   .btn {
-    background-color:#373d40;
-    border-color:   #373d40;
-    max-width: 180px;
-    min-width: 140px;
+    background-image: url('/assets/img/global/btn_add.png')!important;
+    background-repeat: no-repeat;
+    width: 134px;
+    height: 30px;
+    color: #FFFFFF;
+    font-size: 10.75px;
   }
 
   .fa-times{
@@ -52,16 +54,18 @@
   }
   
   .box-body {
-    background-color: #f7f7f7;
-    border: 1px solid #ccc;
+    background-color: #FBFBFB;
+    /* border: 1px solid #ccc; */
   }
 
   .box-header {
-    background-color: #e8e6e6;
+    background-color: #DFE8ED;
     height: 52px;
     padding: 18px;
-    color: gray;
+    color: #335164;
+    font-size: 14px;
     font-weight: bold;
+    /* font-family: Roboto-Bold; */
   }
 
   i.fa.fa-plus, i.fa.fa-pencil {

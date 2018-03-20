@@ -3,9 +3,6 @@ table {
     border: 0;
 }
 
-table, a {
-    color: #666;
-}
 .content-top {
     height: 64px;
     background-color: #e8e6e6;
@@ -48,12 +45,12 @@ tr, th {
     text-align: center;
 }
 
-thead {
+/* thead {
     border-top: 0;
     color: #777;
     font-size: 14px;
     background-color: #e8e6e6;
-}
+} */
 
 .table>tbody>tr>td, 
 .table>tbody>tr>th, 
@@ -72,22 +69,15 @@ div.dataTables_filter {
     background-color: #f7f7f7;
 }
 
-.box-header_ {
-    background-image: url('/assets/img/global/shape.png')!important;
-    background-repeat: no-repeat;
-    color: #FFFFFF;
-    font-family: Roboto-Regular;
-    font-size: 16px;
-    height: 64px;
-    padding: 16px 25px;
-}
 .box-header {
-    background-color: #e8e6e6;
+    background-color: #66ACD7;
     height: 32px;
     padding-bottom: 10px;
     padding-top: 5px;
     text-align: center;
-    color: gray;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-family: Roboto-Thin;
 }
 .box {
     border-top: 0;
@@ -158,6 +148,8 @@ a {
 
 div#_filter {
     text-align: right;
+    color: #335164;
+    font-size: 14px;
 }
 
 input#filter {
@@ -288,9 +280,11 @@ tr {
 td  {
     border-bottom: 1px solid #d2d6de;
 }
-tbody {
-    background-color: white;
-}
+/* tbody {
+    background-color: #FFFFFF;
+    color: #4E6D80;
+    font-size: 12px;
+} */
 
 .limit-text {
     white-space: nowrap;

@@ -57,7 +57,7 @@ import { NgForm } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { MatIconModule } from '@angular/material/icon';
 import {MyDatePickerModule} from 'mydatepicker';
-import { Ng2OrderModule } from 'ng2-order-pipe';
+// import { Ng2OrderModule } from 'ng2-order-pipe';
 
 import { RestService } from './services/rest/rest.service';
 import { CostumerService } from './services/costumer/costumer.service';
@@ -276,7 +276,7 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     HttpClientModule,
     NgxMaskModule,
     MyDatePickerModule,
-    Ng2OrderModule
+    // Ng2OrderModule
     // QuillModule
     // Ng2InputMaskModule
     // PdfViewerModule

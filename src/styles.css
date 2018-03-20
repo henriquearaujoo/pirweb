@@ -54,3 +54,45 @@ button.swal-button.swal-button--ok.swal-btn-ok {
 .tooltip.right {
     border-right-color: #00acd6;
   }
+
+  /* UI */
+  @media (min-width: 768px) {
+    .sidebar-mini.sidebar-collapse img.copyright,
+    .sidebar-mini.sidebar-collapse span.lb-logout {
+        display: none;
+      }
+  }
+  
+  .box-header_ {
+    background-image: url('/assets/img/global/shape.png')!important;
+    background-repeat: no-repeat;
+    color: #FFFFFF;
+    font-family: Roboto-Regular;
+    font-size: 16px;
+    height: 64px;
+    padding: 16px 25px;
+}
+
+img.ic_add {
+    position: relative;
+    padding-right: 12px;
+    padding-bottom: 1px;
+}
+
+/* TABLE */
+table, a {
+    color: #335164;
+}
+
+thead{
+    background-color: #DFE8ED;
+    border-top: 0;
+    color: #335164;
+    font-size: 14px;
+}
+
+tbody {
+    background-color: #FFFFFF;
+    color: #4E6D80;
+    font-size: 12px;
+}
