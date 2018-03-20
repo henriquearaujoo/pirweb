@@ -289,7 +289,7 @@ a {
     max-width: 40px;
 }
 
-.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control, span.form-control {
-    background-color: #eeeeeed1;
+span.form-control {
+    background-color: #eeeeee00;
     border: 0;
 }

@@ -37,7 +37,10 @@
               </th>
               <th class="tbl-left">INDICADORES
                 <span class="glyphicon" ></span>
-              </th>             
+              </th>     
+              <th class="tbl-center">VERSÃO
+                <span class="glyphicon" ></span>
+              </th>          
               <th colspan="3" class="tbl-center"> AÇÃO</th>
             </tr>
           </thead>
@@ -54,6 +57,9 @@
               </td>
               <td class="tbl-left">  
                   DE {{ item.from }} A {{ item.to }} {{ item.in_years ? 'ANOS' : 'MESES' }}
+              </td>
+              <td class="tbl-center">  
+                  {{ item.version }}
               </td>
               <td class="tbl-right">              
                 <a (click)="toView(item)" id="btn_details" title="Ver detalhes">

@@ -48,25 +48,33 @@
    
                       </div>
                       <div class="row">
-                          <div class="col-sm-12">
-                              <div class="form-group">
-                                <!-- <label class="control-label">Indicadores</label> -->
-                                <div class="form-inline">
-                                  <label class="control-label" [ngClass]="applyCssError(f, from)"> Indicadores de                     
-                                    <input class="form-control" type="number"  name="from" id="from" #from="ngModel" min="0" maxlength="10" [(ngModel)]="form.from" required>                                   
-                                  </label>
-                                  <label class="control-label" [ngClass]="applyCssError(f, to)"> até                 
-                                    <input class="form-control" type="number" name="to" id="to" #to="ngModel" min="0" maxlength="10" [(ngModel)]="form.to" required>                        
-                                    <label class="control-label"> {{ form.in_years ? 'Anos' : 'Meses' }} </label>  
-                                  </label>                    
-                                                
-                                </div>   
-                                <app-control-field-error [ngClass]="applyCssError(f, from)" [showError]="verifyValidSubmitted(f, from)" msgError="Digite o valor inicial do indicador">
-                                  </app-control-field-error>
-                                <app-control-field-error [ngClass]="applyCssError(f, to)" [showError]="verifyValidSubmitted(f, to)" msgError="Digite o valor final do indicador">
-                                  </app-control-field-error>                     
-                              </div>
-                            </div>                       
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                              <!-- <label class="control-label">Indicadores</label> -->
+                              <div class="form-inline">
+                                <label class="control-label" [ngClass]="applyCssError(f, from)"> Indicadores de                     
+                                  <input class="form-control" type="number"  name="from" id="from" #from="ngModel" min="0" maxlength="10" [(ngModel)]="form.from" required>                                   
+                                </label>
+                                <label class="control-label" [ngClass]="applyCssError(f, to)"> até                 
+                                  <input class="form-control" type="number" name="to" id="to" #to="ngModel" min="0" maxlength="10" [(ngModel)]="form.to" required>                        
+                                  <label class="control-label"> {{ form.in_years ? 'Anos' : 'Meses' }} </label>  
+                                </label>                    
+                                              
+                              </div>   
+                              <app-control-field-error [ngClass]="applyCssError(f, from)" [showError]="verifyValidSubmitted(f, from)" msgError="Digite o valor inicial do indicador">
+                                </app-control-field-error>
+                              <app-control-field-error [ngClass]="applyCssError(f, to)" [showError]="verifyValidSubmitted(f, to)" msgError="Digite o valor final do indicador">
+                                </app-control-field-error>                     
+                            </div>
+                          </div> 
+                          <div class="col-sm-6">
+                            <div class="form-group">
+                              <div class="form-inline">
+                                <label class="control-label"> Versão </label>
+                                <span class="form-control"> {{ form.version }}</span> 
+                              </div>                                                                            
+                            </div>
+                          </div>                       
                       </div>
                       <div class="row">
                         <div class="col-sm-12">
