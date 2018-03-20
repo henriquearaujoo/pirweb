@@ -43,6 +43,8 @@ button.swal-button.swal-button--ok.swal-btn-ok {
 }
 
 .content-top {
+    height: 64px;
+    background-color: #F0F1F3;
     margin-top: 50px;
 }
 
@@ -62,9 +64,20 @@ button.swal-button.swal-button--ok.swal-btn-ok {
         display: none;
       }
   }
+
+  .box-header {
+    background-color: #DFE8ED;
+    height: 52px;
+    padding: 18px;
+    color: #335164;
+    font-size: 14px;
+    font-weight: bold;
+    /* font-family: Roboto-Bold; */
+  }
   
   .box-header_ {
-    background-image: url('/assets/img/global/shape.png')!important;
+    /* background-image: url('/assets/img/global/shape.png')!important; */
+    background-color: #0075BD;
     background-repeat: no-repeat;
     color: #FFFFFF;
     font-family: Roboto-Regular;
@@ -95,4 +108,18 @@ tbody {
     background-color: #FFFFFF;
     color: #4E6D80;
     font-size: 12px;
+}
+
+/* .table > tbody > tr, .table > thead > tr {
+    padding-left: 50px;
+    padding-right: 50px;
+} */
+
+img.icon {
+    margin: 12px;
+    margin-left: 20px;
+}
+
+.content_fa {
+    color: #335164;
 }

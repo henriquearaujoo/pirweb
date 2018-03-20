@@ -8,8 +8,7 @@
                         </div>  
                         <div class="box-body profile">
                             <select class="form-control" (change)="setProfile()" name="profile" id="profile"
-                                [(ngModel)]="currentProfile.id">
-                                <option disabled> Perfil</option>
+                                [(ngModel)]="currentProfile.id">                                
                                 <option *ngFor="let profile of profiles" [value]="profile.id">{{profile.title}} </option>
                             </select>     
                         </div>

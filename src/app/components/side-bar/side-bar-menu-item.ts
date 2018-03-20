@@ -131,7 +131,7 @@ export const MENU = [
         'read': true,
         'iClass': 'fa fa-list-alt',
         'category': 'parent',
-        'hasChild': false,
+        'hasChild': true,
         'parent': 0
     },
     {

@@ -77,8 +77,9 @@
                           </div>                       
                       </div>
                       <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-12">                                         
                           <div class="form-group save">
+                            <button class="btn btn-default" (click)="onCancel()" id="btn_return"> Cancelar</button>
                             <button class="btn btn-primary" name="submit" id="btn_save" *ngIf="canCreate || canUpdate">Salvar</button>
                           </div>
                         </div>
@@ -208,11 +209,11 @@
           </div>
           
             <div class="row footer">
-                <div class="col-md-2">
+                <!-- <div class="col-md-2">
                     <div>
                         <button class="btn btn-default btn-block" (click)="onCancel()" id="btn_return"> Cancelar</button>
                     </div>
-                </div>                
+                </div>                 -->
             </div>
         <!-- </form>        -->
       </div>     
@@ -228,48 +229,56 @@
       <div class="modal-header question">
       </div>     
       <div class="modal-body">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="form-group">
-              <label class="control-label">Questão</label> <br/>
-              <!-- <textarea disabled *ngIf="show"> {{ question.description }}</textarea> -->
-              <textarea class="form-control" rows="3" name="description" id="description" 
-                #description="ngModel" [(ngModel)]="question.description" maxlength="200" 
-                [disabled]="show">
-              </textarea>
-            </div>           
-          </div>  
-        </div>
-        <div class="row">
-          <div class="col-sm-12">
-            <div *ngIf="show">
-              <label class="label-control"> Tipo da Questão</label> <br/>
-              <span class="form-control" *ngIf="question.type === 'SOCIO_AFFECTIVE'"> Socioafetiva </span>
-              <span class="form-control" *ngIf="question.type === 'MOTOR'"> Motora </span>
-              <span class="form-control" *ngIf="question.type === 'COGNITIVE'"> Cognitiva </span>
-              <span class="form-control" *ngIf="question.type === 'LANGUAGE'"> Comunicação e linguagem </span>
-              <span class="form-control" *ngIf="question.type === 'UNDEFINED'"> Outros </span>
+        <form name="fQuestion" (ngSubmit)="fQuestion.form.valid && saveQuestion()" #fQuestion="ngForm" novalidate>
+          <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group"  [ngClass]="applyCssError(fQuestion, description)">
+                  <label class="control-label">Questão</label> <br/>
+                  <!-- <textarea disabled *ngIf="show"> {{ question.description }}</textarea> -->
+                  <textarea class="form-control" rows="3" name="description" id="description" 
+                    #description="ngModel" [(ngModel)]="question.description" maxlength="200" 
+                    [disabled]="show" required>
+                  </textarea>
+                  <app-control-field-error [showError]="verifyValidSubmitted(fQuestion, description)" msgError="Digite uma descrição">
+                  </app-control-field-error> 
+                </div>           
+              </div>  
             </div>
-            <div class="form-group" [ngClass]="applyCssError(f, typeQuestion)" *ngIf="!show">
-              <label class="label-control"> Tipo da Questão</label>               
-                <select class="form-control" name="type_question" id="type_question" 
-                  #typeQuestion="ngModel" [(ngModel)]="question.type">
-                  <option value="SOCIO_AFFECTIVE"> Socioafetiva </option>
-                  <option value="MOTOR"> Motora </option>
-                  <option value="COGNITIVE "> Cognitiva </option>
-                  <option value="LANGUAGE"> Comunicação e linguagem </option>
-                  <option value="UNDEFINED"> Outros </option>
-                </select>
-                <app-control-field-error [showError]="verifyValidSubmitted(f, typeQuestion)" msgError="Escolha o tipo da questão">
-                </app-control-field-error>                    
-            </div>        
-          </div> 
-        </div> 
+            <div class="row">
+                <div class="col-sm-12">
+                  <div *ngIf="show">
+                    <label class="label-control"> Tipo da Questão</label> <br/>
+                    <span class="form-control" *ngIf="question.type === 'SOCIO_AFFECTIVE'"> Socioafetiva </span>
+                    <span class="form-control" *ngIf="question.type === 'MOTOR'"> Motora </span>
+                    <span class="form-control" *ngIf="question.type === 'COGNITIVE'"> Cognitiva </span>
+                    <span class="form-control" *ngIf="question.type === 'LANGUAGE'"> Comunicação e linguagem </span>
+                    <span class="form-control" *ngIf="question.type === 'UNDEFINED'"> Outros </span>
+                  </div>
+                  <div class="form-group" [ngClass]="applyCssError(fQuestion, typeQuestion)" *ngIf="!show">
+                    <label class="label-control"> Tipo da Questão</label>               
+                      <select class="form-control" name="type_question" id="type_question" 
+                        #typeQuestion="ngModel" [(ngModel)]="question.type" required>
+                        <option value="SOCIO_AFFECTIVE"> Socioafetiva </option>
+                        <option value="MOTOR"> Motora </option>
+                        <option value="COGNITIVE "> Cognitiva </option>
+                        <option value="LANGUAGE"> Comunicação e linguagem </option>
+                        <option value="UNDEFINED"> Outros </option>
+                      </select>
+                      <app-control-field-error [showError]="verifyValidSubmitted(fQuestion, typeQuestion)" 
+                        msgError="Selecione o tipo da questão" *ngIf="!show">
+                      </app-control-field-error>                    
+                  </div>        
+                </div> 
+              </div> 
+              <div class="modal-footer" *ngIf="!show">
+                <button type="button" class="btn btn-default" data-dismiss="modal" (click)=onCancelQuestion() *ngIf="isNewQuestion">Cancelar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" (click)=onCancelQuestion() *ngIf="!isNewQuestion">Fechar</button>
+                <button type="submit" class="btn btn-primary">Salvar</button>
+              </div>
+        </form>
+       
+ 
       </div>     
-      <div class="modal-footer" *ngIf="!show">
-        <button type="button" class="btn btn-default" data-dismiss="modal" >Cancelar</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveQuestion()">Salvar</button>
-      </div>
       <div class="modal-footer" *ngIf="show">
           <button type="button" class="btn btn-primary" data-dismiss="modal" >Fechar</button>          
       </div>  

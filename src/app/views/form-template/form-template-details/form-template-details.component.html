@@ -112,14 +112,13 @@
                   <!-- col -->
               </div>
               <!-- /.row -->
-          </div>
-          
+          </div>          
           <div class="row footer">
-              <div class="col-md-2">
-                  <div>
-                      <button class="btn btn-default btn-block" (click)="onCancel()" id="btn_return"> Cancelar</button>
-                  </div>
-              </div>                
+            <div class="col-md-2">
+                <div>
+                    <button class="btn btn-default btn-block" [routerLink]="['/form-template-list']" id="btn_return"> Voltar</button>
+                </div>
+            </div>                
           </div>
       </div>     
     </section>

@@ -38,6 +38,7 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
   private show_b: boolean;
   public isNewQuestion: boolean;
   private index: number;
+  private btn_cancel: boolean;
 
   constructor(
     private formService: FormService,
@@ -85,6 +86,9 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
     this.form.from = Number(this.form.from);
     this.form.to = Number(this.form.to);
     // this.form.is_enabled = true;
+    if ( this.btn_cancel) {
+      return;
+    }
     console.log(this.form);
     if (this.isNewData || this.form.id === undefined) {
       if (this.canCreate) {
@@ -141,6 +145,8 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
         this.question.form_id = this.form.id;
       this.formService.insertQuestion(this.question).subscribe(
         success => {
+          this.isNewQuestion = false;
+          this.question = success;
           this.load();
           this.toastService.toastSuccess();
         },
@@ -232,13 +238,12 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
     );
   }
 
-  onCancelType() {
-    if ( this.form.type === 'UNDEFINED') {
-      this.question.type = this.form.type;
-    }
+  onCancelQuestion() {
+   this.load();
   }
 
   onCancel() {
+    this.btn_cancel = true;
     this.modalService.modalCancel('/form-template-list');
     // this.sweetAlertService.alertToCancel('/form-template-list');
   }

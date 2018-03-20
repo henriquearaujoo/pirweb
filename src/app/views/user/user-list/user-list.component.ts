@@ -22,6 +22,7 @@ import { Org } from '../../../models/org';
 })
 export class UserListComponent implements OnInit {
 
+  private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
   private users: User[] = new Array();
   private person: Person = new Person();
   private org: Org = new Org();
@@ -32,7 +33,6 @@ export class UserListComponent implements OnInit {
   private paginate: Paginate = new Paginate();
   @Output() page: number;
   filter: any = {name: ''};
-  private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
   private canRead: boolean;
   private canUpdate: boolean;
   private canCreate: boolean;
