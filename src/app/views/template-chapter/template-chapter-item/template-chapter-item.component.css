@@ -82,6 +82,7 @@ i.fa.fa-circle {
 .version {
     background-color: #f4f4f4;
     margin-top: 1px;
+    margin-bottom: 30px;
     /* height: 250px; */
 }
 li.version-header {
@@ -150,10 +151,18 @@ span.version-add {
 }
 
 .card.sticky-action .card-reveal {
+    padding-bottom: 88px;
+}
+
+.card.sticky-action .card-reveal {
     padding: 10px;
     top: 97%;
     width: 90%;
     left: 5%;
+}
+
+.card-reveal {
+    overflow: scroll;
 }
 
 .limit-text {
