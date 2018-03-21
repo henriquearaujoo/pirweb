@@ -140,6 +140,21 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
 
   saveQuestion() {
     console.log(this.question);
+    if ((this.question.description === null || this.question.description === undefined) &&
+       (this.question.type === null || this.question.type === undefined)) {
+      this.toastService.toastMsgError('Erro', 'Descrição da questão e Tipo da questão são campos obrigatórios!');
+      this.load();
+      return false;
+    }
+    if (this.question.description === null || this.question.description === undefined) {
+      this.toastService.toastMsgError('Erro', 'Descrição da questão é um campo obrigatório!');
+      this.load();
+      return false;
+    } else if (this.question.type === null || this.question.type === undefined) {
+      this.toastService.toastMsgError('Erro', 'Tipo da questão é um campo obrigatório!');
+      this.load();
+      return false;
+    }
     if ( this.isNewQuestion || this.question.id === undefined ) {
       if (this.canCreate) {
         this.question.form_id = this.form.id;
