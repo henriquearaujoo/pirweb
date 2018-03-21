@@ -17,6 +17,7 @@ import { ProfileService } from '../../../services/profile/profile.service';
 
 import * as _ from 'underscore';
 import { AlertsService, AlertType } from '@jaspero/ng2-alerts';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-page',
@@ -34,17 +35,13 @@ export class PageComponent extends PagenateComponent implements OnInit {
   permissionsFromProfile: Rule[] = new Array();
   public page_allowed = new Array();
 
-  // private selected: any[] = new Array();
-  // private allowed_selected: any[] = new Array();
-  // private matPermissions: boolean[][];
-  // private confirm_rules: boolean;
-  // private paginate: Paginate = new Paginate();
   private profiles: Profile[] = new Array();
   private rule: Rule = new Rule();
 
   private checked: any[] = new Array();
   private hasPermissions: boolean;
   @Input() insertValue: boolean;
+  private isAllChecked: boolean;
 
   constructor(
     pagerService: PageService,
@@ -95,6 +92,17 @@ export class PageComponent extends PagenateComponent implements OnInit {
     this.accessPageService.getPermissionsFromProfile(this.accessPageService.getProfile().id).subscribe(
       s => {
         this.permissionsFromProfile = s;
+        this.isAllChecked = true;
+        for (let i = 0; i < this.permissionsFromProfile.length; i++) {
+          if ( (this.permissionsFromProfile[i].create === false) ||
+             (this.permissionsFromProfile[i].delete === false) ||
+             (this.permissionsFromProfile[i].read === false) ||
+             (this.permissionsFromProfile[i].update === false)
+            ) {
+              this.isAllChecked = false;
+              break;
+          }
+        }
         if (s.length > 0 ) {
           this.hasPermissions = true;
         }else {
@@ -110,30 +118,6 @@ export class PageComponent extends PagenateComponent implements OnInit {
       }
     );
   }
-
-  // loadPageFromProfile() {
-  //   this.profileService.getPages(this.accessPageService.getProfile().id).subscribe(
-  //     s => {
-  //       this.pagesFromProfile = s;
-  //       this.accessPageService.getAllPages().subscribe(
-  //         s2 => {
-  //           this.pageFromServer = s2;
-  //           for ( let i = 0 ; i < this.pagesFromProfile.length; i++) {
-  //             for (let j = 0 ; j < this.pageFromServer.length; j++) {
-  //               if ( this.pagesFromProfile[i].route === this.pageFromServer[j].route) {
-  //                 this.pageFromServer.splice(j, 1);
-  //               }
-  //             }
-  //           }
-  //         },
-  //         e2 => {
-  //           console.log(e2);
-  //         }
-  //       );
-  //     },
-  //     e => console.log(e)
-  //   );
-  // }
 
   setProfile() {
     this.accessPageService.profileSelected(this.currentProfile);
@@ -226,7 +210,8 @@ export class PageComponent extends PagenateComponent implements OnInit {
             }
           // }
         }
-
+        console.log('rule', this.rule);
+        console.log('all_pages_profile', this.all_pages_profile[0]);
         if (this.all_pages_profile.length > 0) {
           this.ruleService.editRule(this.all_pages_profile[0]).subscribe(
             s => {
@@ -247,6 +232,97 @@ export class PageComponent extends PagenateComponent implements OnInit {
       },
       error => console.log(error)
     );
+  }
 
+  updateAllPermission(event) {
+    this.rule = new Rule();
+    this.accessPageService.getPagesFromProfile(this.currentProfile.id).subscribe(
+      success => {
+        this.all_pages_profile = success;
+        // * CHECKED * /
+        if (event.target.checked) {
+          for (let i = 0; i < this.all_pages_profile.length; i++) {
+            this.all_pages_profile[i].create = true;
+            this.all_pages_profile[i].delete = true;
+            this.all_pages_profile[i].read = true;
+            this.all_pages_profile[i].update = true;
+          }
+        } else {
+          for (let i = 0; i < this.all_pages_profile.length; i++) {
+            this.all_pages_profile[i].create = false;
+            this.all_pages_profile[i].delete = false;
+            this.all_pages_profile[i].read = false;
+            this.all_pages_profile[i].update = false;
+          }
+        }
+
+        for (let i = 0; i < this.all_pages_profile.length; i++) {
+          this.ruleService.editRule(this.all_pages_profile[i]).subscribe(
+            s => {
+              this.loadAllPermissions();
+            },
+            error => {
+              console.log(error);
+              this.toastService.toastError();
+            }
+          );
+        }
+
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  checkAll(event) {
+    if (event.target.checked) {
+      swal({
+        title: 'Atenção',
+        text: 'Atribuir todas as permissões ao perfil?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.value) {
+          this.updateAllPermission(event);
+          swal(
+            'Sucesso!',
+            'Todas as permissões foram atribuídas.',
+            'success'
+          );
+        } else {
+          console.log('isAllChecked:', this.isAllChecked);
+          this.isAllChecked = false;
+        }
+      });
+    } else {
+      console.log('isAllChecked 1', this.isAllChecked);
+      swal({
+        title: 'Atenção',
+        text: 'Remover todas as permissões do perfil?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.value) {
+          this.updateAllPermission(event);
+          swal(
+            'Sucesso!',
+            'Todas as permissões foram removidas.',
+            'success'
+          );
+        } else {
+          console.log('isAllChecked 2:', this.isAllChecked);
+          this.isAllChecked = true;
+        }
+      });
+    }
   }
 }

@@ -1,3 +1,8 @@
+.content_ {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
 .title{
     display: inline-block;
      /* font-size: 16px;  */
@@ -71,23 +76,25 @@
 
   .box.box-primary {
     border-top: 0;
+    margin-left: 0;
+    margin-top: 0;
 }
   .box-body {
-    background-color: #f7f7f7;
-    border: 1px solid #ccc;
+    background-color: #fff;
+    /* border: 1px solid #ccc; */
   }
 
   .box-body.profile {
     padding: 30px;
-}
+ }
 
-  .box-header {
+  /* .box-header {
     background-color: #e8e6e6;
     height: 52px;
     padding: 18px;
     color: gray;
     font-weight: bold;
-  }
+  } */
   
 option.list-group-item {
     border: 0;
@@ -107,7 +114,7 @@ option.list-group-item {
 
 select#profile {
     width: 200px;
-    background-color: gray;
+    background-color: #0075bd;
     color: white;
 }
 
@@ -137,12 +144,12 @@ tr, th {
     text-align: center;
 }
 
-thead {
+/* thead {
     border-top: 0;
     color: #777;
     font-size: 14px;
     background-color: #e8e6e6;
-}
+} */
 
 .table > tbody + tbody {
     border-top: 0;
@@ -161,7 +168,8 @@ div.dataTables_filter {
 }
 
 tr.tr-permissions {
-    font-size: 12px;
+    font-size: 11px;
+    color: #335164;
 }
 
 tr.tr-main {
@@ -177,3 +185,15 @@ th.page-route {
     border-bottom: 1px solid #f4f4f4;
 }
 /* END TABLE */
+
+input[type="radio"], input[type="checkbox"] {
+    cursor: pointer;
+}
+
+input[type="radio"][disabled], input[type="checkbox"][disabled], input[type="radio"].disabled, input[type="checkbox"].disabled, fieldset[disabled] input[type="radio"], fieldset[disabled] input[type="checkbox"] {
+    cursor: not-allowed;
+}
+
+.pointer {
+    cursor: pointer;
+}

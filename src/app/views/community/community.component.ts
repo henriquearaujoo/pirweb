@@ -157,10 +157,10 @@ export class CommunityComponent implements OnInit {
   }
 
   saveData(isValid: boolean) {
-    console.log('isValid', isValid);
     this.updateOptions();
 
     if (isValid && this._isSave) {
+      this.community.city_id = this.community.city.id;
       if (this.isNewData || this.community.id === undefined) {
         this.communityService.insert(this.community).subscribe(
           success => {
@@ -310,11 +310,15 @@ export class CommunityComponent implements OnInit {
   }
 
   getCities() {
-    this.communityService.getCities().subscribe(
-      s => {
-        this.cities = s;
-      },
-      error => console.log(error)
+    this.communityService.getState().subscribe(
+      state => {
+        this.communityService.getCities(state[0].id).subscribe(
+          states => {
+            this.cities = states.cities;
+          },
+          error => console.log(error)
+        );
+      }
     );
   }
 

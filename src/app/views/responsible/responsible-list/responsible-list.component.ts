@@ -53,30 +53,20 @@ export class ResponsibleListComponent implements OnInit, OnDestroy {
         this.canUpdate = rules.canUpdate;
         this.canRead = rules.canRead;
         this.canDelete = rules.canDelete;
-        // this.loaderService.hide();
       }
     );
     this.hasdata = false;
-    this.getResponsible();
+    this.getResponsibles();
     localStorage.removeItem('responsibleId');
   }
 
-  getResponsible() {
-    console.log(this.filter.name);
+  getResponsibles() {
     if ( this.filter.name !== '') { this.page = 0; }
     this.loaderService.show();
-    this.subscription = this.responsibleService.getResponsible(this.filter.name, this.page).subscribe(
+    this.subscription = this.responsibleService.getResponsibles(this.filter.name, this.page).subscribe(
       success => {
         this.paginate = success;
         this.responsibleList = this.paginate.content;
-        this.responsibleList.forEach( el => {
-          this.communityService.load(el.community_id).subscribe(
-            s => {
-              el.community_id = s.name;
-            },
-            error => console.log(error)
-          );
-        });
         this.hasdata = true;
         setTimeout(() => {
           this.loaderService.hide();
@@ -103,26 +93,9 @@ export class ResponsibleListComponent implements OnInit, OnDestroy {
     this.responsible = responsible;
   }
 
-  // disableEnableResponsible() {
-  //   if (this.responsible.status === true) {
-  //     this.responsible.status = false;
-  //   } else {
-  //     this.responsible.status = true;
-  //   }
-  //   console.log(this.responsible.status);
-
-  //   this.responsibleService.update(this.responsible).subscribe(
-  //     success => {
-  //       this.toastService.toastSuccess();
-  //       this.getResponsible();
-  //     },
-  //     error => console.log(error)
-  //   );
-  // }
-
   setPage(page: number) {
     this.page = page;
-    this.getResponsible();
+    this.getResponsibles();
   }
 
   ngOnDestroy() {

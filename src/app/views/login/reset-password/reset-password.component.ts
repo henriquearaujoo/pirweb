@@ -36,23 +36,13 @@ export class ResetPasswordComponent implements OnInit {
      ) { }
 
   ngOnInit() {
-    //   this.password = '';
-    //   this.confirmPassword = '';
-
     this.reset = this.route.snapshot.queryParams['reset'];
-    console.log('reset:', this.reset);
   }
 
   save(model: User, isValid: boolean) {
-      // call API to save customer
-      console.log(model, isValid);
       this.authenticationService.reset(this.reset, this.user.password).subscribe(
         success => {
-          console.log(success);
-          // this.toastService.toastMsg('Sucesso', 'Senha alterada com sucesso!');
           this.modalService.modalPassword('/login');
-          // this.authenticationService._reset();
-          //  this.router.navigate(['/login']);
         },
         error => {
           console.log(error);

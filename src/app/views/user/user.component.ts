@@ -1,3 +1,4 @@
+import { LoaderService } from './../../services/loader/loader.service';
 import { SweetAlertService } from './../../services/sweetalert/sweet-alert.service';
 import { Community } from './../../models/community';
 import { ToastService } from './../../services/toast-notification/toast.service';
@@ -33,7 +34,7 @@ export class UserComponent implements OnInit {
   private cities = new Array();
   private profiles: Profile[] = new Array();
   private profile: string;
-  private org: Org;
+  private entity: Org;
   private person: Person;
   private first_name: string;
   private last_name: string;
@@ -57,6 +58,7 @@ export class UserComponent implements OnInit {
   private enable_previous: boolean;
   private cont: number;
   private modalSave: string;
+  private isNewData: boolean;
 
   private modalOpened: boolean;
   private openSaveButtonTab1: HTMLButtonElement;
@@ -72,6 +74,9 @@ export class UserComponent implements OnInit {
   private isFormValid: boolean;
   private tab: string;
   private _isSave: boolean;
+  private urlId: string;
+  private city_id: number;
+  private currentId: string;
 
   constructor(
     private userService: UserService,
@@ -81,9 +86,10 @@ export class UserComponent implements OnInit {
     private toastService: ToastService,
     private modalService: ModalService,
     private permissions: Permissions,
-    private sweetAlertService: SweetAlertService) {
+    private sweetAlertService: SweetAlertService,
+    private loaderService: LoaderService) {
       this.user = new User();
-      this.org = new Org();
+      this.entity = new Org();
       this.person = new Person();
       this.canCreate = false;
       this.canUpdate = false;
@@ -102,6 +108,13 @@ export class UserComponent implements OnInit {
         // this.loaderService.hide();
       }
     );
+    /*check if is a new or update*/
+    this.isNewData = true;
+    this.urlId = localStorage.getItem('userId');
+    if (this.urlId !== undefined && this.urlId !== '' && this.urlId !== null) {
+      this.isNewData = false;
+      this.loadUser();
+    }
     this.loadStates();
     this.loadProfiles();
     this.show_pjur = false;
@@ -138,62 +151,97 @@ export class UserComponent implements OnInit {
   }
 
   saveData(isValid: boolean) {
-    console.log('isValid', isValid);
-
     if (isValid && this._isSave) {
       this.modalOpened = false;
       this.verifyType();
-      // console.log(this.user.profile);
-      // this.user.name = this.first_name + ' ' + this.last_name;
-      // this.user.address.city = Number(this.user.address.city);
-      this.success = true;
-      if (this.type === 'PJUR') {
-        console.log('SAVE ORG', this.org);
-        this.userService.createEntity(this.org).subscribe(
-          s_org => {
-            this.openModalSuccess();
-            // this.router.navigate(['/user-list']);
-          },
-          error => {
-            this.toastService.toastError();
-            this.error_list = error;
-            this.verifyError();
-          }
-        );
-      } else {
-        if (this.type === 'PFIS') {
-          console.log('SAVE PERSON', this.person);
-          this.userService.createPerson(this.person).subscribe(
-            s_person => {
-              this.openModalSuccess();
-              // this.router.navigate(['/user-list']);
+      console.log(this.user);
+      this.user.profile_id = this.user.profile.id;
+      this.user.address.city_id = this.user.address.city.id;
+      if (this.isNewData || this.user.id === undefined) {
+        if (this.canCreate) {
+          this.userService.createUser(this.user).subscribe(
+            success => {
+              this.sweetAlertService.alertSuccess('user-list');
             },
             error => {
-              this.error_list = error;
               this.toastService.toastError();
+              this.error_list = error;
               this.verifyError();
             }
           );
+        } else {
+          this.sweetAlertService.alertPermission('user-list');
+        }
+      } else {
+        if (this.canUpdate) {
+          this.userService.saveEditUser(this.user).subscribe(
+            success2 => {
+              this.currentId = localStorage.getItem('currentIdPir');
+              if (this.currentId === this.user.id) {
+                localStorage.removeItem('tokenPir');
+                localStorage.removeItem('profileId_rules');
+                localStorage.removeItem('currentUserPir');
+                localStorage.removeItem('currentIdPir');
+                swal( {
+                  title: '',
+                  text: 'Informações atualizadas com Sucesso!',
+                  icon: 'success',
+                  buttons: {
+                    confirm: {
+                      text: 'Fechar',
+                      className: 'swal-btn-close'
+                    }
+                  },
+                  closeOnClickOutside: false,
+                  className: 'swal-add-success'
+                })
+                .then((confirm) => {
+                  if (confirm) {
+                    swal({
+                      title: 'Sessão expirada!',
+                      text: 'Você precisa efetuar o login novamente!',
+                      icon: 'warning',
+                      buttons: {
+                        ok: {
+                          text: 'Ok',
+                          className: 'swal-btn-ok'
+                        }
+                      },
+                      closeOnClickOutside: false,
+                      className: 'swal-btn-ok'
+                    })
+                    .then((c) => {
+                      if (c) {
+                        location.reload();
+                      }
+                    });
+                  }
+                });
+              } else {
+                this.sweetAlertService.alertSuccessUpdate('user-list');
+              }
+            },
+            error => {
+              this.error_list = error;
+              this.verifyError();
+            }
+          );
+        } else {
+          this.sweetAlertService.alertPermission('/user-list');
         }
       }
     }
   }
 
-  openModalSuccess() {
-    this.sweetAlertService.alertSuccess('user-list');
-  }
-
   openModal() {
     this.modalService.modalCancel('/user-list');
-    // this.openModalCancel.click();
-    // return false;
+    // this.sweetAlertService.alertToCancel('user-list');
   }
 
   public loadProfiles() {
     this.profileService.getProfiles().subscribe(
       success => {
           this.profiles = success;
-          console.log(this.profiles);
           this.hasdata = true;
       },
       error => console.log(error)
@@ -207,7 +255,6 @@ export class UserComponent implements OnInit {
           this.hasdata = false;
         }
         this.states = success;
-        console.log(this.states);
         this.hasdata = true;
       },
       error => console.log(error)
@@ -220,7 +267,7 @@ export class UserComponent implements OnInit {
         if (success == null) {
           this.hasdata = false;
         }
-        this.cities = success;
+        this.cities = success.cities;
         this.hasdata = true;
       },
       error => console.log(error)
@@ -232,37 +279,12 @@ export class UserComponent implements OnInit {
       case 'PFIS':
       {
         this.show_pjur = false;
-        this.person = new Person();
         break;
       }
 
       case 'PJUR':
       {
         this.show_pjur = true;
-        this.org = new Org();
-        break;
-      }
-    }
-  }
-
-  selectProfile() {
-    this.profiles.forEach( elem => {
-      if (this.user !== undefined) {
-        if (elem.id === this.user.profile) {
-          this.profile = elem.title;
-        }
-      }
-    });
-    console.log('Select Profile:', this.profile);
-    switch (this.profile.toUpperCase()) {
-      case 'AGENTE':
-      {
-        this.show_community = true;
-        break;
-      }
-      default:
-      {
-        this.show_community = false;
         break;
       }
     }
@@ -270,42 +292,30 @@ export class UserComponent implements OnInit {
 
   verifyType() {
     this.user.name = this.first_name + ' ' + this.last_name;
-    this.user.address.city = Number(this.user.address.city);
-
+    if ( (this.user.password !== undefined) &&
+        (this.user.password !== '') &&
+        (this.user.password !== null) ) {
+      this.user.password = sha256(this.user.password);
+    } else {
+        this.user.password = undefined;
+    }
+    this.user.address.postalcode = this.user.address.postalcode.replace('-', '');
     switch (this.user.type) {
       case 'PFIS':
       {
-        // this.user.pfis = this.person;
         this.person.cpf = this.person.cpf.split('.').join('');
         this.person.cpf = this.person.cpf.split('-').join('');
-        this.user.address.postalcode = this.user.address.postalcode.replace('-', '');
-        this.person.address = this.user.address;
-        this.person.email = this.user.email;
-        this.person.login = this.user.login;
-        this.person.name = this.user.name;
-        this.person.password = sha256(this.user.password);
-        this.person.profile = this.user.profile;
-        this.person.status = this.user.status;
-        this.person.type = this.user.type;
+        this.user.person = this.person;
+        delete this.user.entity;
         this.type = 'PFIS';
-        // this.org = null;
         break;
       }
 
       case 'PJUR':
       {
-        this.user.address.postalcode = this.user.address.postalcode.replace('-', '');
-        this.org.address = this.user.address;
-        this.org.email = this.user.email;
-        this.org.login = this.user.login;
-        this.org.name = this.user.name;
-        this.org.password = sha256(this.user.password);
-        this.org.profile = this.user.profile;
-        this.org.status = this.user.status;
-        this.org.type = this.user.type;
+        this.user.entity = this.entity;
+        delete this.user.person;
         this.type = 'PJUR';
-        // this.user.pjur = this.org;
-        // this.person = null;
         break;
       }
     }
@@ -315,27 +325,27 @@ export class UserComponent implements OnInit {
     if (this.error_list.length < 7) {
       this.error_list.forEach( er => {
         switch (er) {
-          case 'user.type.pfis.cpf.valid': {
+          case 'user.cpf.valid': {
             console.log(er);
             this.toastService.toastErrorValid('CPF');
             break;
           }
-          case 'user.type.pfis.cpf.invalid': {
+          case 'user.cpf.invalid': {
             console.log(er);
             this.toastService.toastErrorValid('CPF');
             break;
           }
-          case 'user.type.pjur.cnpj.valid': {
+          case 'user.cnpj.valid': {
             console.log(er);
             this.toastService.toastErrorValid('CNPJ');
             break;
           }
-          case 'user.type.pjur.cnpj.invalid': {
+          case 'user.cnpj.invalid': {
             console.log(er);
             this.toastService.toastErrorValid('CNPJ');
             break;
           }
-          case 'user.type.pfis.rg.short': {
+          case 'user.rg.short': {
             console.log(er);
             this.toastService.toastErrorValid('RG');
             break;
@@ -355,12 +365,12 @@ export class UserComponent implements OnInit {
           this.toastService.toastErrorExists('LOGIN');
           break;
         }
-        case 'user.type.pfis.cpf.exists': {
+        case 'user.cpf.exists': {
           console.log(er);
           this.toastService.toastErrorExists('CPF');
           break;
         }
-        case 'user.type.pjur.cnpj.exists': {
+        case 'user.cnpj.exists': {
           console.log(er);
           this.toastService.toastErrorExists('CNPJ');
           break;
@@ -370,12 +380,12 @@ export class UserComponent implements OnInit {
           this.toastService.toastErrorExists('EMAIL');
           break;
         }
-        case 'user.type.pfis.cpf.invalid': {
+        case 'user.cpf.invalid': {
           console.log(er);
           this.toastService.toastErrorValid('CPF');
           break;
         }
-        case 'user.type.pjur.cnpj.invalid': {
+        case 'user.cnpj.invalid': {
           console.log(er);
           this.toastService.toastErrorValid('CNPJ');
           break;
@@ -393,31 +403,64 @@ export class UserComponent implements OnInit {
     this.isFormValid = isValid;
     this.tab = tab;
     this._isSave = false;
-    console.log('tab:', tab);
-    console.log('isValid:', isValid);
-    console.log('isSave:', this._isSave);
   }
 
   isSave() {
     this._isSave = true;
   }
 
+  loadUser() {
+    this.loaderService.show();
+    this.userService.load(this.urlId).subscribe(
+      success => {
+        this.user = success[0];
+        if (this.user !== undefined) {
+          // this.person = this.user.person;
+          // this.org = this.user.entity;
+          this.first_name = this.user.name.split(' ')[0];
+          this.last_name = this.user.name.substring(this.first_name.length + 1);
+          console.log(this.user);
+          if (this.user.person !== undefined ) {
+            this.user.type = 'PFIS';
+            this.person = new Person();
+            this.person = this.user.person;
+            this.show_pjur = false;
+          } else {
+            this.user.type = 'PJUR';
+            this.entity = new Org();
+            this.entity = this.user.entity;
+            this.show_pjur = true;
+          }
+          // this.city_id = this.user.address.city;
+          // this.selectType();
+          // this.loadStates();
+          this.loadCities(this.user.address.city.state.id);
+          this.loadProfiles();
+          this.loaderService.hide();
+        } else {
+            this.user = new User();
+            this.entity = new Org();
+            this.person = new Person();
+        }
+      },
+      error => {
+        console.log(error);
+        this.loaderService.hide();
+      }
+    );
+
+  }
+
    isActive(tab: boolean, t?: number,  p?: number) {
-    //  this.tab = t ;
-    console.log('currentTab', this.currentTab);
     if ( p !== 0 ) {
       if (t === 1) {
         this.openSaveButtonTab1.click();
-        console.log('openSaveButtonTab1');
       } else {
         if ( t === 2) {
           this.openSaveButtonTab2.click();
-          console.log('openSaveButtonTab2');
         } else {
           if (t === 3) {
             this.isFormValid = true;
-            // this.openSaveButtonTab3.click();
-            // console.log('openSaveButtonTab3');
           }
         }
       }
@@ -434,13 +477,11 @@ export class UserComponent implements OnInit {
         } else if (this.currentTab < 2) {
               this.currentTab++;
               this.cont++;
-              console.log('TAB:', this.cont);
           }
       }else {
         if (this.currentTab > 0) {
               this.currentTab--;
               this.cont--;
-              console.log('TAB:', this.cont);
             }
       }
         this.previousTab = '#tab_' + (this.currentTab + 1);
@@ -474,11 +515,9 @@ export class UserComponent implements OnInit {
       } else {
         if (t === 1) {
           this.nextTab = '#tab_1';
-          console.log('nextTab:', this.nextTab);
         } else {
           if (t === 2) {
             this.nextTab = '#tab_2';
-            console.log('nextTab:', this.nextTab);
           }
         }
       }

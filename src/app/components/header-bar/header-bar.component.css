@@ -1,5 +1,25 @@
+.main-header .logo {
+    height: 70px;
+    position: fixed;
+}
+.skin-blue .main-header .navbar {
+    background-color: #0075BD;
+}
+
+.logo-pir {
+    width: 87px;
+    height: 60px;
+    top: 5px;
+    position: absolute;
+    left: 68px;
+}
+
+a.sidebar-toggle.padding {
+    padding-left: 5px;
+}
+
 .padding {
-    padding: 0px;
+    /* padding: 0px; */
     color: #ffffff;
 }
 

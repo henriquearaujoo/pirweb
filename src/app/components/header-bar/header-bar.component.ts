@@ -16,10 +16,4 @@ export class HeaderBarComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  logout() {
-    this.authenticationService.logout();
-    // location.reload();
-    // this._compiler.clearCache();
-  }
 }

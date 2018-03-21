@@ -1,3 +1,4 @@
+import { State } from './../../models/states';
 import { RestService } from './../rest/rest.service';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
@@ -8,7 +9,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class CommunityService extends RestService {
 
-  private apiurl = Constant.BASE_URL + 'community/';
+  private apiurl = Constant.BASE_URL + 'communities/';
   private size: number;
 
   constructor(http: Http) {
@@ -41,11 +42,15 @@ export class CommunityService extends RestService {
     return this.get(this.apiurl + id);
   }
 
-  public getCities() {
-    return this.get(Constant.BASE_URL + 'states/state/3/cities');
+  public getCities(state_id: string) {
+    return this.get(Constant.BASE_URL + 'states/' + state_id);
   }
 
-  public getCity(city_id?: number) {
+  public getState() {
+    return this.get(Constant.BASE_URL + 'states/search/?name=amazonas');
+  }
+
+  public getCity(city_id?: string) {
     return this.get(Constant.BASE_URL + 'states/city/' + city_id + '/');
  }
 

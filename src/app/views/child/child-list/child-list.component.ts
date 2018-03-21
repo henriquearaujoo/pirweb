@@ -68,13 +68,6 @@ export class ChildListComponent implements OnInit, OnDestroy {
       success => {
         this.paginate = success;
         this.children = this.paginate.content;
-        this.children.forEach( el => {
-          this.responsibleService.load(el.responsible_id).subscribe(
-            s1 => {
-              el.responsible_id = s1.name;
-            }
-          );
-        });
         this.hasdata = true;
         setTimeout(() => {
           this.loaderService.hide();
@@ -100,23 +93,6 @@ export class ChildListComponent implements OnInit, OnDestroy {
   changeStatus(child: Child) {
     this.child = child;
   }
-
-  // disableEnableChild() {
-  //   if (this.child.status === true) {
-  //     this.child.status = false;
-  //   } else {
-  //     this.child.status = true;
-  //   }
-  //   console.log(this.child.status);
-
-  //   this.childService.update(this.child).subscribe(
-  //     success => {
-  //       this.toastService.toastSuccess();
-  //       this.getChildren();
-  //     },
-  //     error => console.log(error)
-  //   );
-  // }
 
   setPage(page: number) {
     this.page = page;

@@ -3,10 +3,10 @@ table {
     border: 0;
 }
 
-.content-top {
+/* .content-top {
     height: 64px;
     background-color: #e8e6e6;
-}
+} */
 
 i.fa.fa-user {
     margin-top: 18px;
@@ -35,12 +35,12 @@ th {
     height: 42px;
 }
 
-thead {
+/* thead {
     border-top: 0;
     color: #777;
     font-size: 11px;
     background-color: #e8e6e6;
-}
+} */
 
 .table>tbody>tr>td, 
 .table>tbody>tr>th, 
@@ -54,13 +54,13 @@ div.dataTables_filter {
     margin-left: 10px;
 }
 
-.box-header {
+/* .box-header {
     padding-top: 20px;
     background-color: #e8e6e6;
     height: 64px;
     padding: 25px
-    /* padding-bottom: 92px!important; */
-}
+} */
+
 .box {
     border-top: 0;
     margin-left: 10px;
@@ -92,6 +92,7 @@ div.box-footer {
 }
 
 .modal-content {
+    width: 421px;
     height: 200px;
 }
 
@@ -99,6 +100,11 @@ div.box-footer {
     text-align: right;
     padding-right: 20px;
     padding-bottom: 40px;
+}
+
+button#btn_new {
+    background-image: url('/assets/img/global/btn_new.png')!important;
+    background-repeat: no-repeat;
 }
 
 .btn-primary {
@@ -111,9 +117,9 @@ i.fa {
     font-size: 20px;
 }
 
-a {
+/* a {
     color: #373d40;
-}
+} */
 
 .pagination>.active>a {
     background-color: #373d40;
@@ -149,18 +155,16 @@ input#filter {
     border-radius: 0.5em;
 }
 
-.content_fa {
-    color: #777777;
-}
-
 button#btn_cancel {
-    width: 150px;
+    width: 210.5px;
     height: 45px;
     border-radius: 0;
 }
 
 button#btn_confirm {
-    width: 150px;
+    background-image: url('/assets/img/global/btn_confirm.png')!important;
+    background-repeat: no-repeat;
+    width: 210.5px;
     height: 45px;
     border-radius: 0;
 }
@@ -171,17 +175,18 @@ button#btn_confirm {
 .modal-body[_ngcontent-c5] {
     padding-top: 30px;
     margin-top: 20px;
+    text-align: center;
 }
 .modal-icon {
     text-align: center;
 }
 
-tr {
+/* tr {
     border-bottom: 1px solid #ccc;
 }
 td  {
     border-bottom: 1px solid #d2d6de;
-}
+} */
 tbody {
     background-color: white;
 }

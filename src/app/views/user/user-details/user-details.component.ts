@@ -56,9 +56,7 @@ export class UserDetailsComponent implements OnInit {
       }
     );
     this.show_pjur = false;
-    // this.user = this.userService.getUser();
     this.urlId = localStorage.getItem('userId');
-    console.log('userId', this.urlId);
     if (this.urlId !== undefined || this.urlId !== '') {
       this.loadUser();
     }
@@ -66,18 +64,12 @@ export class UserDetailsComponent implements OnInit {
 
   verifyType() {
     if (this.user !== undefined) {
-      switch (this.user.type) {
-        case 'PFIS':
-        {
-          this.show_pjur = false;
-          break;
-        }
-
-        case 'PJUR':
-        {
-          this.show_pjur = true;
-          break;
-        }
+      if (this.user.person !== undefined ) {
+        this.user.type = 'PFIS';
+        this.show_pjur = false;
+      } else {
+        this.user.type = 'PJUR';
+        this.show_pjur = true;
       }
     }
   }
@@ -87,23 +79,26 @@ export class UserDetailsComponent implements OnInit {
     this.userService.load(this.urlId).subscribe(
       success => {
         this.user = success[0];
-        this.profileService.load(this.user.profile).subscribe(
-          s => {
-            this.profile = s[0];
-            this.user.profile = this.profile.title;
-            if (this.user.address !== undefined) {
-              this.city_id = this.user.address.city;
-            } else {
-              this.user.address = new Address();
-            }
-            console.log(this.city_id);
-            this.verifyType();
-            this.loadCityState();
-            setTimeout(() => {
-              this.loaderService.hide();
-            }, 400);
-          }
-        );
+        this.verifyType();
+        setTimeout(() => {
+          this.loaderService.hide();
+        }, 400);
+        // this.profileService.load(this.user.profile).subscribe(
+        //   s => {
+        //     this.profile = s[0];
+        //     this.user.profile = this.profile.title;
+        //     if (this.user.address !== undefined) {
+        //       this.city_id = this.user.address.city;
+        //     } else {
+        //       this.user.address = new Address();
+        //     }
+        //     this.verifyType();
+        //     this.loadCityState();
+        //     setTimeout(() => {
+        //       this.loaderService.hide();
+        //     }, 400);
+        //   }
+        // );
       },
       error => {
         this.loaderService.hide();
@@ -112,60 +107,48 @@ export class UserDetailsComponent implements OnInit {
     );
   }
 
-  loadCityState() {
-    if (this.user.address.city !== undefined) {
-      this.userService.getCity(this.user.address.city).subscribe(
-        success_city => {
-          this.user.address.city = success_city.name;
-          this.userService.getStates(success_city.state_id).subscribe(
-            success_state => {
-              this.user.address.state = success_state.name;
-            },
-            error => console.log(error)
-          );
-        },
-        error => console.log(error)
-      );
-    }
-  }
+  // loadCityState() {
+  //   if (this.user.address.city !== undefined) {
+  //     this.userService.getCity(this.user.address.city).subscribe(
+  //       success_city => {
+  //         this.user.address.city = success_city.name;
+  //         this.userService.getStates(success_city.state_id).subscribe(
+  //           success_state => {
+  //             this.user.address.state = success_state.name;
+  //           },
+  //           error => console.log(error)
+  //         );
+  //       },
+  //       error => console.log(error)
+  //     );
+  //   }
+  // }
 
   editUser() {
-    this.user.address.city = this.city_id;
+    localStorage.setItem('userId', this.user.id);
+    this.router.navigate(['/user']);
   }
 
-  changeStatus(user: User) {
-    console.log(this.user);
-    this.user.address.city = this.city_id;
-    console.log(this.user.address.city);
+  // changeStatus(user: User) {
+  //   this.user
+  // }
 
-  }
-
-  disableAbleUser() {
+  disableEnableUser() {
     if (this.user.status === true) {
       this.user.status = false;
     } else {
       this.user.status = true;
     }
-    console.log(this.user.status);
 
-    this.profileService.getProfiles().subscribe(
-      success_profiles => {
-        this.profiles = success_profiles;
-        this.profiles.forEach( profile => {
-          if (this.user.profile === profile.title) {
-            this.user.profile = profile.id;
-          }
-        });
+    this.user.profile_id = this.user.profile.id;
+    this.user.address.city_id = this.user.address.city.id;
 
-        this.userService.disableUser(this.user).subscribe(
-          success => {
-            this.toastService.toastSuccess();
-            this.router.navigate(['/user-list']);
-          },
-          error => console.log(error)
-        );
-      }
+    this.userService.saveEditUser(this.user).subscribe(
+      success => {
+        this.toastService.toastSuccess();
+        // this.router.navigate(['/user-details']);
+      },
+      error => console.log(error)
     );
-    console.log(this.user);
   }
 }

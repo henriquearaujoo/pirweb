@@ -79,19 +79,17 @@
                                 </div>
                               </div> 
                             </div> -->
-                            <div class="row">
-                              
+                            <div class="row">                              
                               <div class="col-sm-12">
-                                <div class="form-group" [ngClass]="applyCssError(f1, pregnantCommunity)">
+                                <div class="form-group" [ngClass]="applyCssError(f1, responsibleCommunity)">
                                   <label class="control-label">Comunidade</label>
-                                  <select class="form-control" #pregnantCommunity="ngModel" name="pregnantCommunity" [(ngModel)]="responsible.community_id" id="pregnant_community" required>
+                                  <select class="form-control" #responsibleCommunity="ngModel" name="responsibleCommunity" [(ngModel)]="responsible.community.id" id="responsible_community" required>
                                     <option [ngValue]="item.id" *ngFor="let item of communities"> {{ item.name }}</option>
                                   </select>                                
-                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, pregnantCommunity)" msgError="Selecione uma comunidade">
+                                  <app-control-field-error [showError]="verifyValidSubmitted(f1, responsibleCommunity)" msgError="Selecione uma comunidade">
                                   </app-control-field-error>
                                 </div>
-                              </div>                            
-                                
+                              </div>
                             </div>                            
                             <div class="row">
                               <div class="col-sm-12">

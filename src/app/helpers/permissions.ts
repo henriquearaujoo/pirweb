@@ -37,29 +37,28 @@ export class Permissions implements OnDestroy {
         const profile = localStorage.getItem('profileId_rules');
 
         if (profile !== undefined || profile !== null) {
+            this.loaderService.show();
             this.authenticationService.getPermissions(profile).subscribe(
                 success_rules => {
-                    this.loaderService.show();
                     this.rules = success_rules;
+                    this.loaderService.hide();
                     // PAGES
-                    this.accessPageService.getAllPages().subscribe(
-                        success => {
-                            this.pages = success;
-                            for ( let i = 0; i < this.pages.length; i++) {
-                                for ( let j = 0; j < this.rules.length; j++) {
-                                    if (this.pages[i].id === this.rules[j].page_id) {
-                                        this.rules[j].page_id = this.pages[i].route;
-                                        break;
-                                    }
-                                }
-                            }
+                    // this.accessPageService.getAllPages().subscribe(
+                    //     success => {
+                            // this.pages = success;
+                            // for ( let i = 0; i < this.pages.length; i++) {
+                            //     for ( let j = 0; j < this.rules.length; j++) {
+                            //         if (this.pages[i].id === this.rules[j].page_id) {
+                            //             this.rules[j].page_id = this.pages[i].route;
+                            //             break;
+                            //         }
+                            //     }
+                            // }
                             if (this.rules.length !== 0) {
-                                this.loaderService.hide();
                                 this.rulesSubject.next(<RuleState>{permissions: this.rules});
                                 for ( let i = 0; i < this.rules.length; i++) {
-                                    if ( ('/' + this.rules[i].page_id ) === this.returnUrl) {
+                                    if ( ('/' + this.rules[i].page.route ) === this.returnUrl) {
                                         if ( this.rules[i].read) {
-                                            console.log('Pode ativar rota!');
                                             this.permissionsSubject.next(<RuleState>{
                                                 canRead: this.rules[i].read,
                                                 canCreate: this.rules[i].create,
@@ -74,23 +73,23 @@ export class Permissions implements OnDestroy {
                                                 canUpdate: this.rules[i].update,
                                                 canDelete: this.rules[i].delete
                                             });
-                                            this.loaderService.hide();
-                                            console.log('Não pode ativar rota!');
-                                            // this.router.navigate(['/home']);
+                                            // this.loaderService.hide();
                                         }
                                     }
                                 }
                             }
 
 
-                        },
-                        error => console.log(error)
-                    );
+                    //     },
+                    //     error => console.log(error)
+                    // );
 
+                },
+                error => {
+                    this.loaderService.hide();
                 }
             );
         }
-        // return this.canRead;
       }
 
       setPermission(permission: boolean) {
@@ -103,22 +102,23 @@ export class Permissions implements OnDestroy {
             this.authenticationService.getPermissions(profile).subscribe(
                 success_rules => {
                     this.rules = success_rules;
+                    this.rulesSubject.next(<RuleState>{permissions: this.rules});
                     // PAGES
-                    this.accessPageService.getAllPages().subscribe(
-                        success => {
-                            this.pages = success;
-                            for ( let i = 0; i < this.pages.length; i++) {
-                                for ( let j = 0; j < this.rules.length; j++) {
-                                    if (this.pages[i].id === this.rules[j].page_id) {
-                                        this.rules[j].page_id = this.pages[i].route;
-                                        break;
-                                    }
-                                }
-                            }
-                            this.rulesSubject.next(<RuleState>{permissions: this.rules});
-                        },
-                        error => console.log(error)
-                    );
+                    // this.accessPageService.getAllPages().subscribe(
+                    //     success => {
+                    //         this.pages = success;
+                    //         for ( let i = 0; i < this.pages.length; i++) {
+                    //             for ( let j = 0; j < this.rules.length; j++) {
+                    //                 if (this.pages[i].id === this.rules[j].page_id) {
+                    //                     this.rules[j].page_id = this.pages[i].route;
+                    //                     break;
+                    //                 }
+                    //             }
+                    //         }
+                    //         this.rulesSubject.next(<RuleState>{permissions: this.rules});
+                    //     },
+                    //     error => console.log(error)
+                    // );
 
                 }
             );
@@ -135,5 +135,4 @@ export class Permissions implements OnDestroy {
     canUpdate: boolean;
     canCreate: boolean;
     canDelete: boolean;
-  // tslint:disable-next-line:eofline
   }

@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ChildService extends RestService {
 
-  private apiurl = Constant.BASE_URL + 'child/';
+  private apiurl = Constant.BASE_URL + 'children/';
   private size: number;
 
   constructor(http: Http) {
@@ -24,9 +24,9 @@ export class ChildService extends RestService {
     }
   }
 
-  public getMothers() {
-   return this.get(Constant.BASE_URL + 'responsible/search/');
-  }
+  // public getMothers() {
+  //  return this.get(Constant.BASE_URL + 'responsibles/search/');
+  // }
 
   public insert(child: Child): Observable<Child> {
     return this.post(this.apiurl, child);

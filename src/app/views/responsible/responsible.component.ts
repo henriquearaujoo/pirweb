@@ -144,7 +144,7 @@ export class ResponsibleComponent implements OnInit {
 
     if (isValid && this._isSave) {
       this.verifyDate();
-
+      this.responsible.community_id = this.responsible.community.id;
       this.responsible.habitation_members_count = Number(this.responsible.habitation_members_count);
 
       if ( this.responsible.family_income === 'Outra') {
@@ -194,7 +194,6 @@ export class ResponsibleComponent implements OnInit {
 
   onInputFieldChanged(event: IMyInputFieldChanged) {
     this.isValidDate = event.valid;
-    console.log(this.isValidDate);
   }
 
   load() {

@@ -1,5 +1,9 @@
+import { State } from './states';
 export class City {
-    constructor(public id: string,
-        public state_id: string,
-        public name: string) { }
+    public state: State =  new State();
+    public id: string;
+    public state_id: string;
+    public name: string;
+
+    constructor() { }
 }

@@ -136,7 +136,7 @@
                               <div class="col-sm-6">
                                 <div class="form-group" [ngClass]="applyCssError(f1, nameMother)">
                                   <label class="control-label">Nome da Mãe</label>                                  
-                                  <select #nameMother="ngModel" name="name_mother" [(ngModel)]="child.mother_id" id="name_mother" class="form-control">
+                                  <select #nameMother="ngModel" name="name_mother" [(ngModel)]="child.mother.id" id="name_mother" class="form-control">
                                     <option [value]="item.id" *ngFor="let item of mothers">
                                       {{ item.name }}
                                     </option>
@@ -156,7 +156,7 @@
                               <div class="col-sm-12">
                                 <div class="form-group" [ngClass]="applyCssError(f1, nameResponsible)">
                                   <label class="control-label">Nome do Responsável</label>                                  
-                                  <select #nameResponsible="ngModel" name="nameResponsible" [(ngModel)]="child.responsible_id" id="nameResponsible" class="form-control" required>
+                                  <select #nameResponsible="ngModel" name="nameResponsible" [(ngModel)]="child.responsible.id" id="nameResponsible" class="form-control" required>
                                     <option [value]="item.id" *ngFor="let item of responsible">
                                       {{ item.name }}
                                     </option>

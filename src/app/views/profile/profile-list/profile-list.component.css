@@ -1,17 +1,19 @@
+section.content_ {
+    background-color: #FBFBFB;
+}
+
 table {
     /* border: 1px solid #ddd; */
     border: 0;
 }
 
-table, a {
-    color: #666;
-}
-.content-top {
+/* .content-top {
     height: 64px;
     background-color: #e8e6e6;
-}
+    margin-top: 50px;
+} */
 
-.col-sm-12 {
+.col-sm-12.list {
     padding-right: 60px;
     padding-left: 40px;
 }
@@ -47,12 +49,12 @@ tr, th {
     text-align: center;
 }
 
-thead {
+/* thead {
     border-top: 0;
     color: #777;
     font-size: 14px;
     background-color: #e8e6e6;
-}
+} */
 
 .table>tbody>tr>td, 
 .table>tbody>tr>th, 
@@ -68,27 +70,24 @@ div.dataTables_filter {
 }
 
 .box-body {
-    background-color: #f7f7f7;
+    background-color: #fbfbfb;
 }
 
-.box-header_ {
-    background-color: #e8e6e6;
-    height: 64px;
-    padding: 16px 25px;
-}
 .box-header {
-    background-color: #e8e6e6;
+    background-color: #66ACD7;
     height: 32px;
     padding-bottom: 10px;
     padding-top: 5px;
     text-align: center;
-    color: gray;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-family: Roboto-Thin;
 }
 .box {
     border-top: 0;
-    margin-left: 10px;
-    background-color: #f7f7f7;
-    margin-top: 5px;
+    /* margin-left: 10px; */
+    background-color: #fbfbfb;
+    /* margin-top: 5px; */
     box-shadow: none;
 }
 
@@ -153,14 +152,13 @@ a {
 
 div#_filter {
     text-align: right;
+    color: #335164;
+    font-size: 14px;
+    padding-right: 10px;
 }
 
 input#filter {
     border-radius: 0.5em;
-}
-
-.content_fa {
-    color: #777777;
 }
 
 /* /// TABS /// */
@@ -198,7 +196,7 @@ input#filter {
 }
 
 .tab-pane {
-    background-color: #f7f7f7;
+    background-color: #fff;
     border-bottom: 0;
     margin-top: 20px;
 }
@@ -277,15 +275,17 @@ button#btn_confirm {
 
 /* END MODAL*/
 
-tr {
+/* tr {
     border-bottom: 1px solid #ccc;
-}
-td  {
+} */
+/* td  {
     border-bottom: 1px solid #d2d6de;
-}
-tbody {
-    background-color: white;
-}
+} */
+/* tbody {
+    background-color: #FFFFFF;
+    color: #4E6D80;
+    font-size: 12px;
+} */
 
 .limit-text {
     white-space: nowrap;
@@ -297,6 +297,14 @@ tbody {
     padding: 0px;
 }
 
-td.profile-id {
+td.profile-id, th.profile-id {
     width: 198px;
+    text-align: left;
+    padding-left: 40px;
 }
+
+/* UI */
+/* img.icon {
+    margin: 12px;
+    margin-left: 20px;
+} */

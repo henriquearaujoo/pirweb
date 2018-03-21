@@ -72,14 +72,6 @@ export class MotherListComponent implements OnInit, OnDestroy {
       success => {
         this.paginate = success;
         this.responsibleList = this.paginate.content;
-        this.responsibleList.forEach( el => {
-          this.communityService.load(el.community_id).subscribe(
-            s => {
-              el.community_id = s.name;
-            },
-            error => console.log(error)
-          );
-        });
         this.hasdata = true;
         setTimeout(() => {
           this.loaderService.hide();

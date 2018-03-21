@@ -82,7 +82,7 @@
                               <div class="col-sm-12">
                                 <div class="form-group" [ngClass]="applyCssError(f1, motherCommunity)">
                                   <label class="control-label">Comunidade</label>
-                                  <select class="form-control" #motherCommunity="ngModel" name="motherCommunity" [(ngModel)]="responsible.community_id" id="mother_community" required>
+                                  <select class="form-control" #motherCommunity="ngModel" name="motherCommunity" [(ngModel)]="responsible.community.id" id="mother_community" required>
                                     <option [ngValue]="item.id" *ngFor="let item of communities"> {{ item.name }}</option>
                                   </select>                               
                                   <app-control-field-error [showError]="verifyValidSubmitted(f1, motherCommunity)" msgError="Selecione uma comunidade">

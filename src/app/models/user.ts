@@ -1,3 +1,4 @@
+import { Profile } from './profile';
 import { Address } from './address';
 import { Person } from './person';
 import { Org } from './org';
@@ -7,9 +8,10 @@ export class User {
     public id: string;
     public name: string;
     public email: string;
-    public pfis: any;
-    public pjur: any;
-    public profile: string;
+    public person: Person = new Person();
+    public entity: Org = new Org();
+    public profile_id: string;
+    public profile: Profile = new Profile();
     public password: string;
     public type: string;
     public status: boolean;

@@ -8,10 +8,12 @@
     <p class="login-box-msg">Recuperação de senha</p>
 
     <form name="form" (ngSubmit)="f.form.valid && sendEmail()" #f="ngForm" novalidate>
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && email.invalid || (email.invalid && (email.dirty || email.touched)) }">
         <label>Email de recuperação</label>
-        <input type ="email" [(ngModel)]="user.email" name="email" #email="ngModel" class="form-control" placeholder="Digite seu e-mail" required>
-        <div *ngIf="f.submitted && !email.valid" class="help-block"> Digite um e-mail válido</div>
+        <input type ="text" email [(ngModel)]="user.email" name="email" #email="ngModel" class="form-control" placeholder="Digite seu e-mail" required>
+        <div *ngIf="f.submitted && email.invalid || (email.invalid && (email.dirty || email.touched))" class="help-block"> 
+          Digite um e-mail válido
+        </div>
       </div>
       <div class="row">
         <div class="col-xs-12">

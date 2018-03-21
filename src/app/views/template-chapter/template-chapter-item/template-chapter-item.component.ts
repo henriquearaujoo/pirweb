@@ -57,15 +57,7 @@ export class TemplateChapterItemComponent implements OnInit {
     this.getVersions();
    }
 
-   public disableTemplate() {
-    console.log(this.chapter.id);
-   }
-   public removeTemplate() {
-      console.log(this.chapter.id);
-   }
-
    getVersions() {
-    // this.loaderService.show();
     this.chapterService.getVersionFromChapter(this.chapter.number).subscribe(
       s => {
         this.paginate = s;
@@ -73,13 +65,11 @@ export class TemplateChapterItemComponent implements OnInit {
         for ( let i = 0 ; i < this.chapter.versions.length ; i ++) {
           if ( this.chapter.versions[i].status) {
             this.currentVersion = this.chapter.versions[i];
-            // this.loaderService.hide();
             break;
           }
           this.currentVersion = this.chapter.versions[i];
         }
         this.lastVersion = this.chapter.versions.length;
-        // console.log(this.chapter.versions);
       }
     );
    }
@@ -87,7 +77,6 @@ export class TemplateChapterItemComponent implements OnInit {
    editChapter(chapter: Chapter) {
     localStorage.removeItem('chapterId');
     localStorage.setItem('chapterId', chapter.id );
-    console.log('chapterId', localStorage.getItem('chapterId'));
     this.router.navigate(['chapter-dashboard']);
   }
 
@@ -103,18 +92,13 @@ export class TemplateChapterItemComponent implements OnInit {
 
    disableEnableVersion(chapter: Chapter) {
     chapter.thumbnails = [];
-    console.log('Chapter: ', chapter);
     if ( !chapter.status) {
       if (chapter.percentage === 100) {
-          // this.currentVersion.status = true;
           chapter.status = true;
-          console.log('status', chapter.status);
           this.chapterService.update(chapter).subscribe(
           success => {
             this.getVersions();
-            console.log('status1', chapter.status);
             this.changeStatus.emit(true);
-            console.log('success');
             this.toastService.toastSuccess();
           },
           error => {

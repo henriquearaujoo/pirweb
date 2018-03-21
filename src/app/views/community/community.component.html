@@ -73,7 +73,7 @@
                               <div class="col-sm-6">
                                 <div class="form-group profile" [ngClass]="applyCssError(f1, country)">
                                   <label class="control-label">Município</label>
-                                  <select class="form-control" #country="ngModel" name="community_country" id="community_country" [(ngModel)]="community.city_id" required>
+                                  <select class="form-control" #country="ngModel" name="community_country" id="community_country" [(ngModel)]="community.city.id" required>
                                     <option [ngValue]="item.id" *ngFor="let item of cities"> {{ item.name }} </option>
                                   </select>                                  
                                   <app-control-field-error [showError]="verifyValidSubmitted(f1, country)" msgError="Selecione um município">

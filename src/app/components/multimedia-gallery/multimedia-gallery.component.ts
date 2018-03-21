@@ -6,7 +6,7 @@ import { Constant } from '../../constant/constant';
 import { PageService } from '../../services/pagenate/page.service';
 import { PagenateComponent } from '../pagenate/pagenate.component';
 import 'rxjs/Rx' ;
-import { saveAs } from 'file-saver/FileSaver';
+import { saveAs } from 'filesaver.js-npm/FileSaver';
 
 declare function require(name: string): any;
 

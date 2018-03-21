@@ -50,7 +50,6 @@ export class InformationComponent implements OnInit {
 
   onCancel() {
     this.cancelEvent.emit();
-    console.log('cancel', this.btn_cancel);
     this.btn_cancel = true;
   }
 
@@ -87,6 +86,7 @@ export class InformationComponent implements OnInit {
   }
 
   public saveData() {
+    console.log(this.chapter);
     this.chapter.thumbnails = [];
     if (this.btn_cancel) {
       this.btn_cancel = false;
@@ -102,13 +102,15 @@ export class InformationComponent implements OnInit {
     if ( this.isNewData && this.chapter !== undefined ) {
       this.chapterService.insert(this.chapter).subscribe(
         s => {
+          console.log('chapters', this.chapter);
           this.chapter = s;
           this.returnEvent.emit(s);
           this.isNewData  = false;
           this.chapter.version = this.lastVersion;
         },
         e => {
-          this.returnEvent.emit(false);
+          // this.toastService.toastError();
+          this.returnEvent.emit(null);
           console.log('error: ' + e);
         }
       );

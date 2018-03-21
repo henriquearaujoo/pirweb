@@ -9,6 +9,8 @@
             <div class="row">
               <div class="col-md-8">           
                 <select class="dropdown" name="media_Type"  #mediaType="ngModel" [disabled]="isNewData"
+                  data-toggle="tooltip" data-placement="right" 
+                  [title]="isNewData ? 'Salve primeiro as informações do capítulo' : 'Escolha o tipo de mídia'"
                   [(ngModel)]="_fileData.mediaType" (change)="clear()" required>       
                   <option *ngFor="let item of type_file"
                     [value]="item.type"> {{ item.name }} </option>

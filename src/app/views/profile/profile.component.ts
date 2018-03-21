@@ -107,7 +107,6 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
             }
           }
         );
-       // location.reload();
     }
 
     cancelEdit() {

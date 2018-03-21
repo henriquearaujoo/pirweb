@@ -18,6 +18,7 @@ export class InterventionComponent implements OnInit {
   public chapter: string;
   public isNewData: boolean;
   @Output() cancelEvent = new EventEmitter();
+  @Output() returnEvent = new EventEmitter();
   private btn_cancel: boolean;
   private canRead: boolean;
   private canUpdate: boolean;
@@ -69,7 +70,11 @@ export class InterventionComponent implements OnInit {
       this.btn_cancel = false;
       return false;
     }
-    this.intervention.chapter = this.chapter;
+    if ( this.chapter === undefined) {
+      this.returnEvent.emit(false);
+      return;
+    }
+    this.intervention.chapter_id = this.chapter;
     if (this.isNewData || this.intervention.id === undefined) {
       this.service.insert(this.intervention).subscribe(
         s => {

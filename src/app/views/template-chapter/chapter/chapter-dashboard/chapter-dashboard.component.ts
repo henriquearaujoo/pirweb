@@ -74,7 +74,6 @@ export class ChapterDashboardComponent implements OnInit {
     /*check if is a new or update*/
     this.isNewData = true;
     this.urlId = localStorage.getItem('chapterId');
-    console.log('chapterId from Dashboard', this.urlId);
     if (this.urlId !== null && this.urlId !== '') {
       this.isNewData = false;
       this.information.isNewData = false;
@@ -149,7 +148,7 @@ export class ChapterDashboardComponent implements OnInit {
   }
   /****Return of Event from children components ****/
   actionInformation(c: Chapter) {
-      if ( c !== null ) {
+      if ( c !== null) {
         this.chapter.id = c.id;
         // add id in all components
         this.reception.chapter = c.id;

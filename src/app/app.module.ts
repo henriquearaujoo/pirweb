@@ -1,3 +1,4 @@
+import { FormService } from './services/form/form.service';
 import { ChildService } from './services/child/child.service';
 import { ResponsibleService } from './services/responsible/responsible.service';
 import { FileService } from './services/file/file.service';
@@ -56,6 +57,7 @@ import { NgForm } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { MatIconModule } from '@angular/material/icon';
 import {MyDatePickerModule} from 'mydatepicker';
+// import { Ng2OrderModule } from 'ng2-order-pipe';
 
 import { RestService } from './services/rest/rest.service';
 import { CostumerService } from './services/costumer/costumer.service';
@@ -63,7 +65,6 @@ import { PageService } from './services/pagenate/page.service';
 import { AuthenticationService } from './services/login/authentication.service';
 import { AlertService } from './services/alert/alert.service';
 import { UserService } from './services/user/user.service';
-import { CreateUserService } from './services/user-create/create-user.service';
 import { ProfileService } from './services/profile/profile.service';
 import { RuleService } from './services/rule/rule.service';
 import { AccessPageService } from './services/page/page.service';
@@ -95,12 +96,10 @@ import { UserListComponent } from './views/user/user-list/user-list.component';
 import { SendEmailComponent } from './views/login/send-email/send-email.component';
 import { ProfileComponent } from './views/profile/profile.component';
 import { ProfileListComponent } from './views/profile/profile-list/profile-list.component';
-import { RuleComponent } from './views/profile/rule/rule.component';
 import { PageComponent } from './views/profile/page/page.component';
 
 import { ProfilePipe } from './views/profile/profile-list/profile.pipe';
 // import { UserPipe } from './views/user/user-list/user.pipe';
-import { DefineRulesComponent } from './views/define-rules/define-rules.component';
 import { ToastService } from './services/toast-notification/toast.service';
 import { UserEditComponent } from './views/user/user-edit/user-edit.component';
 import { UserDetailsComponent } from './views/user/user-details/user-details.component';
@@ -108,24 +107,13 @@ import { TemplateSelectModelComponent } from './views/template-chapter/template-
 
 import { ReceptionComponent } from './views/template-chapter/chapter/reception/reception.component';
 import { TaskComponent } from './views/template-chapter/chapter/task/task.component';
-import { TemplateCollectDataComponent } from './views/template-chapter/template-collect-data/template-collect-data.component';
 import { PaginateComponent } from './components/paginate/paginate.component';
 import { ControlFieldErrorComponent } from './components/control-field-error/control-field-error.component';
 import { InterventionComponent } from './views/template-chapter/chapter/intervention/intervention.component';
 import { TaskListComponent } from './views/template-chapter/chapter/task/task-list/task-list.component';
-import { TemplateChapterOptionComponent } from './views/template-chapter/template-chapter-option/template-chapter-option.component';
 import { TemplateChapterItemComponent } from './views/template-chapter/template-chapter-item/template-chapter-item.component';
-import { TemplateCollectDataItemComponent } from './views/template-chapter/template-collect-data-item/template-collect-data-item.component';
 import { ChapterService } from './services/chapter/chapter.service';
-import { ChapterDetailsComponent } from './views/template-chapter/chapter/chapter-details/chapter-details.component';
-import { ChapterEditComponent } from './views/template-chapter/chapter/chapter-edit/chapter-edit.component';
 import { ChapterDashboardComponent } from './views/template-chapter/chapter/chapter-dashboard/chapter-dashboard.component';
-
-import { UserInformationAccountComponent } from './views/user/user-information-account/user-information-account.component';
-
-import { UserPersonalInformationComponent } from './views/user/user-personal-information/user-personal-information.component';
-
-import { UserAddressComponent } from './views/user/user-address/user-address.component';
 import { ConclusionComponent } from './views/template-chapter/chapter/conclusion/conclusion.component';
 import { InformationComponent } from './views/template-chapter/chapter/information/information.component';
 import { ModalWaitingAnswerComponent } from './components/modal-waiting-answer/modal-waiting-answer.component';
@@ -159,6 +147,9 @@ import { CommunityDetailsComponent } from './views/community/community-details/c
 import { MotherDetailsComponent } from './views/mother/mother-details/mother-details.component';
 import { ResponsibleDetailsComponent } from './views/responsible/responsible-details/responsible-details.component';
 import { ChildDetailsComponent } from './views/child/child-details/child-details.component';
+import { FormTemplateComponent } from './views/form-template/form-template.component';
+import { FormTemplateListComponent } from './views/form-template/form-template-list/form-template-list.component';
+import { FormTemplateDetailsComponent } from './views/form-template/form-template-details/form-template-details.component';
 // import { QuillModule } from 'ngx-quill';
 // import { EqualValidator } from './directives/equal-validator.directive';
 
@@ -191,17 +182,12 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ProfileListComponent,
     // UserPipe,
     ProfilePipe,
-    RuleComponent,
     PageComponent,
-    DefineRulesComponent,
     UserEditComponent,
     UserDetailsComponent,
     TemplateSelectModelComponent,
-    TemplateChapterOptionComponent,
     ReceptionComponent,
     TaskComponent,
-    TemplateCollectDataComponent,
-    TemplateCollectDataItemComponent,
     PaginateComponent,
     ControlFieldErrorComponent,
     InterventionComponent,
@@ -209,12 +195,7 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     QuestionComponent,
     TemplateChapterItemComponent,
     AnswerListComponent,
-    ChapterDetailsComponent,
-    ChapterEditComponent,
     ChapterDashboardComponent,
-    UserInformationAccountComponent,
-    UserPersonalInformationComponent,
-    UserAddressComponent,
     ConclusionComponent,
     InformationComponent,
     ModalWaitingAnswerComponent,
@@ -236,7 +217,10 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     CommunityDetailsComponent,
     MotherDetailsComponent,
     ResponsibleDetailsComponent,
-    ChildDetailsComponent
+    ChildDetailsComponent,
+    FormTemplateComponent,
+    FormTemplateListComponent,
+    FormTemplateDetailsComponent
 
   ],
   imports: [
@@ -291,7 +275,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ToastyModule.forRoot(),
     HttpClientModule,
     NgxMaskModule,
-    MyDatePickerModule
+    MyDatePickerModule,
+    // Ng2OrderModule
     // QuillModule
     // Ng2InputMaskModule
     // PdfViewerModule
@@ -308,7 +293,6 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     AuthGuard,
     UserService,
     AlertService,
-    CreateUserService,
     ProfileService,
     RuleService,
     AccessPageService,
@@ -329,7 +313,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     MotherService,
     ResponsibleService,
     ChildService,
-    SweetAlertService
+    SweetAlertService,
+    FormService
   ],
   bootstrap: [AppComponent]
 })

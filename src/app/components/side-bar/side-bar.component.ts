@@ -25,6 +25,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
   private rules: any[] = new Array();
   private show: number;
   private menu: any[] = MENU;
+  private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
 
   constructor(
     private router: Router,
@@ -35,10 +36,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
     const state: RouterState = router.routerState;
       const snapshot: RouterStateSnapshot = state.snapshot;
       const root: ActivatedRouteSnapshot = snapshot.root;
-      console.log('state', state);
-      console.log('snapshot', snapshot.url);
       this.url = snapshot.url;
-      console.log('root', root);
   }
 
   ngOnInit() {
@@ -48,11 +46,10 @@ export class SideBarComponent implements OnInit, OnDestroy {
     this.subscription = this.permissions.ruleState.subscribe(
       (rules: RuleState) => {
         this.rules = rules.permissions;
-        // console.log('RULES:', this.rules);
 
        for (let i = 0; i < this.menu.length; i++) {
          for ( let j = 0; j < this.rules.length; j++) {
-          if (this.menu[i].route === this.rules[j].page_id) {
+          if (this.menu[i].route === this.rules[j].page.route) {
             this.menu[i].read = this.rules[j].read;
             break;
           }
@@ -109,6 +106,10 @@ export class SideBarComponent implements OnInit, OnDestroy {
         this.router.navigate([this.urlToNavigate]);
       }
     }
+  }
+
+  logout() {
+    this.authenticationService.logout();
   }
 
   ngOnDestroy() {

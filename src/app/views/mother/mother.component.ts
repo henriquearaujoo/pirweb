@@ -88,7 +88,6 @@ export class MotherComponent implements OnInit {
     /*check if is a new or update*/
     this.isNewData = true;
     this.urlId = localStorage.getItem('motherId');
-    console.log('urlId', this.urlId);
     if (this.urlId !== null && this.urlId !== '') {
       this.isNewData = false;
       this.load();
@@ -146,6 +145,7 @@ export class MotherComponent implements OnInit {
 
     if (isValid && this._isSave) {
       this.verifyDate();
+      this.responsible.community_id = this.responsible.community.id;
       this.responsible.habitation_members_count = Number(this.responsible.habitation_members_count);
       this.responsible.mother.children_count = Number(this.responsible.mother.children_count);
 

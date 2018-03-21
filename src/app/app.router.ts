@@ -1,3 +1,6 @@
+import { FormTemplateDetailsComponent } from './views/form-template/form-template-details/form-template-details.component';
+import { FormTemplateListComponent } from './views/form-template/form-template-list/form-template-list.component';
+import { FormTemplateComponent } from './views/form-template/form-template.component';
 import { ChildDetailsComponent } from './views/child/child-details/child-details.component';
 import { ResponsibleDetailsComponent } from './views/responsible/responsible-details/responsible-details.component';
 import { MotherDetailsComponent } from './views/mother/mother-details/mother-details.component';
@@ -11,8 +14,6 @@ import { ChildComponent } from './views/child/child.component';
 import { ResetPasswordComponent } from './views/login/reset-password/reset-password.component';
 import { ChapterDashboardComponent } from './views/template-chapter/chapter/chapter-dashboard/chapter-dashboard.component';
 import { TemplateSelectModelComponent } from './views/template-chapter/template-select-model/template-select-model.component';
-import { UserPersonalInformationComponent } from './views/user/user-personal-information/user-personal-information.component';
-import { UserInformationAccountComponent } from './views/user/user-information-account/user-information-account.component';
 import { UserDetailsComponent } from './views/user/user-details/user-details.component';
 import { PageComponent } from './views/profile/page/page.component';
 import { ProfileComponent } from './views/profile/profile.component';
@@ -31,7 +32,6 @@ import { TemplateChapterComponent } from './views/template-chapter/template-chap
 
 import { ReceptionComponent } from './views/template-chapter/chapter/reception/reception.component';
 import { TaskComponent } from './views/template-chapter/chapter/task/task.component';
-import { TemplateCollectDataComponent } from './views/template-chapter/template-collect-data/template-collect-data.component';
 
 import { HomeLayoutComponent } from './components/layout/home-layout.component';
 import { LoginLayoutComponent } from './components/layout/login-layout.component';
@@ -42,9 +42,6 @@ import {UserListComponent} from './views/user/user-list/user-list.component';
 import { ProfileListComponent } from './views/profile/profile-list/profile-list.component';
 import { UserEditComponent } from './views/user/user-edit/user-edit.component';
 import { InterventionComponent } from './views/template-chapter/chapter/intervention/intervention.component';
-import { TemplateChapterOptionComponent } from './views/template-chapter/template-chapter-option/template-chapter-option.component';
-import { ChapterDetailsComponent } from './views/template-chapter/chapter/chapter-details/chapter-details.component';
-import { ChapterEditComponent } from './views/template-chapter/chapter/chapter-edit/chapter-edit.component';
 import { InformationComponent } from './views/template-chapter/chapter/information/information.component';
 import { DeactivateGuard } from './guards/deactivate.guard';
 import { CommunityComponent } from './views/community/community.component';
@@ -82,6 +79,21 @@ const App_Router: Routes = [
             path: 'maps',
             component: MapsComponent
               // canActivate: [PageGuard]
+          },
+          {
+            path: 'form-template',
+            component: FormTemplateComponent,
+              canActivate: [PageGuard]
+          },
+          {
+            path: 'form-template-list',
+            component: FormTemplateListComponent,
+              canActivate: [PageGuard]
+          },
+          {
+            path: 'form-template-details',
+            component: FormTemplateDetailsComponent,
+              canActivate: [PageGuard]
           },
           {
             path: 'community-list',
@@ -178,10 +190,6 @@ const App_Router: Routes = [
             component: UserEditComponent,
               canActivate: [PageGuard]
           },
-          // {
-          //   path: 'user-personal-info',
-          //   component: UserPersonalInformationComponent
-          // },
           {
             path: 'profile',
             component: ProfileComponent
@@ -191,12 +199,6 @@ const App_Router: Routes = [
             component: ProfileListComponent,
               canActivate: [PageGuard]
           }
-          // {
-          //   path: 'page-list',
-          //   component: PageComponent,
-          //     canActivate: [PageGuard]
-          // }
-
         ]
       },
 

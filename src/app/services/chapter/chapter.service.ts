@@ -14,7 +14,7 @@ export class ChapterService extends RestService {
 
   constructor(http: Http) {
     super(http);
-    this.size = 2;
+    this.size = 1;
    }
 
   public getChapters(param?: number, size?: number) {

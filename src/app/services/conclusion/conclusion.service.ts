@@ -59,31 +59,31 @@ export class ConclusionService extends RestService {
 
   // *** QUESTIONS *** //
   public insertQuestion(question: Question): Observable<Question> {
-    const currentURL = this.apiurl + 'question';
+    const currentURL = this.apiurl + 'questions';
     return this.post(currentURL, question);
   }
 
   public updateQuestion(question: Question): Observable<Question> {
-    const currentURL = this.apiurl + 'question';
+    const currentURL = this.apiurl + 'questions';
     return this.put(currentURL, question);
   }
 
-  public getQuestion(conclusion_id?: number, size?: number) {
+  public getQuestion(conclusion_id?: string, size?: number) {
     // if (conclusion_id === undefined) {
     //   const currentURL = this.apiurl + 'question/search/page?sort=description,asc';
     // return this.get(currentURL);
     // }
-    const currentURL = this.apiurl + 'question/search/page?size=' + size + '&conclusion=' + conclusion_id + '&sort=id,asc';
+    const currentURL = this.apiurl + 'questions/search/page?size=' + size + '&conclusion=' + conclusion_id + '&sort=id,asc';
     return this.get(currentURL);
   }
 
   public deleteQuestion(question_id: string): Observable<Question> {
-    const deleteQuestionURL = this.apiurl + 'question' + '/' + question_id;
+    const deleteQuestionURL = this.apiurl + 'questions' + '/' + question_id;
     return this.deleteR(deleteQuestionURL);
   }
 
   public loadQuestion(question_id: string) {
-    return this.get(this.apiurl + 'question/search/page?id=' + question_id + '&sort=id,asc');
+    return this.get(this.apiurl + 'questions/search/page?id=' + question_id + '&sort=id,asc');
   }
 }
 

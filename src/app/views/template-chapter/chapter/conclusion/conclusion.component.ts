@@ -23,11 +23,13 @@ export class ConclusionComponent implements OnInit {
   public isNewData: boolean;
   public isNewQuestion: boolean;
   @Output() cancelEvent = new EventEmitter();
+  @Output() returnEvent = new EventEmitter();
   private btn_cancel: boolean;
   private btn_save: boolean;
   private add_question: boolean;
   @ViewChild('question')
   question: QuestionComponent;
+  private questionDelete: Question = new Question();
   private questions: Question[] = new Array();
   private paginate: Paginate = new Paginate();
   private hasdata: boolean;
@@ -92,8 +94,12 @@ export class ConclusionComponent implements OnInit {
       this.btn_cancel = false;
       return false;
     }
+    if ( this.chapter === undefined) {
+      this.returnEvent.emit(false);
+      return;
+    }
     if (this.btn_save) {
-      this.conclusion.chapter = this.chapter;
+      this.conclusion.chapter_id = this.chapter;
       if (this.isNewData || this.conclusion.id === undefined) {
         this.conclusionService.insert(this.conclusion).subscribe(
           s => {
@@ -165,7 +171,6 @@ export class ConclusionComponent implements OnInit {
   }
 
   getAnswers(question: Question) {
-    console.log('question.id:', question);
     this.conclusionService.getAnswer(question.id).subscribe(
       success => {
         this.answers = success;
@@ -195,8 +200,12 @@ export class ConclusionComponent implements OnInit {
     this.question.load(question.id);
   }
 
-  onDelete(question: Question) {
-    this.conclusionService.deleteQuestion(question.id).subscribe(
+  setQuestion(question: Question) {
+    this.questionDelete = question;
+  }
+
+  onDelete() {
+    this.conclusionService.deleteQuestion(this.questionDelete.id).subscribe(
       success => {
         this.toastService.toastSuccess();
         this.getQuestions();

@@ -92,7 +92,6 @@ export class MultimediaComponent implements OnInit {
       return false;
     }
       if (!this.isNewData) {
-        // this.media.path = Constant.BASE_URL + 'filetest/download/' + this.media.id;
         for (let i = 0; i < media.length; i++) {
           this.chapter.medias.push(media[i]);
         }
@@ -110,7 +109,6 @@ export class MultimediaComponent implements OnInit {
           }
         );
       }
-    // }
   }
 
   removeMultimedia(item: any) {
@@ -134,5 +132,4 @@ export class MultimediaComponent implements OnInit {
     this.cancelEvent.emit();
     this.btn_cancel = true;
   }
-// tslint:disable-next-line:eofline
 }

@@ -8,7 +8,7 @@ import { RestService } from '../rest/rest.service';
 @Injectable()
 export class MotherService extends RestService {
 
-  private apiurl = Constant.BASE_URL + 'mother/';
+  private apiurl = Constant.BASE_URL + 'mothers/';
   private size: number;
 
   constructor( http: Http) {
@@ -23,6 +23,7 @@ export class MotherService extends RestService {
       return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page);
     }
   }
+
 
   public insert(mother: Mother): Observable<Mother> {
     return this.post(this.apiurl, mother);

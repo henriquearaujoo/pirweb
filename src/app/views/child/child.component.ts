@@ -156,6 +156,9 @@ export class ChildComponent implements OnInit {
 
     if (isValid && this._isSave) {
       this.verifyDate();
+
+      this.child.responsible_id = this.child.responsible.id;
+      this.child.mother_id = this.child.mother.id;
       if (this.child.is_premature_born === false) {
         this.child.born_week = 1;
       }
@@ -256,7 +259,6 @@ export class ChildComponent implements OnInit {
 
   onInputFieldChanged(event: IMyInputFieldChanged) {
     this.isValidDate = event.valid;
-    console.log(this.isValidDate);
   }
 
   verifyDataCheckbox() {
@@ -381,7 +383,6 @@ export class ChildComponent implements OnInit {
       } else {
         if (t === 1) {
           this.nextTab = '#tab_1';
-          console.log('nextTab:', this.nextTab);
         }
       }
 

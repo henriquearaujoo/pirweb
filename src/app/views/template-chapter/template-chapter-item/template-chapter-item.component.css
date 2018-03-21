@@ -20,7 +20,6 @@
     height: 298px;
     float: left;
     margin: 10px;
-    cursor: pointer;
     text-align: center;
     border-radius: 10px;
     background-color: white;
@@ -77,13 +76,14 @@ i.fa.fa-circle {
 }
 
 /* VERSIONS*/
-ul.list-version {
+/* ul.list-version { */
     /* padding-top: 40px; */
-}
+/* } */
 .version {
     background-color: #f4f4f4;
     margin-top: 1px;
-    height: 250px;
+    margin-bottom: 30px;
+    /* height: 250px; */
 }
 li.version-header {
     background-color: #e8e8e8;
@@ -107,12 +107,14 @@ li.li-version {
 i.fa.fa-toggle-on, i.fa.fa-toggle-off, i.fa.fa-plus {
     font-size: 24px;
     color: #373d40;
+    cursor: pointer;
 }
 
 i.fa.fa-pencil.edit-version {
     font-size: 22px;
     color: #373d40;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 span.version-add {
@@ -149,10 +151,18 @@ span.version-add {
 }
 
 .card.sticky-action .card-reveal {
+    padding-bottom: 88px;
+}
+
+.card.sticky-action .card-reveal {
     padding: 10px;
     top: 97%;
     width: 90%;
     left: 5%;
+}
+
+.card-reveal {
+    overflow: scroll;
 }
 
 .limit-text {

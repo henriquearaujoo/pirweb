@@ -1,6 +1,6 @@
 import { User } from './user';
 
-export class Org  extends User{
+export class Org {
     public cnpj: string;
     public ie: string;
     public social_name: string;

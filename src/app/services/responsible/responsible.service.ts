@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ResponsibleService extends RestService {
 
-  private apiurl = Constant.BASE_URL + 'responsible/';
+  private apiurl = Constant.BASE_URL + 'responsibles/';
   private size: number;
 
   constructor( http: Http) {
@@ -16,26 +16,26 @@ export class ResponsibleService extends RestService {
     this.size = 10;
    }
 
-  public getResponsible(filter?: any, page?: number) {
+  public getResponsibles(filter?: any, page?: number) {
     if ( filter === undefined ) {
-      return this.get(this.apiurl + 'responsibles/search/page/?size=' + this.size + '&page=' + page + '&sort=name,asc');
+      return this.get(this.apiurl + 'no-mother/search/page/?size=' + this.size + '&page=' + page + '&sort=name,asc');
     } else {
-      return this.get(this.apiurl + 'responsibles/search/page/?size=' + this.size + '&page=' + page +
+      return this.get(this.apiurl + 'no-mother/search/page/?size=' + this.size + '&page=' + page +
       '&name=' + filter  + '&sort=name,asc');
     }
   }
 
   public getMothers(filter?: any, page?: number) {
     if ( filter === undefined ) {
-      return this.get(Constant.BASE_URL + 'mother/search/page/?size=' + this.size + '&page=' + page + '&sort=name,asc');
+      return this.get(Constant.BASE_URL + 'mothers/search/page/?size=' + this.size + '&page=' + page + '&sort=name,asc');
     } else {
-      return this.get( Constant.BASE_URL + 'mother/search/page/?size=' + this.size + '&page=' + page +
+      return this.get( Constant.BASE_URL + 'mothers/search/page/?size=' + this.size + '&page=' + page +
       '&mother.name=' + filter);
     }
   }
 
   public _getMothers() {
-    return this.get(Constant.BASE_URL + 'mother/');
+    return this.get(Constant.BASE_URL + 'mothers/');
   }
 
   public _getResponsible(filter?: any) {

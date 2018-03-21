@@ -50,6 +50,7 @@ export class AuthenticationService extends RestService  {
     localStorage.removeItem('tokenPir');
     localStorage.removeItem('profileId_rules');
     localStorage.removeItem('currentUserPir');
+    this.router.navigate(['/login']);
   }
 
   _reset() {
