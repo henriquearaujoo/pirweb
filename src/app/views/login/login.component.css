@@ -31,7 +31,7 @@ p{
 }
 label{
     color: #335164;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: normal;
 }
 
@@ -40,20 +40,20 @@ label{
     color: rgb(129, 21, 21);
 }
 
-.login-box {
-    width: 587px;
+.login-box, .register-box {
+    width: 487px;
 }
 
 .login-box-body, .register-box-body {
     background: #D9E1E7;
     height: 292px;
     padding-top: 40px;
-    padding-right: 130px;
-    padding-left: 90px;
+    padding-right: 110px;
+    padding-left: 60px;
     border-radius: 0 0 14px 14px;
 }
 
-.login-logo {
+.login-logo, .register-logo {
     margin-bottom: 0;
     background: #D9E1E7;
     padding-top: 30px;
@@ -61,7 +61,7 @@ label{
 }
 
 .login-logo img {
-    height: 130px;
+    height: 120px;
 }
 
 .pointer {cursor: pointer;}
@@ -80,7 +80,7 @@ span.input-group-addon {
 }
 
 .input-group {
-    width: 417px;
+    width: 367px;
 }
 i.fa.fa-user.fa-fw {
     font-size: 23px;
@@ -90,6 +90,11 @@ i.fa.fa-user.fa-fw {
     margin-bottom: 35px;
 }
 a.pointer {
-    font-size: 18px;
+    font-size: 16px;
     color: #335164;
+}
+
+section.content.samsung {
+    text-align: center;
+    margin-top: 30px;
 }

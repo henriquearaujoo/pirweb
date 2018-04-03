@@ -1,7 +1,7 @@
 <simple-notifications></simple-notifications>
 <div class="register-box" [ngStyle]="object">
   <div class="register-logo">
-      <!-- <img class="img-logo" src="./assets/pir.png"> -->
+    <img src="./assets/img/global/logoPIR-02.png">
   </div>
     
   <div class="register-box-body">
@@ -10,10 +10,17 @@
     <form name="form" (ngSubmit)="f.form.valid && sendEmail()" #f="ngForm" novalidate>
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && email.invalid || (email.invalid && (email.dirty || email.touched)) }">
         <label>Email de recuperação</label>
-        <input type ="text" email [(ngModel)]="user.email" name="email" #email="ngModel" class="form-control" placeholder="Digite seu e-mail" required>
-        <div *ngIf="f.submitted && email.invalid || (email.invalid && (email.dirty || email.touched))" class="help-block"> 
-          Digite um e-mail válido
+        <div class="input-group">
+          <!-- <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span> -->
+           <span class="input-group-addon" style="padding: 6px 12px;">
+             <i class="large material-icons">lock</i>
+            </span>                
+            <input type ="text" email [(ngModel)]="user.email" name="email" #email="ngModel" class="form-control" placeholder="Digite seu e-mail" required>
+            <div *ngIf="f.submitted && email.invalid || (email.invalid && (email.dirty || email.touched))" class="help-block"> 
+              Digite um e-mail válido
+            </div>
         </div>
+       
       </div>
       <div class="row">
         <div class="col-xs-12">
