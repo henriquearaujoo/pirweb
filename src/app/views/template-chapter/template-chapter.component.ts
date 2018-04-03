@@ -45,7 +45,6 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
     private loaderService: LoaderService,
     private permissions: Permissions
   ) {
-      this.hasdata = false;
       this.page = 0;
       this.size = 10;
       this.size_active = 10;
@@ -69,8 +68,6 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
     );
     this.hasdata = false;
     this.getChapters();
-    this.getChapterActive();
-    this.getChapterInactive();
   }
 
   ngOnChanges() {  }
@@ -85,7 +82,8 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
         this.paginate = s1;
         this.chapters = this.paginate.content;
         this.hasdata = true;
-
+        this.getChapterActive();
+        this.getChapterInactive();
         const hash = {};
         this.chapters = this.chapters.filter(chapter => {
           const exists = !hash[chapter.number] || false;
@@ -114,7 +112,6 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
       s2 => {
         this.paginate_active = s2;
         this.chapters_active = this.paginate_active.content;
-        this.hasdata = true;
         // Remove duplicates chapters
         const hash = {};
         this.chapters_active = this.chapters_active.filter(chapter => {
@@ -128,7 +125,6 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
       },
       error => {
         console.log('ERROR', error);
-        this.hasdata = false;
         setTimeout(() => {
           this.loaderService.hide();
         }, 500);
@@ -142,7 +138,6 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
       s3 => {
         this.paginate_inactive = s3;
         this.chapters_inactive = this.paginate_inactive.content;
-        this.hasdata = true;
         // Remove duplicates chapters
         const hash = {};
         this.chapters_inactive = this.chapters_inactive.filter(chapter => {
@@ -156,7 +151,6 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
       },
       error => {
         console.log('ERROR', error);
-        this.hasdata = false;
         setTimeout(() => {
           this.loaderService.hide();
         }, 500);

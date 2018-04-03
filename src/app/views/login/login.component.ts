@@ -65,13 +65,15 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.authenticationService.login(this.user.login, this.user.password).subscribe(
             (data: Response) => {
                 const token = data.headers.get('authorization');
+                // const tokenData = decodeToken(token);
+                console.log('Token:', token);
                 localStorage.setItem('tokenPir', token );
                 if (token) {
                     const tokenData = decodeToken(token);
-                    // console.log('Decode Token:', token);
-                    localStorage.setItem('profileId_rules', tokenData.payload.pfl);
+                    console.log('Decode Token:', tokenData);
+                    localStorage.setItem('profileId_rules', tokenData.payload.acc.profile.id);
                     localStorage.setItem('currentUserPir', tokenData.payload.unm);
-                    localStorage.setItem('currentIdPir', tokenData.payload.uid);
+                    localStorage.setItem('currentIdPir', tokenData.payload.acc.user.name);
 
                     this.loaderService.hide();
                     this.router.navigate([this.returnUrl]);

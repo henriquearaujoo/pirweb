@@ -2,7 +2,7 @@
 <app-loader></app-loader>
 <div class="login-box" [ngStyle]="object">
     <div class="login-logo">
-      <img src="./assets/pir.png">
+      <img src="./assets/img/global/logo_PIR.png">
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
@@ -11,7 +11,12 @@
 
         <div class="form-group has-feedback" [ngClass]="applyCssError(f, login)">
           <div class="input-group margin-bottom-sm">
-              <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+              <span class="input-group-addon" style="padding: 6px 10px;">
+                <i class="fa fa-user fa-fw"></i>
+              </span>
+              <!-- <span class="input-group-addon">
+                  <img src="./assets/img/global/ic_user.png">
+              </span> -->
               <input name="login" #login="ngModel" [(ngModel)]="user.login"  class="form-control" placeholder="Usuário" required>
           </div>
           <app-control-field-error [showError]="verifyValidSubmitted(f, login)" msgError="Digite um usuário">
@@ -20,7 +25,11 @@
         
         <div class="form-group has-feedback" [ngClass]="applyCssError(f, password)">
           <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+              <!-- <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span> -->
+               <span class="input-group-addon" style="padding: 6px 12px;">
+                 <i class="large material-icons">lock</i>
+                </span>
+                    
               <input name="password" #password="ngModel" [(ngModel)]="user.password"  type="password" class="form-control" placeholder="Senha" required>
           </div>
           <app-control-field-error [showError]="verifyValidSubmitted(f, password)" msgError=" Digite uma senha">

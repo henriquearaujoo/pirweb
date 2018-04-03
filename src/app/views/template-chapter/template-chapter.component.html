@@ -61,10 +61,18 @@
                                                 <app-template-chapter-item (changeStatus)="changeStatus($event)" [chapter]="item" (click)="setChapter(item)"></app-template-chapter-item>
                                             </div>
                                         </div>
-                                        <div *ngIf="chapters.length === 0">
+                                        <div *ngIf="hasdata && chapters.length === 0">
                                             <section class="content">
                                                 <div class="feedback-icon"></div>
                                                 <span class="feedback-message">Não existem capítulos cadastrados</span>
+                                            </section>
+                                        </div>
+                                        <div *ngIf="!hasdata">
+                                            <section class="content">
+                                                <div class="feedback-icon"></div>
+                                                <span class="feedback-message">                                                    
+                                                    Carregando os capítulos...
+                                                </span> <br/>
                                             </section>
                                         </div>
                                     </div>
