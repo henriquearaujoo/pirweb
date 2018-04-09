@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { LoaderService } from './../../services/loader/loader.service';
 import { SweetAlertService } from './../../services/sweetalert/sweet-alert.service';
 import { Community } from './../../models/community';
@@ -12,19 +13,20 @@ import { Profile } from '../../models/profile';
 import { Types } from '../../models/types';
 
 import { UserService } from '../../services/user/user.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterStateSnapshot, ActivatedRouteSnapshot, RouterState } from '@angular/router';
 import * as $ from 'jquery';
 import { IFormCanDeActivate } from '../../guards/iform-candeactivate';
 import { ModalService } from '../../components/modal/modal.service';
 import { sha256, sha224 } from 'js-sha256';
 import { Permissions, RuleState } from '../../helpers/permissions';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, OnDestroy {
 
   private isOk = false;
   private user: User;
@@ -77,6 +79,7 @@ export class UserComponent implements OnInit {
   private urlId: string;
   private city_id: number;
   private currentId: string;
+  private url: string;
 
   constructor(
     private userService: UserService,
@@ -87,7 +90,8 @@ export class UserComponent implements OnInit {
     private modalService: ModalService,
     private permissions: Permissions,
     private sweetAlertService: SweetAlertService,
-    private loaderService: LoaderService) {
+    private loaderService: LoaderService,
+    private _location: Location) {
       this.user = new User();
       this.entity = new Org();
       this.person = new Person();
@@ -98,6 +102,9 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
+    const state: RouterState = this.router.routerState;
+    const snapshot: RouterStateSnapshot = state.snapshot;
+    this.url = snapshot.url;
     this.permissions.canActivate('/user');
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
@@ -161,7 +168,11 @@ export class UserComponent implements OnInit {
         if (this.canCreate) {
           this.userService.createUser(this.user).subscribe(
             success => {
-              this.sweetAlertService.alertSuccess('user-list');
+              if (this.url === '/user') {
+                this.sweetAlertService.alertSuccess('user-list');
+              } else {
+                this.sweetAlertService.alertSuccess('agent-list');
+              }
             },
             error => {
               this.toastService.toastError();
@@ -170,7 +181,11 @@ export class UserComponent implements OnInit {
             }
           );
         } else {
-          this.sweetAlertService.alertPermission('user-list');
+          if (this.url === '/user') {
+            this.sweetAlertService.alertPermission('user-list');
+          } else {
+            this.sweetAlertService.alertPermission('agent-list');
+          }
         }
       } else {
         if (this.canUpdate) {
@@ -218,7 +233,11 @@ export class UserComponent implements OnInit {
                   }
                 });
               } else {
-                this.sweetAlertService.alertSuccessUpdate('user-list');
+                if (this.url === '/user') {
+                  this.sweetAlertService.alertSuccessUpdate('user-list');
+                } else {
+                  this.sweetAlertService.alertSuccessUpdate('agent-list');
+                }
               }
             },
             error => {
@@ -227,15 +246,23 @@ export class UserComponent implements OnInit {
             }
           );
         } else {
-          this.sweetAlertService.alertPermission('/user-list');
+          if (this.url === '/user') {
+            this.sweetAlertService.alertPermission('user-list');
+          } else {
+            this.sweetAlertService.alertPermission('agent-list');
+          }
         }
       }
     }
   }
 
   openModal() {
-    this.modalService.modalCancel('/user-list');
-    // this.sweetAlertService.alertToCancel('user-list');
+    console.log(this.url);
+    if (this.url === '/user') {
+      this.modalService.modalCancel('/user-list');
+    } else {
+      this.modalService.modalCancel('/agent-list');
+    }
   }
 
   public loadProfiles() {
@@ -535,8 +562,7 @@ export class UserComponent implements OnInit {
       'has-feedback': this.verifyValidSubmitted(form, field)
     };
   }
-
-  backToList() {
-    this.router.navigate(['user-list']);
+  ngOnDestroy() {
+    localStorage.removeItem('userId');
   }
 }

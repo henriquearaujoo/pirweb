@@ -74,6 +74,17 @@ button.swal-button.swal-button--ok.swal-btn-ok {
     font-weight: bold;
     /* font-family: Roboto-Bold; */
   }
+
+  .box-header_1 {
+    background-color: #66ACD7;
+    height: 32px;
+    /* padding-bottom: 10px; */
+    padding-top: 0.1px;
+    text-align: center;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-family: Roboto-Thin;
+}
   
   .box-header_ {
     /* background-image: url('/assets/img/global/shape.png')!important; */
@@ -122,4 +133,24 @@ img.icon {
 
 .content_fa {
     color: #335164;
+}
+
+.skin-blue .content-header {
+    padding-top: 19px;
+    background-color: #DFE8ED;
+    height: 70px;
+    color: #304E60;
+    font-size: 16px;
+}
+
+a#btn_next, a#btn_previous {
+    color: #224860;
+}
+.btn-primary {
+    background-image: url('/assets/img/global/btn_primary.png')!important;
+    background-repeat: repeat;
+}
+
+.btn-default {
+    background-color: #dfe8ed;
 }

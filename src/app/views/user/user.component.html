@@ -3,14 +3,19 @@
 <!-- <button data-toggle="modal" data-target="#modal-default" id="openModalButton">Open Modal</button> -->
 <!-- <button data-toggle="modal" data-target="#modal-cancel" id="openModalCancel">Open Modal</button> -->
 <div class="content_">
-    <div class="content-top">
+    <div class="content-top" *ngIf="url === '/user'">
         <div class="content_fa" *ngIf="isNewData"> <img class="icon" src="./assets/img/global/ic_usuarios.png"> Usuários > Cadastro </div>
         <div class="content_fa" *ngIf="!isNewData"> <img class="icon" src="./assets/img/global/ic_usuarios.png"> Usuários > Cadastro > Editar</div>
+    </div>
+    <div class="content-top" *ngIf="url !== '/user'">
+        <div class="content_fa" *ngIf="isNewData"> <img class="icon" src="./assets/img/global/ic_usuarios.png"> Agentes > Cadastro </div>
+        <div class="content_fa" *ngIf="!isNewData"> <img class="icon" src="./assets/img/global/ic_usuarios.png"> Agentes > Cadastro > Editar</div>
     </div>
 
     <section class="content_user">
         <div class="content-header ">
-            <h5 class="content-title">CADASTRO DE USUÁRIO</h5>
+            <h5 class="content-title" *ngIf="url === '/user'">CADASTRO DE USUÁRIO</h5>
+            <h5 class="content-title"  *ngIf="url !== '/user'">CADASTRO DE AGENTE</h5>
         </div>
         <!-- <form name="form" (ngSubmit)=" saveData()" #f="ngForm" novalidate> -->
             <!-- Custom Tabs -->
@@ -30,7 +35,7 @@
                     <div class="tab-pane active" id="tab_1">
                         <div class="content">
                             <section class="content">
-                                <div class="box-header with-border">
+                                <div class="box-header_1 with-border">
                                     <h5 class="box-title"> Informações da Conta
                                     </h5>
                                 </div>
@@ -179,7 +184,7 @@
                     <div class="tab-pane" id="tab_2">
                         <div class="content">
                             <section class="content">
-                                <div class="box-header with-border">
+                                <div class="box-header_1 with-border">
                                     <h5 class="box-title"> Informações Pessoais
                                     </h5>
                                 </div>
@@ -316,7 +321,7 @@
                     <div class="tab-pane" id="tab_3">
                         <div class="content">
                             <section class="content">                                
-                                    <div class="box-header with-border">
+                                    <div class="box-header_1 with-border">
                                         <h5 class="box-title"> Informações de Endereço
                                         </h5>
                                     </div>

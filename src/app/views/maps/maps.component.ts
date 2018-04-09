@@ -1,50 +1,29 @@
-//import { Component, OnInit } from '@angular/core';
-import {
-  Component,
-  NgModule,
-  OnInit
-} from '@angular/core';
-
-import {
-  BrowserModule
-} from '@angular/platform-browser';
-
+// import { Component, OnInit } from '@angular/core';
+import { Component, NgModule, OnInit, Input } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-maps',
   templateUrl: './maps.component.html',
   styleUrls: ['./maps.component.css'],
-  
 })
 export class MapsComponent implements OnInit {
-  title: string = '';
+  title = '';
   lat: number = -3.120896 ;
   lng: number =  -60.013124;
+  @Input() markers;
+  @Input() agents: User[];
+
   constructor() { }
 
   ngOnInit() { }
-  
-  zoom: number = 6;
-  
-  // initial center position for the map
-  markers: marker[] = [
-	  // {
-		//   lat: 51.673858,
-		//   lng: 7.815982,
-		//   label: 'A',
-		//   draggable: true
-	  // },
-	  // {
-		//   lat: 51.373858,
-		//   lng: 7.215982,
-		//   label: 'B',
-		//   draggable: false
-	  // }
-  ]
+  // tslint:disable-next-line:member-ordering
+  zoom = 6;
   clickedMarker(label: string, index: number) {
-    console.log(`clicked the marker: ${label || index}`)
+    console.log(`clicked the marker: ${label || index}`);
   }
-  
+
   mapClicked($event: MouseEvent) {
     //  this.markers.push({
     //    lat: $event.coords.lat,
@@ -52,14 +31,15 @@ export class MapsComponent implements OnInit {
     //    true
     //  });
   }
-  
+
   markerDragEnd(m: marker, $event: MouseEvent) {
     console.log('dragEnd', m, $event);
   }
 }
+// tslint:disable-next-line:class-name
 interface marker {
-	lat: number;
-	lng: number;
-	label?: string;
-	draggable: boolean;
+  lat: number;
+  lng: number;
+  label?: string;
+  draggable: boolean;
 }

@@ -1,5 +1,370 @@
 <simple-notifications></simple-notifications>
-<div class="content">
+<app-modal> </app-modal>
+<!-- <button data-toggle="modal" data-target="#modal-default" id="openModalButton">Open Modal</button> -->
+<!-- <button data-toggle="modal" data-target="#modal-cancel" id="openModalCancel">Open Modal</button> -->
+<div class="content_">
+    <div class="content-top" *ngIf="url === '/user'">        
+        <div class="content_fa" *ngIf="!isNewData"> <img class="icon" src="./assets/img/global/ic_usuarios.png"> Usuários > Detalhes </div>
+    </div>
+    <div class="content-top" *ngIf="url !== '/user'">
+        <div class="content_fa" *ngIf="isNewData"> <img class="icon" src="./assets/img/global/ic_usuarios.png"> Agentes > Detalhes </div>
+    </div>
+
+    <section class="content_user">
+        <div class="content-header ">
+            <h5 class="content-title" *ngIf="url === '/user'">DETALHES DO USUÁRIO</h5>
+            <h5 class="content-title"  *ngIf="url !== '/user'">DETALHES DO AGENTE</h5>
+        </div>
+        <!-- <form name="form" (ngSubmit)=" saveData()" #f="ngForm" novalidate> -->
+            <!-- Custom Tabs -->
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li>
+                      <a class="tab-pane active" (click)="walk(0)" href="#tab_1" data-toggle="tab">
+                        <img src="{{accountTab}}" />
+                      </a>                       
+                    </li>
+                    <li>
+                      <a class="tab-pane active" (click)="walk(1)" href="#tab_2" data-toggle="tab">
+                          <img src="{{personalTab}}" />
+                      </a>                         
+                    </li>
+                    <li>
+                      <a class="tab-pane active" (click)="walk(2)" href="#tab_3" data-toggle="tab">
+                        <img src="{{adressTab}}" />
+                      </a>                        
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_1">
+                        <div class="content">
+                            <section class="content">
+                                <div class="box-header_1 with-border">
+                                    <h5 class="box-title"> Informações da Conta
+                                    </h5>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <form name="form" (ngSubmit)="save(1,f1.valid)" id="f_1" #f1="ngForm" novalidate>
+                                            <div class="box box-primary">
+                                                <div class="box-body">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <!-- select status-->
+                                                            <div class="form-group">
+                                                                <label class="control-label">Status</label>
+                                                                <input type="text" name="status" class="form-control" value="{{ user.status === true ? 'Ativo': 'Inativo' }}" readonly>                                                                
+                                                            </div>                                                           
+                                                        </div>
+                                                    </div>
+                                                <div class="row">                                                     
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group profile">
+                                                                <label class="control-label">Perfil</label>
+                                                                <input type="text" name="profile" class="form-control" value="{{ user.profile.title }}" readonly>                                                              
+                                                            </div>
+                                                        </div>    
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group type">
+                                                                <label class="control-label">Tipo de usuário</label>
+                                                                <input type="text" name="type" class="form-control" value="{{ user.type === 'PFIS' ? 'Pessoa Física': 'Pessoa Jurídica'}}" readonly>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                                <!-- <div class="row" *ngIf="show_community"> -->
+                                                    <!-- select community-->
+                                                    <!-- <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Comunidade</label>
+                                                            <select class="form-control" name="community" id="community" #community="ngModel" [(ngModel)]="user.community_id">
+                                                                <option disabled >Comunidade</option>
+                                                                <option *ngFor="let item of communities" [value]="item.id">{{item.name}}</option>
+                                                            </select> -->
+                                                            <!-- <app-control-field-error [showError]="verifyValidSubmitted(f, community)" msgError="Selecione uma comunidade">
+                                                        </app-control-field-error> -->
+                                                        <!-- </div>
+                                                    </div>  -->
+                                                    <!-- end select community-->
+                                                <!-- </div> -->
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label class="control-label">Usuário</label>
+                                                                <input type="text" name="login" class="form-control" value="{{ user.login }}" readonly>
+                                                            </div>
+                                                    </div>
+                                                </div>  
+                                            </div>
+                                            </div>
+                                            <!-- <div class="content-control">
+                                                <div class="control">
+                                                    <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false, 1, 0)" id="btn_previous">
+                                                        <img src="./assets/img/global/ic_previous.png" />
+                                                        <b>Anterior</b>
+                                                    </a>
+                                                    <a href="{{nextTab}}" data-toggle="tab" (click)="isActive(true, 1)" id="btn_next">
+                                                        <b>Próximo</b>
+                                                        <img src="./assets/img/global/ic_next.png" />
+                                                    </a>
+                                                    <button type="submit" id="btn_tab1"></button>
+                                                </div>
+                                            </div> -->
+                                            <!-- <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <button class="btn btn-default btn-block" (click)="openModal()" id="btn_return1"> Cancelar</button>
+                                                </div>
+                                            </div> -->
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </section>
+                        </div>
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_2">
+                        <div class="content">
+                            <section class="content">
+                                <div class="box-header_1 with-border">
+                                    <h5 class="box-title"> Informações Pessoais
+                                    </h5>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <form name="form" #f2="ngForm" novalidate>
+                                            <div class="box box-primary">
+                                                <div class="box-body">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group left">
+                                                                <label class="control-label">Nome completo</label>
+                                                                <input type="text" name="name" class="form-control" value="{{ user.name }}" readonly>
+                                                            </div>
+                                                        </div>                                                       
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label class="control-label">E-mail</label>                                                               
+                                                                <input type="text" name="email" class="form-control" value="{{ user.email }}" readonly>                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group left"*ngIf="!show_pjur">
+                                                                <label class="control-label">RG</label>
+                                                                <input type="text" name="rg" class="form-control" value="{{ user.person.rg }}" readonly>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group" *ngIf="!show_pjur">
+                                                                <label class="control-label">Orgão Emissor</label>
+                                                                <input type="text" name="emitter" class="form-control" value="{{ user.person.emitter }}" readonly>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group" *ngIf="!show_pjur">
+                                                                <label class="control-label">CPF</label>
+                                                                <input type="text" name="cpf" class="form-control" value="{{ user.person.cpf }}" readonly>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group left" *ngIf="show_pjur">
+                                                                <label class="control-label">Inscrição Estadual</label>
+                                                                <input type="text" name="ie" class="form-control" value="{{ user.entity.ie }}" readonly>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group" *ngIf="show_pjur">
+                                                                <label class="control-label">CNPJ</label>
+                                                                <input type="text" name="cnpj" class="form-control" value="{{ user.entity.cnpj }}" readonly>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group" *ngIf="show_pjur">
+                                                                <label class="control-label">Razão Social</label>
+                                                                <input type="text" name="social_name" class="form-control" value="{{ user.entity.social_name }}" readonly>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group" *ngIf="show_pjur">
+                                                                <label class="control-label">Nome Fantasia</label>
+                                                                <input type="text" name="fantasy_name" class="form-control" value="{{ user.entity.fantasy_name }}" readonly>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="content-control">
+                                                <div class="control">
+                                                    <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false, 2, 0)" id="btn_previous">
+                                                        <img src="./assets/img/global/ic_previous.png" />
+                                                        <b>Anterior</b>
+                                                    </a>
+                                                    <a href="{{nextTab}}" data-toggle="tab" (click)="isActive(true, 2)" id="btn_next">
+                                                        <b>Próximo</b>
+                                                        <img src="./assets/img/global/ic_next.png" />
+                                                    </a>
+                                                    <button type="submit" id="btn_tab2"></button>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <button class="btn btn-default btn-block" (click)="openModal()" id="btn_return2"> Cancelar</button>
+                                                </div>
+                                            </div> -->
+                                        </form>
+                                    </div>                               
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_3">
+                        <div class="content">
+                            <section class="content">                                
+                                    <div class="box-header_1 with-border">
+                                        <h5 class="box-title"> Informações de Endereço
+                                        </h5>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <form name="form" #f3="ngForm" novalidate>
+                                                <div class="box box-primary">
+                                                    <div class="box-body">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group left">
+                                                                    <label class="control-label">Rua</label>
+                                                                    <input type="text" name="street" class="form-control" value="{{ user.address?.street }}" readonly>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Número</label>
+                                                                    <input type="text" name="number" class="form-control" value="{{ user.address?.number }}" readonly>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group left">
+                                                                    <label class="control-label">Bairro</label>
+                                                                    <input type="text" name="neighborhood" class="form-control" value="{{ user.address?.neighborhood }}" readonly>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Complemento</label>
+                                                                    <input type="text" name="complement" class="form-control" value="{{ user.address?.complement }}" readonly>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group left">
+                                                                    <label class="control-label">CEP</label>
+                                                                    <input type="text" name="postalcode" class="form-control" value="{{ user.address?.postalcode }}" readonly>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group left">
+                                                                    <label class="control-label">Estado</label>
+                                                                    <input type="text" name="state" class="form-control" value="{{ user.address?.city?.state.name }}" readonly>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Cidade</label>
+                                                                    <input type="text" name="state" class="form-control" value="{{ user.address?.city?.name }}" readonly>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="content-control">
+                                                    <div class="control">
+                                                        <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false, 3, 0)" id="btn_previous">
+                                                            <img src="./assets/img/global/ic_previous.png" />
+                                                            <b>Anterior</b>
+                                                        </a>                                                      
+                                                        <button type="submit" id="btn_tab3"></button>
+                                                    </div>
+                                                </div> -->
+                                                <!-- <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <button class="btn btn-default btn-block" (click)="openModal()" id="btn_return3"> Cancelar</button>
+                                                    </div>
+                                                </div> -->
+                                                <!-- <div class="col-md-3 col-md-offset-6">
+                                                    <div class="form-group save" *ngIf="isNewData">
+                                                        <button class="btn btn-primary btn-block"  (click)="isSave()" name="submit" id="btn_save" 
+                                                            [disabled]="!enable_save">Cadastrar</button>                                
+                                                    </div>
+                                                    <div class="form-group save" *ngIf="!isNewData">
+                                                        <button class="btn btn-primary btn-block"  (click)="isSave()" name="submit" id="btn_save" 
+                                                            [disabled]="!enable_save">Salvar</button>                                
+                                                    </div>
+                                                </div> -->
+                                            </form>
+                                        </div>
+                                    </div>                               
+                            </section>
+                        </div>
+                    </div>
+                    <!-- /.tab-pane -->
+                    <!-- <div class="content-control">
+                        <div class="control">
+                            <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false)" id="btn_previous">
+                                <img src="../../../assets/img/global/ic_previous.png" />
+                                <b>Anterior</b>
+                            </a>
+                            <a href="{{nextTab}}" data-toggle="tab" (click)="isActive(true)" id="btn_next">
+                                <b>Próximo</b>
+                                <img src="../../../assets/img/global/ic_next.png" />
+                            </a>
+                        </div>
+                    </div> -->
+                    <div class="row footer">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <button class="btn btn-default btn-block" (click)="back()" id="btn_return"> Voltar</button>
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-3 col-md-offset-6">
+                            <div class="form-group save">
+                                <button class="btn btn-primary btn-block" name="submit" id="btn_save" [disabled]="!enable_save">Cadastrar</button>                                
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+                <!-- /.tab-content -->
+            </div>
+            
+
+        <!-- </form> -->
+    </section>
+</div>
+
+
+
+
+<!-- <simple-notifications></simple-notifications> -->
+<!-- <div class="content">
     <section class="content">
       <div class="row">
         <div class="col-xs-1 col-sm-1 col-lg-1 col-xs-offset-10 col-sm-offset-10">
@@ -16,7 +381,10 @@
       </div>
         <form #f="ngForm">
           <div class="box-header with-border">
-            <h3 class="box-title"> Usuário
+            <h3 class="box-title" *ngIf="url === '/user-details'"> Usuário
+              <small> Detalhes </small>
+            </h3>
+            <h3 class="box-title" *ngIf="url !== '/user-details'"> Agente
               <small> Detalhes </small>
             </h3>
           </div>
@@ -35,11 +403,7 @@
                   <div class="form-group">
                     <label>Usuário</label>
                     <input type="text" name="login" class="form-control" value="{{ user.login }}" readonly>                    
-                  </div>
-                  <!--div class="form-group">
-                    <label>Senha</label>
-                    <input type="password" name="password" class="form-control" [value]="user.password" readonly>
-                  </div-->
+                  </div>                 
                   <div class="form-group">
                     <label>Nome Completo</label>
                     <input type="text" name="full_name" class="form-control" value="{{ user.name }}" readonly>
@@ -84,7 +448,6 @@
                 </div>
               </div>
             </div>
-               <!-- address -->
             <div class="col-md-6">
               <div class="box box-primary">
                 <div class="box-body">
@@ -125,13 +488,13 @@
       <div class="row">        
         <div class="col-md-3 col-md-offset-9">
           <div class="form-group">               
-              <button class="btn btn-default btn-md btn-block" [routerLink]="['/user-list']" id="btn_return"> Voltar</button>
+              <button class="btn btn-default btn-md btn-block" (click)="back()" id="btn_return"> Voltar</button>
            </div>
         </div>
       </div>
     </form>
     </section>
-  </div>
+  </div> -->
 
 
 <!-- Modal Disable -->
@@ -142,8 +505,8 @@
         <div class="modal-icon">
             <i class="material-icons" style="font-size: 60px;">error_outline</i>
         </div>          
-          <h5  *ngIf="user.status"> Deseja realmente desativar o usuário <strong> {{ user.name | uppercase}} </strong> ?</h5>
-          <h5  *ngIf="!user.status"> Deseja realmente ativar o usuário <strong> {{ user.name | uppercase}} </strong> ?</h5>
+          <h5  *ngIf="user.status"> Deseja realmente desativar o <span *ngIf="url === '/user-details'">usuário</span><span *ngIf="url !== '/user-details'">agente</span> <strong> {{ user.name | uppercase}} </strong> ?</h5>
+          <h5  *ngIf="!user.status"> Deseja realmente ativar o <span *ngIf="url === '/user-details'">usuário</span><span *ngIf="url !== '/user-details'">agente</span> <strong> {{ user.name | uppercase}} </strong> ?</h5>
       </div>
       <div class="modal-footer_">
         <div class="modal-btn-cancel">

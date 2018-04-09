@@ -2,3 +2,21 @@ agm-map {
     height: 470px;
 
   }
+  .agm-info-window-content {
+    width: 210px;
+}
+
+  i.fa.fa-circle.active_circle {
+    color: #58c537;
+}
+
+i.fa.fa-circle.inactive_circle {
+    color: #a60000;
+}
+i.fa.fa-user {
+  color: #3c8dbc;
+}
+label.label-control {
+  margin: 4px 8px;
+  color: #777;
+}

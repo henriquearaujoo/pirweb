@@ -1,25 +1,24 @@
-import { Profile } from './../../models/profile';
-import { RuleState } from './../../helpers/permissions';
-import { Org } from './../../models/org';
-import { Person } from './../../models/person';
-import { User } from './../../models/user';
-import { Component, OnInit, Output } from '@angular/core';
-import { PageService } from '../../services/pagenate/page.service';
-import { Paginate } from '../../models/paginate';
-import { UserService } from '../../services/user/user.service';
-import { ProfileService } from '../../services/profile/profile.service';
-import { ToastService } from '../../services/toast-notification/toast.service';
+import { Profile } from './../../../models/profile';
+import { User } from './../../../models/user';
+import { Component, OnInit, Output, OnDestroy } from '@angular/core';
+import { Person } from '../../../models/person';
+import { Org } from '../../../models/org';
+import { Paginate } from '../../../models/paginate';
+import { PageService } from '../../../services/pagenate/page.service';
+import { UserService } from '../../../services/user/user.service';
+import { ProfileService } from '../../../services/profile/profile.service';
+import { ToastService } from '../../../services/toast-notification/toast.service';
 import { Router } from '@angular/router';
-import { Permissions } from '../../helpers/permissions';
-import { LoaderService } from '../../services/loader/loader.service';
-
+import { Permissions, RuleState } from '../../../helpers/permissions';
+import { LoaderService } from '../../../services/loader/loader.service';
 
 @Component({
-  selector: 'app-agent',
-  templateUrl: './agent.component.html',
-  styleUrls: ['./agent.component.css']
+  selector: 'app-agent-list',
+  templateUrl: './agent-list.component.html',
+  styleUrls: ['./agent-list.component.css']
 })
-export class AgentComponent implements OnInit {
+export class AgentListComponent implements OnInit {
+
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
   private agents: User[] = new Array();
   private person: Person = new Person();
@@ -56,7 +55,7 @@ export class AgentComponent implements OnInit {
   ngOnInit() {
     this.hasdata = false;
     this.getAgents();
-    localStorage.removeItem('agentId');
+    localStorage.removeItem('userId');
     this.permissions.canActivate('/agent-list');
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
@@ -102,14 +101,14 @@ export class AgentComponent implements OnInit {
 
   setAgent(user: User) {
     this.userService.setUser(user);
-    localStorage.setItem('agentId', user.id);
+    localStorage.setItem('userId', user.id);
   }
 
   changeStatus(user: User) {
     this.agent = user;
   }
 
-  disableEnableUser() {
+  disableEnableAgent() {
     if (this.agent.status === true) {
       this.agent.status = false;
     } else {

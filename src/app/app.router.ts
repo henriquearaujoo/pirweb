@@ -1,3 +1,6 @@
+import { AgentMapComponent } from './views/agent/agent-map/agent-map.component';
+import { AgentLocationComponent } from './views/agent/agent-location/agent-location.component';
+import { AgentListComponent } from './views/agent/agent-list/agent-list.component';
 import { FormTemplateDetailsComponent } from './views/form-template/form-template-details/form-template-details.component';
 import { FormTemplateListComponent } from './views/form-template/form-template-list/form-template-list.component';
 import { FormTemplateComponent } from './views/form-template/form-template.component';
@@ -72,7 +75,27 @@ const App_Router: Routes = [
 
           {
             path: 'agent',
-            component: AgentComponent
+            component: UserComponent
+              // canActivate: [PageGuard]
+          },
+          {
+            path: 'agent-details',
+            component: UserDetailsComponent
+              // canActivate: [PageGuard]
+          },
+          {
+            path: 'agent-list',
+            component: AgentListComponent
+              // canActivate: [PageGuard]
+          },
+          {
+            path: 'agent-location',
+            component: AgentLocationComponent
+              // canActivate: [PageGuard]
+          },
+          {
+            path: 'agent-map',
+            component: AgentMapComponent
               // canActivate: [PageGuard]
           },
           {

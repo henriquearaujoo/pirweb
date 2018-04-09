@@ -93,14 +93,15 @@ div.box-footer {
 }
 
 button#btn_new {
-   width: 125px;
+    background-image: url('/assets/img/global/btn_new.png')!important;
+    background-repeat: no-repeat;
 }
 
-/* .btn-primary {
+.btn-primary {
     width: 100px;
     background-color:#373d40;
     border-color: #373d40;
-} */
+}
 
 i.fa {
     font-size: 20px;
