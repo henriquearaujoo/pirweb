@@ -153,6 +153,9 @@ import { FormTemplateDetailsComponent } from './views/form-template/form-templat
 import { AgentListComponent } from './views/agent/agent-list/agent-list.component';
 import { AgentLocationComponent} from './views/agent/agent-location/agent-location.component';
 import { AgentMapComponent } from './views/agent/agent-map/agent-map.component';
+import { VisitHistoricComponent } from './views/agent/visit-historic/visit-historic.component';
+import { FamilyListComponent } from './views/agent/visit-historic/family-list/family-list.component';
+import { VisitHistoricListComponent } from './views/agent/visit-historic/visit-historic-list/visit-historic-list.component';
 // import { QuillModule } from 'ngx-quill';
 // import { EqualValidator } from './directives/equal-validator.directive';
 
@@ -226,7 +229,10 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     FormTemplateDetailsComponent,
     AgentListComponent,
     AgentLocationComponent,
-    AgentMapComponent
+    AgentMapComponent,
+    VisitHistoricComponent,
+    FamilyListComponent,
+    VisitHistoricListComponent
 
   ],
   imports: [

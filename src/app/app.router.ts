@@ -1,3 +1,5 @@
+import { VisitHistoricListComponent } from './views/agent/visit-historic/visit-historic-list/visit-historic-list.component';
+import { FamilyListComponent } from './views/agent/visit-historic/family-list/family-list.component';
 import { AgentMapComponent } from './views/agent/agent-map/agent-map.component';
 import { AgentLocationComponent } from './views/agent/agent-location/agent-location.component';
 import { AgentListComponent } from './views/agent/agent-list/agent-list.component';
@@ -51,6 +53,7 @@ import { CommunityComponent } from './views/community/community.component';
 import { CommunityListComponent } from './views/community/community-list/community-list.component';
 import { PageGuard } from './guards/page.guard';
 import { SendEmailComponent } from './views/login/send-email/send-email.component';
+import { VisitHistoricComponent } from './views/agent/visit-historic/visit-historic.component';
 
 const App_Router: Routes = [
 
@@ -96,6 +99,21 @@ const App_Router: Routes = [
           {
             path: 'agent-map',
             component: AgentMapComponent
+              // canActivate: [PageGuard]
+          },
+          {
+            path: 'visit-historic',
+            component: VisitHistoricComponent
+              // canActivate: [PageGuard]
+          },
+          {
+            path: 'visit-historic-list',
+            component: VisitHistoricListComponent
+              // canActivate: [PageGuard]
+          },
+          {
+            path: 'family-list',
+            component: FamilyListComponent
               // canActivate: [PageGuard]
           },
           {

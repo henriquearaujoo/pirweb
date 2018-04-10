@@ -107,6 +107,9 @@ img.ic_add {
 table, a {
     color: #335164;
 }
+.table > tbody > tr > td, .table > thead > tr > th {
+    padding: 8px 28px;
+}
 
 thead{
     background-color: #DFE8ED;
@@ -121,11 +124,9 @@ tbody {
     font-size: 12px;
 }
 
-/* .table > tbody > tr, .table > thead > tr {
-    padding-left: 50px;
-    padding-right: 50px;
-} */
-
+.tbl-right {
+    padding: 8px 22px 0 0!important;
+}
 img.icon {
     margin: 12px;
     margin-left: 20px;
@@ -153,4 +154,11 @@ a#btn_next, a#btn_previous {
 
 .btn-default {
     background-color: #dfe8ed;
+    width: 125px;
+}
+.limit-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 350px;
 }
