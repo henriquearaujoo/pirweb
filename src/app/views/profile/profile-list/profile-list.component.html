@@ -56,7 +56,7 @@
                                       <div id="_filter" class="dataTables_filter">
                                         <label>
                                           Filtro <input type="text" class="form-control form-border " name="title" id="filter"  (keyup)="getProfile()" 
-                                            [(ngModel)]="filter.title" mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" placeholder="Tipo de Perfil">
+                                            [(ngModel)]="filter.title" mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" placeholder="Título de Perfil">
                                         </label>
                                       </div>
                                     </div>
@@ -71,8 +71,11 @@
                                                         <th class="profile-id">ID
                                                           <span class="glyphicon" ></span>
                                                         </th>
-                                                        <th>TIPO
+                                                        <th>TÍTULO
                                                           <span class="glyphicon" ></span>
+                                                        </th>
+                                                        <th>TIPO
+                                                            <span class="glyphicon" ></span>
                                                         </th>
                                                         <th colspan="3"> <span *ngIf="canUpdate || canDelete">AÇÃO </span></th>
                                                       </tr>
@@ -89,7 +92,11 @@
                                                         <td>  
                                                             {{ item.title }} 
                                                         </td>            
-                                                       
+                                                        <td>  
+                                                          <span *ngIf="item.type === 'ADMIN'"> ADMINISTRADOR</span>
+                                                          <span *ngIf="item.type === 'AGENT'"> AGENTE</span>
+                                                          <span *ngIf="item.type === 'OTHER'"> TERCEIRO</span>
+                                                        </td>  
                                                         <td class="tbl-right">              
                                                           <a  href="#tab_2" (click)="isActive(true)"data-toggle="tab" title="Permissões" *ngIf="canUpdate">
                                                             <!-- *ngIf=" ((item.title | uppercase) !== 'AGENTE') &&

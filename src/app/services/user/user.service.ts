@@ -35,7 +35,7 @@ export class UserService extends RestService {
       return this.get(this.apiurl + 'users/search/page/?size=' + this.size + '&page=' + page + '&profile.name=agente&sort=name,asc');
     } else {
       return this.get(this.apiurl + 'users/search/page/?size=' + this.size + '&page=' + page +
-      '&profile.name=agente&name=' + filter + '&sort=name,asc');
+      '&profile.type=AGENT&name=' + filter + '&sort=name,asc');
     }
   }
 

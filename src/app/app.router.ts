@@ -1,3 +1,4 @@
+import { AgentInformationComponent } from './views/agent/agent-information/agent-information.component';
 import { VisitHistoricListComponent } from './views/agent/visit-historic/visit-historic-list/visit-historic-list.component';
 import { FamilyListComponent } from './views/agent/visit-historic/family-list/family-list.component';
 import { AgentMapComponent } from './views/agent/agent-map/agent-map.component';
@@ -90,6 +91,11 @@ const App_Router: Routes = [
             path: 'agent-list',
             component: AgentListComponent
               // canActivate: [PageGuard]
+          },
+          {
+            path: 'agent-information',
+            component: AgentInformationComponent,
+              canActivate: [PageGuard]
           },
           {
             path: 'agent-location',

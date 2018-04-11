@@ -156,6 +156,7 @@ import { AgentMapComponent } from './views/agent/agent-map/agent-map.component';
 import { VisitHistoricComponent } from './views/agent/visit-historic/visit-historic.component';
 import { FamilyListComponent } from './views/agent/visit-historic/family-list/family-list.component';
 import { VisitHistoricListComponent } from './views/agent/visit-historic/visit-historic-list/visit-historic-list.component';
+import { AgentInformationComponent } from './views/agent/agent-information/agent-information.component';
 // import { QuillModule } from 'ngx-quill';
 // import { EqualValidator } from './directives/equal-validator.directive';
 
@@ -232,7 +233,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     AgentMapComponent,
     VisitHistoricComponent,
     FamilyListComponent,
-    VisitHistoricListComponent
+    VisitHistoricListComponent,
+    AgentInformationComponent
 
   ],
   imports: [

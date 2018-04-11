@@ -2,7 +2,7 @@ import { LoaderService } from './../../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../../helpers/permissions';
 import { City } from './../../../models/city';
 import { UserService } from './../../../services/user/user.service';
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input } from '@angular/core';
 import { User } from '../../../models/user';
 import { Router, RouterState, RouterStateSnapshot } from '@angular/router';
 import { ProfileService } from '../../../services/profile/profile.service';
@@ -34,6 +34,7 @@ export class UserDetailsComponent implements OnInit {
   private accountTab: string;
   private personalTab: string;
   private adressTab: string;
+  @Input() isAgent: boolean;
 
   constructor(
     private userService: UserService,
@@ -157,7 +158,7 @@ export class UserDetailsComponent implements OnInit {
     if (this.url === '/user-details') {
       this.router.navigate(['/user-list']);
     } else {
-      this.router.navigate(['/agent-list']);
+      this.router.navigate(['/agent-information']);
     }
   }
 }

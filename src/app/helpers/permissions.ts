@@ -8,6 +8,7 @@ import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { LoaderService } from '../services/loader/loader.service';
+import { Profile } from '../models/profile';
 
 @Injectable()
 export class Permissions implements OnDestroy {
@@ -60,6 +61,7 @@ export class Permissions implements OnDestroy {
                                     if ( ('/' + this.rules[i].page.route ) === this.returnUrl) {
                                         if ( this.rules[i].read) {
                                             this.permissionsSubject.next(<RuleState>{
+                                                profile: this.rules[i].profile,
                                                 canRead: this.rules[i].read,
                                                 canCreate: this.rules[i].create,
                                                 canUpdate: this.rules[i].update,
@@ -68,6 +70,7 @@ export class Permissions implements OnDestroy {
                                             break;
                                         } else {
                                             this.permissionsSubject.next(<RuleState>{
+                                                profile: this.rules[i].profile,
                                                 canRead: this.rules[i].read,
                                                 canCreate: this.rules[i].create,
                                                 canUpdate: this.rules[i].update,
@@ -103,23 +106,6 @@ export class Permissions implements OnDestroy {
                 success_rules => {
                     this.rules = success_rules;
                     this.rulesSubject.next(<RuleState>{permissions: this.rules});
-                    // PAGES
-                    // this.accessPageService.getAllPages().subscribe(
-                    //     success => {
-                    //         this.pages = success;
-                    //         for ( let i = 0; i < this.pages.length; i++) {
-                    //             for ( let j = 0; j < this.rules.length; j++) {
-                    //                 if (this.pages[i].id === this.rules[j].page_id) {
-                    //                     this.rules[j].page_id = this.pages[i].route;
-                    //                     break;
-                    //                 }
-                    //             }
-                    //         }
-                    //         this.rulesSubject.next(<RuleState>{permissions: this.rules});
-                    //     },
-                    //     error => console.log(error)
-                    // );
-
                 }
             );
         }
@@ -131,6 +117,7 @@ export class Permissions implements OnDestroy {
 
   export interface RuleState {
     permissions: Rule[];
+    profile: Profile;
     canRead: boolean;
     canUpdate: boolean;
     canCreate: boolean;

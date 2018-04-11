@@ -30,6 +30,30 @@
                         <img src="{{adressTab}}" />
                       </a>                        
                     </li>
+                    <li class="edit">
+                        <button class="btn btn-default" data-toggle="modal" data-target="#modal-default" 
+                            id="btn_delete"
+                            *ngIf="canDelete && !isAgent"> 
+                            <i [ngClass]="user.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
+                        </button>
+                        <button class="btn btn-primary" title="Editar" id="btn_edit"
+                            [routerLink]="['/agent']" >
+                            <i class="fa fa-pencil fa-fw"></i>
+                        </button>  
+                        <!-- <div class="edit-user">
+                            <button class="btn btn-default" data-toggle="modal" data-target="#modal-default" 
+                                id="btn_delete"
+                                *ngIf="canDelete"> 
+                                <i [ngClass]="user.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
+                            </button>
+                        </div>                        
+                        <div class="disable-user">
+                            <button class="btn btn-primary" title="Editar" id="btn_edit"
+                                [routerLink]="['/agent']" >
+                                <i class="fa fa-pencil fa-fw"></i>
+                            </button>                            
+                        </div> -->
+                    </li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_1">
@@ -44,7 +68,7 @@
                                         <form name="form" id="f_1" #f1="ngForm" novalidate>
                                             <div class="box box-primary">
                                                 <div class="box-body">
-                                                    <div class="row">
+                                                    <div class="row" *ngIf="!isAgent">
                                                         <div class="col-sm-12">
                                                             <!-- select status-->
                                                             <div class="form-group">
@@ -53,7 +77,7 @@
                                                             </div>                                                           
                                                         </div>
                                                     </div>
-                                                <div class="row">                                                     
+                                                    <div class="row" *ngIf="!isAgent">                                                     
                                                         <div class="col-sm-6">
                                                             <div class="form-group profile">
                                                                 <label class="control-label">Perfil</label>
@@ -66,7 +90,7 @@
                                                                 <input type="text" name="type" class="form-control" value="{{ user.type === 'PFIS' ? 'Pessoa Física': 'Pessoa Jurídica'}}" disabled>
                                                             </div>
                                                         </div>
-                                                </div>
+                                                    </div>
                                                 <!-- <div class="row" *ngIf="show_community"> -->
                                                     <!-- select community-->
                                                     <!-- <div class="col-sm-12">
@@ -84,10 +108,10 @@
                                                 <!-- </div> -->
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                            <div class="form-group">
-                                                                <label class="control-label">Usuário</label>
-                                                                <input type="text" name="login" class="form-control" value="{{ user.login }}" disabled>
-                                                            </div>
+                                                        <div class="form-group">
+                                                            <label class="control-label">Usuário</label>
+                                                            <input type="text" name="login" class="form-control" value="{{ user.login }}" disabled>
+                                                        </div>
                                                     </div>
                                                 </div>  
                                             </div>
@@ -280,7 +304,7 @@
                             </section>
                         </div>
                     </div>                   
-                    <div class="row footer">                       
+                    <div class="row footer" *ngIf="!isAgent">
                         <button class="btn btn-default" (click)="back()" id="btn_return"> Voltar</button>                         
                     </div>
                 </div>
@@ -432,7 +456,8 @@
     <div class="modal-content" [ngStyle]="object">
       <div class="modal-body">
         <div class="modal-icon">
-            <i class="material-icons" style="font-size: 60px;">error_outline</i>
+            <!-- <i class="material-icons" style="font-size: 60px;">error_outline</i> -->
+            <img class="icon" src="./assets/img/global/ic_action.png">
         </div>          
           <h5  *ngIf="user.status"> Deseja realmente desativar o <span *ngIf="url === '/user-details'">usuário</span><span *ngIf="url !== '/user-details'">agente</span> <strong> {{ user.name | uppercase}} </strong> ?</h5>
           <h5  *ngIf="!user.status"> Deseja realmente ativar o <span *ngIf="url === '/user-details'">usuário</span><span *ngIf="url !== '/user-details'">agente</span> <strong> {{ user.name | uppercase}} </strong> ?</h5>

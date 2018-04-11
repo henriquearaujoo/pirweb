@@ -59,6 +59,7 @@ export class AgentListComponent implements OnInit {
     this.permissions.canActivate('/agent-list');
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
+        console.log(rules);
         this.canCreate = rules.canCreate;
         this.canUpdate = rules.canUpdate;
         this.canRead = rules.canRead;

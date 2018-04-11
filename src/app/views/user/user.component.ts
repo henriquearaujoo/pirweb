@@ -35,7 +35,7 @@ export class UserComponent implements OnInit, OnDestroy {
   private states = new Array();
   private cities = new Array();
   private profiles: Profile[] = new Array();
-  private profile: string;
+  private profile: Profile = new Profile();
   private entity: Org;
   private person: Person;
   private first_name: string;
@@ -46,9 +46,6 @@ export class UserComponent implements OnInit, OnDestroy {
   private error_list = new Array();
   private error_item = new Array<string>();
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
-  private maskCEP = [ /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/];
-  private maskCPF = [ /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/];
-  private maskRg = [ /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/];
   private accountTab: string;
   private personalTab: string;
   private adressTab: string;
@@ -80,6 +77,7 @@ export class UserComponent implements OnInit, OnDestroy {
   private city_id: number;
   private currentId: string;
   private url: string;
+  private isAgent: boolean;
 
   constructor(
     private userService: UserService,
@@ -99,6 +97,8 @@ export class UserComponent implements OnInit, OnDestroy {
       this.canUpdate = false;
       this.canRead = false;
       this.canDelete = false;
+      this.hasdata = false;
+      this.isAgent = false;
   }
 
   ngOnInit() {
@@ -108,11 +108,17 @@ export class UserComponent implements OnInit, OnDestroy {
     this.permissions.canActivate('/user');
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
+        this.profile = rules.profile;
         this.canCreate = rules.canCreate;
         this.canUpdate = rules.canUpdate;
         this.canRead = rules.canRead;
         this.canDelete = rules.canDelete;
-        // this.loaderService.hide();
+        console.log('profile Type', this.profile.type);
+        if (this.profile.type === 'AGENT') {
+          this.isAgent = true;
+          localStorage.setItem('userId', localStorage.getItem('currentIdPir'));
+          console.log('Perfil de Agente!');
+        }
       }
     );
     /*check if is a new or update*/
@@ -171,7 +177,7 @@ export class UserComponent implements OnInit, OnDestroy {
               if (this.url === '/user') {
                 this.sweetAlertService.alertSuccess('user-list');
               } else {
-                this.sweetAlertService.alertSuccess('agent-list');
+                this.sweetAlertService.alertSuccess('agent-information');
               }
             },
             error => {
@@ -184,7 +190,7 @@ export class UserComponent implements OnInit, OnDestroy {
           if (this.url === '/user') {
             this.sweetAlertService.alertPermission('user-list');
           } else {
-            this.sweetAlertService.alertPermission('agent-list');
+            this.sweetAlertService.alertPermission('agent-information');
           }
         }
       } else {
@@ -236,7 +242,7 @@ export class UserComponent implements OnInit, OnDestroy {
                 if (this.url === '/user') {
                   this.sweetAlertService.alertSuccessUpdate('user-list');
                 } else {
-                  this.sweetAlertService.alertSuccessUpdate('agent-list');
+                  this.sweetAlertService.alertSuccessUpdate('agent-information');
                 }
               }
             },
@@ -249,7 +255,7 @@ export class UserComponent implements OnInit, OnDestroy {
           if (this.url === '/user') {
             this.sweetAlertService.alertPermission('user-list');
           } else {
-            this.sweetAlertService.alertPermission('agent-list');
+            this.sweetAlertService.alertPermission('agent-information');
           }
         }
       }
@@ -261,7 +267,7 @@ export class UserComponent implements OnInit, OnDestroy {
     if (this.url === '/user') {
       this.modalService.modalCancel('/user-list');
     } else {
-      this.modalService.modalCancel('/agent-list');
+      this.modalService.modalCancel('/agent-information');
     }
   }
 
@@ -269,7 +275,6 @@ export class UserComponent implements OnInit, OnDestroy {
     this.profileService.getProfiles().subscribe(
       success => {
           this.profiles = success;
-          this.hasdata = true;
       },
       error => console.log(error)
     );
@@ -279,10 +284,8 @@ export class UserComponent implements OnInit, OnDestroy {
     this.userService.getStates(id).subscribe(
       success => {
         if (success == null) {
-          this.hasdata = false;
         }
         this.states = success;
-        this.hasdata = true;
       },
       error => console.log(error)
     );
@@ -292,10 +295,8 @@ export class UserComponent implements OnInit, OnDestroy {
     this.userService.getCities(state_id).subscribe(
       success => {
         if (success == null) {
-          this.hasdata = false;
         }
         this.cities = success.cities;
-        this.hasdata = true;
       },
       error => console.log(error)
     );
@@ -442,8 +443,6 @@ export class UserComponent implements OnInit, OnDestroy {
       success => {
         this.user = success[0];
         if (this.user !== undefined) {
-          // this.person = this.user.person;
-          // this.org = this.user.entity;
           this.first_name = this.user.name.split(' ')[0];
           this.last_name = this.user.name.substring(this.first_name.length + 1);
           console.log(this.user);
@@ -458,9 +457,6 @@ export class UserComponent implements OnInit, OnDestroy {
             this.entity = this.user.entity;
             this.show_pjur = true;
           }
-          // this.city_id = this.user.address.city;
-          // this.selectType();
-          // this.loadStates();
           this.loadCities(this.user.address.city.state.id);
           this.loadProfiles();
           this.loaderService.hide();
@@ -469,6 +465,7 @@ export class UserComponent implements OnInit, OnDestroy {
             this.entity = new Org();
             this.person = new Person();
         }
+        this.hasdata = true;
       },
       error => {
         console.log(error);
