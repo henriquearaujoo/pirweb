@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../services/user/user.service';
 import { User } from '../../../models/user';
+import { Permissions, RuleState } from '../../../helpers/permissions';
 
 @Component({
   selector: 'app-agent-map',
@@ -9,6 +10,10 @@ import { User } from '../../../models/user';
 })
 export class AgentMapComponent implements OnInit {
   private agents: User[] = new Array();
+  private canRead: boolean;
+  private canUpdate: boolean;
+  private canCreate: boolean;
+  private canDelete: boolean;
   markers: Marker[] = [
     {
       lat: -7.50427875,
@@ -24,9 +29,24 @@ export class AgentMapComponent implements OnInit {
     }
   ];
   constructor(
-    private userService: UserService) { }
+    private userService: UserService,
+    private permissions: Permissions) {
+      this.canCreate = false;
+      this.canUpdate = false;
+      this.canRead = false;
+      this.canDelete = false;
+     }
 
   ngOnInit() {
+    this.permissions.canActivate(['/agent-map']);
+    this.permissions.permissionsState.subscribe(
+      (rules: RuleState) => {
+        this.canCreate = rules.canCreate;
+        this.canUpdate = rules.canUpdate;
+        this.canRead = rules.canRead;
+        this.canDelete = rules.canDelete;
+      }
+    );
   }
 
   getAgents() {

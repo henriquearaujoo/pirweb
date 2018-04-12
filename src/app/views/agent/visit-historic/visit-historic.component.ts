@@ -34,7 +34,7 @@ export class VisitHistoricComponent implements OnInit {
   private canUpdate: boolean;
   private canCreate: boolean;
   private canDelete: boolean;
-  private pattern = '^[a-zA-Z';
+  private isAgent: boolean;
 
   constructor(
     private pagerService: PageService,
@@ -51,18 +51,23 @@ export class VisitHistoricComponent implements OnInit {
       this.canUpdate = false;
       this.canRead = false;
       this.canDelete = false;
+      this.isAgent = false;
      }
   ngOnInit() {
     this.hasdata = false;
     this.getAgents();
-    localStorage.removeItem('userId');
-    this.permissions.canActivate('/agent-list');
+    this.permissions.canActivate(['/visit-historic']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
+        this.profile = rules.profile;
         this.canCreate = rules.canCreate;
         this.canUpdate = rules.canUpdate;
         this.canRead = rules.canRead;
         this.canDelete = rules.canDelete;
+        if (this.profile.type === 'AGENT') {
+          this.isAgent = true;
+          localStorage.setItem('userId', localStorage.getItem('currentIdPir'));
+        }
       }
     );
   }

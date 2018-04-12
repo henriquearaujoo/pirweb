@@ -51,7 +51,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.permissions.canActivate('/user-details');
+    this.permissions.canActivate(['/user-details', '/agent-details']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -111,7 +111,6 @@ export class UserDetailsComponent implements OnInit {
     } else {
       this.router.navigate(['/agent']);
     }
-    // this.router.navigate(['/user']);
   }
 
   disableEnableUser() {

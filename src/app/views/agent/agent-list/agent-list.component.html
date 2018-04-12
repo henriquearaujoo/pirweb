@@ -67,17 +67,15 @@
                       *ngIf="item.name  !== 'Administrator'">
                         <i class="large material-icons">visibility</i>
                     </a>
-                  </td>
-                  <!-- *ngIf="canUpdate" -->
-                  <td class="tbl-right">          
+                  </td>                  
+                  <td class="tbl-right" *ngIf="canUpdate">          
                     <a title="Editar" id="btn_edit"
                       (click)="setAgent(item)" [routerLink]="['/agent']" 
                       *ngIf="item.name  !== 'Administrator'">
                       <i class="fa fa-pencil fa-fw"></i>
                     </a>
-                  </td>
-                  <!-- *ngIf="canDelete" -->
-                  <td class="tbl-right">
+                  </td>                  
+                  <td class="tbl-right" *ngIf="canDelete">
                     <a href="" [title]="item.status === true ? 'Desativar': 'Ativar'"
                       data-toggle="modal" data-target="#modal-default"
                       (click)="changeStatus(item)" id="btn_status" 

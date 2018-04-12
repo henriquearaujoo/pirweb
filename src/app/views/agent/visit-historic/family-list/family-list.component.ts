@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, Input } from '@angular/core';
 import { User } from '../../../../models/user';
 import { Person } from '../../../../models/person';
 import { Profile } from '../../../../models/profile';
@@ -35,6 +35,7 @@ export class FamilyListComponent implements OnInit {
   private canCreate: boolean;
   private canDelete: boolean;
   private urlId: string;
+  @Input() isAgent: boolean;
 
   constructor(
     private pagerService: PageService,
@@ -60,7 +61,7 @@ export class FamilyListComponent implements OnInit {
     if (this.urlId !== undefined && this.urlId !== null) {
       this.load();
     }
-    this.permissions.canActivate('/agent-list');
+    this.permissions.canActivate(['/family-list']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;

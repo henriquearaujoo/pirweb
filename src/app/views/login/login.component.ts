@@ -66,11 +66,11 @@ export class LoginComponent implements OnInit, OnDestroy {
             (data: Response) => {
                 const token = data.headers.get('authorization');
                 // const tokenData = decodeToken(token);
-                console.log('Token:', token);
+                // console.log('Token:', token);
                 localStorage.setItem('tokenPir', token );
                 if (token) {
                     const tokenData = decodeToken(token);
-                    console.log('Decode Token:', tokenData);
+                    // console.log('Decode Token:', tokenData);
                     localStorage.setItem('profileId_rules', tokenData.payload.acc.profile.id);
                     localStorage.setItem('currentUserPir', tokenData.payload.acc.user.name);
                     localStorage.setItem('currentIdPir', tokenData.payload.acc.user.id);

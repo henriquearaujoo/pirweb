@@ -87,6 +87,10 @@ th, td {
     text-align: right;
 }
 
+p.form-control.answer {
+    height: auto;
+}
+
 /******** Modal DELETE *********/
 
 .modal-footer.delete {

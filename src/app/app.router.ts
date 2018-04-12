@@ -79,18 +79,18 @@ const App_Router: Routes = [
 
           {
             path: 'agent',
-            component: UserComponent
-              // canActivate: [PageGuard]
+            component: UserComponent,
+              canActivate: [PageGuard]
           },
           {
             path: 'agent-details',
-            component: UserDetailsComponent
-              // canActivate: [PageGuard]
+            component: UserDetailsComponent,
+              canActivate: [PageGuard]
           },
           {
             path: 'agent-list',
-            component: AgentListComponent
-              // canActivate: [PageGuard]
+            component: AgentListComponent,
+              canActivate: [PageGuard]
           },
           {
             path: 'agent-information',
@@ -99,28 +99,28 @@ const App_Router: Routes = [
           },
           {
             path: 'agent-location',
-            component: AgentLocationComponent
-              // canActivate: [PageGuard]
+            component: AgentLocationComponent,
+              canActivate: [PageGuard]
           },
           {
             path: 'agent-map',
-            component: AgentMapComponent
-              // canActivate: [PageGuard]
+            component: AgentMapComponent,
+              canActivate: [PageGuard]
           },
           {
             path: 'visit-historic',
-            component: VisitHistoricComponent
-              // canActivate: [PageGuard]
+            component: VisitHistoricComponent,
+              canActivate: [PageGuard]
           },
           {
             path: 'visit-historic-list',
-            component: VisitHistoricListComponent
-              // canActivate: [PageGuard]
+            component: VisitHistoricListComponent,
+              canActivate: [PageGuard]
           },
           {
             path: 'family-list',
-            component: FamilyListComponent
-              // canActivate: [PageGuard]
+            component: FamilyListComponent,
+              canActivate: [PageGuard]
           },
           {
             path: 'maps',

@@ -77,7 +77,7 @@
           <app-paginate [paginate]="paginate" (eventPage)="setPage($event)"></app-paginate>
         </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="!isAgent">
       <div class="col-sm-12 back">
       <button class="btn btn-default"[routerLink]="['/visit-historic']"> Voltar</button>
       </div>

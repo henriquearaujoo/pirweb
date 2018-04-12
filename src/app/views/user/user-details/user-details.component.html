@@ -34,25 +34,12 @@
                         <button class="btn btn-default" data-toggle="modal" data-target="#modal-default" 
                             id="btn_delete"
                             *ngIf="canDelete && !isAgent"> 
-                            <i [ngClass]="user.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
+                            <i [ngClass]="user.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off'" aria-hidden="true"></i>
                         </button>
                         <button class="btn btn-primary" title="Editar" id="btn_edit"
-                            [routerLink]="['/agent']" >
+                            (click)="editUser()" *ngIf="canUpdate">
                             <i class="fa fa-pencil fa-fw"></i>
-                        </button>  
-                        <!-- <div class="edit-user">
-                            <button class="btn btn-default" data-toggle="modal" data-target="#modal-default" 
-                                id="btn_delete"
-                                *ngIf="canDelete"> 
-                                <i [ngClass]="user.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
-                            </button>
-                        </div>                        
-                        <div class="disable-user">
-                            <button class="btn btn-primary" title="Editar" id="btn_edit"
-                                [routerLink]="['/agent']" >
-                                <i class="fa fa-pencil fa-fw"></i>
-                            </button>                            
-                        </div> -->
+                        </button>                        
                     </li>
                 </ul>
                 <div class="tab-content">

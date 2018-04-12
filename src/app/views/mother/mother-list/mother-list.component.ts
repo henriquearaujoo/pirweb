@@ -50,7 +50,7 @@ export class MotherListComponent implements OnInit, OnDestroy {
    }
 
   ngOnInit() {
-    this.permissions.canActivate('/pregnant-list');
+    this.permissions.canActivate(['/pregnant-list']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;

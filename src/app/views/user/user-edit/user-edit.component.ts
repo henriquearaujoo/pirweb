@@ -89,7 +89,7 @@ export class UserEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.permissions.canActivate('/user-edit');
+    this.permissions.canActivate(['/user-edit']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;

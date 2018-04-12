@@ -33,7 +33,7 @@ export class ResponsibleDetailsComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.permissions.canActivate('/responsible-details');
+    this.permissions.canActivate(['/responsible-details']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;

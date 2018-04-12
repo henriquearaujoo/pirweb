@@ -10,19 +10,7 @@
             <div class="row">              
                 <div class="col-sm-12">
                     <div class="box box-primary question">
-                      <div class="box-body">
-                        <div class="form-group" [ngClass]="applyCssError(fQuestion, type)">
-                          <label class="control-label"> Tipo</label>
-                          <select class="form-control" name="type" id="question_type" [(ngModel)] ="question.type" 
-                            #type="ngModel" required>
-                            <option disabled> Tipo da questão </option>
-                            <option value="DISSERTATIVE"> Dissertativa</option>
-                            <option value="OBJECTIVE"> Objetiva</option>
-                            <option value="SUBJECTIVE"> Subjetiva</option>
-                          </select>
-                          <app-control-field-error [showError]="verifyValidSubmitted(fQuestion, type)" msgError="Selecione o tipo da questão">
-                          </app-control-field-error>
-                        </div>
+                      <div class="box-body">                        
                         <div class="form-group" [ngClass]="applyCssError(fQuestion, description)">
                           <label class="control-label">Descrição da questão</label>                       
                             <div class="box-body pad">                            

@@ -105,7 +105,7 @@ export class UserComponent implements OnInit, OnDestroy {
     const state: RouterState = this.router.routerState;
     const snapshot: RouterStateSnapshot = state.snapshot;
     this.url = snapshot.url;
-    this.permissions.canActivate('/user');
+    this.permissions.canActivate(['/user', '/agent']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.profile = rules.profile;
@@ -113,11 +113,9 @@ export class UserComponent implements OnInit, OnDestroy {
         this.canUpdate = rules.canUpdate;
         this.canRead = rules.canRead;
         this.canDelete = rules.canDelete;
-        console.log('profile Type', this.profile.type);
         if (this.profile.type === 'AGENT') {
           this.isAgent = true;
           localStorage.setItem('userId', localStorage.getItem('currentIdPir'));
-          console.log('Perfil de Agente!');
         }
       }
     );
@@ -445,7 +443,6 @@ export class UserComponent implements OnInit, OnDestroy {
         if (this.user !== undefined) {
           this.first_name = this.user.name.split(' ')[0];
           this.last_name = this.user.name.substring(this.first_name.length + 1);
-          console.log(this.user);
           if (this.user.person !== undefined ) {
             this.user.type = 'PFIS';
             this.person = new Person();

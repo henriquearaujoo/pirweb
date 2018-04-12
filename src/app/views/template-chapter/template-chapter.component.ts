@@ -57,7 +57,7 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.permissions.canActivate('/template-chapter');
+    this.permissions.canActivate(['/template-chapter']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;

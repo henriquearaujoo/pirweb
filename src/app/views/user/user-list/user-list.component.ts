@@ -60,7 +60,7 @@ export class UserListComponent implements OnInit {
     this.hasdata = false;
     this.getUsers();
     localStorage.removeItem('userId');
-    this.permissions.canActivate('/user-list');
+    this.permissions.canActivate(['/user-list']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
