@@ -73,7 +73,7 @@ div.dataTables_filter {
     background-color: #fbfbfb;
 }
 
-.box-header {
+/* .box-header {
     background-color: #66ACD7;
     height: 32px;
     padding-bottom: 10px;
@@ -82,7 +82,7 @@ div.dataTables_filter {
     color: #FFFFFF;
     font-size: 14px;
     font-family: Roboto-Thin;
-}
+} */
 .box {
     border-top: 0;
     /* margin-left: 10px; */

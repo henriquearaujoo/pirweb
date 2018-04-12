@@ -30,7 +30,9 @@
                                         </th>                                   
                                         <th colspan="3"> PERMISSÕES</th>
                                         <th> 
-                                            <label class="pointer">Selecionar Todos
+                                            <label class="pointer">
+                                                <span *ngIf="isAllChecked">Desmarcar Todos</span>
+                                                <span *ngIf="!isAllChecked">Marcar Todos</span>
                                                 <input type="checkbox" name="all" [(checked)]="ngModel" [(ngModel)]="isAllChecked" 
                                                 [disabled]="currentProfile.id === undefined" (change)="checkAll($event)"/>
                                             </label>

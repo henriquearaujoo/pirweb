@@ -4,24 +4,39 @@
       <section class="content">
         <div class="row">       
           <div class="box box-solid">
-              <div class="box-header ">
-                TIPO
-              </div>  
-              <div class="box-body add-profile">
+              <!-- <div class="box-header ">
+                TÍTULO
+              </div>   -->
+              <div class="box-body add-profile">                
                 <form role="form" name="form" class="form-horizontal" (ngSubmit)="f.form.valid && save()" #f="ngForm" novalidate>
-                  
-                  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !title.valid}">                    
-                    <div class="col-md-9">          
-                    <input type="text" class="form-control" id="title" name="title" maxlength="40"
-                      placeholder="TIPO DO PERFIL" 
-                      [(ngModel)]="profile.title"
-                      #title="ngModel" required>
-                    <div *ngIf="f.submitted && !title.valid" class="help-block">Escrever um novo tipo de perfil</div>
-                    </div>                  
-                      <div class="control-button col-md-3">                 
-                        <button class="btn btn-primary btn-block"> <img src="./assets/img/global/ic_add.png" class="ic_add">Adicionar Perfil</button>   
-                      </div>                  
-                  </div> 
+                   <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !type.valid}">  
+                            <label class="label-control">Tipo</label>       
+                            <select class="form-control" name="type" id="type" #type="ngModel" [(ngModel)]="profile.type" required>
+                              <option value="ADMIN"> ADMINISTRADOR  </option>
+                              <option value="AGENT"> AGENTE  </option>
+                              <option value="OTHER"> TERCEIRO  </option>                             
+                            </select>
+                            <div *ngIf="f.submitted && !type.valid" class="help-block">Selecione um tipo de perfil</div>                                                           
+                        </div> 
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !title.valid}">                    
+                        <div class="col-md-9">
+                          <label class="label-control">Título</label>       
+                          <input type="text" class="form-control" id="title" name="title" maxlength="40"
+                            placeholder="TÍTULO DO PERFIL" 
+                            [(ngModel)]="profile.title"
+                            #title="ngModel" required>
+                          <div *ngIf="f.submitted && !title.valid" class="help-block">Digite um título de perfil</div>
+                        </div>                
+                        <div class="control-button col-md-3">                 
+                          <button class="btn btn-primary btn-block"> <img src="./assets/img/global/ic_add.png" class="ic_add">Adicionar Perfil</button>   
+                        </div>                  
+                      </div> 
+                    </div>      
                 </form>                      
               </div>
             </div>   
@@ -37,28 +52,44 @@
         <section class="content">
           <div class="row">       
             <div class="box box-solid">
-                <div class="box-header ">
+                <!-- <div class="box-header ">
                     TIPO
-                </div>  
+                </div>   -->
                 <div class="box-body add-profile">
                   <form role="form" name="form" class="form-horizontal" (ngSubmit)="f.form.valid && saveEdit()" #f="ngForm" novalidate>
-                    
-                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !title.valid}">
-                      <div class="col-md-9">          
-                        <div class="input-group">
-                          <input type="text" #inputEdit class="form-control" id="title_edit" name="title" maxlength="40"
-                            placeholder="Descrição do perfil de usuário" 
-                            [(ngModel)]="editProfile"
-                            autofocus
-                            #title="ngModel" required>
-                            <span class="input-group-addon" title="Cancelar edição do perfil" (click)="cancelEdit()"><i class="fa fa-times"></i></span>
-                        </div>   
-                        <div *ngIf="f.submitted && !title.valid" class="help-block">Escrever um tipo de perfil</div>                       
-                      </div>              
-                        <div class="control-button col-md-3">       
-                          <button class="btn btn-primary btn-block"> <i class="fa fa-pencil"></i>Editar Perfil</button> 
-                        </div>                  
-                    </div> 
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !type.valid}">  
+                            <label class="label-control">Tipo</label>       
+                            <select class="form-control" name="type" id="type" #type="ngModel" [(ngModel)]="editProfile.type" required>
+                              <option value="ADMIN"> ADMINISTRADOR  </option>
+                              <option value="AGENT"> AGENTE  </option>
+                              <option value="OTHER"> TERCEIRO  </option>
+                            </select>
+                            <div *ngIf="f.submitted && !type.valid" class="help-block">Selecione um tipo de perfil</div>
+                        </div> 
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !title.valid}">
+                        <div class="col-md-9">
+                          <label class="label-control">Título</label>        
+                          <div class="input-group">  
+                            <input type="text" #inputEdit class="form-control" id="title_edit" name="title" maxlength="40"
+                              placeholder="TÍTULO DO PERFIL" 
+                              [(ngModel)]="editProfile.title"
+                              autofocus
+                              #title="ngModel" required>
+                              <span class="input-group-addon" title="Cancelar edição do perfil" (click)="cancelEdit()"><i class="fa fa-times"></i></span>
+                            </div>   
+                            <div *ngIf="f.submitted && !title.valid" class="help-block">Digite um título de perfil</div>                       
+                          </div>              
+                          <div class="control-button col-md-3">       
+                            <button class="btn btn-primary btn-block"> <i class="fa fa-pencil"></i>Salvar Perfil</button> 
+                          </div>                  
+                        </div> 
+                    </div>
+          
                   </form>                      
                 </div>
               </div>   

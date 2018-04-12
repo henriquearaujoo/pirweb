@@ -99,7 +99,8 @@ export class SideBarComponent implements OnInit, OnDestroy {
                     (currentURL.toLowerCase() === '/community') ||
                     (currentURL.toLowerCase() === '/mother') ||
                     (currentURL.toLowerCase() === '/responsible') ||
-                    (currentURL.toLowerCase() === '/child');
+                    (currentURL.toLowerCase() === '/child') ||
+                    (currentURL.toLowerCase() === '/agent');
       if (this.isForm) {
         this.modalService.modalCancel(this.urlToNavigate);
       } else {

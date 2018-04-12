@@ -40,7 +40,7 @@
                 <button class="btn edit" (click)="editChapter(currentVersion)" *ngIf="canUpdate">
                     <i class="fa fa-pencil" aria-hidden="true" (click)='editChapter(currentVersion)'> </i> Editar
                 </button>       
-                <button class="btn status" (click)="disableEnableVersion(currentVersion)" *ngIf="canDelete">
+                <button class="btn status" [ngClass]="currentVersion.status === true ? 'status-disable': 'status-enable' " (click)="disableEnableVersion(currentVersion)" *ngIf="canDelete">
                     <i [ngClass]="currentVersion.status === true ? 'fa fa-ban': 'fa fa-check' " aria-hidden="true"></i>           
                     {{ currentVersion.status === true ? 'Desativar': 'Ativar'}} 
                 </button>       

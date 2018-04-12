@@ -38,10 +38,13 @@ export class Interceptor extends XHRBackend {
         localStorage.removeItem('profileId_rules');
         localStorage.removeItem('currentUserPir');
         localStorage.removeItem('currentIdPir');
-
-        this.sweetAlertService.alertSessionExpired();
+        // this.sweetAlertService.alertSessionExpired();
       } else {
         if ( error.status === 0 ) {
+          localStorage.removeItem('tokenPir');
+          localStorage.removeItem('profileId_rules');
+          localStorage.removeItem('currentUserPir');
+          localStorage.removeItem('currentIdPir');
           this.sweetAlertService.connectionError();
         }
       }

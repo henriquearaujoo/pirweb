@@ -8,6 +8,7 @@ import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { LoaderService } from '../services/loader/loader.service';
+import { Profile } from '../models/profile';
 
 @Injectable()
 export class Permissions implements OnDestroy {
@@ -15,7 +16,7 @@ export class Permissions implements OnDestroy {
     private permissions: Rule[];
     private pages: Page[] = new Array();
 
-    returnUrl: string;
+    returnUrl: string[];
     private rulesSubject = new Subject<RuleState>();
     ruleState = this.rulesSubject.asObservable();
 
@@ -31,7 +32,7 @@ export class Permissions implements OnDestroy {
         private loaderService: LoaderService) {
         }
 
-    canActivate(url: string) {
+    canActivate(url: string[]) {
         this.returnUrl = url;
 
         const profile = localStorage.getItem('profileId_rules');
@@ -42,48 +43,32 @@ export class Permissions implements OnDestroy {
                 success_rules => {
                     this.rules = success_rules;
                     this.loaderService.hide();
-                    // PAGES
-                    // this.accessPageService.getAllPages().subscribe(
-                    //     success => {
-                            // this.pages = success;
-                            // for ( let i = 0; i < this.pages.length; i++) {
-                            //     for ( let j = 0; j < this.rules.length; j++) {
-                            //         if (this.pages[i].id === this.rules[j].page_id) {
-                            //             this.rules[j].page_id = this.pages[i].route;
-                            //             break;
-                            //         }
-                            //     }
-                            // }
-                            if (this.rules.length !== 0) {
-                                this.rulesSubject.next(<RuleState>{permissions: this.rules});
-                                for ( let i = 0; i < this.rules.length; i++) {
-                                    if ( ('/' + this.rules[i].page.route ) === this.returnUrl) {
-                                        if ( this.rules[i].read) {
-                                            this.permissionsSubject.next(<RuleState>{
-                                                canRead: this.rules[i].read,
-                                                canCreate: this.rules[i].create,
-                                                canUpdate: this.rules[i].update,
-                                                canDelete: this.rules[i].delete
-                                            });
-                                            break;
-                                        } else {
-                                            this.permissionsSubject.next(<RuleState>{
-                                                canRead: this.rules[i].read,
-                                                canCreate: this.rules[i].create,
-                                                canUpdate: this.rules[i].update,
-                                                canDelete: this.rules[i].delete
-                                            });
-                                            // this.loaderService.hide();
-                                        }
-                                    }
+                    if (this.rules.length !== 0) {
+                        this.rulesSubject.next(<RuleState>{permissions: this.rules});
+                        for ( let i = 0; i < this.rules.length; i++) {
+                            if ( this.returnUrl.includes('/' + this.rules[i].page.route)) {
+                                if ( this.rules[i].read) {
+                                    this.permissionsSubject.next(<RuleState>{
+                                        profile: this.rules[i].profile,
+                                        canRead: this.rules[i].read,
+                                        canCreate: this.rules[i].create,
+                                        canUpdate: this.rules[i].update,
+                                        canDelete: this.rules[i].delete
+                                    });
+                                    break;
+                                } else {
+                                    this.permissionsSubject.next(<RuleState>{
+                                        profile: this.rules[i].profile,
+                                        canRead: this.rules[i].read,
+                                        canCreate: this.rules[i].create,
+                                        canUpdate: this.rules[i].update,
+                                        canDelete: this.rules[i].delete
+                                    });
+                                    // this.loaderService.hide();
                                 }
                             }
-
-
-                    //     },
-                    //     error => console.log(error)
-                    // );
-
+                        }
+                    }
                 },
                 error => {
                     this.loaderService.hide();
@@ -103,23 +88,6 @@ export class Permissions implements OnDestroy {
                 success_rules => {
                     this.rules = success_rules;
                     this.rulesSubject.next(<RuleState>{permissions: this.rules});
-                    // PAGES
-                    // this.accessPageService.getAllPages().subscribe(
-                    //     success => {
-                    //         this.pages = success;
-                    //         for ( let i = 0; i < this.pages.length; i++) {
-                    //             for ( let j = 0; j < this.rules.length; j++) {
-                    //                 if (this.pages[i].id === this.rules[j].page_id) {
-                    //                     this.rules[j].page_id = this.pages[i].route;
-                    //                     break;
-                    //                 }
-                    //             }
-                    //         }
-                    //         this.rulesSubject.next(<RuleState>{permissions: this.rules});
-                    //     },
-                    //     error => console.log(error)
-                    // );
-
                 }
             );
         }
@@ -131,6 +99,7 @@ export class Permissions implements OnDestroy {
 
   export interface RuleState {
     permissions: Rule[];
+    profile: Profile;
     canRead: boolean;
     canUpdate: boolean;
     canCreate: boolean;

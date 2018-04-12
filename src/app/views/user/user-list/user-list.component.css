@@ -86,16 +86,6 @@ div.box-footer {
     background-color: #f4f4f4;
 }
 
-.modal-footer {
-    padding: 0;
-    margin-top: 90px;
-}
-
-.modal-content {
-    width: 421px;
-    height: 200px;
-}
-
 .btn-col {
     text-align: right;
     padding-right: 20px;
@@ -103,15 +93,14 @@ div.box-footer {
 }
 
 button#btn_new {
-    background-image: url('/assets/img/global/btn_new.png')!important;
-    background-repeat: no-repeat;
+   width: 125px;
 }
 
-.btn-primary {
+/* .btn-primary {
     width: 100px;
     background-color:#373d40;
     border-color: #373d40;
-}
+} */
 
 i.fa {
     font-size: 20px;
@@ -168,25 +157,28 @@ button#btn_confirm {
     height: 45px;
     border-radius: 0;
 }
+/* MODAL disable*/
+.modal-footer {
+    padding: 0;
+    margin-top: 90px;
+}
+
+.modal-content {
+    width: 421px;
+    height: 234px;
+}
 .modal-btn-cancel {
     float: right;  
 }
 
-.modal-body[_ngcontent-c5] {
-    padding-top: 30px;
-    margin-top: 20px;
+.modal-body {
+    padding: 32px;
+    padding-bottom: 45px; 
     text-align: center;
 }
 .modal-icon {
     text-align: center;
 }
-
-/* tr {
-    border-bottom: 1px solid #ccc;
-}
-td  {
-    border-bottom: 1px solid #d2d6de;
-} */
 tbody {
     background-color: white;
 }

@@ -44,7 +44,7 @@ export class FormTemplateListComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.permissions.canActivate('/form-template-list');
+    this.permissions.canActivate(['/form-template-list']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;

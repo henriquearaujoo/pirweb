@@ -43,7 +43,7 @@ export class CommunityListComponent implements OnInit, OnDestroy {
     }
 
   ngOnInit() {
-    this.permissions.canActivate('/community-list');
+    this.permissions.canActivate(['/community-list']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;

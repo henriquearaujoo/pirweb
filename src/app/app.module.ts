@@ -150,6 +150,13 @@ import { ChildDetailsComponent } from './views/child/child-details/child-details
 import { FormTemplateComponent } from './views/form-template/form-template.component';
 import { FormTemplateListComponent } from './views/form-template/form-template-list/form-template-list.component';
 import { FormTemplateDetailsComponent } from './views/form-template/form-template-details/form-template-details.component';
+import { AgentListComponent } from './views/agent/agent-list/agent-list.component';
+import { AgentLocationComponent} from './views/agent/agent-location/agent-location.component';
+import { AgentMapComponent } from './views/agent/agent-map/agent-map.component';
+import { VisitHistoricComponent } from './views/agent/visit-historic/visit-historic.component';
+import { FamilyListComponent } from './views/agent/visit-historic/family-list/family-list.component';
+import { VisitHistoricListComponent } from './views/agent/visit-historic/visit-historic-list/visit-historic-list.component';
+import { AgentInformationComponent } from './views/agent/agent-information/agent-information.component';
 // import { QuillModule } from 'ngx-quill';
 // import { EqualValidator } from './directives/equal-validator.directive';
 
@@ -220,7 +227,14 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ChildDetailsComponent,
     FormTemplateComponent,
     FormTemplateListComponent,
-    FormTemplateDetailsComponent
+    FormTemplateDetailsComponent,
+    AgentListComponent,
+    AgentLocationComponent,
+    AgentMapComponent,
+    VisitHistoricComponent,
+    FamilyListComponent,
+    VisitHistoricListComponent,
+    AgentInformationComponent
 
   ],
   imports: [

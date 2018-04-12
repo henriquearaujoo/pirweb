@@ -1,3 +1,4 @@
+import { SweetAlertService } from './../../../services/sweetalert/sweet-alert.service';
 import { AuthenticationService } from './../../../services/login/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { ToastService } from '../../../services/toast-notification/toast.service';
@@ -8,7 +9,7 @@ import { ModalService } from '../../../components/modal/modal.service';
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.css']
+  styleUrls: ['./reset-password.component.css', '../login.component.css']
 })
 export class ResetPasswordComponent implements OnInit {
 
@@ -32,7 +33,7 @@ export class ResetPasswordComponent implements OnInit {
       private router: Router,
       private toastService: ToastService,
       private authenticationService: AuthenticationService,
-      private modalService: ModalService
+      private sweetAlertService: SweetAlertService
      ) { }
 
   ngOnInit() {
@@ -42,7 +43,7 @@ export class ResetPasswordComponent implements OnInit {
   save(model: User, isValid: boolean) {
       this.authenticationService.reset(this.reset, this.user.password).subscribe(
         success => {
-          this.modalService.modalPassword('/login');
+          this.sweetAlertService.alertUpdatePassword('login');
         },
         error => {
           console.log(error);

@@ -30,7 +30,7 @@ export class CommunityDetailsComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.permissions.canActivate('/community-details');
+    this.permissions.canActivate(['/community-details']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;

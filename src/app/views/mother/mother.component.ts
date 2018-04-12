@@ -76,7 +76,7 @@ export class MotherComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.permissions.canActivate('/pregnant');
+    this.permissions.canActivate(['/pregnant']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;

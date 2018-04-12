@@ -28,7 +28,7 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
   @Input() edit: boolean;
   @Input() selectedProfile: Profile = new Profile();
 
-  editProfile: string;
+  editProfile: any = { title: '', type: ''};
   @Input() canUpdate: boolean;
   @Input() canCreate: boolean;
   @ViewChild('inputEdit') inputEdit: ElementRef;
@@ -49,7 +49,8 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
 
     ngOnChanges(changes: SimpleChanges) {
       this.hasdata = false;
-      this.editProfile = this.selectedProfile.title;
+      this.editProfile.title = this.selectedProfile.title;
+      this.editProfile.type = this.selectedProfile.type;
       if ( changes.edit) {
         if (this.edit) {
           // this.ngAfterViewInit();
@@ -63,6 +64,7 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
     }
 
     save() {
+      console.log(this.profile);
        this.profile.status = true;
 
         this.profile.rule = new Array();
@@ -87,13 +89,15 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
     }
 
     saveEdit() {
-        this.selectedProfile.title = this.editProfile;
+        this.selectedProfile.title = this.editProfile.title;
         this.selectedProfile.description = '';
         this.selectedProfile.created_by = '';
         this.selectedProfile.modified_by = '';
+        this.selectedProfile.type = this.editProfile.type;
+        console.log(this.selectedProfile);
         this.profileService.saveEditProfile(this.selectedProfile).subscribe(
           success => {
-            this.profile = success;
+            // this.profile = success;
             this.edit = false;
             this.insertValue.emit(this.profile);
             this.toastService.toastSuccess();

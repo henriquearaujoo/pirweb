@@ -57,8 +57,10 @@ export class MultimediaGalleryComponent implements OnInit, OnChanges, OnDestroy 
  }
 
   downloadFile(item: any) {
+    console.log(item);
     this.fileService.donwload(item.id).subscribe(
       data =>  {
+        console.log(data);
         const blob = new Blob([data], { type: 'application/pdf' });
         const url = window.URL.createObjectURL(blob);
         // window.open(url);
