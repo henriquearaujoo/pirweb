@@ -234,7 +234,7 @@ export class PageComponent extends PagenateComponent implements OnInit {
 
   updateAllPermission(event) {
     this.rule = new Rule();
-    console.log(this.currentProfile.id);
+    // console.log(this.currentProfile.id);
     this.accessPageService.getPagesFromProfile(this.currentProfile.id).subscribe(
       success => {
         this.all_pages_profile = success;
@@ -254,6 +254,7 @@ export class PageComponent extends PagenateComponent implements OnInit {
             this.all_pages_profile[i].update = false;
           }
         }
+        // console.log(this.all_pages_profile);
 
         for (let i = 0; i < this.all_pages_profile.length; i++) {
           this.ruleService.editRule(this.all_pages_profile[i]).subscribe(

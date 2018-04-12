@@ -29,7 +29,7 @@
                         <img src="{{ profileTab }}" (click)="walk(0)" />
                       </a>                       
                     </li>
-                    <li [class.active]="permissionTabActive" >
+                    <li [class.active]="permissionTabActive" *ngIf="canUpdate">
                       <a  class="tab-pane" [ngClass]= "permissionTabActive ? 'active' : ''" href="#tab_2" data-toggle="tab" id="tab_permission">
                         <img src="{{ permissionTab }}" (click)="walk(1)" />
                       </a>                        
