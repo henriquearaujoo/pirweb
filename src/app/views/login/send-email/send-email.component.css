@@ -1,3 +1,11 @@
-.register-box {
-    width: 587px;
+/* SEND EMAIL */
+button.btn.btn-primary.btn-block {
+    width: inherit;
+}
+
+.register-box-body {
+    padding-right: 60px;
+}
+.row.btn-send {
+    margin-top: 58px;
 }

@@ -22,7 +22,7 @@ import { Permissions } from '../../helpers/permissions';
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-  private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 240) + 'px'};
+  private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 300) + 'px'};
   private user: User = new User();
   loading = false;
   returnUrl: string;

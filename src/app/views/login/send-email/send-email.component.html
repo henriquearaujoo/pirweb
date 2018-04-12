@@ -13,23 +13,30 @@
         <div class="input-group">
           <!-- <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span> -->
            <span class="input-group-addon" style="padding: 6px 12px;">
-             <i class="large material-icons">lock</i>
+             <i class="large material-icons">email</i>
             </span>                
-            <input type ="text" email [(ngModel)]="user.email" name="email" #email="ngModel" class="form-control" placeholder="Digite seu e-mail" required>
-            <div *ngIf="f.submitted && email.invalid || (email.invalid && (email.dirty || email.touched))" class="help-block"> 
-              Digite um e-mail válido
-            </div>
+            <input type ="text" email [(ngModel)]="user.email" name="email" #email="ngModel" class="form-control" placeholder="Digite seu e-mail" required>            
         </div>
+        <div *ngIf="f.submitted && email.invalid || (email.invalid && (email.dirty || email.touched))" class="help-block"> 
+          Digite um e-mail válido
+         </div>
        
       </div>
-      <div class="row">
-        <div class="col-xs-12">
-            <button type="submit" class="btn btn-primary btn-md btn-block" name="submit">Enviar</button>                
+      <div class="row btn-send">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary btn-block" name="submit">Enviar</button>                
         </div>
         <!-- /.col -->
       </div>
     </form>
   </div>
   <!-- /.form-box -->
+  <section class="content samsung">
+      <div class="row">
+        <div class="col-sm-12">
+          <img src="./assets/img/global/logo_Samsung_SEDA.png">
+        </div>
+      </div>
+    </section>
 </div>
 <!-- /.register-box -->
