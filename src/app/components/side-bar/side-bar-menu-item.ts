@@ -78,28 +78,28 @@ export const MENU = [
         'hasChild': false,
         'parent': 6
     },
-    {
-        'id': 16,
-        'title': 'HISTÓRICO DE VISITAS',
-        'route': 'visit-historic',
-        'routes': ['/visit-historic', '/family-list', '/visit-historic-list'],
-        'read': false,
-        'iClass': 'fa fa-circle-o',
-        'category': 'child',
-        'hasChild': false,
-        'parent': 6
-    },
-    {
-        'id': 7,
-        'title': 'MAPA DOS AGENTES',
-        'route': 'agent-map',
-        'routes': ['/agent-map'],
-        'read': false,
-        'iClass': 'fa fa-circle-o',
-        'category': 'child',
-        'hasChild': false,
-        'parent': 6
-    },
+    // {
+    //     'id': 16,
+    //     'title': 'HISTÓRICO DE VISITAS',
+    //     'route': 'visit-historic',
+    //     'routes': ['/visit-historic', '/family-list', '/visit-historic-list'],
+    //     'read': false,
+    //     'iClass': 'fa fa-circle-o',
+    //     'category': 'child',
+    //     'hasChild': false,
+    //     'parent': 6
+    // },
+    // {
+    //     'id': 7,
+    //     'title': 'MAPA DOS AGENTES',
+    //     'route': 'agent-map',
+    //     'routes': ['/agent-map'],
+    //     'read': false,
+    //     'iClass': 'fa fa-circle-o',
+    //     'category': 'child',
+    //     'hasChild': false,
+    //     'parent': 6
+    // },
     {
         'id': 8,
         'title': 'COMUNIDADES',

@@ -188,8 +188,14 @@ button.btn.edit, button.btn.edit:hover {
     margin-right: 30px;
     background-color: #224860;
 }
-button.btn.status, button.btn.status:hover {
-    /* background-color: #B34446; */
+button.btn.status.status-enable {
+    background-color: #8DB561;
+}
+button.btn.status.status-disable {
+    background-color: #B34446;
+}
+.btn i {
+    font-size: 1.2rem!important;
 }
 
 /* button.btn.status:hover, button.btn.edit:hover {

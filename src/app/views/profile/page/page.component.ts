@@ -234,6 +234,7 @@ export class PageComponent extends PagenateComponent implements OnInit {
 
   updateAllPermission(event) {
     this.rule = new Rule();
+    console.log(this.currentProfile.id);
     this.accessPageService.getPagesFromProfile(this.currentProfile.id).subscribe(
       success => {
         this.all_pages_profile = success;

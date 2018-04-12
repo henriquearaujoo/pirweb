@@ -102,26 +102,26 @@ const App_Router: Routes = [
             component: AgentLocationComponent,
               canActivate: [PageGuard]
           },
-          {
-            path: 'agent-map',
-            component: AgentMapComponent,
-              canActivate: [PageGuard]
-          },
-          {
-            path: 'visit-historic',
-            component: VisitHistoricComponent,
-              canActivate: [PageGuard]
-          },
-          {
-            path: 'visit-historic-list',
-            component: VisitHistoricListComponent,
-              canActivate: [PageGuard]
-          },
-          {
-            path: 'family-list',
-            component: FamilyListComponent,
-              canActivate: [PageGuard]
-          },
+          // {
+          //   path: 'agent-map',
+          //   component: AgentMapComponent,
+          //     canActivate: [PageGuard]
+          // },
+          // {
+          //   path: 'visit-historic',
+          //   component: VisitHistoricComponent,
+          //     canActivate: [PageGuard]
+          // },
+          // {
+          //   path: 'visit-historic-list',
+          //   component: VisitHistoricListComponent,
+          //     canActivate: [PageGuard]
+          // },
+          // {
+          //   path: 'family-list',
+          //   component: FamilyListComponent,
+          //     canActivate: [PageGuard]
+          // },
           {
             path: 'maps',
             component: MapsComponent
@@ -244,7 +244,7 @@ const App_Router: Routes = [
           {
             path: 'profile-list',
             component: ProfileListComponent,
-              canActivate: [PageGuard]
+              // canActivate: [PageGuard]
           }
         ]
       },
