@@ -125,7 +125,11 @@ span.version-add {
     background-color: #b7b4b4;
 }
 .progress-bar-primary {
-    background-color: #373d40;
+    background-color: #0075BD;
+}
+.chapter-progress {
+    margin-bottom: 15px;
+    padding: 0px 25px;
 }
 
 /* MATERIALIZE*/
@@ -173,21 +177,24 @@ span.version-add {
 }
 
 button.btn.status, button.btn.edit {
-    height: 26px;
+    height: 22px;
     width: 90px;
-    line-height: 26px;
+    line-height: 22px;
     padding: 0 0.8rem;
     border-radius: 0.5em;
-    background-color: #373d40;
+    /* background-color: #373d40; */
+}
+button.btn.edit, button.btn.edit:hover {
+    margin-right: 30px;
+    background-color: #224860;
+}
+button.btn.status, button.btn.status:hover {
+    /* background-color: #B34446; */
 }
 
-/* .btn[_ngcontent-c7] {
-
+/* button.btn.status:hover, button.btn.edit:hover {
+    background-color: #373d40;
 } */
-
-button.btn.status:hover, button.btn.edit:hover {
-    background-color: #373d40;
-}
 
 /* .btn[_ngcontent-c7]:hover, .btn-large[_ngcontent-c7]:hover {
     background-color: #373d40;
@@ -209,13 +216,6 @@ span.card-title.activator.grey-text.text-darken-4 {
 span.card-title.grey-text.text-darken-4 {
     height: 40px;
     border-bottom: 1px solid #e8e6e6;
-}
-button.btn.edit {
-    margin-right: 30px;
-}
-.chapter-progress {
-    margin-bottom: 15px;
-    padding: 0px 25px;
 }
 .ic_image {
     height: 70px;

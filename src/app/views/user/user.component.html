@@ -43,7 +43,7 @@
                                     <div class="col-sm-12">
                                         <form name="form" (ngSubmit)="save(1,f1.valid)" id="f_1" #f1="ngForm" novalidate>
                                             <div class="box box-primary">
-                                                <div class="box-body"  *ngIf="hasdata">
+                                                <div class="box-body"  *ngIf="hasdata || isNewData">
                                                     <div class="row" *ngIf="!isAgent">
                                                         <div class="col-sm-12">
                                                             <!-- select status-->
