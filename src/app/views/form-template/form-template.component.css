@@ -70,10 +70,10 @@ label {
 .box-header .box-title {
     font-size: 14px;
 }
-
+/* 
 .box-title {
     padding-top: 12px;
-}
+} */
 
 .box-header {
     background-color: #e8e6e6;
@@ -84,10 +84,9 @@ label {
 }
 
 .box-body {
-    background-color: #f4f4f4;
-    /* padding-right: 40px;
-    padding-left: 40px;
-    padding-top: 30px; */
+    background-color: #FBFBFB;
+    margin-right: 14px;
+    margin-left: 14px;
 }
 
 .form-group.profile {
@@ -103,7 +102,7 @@ label {
 }
 
 .form-group {
-    padding-bottom: 1px;
+    padding-bottom: 20px;
 }
 
 /* .content-header {
@@ -116,7 +115,7 @@ label {
     color: #777777;
 }
 
-button {
+button#btn_save, button#btn_return {
     min-width: 120px;
 }
 
@@ -196,7 +195,7 @@ section.content_user {
 }
 
 .tab-pane {
-    background-color: #f4f4f4;
+    /* background-color: #f4f4f4; */
     border-bottom: 0;
     margin-top: 20px;
 }
@@ -218,10 +217,10 @@ label.lb-tab {
     left: 20px;
     right: 20px;
 }
-
+/* 
 .form-inline {
     padding-top: 25px;
-}
+} */
 
 .nav-tabs-custom > .nav-tabs > li.active > a, .nav-tabs-custom > .nav-tabs > li.active:hover > a {
     background-color: #fff0;
@@ -232,7 +231,7 @@ label.lb-tab {
 }
 
 .modal-header.question {
-    background-color: #999;
+    background-color: #0075BD;
 }
 
 .col-sm-6.actions {
@@ -242,7 +241,7 @@ label.lb-tab {
 
 label.control-label {
     font-weight: bold;
-    color: #999;
+    color: #335164;
 }
 
 i.fa.fa-plus {
@@ -250,17 +249,10 @@ i.fa.fa-plus {
 }
 
 button.btn.btn-primary.add {
-    border-radius: 1em;
     font-size: 12px;
-    padding: 8px 10px;
+    background: #0075bd!important;
+    border-color: #0075bd;
 }
-
-input#from, input#to  {
-    width: 80px;
-    margin: 0 12px;
-    padding-right: 5px;
-}
-
 .tbl-center {
     text-align: center;
     /* width: 150px; */
@@ -273,11 +265,6 @@ input#from, input#to  {
 i.fa {
     font-size: 20px;
 }
-
-a {
-    color: #373d40;
-}
-
 .limit-text {
     white-space: nowrap;
     overflow: hidden;
@@ -299,29 +286,6 @@ a {
     text-align: right;
 }
 
-button#btn_cancel {
-    width: 150px;
-    height: 45px;
-    border-radius: 0;
-}
-
-button#btn_confirm {
-    width: 150px;
-    height: 45px;
-    border-radius: 0;
-}
-.modal-btn-cancel {
-    float: right;  
-}
-
-.modal-body {
-    padding-top: 30px;
-    margin-top: 20px;
-}
-.modal-icon {
-    text-align: center;
-}
-
 span.form-control {
     background-color: #eeeeee00;
 }
@@ -332,4 +296,92 @@ span.form-control {
 
 button#btn_return {
     margin-right: 30px;
+}
+
+
+.nav-tabs-custom > .nav-tabs > li,
+.nav-tabs-custom > .nav-tabs > li.active > a,
+.nav-tabs-custom > .nav-tabs > li > a, 
+.nav-tabs-custom > .nav-tabs > li > a:hover {
+    border: 0;
+    padding: 0;
+}
+.nav-tabs-custom > .nav-tabs > li.active > a, .nav-tabs-custom > .nav-tabs > li.active:hover > a {
+    background-color: #fff0;
+}
+.form-control[disabled], fieldset[disabled] .form-control {
+    cursor: unset; 
+}
+span.form-control {
+    border: 0;
+}
+.col-sm-6.save {
+    text-align: right;
+}
+.col-sm-12.actions {
+    text-align: right;
+    margin-top: 29px;
+    padding-right: 38px;
+}
+thead {
+    font-size: 11px;
+}
+/* MODAL disable*/
+.modal-footer_.disable {
+    padding: 0;
+    /* margin-top: 90px; */
+}
+
+.modal-content.disable {
+    width: 421px;
+    height: 234px;
+}
+.modal-btn-cancel {
+    float: left;  
+}
+
+.modal-body.disable {
+    padding: 32px;
+    padding-bottom: 45px; 
+    text-align: center;
+}
+button#btn_cancel {
+    width: 210.5px;
+    height: 45px;
+    border-radius: 0;
+}
+button#btn_confirm {
+    background-image: url('/assets/img/global/btn_confirm.png')!important;
+    background-repeat: no-repeat;
+    width: 210.5px;
+    height: 45px;
+    border-radius: 0;
+}
+.modal-icon {
+    text-align: center;
+}
+
+label.radio-inline {
+    margin-right: 60px;
+}
+input#from {
+    margin-right: 60px;
+}
+input#to {
+    margin-right: 20px;
+}
+input#from, input#to {
+    width: 310px;
+}
+button#btn_cancel_question, button#btn_save_question {
+    width: 79px;
+}
+
+/* Modal Question */
+.modal-body.modal-question {
+    margin-right: 30px;
+    margin-left: 30px;
+}
+.modal-footer.footer-question {
+    padding-right: 0;
 }

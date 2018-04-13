@@ -11,8 +11,233 @@
         <h5 class="content-title">FORMULÁRIO</h5>
       </div>
 
-      <div class="content_">        
-        <!-- <form name="f" (ngSubmit)="f.form.valid && saveData()" #f="ngForm" novalidate>            -->
+      <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li>
+              <a class="tab-pane active" (click)="walk(0)" href="#tab_1" data-toggle="tab">
+                <img src="{{ formTab }}" />
+              </a>                       
+            </li>
+            <li>
+              <a class="tab-pane active" (click)="walk(1)" href="#tab_2" data-toggle="tab">
+                  <img src="{{ questionsTab }}" />
+              </a>                         
+            </li>   
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab_1">
+                <div class="content">
+                    <section class="content">
+                        <div class="box-header_1 with-border">
+                          <h5 class="box-title"> Formulário </h5>
+                        </div>
+                        <form name="f" (ngSubmit)="f.form.valid && saveData()" #f="ngForm" novalidate>
+                          <div class="row">
+                            <div class="box box-primary">
+                              <div class="box-body">
+                                <div class="col-sm-12">
+                                  <!-- <form name="f" (ngSubmit)="f.form.valid && saveData()" #f="ngForm" novalidate> -->
+                                    <div class="row">
+                                      <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label"> Versão </label>
+                                            <span class="form-control"> {{ form.version }}</span>                                       
+                                        </div>
+                                      </div>     
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-sm-12">
+                                        <div class="form-group" [ngClass]="applyCssError(f, range)">
+                                          <label class="control-label"> Faixa </label>                     
+                                            <select class="form-control" name="range" id="range" #range="ngModel" [(ngModel)]="form.age_zone" required>
+                                              <option [ngValue]="item" *ngFor="let item of _range"> {{ item }} </option>
+                                            </select>
+                                            <app-control-field-error [showError]="verifyValidSubmitted(f, range)" msgError="Selecione a faixa">
+                                            </app-control-field-error>                    
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="row">                             
+                                      <div class="col-sm-12">
+                                        <div class="form-group" [ngClass]="applyCssError(f, inYears)">
+                                          <label class="control-label">  Faixa etária</label> <br/>  
+                                          <label class="radio-inline">
+                                            <input type="radio" name="in_years" id="in_years" #inYears="ngModel" [value]="false" [(ngModel)]="form.in_years" required>
+                                            Meses
+                                          </label>
+                                          <label class="radio-inline">
+                                            <input type="radio" name="in_years" id="in_years" #inYears="ngModel" [value]="true" [(ngModel)]="form.in_years" required>
+                                            Anos
+                                          </label>
+                                          <app-control-field-error [showError]="verifyValidSubmitted(f, inYears)" msgError="Escolha uma das opções">
+                                          </app-control-field-error>                    
+                                        </div>
+                                      </div>             
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-sm-12">
+                                          <div class="form-group">
+                                            <!-- <label class="control-label">Indicadores</label> -->
+                                            
+                                            <label class="control-label"> Indicadores </label> 
+                                            <div class="form-inline">
+                                              <label  [ngClass]="applyCssError(f, from)">
+                                                <input class="form-control" type="number"  name="from" id="from" #from="ngModel" min="0" maxlength="10" [(ngModel)]="form.from" placeholder="De" required>                                   
+                                              </label>
+                                              <label class="control-label" [ngClass]="applyCssError(f, to)">             
+                                                <input class="form-control" type="number" name="to" id="to" #to="ngModel" min="0" maxlength="10" [(ngModel)]="form.to" placeholder="Até" required>                        
+                                                <label class="control-label"> {{ form.in_years ? 'Anos' : 'Meses' }} </label>  
+                                              </label>   
+                                            </div>   
+                                            <app-control-field-error [ngClass]="applyCssError(f, from)" [showError]="verifyValidSubmitted(f, from)" msgError="Digite o valor inicial do indicador">
+                                              </app-control-field-error>
+                                            <app-control-field-error [ngClass]="applyCssError(f, to)" [showError]="verifyValidSubmitted(f, to)" msgError="Digite o valor final do indicador">
+                                              </app-control-field-error>                     
+                                          </div>
+                                        </div>                                                      
+                                    </div>                                               
+                                  <!-- </form>                                -->
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-6 cancel">
+                              <button class="btn btn-default" (click)="onCancel()" id="btn_return"> Cancelar</button>
+                            </div>
+                            <div class="col-sm-6 save">
+                              <button class="btn btn-primary" name="submit" id="btn_save" *ngIf="canCreate || canUpdate">Salvar</button>
+                            </div>
+                          </div>
+                      </form>
+                    </section>
+                </div>
+            </div>
+            <!-- /.tab-pane -->
+            <div class="tab-pane" id="tab_2">
+                <div class="content">
+                    <section class="content">
+                        <div class="box-header_1 with-border">
+                            <h5 class="box-title"> Questões
+                            </h5>
+                        </div>
+                        <div class="row">
+                                <div class="col-sm-12 actions">
+                                  <button class="btn btn-primary add"                                    
+                                    data-toggle="tooltip" data-placement="top" title="Salve o formulário para adicionar questões"                                                            
+                                    [disabled]="isNewData" *ngIf="isNewData">
+                                    <i class="fa fa-plus"></i>ADICIONAR
+                                  </button>
+                                  <button class="btn btn-primary add"
+                                    data-toggle="modal" data-target="#modal-question"
+                                    (click)="createNewQuestion()"                              
+                                    *ngIf="!isNewData && canCreate">
+                                    <i class="fa fa-plus"></i>ADICIONAR
+                                  </button>
+                                </div>
+                              <!-- </div>   -->
+                               
+                            <!-- </div>                                -->
+                        </div>
+                        <div class="box-body">
+                          <table id="example2" class="table table-hover ">
+                            <thead>
+                              <tr>
+                                <th class="tbl-left">NÚMERO </th> 
+                                <th>QUESTÃO
+                                  <span class="glyphicon" ></span>
+                                </th>   
+                                <th>TIPO</th>        
+                                <th colspan="3" style="text-align: center;"> AÇÃO</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let item of pagedItems; let i = index">
+                              <!-- <tr *ngFor="let item of answers"> -->
+                                <td class="tbl-left">
+                                  {{ item.number }}
+                                </td>
+                                <td class="tbl-left text-max">                                     
+                                  <p class="limit-text">{{ item.description }}</p>                                 
+                                </td>  
+                                <td> 
+                                  <span *ngIf="item.type === 'SOCIO_AFFECTIVE'"> Socioafetiva </span>
+                                  <span *ngIf="item.type === 'MOTOR'"> Motora </span>
+                                  <span *ngIf="item.type === 'COGNITIVE'"> Cognitiva </span>
+                                  <span *ngIf="item.type === 'LANGUAGE'"> Comunicação e linguagem </span>
+                                  <span *ngIf="item.type === 'UNDEFINED'"> Outros </span>                                                                  
+                                </td>  
+                              
+                                <td class="tbl-right">              
+                                  <a href="" title="Ver detalhes" id="btn_details"  data-toggle="modal" data-target="#modal-question"
+                                    (click)="showQuestion(item)" >
+                                    <i class="large material-icons">visibility</i>
+                                  </a>
+                                </td>
+                                <td class="tbl-right" *ngIf="canUpdate">          
+                                  <a href="" title="Editar" id="btn_edit" data-toggle="modal" data-target="#modal-question"
+                                    (click)="onEdit(item)">
+                                    <i class="fa fa-pencil fa-fw"></i>
+                                  </a>
+                                </td>
+                                <td class="tbl-right" *ngIf="canDelete">
+                                  <a href="" [title]="item.is_enabled === true ? 'Desativar': 'Ativar'"
+                                    data-toggle="modal" data-target="#modal-status"
+                                    (click)="changeStatus(item)" id="btn_status">              
+                                    <i [ngClass]="item.is_enabled === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
+                                  </a>      
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>        
+                        <div class="box-footer"> 
+                          <div class="row">
+                              <div class="col-sm-6 pagination1" *ngIf="form.questions.length">
+                                <div class="pag1" *ngIf="form.questions.length > 10">
+                                    Exibindo <strong>{{ pager.currentPage === 1 ? 1 : (pager.currentPage * 10) - 9 }} </strong> - 
+                                    <strong>{{ pager.currentPage === pager.totalPages ? form.questions.length : (pager.currentPage * 10)  }} </strong> 
+                                    &nbsp;de &nbsp;<strong>{{ form.questions.length }} </strong>
+                                </div>
+                                <div class="pag2" *ngIf="form.questions.length <= 10">
+                                    Exibindo <strong>{{ pager.currentPage === 1 ? 1 : (pager.currentPage * 10) - 9 }} </strong> - 
+                                    <strong>{{ form.questions.length }} </strong> 
+                                    &nbsp;de&nbsp; <strong>{{ form.questions.length }} </strong>
+                                </div>            
+                              </div>      
+                              <div class="col-sm-6 pagination2">
+                                  <app-paginate [paginate]="paginate" (eventPage)="setPage($event)"></app-paginate>
+                                  <ul *ngIf="pager.pages && pager.pages.length" class="pagination stylepage">
+                                      <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                          <a (click)="setPage(1)">Primeiro</a>
+                                      </li>
+                                      <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                          <a (click)="setPage(pager.currentPage - 1)">Anterior</a>
+                                      </li>
+                                      <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                          <a (click)="setPage(page)">{{page}}</a>
+                                      </li>
+                                      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                          <a (click)="setPage(pager.currentPage + 1)">Próxima</a>
+                                      </li>
+                                      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                          <a (click)="setPage(pager.totalPages)">Último</a>
+                                      </li>
+                                  </ul>
+                              </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>                           
+            <!-- <div class="row footer" *ngIf="!isAgent">
+                <button class="btn btn-default" (click)="back()" id="btn_return"> Voltar</button>                         
+            </div> -->
+        </div>
+        <!-- /.tab-content -->
+    </div>
+
+      <!-- <div class="content_">                
           <div class="form-template">
             <div class="row">
               <div class="col-sm-12">
@@ -50,7 +275,7 @@
                       <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                              <!-- <label class="control-label">Indicadores</label> -->
+                              
                               <div class="form-inline">
                                 <label class="control-label" [ngClass]="applyCssError(f, from)"> Indicadores de                     
                                   <input class="form-control" type="number"  name="from" id="from" #from="ngModel" min="0" maxlength="10" [(ngModel)]="form.from" required>                                   
@@ -91,7 +316,7 @@
             </div>
               <div class="row">
                   <div class="col-sm-12">
-                      <!-- Custom Tabs -->
+                      
                       <div class="box box-primary">
                           <div class="box-header">
                               <div class="row">
@@ -127,7 +352,7 @@
                               </thead>
                               <tbody>
                                 <tr *ngFor="let item of pagedItems; let i = index">
-                                <!-- <tr *ngFor="let item of answers"> -->
+                                
                                   <td class="tbl-left">
                                     {{ item.number }}
                                   </td>
@@ -203,20 +428,11 @@
                           </div>
                       </div>
                   </div>
-                  <!-- col -->
+                  
               </div>
-              <!-- /.row -->
+              
           </div>
-          
-            <div class="row footer">
-                <!-- <div class="col-md-2">
-                    <div>
-                        <button class="btn btn-default btn-block" (click)="onCancel()" id="btn_return"> Cancelar</button>
-                    </div>
-                </div>                 -->
-            </div>
-        <!-- </form>        -->
-      </div>     
+      </div>      -->
     </section>
 </div>
 
@@ -228,7 +444,7 @@
     <div class="modal-content" [ngStyle]="object">
       <div class="modal-header question">
       </div>     
-      <div class="modal-body">
+      <div class="modal-body modal-question">
         <form name="fQuestion" (ngSubmit)="fQuestion.form.valid && saveQuestion()" #fQuestion="ngForm" novalidate>
           <div class="row">
               <div class="col-sm-12">
@@ -247,7 +463,7 @@
             <div class="row">
               <div class="col-sm-12">
                 <div *ngIf="show">
-                  <label class="label-control"> Tipo da Questão</label> <br/>
+                  <label class="control-label"> Tipo da Questão</label> <br/>
                   <span class="form-control" *ngIf="question.type === 'SOCIO_AFFECTIVE'"> Socioafetiva </span>
                   <span class="form-control" *ngIf="question.type === 'MOTOR'"> Motora </span>
                   <span class="form-control" *ngIf="question.type === 'COGNITIVE'"> Cognitiva </span>
@@ -255,7 +471,7 @@
                   <span class="form-control" *ngIf="question.type === 'UNDEFINED'"> Outros </span>
                 </div>
                 <div class="form-group" *ngIf="!show">
-                  <label class="label-control"> Tipo da Questão</label>               
+                  <label class="control-label"> Tipo da Questão</label>               
                     <select class="form-control" name="type_question" id="type_question" 
                       #typeQuestion="ngModel" [(ngModel)]="question.type">
                       <option value="SOCIO_AFFECTIVE"> Socioafetiva </option>
@@ -270,13 +486,11 @@
                 </div>        
               </div> 
             </div> 
-            <div class="modal-footer" *ngIf="!show">
-              <button type="button" class="btn btn-default" data-dismiss="modal" (click)=onCancelQuestion() >Cancelar</button>              
-              <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)=saveQuestion()>Salvar</button>
+            <div class="modal-footer footer-question" *ngIf="!show">
+              <button type="button" class="btn btn-default" id="btn_cancel_question"  data-dismiss="modal" (click)=onCancelQuestion() >Cancelar</button>              
+              <button type="submit" class="btn btn-primary" id="btn_save_question" data-dismiss="modal" (click)=saveQuestion()>Salvar</button>
             </div>
         </form>
-       
- 
       </div>     
       <div class="modal-footer" *ngIf="show">
           <button type="button" class="btn btn-primary" data-dismiss="modal" >Fechar</button>          
@@ -290,15 +504,15 @@
 <!-- Modal Disable -->
 <div class="modal fade" id="modal-status">
   <div class="modal-dialog modal-sm">
-    <div class="modal-content" [ngStyle]="object">
+    <div class="modal-content disable" [ngStyle]="object">
       <div class="modal-body disable">
         <div class="modal-icon">
-            <i class="material-icons" style="font-size: 60px;">error_outline</i>
+          <img class="icon" src="./assets/img/global/ic_action.png">            
         </div>          
           <h5  *ngIf="form.is_enabled"> Deseja realmente desativar a questão <strong> </strong> ?</h5>
           <h5  *ngIf="!form.is_enabled"> Deseja realmente ativar a questão <strong>  </strong> ?</h5>
       </div>
-      <div class="modal-footer_">
+      <div class="modal-footer_ disable">
         <div class="modal-btn-cancel">
             <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal" id="btn_cancel">Cancelar</button>
         </div>

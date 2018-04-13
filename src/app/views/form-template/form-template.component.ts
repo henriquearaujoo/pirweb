@@ -39,6 +39,8 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
   public isNewQuestion: boolean;
   private index: number;
   private btn_cancel: boolean;
+  private formTab: string;
+  private questionsTab: string;
 
   constructor(
     private formService: FormService,
@@ -79,6 +81,9 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
     for (let i = 1; i <= 11; i++) {
       this._range.push(i);
     }
+
+    this.formTab = './assets/img/form/ic_form_enable.png';
+    this.questionsTab = './assets/img/form/ic_questions_disable.png';
 
   }
 
@@ -272,6 +277,19 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
       'has-error': this.verifyValidSubmitted(form, field),
       'has-feedback': this.verifyValidSubmitted(form, field)
     };
+  }
+
+  walk ( tab: number) {
+    switch (tab) {
+      case 0:
+      this.formTab = './assets/img/form/ic_form_enable.png';
+      this.questionsTab = './assets/img/form/ic_questions_disable.png';
+      break;
+      case 1:
+      this.formTab = './assets/img/form/ic_form_disable.png';
+      this.questionsTab = './assets/img/form/ic_questions_enable.png';
+      break;
+    }
   }
 
 }
