@@ -13,10 +13,10 @@ tbody {
     background-color: white;
 }
 
-.content-top {
+/* .content-top {
     height: 64px;
     background-color: #e8e6e6;
-}
+} */
 
 i.fa.fa-list-alt {
     margin-top: 18px;
@@ -44,12 +44,12 @@ th {
     width: 50px;
 }
 
-thead {
+/* thead {
     border-top: 0;
     color: #777;
     font-size: 12px;
     background-color: #e8e6e6;
-}
+} */
 
 .table>tbody>tr>td, 
 .table>tbody>tr>th, 
@@ -64,9 +64,9 @@ div.dataTables_filter {
 }
 
 .box-header {
-    padding-top: 20px;
-    background-color: #e8e6e6;
-    height: 64px;
+    background-color: #0075BD;
+    color: #FFFFFF;
+    height: 70px;
     padding: 25px;
 }
 
@@ -116,9 +116,9 @@ i.fa {
     font-size: 20px;
 }
 
-a {
+/* a {
     color: #373d40;
-}
+} */
 
 .pagination>.active>a {
     background-color: #373d40;

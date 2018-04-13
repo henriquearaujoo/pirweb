@@ -35,13 +35,13 @@
                             [style.width]="currentVersion.percentage + '%'">                
                         </div>
                     </div>
-                    <span class="percentage"><strong> {{ currentVersion.percentage }}%</strong> Completo</span> <br/>
+                    <span class="percentage"><span class="percentage-n"> {{ currentVersion.percentage }}%</span> Completo</span> <br/>
                 </div>
                 <button class="btn edit" (click)="editChapter(currentVersion)" *ngIf="canUpdate">
                     <i class="fa fa-pencil" aria-hidden="true" (click)='editChapter(currentVersion)'> </i> Editar
                 </button>       
                 <button class="btn status" [ngClass]="currentVersion.status === true ? 'status-disable': 'status-enable' " (click)="disableEnableVersion(currentVersion)" *ngIf="canDelete">
-                    <i [ngClass]="currentVersion.status === true ? 'fa fa-ban': 'fa fa-check' " aria-hidden="true"></i>           
+                    <i [ngClass]="currentVersion.status === true ? 'fa fa-ban': 'fa fa-check' " aria-hidden="true"></i>                    
                     {{ currentVersion.status === true ? 'Desativar': 'Ativar'}} 
                 </button>       
             </div>
@@ -56,14 +56,17 @@
                             <span class="version-title">Versão {{ item.version }}</span>
                             <a [title]="Editar"                                  
                                 (click)=editChapter(item) 
-                                *ngIf="canUpdate">                                    
+                                *ngIf="canUpdate">                             
                                 <i class="fa fa-pencil edit-version"  aria-hidden="true"></i>
                             </a>
                             <a [title]="item.status === true ? 'Desativar': 'Ativar'"                                  
                                 (click)="disableEnableVersion(item)" 
                                 class="version-status"
-                                *ngIf="canDelete">                                    
-                                <i [ngClass]="item.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
+                                *ngIf="canDelete">
+                                <!-- <span *ngIf="item.status"> <img src="./assets/img/chapter/ic_disable.png"> </span>                                  -->
+                                <i [ngClass]="item.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off'" aria-hidden="true">
+                                    <i [ngClass]="item.status === true ? 'fa fa-check v': 'fa fa-times'"  aria-hidden="true"></i>
+                                </i>
                             </a>     
                         </li>   
                         <li *ngIf="canCreate"> <span class="version-add"> Adicionar </span> <a (click)="addVersion(currentVersion)"> <i class="fa fa-plus" aria-hidden="true"></i>  </a></li>                                             
