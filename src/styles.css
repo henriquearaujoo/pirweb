@@ -163,3 +163,10 @@ a#btn_next, a#btn_previous {
     text-overflow: ellipsis;
     max-width: 350px;
 }
+.content_ {
+    margin-left: 22px;
+}
+
+.pointer {
+    cursor: pointer;
+}

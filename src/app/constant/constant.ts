@@ -1,6 +1,6 @@
 export const Constant = {
-     BASE_URL : 'http://10.10.3.88:2020/pir/rest/',
-    //  BASE_URL : 'http://10.10.3.146:2020/pir/rest/',
+     BASE_URL : 'http://10.10.3.88:8080/pir/rest/',
+    //  BASE_URL : 'http://10.10.3.89:8080/pir/rest/',
     //   BASE_URL : 'http://10.10.3.148:2020/pir/rest/',
     // BASE_URL : 'http://localhost:3000/',
 

@@ -1,0 +1,23 @@
+<div class="box-group">
+    <div class="panel box box-primary">
+        <div class="panel-heading">
+            <div class="col col-sm-12">
+                <div class="col col-sm-6">
+                    <h5><b></b></h5>
+                </div>
+                <div class="col col-sm-6 text-right">
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="panel-collapse">
+            <div class="box-body">                
+              <div class="row">                    
+                  <div class="col-md-12'" style="display: block;">
+                    <canvas baseChart [datasets]="data" [legend]="legend" [options]="chartOptions" [labels]="labels" 
+                          [chartType]="chartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>                                           
+                  </div>   
+              </div>
+            </div>
+        </div>
+    </div>

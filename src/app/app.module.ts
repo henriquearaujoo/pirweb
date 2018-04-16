@@ -53,6 +53,7 @@ import {
   MatStepperModule,
   MatDialogModule
 } from '@angular/material';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { NgForm } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -157,6 +158,8 @@ import { VisitHistoricComponent } from './views/agent/visit-historic/visit-histo
 import { FamilyListComponent } from './views/agent/visit-historic/family-list/family-list.component';
 import { VisitHistoricListComponent } from './views/agent/visit-historic/visit-historic-list/visit-historic-list.component';
 import { AgentInformationComponent } from './views/agent/agent-information/agent-information.component';
+import { ChartComponent } from './components/chart/chart.component';
+import { PerformanceChartComponent } from './views/agent/performance-chart/performance-chart.component';
 // import { QuillModule } from 'ngx-quill';
 // import { EqualValidator } from './directives/equal-validator.directive';
 
@@ -234,7 +237,9 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     VisitHistoricComponent,
     FamilyListComponent,
     VisitHistoricListComponent,
-    AgentInformationComponent
+    AgentInformationComponent,
+    ChartComponent,
+    PerformanceChartComponent
 
   ],
   imports: [
@@ -290,6 +295,7 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     HttpClientModule,
     NgxMaskModule,
     MyDatePickerModule,
+    ChartsModule
     // Ng2OrderModule
     // QuillModule
     // Ng2InputMaskModule

@@ -1,3 +1,4 @@
+import { PerformanceChartComponent } from './views/agent/performance-chart/performance-chart.component';
 import { AgentInformationComponent } from './views/agent/agent-information/agent-information.component';
 import { VisitHistoricListComponent } from './views/agent/visit-historic/visit-historic-list/visit-historic-list.component';
 import { FamilyListComponent } from './views/agent/visit-historic/family-list/family-list.component';
@@ -102,26 +103,31 @@ const App_Router: Routes = [
             component: AgentLocationComponent,
               canActivate: [PageGuard]
           },
-          // {
-          //   path: 'agent-map',
-          //   component: AgentMapComponent,
-          //     canActivate: [PageGuard]
-          // },
-          // {
-          //   path: 'visit-historic',
-          //   component: VisitHistoricComponent,
-          //     canActivate: [PageGuard]
-          // },
-          // {
-          //   path: 'visit-historic-list',
-          //   component: VisitHistoricListComponent,
-          //     canActivate: [PageGuard]
-          // },
-          // {
-          //   path: 'family-list',
-          //   component: FamilyListComponent,
-          //     canActivate: [PageGuard]
-          // },
+          {
+            path: 'agent-map',
+            component: AgentMapComponent,
+              canActivate: [PageGuard]
+          },
+          {
+            path: 'visit-historic',
+            component: VisitHistoricComponent,
+              canActivate: [PageGuard]
+          },
+          {
+            path: 'visit-historic-list',
+            component: VisitHistoricListComponent,
+              canActivate: [PageGuard]
+          },
+          {
+            path: 'family-list',
+            component: FamilyListComponent,
+              canActivate: [PageGuard]
+          },
+          {
+            path: 'performance-chart',
+            component: PerformanceChartComponent
+              // canActivate: [PageGuard]
+          },
           {
             path: 'maps',
             component: MapsComponent

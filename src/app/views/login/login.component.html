@@ -4,7 +4,6 @@
     <div class="login-logo">
       <img src="./assets/img/global/logo_PIR.png">
     </div>
-    <!-- /.login-logo -->
     <div class="login-box-body">
   
       <form name="form" (ngSubmit)="f.form.valid && sendData()" #f="ngForm" novalidate>
@@ -14,9 +13,6 @@
               <span class="input-group-addon" style="padding: 6px 10px;">
                 <i class="fa fa-user fa-fw"></i>
               </span>
-              <!-- <span class="input-group-addon">
-                  <img src="./assets/img/global/ic_user.png">
-              </span> -->
               <input name="login" #login="ngModel" [(ngModel)]="user.login"  class="form-control" placeholder="Usuário" required>
           </div>
           <app-control-field-error [showError]="verifyValidSubmitted(f, login)" msgError="Digite um usuário">
@@ -25,7 +21,6 @@
         
         <div class="form-group has-feedback" [ngClass]="applyCssError(f, password)">
           <div class="input-group">
-              <!-- <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span> -->
                <span class="input-group-addon" style="padding: 6px 12px;">
                  <i class="large material-icons">lock</i>
                 </span>
@@ -44,24 +39,33 @@
               </label>
             </div>
           </div>
-          <!-- /.col -->
           <div class="col-xs-4">
             <button type="submit" class="btn btn-primary btn-md btn-block">ENTRAR</button>
           </div>
-          <!-- /.col -->
         </div>
       </form>
       
       <a class="pointer" (click)="resetPassword()">Esqueci a senha</a><br>
     </div>
-    <!-- /.login-box-body -->
     <section class="content samsung">
       <div class="row">
         <div class="col-sm-12">
           <img src="./assets/img/global/logo_Samsung_SEDA.png">
         </div>
       </div>
-    </section>
-    
+    </section>    
+</div>
+
+<!-- <div class="container-email">
+  <div class="email-top">
+    <img src="./assets/img/global/logoPIR-05.png">
+
   </div>
-  <!-- /.login-box -->
+  <div class="email-content">
+
+  </div>
+  <div class="email-footer">
+    <img src="./assets/img/global/logo_Samsung_SEDA.png">
+  </div>
+
+</div> -->

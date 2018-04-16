@@ -41,15 +41,15 @@ label{
 }
 
 .login-box, .register-box {
-    width: 487px;
+    width: 447px;
 }
 
 .login-box-body, .register-box-body {
     background: #D9E1E7;
-    height: 292px;
-    padding-top: 40px;
+    height: 272px;
+    padding-top: 26px;
     padding-right: 130px;
-    padding-left: 60px;
+    padding-left: 40px;
     border-radius: 0 0 14px 14px;
 }
 
@@ -101,4 +101,25 @@ section.content.samsung {
 
 .form-group.has-error {
     margin-bottom: 60px;
+}
+
+/* EMAIL */
+.container-email {
+    width: 50%;
+}
+.email-top {
+    height: 87px;
+    background: #00426D;
+    text-align: center;
+    padding: 12px;
+}
+.email-content {
+    height: 250px;
+    background: #FBFBFB;
+}
+.email-footer {
+    background: #0075BD;
+    height: 114px;
+    padding: 42px;
+    text-align: center;
 }

@@ -60,7 +60,7 @@ export const MENU = [
         'title': 'AGENTE',
         'route': '',
         'routes': ['/', '/agent-information', '/agent-map', '/agent-list', '/agent', '/agent-details', '/agent-location',
-                   '/visit-historic', '/family-list', '/visit-historic-list'],
+                   '/visit-historic', '/family-list', '/visit-historic-list', '/performance-chart'],
         'read': false,
         'iClass': 'fa fa-user',
         'category': 'parent',
@@ -78,30 +78,41 @@ export const MENU = [
         'hasChild': false,
         'parent': 6
     },
-    // {
-    //     'id': 16,
-    //     'title': 'HISTÓRICO DE VISITAS',
-    //     'route': 'visit-historic',
-    //     'routes': ['/visit-historic', '/family-list', '/visit-historic-list'],
-    //     'read': false,
-    //     'iClass': 'fa fa-circle-o',
-    //     'category': 'child',
-    //     'hasChild': false,
-    //     'parent': 6
-    // },
-    // {
-    //     'id': 7,
-    //     'title': 'MAPA DOS AGENTES',
-    //     'route': 'agent-map',
-    //     'routes': ['/agent-map'],
-    //     'read': false,
-    //     'iClass': 'fa fa-circle-o',
-    //     'category': 'child',
-    //     'hasChild': false,
-    //     'parent': 6
-    // },
     {
         'id': 8,
+        'title': 'HISTÓRICO DE VISITAS',
+        'route': 'visit-historic',
+        'routes': ['/visit-historic', '/family-list', '/visit-historic-list'],
+        'read': false,
+        'iClass': 'fa fa-circle-o',
+        'category': 'child',
+        'hasChild': false,
+        'parent': 6
+    },
+    {
+        'id': 9,
+        'title': 'GRÁFICO DE DESEMPENHO',
+        'route': 'performance-chart',
+        'routes': ['/performance-chart'],
+        'read': true,
+        'iClass': 'fa fa-circle-o',
+        'category': 'child',
+        'hasChild': false,
+        'parent': 6
+    },
+    {
+        'id': 10,
+        'title': 'MAPA DOS AGENTES',
+        'route': 'agent-map',
+        'routes': ['/agent-map'],
+        'read': false,
+        'iClass': 'fa fa-circle-o',
+        'category': 'child',
+        'hasChild': false,
+        'parent': 6
+    },
+    {
+        'id': 11,
         'title': 'COMUNIDADES',
         'route': '',
         'routes': ['/', '/community-list', '/community', '/community-details'],
@@ -112,7 +123,7 @@ export const MENU = [
         'parent': 0
     },
     {
-        'id': 9,
+        'id': 12,
         'title': 'REGISTRO',
         'route': 'community-list',
         'routes': ['/community-list', '/community', '/community-details'],
@@ -120,10 +131,10 @@ export const MENU = [
         'iClass': 'fa fa-circle-o',
         'category': 'child',
         'hasChild': false,
-        'parent': 8
+        'parent': 11
     },
     {
-        'id': 10,
+        'id': 13,
         'title': 'FAMÍLIA',
         'route': '',
         'routes': ['/', '/pregnant-list', '/pregnant-details', '/pregnant',
@@ -136,7 +147,7 @@ export const MENU = [
         'parent': 0
     },
     {
-        'id': 11,
+        'id': 14,
         'title': 'GESTANTE',
         'route': 'pregnant-list',
         'routes': ['/pregnant-list', '/pregnant', '/pregnant-details'],
@@ -144,10 +155,10 @@ export const MENU = [
         'iClass': 'fa fa-circle-o',
         'category': 'child',
         'hasChild': false,
-        'parent': 10
+        'parent': 13
     },
     {
-        'id': 12,
+        'id': 15,
         'title': 'RESPONSÁVEL',
         'route': 'responsible-list',
         'routes': ['/responsible-list', '/responsible', '/responsible-details'],
@@ -155,10 +166,10 @@ export const MENU = [
         'iClass': 'fa fa-circle-o',
         'category': 'child',
         'hasChild': false,
-        'parent': 10
+        'parent': 13
     },
     {
-        'id': 13,
+        'id': 16,
         'title': 'CRIANÇA',
         'route': 'child-list',
         'routes': ['/child-list', '/child', '/child-details'],
@@ -166,10 +177,10 @@ export const MENU = [
         'iClass': 'fa fa-circle-o',
         'category': 'child',
         'hasChild': false,
-        'parent': 10
+        'parent': 13
     },
     {
-        'id': 14,
+        'id': 17,
         'title': 'FORMULÁRIO',
         'route': '',
         'routes': ['/', '/form-template', '/form-template-list'],
@@ -180,7 +191,7 @@ export const MENU = [
         'parent': 0
     },
     {
-        'id': 15,
+        'id': 18,
         'title': 'REGISTRO',
         'route': 'form-template-list',
         'routes': ['/form-template', '/form-template-list'],
@@ -188,7 +199,7 @@ export const MENU = [
         'iClass': 'fa fa-circle-o',
         'category': 'child',
         'hasChild': false,
-        'parent': 14
+        'parent': 17
     },
 
 
