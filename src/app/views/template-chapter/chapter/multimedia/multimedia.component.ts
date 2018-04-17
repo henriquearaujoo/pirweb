@@ -113,6 +113,7 @@ export class MultimediaComponent implements OnInit {
 
   removeMultimedia(item: any) {
     this.item_remove = item;
+    console.log(this.item_remove);
     this.openModalRemove.click();
   }
 

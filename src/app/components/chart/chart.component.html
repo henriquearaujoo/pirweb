@@ -14,8 +14,8 @@
             <div class="box-body">                
               <div class="row">                    
                   <div class="col-md-12'" style="display: block;">
-                    <canvas baseChart [datasets]="data" [legend]="legend" [options]="chartOptions" [labels]="labels" 
-                          [chartType]="chartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>                                           
+                    <canvas #chart="base-chart" baseChart [datasets]="data" [legend]="legend" [options]="chartOptions" [labels]="labels" 
+                          [chartType]="chartType" [colors]="chartColors" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>                                           
                   </div>   
               </div>
             </div>

@@ -37,21 +37,20 @@
     </section>
 </div>
 
-<button  style="display:none"class="btn btn-default" data-toggle="modal" data-target="#modal-delete" 
+<button  style="display:none"class="btn btn-default" data-toggle="modal" data-target="#myModal" 
     id="openModalRemove"> Remover</button>
 
 <!-- Modal Remove -->
-<div class="modal fade" id="modal-delete">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content" [ngStyle]="object">
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">  
+        <div class="modal-content"  [ngStyle]="object">
             <div class="modal-body">
                 <div class="modal-icon">
-                    <i class="material-icons" style="font-size: 60px;">error_outline</i>
+                        <img class="icon" src="./assets/img/global/ic_action.png">
                 </div>
                 <h5 *ngIf="item_remove"> Deseja realmente <strong>EXCLUIR <span style="color: #a94442;"> {{ item_remove.name }} </span> </strong> ?</h5>
             </div>
-            <div class="modal-footer" data-dismiss="modal">
-                <!-- <div class="row"> -->
+            <div class="modal-footer">
                 <div class="modal-btn-cancel">
                     <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal" id="btn_cancel">Não</button>
                 </div>
@@ -60,9 +59,6 @@
                 </div>
             </div>
         </div>
-        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
 </div>
-<!-- /.modal -->
     
