@@ -63,9 +63,9 @@
                                         </div>
                                         <div class="col-sm-2 question">
                                             <a href="" title="Ver Respostas" (click)="getAnswers(item)" data-toggle="modal" 
-                                            data-target="#ans" id="answs" *ngIf="item.answers">
+                                            data-target="#ans" id="answs" *ngIf="item.alternatives">
                                             Respostas 
-                                            </a>   
+                                            </a>                                       
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="actions" *ngIf="canCreate || canUpdate">                                
@@ -174,3 +174,10 @@
     <!-- /.modal-dialog -->
   </div>
   <!-- /.modal -->
+  <!-- Button btn_1 = findViewById(R.id.btn_1);
+        btn_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getBaseContext(), "kjhgkjhg", Toast.LENGTH_SHORT).show();
+            }
+        });-->

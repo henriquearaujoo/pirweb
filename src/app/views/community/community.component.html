@@ -1,7 +1,7 @@
 <simple-notifications></simple-notifications>
 <div class="content_">
     <div class="content-top">
-        <div class="content_fa"> <i class="fa fa-user"></i> Comunidades > Registros > Editar</div>
+        <div class="content_fa"> <i class="fa fa-home"></i> Comunidades > Registros > Editar</div>
     </div>
 
     <section class="content_user">
@@ -12,18 +12,14 @@
           <ul class="nav nav-tabs">
             <li>
               <!-- <a class="tab-pane active" (click)="walk(0)" href="#tab_1" data-toggle="tab"> -->
-              <label class="lb-tab"> Informações da comunidade </label>
-              <img src="{{ data1Tab }}"/>
+              <!-- <label class="lb-tab"> Informações da comunidade </label> -->
+              <img src="{{ sectionInfoTab }}"/>
               <!-- </a>               -->
             </li>
-            <!-- <li>           
-              <label class="lb-tab"> Recursos </label>
-              <img src="{{ data2Tab }}"/>
-            </li> -->
             <li>
               <!-- <a class="tab-pane" (click)="walk(2)" href="#tab_3" data-toggle="tab"> -->
-              <label class="lb-tab service"> Serviços</label>
-              <img src="{{ data2Tab }}"/>
+              <!-- <label class="lb-tab service"> Serviços</label> -->
+              <img src="{{ sectionServicesTab }}"/>
               <!-- </a> -->
             </li> 
           </ul>
@@ -31,7 +27,7 @@
             <div class="tab-pane active" id="tab_1">
               <div class="content">
                 <section class="content">
-                  <div class="box-header with-border">
+                  <div class="box-header_1 with-border">
                       <h5 class="box-title"> Informações da Comunidade
                       </h5>
                   </div>
@@ -64,7 +60,7 @@
                               
                             <div class="col-sm-6">
                               <div class="form-group" [ngClass]="applyCssError(f1, name)">
-                                  <label class="control-label">Nome completo da comunidade</label>
+                                  <label class="control-label">Nome da comunidade</label>
                                   <input type="text" #name="ngModel" [(ngModel)]="community.name" name="name" id="name" class="form-control" placeholder="Nome completo da comunidade" required>
                                   <app-control-field-error [showError]="verifyValidSubmitted(f1, name)" msgError="Digite um nome completo da comunidade">
                                   </app-control-field-error>
@@ -223,7 +219,7 @@
             <div class="tab-pane" id="tab_2">
               <div class="content">
                 <section class="content">                                
-                  <div class="box-header with-border">
+                  <div class="box-header_1 with-border">
                       <h5 class="box-title"> Serviços da Comunidade
                       </h5>
                   </div>
@@ -235,7 +231,7 @@
                             <div class="row">
                               <div class="col-sm-12">
                                 <div class="form-group left" [ngClass]="applyCssError(f2, healthService)">
-                                  <label class="control-label">Serviços de saúde existentes na comunidade</label>
+                                  <label class="control-label">Serviços de saúde na comunidade</label>
                                   <input type="text" #healthService="ngModel" name="health_service" [(ngModel)]="community.health_service" id="health_service" class="form-control" placeholder="serviços de saúde existentes na comunidade" required>
                                   <app-control-field-error [showError]="verifyValidSubmitted(f2, healthService)" msgError="Digite os serviços de saúde existentes na comunidade">
                                   </app-control-field-error>
@@ -243,9 +239,9 @@
                               </div>                            
                             </div>
                             <div class="row">
-                              <div class="col-sm-3">
+                              <div class="col-sm-6">
                                 <div class="form-group" [ngClass]="applyCssError(f2, hasKindergarten)">
-                                  <label class="control-label">Escolas de Educação Infantil</label> <br/>
+                                  <label class="control-label">Escolas de Ensino Infantil</label> <br/>
                                   <label class="radio-inline">                          
                                     <input type="radio" #hasKindergarten="ngModel" name="hasKindergarten" [(ngModel)]="community.has_kindergarten" id="hasKindergarten" [value]="true" required>
                                     Sim
@@ -258,7 +254,7 @@
                                   </app-control-field-error>
                                 </div>
                               </div>
-                              <div class="col-sm-3">
+                              <div class="col-sm-6">
                                 <div class="form-group" [ngClass]="applyCssError(f2, hasElementarySchool)">
                                   <label class="control-label">Escolas de Ensino Fundamental</label> <br/>
                                   <label class="radio-inline">                          
@@ -273,7 +269,9 @@
                                   </app-control-field-error>
                                 </div>
                               </div>
-                              <div class="col-sm-3">
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-6">
                                 <div class="form-group" [ngClass]="applyCssError(f2, hasHighSchool)">
                                   <label class="control-label">Escolas de Ensino Médio</label> <br/>
                                   <label class="radio-inline">                          
@@ -288,7 +286,7 @@
                                   </app-control-field-error>
                                 </div>
                               </div>
-                              <div class="col-sm-3" [ngClass]="applyCssError(f2, hasCollege)">
+                              <div class="col-sm-6" [ngClass]="applyCssError(f2, hasCollege)">
                                 <div class="form-group">
                                   <label class="control-label">Escolas de Educação Superior</label> <br/>
                                   <label class="radio-inline">                          
@@ -305,7 +303,7 @@
                               </div>
                             </div>
                             <div class="row">
-                              <div class="col-sm-3">
+                              <div class="col-sm-6">
                                 <div class="form-group" [ngClass]="applyCssError(f2, hasCommunityCenter)">
                                   <label class="control-label">Centro Comunitário</label> <br/>
                                   <label class="radio-inline">                          
@@ -320,7 +318,7 @@
                                 </app-control-field-error>
                                 </div>
                               </div>
-                              <div class="col-sm-3">
+                              <div class="col-sm-6">
                                 <div class="form-group" [ngClass]="applyCssError(f2, hasReligiousPlace)">
                                   <label class="control-label">Local Religioso</label> <br/>
                                   <label class="radio-inline">                          
@@ -334,8 +332,10 @@
                                   <app-control-field-error [showError]="verifyValidSubmitted(f2, hasReligiousPlace)" msgError="Escolha uma das alternativas">
                                   </app-control-field-error>
                                 </div>
-                              </div>
-                              <div class="col-sm-3">
+                              </div>                     
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-6">
                                 <div class="form-group" [ngClass]="applyCssError(f2, hasCulturalEvents)">
                                   <label class="control-label">Eventos Culturais</label> <br/>
                                   <label class="radio-inline">                          
@@ -350,7 +350,7 @@
                                   </app-control-field-error>
                                 </div>
                               </div>
-                              <div class="col-sm-3">
+                              <div class="col-sm-6">
                                 <div class="form-group" [ngClass]="applyCssError(f2, hasPatron)">
                                   <label class="control-label">Patrono</label> <br/>
                                   <label class="radio-inline">                          
@@ -410,13 +410,13 @@
                         </div>
                         <div class="col-md-3">
                           <div class="form-group">
-                              <button type="button" class="btn btn-default btn-block" (click)="openModal()" id="btn_return3"> Cancelar</button>
+                              <button type="button" class="btn btn-default" (click)="openModal()" id="btn_return3"> Cancelar</button>
                           </div>
                         </div>
                         <div class="col-md-3 col-md-offset-6">
                           <div class="form-group save">
-                              <button class="btn btn-primary btn-block"  (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save" *ngIf="isNewData && canCreate">Cadastrar</button>   
-                              <button class="btn btn-primary btn-block"  (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save" *ngIf="!isNewData && canUpdate"> Salvar</button>                             
+                              <button class="btn btn-primary"  (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save" *ngIf="isNewData && canCreate">Cadastrar</button>   
+                              <button class="btn btn-primary"  (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save" *ngIf="!isNewData && canUpdate"> Salvar</button>                             
                           </div>
                         </div>
                       </form>

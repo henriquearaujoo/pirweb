@@ -22,8 +22,8 @@ export class CommunityComponent implements OnInit {
   private subscription: Subscription;
   private isNewData: boolean;
   private urlId: string;
-  private data1Tab: string;
-  private data2Tab: string;
+  private sectionInfoTab: string;
+  private sectionServicesTab: string;
   private data3Tab: string;
   private currentTab: number;
   private previousTab: string;
@@ -131,16 +131,14 @@ export class CommunityComponent implements OnInit {
     if (this.urlId !== null && this.urlId !== '') {
       this.isNewData = false;
       this.load();
-    } else {
-      this.route.navigate(['/community-list']);
     }
 
     this.currentTab = 0;
     this.previousTab = '#tab_1';
     this.nextTab = '#tab_2';
 
-    this.data1Tab = './assets/img/community/ic_dataTab1_enable.png';
-    this.data2Tab = './assets/img/community/ic_dataTab2_disable.png';
+    this.sectionInfoTab = './assets/img/community/ic_section_info_enable.png';
+    this.sectionServicesTab = './assets/img/community/ic_section_services_disable.png';
 
     this.openSaveButtonTab1 = (<HTMLButtonElement>document.getElementById('btn_tab1'));
     this.openSaveButtonTab1.style.display = 'none';
@@ -372,12 +370,12 @@ export class CommunityComponent implements OnInit {
 
         if (this.currentTab === 0) {
           (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
-          this.data1Tab = './assets/img/community/ic_dataTab1_enable.png';
-          this.data2Tab = './assets/img/community/ic_dataTab2_disable.png';
+          this.sectionInfoTab = './assets/img/community/ic_section_info_enable.png';
+          this.sectionServicesTab = './assets/img/community/ic_section_services_disable.png';
 
         }else if (this.currentTab === 1) {
-          this.data1Tab = './assets/img/community/ic_dataTab1_disable.png';
-          this.data2Tab = './assets/img/community/ic_dataTab2_enable.png';
+          this.sectionInfoTab = './assets/img/community/ic_section_info_disable.png';
+          this.sectionServicesTab = './assets/img/community/ic_section_services_enable.png';
           (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
           (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
         }

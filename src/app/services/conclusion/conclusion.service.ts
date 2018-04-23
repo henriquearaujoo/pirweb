@@ -36,24 +36,24 @@ export class ConclusionService extends RestService {
 
   // *** ANSWERS *** //
   public insertAnswer(answer: Answer): Observable<Answer> {
-    const currentURL = this.apiurl + 'question/answer';
+    const currentURL = this.apiurl + 'question/alternative';
     return this.post(currentURL, answer);
   }
 
   public updateAnswer(answer: Answer): Observable<Answer> {
-    const currentURL = this.apiurl + 'question/answer';
+    const currentURL = this.apiurl + 'question/alternative';
     return this.put(currentURL, answer);
   }
 
   public getAnswer(question_id?: string, page?: number) {
-     const currentURL = this.apiurl + 'question/answer/search?question=' + question_id;
+     const currentURL = this.apiurl + 'question/alternative/search?question=' + question_id;
     //  const currentURL = this.apiurl + 'question/answer/search/page/?page=' + page + '&question=' + question_id;
      return this.get(currentURL);
 
   }
 
   public deleteAnswer(answer_id: string): Observable<Answer> {
-    const deleteAnswerURL = this.apiurl + 'question/answer' + '/' + answer_id;
+    const deleteAnswerURL = this.apiurl + 'question/alternative' + '/' + answer_id;
     return this.deleteR(deleteAnswerURL);
   }
 

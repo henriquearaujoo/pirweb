@@ -124,17 +124,18 @@ button {
     font-size: 14px;
 }
 
-i.fa.fa-user {
+i.fa.fa-home {
     margin-top: 18px;
-    margin-left: 34px;
+    margin-left: 24px;
     margin-right: 10px;
     color: white;
-    background-color: #373d40;
-    padding-right: 10px;
-    padding-left: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    background-color: #0075BD;
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-top: 4px;
+    padding-bottom: 4px;
     border-radius: 0.2em;
+    font-size: 34px;
 }
 
 section.content_user {
