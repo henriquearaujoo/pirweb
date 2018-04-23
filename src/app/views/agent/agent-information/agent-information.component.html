@@ -1,0 +1,3 @@
+<app-agent-list *ngIf="profile.type !== 'AGENT' && profile.type !== undefined"></app-agent-list>
+
+<app-user-details [isAgent]="isAgent" *ngIf="profile.type === 'AGENT'" ></app-user-details>
