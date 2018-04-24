@@ -2,70 +2,99 @@
 <app-loader></app-loader>
 <div class="login-box" [ngStyle]="object">
     <div class="login-logo">
-      <img src="./assets/img/global/logo_PIR.png">
+        <img src="./assets/img/global/logo_PIR.png">
     </div>
     <div class="login-box-body">
-  
-      <form name="form" (ngSubmit)="f.form.valid && sendData()" #f="ngForm" novalidate>
 
-        <div class="form-group has-feedback" [ngClass]="applyCssError(f, login)">
-          <div class="input-group margin-bottom-sm">
-              <span class="input-group-addon" style="padding: 6px 10px;">
+        <form name="form" (ngSubmit)="f.form.valid && sendData()" #f="ngForm" novalidate>
+
+            <div class="form-group has-feedback" [ngClass]="applyCssError(f, login)">
+                <div class="input-group margin-bottom-sm">
+                    <span class="input-group-addon" style="padding: 6px 10px;">
                 <i class="fa fa-user fa-fw"></i>
               </span>
-              <input name="login" #login="ngModel" [(ngModel)]="user.login"  class="form-control" placeholder="Usuário" required>
-          </div>
-          <app-control-field-error [showError]="verifyValidSubmitted(f, login)" msgError="Digite um usuário">
-          </app-control-field-error>
-        </div>
-        
-        <div class="form-group has-feedback" [ngClass]="applyCssError(f, password)">
-          <div class="input-group">
-               <span class="input-group-addon" style="padding: 6px 12px;">
+                    <input name="login" #login="ngModel" [(ngModel)]="user.login" class="form-control" placeholder="Usuário" required>
+                </div>
+                <app-control-field-error [showError]="verifyValidSubmitted(f, login)" msgError="Digite um usuário">
+                </app-control-field-error>
+            </div>
+
+            <div class="form-group has-feedback" [ngClass]="applyCssError(f, password)">
+                <div class="input-group">
+                    <span class="input-group-addon" style="padding: 6px 12px;">
                  <i class="large material-icons">lock</i>
                 </span>
-                    
-              <input name="password" #password="ngModel" [(ngModel)]="user.password"  type="password" class="form-control" placeholder="Senha" required>
-          </div>
-          <app-control-field-error [showError]="verifyValidSubmitted(f, password)" msgError=" Digite uma senha">
-          </app-control-field-error>
-        </div>
 
-        <div class="row">
-          <div class="col-xs-8 remember">
-            <div class="checkbox icheck">
-              <label>
+                    <input name="password" #password="ngModel" [(ngModel)]="user.password" type="password" class="form-control" placeholder="Senha" required>
+                </div>
+                <app-control-field-error [showError]="verifyValidSubmitted(f, password)" msgError=" Digite uma senha">
+                </app-control-field-error>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-8 remember">
+                    <div class="checkbox icheck">
+                        <label>
                 <input type="checkbox" (change)="remember($event)" [checked]="checked"> Lembrar
               </label>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <button type="submit" class="btn btn-primary btn-md btn-block">ENTRAR</button>
+                </div>
             </div>
-          </div>
-          <div class="col-xs-4">
-            <button type="submit" class="btn btn-primary btn-md btn-block">ENTRAR</button>
-          </div>
-        </div>
-      </form>
-      
-      <a class="pointer" (click)="resetPassword()">Esqueci a senha</a><br>
+        </form>
+
+        <a class="pointer" (click)="resetPassword()">Esqueci a senha</a><br>
     </div>
     <section class="content samsung">
-      <div class="row">
-        <div class="col-sm-12">
-          <img src="./assets/img/global/logo_Samsung_SEDA.png">
+        <div class="row">
+            <div class="col-sm-12">
+                <img src="./assets/img/global/logo_Samsung_SEDA.png">
+            </div>
         </div>
-      </div>
-    </section>    
+    </section>
 </div>
+<!-- <section class="config-ip">
+    <div class="row">
+        <div class="col-sm-12">
+            <a data-toggle="modal" data-target="#modal-ip">
+                <i style="color: #fff" class="fa fa-cog"></i>
+            </a>
+        </div>
+    </div>
+</section> -->
 
-<!-- <div class="container-email">
-  <div class="email-top">
-    <img src="./assets/img/global/logoPIR-05.png">
-
-  </div>
-  <div class="email-content">
-
-  </div>
-  <div class="email-footer">
-    <img src="./assets/img/global/logo_Samsung_SEDA.png">
-  </div>
-
-</div> -->
+<!-- Modal Question-->
+<div class="modal fade" id="modal-ip">
+    <div class="modal-dialog">
+        <div class="modal-content" [ngStyle]="object">
+            <div class="modal-header question">
+            </div>
+            <div class="modal-body modal-question">
+                <form name="fQuestion" (ngSubmit)="fQuestion.form.valid && saveQuestion()" #fQuestion="ngForm" novalidate>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">IP</label> <br/>
+                                <input class="form-control" name="ip" id="ip" [(ngModel)]="ip">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="row">
+                <div class="col-sm-12">
+                    <label class="control-label">IP</label> <br/>                   
+                    <input class="form-control" name="ip" id="ip" [(ngModel)]="ip" value="http://">
+                </div> 
+              </div>  -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" id="btn_cancel" data-dismiss="modal" (click)=onCancel()>Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="btn_save" data-dismiss="modal" (click)=saveIP()>Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>
+<!-- /.modal -->

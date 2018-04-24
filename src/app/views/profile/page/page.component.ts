@@ -73,6 +73,7 @@ export class PageComponent extends PagenateComponent implements OnInit {
     this.profileService.getAllProfiles().subscribe(
       success => {
         this.profiles = success;
+        this.profiles = this.profiles.filter( elem => elem.title.toUpperCase() !== 'ADMINISTRATOR');
       },
       error => console.log(error)
     );

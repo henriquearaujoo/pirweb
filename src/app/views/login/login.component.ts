@@ -14,6 +14,7 @@ import { Rule } from '../../models/rule';
 import { Page } from '../../models/page';
 import { decodeToken } from 'jsontokens';
 import { Permissions } from '../../helpers/permissions';
+import { Constant } from '../../constant/constant';
 
 @Component({
   selector: 'app-login',
@@ -31,6 +32,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   private pages: Page[] = new Array();
   isActivate: boolean;
   private checked: boolean;
+  private ip = 'http://';
 
   constructor(
       private authenticationService: AuthenticationService,
@@ -130,6 +132,11 @@ export class LoginComponent implements OnInit, OnDestroy {
             localStorage.removeItem('currentLogin');
             localStorage.removeItem('pirfas');
         }
+    }
+
+    saveIP() {
+        console.log('server:', this.ip);
+        localStorage.setItem('server', this.ip);
     }
 
     ngOnDestroy(): void {

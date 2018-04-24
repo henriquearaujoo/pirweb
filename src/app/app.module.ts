@@ -160,6 +160,7 @@ import { VisitHistoricListComponent } from './views/agent/visit-historic/visit-h
 import { AgentInformationComponent } from './views/agent/agent-information/agent-information.component';
 import { ChartComponent } from './components/chart/chart.component';
 import { PerformanceChartComponent } from './views/agent/performance-chart/performance-chart.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 // import { QuillModule } from 'ngx-quill';
 // import { EqualValidator } from './directives/equal-validator.directive';
 
@@ -305,6 +306,7 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
   ],
   providers: [
     { provide: XHRBackend, useClass: Interceptor },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
     // { provide: Http, useClass: Interceptor },
     RestService,
     PageService,
