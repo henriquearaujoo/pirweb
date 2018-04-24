@@ -60,6 +60,9 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.toastService.toastMsg('Sucesso', 'Senha alterada com sucesso!');
         }
     );
+    if (localStorage.getItem('server')) {
+        this.ip = localStorage.getItem('server');
+    }
   }
 
     sendData() {
