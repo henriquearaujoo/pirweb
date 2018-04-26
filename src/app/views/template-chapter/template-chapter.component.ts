@@ -57,7 +57,7 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.permissions.canActivate(['/template-chapter']);
+    this.permissions.canActivate(['/chapter']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -175,7 +175,7 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
 
   createNewChapter() {
     localStorage.removeItem('lastVersion');
-    this.router.navigate(['chapter-dashboard']);
+    this.router.navigate(['chapter/chapter-dashboard']);
   }
 
   setChapter(chapter: Chapter) {

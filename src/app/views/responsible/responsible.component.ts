@@ -75,7 +75,7 @@ export class ResponsibleComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.permissions.canActivate(['/responsible']);
+    this.permissions.canActivate(['/responsible-list/responsible']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;

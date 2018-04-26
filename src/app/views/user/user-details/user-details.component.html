@@ -1,97 +1,94 @@
 <simple-notifications></simple-notifications>
 <app-modal> </app-modal>
 <div class="content_">
-    <div class="content-top" *ngIf="url === '/user-details'">        
+    <div class="content-top" *ngIf="url === '/user-list/details'">
         <div class="content_fa"> <img class="icon" src="./assets/img/global/ic_usuarios.png"> Usuários > Detalhes </div>
     </div>
-    <div class="content-top" *ngIf="url !== '/user-details'">
+    <div class="content-top" *ngIf="url !== '/user-list/details'">
         <div class="content_fa"> <img class="icon" src="./assets/img/global/ic_usuarios.png"> Agente > Detalhes </div>
     </div>
 
     <section class="content_user">
         <div class="content-header ">
-            <h5 class="content-title" *ngIf="url === '/user-details'">DETALHES DO USUÁRIO</h5>
-            <h5 class="content-title"  *ngIf="url !== '/user-details'">DETALHES DO AGENTE</h5>
+            <h5 class="content-title" *ngIf="url === '/user-list/details'">DETALHES DO USUÁRIO</h5>
+            <h5 class="content-title" *ngIf="url !== '/user-list/details'">DETALHES DO AGENTE</h5>
         </div>
-            <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs">
-                    <li>
-                      <a class="tab-pane active" (click)="walk(0)" href="#tab_1" data-toggle="tab">
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li>
+                    <a class="tab-pane active" (click)="walk(0)" href="#tab_1" data-toggle="tab">
                         <img src="{{accountTab}}" />
-                      </a>                       
-                    </li>
-                    <li>
-                      <a class="tab-pane active" (click)="walk(1)" href="#tab_2" data-toggle="tab">
-                          <img src="{{personalTab}}" />
-                      </a>                         
-                    </li>
-                    <li>
-                      <a class="tab-pane active" (click)="walk(2)" href="#tab_3" data-toggle="tab">
+                    </a>
+                </li>
+                <li>
+                    <a class="tab-pane active" (click)="walk(1)" href="#tab_2" data-toggle="tab">
+                        <img src="{{personalTab}}" />
+                    </a>
+                </li>
+                <li>
+                    <a class="tab-pane active" (click)="walk(2)" href="#tab_3" data-toggle="tab">
                         <img src="{{adressTab}}" />
-                      </a>                        
-                    </li>
-                    <li class="edit">
-                        <button class="btn btn-default" data-toggle="modal" data-target="#modal-default" 
-                            id="btn_delete"
-                            *ngIf="canDelete && !isAgent"> 
+                    </a>
+                </li>
+                <li class="edit">
+                    <button class="btn btn-default" data-toggle="modal" data-target="#modal-default" id="btn_delete" *ngIf="canDelete && !isAgent"> 
                             <i [ngClass]="user.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off'" aria-hidden="true"></i>
                         </button>
-                        <button class="btn btn-primary" title="Editar" id="btn_edit"
-                            (click)="editUser()" *ngIf="canUpdate">
+                    <button class="btn btn-primary" title="Editar" id="btn_edit" (click)="editUser()" *ngIf="canUpdate">
                             <i class="fa fa-pencil fa-fw"></i>
-                        </button>                        
-                    </li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane active" id="tab_1">
-                        <div class="content">
-                            <section class="content">
-                                <div class="box-header_1 with-border">
-                                    <h5 class="box-title"> Informações da Conta
-                                    </h5>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <form name="form" id="f_1" #f1="ngForm" novalidate>
-                                            <div class="box box-primary">
-                                                <div class="box-body">
-                                                    <div class="row" *ngIf="!isAgent">
-                                                        <div class="col-sm-12">
-                                                            <!-- select status-->
-                                                            <div class="form-group">
-                                                                <label class="control-label">Status</label>
-                                                                <input type="text" name="status" class="form-control" value="{{ user.status === true ? 'Ativo': 'Inativo' }}" disabled>                                                                
-                                                            </div>                                                           
+                        </button>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1">
+                    <div class="content">
+                        <section class="content">
+                            <div class="box-header_1 with-border">
+                                <h5 class="box-title"> Informações da Conta
+                                </h5>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <form name="form" id="f_1" #f1="ngForm" novalidate>
+                                        <div class="box box-primary">
+                                            <div class="box-body">
+                                                <div class="row" *ngIf="!isAgent">
+                                                    <div class="col-sm-12">
+                                                        <!-- select status-->
+                                                        <div class="form-group">
+                                                            <label class="control-label">Status</label>
+                                                            <input type="text" name="status" class="form-control" value="{{ user.status === true ? 'Ativo': 'Inativo' }}" disabled>
                                                         </div>
                                                     </div>
-                                                    <div class="row" *ngIf="!isAgent">                                                     
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group profile">
-                                                                <label class="control-label">Perfil</label>
-                                                                <input type="text" name="profile" class="form-control" value="{{ user.profile.title }}" disabled>                                                              
-                                                            </div>
-                                                        </div>    
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group type">
-                                                                <label class="control-label">Tipo de usuário</label>
-                                                                <input type="text" name="type" class="form-control" value="{{ user.type === 'PFIS' ? 'Pessoa Física': 'Pessoa Jurídica'}}" disabled>
-                                                            </div>
+                                                </div>
+                                                <div class="row" *ngIf="!isAgent">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group profile">
+                                                            <label class="control-label">Perfil</label>
+                                                            <input type="text" name="profile" class="form-control" value="{{ user.profile.title }}" disabled>
                                                         </div>
                                                     </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group type">
+                                                            <label class="control-label">Tipo de usuário</label>
+                                                            <input type="text" name="type" class="form-control" value="{{ user.type === 'PFIS' ? 'Pessoa Física': 'Pessoa Jurídica'}}" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <!-- <div class="row" *ngIf="show_community"> -->
-                                                    <!-- select community-->
-                                                    <!-- <div class="col-sm-12">
+                                                <!-- select community-->
+                                                <!-- <div class="col-sm-12">
                                                         <div class="form-group">
                                                             <label class="control-label">Comunidade</label>
                                                             <select class="form-control" name="community" id="community" #community="ngModel" [(ngModel)]="user.community_id">
                                                                 <option disabled >Comunidade</option>
                                                                 <option *ngFor="let item of communities" [value]="item.id">{{item.name}}</option>
                                                             </select> -->
-                                                            <!-- <app-control-field-error [showError]="verifyValidSubmitted(f, community)" msgError="Selecione uma comunidade">
+                                                <!-- <app-control-field-error [showError]="verifyValidSubmitted(f, community)" msgError="Selecione uma comunidade">
                                                         </app-control-field-error> -->
-                                                        <!-- </div>
+                                                <!-- </div>
                                                     </div>  -->
-                                                    <!-- end select community-->
+                                                <!-- end select community-->
                                                 <!-- </div> -->
                                                 <div class="row">
                                                     <div class="col-sm-12">
@@ -100,10 +97,10 @@
                                                             <input type="text" name="login" class="form-control" value="{{ user.login }}" disabled>
                                                         </div>
                                                     </div>
-                                                </div>  
+                                                </div>
                                             </div>
-                                            </div>
-                                            <!-- <div class="content-control">
+                                        </div>
+                                        <!-- <div class="content-control">
                                                 <div class="control">
                                                     <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false, 1, 0)" id="btn_previous">
                                                         <img src="./assets/img/global/ic_previous.png" />
@@ -116,187 +113,187 @@
                                                     <button type="submit" id="btn_tab1"></button>
                                                 </div>
                                             </div> -->
-                                            <!-- <div class="col-md-3">
+                                        <!-- <div class="col-md-3">
                                                 <div class="form-group">
                                                     <button class="btn btn-default btn-block" (click)="openModal()" id="btn_return1"> Cancelar</button>
                                                 </div>
                                             </div> -->
-                                        </form>
-                                    </div>
+                                    </form>
                                 </div>
+                            </div>
 
-                            </section>
-                        </div>
+                        </section>
                     </div>
-                    <!-- /.tab-pane -->
-                    <div class="tab-pane" id="tab_2">
-                        <div class="content">
-                            <section class="content">
-                                <div class="box-header_1 with-border">
-                                    <h5 class="box-title"> Informações Pessoais
-                                    </h5>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <form name="form" #f2="ngForm" novalidate>
-                                            <div class="box box-primary">
-                                                <div class="box-body">
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <div class="form-group left">
-                                                                <label class="control-label">Nome completo</label>
-                                                                <input type="text" name="name" class="form-control" value="{{ user.name }}" disabled>
-                                                            </div>
-                                                        </div>                                                       
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <div class="form-group">
-                                                                <label class="control-label">E-mail</label>                                                               
-                                                                <input type="text" name="email" class="form-control" value="{{ user.email }}" disabled>                                                                
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group left"*ngIf="!show_pjur">
-                                                                <label class="control-label">RG</label>
-                                                                <input type="text" name="rg" class="form-control" value="{{ user.person.rg }}" disabled>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group" *ngIf="!show_pjur">
-                                                                <label class="control-label">Orgão Emissor</label>
-                                                                <input type="text" name="emitter" class="form-control" value="{{ user.person.emitter }}" disabled>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <div class="form-group" *ngIf="!show_pjur">
-                                                                <label class="control-label">CPF</label>                                                                
-                                                                <input type="text" mask="000.000.000-00" [(ngModel)]="user.person.cpf" name="cpf"  id="user_cpf" class="form-control"  disabled>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group left" *ngIf="show_pjur">
-                                                                <label class="control-label">Inscrição Estadual</label>
-                                                                <input type="text" name="ie" class="form-control" value="{{ user.entity.ie }}" disabled>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group" *ngIf="show_pjur">
-                                                                <label class="control-label">CNPJ</label>
-                                                                <input type="text" name="cnpj" class="form-control" value="{{ user.entity.cnpj }}" disabled>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <div class="form-group" *ngIf="show_pjur">
-                                                                <label class="control-label">Razão Social</label>
-                                                                <input type="text" name="social_name" class="form-control" value="{{ user.entity.social_name }}" disabled>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <div class="form-group" *ngIf="show_pjur">
-                                                                <label class="control-label">Nome Fantasia</label>
-                                                                <input type="text" name="fantasy_name" class="form-control" value="{{ user.entity.fantasy_name }}" disabled>
-                                                            </div>
+                </div>
+                <!-- /.tab-pane -->
+                <div class="tab-pane" id="tab_2">
+                    <div class="content">
+                        <section class="content">
+                            <div class="box-header_1 with-border">
+                                <h5 class="box-title"> Informações Pessoais
+                                </h5>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <form name="form" #f2="ngForm" novalidate>
+                                        <div class="box box-primary">
+                                            <div class="box-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group left">
+                                                            <label class="control-label">Nome completo</label>
+                                                            <input type="text" name="name" class="form-control" value="{{ user.name }}" disabled>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>                          
-                                        </form>
-                                    </div>                               
-                                </div>
-                            </section>
-                        </div>
-                    </div>
-                    <!-- /.tab-pane -->
-                    <div class="tab-pane" id="tab_3">
-                        <div class="content">
-                            <section class="content">                                
-                                    <div class="box-header_1 with-border">
-                                        <h5 class="box-title"> Informações de Endereço
-                                        </h5>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <form name="form" #f3="ngForm" novalidate>
-                                                <div class="box box-primary">
-                                                    <div class="box-body">
-                                                        <div class="row">
-                                                            <div class="col-sm-6">
-                                                                <div class="form-group left">
-                                                                    <label class="control-label">Rua</label>
-                                                                    <input type="text" name="street" class="form-control" value="{{ user.address?.street }}" disabled>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <div class="form-group">
-                                                                    <label class="control-label">Número</label>
-                                                                    <input type="text" name="number" class="form-control" value="{{ user.address?.number }}" disabled>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-sm-6">
-                                                                <div class="form-group left">
-                                                                    <label class="control-label">Bairro</label>
-                                                                    <input type="text" name="neighborhood" class="form-control" value="{{ user.address?.neighborhood }}" disabled>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-sm-6">
-                                                                <div class="form-group">
-                                                                    <label class="control-label">Complemento</label>
-                                                                    <input type="text" name="complement" class="form-control" value="{{ user.address?.complement }}" disabled>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-sm-6">
-                                                                <div class="form-group left">
-                                                                    <label class="control-label">CEP</label>
-                                                                    <input type="text" mask="00000-000" [(ngModel)]="user.address.postalcode" name="cep" id="user_cep" class="form-control" disabled>                                                                   
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-sm-6">
-                                                                <div class="form-group left">
-                                                                    <label class="control-label">Estado</label>
-                                                                    <input type="text" name="state" class="form-control" value="{{ user.address?.city?.state.name }}" disabled>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <div class="form-group">
-                                                                    <label class="control-label">Cidade</label>
-                                                                    <input type="text" name="state" class="form-control" value="{{ user.address?.city?.name }}" disabled>
-                                                                </div>
-                                                            </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label">E-mail</label>
+                                                            <input type="text" name="email" class="form-control" value="{{ user.email }}" disabled>
                                                         </div>
                                                     </div>
-                                                </div>                        
-                                            </form>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group left" *ngIf="!show_pjur">
+                                                            <label class="control-label">RG</label>
+                                                            <input type="text" name="rg" class="form-control" value="{{ user.person.rg }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group" *ngIf="!show_pjur">
+                                                            <label class="control-label">Orgão Emissor</label>
+                                                            <input type="text" name="emitter" class="form-control" value="{{ user.person.emitter }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group" *ngIf="!show_pjur">
+                                                            <label class="control-label">CPF</label>
+                                                            <input type="text" mask="000.000.000-00" [(ngModel)]="user.person.cpf" name="cpf" id="user_cpf" class="form-control" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group left" *ngIf="show_pjur">
+                                                            <label class="control-label">Inscrição Estadual</label>
+                                                            <input type="text" name="ie" class="form-control" value="{{ user.entity.ie }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group" *ngIf="show_pjur">
+                                                            <label class="control-label">CNPJ</label>
+                                                            <input type="text" name="cnpj" class="form-control" value="{{ user.entity.cnpj }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group" *ngIf="show_pjur">
+                                                            <label class="control-label">Razão Social</label>
+                                                            <input type="text" name="social_name" class="form-control" value="{{ user.entity.social_name }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group" *ngIf="show_pjur">
+                                                            <label class="control-label">Nome Fantasia</label>
+                                                            <input type="text" name="fantasy_name" class="form-control" value="{{ user.entity.fantasy_name }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>                               
-                            </section>
-                        </div>
-                    </div>                   
-                    <div class="row footer" *ngIf="!isAgent">
-                        <button class="btn btn-default" (click)="back()" id="btn_return"> Voltar</button>                         
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
                     </div>
                 </div>
-                <!-- /.tab-content -->
-            </div>      
+                <!-- /.tab-pane -->
+                <div class="tab-pane" id="tab_3">
+                    <div class="content">
+                        <section class="content">
+                            <div class="box-header_1 with-border">
+                                <h5 class="box-title"> Informações de Endereço
+                                </h5>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <form name="form" #f3="ngForm" novalidate>
+                                        <div class="box box-primary">
+                                            <div class="box-body">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group left">
+                                                            <label class="control-label">Rua</label>
+                                                            <input type="text" name="street" class="form-control" value="{{ user.address?.street }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Número</label>
+                                                            <input type="text" name="number" class="form-control" value="{{ user.address?.number }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group left">
+                                                            <label class="control-label">Bairro</label>
+                                                            <input type="text" name="neighborhood" class="form-control" value="{{ user.address?.neighborhood }}" disabled>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Complemento</label>
+                                                            <input type="text" name="complement" class="form-control" value="{{ user.address?.complement }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group left">
+                                                            <label class="control-label">CEP</label>
+                                                            <input type="text" mask="00000-000" [(ngModel)]="user.address.postalcode" name="cep" id="user_cep" class="form-control" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group left">
+                                                            <label class="control-label">Estado</label>
+                                                            <input type="text" name="state" class="form-control" value="{{ user.address?.city?.state.name }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Cidade</label>
+                                                            <input type="text" name="state" class="form-control" value="{{ user.address?.city?.name }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="row footer" *ngIf="!isAgent">
+                    <button class="btn btn-default" (click)="back()" id="btn_return"> Voltar</button>
+                </div>
+            </div>
+            <!-- /.tab-content -->
+        </div>
     </section>
 </div>
 
@@ -439,27 +436,27 @@
 
 <!-- Modal Disable -->
 <div class="modal fade" id="modal-default">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content" [ngStyle]="object">
-      <div class="modal-body">
-        <div class="modal-icon">
-            <!-- <i class="material-icons" style="font-size: 60px;">error_outline</i> -->
-            <img class="icon" src="./assets/img/global/ic_action.png">
-        </div>          
-          <h5  *ngIf="user.status"> Deseja realmente desativar o <span *ngIf="url === '/user-details'">usuário</span><span *ngIf="url !== '/user-details'">agente</span> <strong> {{ user.name | uppercase}} </strong> ?</h5>
-          <h5  *ngIf="!user.status"> Deseja realmente ativar o <span *ngIf="url === '/user-details'">usuário</span><span *ngIf="url !== '/user-details'">agente</span> <strong> {{ user.name | uppercase}} </strong> ?</h5>
-      </div>
-      <div class="modal-footer_">
-        <div class="modal-btn-cancel">
-            <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal" id="btn_cancel">Cancelar</button>
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" [ngStyle]="object">
+            <div class="modal-body">
+                <div class="modal-icon">
+                    <!-- <i class="material-icons" style="font-size: 60px;">error_outline</i> -->
+                    <img class="icon" src="./assets/img/global/ic_action.png">
+                </div>
+                <h5 *ngIf="user.status"> Deseja realmente desativar o <span *ngIf="url === '/user-details'">usuário</span><span *ngIf="url !== '/user-details'">agente</span> <strong> {{ user.name | uppercase}} </strong> ?</h5>
+                <h5 *ngIf="!user.status"> Deseja realmente ativar o <span *ngIf="url === '/user-details'">usuário</span><span *ngIf="url !== '/user-details'">agente</span> <strong> {{ user.name | uppercase}} </strong> ?</h5>
+            </div>
+            <div class="modal-footer_">
+                <div class="modal-btn-cancel">
+                    <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal" id="btn_cancel">Cancelar</button>
+                </div>
+                <div class="modal-btn-confirm">
+                    <button type="button" (click)="disableEnableUser()" class="btn btn-primary btn-md btn-block" data-dismiss="modal" id="btn_confirm">Confirmar</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-btn-confirm">
-            <button type="button" (click)="disableEnableUser()" class="btn btn-primary btn-md btn-block" data-dismiss="modal" id="btn_confirm">Confirmar</button>
-        </div>
-      </div>
+        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
+    <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->

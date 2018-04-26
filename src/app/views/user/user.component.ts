@@ -105,7 +105,7 @@ export class UserComponent implements OnInit, OnDestroy {
     const state: RouterState = this.router.routerState;
     const snapshot: RouterStateSnapshot = state.snapshot;
     this.url = snapshot.url;
-    this.permissions.canActivate(['/user', '/agent']);
+    this.permissions.canActivate(['/user-list/user', '/agent-information/agent']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.profile = rules.profile;
@@ -172,10 +172,10 @@ export class UserComponent implements OnInit, OnDestroy {
         if (this.canCreate) {
           this.userService.createUser(this.user).subscribe(
             success => {
-              if (this.url === '/user') {
-                this.sweetAlertService.alertSuccess('user-list');
+              if (this.url === '/user-list/user') {
+                this.sweetAlertService.alertSuccess('/user-list');
               } else {
-                this.sweetAlertService.alertSuccess('agent-information');
+                this.sweetAlertService.alertSuccess('/agent-information');
               }
             },
             error => {
@@ -185,10 +185,10 @@ export class UserComponent implements OnInit, OnDestroy {
             }
           );
         } else {
-          if (this.url === '/user') {
-            this.sweetAlertService.alertPermission('user-list');
+          if (this.url === '/user-list/user') {
+            this.sweetAlertService.alertPermission('/user-list');
           } else {
-            this.sweetAlertService.alertPermission('agent-information');
+            this.sweetAlertService.alertPermission('/agent-information');
           }
         }
       } else {
@@ -237,7 +237,7 @@ export class UserComponent implements OnInit, OnDestroy {
                   }
                 });
               } else {
-                if (this.url === '/user') {
+                if (this.url === '/user-list/user') {
                   this.sweetAlertService.alertSuccessUpdate('user-list');
                 } else {
                   this.sweetAlertService.alertSuccessUpdate('agent-information');
@@ -250,7 +250,7 @@ export class UserComponent implements OnInit, OnDestroy {
             }
           );
         } else {
-          if (this.url === '/user') {
+          if (this.url === '/user-list/user') {
             this.sweetAlertService.alertPermission('user-list');
           } else {
             this.sweetAlertService.alertPermission('agent-information');
@@ -262,7 +262,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
   openModal() {
     console.log(this.url);
-    if (this.url === '/user') {
+    if (this.url === '/user-list/user') {
       this.modalService.modalCancel('/user-list');
     } else {
       this.modalService.modalCancel('/agent-information');

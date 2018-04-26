@@ -34,6 +34,7 @@ export class Permissions implements OnDestroy {
 
     canActivate(url: string[]) {
         this.returnUrl = url;
+        console.log(this.returnUrl);
 
         const profile = localStorage.getItem('profileId_rules');
 

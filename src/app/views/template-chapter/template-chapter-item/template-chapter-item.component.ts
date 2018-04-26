@@ -43,7 +43,7 @@ export class TemplateChapterItemComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.permissions.canActivate(['/template-chapter']);
+    this.permissions.canActivate(['/chapter']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -75,9 +75,9 @@ export class TemplateChapterItemComponent implements OnInit {
    }
 
    editChapter(chapter: Chapter) {
-    localStorage.removeItem('chapterId');
-    localStorage.setItem('chapterId', chapter.id );
-    this.router.navigate(['chapter-dashboard']);
+    // localStorage.removeItem('chapterId');
+    localStorage.setItem('_chapterId', chapter.id );
+    this.router.navigate(['chapter/chapter-dashboard']);
   }
 
    addVersion(chapter: Chapter) {
@@ -86,7 +86,7 @@ export class TemplateChapterItemComponent implements OnInit {
      } else {
       localStorage.setItem('chapterNumber', chapter.number.toString() );
       localStorage.setItem('lastVersion', this.lastVersion );
-      this.router.navigate(['chapter-dashboard']);
+      this.router.navigate(['chapter/chapter-dashboard']);
      }
    }
 

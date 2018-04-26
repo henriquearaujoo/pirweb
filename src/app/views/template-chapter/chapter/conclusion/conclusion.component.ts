@@ -72,7 +72,7 @@ export class ConclusionComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.permissions.canActivate(['/chapter-dashboard']);
+    this.permissions.canActivate(['/chapter/chapter-dashboard']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;

@@ -81,12 +81,12 @@ export class ResponsibleListComponent implements OnInit, OnDestroy {
 
   setResponsible(responsible: Responsible) {
     localStorage.setItem('responsibleId', responsible.id);
-    this.router.navigate(['responsible']);
+    this.router.navigate(['/responsible-list/responsible']);
   }
 
   toView(responsible: Responsible) {
     localStorage.setItem('responsibleId', responsible.id);
-    this.router.navigate(['responsible-details']);
+    this.router.navigate(['/responsible-list/details']);
   }
 
   changeStatus(responsible: Responsible) {

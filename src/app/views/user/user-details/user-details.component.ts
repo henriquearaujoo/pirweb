@@ -51,7 +51,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.permissions.canActivate(['/user-details', '/agent-details']);
+    this.permissions.canActivate(['/user-details', '/agent-information/details']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -106,10 +106,10 @@ export class UserDetailsComponent implements OnInit {
 
   editUser() {
     localStorage.setItem('userId', this.user.id);
-    if (this.url === '/user-details') {
-      this.router.navigate(['/user']);
+    if (this.url === '/user-list/details') {
+      this.router.navigate(['/user-list/user']);
     } else {
-      this.router.navigate(['/agent']);
+      this.router.navigate(['/agent-information/agent']);
     }
   }
 
@@ -154,7 +154,7 @@ export class UserDetailsComponent implements OnInit {
 
   back() {
     console.log(this.url);
-    if (this.url === '/user-details') {
+    if (this.url === '/user-list/details') {
       this.router.navigate(['/user-list']);
     } else {
       this.router.navigate(['/agent-information']);

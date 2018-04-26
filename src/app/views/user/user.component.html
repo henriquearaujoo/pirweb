@@ -3,19 +3,19 @@
 <!-- <button data-toggle="modal" data-target="#modal-default" id="openModalButton">Open Modal</button> -->
 <!-- <button data-toggle="modal" data-target="#modal-cancel" id="openModalCancel">Open Modal</button> -->
 <div class="content_">
-    <div class="content-top" *ngIf="url === '/user'">
+    <div class="content-top" *ngIf="url === '/user-list/user'">
         <div class="content_fa" *ngIf="isNewData"> <img class="icon" src="./assets/img/global/ic_usuarios.png"> Usuários > Cadastro </div>
         <div class="content_fa" *ngIf="!isNewData"> <img class="icon" src="./assets/img/global/ic_usuarios.png"> Usuários > Cadastro > Editar</div>
     </div>
-    <div class="content-top" *ngIf="url !== '/user'">
+    <div class="content-top" *ngIf="url !== '/user-list/user'">
         <div class="content_fa" *ngIf="isNewData"> <img class="icon" src="./assets/img/global/ic_usuarios.png"> Agente > Cadastro </div>
         <div class="content_fa" *ngIf="!isNewData"> <img class="icon" src="./assets/img/global/ic_usuarios.png"> Agente > Cadastro > Editar</div>
     </div>
 
     <section class="content_user">
         <div class="content-header ">
-            <h5 class="content-title" *ngIf="url === '/user'">CADASTRO DE USUÁRIO</h5>
-            <h5 class="content-title" *ngIf="url !== '/user'">CADASTRO DE AGENTE</h5>
+            <h5 class="content-title" *ngIf="url === '/user-list/user'">CADASTRO DE USUÁRIO</h5>
+            <h5 class="content-title" *ngIf="url !== '/user-list/user'">CADASTRO DE AGENTE</h5>
         </div>
         <!-- <form name="form" (ngSubmit)=" saveData()" #f="ngForm" novalidate> -->
         <!-- Custom Tabs -->
