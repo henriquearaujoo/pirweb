@@ -60,7 +60,7 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.permissions.canActivate(['/form-template']);
+    this.permissions.canActivate(['/form-template-list/form']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -103,7 +103,7 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
             console.log('save:', this.form);
             this.urlId = this.form.id;
             this.isNewData  = false;
-            this.sweetAlertService.alertSuccess('form-template');
+            this.sweetAlertService.alertSuccess('/form-template-list/form');
           },
           error => {
             this.verifyError(error);
@@ -116,7 +116,7 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
       if (this.canUpdate) {
         this.formService.updateForm(this.form).subscribe(
           success => {
-            this.sweetAlertService.alertSuccessUpdate('form-template');
+            this.sweetAlertService.alertSuccessUpdate('/form-template-list/form');
           },
           error => {
             this.verifyError(error);

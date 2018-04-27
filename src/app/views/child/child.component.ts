@@ -1,6 +1,5 @@
 import { Router } from '@angular/router';
 import { Permissions, RuleState } from './../../helpers/permissions';
-import { Mother } from './../../models/mother';
 import { ResponsibleService } from './../../services/responsible/responsible.service';
 import { Responsible } from './../../models/responsible';
 import { SweetAlertService } from './../../services/sweetalert/sweet-alert.service';
@@ -110,7 +109,7 @@ export class ChildComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.permissions.canActivate(['/child']);
+    this.permissions.canActivate(['/child-list/child']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;

@@ -82,12 +82,12 @@ export class ChildListComponent implements OnInit, OnDestroy {
   }
   setChild(child: Child) {
     localStorage.setItem('childId', child.id.toString());
-    this.router.navigate(['child']);
+    this.router.navigate(['/child-list/child']);
   }
 
   toView(child: Child) {
     localStorage.setItem('childId', child.id.toString());
-    this.router.navigate(['child-details']);
+    this.router.navigate(['/child-list/details']);
   }
 
   changeStatus(child: Child) {

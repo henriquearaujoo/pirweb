@@ -1,9 +1,9 @@
 import { AuthGuard } from './../../guards/auth.guard';
 import { HomeLayoutComponent } from './../../components/layout/home-layout.component';
 import { PerformanceChartComponent } from './performance-chart/performance-chart.component';
-import { FamilyListComponent } from './visit-historic/family-list/family-list.component';
-import { VisitHistoricListComponent } from './visit-historic/visit-historic-list/visit-historic-list.component';
-import { VisitHistoricComponent } from './visit-historic/visit-historic.component';
+import { FamilyListComponent } from './visit-history/family-list/family-list.component';
+import { VisitHistoryListComponent } from './visit-history/visit-history-list/visit-history-list.component';
+import { VisitHistoryComponent } from './visit-history/visit-history.component';
 import { AgentMapComponent } from './agent-map/agent-map.component';
 import { AgentLocationComponent } from './agent-location/agent-location.component';
 import { AgentInformationComponent } from './agent-information/agent-information.component';
@@ -40,31 +40,31 @@ const routes: Routes = [
     component: AgentLocationComponent,
       canActivate: [PageGuard]
   },
-  {
-    path: 'map',
-    component: AgentMapComponent,
-      canActivate: [PageGuard]
-  },
-  {
-    path: 'visit-historic',
-    component: VisitHistoricComponent,
-      canActivate: [PageGuard]
-  },
-  {
-    path: 'visit-historic-list',
-    component: VisitHistoricListComponent,
-      canActivate: [PageGuard]
-  },
-  {
-    path: 'family-list',
-    component: FamilyListComponent,
-      canActivate: [PageGuard]
-  },
-  {
-    path: 'performance-chart',
-    component: PerformanceChartComponent
-      // canActivate: [PageGuard]
-  }
+  // {
+  //   path: 'map',
+  //   component: AgentMapComponent,
+  //     canActivate: [PageGuard]
+  // },
+  // {
+  //   path: 'visit-historic',
+  //   component: VisitHistoricComponent,
+  //     canActivate: [PageGuard]
+  // },
+  // {
+  //   path: 'visit-historic-list',
+  //   component: VisitHistoricListComponent,
+  //     canActivate: [PageGuard]
+  // },
+  // {
+  //   path: 'family-list',
+  //   component: FamilyListComponent,
+  //     canActivate: [PageGuard]
+  // },
+  // {
+  //   path: 'performance-chart',
+  //   component: PerformanceChartComponent
+  //     // canActivate: [PageGuard]
+  // }
 ];
 
 @NgModule({

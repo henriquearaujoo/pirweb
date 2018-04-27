@@ -1,5 +1,5 @@
+import { Pregnant } from './pregnant';
 import { Community } from './community';
-import { Mother } from './mother';
 export class Responsible {
     public id: string;
     public name: string;
@@ -17,7 +17,7 @@ export class Responsible {
     public has_hospital_nearby: boolean;
     public has_sanitation: boolean;
     public has_other_children: boolean;
-    public mother: Mother = new Mother();
+    public pregnant: Pregnant = new Pregnant();
 
     public family_income_other: string;
     public drinking_water_treatment2: boolean;

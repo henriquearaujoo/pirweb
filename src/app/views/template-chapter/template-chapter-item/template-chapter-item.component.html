@@ -1,77 +1,73 @@
 <simple-notifications></simple-notifications>
 <!-- <div class="row">
     <div class="col s12 m6"> -->
-        <div class="card sticky-action">
-            <!-- <div class="card-image waves-effect waves-block waves-light">
+<div class="card sticky-action">
+    <!-- <div class="card-image waves-effect waves-block waves-light">
 
             </div> -->
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">
+    <div class="card-content">
+        <span class="card-title activator grey-text text-darken-4">
                   <i [ngClass]="currentVersion.status === true ? 'fa fa-circle active_circle': 'fa fa-circle inactive_circle' "  aria-hidden="true"></i>
                   <i class="medium material-icons right">arrow_drop_down</i></span>
-                <div class="row">
-                    <div class="col-sm-12">
-                       <h4> Capítulo {{ currentVersion.number }} </h4>
-                    </div>
-                </div>       
-               <div class="row">
-                   <div class="col-sm-12">
-                       <h5> Versão {{ currentVersion.version }} </h5>
-                   </div>
-               </div>
-               <div class="row">
-                    <div class="col-sm-12">
-                            <!-- {{ currentVersion.title }} -->
-                        <h5> <p class="limit-text"> {{ currentVersion.title | slice:0:20 }} </p></h5>
-                    </div>
-                </div>
-                <img class="ic_image" src="./assets/img/chapter/ic_image.png">
+        <div class="row">
+            <div class="col-sm-12">
+                <h4> Capítulo {{ currentVersion.number }} </h4>
             </div>
-            <div class="card-action">
-                <div class="chapter-progress">
-                    <div class="progress progress-xs">
-                        <div class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" 
-                            aria-valuenow="currentVersion.percentage" aria-valuemin="0" aria-valuemax="100" 
-                            [style.width]="currentVersion.percentage + '%'">                
-                        </div>
-                    </div>
-                    <span class="percentage"><span class="percentage-n"> {{ currentVersion.percentage }}%</span> Completo</span> <br/>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <h5> Versão {{ currentVersion.version }} </h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- {{ currentVersion.title }} -->
+                <h5>
+                    <p class="limit-text"> {{ currentVersion.title | slice:0:20 }} </p>
+                </h5>
+            </div>
+        </div>
+        <img class="ic_image" src="./assets/img/chapter/ic_image.png">
+    </div>
+    <div class="card-action">
+        <div class="chapter-progress">
+            <div class="progress progress-xs">
+                <div class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" aria-valuenow="currentVersion.percentage" aria-valuemin="0" aria-valuemax="100" [style.width]="currentVersion.percentage + '%'">
                 </div>
-                <button class="btn edit" (click)="editChapter(currentVersion)" *ngIf="canUpdate">
+            </div>
+            <span class="percentage"><span class="percentage-n"> {{ currentVersion.percentage }}%</span> Completo</span> <br/>
+        </div>
+        <button class="btn edit" (click)="editChapter(currentVersion)" *ngIf="canUpdate">
                     <i class="fa fa-pencil" aria-hidden="true" (click)='editChapter(currentVersion)'> </i> Editar
-                </button>       
-                <button class="btn status" [ngClass]="currentVersion.status === true ? 'status-disable': 'status-enable' " (click)="disableEnableVersion(currentVersion)" *ngIf="canDelete">
+                </button>
+        <button class="btn status" [ngClass]="currentVersion.status === true ? 'status-disable': 'status-enable' " (click)="disableEnableVersion(currentVersion)" *ngIf="canDelete">
                     <i [ngClass]="currentVersion.status === true ? 'fa fa-ban': 'fa fa-check' " aria-hidden="true"></i>                    
                     {{ currentVersion.status === true ? 'Desativar': 'Ativar'}} 
-                </button>       
-            </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">
+                </button>
+    </div>
+    <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4">
                     <i [ngClass]="currentVersion.status === true ? 'fa fa-circle active_circle': 'fa fa-circle inactive_circle' " style="margin-top: 15px;"  aria-hidden="true"></i>
                     <i class="medium material-icons right">arrow_drop_up</i></span>
-                <div class="version">
-                    <ul class="list-version" >
-                        <li class="version-header">Capítulo {{ currentVersion.number }}</li>
-                        <li *ngFor="let item of chapter.versions" class="li-version">
-                            <span class="version-title">Versão {{ item.version }}</span>
-                            <a [title]="Editar"                                  
-                                (click)=editChapter(item) 
-                                *ngIf="canUpdate">                             
-                                <i class="fa fa-pencil edit-version"  aria-hidden="true"></i>
-                            </a>
-                            <a [title]="item.status === true ? 'Desativar': 'Ativar'"                                  
-                                (click)="disableEnableVersion(item)" 
-                                class="version-status"
-                                *ngIf="canDelete">
-                                <!-- <span *ngIf="item.status"> <img src="./assets/img/chapter/ic_disable.png"> </span>                                  -->
-                                <i [ngClass]="item.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off'" aria-hidden="true">
-                                    <i [ngClass]="item.status === true ? 'fa fa-check v': 'fa fa-times'"  aria-hidden="true"></i>
-                                </i>
-                            </a>     
-                        </li>   
-                        <li *ngIf="canCreate"> <span class="version-add"> Adicionar </span> <a (click)="addVersion(currentVersion)"> <i class="fa fa-plus" aria-hidden="true"></i>  </a></li>                                             
-                    </ul>
-                </div>
-            </div>
-          </div>                    
-    
+        <div class="version">
+            <ul class="list-version">
+                <li class="version-header">Capítulo {{ currentVersion.number }}</li>
+                <li *ngFor="let item of chapter.versions" class="li-version">
+                    <span class="version-title">Versão {{ item.version }}</span>
+                    <a [title]="Editar" (click)=editChapter(item) *ngIf="canUpdate">
+                        <i class="fa fa-pencil edit-version" aria-hidden="true"></i>
+                    </a>
+                    <a [title]="item.status === true ? 'Desativar': 'Ativar'" (click)="disableEnableVersion(item)" class="version-status" *ngIf="canDelete">
+                        <!-- <span *ngIf="item.status"> <img src="./assets/img/chapter/ic_disable.png"> </span>                                  -->
+                        <i [ngClass]="item.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off'" aria-hidden="true">
+                                    <!-- <i [ngClass]="item.status === true ? 'fa fa-check v': 'fa fa-times'"  aria-hidden="true"></i> -->
+                        </i>
+                    </a>
+                </li>
+                <li *ngIf="canCreate"> <span class="version-add"> Adicionar </span>
+                    <a (click)="addVersion(currentVersion)"> <i class="fa fa-plus" aria-hidden="true"></i> </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

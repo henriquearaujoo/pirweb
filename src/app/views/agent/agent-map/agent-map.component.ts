@@ -38,7 +38,7 @@ export class AgentMapComponent implements OnInit {
      }
 
   ngOnInit() {
-    this.permissions.canActivate(['/agent-map']);
+    this.permissions.canActivate(['/agents-map']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;

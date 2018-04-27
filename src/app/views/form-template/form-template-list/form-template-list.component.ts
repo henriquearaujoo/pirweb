@@ -80,12 +80,12 @@ export class FormTemplateListComponent implements OnInit {
   }
   setForm(form: Form) {
     localStorage.setItem('formId', form.id);
-    this.router.navigate(['form-template']);
+    this.router.navigate(['/form-template-list/form']);
   }
 
   toView(form: Form) {
     localStorage.setItem('formId', form.id);
-    this.router.navigate(['form-template-details']);
+    this.router.navigate(['/form-template-list/details']);
   }
 
   setPage(page: number) {

@@ -122,7 +122,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     resetPassword() {
-        this.router.navigate(['/send-email']);
+        this.router.navigate(['login/recover-password']);
     }
 
     remember(event) {

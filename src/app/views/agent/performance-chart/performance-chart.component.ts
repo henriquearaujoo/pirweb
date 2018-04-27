@@ -1,3 +1,4 @@
+import { Permissions, RuleState } from './../../../helpers/permissions';
 import { Types } from './../../../models/types';
 import { Component, OnInit } from '@angular/core';
 import { IMyDate, IMyDateModel, IMyInputFieldChanged, IMyDpOptions } from 'mydatepicker';
@@ -19,15 +20,42 @@ export class PerformanceChartComponent implements OnInit {
   private chartType = 'bar';
   private from = '';
   private to = '';
+  private d1 = new Date();
+  private d2: Date;
   private filter: any = {type: ''};
   private date = new Date();
   private today: string;
-  constructor() { }
+  private canRead: boolean;
+  private canUpdate: boolean;
+  private canCreate: boolean;
+  private canDelete: boolean;
+  constructor(
+    private permissions: Permissions
+  ) { }
 
   ngOnInit() {
+    this.permissions.canActivate(['/agent-performance']);
+    this.permissions.permissionsState.subscribe(
+      (rules: RuleState) => {
+        this.canCreate = rules.canCreate;
+        this.canUpdate = rules.canUpdate;
+        this.canRead = rules.canRead;
+        this.canDelete = rules.canDelete;
+      }
+    );
   }
 
   changeChart(event) {}
+
+  changeDate(event) {
+    console.log(event.target.value);
+    this.d2 = new Date();
+    this.d1 = new Date(this.d1);
+    console.log(this.d1);
+    console.log(this.d2);
+    this.d2.setDate(this.d1.getDate() + 7 );
+
+  }
 
   getPerformance() {
     switch (this.filter.type) {

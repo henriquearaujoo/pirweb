@@ -10,12 +10,8 @@
                             <div class="form-group" [ngClass]="applyCssError(fIntervention, description)">
                                 <label class="control-label">Descrição da intervenção</label>
                                 <div class="box-body pad">
-                                    <quill-editor 
-                                        (change)="onKey($event)"
-                                        [options]="editorOptions" id="intervention_description" 
-                                        name="intervention_description" #description="ngModel" 
-                                        [(ngModel)]="intervention.description" required>
-                                    </quill-editor>                                    
+                                    <quill-editor (change)="onKey($event)" [options]="editorOptions" id="intervention_description" name="intervention_description" #description="ngModel" [(ngModel)]="intervention.description" required>
+                                    </quill-editor>
                                     <app-control-field-error [showError]="verifyValidSubmitted(fIntervention, description)" msgError="Digite a descrição">
                                     </app-control-field-error>
                                 </div>
@@ -24,14 +20,10 @@
                             <div class="form-group" [ngClass]="applyCssError(fIntervention, activity)">
                                 <label class="control-label">Atividades para a família</label>
                                 <div class="box-body pad">
-                                    <quill-editor 
-                                        (change)="onKey($event)"
-                                        [options]="editorOptions" id="intervention_activity" 
-                                        name="intervention_activity" #activity="ngModel" 
-                                        [(ngModel)]="intervention.activity" required>
+                                    <quill-editor (change)="onKey($event)" [options]="editorOptions" id="intervention_activity" name="intervention_activity" #activity="ngModel" [(ngModel)]="intervention.activity" required>
                                     </quill-editor>
-                                   
-                                    <app-control-field-error [showError]="verifyValidSubmitted(fIntervention, activity)" msgError="Digite a atividate da familia">
+
+                                    <app-control-field-error [showError]="verifyValidSubmitted(fIntervention, activity)" msgError="Digite uma atividade para a familia">
                                     </app-control-field-error>
                                 </div>
                             </div>

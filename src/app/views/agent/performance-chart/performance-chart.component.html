@@ -1,65 +1,62 @@
 <div class="content_" *ngIf="!isAgent">
     <div class="content-top">
-      <div class="content_fa"> <img class="icon" src="./assets/img/global/ic_usuarios.png">Agente > Gráfico de desempenho</div>
-      
+        <div class="content_fa"> <img class="icon" src="./assets/img/global/ic_usuarios.png">Agente > Gráfico de desempenho</div>
+
     </div>
     <section class="content">
-      <div class="box"> 
-        <div class="box-header_ ">
-          <h5 class="box-title">GRÁFICO DE DESEMPENHO</h5>
-        </div>    
-        <!-- when there's not record -->
-        <div *ngIf="!hasdata">
-          <section class="content">
-              <!-- <div class="feedback-icon fa fa-users"></div><br><br> -->
-              <!-- <span class="feedback-message">Não há dados cadastrados</span> -->
-          </section>
-        </div>        
-        <div *ngIf="hasdata">                    
-            <div class="box-body">
-              <div class="row period">
-                <div class="col-sm-12">    
-                  <div class="radio-inline">
-                    <label class="control-label"> Filtro: </label>
-                  </div>              
-                  <div class="radio-inline">
-                    <label class="control-label pointer"><input type="radio" name="optradio" value="1" (change)="getPerformance()"
+        <div class="box">
+            <div class="box-header_ ">
+                <h5 class="box-title">GRÁFICO DE DESEMPENHO</h5>
+            </div>
+            <!-- when there's not record -->
+            <div *ngIf="!hasdata">
+                <section class="content">
+                    <!-- <div class="feedback-icon fa fa-users"></div><br><br> -->
+                    <!-- <span class="feedback-message">Não há dados cadastrados</span> -->
+                </section>
+            </div>
+            <div *ngIf="hasdata">
+                <div class="box-body">
+                    <div class="row period">
+                        <div class="col-sm-12">
+                            <div class="radio-inline">
+                                <label class="control-label"> Filtro: </label>
+                            </div>
+                            <div class="radio-inline">
+                                <label class="control-label pointer"><input type="radio" name="optradio" value="1" (change)="getPerformance()"
                       [(ngModel)]="filter.type">Período</label>
-                  </div>
-                  <div class="radio-inline">
-                    <label class="control-label pointer"><input type="radio" name="optradio" value="2" (change)="getPerformance()"
+                            </div>
+                            <div class="radio-inline">
+                                <label class="control-label pointer"><input type="radio" name="optradio" value="2" (change)="getPerformance()"
                       [(ngModel)]="filter.type">Todos os meses</label>
-                  </div>    
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="filter.type === '1'">
+                        <div class="col-sm-12">
+                            <div class="form-inline form-group">
+                                <label class="control-label"> De </label>
+                                <input type="date" class="form-control" name="d1" (change)="changeDate($event)" [(ngModel)]="d1" placeholder="Data" />
+                                <label class="control-label"> até</label>
+                                <input type="date" class="form-control" name="d2" [(ngModel)]="d2" (change)="getPerformance()" placeholder="Data" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <app-chart #chart [id]="performanceId" [dataSource]="performanceDataSource" [title]="performanceTitle" [labels]="performanceLabel" [data]="performanceData" [legend]="true" [chartType]="chartType" [chartColors]="performanceColors" (changeChart)="changeChart($event)"></app-chart>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="row" *ngIf="filter.type === '1'">
-                <div class="col-sm-12">
-                  <div class="form-inline form-group">
-                    <label class="control-label"> De </label>
-                    <input type="date" class="form-control" name="from" [(ngModel)]="from" placeholder="Data" />                       
-                    <label class="control-label"> até</label>
-                    <input type="date" class="form-control" name="to" [(ngModel)]="to" (change)="getPerformance()" placeholder="Data" />  
-                  </div>                  
+                <div class="box-footer">
+                    <app-paginate [paginate]="paginate" (eventPage)="setPage($event)"></app-paginate>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-12">
-                    <app-chart #chart [id]="performanceId" [dataSource]="performanceDataSource" [title]="performanceTitle" 
-                    [labels]="performanceLabel" [data]="performanceData" [legend]="true" [chartType]="chartType"
-                    [chartColors]="performanceColors" (changeChart)="changeChart($event)"></app-chart>
-                </div>
-              </div>             
             </div>
-            <div class="box-footer">
-              <app-paginate [paginate]="paginate" (eventPage)="setPage($event)"></app-paginate>
-            </div>
-        </div>
-        <!-- <div class="row" *ngIf="canCreate">
+            <!-- <div class="row" *ngIf="canCreate">
             <div class="btn-col">
               <button class="btn btn-primary" [routerLink]="['/agent']" id="btn_new"> Novo </button>
             </div>
         </div> -->
-      </div>
+        </div>
     </section>
-  </div>
-  
+</div>
