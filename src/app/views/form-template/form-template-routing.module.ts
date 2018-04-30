@@ -12,12 +12,12 @@ const routes: Routes = [
       canActivate: [PageGuard]
   },
   {
-    path: 'form',
+    path: 'registro',
     component: FormTemplateComponent,
       canActivate: [PageGuard]
   },
   {
-    path: 'details',
+    path: 'detalhes',
     component: FormTemplateDetailsComponent,
       canActivate: [PageGuard]
   },

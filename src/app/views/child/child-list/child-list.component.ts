@@ -46,7 +46,7 @@ export class ChildListComponent implements OnInit, OnDestroy {
     }
 
   ngOnInit() {
-    this.permissions.canActivate(['/child-list']);
+    this.permissions.canActivate(['/criancas']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -82,12 +82,12 @@ export class ChildListComponent implements OnInit, OnDestroy {
   }
   setChild(child: Child) {
     localStorage.setItem('childId', child.id.toString());
-    this.router.navigate(['/child-list/child']);
+    this.router.navigate(['/criancas/registro']);
   }
 
   toView(child: Child) {
     localStorage.setItem('childId', child.id.toString());
-    this.router.navigate(['/child-list/details']);
+    this.router.navigate(['/criancas/detalhes']);
   }
 
   changeStatus(child: Child) {

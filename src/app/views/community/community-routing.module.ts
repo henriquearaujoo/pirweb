@@ -12,12 +12,12 @@ const routes: Routes = [
     canActivate: [PageGuard]
   },
   {
-    path: 'community',
+    path: 'registro',
     component: CommunityComponent,
     canActivate: [PageGuard]
   },
   {
-    path: 'details',
+    path: 'detalhes',
     component: CommunityDetailsComponent,
     canActivate: [PageGuard]
   }

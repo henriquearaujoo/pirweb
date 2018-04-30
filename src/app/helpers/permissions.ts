@@ -34,6 +34,7 @@ export class Permissions implements OnDestroy {
 
     canActivate(url: string[]) {
         this.returnUrl = url;
+        console.log(this.returnUrl);
         const profile = localStorage.getItem('profileId_rules');
 
         if (profile !== undefined || profile !== null) {
@@ -41,6 +42,7 @@ export class Permissions implements OnDestroy {
             this.authenticationService.getPermissions(profile).subscribe(
                 success_rules => {
                     this.rules = success_rules;
+                    // console.log(this.rules);
                     this.loaderService.hide();
                     if (this.rules.length !== 0) {
                         this.rulesSubject.next(<RuleState>{permissions: this.rules});

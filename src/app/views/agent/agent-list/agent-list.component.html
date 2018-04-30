@@ -3,7 +3,6 @@
 <div class="content_">
     <div class="content-top">
         <div class="content_fa"> <img class="icon" src="./assets/img/global/ic_usuarios.png">Agente > Lista de Agentes</div>
-
     </div>
     <section class="content">
         <div class="box">
@@ -23,9 +22,9 @@
                     <div class="col-sm-12">
                         <div id="_filter" class="dataTables_filter">
                             <label>
-                  <input type="text" class="form-control form-border"  [(ngModel)]="filter.name" #f="ngModel" 
-                    mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" name="filter" id="filter" (keyup)="getAgents()" placeholder="Nome do agente">
-                  </label>
+                                <input type="text" class="form-control form-border"  [(ngModel)]="filter.name" #f="ngModel" 
+                                    mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" name="filter" id="filter" (keyup)="getAgents()" placeholder="Nome do agente">
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -57,17 +56,17 @@
                                     {{ item.profile.title }}
                                 </td>
                                 <td class="tbl-right">
-                                    <a (click)="setAgent(item)" id="btn_map" [routerLink]="['/agent-information/location']" title="Ver Localização" *ngIf="item.name  !== 'Administrator'">
+                                    <a (click)="setAgent(item)" id="btn_map" [routerLink]="['/agente-dashboard/localizacao']" title="Ver Localização" *ngIf="item.name  !== 'Administrator'">
                                         <i class="large material-icons">location_on</i>
                                     </a>
                                 </td>
                                 <td class="tbl-right">
-                                    <a (click)="setAgent(item)" id="btn_details" [routerLink]="['/agent-information/details']" title="Ver detalhes" *ngIf="item.name  !== 'Administrator'">
+                                    <a (click)="setAgent(item)" id="btn_details" [routerLink]="['/agente-dashboard/detalhes']" title="Ver detalhes" *ngIf="item.name  !== 'Administrator'">
                                         <i class="large material-icons">visibility</i>
                                     </a>
                                 </td>
                                 <td class="tbl-right" *ngIf="canUpdate">
-                                    <a title="Editar" id="btn_edit" (click)="setAgent(item)" [routerLink]="['/agent-information/agent']" *ngIf="item.name  !== 'Administrator'">
+                                    <a title="Editar" id="btn_edit" (click)="setAgent(item)" [routerLink]="['/agente-dashboard/registro']" *ngIf="item.name  !== 'Administrator'">
                                         <i class="fa fa-pencil fa-fw"></i>
                                     </a>
                                 </td>

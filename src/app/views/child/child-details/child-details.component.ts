@@ -34,7 +34,7 @@ export class ChildDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.permissions.canActivate(['/child-list/details']);
+    this.permissions.canActivate(['/criancas/detalhes']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;

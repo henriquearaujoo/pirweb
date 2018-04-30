@@ -14,12 +14,12 @@ const routes: Routes = [
     canActivate: [PageGuard]
   },
   {
-    path: 'details',
+    path: 'detalhes',
     component: ResponsibleDetailsComponent,
     canActivate: [PageGuard]
   },
   {
-    path: 'responsible',
+    path: 'registro',
     component: ResponsibleComponent,
     canActivate: [PageGuard]
   }

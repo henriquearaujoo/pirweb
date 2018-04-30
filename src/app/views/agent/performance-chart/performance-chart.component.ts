@@ -34,7 +34,7 @@ export class PerformanceChartComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.permissions.canActivate(['/agent-performance']);
+    this.permissions.canActivate(['/agente-desempenho']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;

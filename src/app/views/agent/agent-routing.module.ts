@@ -21,50 +21,25 @@ const routes: Routes = [
       canActivate: [PageGuard]
   },
   {
-    path: 'agent',
+    path: 'registro',
     component: UserComponent,
       canActivate: [PageGuard]
   },
   {
-    path: 'details',
+    path: 'detalhes',
     component: UserDetailsComponent,
       canActivate: [PageGuard]
   },
+  // {
+  //   path: 'lista',
+  //   component: AgentListComponent,
+  //     canActivate: [PageGuard]
+  // },
   {
-    path: 'list',
-    component: AgentListComponent,
-      canActivate: [PageGuard]
-  },
-  {
-    path: 'location',
+    path: 'localizacao',
     component: AgentLocationComponent,
       canActivate: [PageGuard]
   },
-  // {
-  //   path: 'map',
-  //   component: AgentMapComponent,
-  //     canActivate: [PageGuard]
-  // },
-  // {
-  //   path: 'visit-historic',
-  //   component: VisitHistoricComponent,
-  //     canActivate: [PageGuard]
-  // },
-  // {
-  //   path: 'visit-historic-list',
-  //   component: VisitHistoricListComponent,
-  //     canActivate: [PageGuard]
-  // },
-  // {
-  //   path: 'family-list',
-  //   component: FamilyListComponent,
-  //     canActivate: [PageGuard]
-  // },
-  // {
-  //   path: 'performance-chart',
-  //   component: PerformanceChartComponent
-  //     // canActivate: [PageGuard]
-  // }
 ];
 
 @NgModule({

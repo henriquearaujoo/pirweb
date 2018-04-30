@@ -12,12 +12,12 @@ const routes: Routes = [
       canActivate: [PageGuard]
   },
   {
-    path: 'history-list',
+    path: 'historico',
     component: VisitHistoryListComponent,
       canActivate: [PageGuard]
   },
   {
-    path: 'family-list',
+    path: 'familias',
     component: FamilyListComponent,
       canActivate: [PageGuard]
   },

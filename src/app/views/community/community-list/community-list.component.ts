@@ -43,7 +43,7 @@ export class CommunityListComponent implements OnInit, OnDestroy {
     }
 
   ngOnInit() {
-    this.permissions.canActivate(['/community-list']);
+    this.permissions.canActivate(['/comunidades']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -80,12 +80,12 @@ export class CommunityListComponent implements OnInit, OnDestroy {
 
   setCommunity(community: Community) {
     localStorage.setItem('communityId', community.id);
-    this.router.navigate(['/community-list/community']);
+    this.router.navigate(['/comunidades/registro']);
   }
 
   toView(community: Community) {
     localStorage.setItem('communityId', community.id);
-    this.router.navigate(['/community-list/details']);
+    this.router.navigate(['/comunidades/detalhes']);
   }
 
   changeStatus(community: Community) {

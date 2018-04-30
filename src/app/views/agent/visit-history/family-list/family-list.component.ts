@@ -61,7 +61,7 @@ export class FamilyListComponent implements OnInit {
     if (this.urlId !== undefined && this.urlId !== null) {
       this.load();
     }
-    this.permissions.canActivate(['/agent-visit/family-list']);
+    this.permissions.canActivate(['/agente-visita/familias']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;

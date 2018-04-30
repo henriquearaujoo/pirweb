@@ -12,12 +12,12 @@ const routes: Routes = [
     canActivate: [PageGuard]
   },
   {
-    path: 'pregnant-details',
+    path: 'detalhes',
     component: PregnantDetailsComponent,
     canActivate: [PageGuard]
   },
   {
-    path: 'pregnant',
+    path: 'registro',
     component: PregnantComponent,
     canActivate: [PageGuard]
   },

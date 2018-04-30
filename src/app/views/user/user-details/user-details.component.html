@@ -1,17 +1,17 @@
 <simple-notifications></simple-notifications>
 <app-modal> </app-modal>
 <div class="content_">
-    <div class="content-top" *ngIf="url === '/user-list/details'">
+    <div class="content-top" *ngIf="url === '/usuarios/detalhes'">
         <div class="content_fa"> <img class="icon" src="./assets/img/global/ic_usuarios.png"> Usuários > Detalhes </div>
     </div>
-    <div class="content-top" *ngIf="url !== '/user-list/details'">
+    <div class="content-top" *ngIf="url !== '/usuarios/detalhes'">
         <div class="content_fa"> <img class="icon" src="./assets/img/global/ic_usuarios.png"> Agente > Detalhes </div>
     </div>
 
     <section class="content_user">
         <div class="content-header ">
-            <h5 class="content-title" *ngIf="url === '/user-list/details'">DETALHES DO USUÁRIO</h5>
-            <h5 class="content-title" *ngIf="url !== '/user-list/details'">DETALHES DO AGENTE</h5>
+            <h5 class="content-title" *ngIf="url === '/usuarios/detalhes'">DETALHES DO USUÁRIO</h5>
+            <h5 class="content-title" *ngIf="url !== '/usuarios/detalhes'">DETALHES DO AGENTE</h5>
         </div>
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">

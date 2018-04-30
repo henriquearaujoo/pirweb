@@ -109,7 +109,7 @@ export class ChildComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.permissions.canActivate(['/child-list/child']);
+    this.permissions.canActivate(['/criancas/registro']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -125,7 +125,7 @@ export class ChildComponent implements OnInit {
       this.isNewData = false;
       this.load();
     } else {
-      this.route.navigate(['/child-list']);
+      this.route.navigate(['/criancas']);
     }
 
     this.getMothers();
@@ -155,9 +155,12 @@ export class ChildComponent implements OnInit {
 
     if (isValid && this._isSave) {
       this.verifyDate();
-
-      this.child.responsible_id = this.child.responsible.id;
-      this.child.mother_id = this.child.mother.id;
+      if ( this.child.responsible.id !== undefined ) {
+        this.child.responsible_id = this.child.responsible.id;
+        this.child.mother_id = this.child.mother.id;
+        delete this.child.responsible;
+        delete this.child.mother;
+      }
       if (this.child.is_premature_born === false) {
         this.child.born_week = 1;
       }
@@ -166,6 +169,7 @@ export class ChildComponent implements OnInit {
       }
       this.child.born_week = Number(this.child.born_week);
       if (this.isNewData || this.child.id === undefined) {
+        console.log(this.child);
         this.childService.insert(this.child).subscribe(
           success => {
             this.child = success;
@@ -177,10 +181,11 @@ export class ChildComponent implements OnInit {
           }
         );
       } else {
+        console.log(this.child);
         this.childService.update(this.child).subscribe(
           success => {
             this.child = success;
-            this.sweetAlertService.alertSuccessUpdate('child-list');
+            this.sweetAlertService.alertSuccessUpdate('/criancas');
           },
           error => {
             this.toastService.toastError();
@@ -314,7 +319,7 @@ export class ChildComponent implements OnInit {
   }
 
   openModal() {
-    this.modalService.modalCancel('/child-list');
+    this.modalService.modalCancel('/criancas');
 
   }
 

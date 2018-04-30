@@ -56,8 +56,8 @@ export class PregnantDetailsComponent implements OnInit {
     this.responsibleService.load(this.urlId).subscribe(
       success => {
         this.responsible = success;
-        if (this.responsible.pregnant === undefined) {
-          this.responsible.pregnant = new Pregnant();
+        if (this.responsible.mother === undefined) {
+          this.responsible.mother = new Pregnant();
         }
       },
       error => console.log(error)

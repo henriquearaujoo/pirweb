@@ -64,7 +64,7 @@
                                     Comunidade {{ i }}
                                 </td>
                                 <td class="tbl-center">
-                                    <a id="btn_visit" (click)="setFamily(i)" [routerLink]="['/agent-visit/history-list']" title="Ver hitórico de visitas" *ngIf="item.name  !== 'Administrator'">
+                                    <a id="btn_visit" (click)="setFamily(i)" [routerLink]="['/agente-visita/historico']" title="Ver hitórico de visitas" *ngIf="item.name  !== 'Administrator'">
                                         <i class="large material-icons">history</i>
                                     </a>
                                 </td>
@@ -78,7 +78,7 @@
             </div>
             <div class="row" *ngIf="!isAgent">
                 <div class="col-sm-12 back">
-                    <button class="btn btn-default" [routerLink]="['/agent-visit']"> Voltar</button>
+                    <button class="btn btn-default" [routerLink]="['/agente-visita']"> Voltar</button>
                 </div>
             </div>
         </div>

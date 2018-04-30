@@ -48,7 +48,7 @@ export class FormTemplateDetailsComponent extends PagenateComponent implements O
    }
 
   ngOnInit() {
-    this.permissions.canActivate(['/form-template-list/details']);
+    this.permissions.canActivate(['/formularios/detalhes']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -87,7 +87,7 @@ export class FormTemplateDetailsComponent extends PagenateComponent implements O
   }
 
   onCancel() {
-    this.modalService.modalCancel('/form-template-list');
+    this.modalService.modalCancel('/formularios');
     // this.sweetAlertService.alertToCancel('/form-template-list');
   }
 

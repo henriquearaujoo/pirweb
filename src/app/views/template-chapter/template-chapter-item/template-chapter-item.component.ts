@@ -43,7 +43,7 @@ export class TemplateChapterItemComponent implements OnInit, OnDestroy {
    }
 
   ngOnInit() {
-    this.permissions.canActivate(['/chapter']);
+    this.permissions.canActivate(['/capitulos']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -76,7 +76,7 @@ export class TemplateChapterItemComponent implements OnInit, OnDestroy {
 
    editChapter(chapter: Chapter) {
     localStorage.setItem('_chapterId', chapter.id );
-    this.router.navigate(['chapter/chapter-dashboard']);
+    this.router.navigate(['capitulos/registro']);
   }
 
    addVersion(chapter: Chapter) {
@@ -86,7 +86,7 @@ export class TemplateChapterItemComponent implements OnInit, OnDestroy {
      } else {
       localStorage.setItem('chapterNumber', chapter.number.toString() );
       localStorage.setItem('lastVersion', this.lastVersion );
-      this.router.navigate(['chapter/chapter-dashboard']);
+      this.router.navigate(['capitulos/registro']);
      }
    }
 

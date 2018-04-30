@@ -67,7 +67,7 @@ export class ChapterDashboardComponent implements OnInit {
     private permissions: Permissions) { }
 
   ngOnInit() {
-    this.permissions.canActivate(['/chapter/chapter-dashboard']);
+    this.permissions.canActivate(['/capitulos/registro']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -223,7 +223,7 @@ export class ChapterDashboardComponent implements OnInit {
   }
 
   openModal() {
-   this.modalService.modalCancel('/chapter');
+   this.modalService.modalCancel('/capitulos');
   }
 
 }

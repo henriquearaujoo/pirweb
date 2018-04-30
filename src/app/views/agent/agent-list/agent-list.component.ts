@@ -56,7 +56,7 @@ export class AgentListComponent implements OnInit {
     this.hasdata = false;
     this.getAgents();
     localStorage.removeItem('userId');
-    this.permissions.canActivate(['/agent-information']);
+    this.permissions.canActivate(['/agente-dashboard']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;

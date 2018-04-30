@@ -5,126 +5,126 @@
     </div>
 
     <section class="content_user">
-      <div class="content-header ">
-        <h5 class="content-title">COMUNIDADE</h5>
-      </div>     
+        <div class="content-header ">
+            <h5 class="content-title">COMUNIDADE</h5>
+        </div>
         <div class="nav-tabs-custom">
-          <ul class="nav nav-tabs">
-            <li>
-              <a class="tab-pane active" (click)="walk(0)" href="#tab_1" data-toggle="tab">
-                <label class="lb-tab"> Informações da comunidade </label>
-                <img src="{{ data1Tab }}"/>
-              </a>              
-            </li>
-            <!-- <li>           
+            <ul class="nav nav-tabs">
+                <li>
+                    <a class="tab-pane active" (click)="walk(0)" href="#tab_1" data-toggle="tab">
+                        <label class="lb-tab"> Informações da comunidade </label>
+                        <img src="{{ data1Tab }}" />
+                    </a>
+                </li>
+                <!-- <li>           
               <label class="lb-tab"> Recursos </label>
               <img src="{{ data2Tab }}"/>
             </li> -->
-            <li>
-              <a class="tab-pane" (click)="walk(1)" href="#tab_2" data-toggle="tab">
-                <label class="lb-tab service"> Serviços</label>
-                <img src="{{ data2Tab }}"/>
-              </a>
-            </li> 
-          </ul>
-          <div class="tab-content">
-            <div class="tab-pane active" id="tab_1">
-              <div class="content">
-                <section class="content">
-                  <div class="box-header with-border">
-                      <h5 class="box-title"> Informações da Comunidade
-                      </h5>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <form name="form" (ngSubmit)="save(1,f1.valid)" id="f_1" #f1="ngForm" novalidate>
-                        <div class="box box-primary">
-                          <div class="box-body">
-                            <div class="row">
-                              <div class="col-sm-6">                               
-                                <div class="form-group">
-                                  <label class="control-label">UC</label>
-                                  <input class="form-control" #uc="ngModel" [(ngModel)]="community.uc" name="community_uc" id="community_uc" placeholder="UC" disabled>                                 
-                                </div>                                 
-                              </div>
-                              <div class="col-sm-6">
-                                <div class="form-group profile">
-                                  <label class="control-label">Regional</label>
-                                  <input class="form-control" #regional="ngModel" [(ngModel)]="community.regional" name="community_regional" id="community_regional" disabled>                                 
-                                </div>
-                              </div> 
+                <li>
+                    <a class="tab-pane" (click)="walk(1)" href="#tab_2" data-toggle="tab">
+                        <label class="lb-tab service"> Serviços</label>
+                        <img src="{{ data2Tab }}" />
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1">
+                    <div class="content">
+                        <section class="content">
+                            <div class="box-header with-border">
+                                <h5 class="box-title"> Informações da Comunidade
+                                </h5>
                             </div>
-                            <div class="row">                              
-                              <div class="col-sm-6">
-                                <div class="form-group">
-                                  <label class="control-label">Nome completo da comunidade</label>
-                                  <input type="text" #name="ngModel" [(ngModel)]="community.name" name="name" id="name" class="form-control" disabled>                               
-                                </div>
-                              </div>     
-                              <div class="col-sm-6">
-                                <div class="form-group profile">
-                                  <label class="control-label">Município</label>
-                                  <input type="text" class="form-control" #country="ngModel" name="community_country" id="community_country" [(ngModel)]="community.city.name" disabled>                               
-                                </div>
-                              </div>                                
-                            </div>
-                           
                             <div class="row">
-                              <div class="col-sm-6">
-                                <div class="form-group">
-                                  <label class="control-label">Zona de Localização</label> <br/>
-                                  <span class="form-control"> {{ community.zone === 'URBAN' ? 'Urbana' : 'Rural'}} </span>
-                                  
-                                </div>
-                              </div>
-                              <div class="col-sm-6">
-                                <div class="form-group">
-                                  <label class="control-label">Fornecimento de água</label> <br/>
-                                  <input type="text" class="form-control"name="community_water_supply" id="community_water_supply" [(ngModel)]="community.water_supply" disabled>
-                                                     
-                                  <!-- <select class="form-control"  #waterSupply="ngModel" name="waterSupply" [(ngModel)]="community.water_supply" id="waterSupply" required>
+                                <div class="col-sm-12">
+                                    <form name="form" (ngSubmit)="save(1,f1.valid)" id="f_1" #f1="ngForm" novalidate>
+                                        <div class="box box-primary">
+                                            <div class="box-body">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">UC</label>
+                                                            <input class="form-control" #uc="ngModel" [(ngModel)]="community.uc" name="community_uc" id="community_uc" placeholder="UC" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group profile">
+                                                            <label class="control-label">Regional</label>
+                                                            <input class="form-control" #regional="ngModel" [(ngModel)]="community.regional" name="community_regional" id="community_regional" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Nome completo da comunidade</label>
+                                                            <input type="text" #name="ngModel" [(ngModel)]="community.name" name="name" id="name" class="form-control" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group profile">
+                                                            <label class="control-label">Município</label>
+                                                            <input type="text" class="form-control" #country="ngModel" name="community_country" id="community_country" [(ngModel)]="community.city.name" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Zona de Localização</label> <br/>
+                                                            <span class="form-control"> {{ community.zone === 'URBAN' ? 'Urbana' : 'Rural'}} </span>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Fornecimento de água</label> <br/>
+                                                            <input type="text" class="form-control" name="community_water_supply" id="community_water_supply" [(ngModel)]="community.water_supply" disabled>
+
+                                                            <!-- <select class="form-control"  #waterSupply="ngModel" name="waterSupply" [(ngModel)]="community.water_supply" id="waterSupply" required>
                                     <option value="Encanada"> Encanada </option>
                                     <option value="Tratada"> Tratada </option>
                                     <option value="Poços"> Poços </option>
                                     <option value="Caixa d'água"> Caixa d'água </option>
                                   </select> -->
-                                  <!-- <app-control-field-error [showError]="verifyValidSubmitted(f1, waterSupply)" msgError="Selecione o tipo de fornecimento de água">
+                                                            <!-- <app-control-field-error [showError]="verifyValidSubmitted(f1, waterSupply)" msgError="Selecione o tipo de fornecimento de água">
                                   </app-control-field-error> -->
-                                </div>
-                              </div>
-                            </div> 
-                            <div class="row">
-                      
-                              <div class="col-sm-6">
-                                <div class="form-group">
-                                  <label class="control-label">Fornecimento de energia elétrica?</label> <br/>
-                                  <span class="form-control">{{ community.has_eletricity ? 'Sim' : 'Não' }}</span>
-                                </div>
-                              </div>     
-                              <div class="col-sm-6">
-                                <div class="form-group">
-                                  <label class="control-label">Destino do lixo</label>
-                                  <input type="text" class="form-control" #garbageDestination="ngModel" name="garbage_destination" [(ngModel)]="community.garbage_destination" id="garbage_destination" disabled>                                  
-                                </div>
-                              </div>                        
-                            </div>                            
-                            <div class="row">                              
-                              <div class="col-sm-6">
-                                <div class="form-group">
-                                  <label class="control-label">Vias de acesso à comunidade</label>
-                                  <input type="text" class="form-control"  #accessVia="ngModel" name="access_via" [(ngModel)]="community.access_via" id="access_via" disabled>                                                               
-                                </div>
-                              </div>   
-                              <div class="col-sm-6">
-                                <div class="form-group">
-                                  <label class="label-control"> Principal fonte de renda da comunidade</label>
-                                  <input type="text" class="form-control" #mainIncome="ngModel" name="main_income" [(ngModel)]="community.main_income" id="main_income" disabled>                                  
-                                </div>
-                              </div>                              
-                            </div> 
-                          </div>
-                        </div>
-                        <!-- <div class="content-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Fornecimento de energia elétrica?</label> <br/>
+                                                            <span class="form-control">{{ community.has_eletricity ? 'Sim' : 'Não' }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Destino do lixo</label>
+                                                            <input type="text" class="form-control" #garbageDestination="ngModel" name="garbage_destination" [(ngModel)]="community.garbage_destination" id="garbage_destination" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Vias de acesso à comunidade</label>
+                                                            <input type="text" class="form-control" #accessVia="ngModel" name="access_via" [(ngModel)]="community.access_via" id="access_via" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="label-control"> Principal fonte de renda da comunidade</label>
+                                                            <input type="text" class="form-control" #mainIncome="ngModel" name="main_income" [(ngModel)]="community.main_income" id="main_income" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="content-control">
                           <div class="control">
                             <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false, 1, 0)" id="btn_previous">
                               <img src="./assets/img/global/ic_previous.png" />
@@ -137,108 +137,108 @@
                             <button type="submit" id="btn_tab1"></button>
                           </div>
                         </div> -->
-                        <div class="col-md-3">
-                          <div class="form-group">
-                            <button type="button" class="btn btn-default btn-block" [routerLink]="['/community-list']" id="btn_return1"> Voltar</button>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <button type="button" class="btn btn-default btn-block" [routerLink]="['/comunidades']" id="btn_return1"> Voltar</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
 
-                </section>
-              </div>
-            </div>           
-            <!-- /.tab-pane -->
-            <div class="tab-pane" id="tab_2">
-              <div class="content">
-                <section class="content">                                
-                  <div class="box-header with-border">
-                      <h5 class="box-title"> Serviços da Comunidade
-                      </h5>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <form name="form" (ngSubmit)="saveData(f2.valid) && save(3, f2.valid)" #f2="ngForm" novalidate>
-                        <div class="box box-primary">
-                          <div class="box-body">
-                            <div class="row">
-                              <div class="col-sm-12">
-                                <div class="form-group left">
-                                  <label class="control-label">Serviços de saúde existentes na comunidade</label>
-                                  <input type="text" #healthService="ngModel" name="health_service" [(ngModel)]="community.health_service" id="health_service" class="form-control" disabled>                                
-                                </div>
-                              </div>                            
+                        </section>
+                    </div>
+                </div>
+                <!-- /.tab-pane -->
+                <div class="tab-pane" id="tab_2">
+                    <div class="content">
+                        <section class="content">
+                            <div class="box-header with-border">
+                                <h5 class="box-title"> Serviços da Comunidade
+                                </h5>
                             </div>
                             <div class="row">
-                              <div class="col-sm-3">
-                                <div class="form-group">
-                                  <label class="control-label">Escolas de Educação Infantil</label> <br/>
-                                  <span class="form-control">{{ community.has_kindergarten ? 'Sim' : 'Não' }}</span>                                                              
-                                </div>
-                              </div>
-                              <div class="col-sm-3">
-                                <div class="form-group">
-                                  <label class="control-label">Escolas de Ensino Fundamental</label> <br/>
-                                  <span class="form-control">{{ community.has_elementary_school ? 'Sim' : 'Não' }}</span>
-                                </div>
-                              </div>
-                              <div class="col-sm-3">
-                                <div class="form-group">
-                                  <label class="control-label">Escolas de Ensino Médio</label> <br/>
-                                  <span class="form-control">{{ community.has_high_school ? 'Sim' : 'Não' }}</span>                               
-                                </div>
-                              </div>
-                              <div class="col-sm-3">
-                                <div class="form-group">
-                                  <label class="control-label">Escolas de Educação Superior</label> <br/>
-                                  <span class="form-control">{{ community.has_college ? 'Sim' : 'Não' }}</span>                         
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-sm-3">
-                                <div class="form-group">
-                                  <label class="control-label">Centro Comunitário</label> <br/>
-                                  <span class="form-control">{{ community.has_community_center ? 'Sim' : 'Não' }}</span>   
-                                </div>
-                              </div>
-                              <div class="col-sm-3">
-                                <div class="form-group">
-                                  <label class="control-label">Local Religioso</label> <br/>
-                                  <span class="form-control">{{ community.has_religious_place ? 'Sim' : 'Não' }}</span>
-                                </div>
-                              </div>
-                              <div class="col-sm-3">
-                                <div class="form-group">
-                                  <label class="control-label">Eventos Culturais</label> <br/>
-                                  <span class="form-control">{{ community.has_cultural_events ? 'Sim' : 'Não' }}</span> 
-                                </div>
-                              </div>
-                              <div class="col-sm-3">
-                                <div class="form-group">
-                                  <label class="control-label">Patrono</label> <br/>
-                                  <span class="form-control">{{ community.has_patron ? 'Sim' : 'Não' }}</span>                             
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-sm-6">
-                                <div class="form-group">
-                                  <label class="control-label">Produções culturais</label> <br/>
-                                  <input type="text" class="form-control" name="culturalProduction" [(ngModel)]="community.cultural_production" id="culturalProduction" disabled>
-                                </div>                                
-                              </div>
-                              <div class="col-sm-6">
-                                <div class="form-group">
-                                  <label class="control-label">Existem líderes comunitário</label> <br/>
-                                  <span class="form-control">{{ community.has_community_leaders ? 'Sim' : 'Não' }}</span>                                   
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- <div class="content-control">
+                                <div class="col-sm-12">
+                                    <form name="form" (ngSubmit)="saveData(f2.valid) && save(3, f2.valid)" #f2="ngForm" novalidate>
+                                        <div class="box box-primary">
+                                            <div class="box-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group left">
+                                                            <label class="control-label">Serviços de saúde existentes na comunidade</label>
+                                                            <input type="text" #healthService="ngModel" name="health_service" [(ngModel)]="community.health_service" id="health_service" class="form-control" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Escolas de Educação Infantil</label> <br/>
+                                                            <span class="form-control">{{ community.has_kindergarten ? 'Sim' : 'Não' }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Escolas de Ensino Fundamental</label> <br/>
+                                                            <span class="form-control">{{ community.has_elementary_school ? 'Sim' : 'Não' }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Escolas de Ensino Médio</label> <br/>
+                                                            <span class="form-control">{{ community.has_high_school ? 'Sim' : 'Não' }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Escolas de Educação Superior</label> <br/>
+                                                            <span class="form-control">{{ community.has_college ? 'Sim' : 'Não' }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Centro Comunitário</label> <br/>
+                                                            <span class="form-control">{{ community.has_community_center ? 'Sim' : 'Não' }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Local Religioso</label> <br/>
+                                                            <span class="form-control">{{ community.has_religious_place ? 'Sim' : 'Não' }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Eventos Culturais</label> <br/>
+                                                            <span class="form-control">{{ community.has_cultural_events ? 'Sim' : 'Não' }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Patrono</label> <br/>
+                                                            <span class="form-control">{{ community.has_patron ? 'Sim' : 'Não' }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Produções culturais</label> <br/>
+                                                            <input type="text" class="form-control" name="culturalProduction" [(ngModel)]="community.cultural_production" id="culturalProduction" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Existem líderes comunitário</label> <br/>
+                                                            <span class="form-control">{{ community.has_community_leaders ? 'Sim' : 'Não' }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="content-control">
                           <div class="control">
                             <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false, 2, 0)" id="btn_previous">
                                 <img src="./assets/img/global/ic_previous.png" />
@@ -247,30 +247,29 @@
                             <button type="submit" id="btn_tab2"></button>
                           </div>
                         </div> -->
-                        <div class="col-md-3">
-                          <div class="form-group">
-                            <button type="button" class="btn btn-default btn-block" [routerLink]="['/community-list']" id="btn_return1"> Voltar</button>
-                          </div>
-                        </div>
-                        <div class="col-md-3 col-md-offset-6">
-                          <!-- <div class="form-group save">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <button type="button" class="btn btn-default btn-block" [routerLink]="['/comunidades']" id="btn_return1"> Voltar</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-md-offset-6">
+                                            <!-- <div class="form-group save">
                               <button class="btn btn-primary btn-block"  (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save" *ngIf="isNewData && canCreate">Cadastrar</button>   
                               <button class="btn btn-primary btn-block"  (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save" *ngIf="!isNewData && canUpdate"> Salvar</button>                             
                           </div> -->
-                        </div>
-                      </form>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
                     </div>
-                  </div>                               
-                </section>
-              </div>
+                </div>
+                <!-- /.tab-pane -->
             </div>
-            <!-- /.tab-pane -->  
-          </div>
-          <!-- /.tab-content -->
+            <!-- /.tab-content -->
         </div>
-      <!-- </form> -->
+        <!-- </form> -->
     </section>
 </div>
 
-<app-modal></app-modal> 
-
+<app-modal></app-modal>

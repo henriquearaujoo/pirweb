@@ -105,7 +105,7 @@ export class UserComponent implements OnInit, OnDestroy {
     const state: RouterState = this.router.routerState;
     const snapshot: RouterStateSnapshot = state.snapshot;
     this.url = snapshot.url;
-    this.permissions.canActivate(['/user-list/user', '/agent-information/agent']);
+    this.permissions.canActivate(['/usuarios/registro', '/agente-dashboard/registro']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.profile = rules.profile;
@@ -172,10 +172,10 @@ export class UserComponent implements OnInit, OnDestroy {
         if (this.canCreate) {
           this.userService.createUser(this.user).subscribe(
             success => {
-              if (this.url === '/user-list/user') {
-                this.sweetAlertService.alertSuccess('/user-list');
+              if (this.url === '/usuarios/registro') {
+                this.sweetAlertService.alertSuccess('/usuarios');
               } else {
-                this.sweetAlertService.alertSuccess('/agent-information');
+                this.sweetAlertService.alertSuccess('/agente-dashboard');
               }
             },
             error => {
@@ -185,10 +185,10 @@ export class UserComponent implements OnInit, OnDestroy {
             }
           );
         } else {
-          if (this.url === '/user-list/user') {
-            this.sweetAlertService.alertPermission('/user-list');
+          if (this.url === '/usuarios/registro') {
+            this.sweetAlertService.alertPermission('/usuarios');
           } else {
-            this.sweetAlertService.alertPermission('/agent-information');
+            this.sweetAlertService.alertPermission('/agente-dashboard');
           }
         }
       } else {
@@ -237,10 +237,10 @@ export class UserComponent implements OnInit, OnDestroy {
                   }
                 });
               } else {
-                if (this.url === '/user-list/user') {
-                  this.sweetAlertService.alertSuccessUpdate('user-list');
+                if (this.url === '/usuarios/registro') {
+                  this.sweetAlertService.alertSuccessUpdate('/usuarios');
                 } else {
-                  this.sweetAlertService.alertSuccessUpdate('agent-information');
+                  this.sweetAlertService.alertSuccessUpdate('/agente-dashboard');
                 }
               }
             },
@@ -250,10 +250,10 @@ export class UserComponent implements OnInit, OnDestroy {
             }
           );
         } else {
-          if (this.url === '/user-list/user') {
-            this.sweetAlertService.alertPermission('user-list');
+          if (this.url === '/usuarios/registro') {
+            this.sweetAlertService.alertPermission('/usuarios');
           } else {
-            this.sweetAlertService.alertPermission('agent-information');
+            this.sweetAlertService.alertPermission('/agente-dashboard');
           }
         }
       }
@@ -262,10 +262,10 @@ export class UserComponent implements OnInit, OnDestroy {
 
   openModal() {
     console.log(this.url);
-    if (this.url === '/user-list/user') {
-      this.modalService.modalCancel('/user-list');
+    if (this.url === '/usuarios/registro') {
+      this.modalService.modalCancel('/usuarios');
     } else {
-      this.modalService.modalCancel('/agent-information');
+      this.modalService.modalCancel('/agente-dashboard');
     }
   }
 

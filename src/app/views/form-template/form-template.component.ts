@@ -60,7 +60,7 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.permissions.canActivate(['/form-template-list/form']);
+    this.permissions.canActivate(['/formularios/registro']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -103,27 +103,27 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
             console.log('save:', this.form);
             this.urlId = this.form.id;
             this.isNewData  = false;
-            this.sweetAlertService.alertSuccess('/form-template-list/form');
+            this.sweetAlertService.alertSuccess('/formularios/registro');
           },
           error => {
             this.verifyError(error);
           }
         );
       } else {
-        this.sweetAlertService.alertPermission('/form-template-list');
+        this.sweetAlertService.alertPermission('/formularios');
       }
     } else {
       if (this.canUpdate) {
         this.formService.updateForm(this.form).subscribe(
           success => {
-            this.sweetAlertService.alertSuccessUpdate('/form-template-list/form');
+            this.sweetAlertService.alertSuccessUpdate('/formularios/registro');
           },
           error => {
             this.verifyError(error);
           }
         );
       } else {
-        this.sweetAlertService.alertPermission('/form-template-list');
+        this.sweetAlertService.alertPermission('/formularios');
       }
     }
   }
@@ -173,7 +173,7 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
         error => console.log(error)
       );
       } else {
-        this.sweetAlertService.alertPermission('/form-template-list');
+        this.sweetAlertService.alertPermission('/formularios');
       }
     } else {
       if (this.canUpdate) {
@@ -185,7 +185,7 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
           error => console.log(error)
         );
       } else {
-        this.sweetAlertService.alertPermission('/form-template-list');
+        this.sweetAlertService.alertPermission('/formularios');
       }
     }
   }
@@ -264,7 +264,7 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
 
   onCancel() {
     this.btn_cancel = true;
-    this.modalService.modalCancel('/form-template-list');
+    this.modalService.modalCancel('/formularios');
     // this.sweetAlertService.alertToCancel('/form-template-list');
   }
 

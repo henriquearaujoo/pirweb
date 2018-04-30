@@ -75,7 +75,7 @@ export class ResponsibleComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.permissions.canActivate(['/responsible-list/responsible']);
+    this.permissions.canActivate(['/responsaveis/registro']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -91,7 +91,7 @@ export class ResponsibleComponent implements OnInit {
       this.isNewData = false;
       this.load();
     } else {
-      this.route.navigate(['/responsible-list']);
+      this.route.navigate(['/responsaveis']);
     }
 
     this.dateDisable.setMinutes( this.dateDisable.getMinutes() + this.dateDisable.getTimezoneOffset() );
@@ -144,7 +144,11 @@ export class ResponsibleComponent implements OnInit {
 
     if (isValid && this._isSave) {
       this.verifyDate();
-      this.responsible.community_id = this.responsible.community.id;
+      if ( this.responsible.community.id !== undefined ) {
+        this.responsible.community_id = this.responsible.community.id;
+        delete this.responsible.community;
+      }
+
       this.responsible.habitation_members_count = Number(this.responsible.habitation_members_count);
 
       if ( this.responsible.family_income === 'Outra') {
@@ -156,9 +160,11 @@ export class ResponsibleComponent implements OnInit {
       }
 
       if (this.isNewData || this.responsible.id === undefined) {
+        console.log(this.responsible);
         this.responsibleService.insert(this.responsible).subscribe(
           success => {
-            this.responsible = success;
+            // this.responsible = success;
+            console.log('success:', this.responsible);
             this.isNewData  = false;
             this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
           },
@@ -168,9 +174,10 @@ export class ResponsibleComponent implements OnInit {
           }
         );
       } else {
+        console.log(this.responsible);
         this.responsibleService.update(this.responsible).subscribe(
           success => {
-            this.sweetAlertService.alertSuccessUpdate('responsible-list');
+            this.sweetAlertService.alertSuccessUpdate('/responsaveis');
           },
           error => {
             this.toastService.toastError();
@@ -249,7 +256,7 @@ export class ResponsibleComponent implements OnInit {
   }
 
   openModal() {
-    this.modalService.modalCancel('/responsible-list');
+    this.modalService.modalCancel('/responsaveis');
 
   }
 

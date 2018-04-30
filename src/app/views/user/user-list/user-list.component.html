@@ -49,9 +49,6 @@
                                 <th class="tbl-left">PERFIL
                                     <span class="glyphicon"></span>
                                 </th>
-                                <!--th class="tbl-left">Status
-                    <span class="glyphicon" ></span>
-                  </th -->
                                 <th colspan="3" class="tbl-center"> AÇÃO</th>
                             </tr>
                         </thead>
@@ -70,12 +67,12 @@
                                     {{ item.profile.title }}
                                 </td>
                                 <td class="tbl-right">
-                                    <a (click)="setUser(item)" id="btn_details" [routerLink]="['/user-list/details']" title="Ver detalhes" *ngIf="item.name  !== 'Administrator'">
+                                    <a (click)="setUser(item)" id="btn_details" [routerLink]="['/usuarios/detalhes']" title="Ver detalhes" *ngIf="item.name  !== 'Administrator'">
                                         <i class="large material-icons">visibility</i>
                                     </a>
                                 </td>
                                 <td class="tbl-right" *ngIf="canUpdate">
-                                    <a title="Editar" id="btn_edit" (click)="setUser(item)" [routerLink]="['/user-list/user']" *ngIf="item.name  !== 'Administrator'">
+                                    <a title="Editar" id="btn_edit" (click)="setUser(item)" [routerLink]="['/usuarios/registro']" *ngIf="item.name  !== 'Administrator'">
                                         <i class="fa fa-pencil fa-fw"></i>
                                     </a>
                                 </td>
@@ -94,7 +91,7 @@
             </div>
             <div class="row" *ngIf="canCreate">
                 <div class="btn-col">
-                    <button class="btn btn-primary" [routerLink]="['/user-list/user']" id="btn_new"> Novo </button>
+                    <button class="btn btn-primary" [routerLink]="['/usuarios/registro']" id="btn_new"> Novo </button>
                 </div>
             </div>
         </div>

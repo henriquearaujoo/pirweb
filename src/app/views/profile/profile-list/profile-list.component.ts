@@ -78,7 +78,7 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
       }
 
     ngOnInit() {
-      this.permissions.canActivate(['/profile-list']);
+      this.permissions.canActivate(['/perfis']);
       this.permissions.permissionsState.subscribe(
         (rules: RuleState) => {
           this.canCreate = rules.canCreate;
@@ -147,7 +147,7 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
       this.profile.modified_by = '';
       this.profileService.disableProfile(this.profile).subscribe(
         success => {
-          this.router.navigate(['profile-list']);
+          this.router.navigate(['/perfis']);
           this.getProfile();
           this.toastService.toastSuccess();
         },

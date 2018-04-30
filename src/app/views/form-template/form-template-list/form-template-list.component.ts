@@ -44,7 +44,7 @@ export class FormTemplateListComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.permissions.canActivate(['/form-template-list']);
+    this.permissions.canActivate(['/formularios']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -80,12 +80,12 @@ export class FormTemplateListComponent implements OnInit {
   }
   setForm(form: Form) {
     localStorage.setItem('formId', form.id);
-    this.router.navigate(['/form-template-list/form']);
+    this.router.navigate(['/formularios/registro']);
   }
 
   toView(form: Form) {
     localStorage.setItem('formId', form.id);
-    this.router.navigate(['/form-template-list/details']);
+    this.router.navigate(['/formularios/detalhes']);
   }
 
   setPage(page: number) {

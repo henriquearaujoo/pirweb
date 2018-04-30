@@ -56,7 +56,7 @@ export class VisitHistoryComponent implements OnInit {
   ngOnInit() {
     this.hasdata = false;
     this.getAgents();
-    this.permissions.canActivate(['/agent-visit']);
+    this.permissions.canActivate(['/agente-visita']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.profile = rules.profile;

@@ -89,7 +89,7 @@ export class VisitHistoryListComponent implements OnInit {
     if (this.urlId !== undefined && this.urlId !== null) {
       this.load();
     }
-    this.permissions.canActivate(['/agent-visit/history-list']);
+    this.permissions.canActivate(['/agente-visita/historico']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;

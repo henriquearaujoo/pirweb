@@ -50,7 +50,7 @@ export class PregnantListComponent implements OnInit, OnDestroy {
    }
 
   ngOnInit() {
-    this.permissions.canActivate(['/pregnant-list']);
+    this.permissions.canActivate(['/gestantes']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -86,12 +86,12 @@ export class PregnantListComponent implements OnInit, OnDestroy {
   }
   setMother(responsible: Responsible) {
     localStorage.setItem('motherId', responsible.id);
-    this.router.navigate(['/pregnant-list/pregnant']);
+    this.router.navigate(['/gestantes/registro']);
   }
 
   toView(responsible: Responsible) {
     localStorage.setItem('motherId', responsible.id);
-    this.router.navigate(['/pregnant-list/details']);
+    this.router.navigate(['/gestantes/detalhes']);
   }
 
   changeStatus(responsible: Responsible) {

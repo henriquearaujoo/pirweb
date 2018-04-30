@@ -76,7 +76,7 @@ export class PregnantComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.permissions.canActivate(['/pregnant-list/pregnant']);
+    this.permissions.canActivate(['/gestantes/registro']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -92,7 +92,7 @@ export class PregnantComponent implements OnInit {
       this.isNewData = false;
       this.load();
     }  else {
-      this.route.navigate(['/pregnant-list']);
+      this.route.navigate(['/gestantes']);
     }
 
     this.dateDisable.setMinutes( this.dateDisable.getMinutes() + this.dateDisable.getTimezoneOffset() );
@@ -145,12 +145,15 @@ export class PregnantComponent implements OnInit {
 
     if (isValid && this._isSave) {
       this.verifyDate();
-      this.responsible.community_id = this.responsible.community.id;
+      if ( this.responsible.community.id !== undefined ) {
+        this.responsible.community_id = this.responsible.community.id;
+        delete this.responsible.community;
+      }
       this.responsible.habitation_members_count = Number(this.responsible.habitation_members_count);
-      this.responsible.pregnant.children_count = Number(this.responsible.pregnant.children_count);
+      this.responsible.mother.children_count = Number(this.responsible.mother.children_count);
 
       if (!this.otherChildren.has) {
-        this.responsible.pregnant.children_count = 0;
+        this.responsible.mother.children_count = 0;
       }
 
       if ( this.responsible.family_income === 'Outra') {
@@ -162,6 +165,7 @@ export class PregnantComponent implements OnInit {
       }
 
       if (this.isNewData || this.responsible.id === undefined) {
+        console.log(this.responsible);
         this.responsibleService.insert(this.responsible).subscribe(
           success => {
             this.responsible = success;
@@ -174,9 +178,10 @@ export class PregnantComponent implements OnInit {
           }
         );
       } else {
+        console.log(this.responsible);
         this.responsibleService.update(this.responsible).subscribe(
           success => {
-            this.sweetAlertService.alertSuccessUpdate('pregnant-list');
+            this.sweetAlertService.alertSuccessUpdate('/gestantes');
           },
           error => {
             this.toastService.toastError();
@@ -207,13 +212,13 @@ export class PregnantComponent implements OnInit {
       success => {
         this.responsible = success;
         this.alterData();
-        if (this.responsible.pregnant.children_count === 0) {
+        if (this.responsible.mother.children_count === 0) {
           this.otherChildren.has = false;
         } else {
           this.otherChildren.has = true;
         }
-        if (this.responsible.pregnant === undefined) {
-          this.responsible.pregnant = new Pregnant();
+        if (this.responsible.mother === undefined) {
+          this.responsible.mother = new Pregnant();
         }
       },
       error => console.log(error)
@@ -261,7 +266,7 @@ export class PregnantComponent implements OnInit {
   }
 
   openModal() {
-    this.modalService.modalCancel('/pregnant-list');
+    this.modalService.modalCancel('/gestantes');
 
   }
 

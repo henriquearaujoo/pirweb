@@ -13,7 +13,7 @@ const routes: Routes = [
       canActivate: [PageGuard]
   },
   {
-    path: 'chapter-dashboard',
+    path: 'dashboard',
     component: ChapterDashboardComponent,
       canActivate: [PageGuard]
   },
@@ -22,28 +22,6 @@ const routes: Routes = [
     component: ChapterDashboardComponent,
       canActivate: [PageGuard]
   },
-  // {
-  //   path: 'template-chapter',
-  //   component: HomeLayoutComponent,
-  //   canActivate: [AuthGuard],
-  //   children: [
-  //     {
-  //       path: 'template-chapter',
-  //       component: TemplateChapterComponent,
-  //         canActivate: [PageGuard]
-  //     },
-  //     {
-  //       path: 'chapter-dashboard',
-  //       component: ChapterDashboardComponent,
-  //         canActivate: [PageGuard]
-  //     },
-  //     {
-  //       path: 'chapter-dashboard/:id',
-  //       component: ChapterDashboardComponent,
-  //         canActivate: [PageGuard]
-  //     },
-  //   ]
-  // }
 ];
 
 @NgModule({

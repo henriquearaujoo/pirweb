@@ -22,6 +22,8 @@ export class Community {
     public has_patron: boolean;
     public cultural_production: string;
     public has_community_leaders: string;
+    public longitude: number;
+    public latitude: number;
     public city: City = new City();
     // public status: boolean;
 

@@ -115,7 +115,7 @@ export class CommunityComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.permissions.canActivate(['/community-list/community']);
+    this.permissions.canActivate(['/comunidades/registro']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -164,7 +164,7 @@ export class CommunityComponent implements OnInit {
           success => {
             this.community = success;
             this.isNewData  = false;
-            this.sweetAlertService.alertSuccess('community-list');
+            this.sweetAlertService.alertSuccess('/comunidades');
           },
           error => {
             this.toastService.toastError();
@@ -175,7 +175,7 @@ export class CommunityComponent implements OnInit {
         this.communityService.update(this.community).subscribe(
           success => {
             this.community = success;
-            this.sweetAlertService.alertSuccessUpdate('community-list');
+            this.sweetAlertService.alertSuccessUpdate('/comunidades');
           },
           error => {
             this.toastService.toastError();
@@ -224,7 +224,7 @@ export class CommunityComponent implements OnInit {
   }
 
   openModal() {
-    this.modalService.modalCancel('/community-list');
+    this.modalService.modalCancel('/comunidades');
 
   }
 

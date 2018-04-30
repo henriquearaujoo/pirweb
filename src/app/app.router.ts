@@ -21,51 +21,51 @@ const App_Router: Routes = [
           path: 'home', component: HomeComponent
         },
         {
-          path: 'chapter',
+          path: 'capitulos',
           loadChildren: './views/template-chapter/template-chapter.module#TemplateChapterModule'
         },
         {
-          path: 'user-list',
+          path: 'usuarios',
           loadChildren: './views/user/user.module#UserModule'
         },
         {
-          path: 'agent-information',
+          path: 'agente-dashboard',
           loadChildren: './views/agent/agent.module#AgentModule'
         },
         {
-          path: 'agent-visit',
+          path: 'agente-visita',
           loadChildren: './views/agent/visit-history/visit-history.module#VisitHistoryModule'
         },
         {
-          path: 'agent-performance',
+          path: 'agente-desempenho',
           loadChildren: './views/agent/performance-chart/performance-chart.module#PerformanceChartModule'
         },
         {
-          path: 'agents-map',
+          path: 'agentes-mapa',
           loadChildren: './views/agent/agent-map/agent-map.module#AgentMapModule'
         },
         {
-          path: 'profile-list',
+          path: 'perfis',
           loadChildren: './views/profile/profile.module#ProfileModule'
         },
         {
-          path: 'responsible-list',
+          path: 'responsaveis',
           loadChildren: './views/responsible/responsible.module#ResponsibleModule'
         },
         {
-          path: 'pregnant-list',
+          path: 'gestantes',
           loadChildren: './views/pregnant/pregnant.module#PregnantModule'
         },
         {
-          path: 'child-list',
+          path: 'criancas',
           loadChildren: './views/child/child.module#ChildModule'
         },
         {
-          path: 'community-list',
+          path: 'comunidades',
           loadChildren: './views/community/community.module#CommunityModule'
         },
         {
-          path: 'form-template-list',
+          path: 'formularios',
           loadChildren: './views/form-template/form-template.module#FormTemplateModule'
         },
         {

@@ -1,3 +1,4 @@
+import { NgxMaskModule } from 'ngx-mask';
 import { MyDatePickerModule } from 'mydatepicker';
 import { ResponsibleDetailsComponent } from './responsible-details/responsible-details.component';
 import { ResponsibleListComponent } from './responsible-list/responsible-list.component';
@@ -17,6 +18,7 @@ import { ResponsibleRoutingModule } from './responsible-routing.module';
     HttpModule,
     FormsModule,
     MyDatePickerModule,
+    NgxMaskModule,
     SharedModule
   ],
   declarations: [

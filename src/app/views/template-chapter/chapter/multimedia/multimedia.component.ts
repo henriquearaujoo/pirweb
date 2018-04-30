@@ -54,7 +54,7 @@ export class MultimediaComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.permissions.canActivate(['/chapter/chapter-dashboard']);
+    this.permissions.canActivate(['/capitulos/registro']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
