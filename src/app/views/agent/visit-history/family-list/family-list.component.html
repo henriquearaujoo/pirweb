@@ -30,9 +30,9 @@
                     <div class="col-sm-6">
                         <div id="_filter" class="dataTables_filter">
                             <label>
-              <input type="text" class="form-control form-border"  [(ngModel)]="filter.name" #f="ngModel" 
-                mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" name="filter" id="filter" (keyup)="getAgents()" placeholder="Nome da família">
-              </label>
+                            <input type="text" class="form-control form-border"  [(ngModel)]="filter.name" #f="ngModel" 
+                                mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" name="filter" id="filter" (keyup)="getAgents()" placeholder="Nome da família">
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -40,12 +40,9 @@
                     <table id="example2" class="table">
                         <thead>
                             <tr>
-                                <th class="tbl-left">FAMÍLIA
-                                    <span class="glyphicon"></span>
-                                </th>
-                                <th class="tbl-left">COMUNIDADE
-                                    <span class="glyphicon"></span>
-                                </th>
+                                <th class="tbl-left">FAMÍLIA</th>
+                                <th class="tbl-left">TIPO</th>
+                                <th class="tbl-left">COMUNIDADE</th>
                                 <th class="tbl-center"> AÇÃO</th>
                             </tr>
                         </thead>
@@ -56,15 +53,30 @@
                         </div>
 
                         <tbody *ngIf="agents.length !== 0">
-                            <tr *ngFor="let item of agents; let i=index">
+                            <tr *ngFor="let item of visits; let i=index">
                                 <td class="tbl-left">
-                                    Família {{ i }}
+                                    <span *ngIf="item.child !== undefined">
+                                        {{ item.child.name }}
+                                    </span>
+                                    <span *ngIf="item.responsible !== undefined">
+                                        {{ item.responsible.name }}
+                                    </span>
                                 </td>
                                 <td class="tbl-left">
-                                    Comunidade {{ i }}
+                                    <span>
+                                        {{ item.child !== undefined ? 'CRIANÇA' : 'GESTANTE' }}
+                                    </span>
+                                </td>
+                                <td class="tbl-left">
+                                    <span *ngIf="item.child !== undefined">
+                                        {{ item.child.responsible.community.name }}
+                                    </span>
+                                    <span *ngIf="item.responsible !== undefined">
+                                        {{ item.responsible.community.name }}
+                                    </span>
                                 </td>
                                 <td class="tbl-center">
-                                    <a id="btn_visit" (click)="setFamily(i)" [routerLink]="['/agente-visita/historico']" title="Ver hitórico de visitas" *ngIf="item.name  !== 'Administrator'">
+                                    <a id="btn_visit" (click)="setFamily(item.id)" [routerLink]="['/agente-visita/historico']" title="Ver hitórico de visitas" *ngIf="item.name  !== 'Administrator'">
                                         <i class="large material-icons">history</i>
                                     </a>
                                 </td>

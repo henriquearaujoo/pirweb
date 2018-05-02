@@ -44,7 +44,7 @@
                                     <form name="form" (ngSubmit)="save(1,f1.valid)" id="f_1" #f1="ngForm" novalidate>
                                         <div class="box box-primary">
                                             <div class="box-body" *ngIf="hasdata || isNewData">
-                                                <div class="row" *ngIf="!isAgent">
+                                                <div class="row" *ngIf="!isAgent || url === '/usuarios/registro'">
                                                     <div class="col-sm-12">
                                                         <!-- select status-->
                                                         <div class="form-group" [ngClass]="applyCssError(f1, status)">
@@ -60,7 +60,7 @@
                                                         <!-- end select status-->
                                                     </div>
                                                 </div>
-                                                <div class="row" *ngIf="!isAgent">
+                                                <div class="row" *ngIf="!isAgent || url === '/usuarios/registro'">
                                                     <!-- select profile-->
                                                     <div class="col-sm-6">
                                                         <div class="form-group profile" [ngClass]="applyCssError(f1, profile)">
@@ -106,14 +106,14 @@
                                                 <!-- </div> -->
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <div class="form-group" [ngClass]="applyCssError(f1, login)" *ngIf="!isAgent">
+                                                        <div class="form-group" [ngClass]="applyCssError(f1, login)" *ngIf="!isAgent || url === '/usuarios/registro'">
                                                             <label class="control-label">Usuário</label>
                                                             <input type="text" [(ngModel)]="user.login" #login="ngModel" name="login" id="user_login" class="form-control" placeholder="Usuário" required>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f1, login)" msgError="Digite um nome de usuário">
                                                             </app-control-field-error>
                                                         </div>
                                                         <!-- PROFILE AGENT-->
-                                                        <div class="form-group" *ngIf="isAgent">
+                                                        <div class="form-group" *ngIf="isAgent && url !== '/usuarios/registro'">
                                                             <label class="label-control">Usuário: </label>
                                                             <span> {{ user.login }}</span>
                                                         </div>

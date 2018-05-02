@@ -11,8 +11,8 @@
             <div class="form-group has-feedback" [ngClass]="applyCssError(f, login)">
                 <div class="input-group margin-bottom-sm">
                     <span class="input-group-addon" style="padding: 6px 10px;">
-                <i class="fa fa-user fa-fw"></i>
-              </span>
+                        <i class="fa fa-user fa-fw"></i>
+                    </span>
                     <input name="login" #login="ngModel" [(ngModel)]="user.login" class="form-control" placeholder="Usuário" required>
                 </div>
                 <app-control-field-error [showError]="verifyValidSubmitted(f, login)" msgError="Digite um usuário">

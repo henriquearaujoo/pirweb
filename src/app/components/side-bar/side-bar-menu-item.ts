@@ -94,7 +94,7 @@ export const MENU = [
         'title': 'GRÁFICO DE DESEMPENHO',
         'route': 'agente-desempenho',
         'routes': ['/agente-desempenho'],
-        'read': true,
+        'read': false,
         'iClass': 'fa fa-circle-o',
         'category': 'child',
         'hasChild': false,

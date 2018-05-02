@@ -1,3 +1,4 @@
+import { ChapterService } from './../../../../services/chapter/chapter.service';
 import { Component, OnInit, Output } from '@angular/core';
 import { User } from '../../../../models/user';
 import { Person } from '../../../../models/person';
@@ -11,6 +12,8 @@ import { ToastService } from '../../../../services/toast-notification/toast.serv
 import { Router } from '@angular/router';
 import { Permissions, RuleState } from '../../../../helpers/permissions';
 import { LoaderService } from '../../../../services/loader/loader.service';
+import { VisitService } from '../../../../services/visit/visit.service';
+import { Visit } from '../../../../models/visit';
 
 @Component({
   selector: 'app-visit-history-list',
@@ -21,23 +24,21 @@ export class VisitHistoryListComponent implements OnInit {
 
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
   private agents: User[] = new Array();
-  private person: Person = new Person();
-  private org: Org = new Org();
-  private profile: Profile = new Profile();
-  private profiles: Profile[] = new Array();
+  private visits: Visit[] = new Array();
   hasdata: boolean;
   private agent: User = new User();
   private paginate: Paginate = new Paginate();
   @Output() page: number;
   filter: any = {name: ''};
+  private type_filter: any;
   private canRead: boolean;
   private canUpdate: boolean;
   private canCreate: boolean;
   private canDelete: boolean;
-  private urlId: string;
+  private idAgent: string;
   private familyId: string;
   private visit: any;
-  private visits: any = [
+  private _visits: any = [
     {
       number: '01',
       when: 'Início da gestação',
@@ -67,7 +68,8 @@ export class VisitHistoryListComponent implements OnInit {
   constructor(
     private pagerService: PageService,
     private userService: UserService,
-    private profileService: ProfileService,
+    private visitService: VisitService,
+    private chapterService: ChapterService,
     private toastService: ToastService,
     private router: Router,
     private permissions: Permissions,
@@ -83,10 +85,10 @@ export class VisitHistoryListComponent implements OnInit {
      }
   ngOnInit() {
     this.hasdata = false;
-    this.getAgents();
-    this.familyId = localStorage.getItem('familyId');
-    this.urlId = localStorage.getItem('userId');
-    if (this.urlId !== undefined && this.urlId !== null) {
+    this.getVisits();
+    // this.familyId = localStorage.getItem('visitId');
+    this.idAgent = localStorage.getItem('userId');
+    if (this.idAgent !== undefined && this.idAgent !== null) {
       this.load();
     }
     this.permissions.canActivate(['/agente-visita/historico']);
@@ -103,21 +105,48 @@ export class VisitHistoryListComponent implements OnInit {
   }
 
   ngOnChange() {
-    this.getAgents();
+    // this.getAgents();
   }
 
-  getAgents() {
+  getVisits() {
     if ( this.filter.name !== '') { this.page = 0; }
+    // if ( this.type_filter !== undefined ) {
+      switch (this.type_filter) {
+        case 1:
+        this.loadVisits('number');
+        break;
+        case 2:
+        this.loadVisits('child');
+        break;
+        case 3:
+        this.loadVisits('responsible');
+        break;
+        case 4:
+        this.loadVisits('done_at');
+        break;
+        default:
+        this.loadVisits('number');
+        break;
+      }
+    // }
+  }
+
+  loadVisits(type_filter) {
     this.loaderService.show();
-    this.userService.getAgents(this.filter.name, this.page).subscribe(
+    this.visitService.getVisits(this.idAgent, type_filter, this.filter.name, this.page).subscribe(
       success => {
         this.paginate = success;
-        this.agents = success.content;
+        this.visits = success.content;
+        this.visits.forEach( elem => {
+          this.chapterService.load(elem.chapter_id).subscribe(
+              ch => {
+                elem.chapter = ch;
+              },
+              error => console.log(error)
+            );
+          }
+        );
         this.hasdata = true;
-        // if (this.userService.show_msg) {
-        //   this.toastService.toastSuccess();
-        //   this.userService.show_msg = false;
-        // }
         setTimeout(() => {
           this.loaderService.hide();
         }, 400);
@@ -130,7 +159,7 @@ export class VisitHistoryListComponent implements OnInit {
   }
 
   load() {
-    this.userService.load(this.urlId).subscribe(
+    this.userService.load(this.idAgent).subscribe(
       success => {
         this.agent = success[0];
         console.log(success);
@@ -141,11 +170,16 @@ export class VisitHistoryListComponent implements OnInit {
 
   setPage(page: number) {
     this.page = page;
-    this.getAgents();
+    // this.getAgents();
   }
 
   setVisit(visit) {
     this.visit = visit;
+  }
+
+  setFilter(type) {
+    console.log(type);
+    this.type_filter = type;
   }
 
   changeStatus(user: User) {
@@ -162,7 +196,7 @@ export class VisitHistoryListComponent implements OnInit {
     this.agent.address.city_id = this.agent.address.city.id;
     this.userService.saveEditUser(this.agent).subscribe(
       s_org => {
-        this.getAgents();
+        // this.getAgents();
         this.toastService.toastSuccess();
       },
       error => {

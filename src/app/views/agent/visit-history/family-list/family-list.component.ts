@@ -1,3 +1,4 @@
+import { Visit } from './../../../../models/visit';
 import { Component, OnInit, Output, Input } from '@angular/core';
 import { User } from '../../../../models/user';
 import { Person } from '../../../../models/person';
@@ -11,6 +12,7 @@ import { ToastService } from '../../../../services/toast-notification/toast.serv
 import { Router } from '@angular/router';
 import { Permissions, RuleState } from '../../../../helpers/permissions';
 import { LoaderService } from '../../../../services/loader/loader.service';
+import { VisitService } from '../../../../services/visit/visit.service';
 
 @Component({
   selector: 'app-family-list',
@@ -21,10 +23,8 @@ export class FamilyListComponent implements OnInit {
 
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
   private agents: User[] = new Array();
-  private person: Person = new Person();
-  private org: Org = new Org();
-  private profile: Profile = new Profile();
-  private profiles: Profile[] = new Array();
+  private visits: Visit[] = new Array();
+
   hasdata: boolean;
   private agent: User = new User();
   private paginate: Paginate = new Paginate();
@@ -34,13 +34,13 @@ export class FamilyListComponent implements OnInit {
   private canUpdate: boolean;
   private canCreate: boolean;
   private canDelete: boolean;
-  private urlId: string;
+  private idAgent: string;
   @Input() isAgent: boolean;
 
   constructor(
     private pagerService: PageService,
     private userService: UserService,
-    private profileService: ProfileService,
+    private visitService: VisitService,
     private toastService: ToastService,
     private router: Router,
     private permissions: Permissions,
@@ -55,10 +55,10 @@ export class FamilyListComponent implements OnInit {
      }
   ngOnInit() {
     this.hasdata = false;
-    this.getAgents();
+    this.getVisits();
     localStorage.removeItem('familyId');
-    this.urlId = localStorage.getItem('userId');
-    if (this.urlId !== undefined && this.urlId !== null) {
+    this.idAgent = localStorage.getItem('userId');
+    if (this.idAgent !== undefined && this.idAgent !== null) {
       this.load();
     }
     this.permissions.canActivate(['/agente-visita/familias']);
@@ -73,16 +73,16 @@ export class FamilyListComponent implements OnInit {
   }
 
   ngOnChange() {
-    this.getAgents();
+    // this.getAgents();
   }
 
-  getAgents() {
+  getVisits() {
     if ( this.filter.name !== '') { this.page = 0; }
     this.loaderService.show();
-    this.userService.getAgents(this.filter.name, this.page).subscribe(
+    this.visitService.getVisits(this.idAgent, this.filter.name, this.page).subscribe(
       success => {
         this.paginate = success;
-        this.agents = success.content;
+        this.visits = success.content;
         this.hasdata = true;
         setTimeout(() => {
           this.loaderService.hide();
@@ -96,7 +96,7 @@ export class FamilyListComponent implements OnInit {
   }
 
   load() {
-    this.userService.load(this.urlId).subscribe(
+    this.userService.load(this.idAgent).subscribe(
       success => {
         this.agent = success[0];
         console.log(success);
@@ -107,11 +107,11 @@ export class FamilyListComponent implements OnInit {
 
   setPage(page: number) {
     this.page = page;
-    this.getAgents();
+    // this.getAgents();
   }
 
   setFamily(id) {
-    localStorage.setItem('familyId', id);
+    localStorage.setItem('visitId', id);
   }
 
   changeStatus(user: User) {
@@ -128,7 +128,7 @@ export class FamilyListComponent implements OnInit {
     this.agent.address.city_id = this.agent.address.city.id;
     this.userService.saveEditUser(this.agent).subscribe(
       s_org => {
-        this.getAgents();
+        // this.getAgents();
         this.toastService.toastSuccess();
       },
       error => {

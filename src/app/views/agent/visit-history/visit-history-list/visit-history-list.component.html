@@ -23,57 +23,86 @@
                 <div class="row">
                     <div class="col-sm-6 data">
                         <div class="form-group">
-                            <label class="label-control">FAMÍLIA: </label>
-                            <span> Família {{ familyId }}</span>
-                        </div>
-                        <div class="form-group">
                             <label class="label-control">AGENTE: </label>
                             <span> {{ agent.name }}</span>
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <div id="_filter" class="dataTables_filter">
-                            <label>
-                <input type="text" class="form-control form-border"  [(ngModel)]="filter.name" #f="ngModel" 
-                  mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" name="filter" id="filter" (keyup)="getAgents()" placeholder="Nº da visita">
-                </label>
+                        <div id="_filter">
+                            <div class="input-group">
+                                <div class="input-group-btn search-panel">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                        <span id="search_concept">Filtrar por</span> <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a (click)="setFilter(1)">Número da Visita</a></li>
+                                        <li><a (click)="setFilter(2)"> Nome da Criança</a></li>
+                                        <li><a (click)="setFilter(3)">Nome da Responsável</a></li>
+                                        <li><a (click)="setFilter(4)">Data da Visita</a></li>
+                                    </ul>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Selecione o filtro" readonly *ngIf="type_filter === undefined">
+                                <input type="number" class="form-control" [(ngModel)]="filter.name" mask="0000" maxlength="20" name="filter" id="filter" (keyup)="getVisits()" placeholder="Nº da visita" *ngIf="type_filter === 1">
+
+                                <input type="text" class="form-control" [(ngModel)]="filter.name" mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" name="filter" id="filter" (keyup)="getVisits()" placeholder="Nome da Criança" *ngIf="type_filter === 2">
+
+                                <input type="text" class="form-control" [(ngModel)]="filter.name" mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" name="filter" id="filter" (keyup)="getVisits()" placeholder="Nome do Responsável" *ngIf="type_filter === 3">
+
+                                <input type="date" class="form-control" [(ngModel)]="filter.name" name="filter" id="filter" (keyup)="getVisits()" *ngIf="type_filter === 4">
+
+                            </div>
                         </div>
+                        <!-- <div class="form-group">
+                            <div class="input-group">
+                                <select class="form-control" id="type_filter" [(ngModel)]="type_filter">
+                                    <option value="1"> Número da Visita</option>
+                                    <option value="2"> Nome da Criança</option>
+                                    <option value="3"> Nome da Responsável</option>                             
+                                </select>
+                                <input type="text" class="form-control form-border" [(ngModel)]="filter.name" #f="ngModel" mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" name="filter" id="filter" (keyup)="getAgents()" placeholder="Nº da visita">
+                            </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="box-body">
                     <table id="example2" class="table">
                         <thead>
                             <tr>
-                                <th class="tbl-left">NÚMERO
-                                    <span class="glyphicon"></span>
-                                </th>
-                                <th class="tbl-left">QUANDO
-                                    <span class="glyphicon"></span>
-                                </th>
+                                <th class="tbl-left">FAMÍLIA</th>
+                                <th class="tbl-left">TIPO</th>
+                                <th class="tbl-left">VISITA Nº</th>
+                                <th class="tbl-left">QUANDO</th>
                                 <th class="tbl-left"> TEMA</th>
-                                <th class="tbl-left"> DATA DA VISITA</th>
                                 <th class="tbl-center"> AÇÃO</th>
                             </tr>
                         </thead>
-
                         <div class="feedback" *ngIf="agents.length === 0">
                             <i class="material-icons" style="font-size: 24px;">error_outline</i>
                             <span class="feedback-message">Nenhum registro encontrado</span>
                         </div>
-
                         <tbody *ngIf="agents.length !== 0">
                             <tr *ngFor="let item of visits">
+                                <td class="tbl-left">
+                                    <span *ngIf="item.child !== undefined">
+                                        {{ item.child.name }}
+                                    </span>
+                                    <span *ngIf="item.responsible !== undefined">
+                                        {{ item.responsible.name }}
+                                    </span>
+                                </td>
+                                <td class="tbl-left">
+                                    <span>
+                                        {{ item.child !== undefined ? 'CRIANÇA' : 'GESTANTE' }}
+                                    </span>
+                                </td>
                                 <td class="tbl-left">
                                     {{ item.number }}
                                 </td>
                                 <td class="tbl-left">
-                                    <p class="limit-text">{{ item.when }}</p>
+                                    <p class="limit-text">{{ item.chapter.title }}</p>
                                 </td>
                                 <td class="tbl-left">
-                                    <p class="limit-text"> {{ item.theme }}</p>
-                                </td>
-                                <td class="tbl-left">
-                                    {{ item.date }}
+                                    <p class="limit-text"> {{ item.chapter.subtitle }}</p>
                                 </td>
                                 <td class="tbl-center">
                                     <a (click)="setVisit(item)" id="btn_details" data-toggle="modal" data-target="#modal-visit" title="Ver detalhes" *ngIf="item.name  !== 'Administrator'">
@@ -90,7 +119,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-12 back">
-                    <button class="btn btn-default" [routerLink]="['/agente-visita/familias']"> Voltar</button>
+                    <button class="btn btn-default" [routerLink]="['/agente-visita']"> Voltar</button>
                 </div>
             </div>
         </div>
@@ -113,14 +142,14 @@
                     </div>
                     <div class="col-md-8" style="padding-left: 0;">
                         <div class="when-visit">
-                            {{ visit.when }}
+                            {{ visit.chapter.title }}
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group-data">
-                            <label class="label-control"> Tema: </label> {{ visit.theme }}
+                            <label class="label-control"> Tema: </label> {{ visit.chapter.subtitle }}
                         </div>
                     </div>
                 </div>
@@ -128,7 +157,7 @@
                     <div class="col-md-12">
                         <div class="form-group-data">
                             <label class="label-control"> Data: </label>
-                            <span> {{ visit.date }}</span>
+                            <span> {{ visit.done_at }}</span>
                         </div>
                     </div>
                 </div>

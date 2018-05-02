@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 .swal-button-container {
     width: 100%;
     margin: 0px;
@@ -21,11 +21,18 @@ button.swal-button.swal-button--ok.swal-btn-ok {
     background-color: #373d40!important;
 }
 
+.swal-text {
+    text-align: center;
+}
+
 .swal-footer {
     padding: 0!important;
 }
 
+
 /* SweetAlert2*/
+
+
 /* .swal2-popup.swal2-modal.swal2-show {
     height: 250px;
 } */
@@ -49,23 +56,29 @@ button.swal-button.swal-button--ok.swal-btn-ok {
 }
 
 @media screen and (max-height: 450px) {
-    .main-sidebar {padding-top: 15px;}
-    .main-sidebar a {font-size: 18px;}
+    .main-sidebar {
+        padding-top: 15px;
+    }
+    .main-sidebar a {
+        font-size: 18px;
+    }
 }
 
 .tooltip.right {
     border-right-color: #00acd6;
-  }
+}
 
-  /* UI */
-  @media (min-width: 768px) {
+
+/* UI */
+
+@media (min-width: 768px) {
     .sidebar-mini.sidebar-collapse img.copyright,
     .sidebar-mini.sidebar-collapse span.lb-logout {
         display: none;
-      }
-  }
+    }
+}
 
-  .box-header {
+.box-header {
     background-color: #DFE8ED;
     height: 52px;
     padding: 18px;
@@ -73,9 +86,9 @@ button.swal-button.swal-button--ok.swal-btn-ok {
     font-size: 14px;
     font-weight: bold;
     /* font-family: Roboto-Bold; */
-  }
+}
 
-  .box-header_1 {
+.box-header_1 {
     background-color: #66ACD7;
     height: 32px;
     /* padding-bottom: 10px; */
@@ -85,8 +98,8 @@ button.swal-button.swal-button--ok.swal-btn-ok {
     font-size: 14px;
     font-family: Roboto-Thin;
 }
-  
-  .box-header_ {
+
+.box-header_ {
     /* background-image: url('/assets/img/global/shape.png')!important; */
     background-color: #0075BD;
     background-repeat: no-repeat;
@@ -103,15 +116,20 @@ img.ic_add {
     padding-bottom: 1px;
 }
 
+
 /* TABLE */
-table, a {
+
+table,
+a {
     color: #335164;
 }
-.table > tbody > tr > td, .table > thead > tr > th {
+
+.table>tbody>tr>td,
+.table>thead>tr>th {
     padding: 8px 28px;
 }
 
-thead{
+thead {
     background-color: #DFE8ED;
     border-top: 0;
     color: #335164;
@@ -127,6 +145,7 @@ tbody {
 .tbl-right {
     padding: 8px 22px 0 0!important;
 }
+
 img.icon {
     margin: 12px;
     margin-left: 20px;
@@ -145,9 +164,11 @@ img.icon {
     font-size: 16px;
 }
 
-a#btn_next, a#btn_previous {
+a#btn_next,
+a#btn_previous {
     color: #224860;
 }
+
 .btn-primary {
     background-image: url('/assets/img/global/btn_primary.png')!important;
     background-repeat: repeat;
@@ -157,12 +178,14 @@ a#btn_next, a#btn_previous {
     background-color: #dfe8ed;
     width: 125px;
 }
+
 .limit-text {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 350px;
 }
+
 .content_ {
     /* margin-left: 22px; */
 }

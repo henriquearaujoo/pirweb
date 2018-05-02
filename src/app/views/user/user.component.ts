@@ -218,7 +218,7 @@ export class UserComponent implements OnInit, OnDestroy {
                   if (confirm) {
                     swal({
                       title: 'Sessão expirada!',
-                      text: 'Você precisa efetuar o login novamente!',
+                      text: 'Você precisa efetuar o login novamente para aplicar as alterações no seu usuário!',
                       icon: 'warning',
                       buttons: {
                         ok: {

@@ -14,23 +14,31 @@ export class ChapterService extends RestService {
 
   constructor(http: Http) {
     super(http);
-    this.size = 1;
+    this.size = 2;
    }
 
-  public getChapters(param?: number, size?: number) {
-    if (param === undefined) {
-      return this.get(this.apiurl + 'search/page/?size=' + size + '&sort=chapter,asc&sort=version,desc');
+  // public getChapters(param?: number, size?: number) {
+  //   if (param === undefined) {
+  //     return this.get(this.apiurl + 'search/page/?size=' + size + '&sort=chapter,asc&sort=version,desc');
+  //   }
+  //   return this.get(this.apiurl + 'search/page/?size=' + size + '&number=' + param + '&sort=chapter,asc&sort=version,desc');
+  // }
+
+  public getChapters(filter?: number, page?: number) {
+    if (filter === undefined) {
+      return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page + '&sort=chapter,asc&sort=version,desc');
     }
-    return this.get(this.apiurl + 'search/page/?size=' + size + '&number=' + param + '&sort=chapter,asc&sort=version,desc');
+    return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page + '&number=' + filter +
+      '&sort=chapter,asc&sort=version,desc');
   }
 
-  public getChapterStatus(param?: number, status?: boolean, size?: number) {
-    if (status === undefined) {
-      return this.get(this.apiurl + 'search/page/?size=' + size + '&sort=chapter,asc&sort=version,desc');
-    }
-    return this.get(this.apiurl + 'search/page/?size=' + size + '&status=' + status + '&number=' + param +
-     '&sort=chapter,asc&sort=version,desc');
-  }
+  // public getChapterStatus(param?: number, status?: boolean, size?: number) {
+  //   if (status === undefined) {
+  //     return this.get(this.apiurl + 'search/page/?size=' + size + '&sort=chapter,asc&sort=version,desc');
+  //   }
+  //   return this.get(this.apiurl + 'search/page/?size=' + size + '&status=' + status + '&number=' + param +
+  //    '&sort=chapter,asc&sort=version,desc');
+  // }
 
   public loadVersionFromChapter(number: number, version: number) {
     return this.get(this.apiurl + 'search?number=' + version + '&version= ' + version);
@@ -64,14 +72,25 @@ export class ChapterService extends RestService {
     return this.get(this.apiurl + 'search/page/?number=' + id + '&sort=version,asc');
   }
 
-  public getChapterInactive(param?: number, size?: number) {
-    if (param === undefined) {
-      return this.get(this.apiurl + 'inactive/search/page?size=' + size + '&sort=chapter,asc');
+  public getChapterInactive(filter?: number, page?: number) {
+    if (filter === undefined) {
+      return this.get(this.apiurl + 'inactive/search/page?size=' + this.size + '&page=' + page +  '&sort=chapter,asc');
     }
-      return this.get(this.apiurl + 'inactive/search/page?size=' + size + '&number=' + param + '&sort=chapter,asc');
+      return this.get(this.apiurl + 'inactive/search/page?size=' + this.size + '&number=' + filter + '&page=' + page + '&sort=chapter,asc');
   }
 
-  public getChapterActive(param?: number, size?: number) {
-    return this.get(this.apiurl + 'active/search/page?size=' + size + '&number=' + param + '&sort=chapter,asc');
+  public getChapterActive(filter?: number, page?: number) {
+    return this.get(this.apiurl + 'active/search/page?size=' + this.size + '&number=' + filter + '&page=' + page + '&sort=chapter,asc');
   }
+
+  // public getChapterInactive(param?: number, size?: number) {
+  //   if (param === undefined) {
+  //     return this.get(this.apiurl + 'inactive/search/page?size=' + size + '&sort=chapter,asc');
+  //   }
+  //     return this.get(this.apiurl + 'inactive/search/page?size=' + size + '&number=' + param + '&sort=chapter,asc');
+  // }
+
+  // public getChapterActive(param?: number, size?: number) {
+  //   return this.get(this.apiurl + 'active/search/page?size=' + size + '&number=' + param + '&sort=chapter,asc');
+  // }
 }

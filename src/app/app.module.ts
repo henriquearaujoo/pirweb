@@ -56,6 +56,7 @@ import { EqualValidatorDirective } from './directives/equal-validator.directive'
 import { PregnantService } from './services/pregnant/pregnant.service';
 import { SweetAlertService } from './services/sweetalert/sweet-alert.service';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { VisitService } from './services/visit/visit.service';
 
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
@@ -116,7 +117,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ResponsibleService,
     ChildService,
     SweetAlertService,
-    FormService
+    FormService,
+    VisitService
   ],
   exports: [],
   bootstrap: [AppComponent]

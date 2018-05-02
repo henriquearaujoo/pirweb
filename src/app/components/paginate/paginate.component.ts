@@ -22,7 +22,6 @@ export class PaginateComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.paginate) {
-      console.log('changes');
       this.getPages();
     }
 

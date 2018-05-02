@@ -8,7 +8,7 @@ import { ConclusionService } from '../../../../services/conclusion/conclusion.se
 import { ToastService } from '../../../../services/toast-notification/toast.service';
 import { QuestionComponent } from './question/question.component';
 import { Paginate } from '../../../../models/paginate';
-import { Answer } from '../../../../models/answer';
+import { Alternative } from '../../../../models/alternative';
 
 @Component({
   selector: 'app-conclusion',
@@ -34,7 +34,7 @@ export class ConclusionComponent implements OnInit {
   private paginate: Paginate = new Paginate();
   private hasdata: boolean;
   private size: number;
-  private answers: Answer[] = new Array();
+  private answers: Alternative[] = new Array();
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
   private index: number;
   private canRead: boolean;
@@ -170,8 +170,8 @@ export class ConclusionComponent implements OnInit {
     }
   }
 
-  getAnswers(question: Question) {
-    this.conclusionService.getAnswer(question.id).subscribe(
+  getAlternatives(question: Question) {
+    this.conclusionService.getAlternative(question.id).subscribe(
       success => {
         this.answers = success;
       },

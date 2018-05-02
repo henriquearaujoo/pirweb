@@ -1,7 +1,7 @@
 import { Constant } from './../../../../../../constant/constant';
 import { PagenateComponent } from './../../../../../../components/pagenate/pagenate.component';
 import { Paginate } from '../../../../../../models/paginate';
-import { Answer } from './../../../../../../models/answer';
+import { Alternative } from './../../../../../../models/Alternative';
 import { Component, OnInit, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { ConclusionService } from '../../../../../../services/conclusion/conclusion.service';
 import { ToastService } from '../../../../../../services/toast-notification/toast.service';
@@ -16,9 +16,9 @@ import { PaginateComponent } from '../../../../../../components/paginate/paginat
 })
 export class AnswerListComponent extends PagenateComponent implements OnInit {
 
-  private answer: Answer = new Answer();
-  private answerEdit: Answer = new Answer();
-  private answers: Answer[] = new Array();
+  private answer: Alternative = new Alternative();
+  private answerEdit: Alternative = new Alternative();
+  private answers: Alternative[] = new Array();
   private tasks = new Array();
   @Output() private cancel = new EventEmitter<boolean>();
   @Input() private question: Question;
@@ -62,7 +62,7 @@ export class AnswerListComponent extends PagenateComponent implements OnInit {
 
   getAnswers() {
     this.question.id = localStorage.getItem('questionId');
-    this.conclusionService.getAnswer(this.question.id).subscribe(
+    this.conclusionService.getAlternative(this.question.id).subscribe(
       success => {
         this.answers = success;
         this.index = 1;
@@ -96,7 +96,7 @@ export class AnswerListComponent extends PagenateComponent implements OnInit {
     }
     if (this.isNewData || this.answer.id === undefined) {
       this.answer.question_id = this.question.id;
-      this.conclusionService.insertAnswer(this.answer).subscribe(
+      this.conclusionService.insertAlternative(this.answer).subscribe(
         success => {
           this.toastService.toastSuccess();
           this.isNewData = false;
@@ -117,7 +117,7 @@ export class AnswerListComponent extends PagenateComponent implements OnInit {
         this.getAnswers();
         return false;
       }
-      this.conclusionService.updateAnswer(this.answer).subscribe(
+      this.conclusionService.updateAlternative(this.answer).subscribe(
         success => {
           this.getAnswers();
           this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso');
@@ -138,16 +138,16 @@ export class AnswerListComponent extends PagenateComponent implements OnInit {
   onNewAnswer() {
     this.show = false;
     this.isNewData = true;
-    this.answer = new Answer();
+    this.answer = new Alternative();
   }
 
-  onEdit(answer: Answer) {
+  onEdit(answer: Alternative) {
     this.show = false;
     this.answer = answer;
     this.isNewData = false;
   }
 
-  showAnswer(answer: Answer) {
+  showAnswer(answer: Alternative) {
     this.show = true;
     this.answer = answer;
   }
@@ -161,12 +161,12 @@ export class AnswerListComponent extends PagenateComponent implements OnInit {
     this.getAnswers();
   }
 
-  setAnswer(answer: Answer) {
+  setAnswer(answer: Alternative) {
     this.answer = answer;
   }
 
   onDelete() {
-   this.conclusionService.deleteAnswer(this.answer.id).subscribe(
+   this.conclusionService.deleteAlternative(this.answer.id).subscribe(
      success => {
        this.toastService.toastSuccess();
        this.getAnswers();
