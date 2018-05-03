@@ -61,7 +61,6 @@ export class AgentLocationComponent implements OnInit {
     this.userService.load(this.urlId).subscribe(
       agent => {
         this.agents = agent;
-        console.log(this.agents);
       }
     );
 

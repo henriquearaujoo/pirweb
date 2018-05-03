@@ -86,7 +86,6 @@ export class InformationComponent implements OnInit {
   }
 
   public saveData() {
-    console.log(this.chapter);
     this.chapter.thumbnails = [];
     if (this.btn_cancel) {
       this.btn_cancel = false;
@@ -102,7 +101,6 @@ export class InformationComponent implements OnInit {
     if ( this.isNewData && this.chapter !== undefined ) {
       this.chapterService.insert(this.chapter).subscribe(
         s => {
-          console.log('chapters', this.chapter);
           this.chapter = s;
           this.returnEvent.emit(s);
           this.isNewData  = false;

@@ -80,8 +80,6 @@ export class UploadMultimediaComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('CHAPTER MULTIMEDIA PICKER:', this.chapter);
-
     this._mediaTypeId = uuid();
 
     if (!this._fileData) {
@@ -92,7 +90,6 @@ export class UploadMultimediaComponent implements OnInit {
 
   onChange(files) {
     const fi = this.fileInput.nativeElement;
-    console.log('FILE ###:', this.fileInput.nativeElement.files);
     if (fi.files && fi.files.length > 0) {
       for (let i = 0 ; i < fi.files.length ; i ++ ) {
         const fileToUpload = fi.files[i];
@@ -103,7 +100,6 @@ export class UploadMultimediaComponent implements OnInit {
           } else {
             this.toastService.toastMsgError('Erro', 'Não foi possível carregar o arquivo ' + fileToUpload.name +
             '. Verifique o tamanho máximo permitido para o tipo de mídia selecionado');
-            console.log('fileToUpload ###:', fileToUpload);
             this.reset();
           }
         } else {
@@ -138,7 +134,6 @@ export class UploadMultimediaComponent implements OnInit {
           this.fileService.upload(fileToUpload).subscribe(
           res => {
             this._fileData = JSON.parse(res.text());
-            console.log('_fileData', JSON.parse(res.text()));
 
             this.files = [];
             this.hasFile = false;
@@ -173,10 +168,6 @@ export class UploadMultimediaComponent implements OnInit {
     this._fileData = { mediaType: mediaType };
 
     this.loadInfo();
-
-    // if (this.uploaded) {
-    //   this.uploaded.emit(this._fileData);
-    // }
   }
 
   verifyValidSubmitted(form, field) {

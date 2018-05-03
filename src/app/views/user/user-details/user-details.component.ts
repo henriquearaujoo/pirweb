@@ -153,7 +153,6 @@ export class UserDetailsComponent implements OnInit {
   }
 
   back() {
-    console.log(this.url);
     if (this.url === '/usuarios/detalhes') {
       this.router.navigate(['/usuarios']);
     } else {

@@ -3,7 +3,7 @@
 <!-- <button data-toggle="modal" data-target="#modal-cancel" id="openModalCancel">Open Modal</button> -->
 <div class="content_">
     <div class="content-top">
-        <div class="content_fa"> <i class="fa fa-list-alt"></i> Formulário > Registros > Detalhes</div>
+        <div class="content_fa"> <img class="icon" src="./assets/img/form/ic_form-02.png"> Formulário > Registros > Detalhes</div>
     </div>
 
     <section class="content_user">
@@ -11,59 +11,75 @@
             <h5 class="content-title">FORMULÁRIO</h5>
         </div>
 
-        <div class="content_">
-            <!-- <form name="f" (ngSubmit)="f.form.valid && saveData()" #f="ngForm" novalidate>            -->
-            <div class="form-template">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="box box-primary">
-                            <div class="box-body">
-                                <form name="f" #f="ngForm" novalidate>
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <div class="form-inline">
-                                                    <label class="control-label"> Faixa </label>
-                                                    <span class="form-control"> {{ form.age_zone }}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <div class="form-inline">
-                                                    <label class="control-label"> Indicadores de</label>
-                                                    <span class="form-control"> {{ form.from }}</span>
-                                                    <label class="control-label"> até </label>
-                                                    <span class="form-control"> {{ form.to }}</span>
-                                                    <label class="control-label"> {{ form.in_years ? 'Anos' : 'Meses' }} </label>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <div class="form-group">
-                                                <div class="form-inline">
-                                                    <label class="control-label"> Versão </label>
-                                                    <span class="form-control"> {{ form.version }}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li>
+                    <a class="tab-pane active" (click)="walk(0)" href="#tab_1" data-toggle="tab">
+                        <img src="{{ formTab }}" />
+                    </a>
+                </li>
+                <li>
+                    <a class="tab-pane active" (click)="walk(1)" href="#tab_2" data-toggle="tab">
+                        <img src="{{ questionsTab }}" />
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1">
+                    <div class="content">
+                        <section class="content">
+                            <div class="box-header_1 with-border">
+                                <h5 class="box-title"> Formulário </h5>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <!-- Custom Tabs -->
-                        <div class="box box-primary">
-                            <div class="box-header">
+                            <form name="f" #f="ngForm" novalidate>
                                 <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="box-title">QUESTÕES</div>
+                                    <div class="box box-primary">
+                                        <div class="box-body">
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label"> Versão </label>
+                                                            <span class="form-control"> {{ form.version }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label"> Faixa </label>
+                                                            <input class="form-control" name="range" id="range" [(ngModel)]="form.age_zone" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label"> Indicadores </label>
+                                                            <div class="form-inline">
+                                                                <span> De </span>
+                                                                <span class="form-control" style="font-weight: bold;"> {{ form.from }}</span> a
+                                                                <span class="form-control" style="font-weight: bold;"> {{ form.to }}</span>
+                                                                <label class="control-label"> {{ form.in_years ? 'Anos' : 'Meses' }} </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                            </form>
+                        </section>
+                    </div>
+                </div>
+                <!-- /.tab-pane -->
+                <div class="tab-pane" id="tab_2">
+                    <div class="content">
+                        <section class="content">
+                            <div class="box-header_1 with-border">
+                                <h5 class="box-title"> Questões
+                                </h5>
                             </div>
                             <div class="box-body">
                                 <table id="example2" class="table table-hover ">
@@ -81,7 +97,7 @@
                                         <tr *ngFor="let item of pagedItems; let i = index">
                                             <!-- <tr *ngFor="let item of answers"> -->
                                             <td class="tbl-left">
-                                                {{ i + 1 }}
+                                                {{ item.number }}
                                             </td>
                                             <td class="tbl-left text-max">
                                                 <p class="limit-text">{{ item.description }}</p>
@@ -104,21 +120,49 @@
                                 </table>
                             </div>
                             <div class="box-footer">
-
+                                <div class="row">
+                                    <div class="col-sm-6 pagination1" *ngIf="form.questions.length">
+                                        <div class="pag1" *ngIf="form.questions.length > 10">
+                                            Exibindo <strong>{{ pager.currentPage === 1 ? 1 : (pager.currentPage * 10) - 9 }} </strong> -
+                                            <strong>{{ pager.currentPage === pager.totalPages ? form.questions.length : (pager.currentPage * 10)  }} </strong> &nbsp;de &nbsp;<strong>{{ form.questions.length }} </strong>
+                                        </div>
+                                        <div class="pag2" *ngIf="form.questions.length <= 10">
+                                            Exibindo <strong>{{ pager.currentPage === 1 ? 1 : (pager.currentPage * 10) - 9 }} </strong> -
+                                            <strong>{{ form.questions.length }} </strong> &nbsp;de&nbsp; <strong>{{ form.questions.length }} </strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 pagination2">
+                                        <app-paginate [paginate]="paginate" (eventPage)="setPage($event)"></app-paginate>
+                                        <ul *ngIf="pager.pages && pager.pages.length" class="pagination stylepage">
+                                            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                                <a (click)="setPage(1)">Primeiro</a>
+                                            </li>
+                                            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                                <a (click)="setPage(pager.currentPage - 1)">Anterior</a>
+                                            </li>
+                                            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                                <a (click)="setPage(page)">{{page}}</a>
+                                            </li>
+                                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                                <a (click)="setPage(pager.currentPage + 1)">Próxima</a>
+                                            </li>
+                                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                                <a (click)="setPage(pager.totalPages)">Último</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </section>
                     </div>
-                    <!-- col -->
                 </div>
-                <!-- /.row -->
-            </div>
-            <div class="row footer">
-                <div class="col-md-2">
-                    <div>
-                        <button class="btn btn-default btn-block" [routerLink]="['/formularios']" id="btn_return"> Voltar</button>
+                <div class="row">
+                    <div class="col-sm-6 cancel">
+                        <button class="btn btn-default" [routerLink]="['/formularios']" id="btn_return"> Voltar</button>
                     </div>
                 </div>
             </div>
+            <!-- /.tab-content -->
         </div>
     </section>
 </div>

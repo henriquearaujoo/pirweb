@@ -81,7 +81,6 @@ export class VisitHistoryListComponent implements OnInit {
       this.canUpdate = false;
       this.canRead = false;
       this.canDelete = false;
-      console.log(this.visit);
      }
   ngOnInit() {
     this.hasdata = false;
@@ -162,7 +161,6 @@ export class VisitHistoryListComponent implements OnInit {
     this.userService.load(this.idAgent).subscribe(
       success => {
         this.agent = success[0];
-        console.log(success);
       },
       error => console.log(error)
     );
@@ -178,7 +176,6 @@ export class VisitHistoryListComponent implements OnInit {
   }
 
   setFilter(type) {
-    console.log(type);
     this.type_filter = type;
   }
 

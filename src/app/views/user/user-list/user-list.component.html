@@ -11,31 +11,15 @@
             <div class="box-header_ ">
                 <h5 class="box-title">LISTA DE USUÁRIOS</h5>
             </div>
-            <!-- when there's not record -->
-            <div *ngIf="!hasdata">
-                <section class="content">
-                    <!-- <div class="feedback-icon fa fa-users"></div><br><br> -->
-                    <!-- <span class="feedback-message">Não há dados cadastrados</span> -->
-                </section>
-            </div>
 
-            <div *ngIf="hasdata">
+            <div>
                 <div class="row">
                     <div class="col-sm-12">
                         <div id="_filter" class="dataTables_filter">
                             <label>
-                <input type="text" class="form-control form-border"  [(ngModel)]="filter.name" #f="ngModel" 
-                  mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" name="filter" id="filter" (keyup)="getUsers()" placeholder="Nome do usuário">
-                </label>
-                            <!-- <input type='text' mask="000.000.000-00" > -->
-                            <!-- <div>
-                  <div *ngIf="f.errors?.pattern">
-                    <p class="has-error">
-                        Somente letras são permitidos
-                    </p>
-                    Erro: {{f.errors | json}}
-                  </div>
-                </div> -->
+                                <input type="text" class="form-control form-border"  [(ngModel)]="filter.name" #f="ngModel" 
+                                mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" name="filter" id="filter" (keyup)="getUsers()" placeholder="Nome do usuário">
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -58,7 +42,7 @@
                             <span class="feedback-message">Nenhum registro encontrado</span>
                         </div>
 
-                        <tbody *ngIf="users.length !== 0">
+                        <tbody *ngIf="users.length !== 0 && hasdata">
                             <tr *ngFor="let item of users">
                                 <td class="tbl-left">
                                     {{ item.name }}

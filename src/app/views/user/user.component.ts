@@ -154,9 +154,6 @@ export class UserComponent implements OnInit, OnDestroy {
     this.openSaveButtonTab3 = (<HTMLButtonElement>document.getElementById('btn_tab3'));
     this.openSaveButtonTab3.style.display = 'none';
 
-    // this.openModalCancel = (<HTMLButtonElement>document.getElementById('openModalCancel'));
-    // this.openModalCancel.style.display = 'none';
-
     (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
 
   }
@@ -165,7 +162,6 @@ export class UserComponent implements OnInit, OnDestroy {
     if (isValid && this._isSave) {
       this.modalOpened = false;
       this.verifyType();
-      console.log(this.user);
       this.user.profile_id = this.user.profile.id;
       this.user.address.city_id = this.user.address.city.id;
       if (this.isNewData || this.user.id === undefined) {
@@ -261,7 +257,6 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   openModal() {
-    console.log(this.url);
     if (this.url === '/usuarios/registro') {
       this.modalService.modalCancel('/usuarios');
     } else {

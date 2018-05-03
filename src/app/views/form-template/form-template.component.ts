@@ -3,7 +3,7 @@ import { PageService } from './../../services/pagenate/page.service';
 import { PageComponent } from './../profile/page/page.component';
 import { FormQuestionB } from './../../models/form-question-b';
 import { ToastService } from './../../services/toast-notification/toast.service';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { Permissions, RuleState } from './../../helpers/permissions';
 import { SweetAlertService } from './../../services/sweetalert/sweet-alert.service';
 import { FormService } from './../../services/form/form.service';
@@ -94,13 +94,11 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
     if ( this.btn_cancel) {
       return;
     }
-    console.log(this.form);
     if (this.isNewData || this.form.id === undefined) {
       if (this.canCreate) {
         this.formService.insertForm(this.form).subscribe(
           success => {
             this.form = success;
-            console.log('save:', this.form);
             this.urlId = this.form.id;
             this.isNewData  = false;
             this.sweetAlertService.alertSuccess('/formularios/registro');
@@ -144,7 +142,6 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
   }
 
   saveQuestion() {
-    console.log(this.question);
     if ((this.question.description === null || this.question.description === undefined || this.question.description === '') &&
        (this.question.type === null || this.question.type === undefined)) {
       this.toastService.toastMsgError('Erro', 'Descrição da questão e Tipo da questão são campos obrigatórios!');
@@ -195,7 +192,6 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
       success => {
         this.form = success;
         this.questions = this.form.questions;
-        console.log(this.questions);
         this.questions = this.questions.sort(function (a, b) {
             return a.description.localeCompare(b.description);
         });
@@ -212,7 +208,6 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
   }
 
   onEdit(item) {
-    console.log(item);
     this.show = false;
     this.isNewQuestion = false;
     this.question = item;
@@ -243,7 +238,6 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
     } else {
       this.question.is_enabled = true;
     }
-    console.log(this.question);
 
     this.formService.updateQuestion(this.question).subscribe(
       success => {
@@ -265,7 +259,6 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
   onCancel() {
     this.btn_cancel = true;
     this.modalService.modalCancel('/formularios');
-    // this.sweetAlertService.alertToCancel('/form-template-list');
   }
 
   verifyValidSubmitted(form, field) {

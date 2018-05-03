@@ -25,8 +25,8 @@ export class ChildComponent implements OnInit {
   private subscription: Subscription;
   private isNewData: boolean;
   private urlId: string;
-  private data1Tab: string;
-  private data2Tab: string;
+  private infoTab: string;
+  private socialTab: string;
   private currentTab: number;
   private previousTab: string;
   private nextTab: string;
@@ -135,8 +135,8 @@ export class ChildComponent implements OnInit {
     this.previousTab = '#tab_1';
     this.nextTab = '#tab_2';
 
-    this.data1Tab = './assets/img/child/ic_data_enable.png';
-    this.data2Tab = './assets/img/child/ic_data_disable.png';
+    this.infoTab = './assets/img/child/ic_section_info_enable.png';
+    this.socialTab = './assets/img/child/ic_section_info_social_disable.png';
 
     this.openSaveButtonTab1 = (<HTMLButtonElement>document.getElementById('btn_tab1'));
     this.openSaveButtonTab1.style.display = 'none';
@@ -169,7 +169,6 @@ export class ChildComponent implements OnInit {
       }
       this.child.born_week = Number(this.child.born_week);
       if (this.isNewData || this.child.id === undefined) {
-        console.log(this.child);
         this.childService.insert(this.child).subscribe(
           success => {
             this.child = success;
@@ -181,7 +180,6 @@ export class ChildComponent implements OnInit {
           }
         );
       } else {
-        console.log(this.child);
         this.childService.update(this.child).subscribe(
           success => {
             this.child = success;
@@ -375,12 +373,12 @@ export class ChildComponent implements OnInit {
         if (this.currentTab === 0) {
           (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
           (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
-          this.data1Tab = './assets/img/child/ic_data_enable.png';
-          this.data2Tab = './assets/img/child/ic_data_disable.png';
+          this.infoTab = './assets/img/child/ic_section_info_enable.png';
+          this.socialTab = './assets/img/child/ic_section_info_social_disable.png';
 
         }else if (this.currentTab === 1) {
-          this.data1Tab = './assets/img/child/ic_data_disable.png';
-          this.data2Tab = './assets/img/child/ic_data_enable.png';
+          this.infoTab = './assets/img/child/ic_section_info_disable.png';
+          this.socialTab = './assets/img/child/ic_section_info_social_enable.png';
           (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
           (<HTMLButtonElement>document.getElementById('btn_next')).style.display = 'none';
         }

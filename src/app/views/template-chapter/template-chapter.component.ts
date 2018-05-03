@@ -67,6 +67,7 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
       }
     );
     this.hasdata = false;
+    localStorage.removeItem('_chapterId');
     this.getChapters();
   }
 

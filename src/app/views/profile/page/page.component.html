@@ -2,16 +2,26 @@
     <div class="container-fluid">
         <section class="content_">
             <div class="row">
-                <div class="box box-solid">
-                    <div class="box-header ">
-                        TIPO
-                    </div>
-                    <div class="box-body profile">
-                        <select class="form-control" (change)="setProfile()" name="profile" id="profile" [(ngModel)]="currentProfile.id">                                
-                                <option *ngFor="let profile of profiles" [value]="profile.id">{{profile.title}} </option>
-                            </select>
-                    </div>
+                <div class="col-sm-6">
+                    <!-- <div class="box box-solid"> -->
+                    <!-- <div class="box-header "> -->
+                    <label class="control-label">PERFIL</label>
+                    <!-- </div> -->
+                    <!-- <div class="box-body profile"> -->
+                    <select class="form-control" (change)="setProfile()" name="profile" id="profile" [(ngModel)]="currentProfile.id">                                
+                        <option *ngFor="let profile of profiles" [value]="profile.id">{{profile.title}} </option>
+                    </select>
+                    <!-- </div> -->
+                    <!-- </div> -->
                 </div>
+                <!-- <div class="col-sm-6">
+                    <div id="_filter">
+                        <label>
+                            <input type="text" class="form-control form-border"  [(ngModel)]="filter.name" #f="ngModel" 
+                            mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" name="filter" id="filter" (keyup)="loadAllPermissions()" placeholder="Título da sessão">
+                        </label>
+                    </div>
+                </div> -->
             </div>
         </section>
     </div>

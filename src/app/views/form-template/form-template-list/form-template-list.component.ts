@@ -2,7 +2,7 @@ import { LoaderService } from './../../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../../helpers/permissions';
 import { ToastService } from './../../../services/toast-notification/toast.service';
 import { FormService } from './../../../services/form/form.service';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Paginate } from './../../../models/paginate';
 import { Form } from './../../../models/form';
@@ -53,6 +53,7 @@ export class FormTemplateListComponent implements OnInit {
         this.canDelete = rules.canDelete;
       }
     );
+
     this.hasdata = false;
     this.page = 0;
     this.getForms();
@@ -103,7 +104,6 @@ export class FormTemplateListComponent implements OnInit {
     } else {
       this.form.is_enabled = true;
     }
-    console.log(this.form);
 
     this.formService.updateForm(this.form).subscribe(
       success => {

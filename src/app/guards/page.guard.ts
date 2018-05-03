@@ -29,10 +29,8 @@ export class PageGuard implements CanActivate {
         return this.permissions.permissionsState.map(
             (rules: RuleState) => {
             if (rules.canRead) {
-                console.log('Permitido');
                 return rules.canRead;
             }
-            console.log('Negado');
             this.sweetAlertService.alertPermission('/home');
             // this.router.navigate(['/home']);
             return rules.canRead;

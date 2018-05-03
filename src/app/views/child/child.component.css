@@ -99,11 +99,12 @@ label {
     padding-bottom: 1px;
 }
 
-.content-header {
+
+/* .content-header {
     padding-top: 20px;
     background-color: #e8e6e6;
     height: 64px;
-}
+} */
 
 .content_fa {
     color: #777777;
@@ -114,29 +115,30 @@ button {
 }
 
 
-.content-top {
+/* .content-top {
     height: 64px;
     background-color: #e8e6e6;
     margin-bottom: 10px;
     position: relative;
     margin-top: 49px;
-}
+} */
 
 .content-title {
     font-size: 14px;
 }
 
-i.fa.fa-user {
+i.fa.fa-users {
     margin-top: 18px;
-    margin-left: 34px;
+    margin-left: 24px;
     margin-right: 10px;
     color: white;
-    background-color: #373d40;
-    padding-right: 10px;
-    padding-left: 10px;
+    background-color: #0075BD;
+    padding-right: 7px;
+    padding-left: 7px;
     padding-top: 5px;
     padding-bottom: 5px;
     border-radius: 0.2em;
+    font-size: 28px;
 }
 
 section.content_user {
@@ -167,26 +169,26 @@ section.content_user {
     margin-bottom: 20px;
 }
 
-.nav > li > a {
+.nav>li>a {
     padding: 10px 0 0 0px;
 }
 
 .nav-tabs-custom {
     background-color: #f4f4f4;
-    padding: 20px;    
+    padding: 20px;
 }
 
-.nav-tabs-custom > .nav-tabs {
+.nav-tabs-custom>.nav-tabs {
     height: 55px;
 }
 
-.nav-tabs-custom > .tab-content {
+.nav-tabs-custom>.tab-content {
     padding-top: 10px;
     padding-left: 25px;
     padding-right: 25px;
 }
 
-.nav-tabs-custom > .nav-tabs > li.active {
+.nav-tabs-custom>.nav-tabs>li.active {
     border-top-color: #373d40;
 }
 
@@ -200,9 +202,11 @@ input#waterDrink2 {
     width: 60%;
 }
 
-input[type="radio"], input[type="checkbox"] {
+input[type="radio"],
+input[type="checkbox"] {
     cursor: pointer;
 }
+
 
 /* .checkbox {
     cursor: pointer;
@@ -219,10 +223,11 @@ label.lb-tab {
     right: 20px;
 }
 
-.nav-tabs-custom > .nav-tabs > li.active > a, .nav-tabs-custom > .nav-tabs > li.active:hover > a {
+.nav-tabs-custom>.nav-tabs>li.active>a,
+.nav-tabs-custom>.nav-tabs>li.active:hover>a {
     background-color: #fff0;
 }
 
-.nav-tabs-custom > .nav-tabs > li.active {
+.nav-tabs-custom>.nav-tabs>li.active {
     border-top: 0;
 }

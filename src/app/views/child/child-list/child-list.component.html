@@ -1,101 +1,89 @@
 <simple-notifications></simple-notifications>
 <div class="content_">
-  <div class="content-top">
-    <div class="content_fa"> <i class="fa fa-user"></i> Família > Criança > Lista de Crianças</div>
-    
-  </div>
-<section class="content">
-  <div class="box"> 
-    <div class="box-header ">
-      <h5 class="box-title">LISTA DE CRIANÇAS</h5>
-    </div>    
-    <!-- when there's not record -->
-    <div *ngIf="!hasdata">
-      <section class="content">
-        <!-- <div class="feedback-icon fa fa-users"></div><br><br> -->
-        <!-- <span class="feedback-message">Não há dados cadastrados</span> -->
-      </section>
+    <div class="content-top">
+        <div class="content_fa"> <i class="fa fa-users"></i> Família > Criança > Lista de Crianças</div>
+
     </div>
-
-    <div *ngIf="hasdata">             
-      <div class="row">
-          <div class="col-sm-12">
-            <div id="_filter" class="dataTables_filter">
-              <label>
-              <input type="text" class="form-control form-border " name="name" id="filter" (keyup)="getChildren()" 
-                [(ngModel)]="filter.name"  mask="SSSSSSSSSSSSSSSSSSSS"  maxlength="20" placeholder="Nome da criança">
-              </label>
+    <section class="content">
+        <div class="box">
+            <div class="box-header_ ">
+                <h5 class="box-title">LISTA DE CRIANÇAS</h5>
             </div>
-          </div>
-      </div>
-      <div class="box-body">
-        <table id="example2" class="table">
-          <thead>
-            <tr>
-              <th class="tbl-left">NOME
-                <span class="glyphicon" ></span>
-              </th>
-              <th class="tbl-left">DATA DE NASCIMENTO
-                <span class="glyphicon" ></span>
-              </th>
-              <th class="tbl-left">RESPONSÁVEL
-                  <span class="glyphicon" ></span>
-              </th>
-              <!--th class="tbl-left">Status
-                  <span class="glyphicon" ></span>
-                </th -->
-              <th colspan="2" class="tbl-center"> AÇÃO</th>
-            </tr>
-          </thead>
+            <div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="_filter" class="dataTables_filter">
+                            <label>
+                            <input type="text" class="form-control form-border " name="name" id="filter" (keyup)="getChildren()" 
+                              [(ngModel)]="filter.name"  mask="SSSSSSSSSSSSSSSSSSSS"  maxlength="20" placeholder="Nome da criança">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <table id="example2" class="table">
+                        <thead>
+                            <tr>
+                                <th class="tbl-left">NOME
+                                    <span class="glyphicon"></span>
+                                </th>
+                                <th class="tbl-left">DATA DE NASCIMENTO
+                                    <span class="glyphicon"></span>
+                                </th>
+                                <th class="tbl-left">RESPONSÁVEL
+                                    <span class="glyphicon"></span>
+                                </th>
+                                <th colspan="2" class="tbl-center"> AÇÃO</th>
+                            </tr>
+                        </thead>
 
-          <div class="feedback" *ngIf="children.length === 0">
-              <i class="material-icons" style="font-size: 24px;">error_outline</i>
-            <span class="feedback-message">Nenhum registro encontrado</span>
-          </div>  
+                        <div class="feedback" *ngIf="children.length === 0">
+                            <i class="material-icons" style="font-size: 24px;">error_outline</i>
+                            <span class="feedback-message">Nenhum registro encontrado</span>
+                        </div>
 
-          <tbody *ngIf="children.length !== 0">
-            <tr *ngFor="let item of children">
-              <td class="tbl-left">  
-                {{ item.name }}
-              </td>
-              <td class="tbl-left">  
-                {{ item.birth }}
-              </td>
-              <td class="tbl-left">  
-                {{ item.responsible.name }}
-              </td>               
-              <td class="tbl-right">              
-                <a (click)="toView(item)" id="btn_details" title="Ver detalhes">
-                    <i class="large material-icons">visibility</i>
-                </a>
-              </td>
-              <td class="tbl-right">          
-                <a title="Editar" id="btn_edit"
-                  (click)="setChild(item)" *ngIf="canUpdate">
-                  <i class="fa fa-pencil fa-fw"></i>
-                </a>
-              </td>
-              <!-- <td class="tbl-right">
+                        <tbody *ngIf="children.length !== 0 && hasdata">
+                            <tr *ngFor="let item of children">
+                                <td class="tbl-left">
+                                    {{ item.name }}
+                                </td>
+                                <td class="tbl-left">
+                                    {{ item.birth }}
+                                </td>
+                                <td class="tbl-left">
+                                    {{ item.responsible.name }}
+                                </td>
+                                <td class="tbl-right">
+                                    <a (click)="toView(item)" id="btn_details" title="Ver detalhes">
+                                        <i class="large material-icons">visibility</i>
+                                    </a>
+                                </td>
+                                <td class="tbl-right">
+                                    <a title="Editar" id="btn_edit" (click)="setChild(item)" *ngIf="canUpdate">
+                                        <i class="fa fa-pencil fa-fw"></i>
+                                    </a>
+                                </td>
+                                <!-- <td class="tbl-right">
                   <a href="" [title]="item.status === true ? 'Desativar': 'Ativar'"
                     data-toggle="modal" data-target="#modal-default"
                     (click)="changeStatus(item)" id="btn_status">              
                     <i [ngClass]="item.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
                   </a>      
               </td> -->
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="box-footer">
-        <app-paginate [paginate]="paginate" (eventPage)="setPage($event)"></app-paginate>
-      </div>
-    </div>
-  </div>
-</section>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="box-footer">
+                    <app-paginate [paginate]="paginate" (eventPage)="setPage($event)"></app-paginate>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 
- <!-- Modal Disable -->
- <!-- <div class="modal fade" id="modal-default">
+<!-- Modal Disable -->
+<!-- <div class="modal fade" id="modal-default">
   <div class="modal-dialog modal-sm">
     <div class="modal-content" [ngStyle]="object">
       <div class="modal-body">

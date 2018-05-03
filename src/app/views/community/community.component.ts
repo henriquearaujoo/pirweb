@@ -188,10 +188,10 @@ export class CommunityComponent implements OnInit {
 
   verifyDataCheckbox() {
     this.culturalProduction = this.community.cultural_production;
-    this.culturalProduction_list = this.culturalProduction.split('|');
+    this.culturalProduction_list = this.culturalProduction.split(',');
 
     this.waterSupply = this.community.water_supply;
-    this.waterSupply_list = this.waterSupply.split('|');
+    this.waterSupply_list = this.waterSupply.split(',');
 
     for (let i = 0; i < this._waterSupply.length; i++) {
       for (let j = 0; j < this.waterSupply_list.length; j++ ) {
@@ -234,7 +234,7 @@ export class CommunityComponent implements OnInit {
         if ( i === 0 ) {
           this.culturalProduction = this.culturalProduction_list[i];
         } else {
-          this.culturalProduction = this.culturalProduction + '|' + this.culturalProduction_list[i];
+          this.culturalProduction = this.culturalProduction + ',' + this.culturalProduction_list[i];
         }
       }
     } else {
@@ -246,7 +246,7 @@ export class CommunityComponent implements OnInit {
         if ( i === 0 ) {
           this.waterSupply = this.waterSupply_list[i];
         } else {
-          this.waterSupply = this.waterSupply + '|' + this.waterSupply_list[i];
+          this.waterSupply = this.waterSupply + ',' + this.waterSupply_list[i];
         }
       }
     } else {

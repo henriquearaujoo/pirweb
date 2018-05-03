@@ -41,9 +41,7 @@ export class ChartComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges( changes: SimpleChanges) {
-    console.log('ngOnChanges', changes);
     if (changes.labels) {
-      console.log('changes', this.labels);
       let cloneLabel = JSON.parse(JSON.stringify(this.labels));
       if (this.chart.chart !== undefined) {
         this.chart.chart.config.data.labels = cloneLabel;

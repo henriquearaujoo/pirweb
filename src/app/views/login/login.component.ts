@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             (data: Response) => {
                 const token = data.headers.get('authorization');
                 // const tokenData = decodeToken(token);
-                console.log('Token:', token);
+                // console.log('Token:', token);
                 localStorage.setItem('tokenPir', token );
                 if (token) {
                     const tokenData = decodeToken(token);

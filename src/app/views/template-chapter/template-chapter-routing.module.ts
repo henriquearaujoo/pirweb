@@ -13,7 +13,7 @@ const routes: Routes = [
       canActivate: [PageGuard]
   },
   {
-    path: 'dashboard',
+    path: 'registro',
     component: ChapterDashboardComponent,
       canActivate: [PageGuard]
   },
