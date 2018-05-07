@@ -200,9 +200,9 @@
                                                         <div class="form-group" [ngClass]="applyCssError(f2, liveWith)">
                                                             <label class="control-label">Com quem mora atualmente?</label>
                                                             <select class="form-control" #liveWith="ngModel" name="liveWith" [(ngModel)]="responsible.live_with" id="liveWith" required>
-                                                              <option value="Pais ou Parentes">Pais ou Parentes</option>
-                                                              <option value="Esposo e filhos">Esposo e filhos</option>
-                                                              <option value="Amigos">Amigos</option>
+                                                              <option value="Pais ou Parentes">Com seus pais ou/e parentes</option>
+                                                              <option value="Esposo e filhos">Com esposo e filhos</option>
+                                                              <option value="Amigos">Com amigos</option>
                                                               <option value="Sozinho"> Sozinho</option>
                                                             </select>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f2, liveWith)" msgError="Selecione com quem mora atualmente">
@@ -223,8 +223,8 @@
                                                         <div class="form-group" [ngClass]="applyCssError(f2, incomeParticipation)">
                                                             <label class="control-label">Qual é a sua participação na vida econômica do seu grupo familiar? </label>
                                                             <select class="form-control" #incomeParticipation="ngModel" name="incomeParticipation" [(ngModel)]="responsible.income_participation" id="incomeParticipation" required>
-                                    <option [value]="item" *ngFor="let item of income_participation"> {{ item }}</option>
-                                  </select>
+                                                                <option [value]="item" *ngFor="let item of income_participation"> {{ item }}</option>
+                                                            </select>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f2, incomeParticipation)" msgError="Escolha uma das alternativas">
                                                             </app-control-field-error>
                                                         </div>
@@ -234,8 +234,8 @@
                                                             <div class="form-group" [ngClass]="applyCssError(f2, familyIncome)">
                                                                 <label class="control-label">Qual a principal fonte de renda da família? </label>
                                                                 <select class="form-control" #familyIncome="ngModel" name="familyIncome" [(ngModel)]="responsible.family_income" id="familyIncome" required>
-                                      <option [value]="item" *ngFor="let item of family_income">{{ item }}</option>
-                                    </select>
+                                                                    <option [value]="item" *ngFor="let item of family_income">{{ item }}</option>
+                                                                </select>
                                                                 <app-control-field-error [showError]="verifyValidSubmitted(f2, familyIncome)" msgError="Selecione uma principal fonte de renda">
                                                                 </app-control-field-error>
                                                             </div>

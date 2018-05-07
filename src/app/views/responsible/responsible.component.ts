@@ -129,11 +129,11 @@ export class ResponsibleComponent implements OnInit {
     this.isValidDate = true;
 
     this.income_participation = [
-      'Não trabalha e é sustentado pela família',
+      'Não trabalha e é sustentado pela familia',
       'Trabalha e recebe ajuda financeira',
       'Trabalha e é responsável pelo próprio sustento',
       'Trabalha e contribui parcialmente em casa',
-      'Trabalha e é a principal responsável pelo sustento da família'
+      'Trabalha e é a principal responsável pelo sustento da familia'
     ];
 
     this.family_income = ['Pesca', 'Farinha', 'Caça', 'Roçado', 'Outra'];
