@@ -1,8 +1,8 @@
 <simple-notifications></simple-notifications>
 
 <div class="content_">
-    <section class="content">     
-        <form name="form_conclusion" (ngSubmit)="fConclusion.form.valid && saveData()" #fConclusion="ngForm" novalidate>           
+    <section class="content">
+        <form name="form_conclusion" (ngSubmit)="fConclusion.form.valid && saveData()" #fConclusion="ngForm" novalidate>
             <div class="conclusion" *ngIf="!add_question">
                 <div class="row">
                     <div class="col-sm-12">
@@ -11,11 +11,7 @@
                                 <div class="form-group" [ngClass]="applyCssError(fConclusion, description)">
                                     <label class="control-label">Descrição da conclusão</label>
                                     <div class="box-body pad">
-                                        <quill-editor 
-                                            (change)="onKey($event)"
-                                            [options]="editorOptions" id="conclusion_description" 
-                                            name="conclusion_description" #description="ngModel" 
-                                            [(ngModel)]="conclusion.description" required>
+                                        <quill-editor (change)="onKey($event)" [options]="editorOptions" id="conclusion_description" name="conclusion_description" #description="ngModel" [(ngModel)]="conclusion.description" required>
                                         </quill-editor>
                                         <app-control-field-error [showError]="verifyValidSubmitted(fConclusion, description)" msgError="Digite a descrição">
                                         </app-control-field-error>
@@ -35,15 +31,12 @@
                                         <div class="box-title">Questões</div>
                                     </div>
                                     <div class="col-sm-6 actions">
-                                        <button class="btn btn-primary add"
-                                            (click)="createNewQuestion()" 
-                                            [disabled]="!hasdata"
-                                            *ngIf="canCreate || canUpdate">
+                                        <button class="btn btn-primary add" (click)="createNewQuestion()" [disabled]="!hasdata" *ngIf="canCreate || canUpdate">
                                             <i class="fa fa-plus fa-lg"></i>ADICIONAR QUESTÃO
                                         </button>
                                     </div>
-                                </div>                            
-                            </div> 
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!-- col -->
@@ -51,82 +44,79 @@
                 <!-- /.row -->
             </div>
             <div class="box-body">
-                    <div *ngIf="!add_question">
-                        <div *ngFor="let item of questions; let i = index">                          
-                            <div class="card horizontal">
-                                <div class="card-stacked">
-                                    <div class="card-content">
+                <div *ngIf="!add_question">
+                    <div *ngFor="let item of questions; let i = index">
+                        <div class="card horizontal">
+                            <div class="card-stacked">
+                                <div class="card-content">
                                     <div class="row">
                                         <div class="col-sm-2 question number">Questão {{ i + 1 }} </div>
                                         <div class="col-sm-4 question description">
                                             <p class="limit-text" [innerHTML]="item.description"> </p>
                                         </div>
                                         <div class="col-sm-2 question">
-                                            <a href="" title="Ver Respostas" (click)="getAnswers(item)" data-toggle="modal" 
-                                            data-target="#ans" id="answs" *ngIf="item.answers">
+                                            <a href="" title="Ver Respostas" (click)="getAlternatives(item)" data-toggle="modal" data-target="#ans" id="answs" *ngIf="item.alternatives">
                                             Respostas 
-                                            </a>   
+                                            </a>
                                         </div>
                                         <div class="col-sm-4">
-                                            <div class="actions" *ngIf="canCreate || canUpdate">                                
+                                            <div class="actions" *ngIf="canCreate || canUpdate">
                                                 <button class="btn btn-primary btn-sm edit" (click)="onEdit(item, i)"> <i class="fa fa-pencil"></i>Editar</button>
-                                                <button class="btn btn-primary btn-sm remove" title="Excluir Questão" 
-                                                    data-toggle="modal" data-target="#modal-delete"  
-                                                    (click)="setQuestion(item)"><i class="fa fa-remove"></i>Deletar
+                                                <button class="btn btn-primary btn-sm remove" title="Excluir Questão" data-toggle="modal" data-target="#modal-delete" (click)="setQuestion(item)"><i class="fa fa-remove"></i>Deletar
                                                 </button>
                                             </div>
-                                        </div>                                        
-                                    </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="paginate" *ngIf="paginate.size < paginate.totalElements">
-                            <button class="btn btn-default" (click)="setPageQuestion()">Carregar mais questões</button>
-                        </div>
-                        <!-- <div class="paginate" *ngIf="paginate.size >= paginate.totalElements">
+                    </div>
+                    <div class="paginate" *ngIf="paginate.size < paginate.totalElements">
+                        <button class="btn btn-default" (click)="setPageQuestion()">Carregar mais questões</button>
+                    </div>
+                    <!-- <div class="paginate" *ngIf="paginate.size >= paginate.totalElements">
                             <span class="btn btn-default" disabled> Não há mais questões</span>
                         </div> -->
+                </div>
+            </div>
+
+            <div>
+                <app-question #question [index]="index" [conclusion]="conclusion" [isNewData]="isNewQuestion" [addQuestion]="add_question" (cancel)="onCancelAddAnswer($event)"></app-question>
+            </div>
+            <div class="row footer">
+                <div class="col-md-2">
+                    <div>
+                        <button class="btn btn-default btn-block" (click)="onCancel()" id="btn_return"> Cancelar</button>
                     </div>
                 </div>
-            
-                <div>
-                    <app-question #question [index]="index" [conclusion]="conclusion" [isNewData]="isNewQuestion" [addQuestion]="add_question" (cancel)="onCancelAddAnswer($event)"></app-question>
-                </div>
-                <div class="row footer">
-                    <div class="col-md-2">
-                        <div>
-                            <button class="btn btn-default btn-block" (click)="onCancel()" id="btn_return"> Cancelar</button>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-md-offset-8">
-                        <div class="form-group save" *ngIf="canCreate || canUpdate">
-                            <button class="btn btn-primary btn-block" name="submit" id="btn_save" (click)="onSave()">Salvar</button>
-                        </div>
+                <div class="col-md-2 col-md-offset-8">
+                    <div class="form-group save" *ngIf="canCreate || canUpdate">
+                        <button class="btn btn-primary btn-block" name="submit" id="btn_save" (click)="onSave()">Salvar</button>
                     </div>
                 </div>
+            </div>
         </form>
     </section>
 </div>
 
 
-  <!-- Modal -->
+<!-- Modal -->
 <div class="modal fade" id="ans" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content" [ngStyle]="object">
             <div class="modal-header answer">
                 <!-- <h5 class="modal-title"> RESPOSTAS </h5> -->
             </div>
-            <div class="modal-body">               
-                <div class="box box-primary answers">         
+            <div class="modal-body">
+                <div class="box box-primary answers">
                     <div class="box-body">
                         <table id="example2" class="table table-hover tbl-answers ">
                             <thead>
                                 <tr>
-                                    <th>NÚMERO </th> 
+                                    <th>NÚMERO </th>
                                     <th>RESPOSTA
-                                        <span class="glyphicon" ></span>
-                                    </th>                                      
+                                        <span class="glyphicon"></span>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -134,11 +124,11 @@
                                     <td>
                                         {{ i + 1 }}
                                     </td>
-                                    <td [innerHTML]="an.answer"></td> 
+                                    <td [innerHTML]="an.answer"></td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>        
+                    </div>
 
                 </div>
             </div>
@@ -172,5 +162,12 @@
         <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
+</div>
+<!-- /.modal -->
+<!-- Button btn_1 = findViewById(R.id.btn_1);
+        btn_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getBaseContext(), "kjhgkjhg", Toast.LENGTH_SHORT).show();
+            }
+        });-->

@@ -12,9 +12,9 @@ import { Component, OnInit } from '@angular/core';
 export class ResponsibleDetailsComponent implements OnInit {
 
   private responsible: Responsible = new Responsible();
-  private data1Tab: string;
-  private data2Tab: string;
-  private data3Tab: string;
+  private infoTab: string;
+  private dataTab: string;
+  private servicesTab: string;
   private urlId: string;
   private canRead: boolean;
   private canUpdate: boolean;
@@ -33,7 +33,7 @@ export class ResponsibleDetailsComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.permissions.canActivate(['/responsible-details']);
+    this.permissions.canActivate(['/responsaveis/detalhes']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -48,9 +48,9 @@ export class ResponsibleDetailsComponent implements OnInit {
        this.load();
      }
 
-    this.data1Tab = './assets/img/responsible/ic_data_enable.png';
-    this.data2Tab = './assets/img/responsible/ic_data_disable.png';
-    this.data3Tab = './assets/img/responsible/ic_data_disable.png';
+     this.infoTab = './assets/img/pregnant/ic_section_info_enable.png';
+     this.dataTab = './assets/img/pregnant/ic_section_info_data_disable.png';
+     this.servicesTab = './assets/img/pregnant/ic_section_info_services_disable.png';
 
   }
 
@@ -69,19 +69,19 @@ export class ResponsibleDetailsComponent implements OnInit {
   walk ( tab: number) {
     switch (tab) {
       case 0:
-        this.data1Tab = './assets/img/responsible/ic_data_enable.png';
-        this.data2Tab = './assets/img/responsible/ic_data_disable.png';
-        this.data3Tab = './assets/img/responsible/ic_data_disable.png';
+      this.infoTab = './assets/img/pregnant/ic_section_info_enable.png';
+      this.dataTab = './assets/img/pregnant/ic_section_info_data_disable.png';
+      this.servicesTab = './assets/img/pregnant/ic_section_info_services_disable.png';
       break;
       case 1:
-      this.data1Tab = './assets/img/responsible/ic_data_disable.png';
-      this.data2Tab = './assets/img/responsible/ic_data_enable.png';
-      this.data3Tab = './assets/img/responsible/ic_data_disable.png';
+      this.infoTab = './assets/img/pregnant/ic_section_info_disable.png';
+      this.dataTab = './assets/img/pregnant/ic_section_info_data_enable.png';
+      this.servicesTab = './assets/img/pregnant/ic_section_info_services_disable.png';
       break;
       case 2:
-      this.data1Tab = './assets/img/responsible/ic_data_disable.png';
-      this.data2Tab = './assets/img/responsible/ic_data_disable.png';
-      this.data3Tab = './assets/img/responsible/ic_data_enable.png';
+      this.infoTab = './assets/img/pregnant/ic_section_info_disable.png';
+      this.dataTab = './assets/img/pregnant/ic_section_info_data_disable.png';
+      this.servicesTab = './assets/img/pregnant/ic_section_info_services_enable.png';
       break;
     }
   }

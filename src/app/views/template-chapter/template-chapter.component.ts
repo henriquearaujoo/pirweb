@@ -57,7 +57,7 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.permissions.canActivate(['/template-chapter']);
+    this.permissions.canActivate(['/capitulos']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -67,6 +67,7 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
       }
     );
     this.hasdata = false;
+    localStorage.removeItem('_chapterId');
     this.getChapters();
   }
 
@@ -76,8 +77,10 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
     this.loaderService.show();
     if ( this.filter.name == null) {
       this.filter.name = '';
+    } else if ( this.filter.name !== '') {
+      this.page = 0;
     }
-    this.chapterService.getChapters(this.filter.name, this.size).subscribe(
+    this.chapterService.getChapters(this.filter.name, this.page).subscribe(
       s1 => {
         this.paginate = s1;
         this.chapters = this.paginate.content;
@@ -108,7 +111,8 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
 
   getChapterActive() {
     this.loaderService.show();
-    this.chapterService.getChapterActive(this.filter.name, this.size_active).subscribe(
+    if ( this.filter.name !== '') { this.page = 0; }
+    this.chapterService.getChapterActive(this.filter.name, this.page).subscribe(
       s2 => {
         this.paginate_active = s2;
         this.chapters_active = this.paginate_active.content;
@@ -134,7 +138,7 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
 
   getChapterInactive() {
     this.loaderService.show();
-    this.chapterService.getChapterInactive(this.filter.name, this.size_inactive).subscribe(
+    this.chapterService.getChapterInactive(this.filter.name, this.page).subscribe(
       s3 => {
         this.paginate_inactive = s3;
         this.chapters_inactive = this.paginate_inactive.content;
@@ -158,24 +162,31 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
     );
   }
 
-  setPage() {
-    this.size = this.size + 10 ;
+  // setPage() {
+  //   this.size = this.size + 10 ;
+  //   this.getChapters();
+  // }
+
+  setPage(page: number) {
+    this.page = page;
     this.getChapters();
   }
 
-  setPageChapterActive() {
-    this.size_active = this.size_active + 10 ;
+  setPageChapterActive(page: number) {
+    // this.size_active = this.size_active + 10 ;
+    this.page = page;
     this.getChapterActive();
   }
 
-  setPageChapterInactive() {
-    this.size_inactive = this.size_inactive + 10 ;
+  setPageChapterInactive(page: number) {
+    // this.size_inactive = this.size_inactive + 10 ;
+    this.page = page;
     this.getChapterInactive();
   }
 
   createNewChapter() {
     localStorage.removeItem('lastVersion');
-    this.router.navigate(['chapter-dashboard']);
+    this.router.navigate(['capitulos/registro']);
   }
 
   setChapter(chapter: Chapter) {

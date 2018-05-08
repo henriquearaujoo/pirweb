@@ -1,4 +1,4 @@
-import { Answer } from './../../models/answer';
+import { Alternative } from './../../models/alternative';
 import { Conclusion } from './../../models/conclusion';
 import { Injectable } from '@angular/core';
 import { Constant } from '../../constant/constant';
@@ -34,26 +34,26 @@ export class ConclusionService extends RestService {
     return this.get(this.apiurl + 'search/?chapter_id=' + chapter_id);
   }
 
-  // *** ANSWERS *** //
-  public insertAnswer(answer: Answer): Observable<Answer> {
-    const currentURL = this.apiurl + 'question/answer';
+  // *** Alternatives *** //
+  public insertAlternative(answer: Alternative): Observable<Alternative> {
+    const currentURL = this.apiurl + 'question/alternative';
     return this.post(currentURL, answer);
   }
 
-  public updateAnswer(answer: Answer): Observable<Answer> {
-    const currentURL = this.apiurl + 'question/answer';
+  public updateAlternative(answer: Alternative): Observable<Alternative> {
+    const currentURL = this.apiurl + 'question/alternative';
     return this.put(currentURL, answer);
   }
 
-  public getAnswer(question_id?: string, page?: number) {
-     const currentURL = this.apiurl + 'question/answer/search?question=' + question_id;
+  public getAlternative(question_id?: string, page?: number) {
+     const currentURL = this.apiurl + 'question/alternative/search?question=' + question_id;
     //  const currentURL = this.apiurl + 'question/answer/search/page/?page=' + page + '&question=' + question_id;
      return this.get(currentURL);
 
   }
 
-  public deleteAnswer(answer_id: string): Observable<Answer> {
-    const deleteAnswerURL = this.apiurl + 'question/answer' + '/' + answer_id;
+  public deleteAlternative(answer_id: string): Observable<Alternative> {
+    const deleteAnswerURL = this.apiurl + 'question/alternative' + '/' + answer_id;
     return this.deleteR(deleteAnswerURL);
   }
 

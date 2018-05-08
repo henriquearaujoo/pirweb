@@ -22,8 +22,8 @@ export class CommunityComponent implements OnInit {
   private subscription: Subscription;
   private isNewData: boolean;
   private urlId: string;
-  private data1Tab: string;
-  private data2Tab: string;
+  private sectionInfoTab: string;
+  private sectionServicesTab: string;
   private data3Tab: string;
   private currentTab: number;
   private previousTab: string;
@@ -115,7 +115,7 @@ export class CommunityComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.permissions.canActivate(['/community']);
+    this.permissions.canActivate(['/comunidades/registro']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -131,16 +131,14 @@ export class CommunityComponent implements OnInit {
     if (this.urlId !== null && this.urlId !== '') {
       this.isNewData = false;
       this.load();
-    } else {
-      this.route.navigate(['/community-list']);
     }
 
     this.currentTab = 0;
     this.previousTab = '#tab_1';
     this.nextTab = '#tab_2';
 
-    this.data1Tab = './assets/img/community/ic_dataTab1_enable.png';
-    this.data2Tab = './assets/img/community/ic_dataTab2_disable.png';
+    this.sectionInfoTab = './assets/img/community/ic_section_info_enable.png';
+    this.sectionServicesTab = './assets/img/community/ic_section_services_disable.png';
 
     this.openSaveButtonTab1 = (<HTMLButtonElement>document.getElementById('btn_tab1'));
     this.openSaveButtonTab1.style.display = 'none';
@@ -166,7 +164,7 @@ export class CommunityComponent implements OnInit {
           success => {
             this.community = success;
             this.isNewData  = false;
-            this.sweetAlertService.alertSuccess('community-list');
+            this.sweetAlertService.alertSuccess('/comunidades');
           },
           error => {
             this.toastService.toastError();
@@ -177,7 +175,7 @@ export class CommunityComponent implements OnInit {
         this.communityService.update(this.community).subscribe(
           success => {
             this.community = success;
-            this.sweetAlertService.alertSuccessUpdate('community-list');
+            this.sweetAlertService.alertSuccessUpdate('/comunidades');
           },
           error => {
             this.toastService.toastError();
@@ -190,10 +188,10 @@ export class CommunityComponent implements OnInit {
 
   verifyDataCheckbox() {
     this.culturalProduction = this.community.cultural_production;
-    this.culturalProduction_list = this.culturalProduction.split('|');
+    this.culturalProduction_list = this.culturalProduction.split(',');
 
     this.waterSupply = this.community.water_supply;
-    this.waterSupply_list = this.waterSupply.split('|');
+    this.waterSupply_list = this.waterSupply.split(',');
 
     for (let i = 0; i < this._waterSupply.length; i++) {
       for (let j = 0; j < this.waterSupply_list.length; j++ ) {
@@ -226,7 +224,7 @@ export class CommunityComponent implements OnInit {
   }
 
   openModal() {
-    this.modalService.modalCancel('/community-list');
+    this.modalService.modalCancel('/comunidades');
 
   }
 
@@ -236,7 +234,7 @@ export class CommunityComponent implements OnInit {
         if ( i === 0 ) {
           this.culturalProduction = this.culturalProduction_list[i];
         } else {
-          this.culturalProduction = this.culturalProduction + '|' + this.culturalProduction_list[i];
+          this.culturalProduction = this.culturalProduction + ',' + this.culturalProduction_list[i];
         }
       }
     } else {
@@ -248,7 +246,7 @@ export class CommunityComponent implements OnInit {
         if ( i === 0 ) {
           this.waterSupply = this.waterSupply_list[i];
         } else {
-          this.waterSupply = this.waterSupply + '|' + this.waterSupply_list[i];
+          this.waterSupply = this.waterSupply + ',' + this.waterSupply_list[i];
         }
       }
     } else {
@@ -372,12 +370,12 @@ export class CommunityComponent implements OnInit {
 
         if (this.currentTab === 0) {
           (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
-          this.data1Tab = './assets/img/community/ic_dataTab1_enable.png';
-          this.data2Tab = './assets/img/community/ic_dataTab2_disable.png';
+          this.sectionInfoTab = './assets/img/community/ic_section_info_enable.png';
+          this.sectionServicesTab = './assets/img/community/ic_section_services_disable.png';
 
         }else if (this.currentTab === 1) {
-          this.data1Tab = './assets/img/community/ic_dataTab1_disable.png';
-          this.data2Tab = './assets/img/community/ic_dataTab2_enable.png';
+          this.sectionInfoTab = './assets/img/community/ic_section_info_disable.png';
+          this.sectionServicesTab = './assets/img/community/ic_section_services_enable.png';
           (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
           (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
         }

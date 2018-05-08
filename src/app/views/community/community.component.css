@@ -59,22 +59,22 @@ label {
     box-shadow: none;
 }
 
-.box-header {
+/* .box-header {
     background-color: #e8e6e6;
-}
+} */
 
 .box-header .box-title {
     font-size: 14px;
 }
 
-.box-header {
+/* .box-header {
     background-color: #e8e6e6;
     height: 32px;
     padding-bottom: 10px;
     padding-top: 5px;
     text-align: center;
     color: gray;
-}
+}  */
 
 .box-body {
     background-color: #f4f4f4;
@@ -99,11 +99,11 @@ label {
     padding-bottom: 1px;
 }
 
-.content-header {
+/* .content-header {
     padding-top: 20px;
     background-color: #e8e6e6;
     height: 64px;
-}
+} */
 
 .content_fa {
     color: #777777;
@@ -114,27 +114,28 @@ button {
 }
 
 
-.content-top {
+/* .content-top {
     height: 64px;
     background-color: #e8e6e6;
     margin-bottom: 10px;
-}
+} */
 
 .content-title {
     font-size: 14px;
 }
 
-i.fa.fa-user {
+i.fa.fa-home {
     margin-top: 18px;
-    margin-left: 34px;
+    margin-left: 24px;
     margin-right: 10px;
     color: white;
-    background-color: #373d40;
-    padding-right: 10px;
-    padding-left: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    background-color: #0075BD;
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-top: 4px;
+    padding-bottom: 4px;
     border-radius: 0.2em;
+    font-size: 34px;
 }
 
 section.content_user {
@@ -222,4 +223,8 @@ label.lb-tab.service {
 
 .nav-tabs-custom > .nav-tabs > li.active {
     border-top: 0;
+}
+.form-group.save {
+    text-align: right;
+    margin-right: 20px;
 }

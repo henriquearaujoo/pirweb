@@ -10,8 +10,8 @@ import { Community } from '../../../models/community';
 })
 export class CommunityDetailsComponent implements OnInit {
 
-  private data1Tab: string;
-  private data2Tab: string;
+  private sectionInfoTab: string;
+  private sectionServicesTab: string;
   private urlId: string;
   private community: Community = new Community();
   private canRead: boolean;
@@ -30,7 +30,7 @@ export class CommunityDetailsComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.permissions.canActivate(['/community-details']);
+    this.permissions.canActivate(['/comunidades/detalhes']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -43,16 +43,16 @@ export class CommunityDetailsComponent implements OnInit {
     if (this.urlId !== null && this.urlId !== '') {
       this.load();
     }
-    this.data1Tab = './assets/img/community/ic_dataTab1_enable.png';
-    this.data2Tab = './assets/img/community/ic_dataTab2_disable.png';
+    this.sectionInfoTab = './assets/img/community/ic_section_info_enable.png';
+    this.sectionServicesTab = './assets/img/community/ic_section_services_disable.png';
   }
 
   load() {
     this.communityService.load(this.urlId).subscribe(
       success => {
         this.community = success;
-        this.community.water_supply = this.community.water_supply.replace('|', ' / ');
-        this.community.cultural_production = this.community.cultural_production.replace('|', ' / ');
+        // this.community.water_supply = this.community.water_supply.replace(',', ' / ');
+        // this.community.cultural_production = this.community.cultural_production.replace(',', ' / ');
         if (this.community === undefined) {
           this.community = new Community();
         }
@@ -64,12 +64,12 @@ export class CommunityDetailsComponent implements OnInit {
   walk ( tab: number) {
     switch (tab) {
       case 0:
-        this.data1Tab = './assets/img/community/ic_dataTab1_enable.png';
-        this.data2Tab = './assets/img/community/ic_dataTab2_disable.png';
+        this.sectionInfoTab = './assets/img/community/ic_section_info_enable.png';
+        this.sectionServicesTab = './assets/img/community/ic_section_services_disable.png';
       break;
       case 1:
-        this.data1Tab = './assets/img/community/ic_dataTab1_disable.png';
-        this.data2Tab = './assets/img/community/ic_dataTab2_enable.png';
+        this.sectionInfoTab = './assets/img/community/ic_section_info_disable.png';
+        this.sectionServicesTab = './assets/img/community/ic_section_services_enable.png';
       break;
     }
   }

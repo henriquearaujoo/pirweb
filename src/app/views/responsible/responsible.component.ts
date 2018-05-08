@@ -24,9 +24,9 @@ export class ResponsibleComponent implements OnInit {
   private subscription: Subscription;
   private isNewData: boolean;
   private urlId: string;
-  private data1Tab: string;
-  private data2Tab: string;
-  private data3Tab: string;
+  private infoTab: string;
+  private dataTab: string;
+  private servicesTab: string;
   private currentTab: number;
   private previousTab: string;
   private nextTab: string;
@@ -75,7 +75,7 @@ export class ResponsibleComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.permissions.canActivate(['/responsible']);
+    this.permissions.canActivate(['/responsaveis/registro']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -91,7 +91,7 @@ export class ResponsibleComponent implements OnInit {
       this.isNewData = false;
       this.load();
     } else {
-      this.route.navigate(['/responsible-list']);
+      // this.route.navigate(['/responsaveis']);
     }
 
     this.dateDisable.setMinutes( this.dateDisable.getMinutes() + this.dateDisable.getTimezoneOffset() );
@@ -111,9 +111,9 @@ export class ResponsibleComponent implements OnInit {
     this.previousTab = '#tab_1';
     this.nextTab = '#tab_2';
 
-    this.data1Tab = './assets/img/responsible/ic_data_enable.png';
-    this.data2Tab = './assets/img/responsible/ic_data_disable.png';
-    this.data3Tab = './assets/img/responsible/ic_data_disable.png';
+    this.infoTab = './assets/img/pregnant/ic_section_info_enable.png';
+    this.dataTab = './assets/img/pregnant/ic_section_info_data_disable.png';
+    this.servicesTab = './assets/img/pregnant/ic_section_info_services_disable.png';
 
     this.openSaveButtonTab1 = (<HTMLButtonElement>document.getElementById('btn_tab1'));
     this.openSaveButtonTab1.style.display = 'none';
@@ -129,11 +129,11 @@ export class ResponsibleComponent implements OnInit {
     this.isValidDate = true;
 
     this.income_participation = [
-      'Não trabalha e é sustentado pela família',
+      'Não trabalha e é sustentado pela familia',
       'Trabalha e recebe ajuda financeira',
       'Trabalha e é responsável pelo próprio sustento',
       'Trabalha e contribui parcialmente em casa',
-      'Trabalha e é a principal responsável pelo sustento da família'
+      'Trabalha e é a principal responsável pelo sustento da familia'
     ];
 
     this.family_income = ['Pesca', 'Farinha', 'Caça', 'Roçado', 'Outra'];
@@ -144,7 +144,15 @@ export class ResponsibleComponent implements OnInit {
 
     if (isValid && this._isSave) {
       this.verifyDate();
-      this.responsible.community_id = this.responsible.community.id;
+
+      for (let i = 0; i < this.communities.length; i++) {
+        if ( this.responsible.community.id === this.communities[i].id) {
+          this.responsible.community =  this.communities[i];
+          this.responsible.community.city_id =  this.responsible.community.city.id;
+          break;
+        }
+      }
+
       this.responsible.habitation_members_count = Number(this.responsible.habitation_members_count);
 
       if ( this.responsible.family_income === 'Outra') {
@@ -158,7 +166,7 @@ export class ResponsibleComponent implements OnInit {
       if (this.isNewData || this.responsible.id === undefined) {
         this.responsibleService.insert(this.responsible).subscribe(
           success => {
-            this.responsible = success;
+            // this.responsible = success;
             this.isNewData  = false;
             this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
           },
@@ -168,9 +176,10 @@ export class ResponsibleComponent implements OnInit {
           }
         );
       } else {
+        // console.log(this.responsible);
         this.responsibleService.update(this.responsible).subscribe(
           success => {
-            this.sweetAlertService.alertSuccessUpdate('responsible-list');
+            this.sweetAlertService.alertSuccessUpdate('/responsaveis');
           },
           error => {
             this.toastService.toastError();
@@ -249,7 +258,7 @@ export class ResponsibleComponent implements OnInit {
   }
 
   openModal() {
-    this.modalService.modalCancel('/responsible-list');
+    this.modalService.modalCancel('/responsaveis');
 
   }
 
@@ -306,21 +315,21 @@ export class ResponsibleComponent implements OnInit {
 
         if (this.currentTab === 0) {
           (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
-          this.data1Tab = './assets/img/responsible/ic_data_enable.png';
-          this.data2Tab = './assets/img/responsible/ic_data_disable.png';
-          this.data3Tab = './assets/img/responsible/ic_data_disable.png';
+          this.infoTab = './assets/img/pregnant/ic_section_info_enable.png';
+          this.dataTab = './assets/img/pregnant/ic_section_info_data_disable.png';
+          this.servicesTab = './assets/img/pregnant/ic_section_info_services_disable.png';
 
         }else if (this.currentTab === 1) {
-          this.data1Tab = './assets/img/responsible/ic_data_disable.png';
-          this.data2Tab = './assets/img/responsible/ic_data_enable.png';
-          this.data3Tab = './assets/img/responsible/ic_data_disable.png';
+          this.infoTab = './assets/img/pregnant/ic_section_info_disable.png';
+          this.dataTab = './assets/img/pregnant/ic_section_info_data_enable.png';
+          this.servicesTab = './assets/img/pregnant/ic_section_info_services_disable.png';
           (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
           (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
         }else {
           (<HTMLButtonElement>document.getElementById('btn_next')).style.display = 'none';
-          this.data1Tab = './assets/img/responsible/ic_data_disable.png';
-          this.data2Tab = './assets/img/responsible/ic_data_disable.png';
-          this.data3Tab = './assets/img/responsible/ic_data_enable.png';
+          this.infoTab = './assets/img/pregnant/ic_section_info_disable.png';
+          this.dataTab = './assets/img/pregnant/ic_section_info_data_disable.png';
+          this.servicesTab = './assets/img/pregnant/ic_section_info_services_enable.png';
           this.next = 'Salvar';
           }
       } else {

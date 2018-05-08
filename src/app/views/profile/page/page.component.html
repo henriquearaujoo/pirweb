@@ -1,108 +1,100 @@
 <div class="content_">
-        <div class="container-fluid">
-            <section class="content_">
-                <div class="row">       
-                    <div class="box box-solid">
-                        <div class="box-header ">
-                            TIPO
-                        </div>  
-                        <div class="box-body profile">
-                            <select class="form-control" (change)="setProfile()" name="profile" id="profile"
-                                [(ngModel)]="currentProfile.id">                                
-                                <option *ngFor="let profile of profiles" [value]="profile.id">{{profile.title}} </option>
-                            </select>     
-                        </div>
-                    </div>   
-                </div>
-            </section>
-        </div>
-
-        <section class="content_">          
+    <div class="container-fluid">
+        <section class="content_">
             <div class="row">
-                <div class="col-sm-12">
-                    <div class="box box-primary">
-                        <div class="box-body_">
-                            <table class="table">
-                                <thead>
-                                    <tr class="tr-main">
-                                        <th>SESSÕES 
-                                            <span class="glyphicon" ></span>
-                                        </th>                                   
-                                        <th colspan="3"> PERMISSÕES</th>
-                                        <th> 
-                                            <label class="pointer">
+                <div class="col-sm-6">
+                    <!-- <div class="box box-solid"> -->
+                    <!-- <div class="box-header "> -->
+                    <label class="control-label">PERFIL</label>
+                    <!-- </div> -->
+                    <!-- <div class="box-body profile"> -->
+                    <select class="form-control" (change)="setProfile()" name="profile" id="profile" [(ngModel)]="currentProfile.id">                                
+                        <option *ngFor="let profile of profiles" [value]="profile.id">{{profile.title}} </option>
+                    </select>
+                    <!-- </div> -->
+                    <!-- </div> -->
+                </div>
+                <!-- <div class="col-sm-6">
+                    <div id="_filter">
+                        <label>
+                            <input type="text" class="form-control form-border"  [(ngModel)]="filter.name" #f="ngModel" 
+                            mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" name="filter" id="filter" (keyup)="loadAllPermissions()" placeholder="Título da sessão">
+                        </label>
+                    </div>
+                </div> -->
+            </div>
+        </section>
+    </div>
+
+    <section class="content_">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="box box-primary">
+                    <div class="box-body_">
+                        <table class="table">
+                            <thead>
+                                <tr class="tr-main">
+                                    <th>SESSÕES
+                                        <span class="glyphicon"></span>
+                                    </th>
+                                    <th colspan="3"> PERMISSÕES</th>
+                                    <th>
+                                        <label class="pointer">
                                                 <span *ngIf="isAllChecked">Desmarcar Todos</span>
                                                 <span *ngIf="!isAllChecked">Marcar Todos</span>
                                                 <input type="checkbox" name="all" [(checked)]="ngModel" [(ngModel)]="isAllChecked" 
                                                 [disabled]="currentProfile.id === undefined" (change)="checkAll($event)"/>
                                             </label>
-                                        </th>
-                                    </tr>
-                                    <tr class="tr-permissions">
-                                        <th scope="col" class="page-route"></th>
-                                        <th scope="col">Visualizar</th>
-                                        <th scope="col">Criar</th>
-                                        <th scope="col">Editar</th>
-                                        <th scope="col">Desabilitar</th>
-                                    </tr>
-                                </thead>
-                                <tbody *ngIf="currentProfile.id === undefined">
-                                    <tr  *ngFor="let item of all_pages">
-                                        <th scope="row" class="page-route">{{item.title}}</th>
-                                        <td>
-                                            <input type="checkbox" 
-                                                [value]="1" disabled/>
-                                        </td>
-                                        <td>
-                                            <input type="checkbox"
-                                                [value]="2" disabled/>
-                                        </td>
-                                        <td>
-                                            <input type="checkbox"
-                                                [value]="3" disabled/>
-                                        </td>
-                                        <td>
-                                            <input type="checkbox"
-                                                [value]="4" disabled/>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                <tbody *ngFor="let item of all_pages">
-                                    <tr *ngFor="let perm of permissionsFromProfile">
-                                        <th scope="row" *ngIf="perm.page.id === item.id" class="page-route">{{item.route}}</th>
-                                        <td *ngIf="perm.page.id === item.id">
-                                            <input type="checkbox" 
-                                                [value]="1"
-                                                [checked]='perm.page.id === item.id && perm.read'
-                                                (change)="updatePermission(item, 1, $event)"/>
-                                        </td>
-                                        <td *ngIf="perm.page.id === item.id">
-                                            <input type="checkbox"
-                                                [value]="2"
-                                                [checked]='perm.page.id === item.id && perm.create'
-                                                (change)="updatePermission(item, 2, $event)"/>
-                                        </td>
-                                        <td *ngIf="perm.page.id === item.id">
-                                            <input type="checkbox"
-                                                [value]="3"
-                                                [checked]='perm.page.id === item.id && perm.update'
-                                                (change)="updatePermission(item, 3, $event)" />
-                                        </td>
-                                        <td *ngIf="perm.page.id === item.id">
-                                            <input type="checkbox"
-                                                [value]="4"
-                                                [checked]='perm.page.id === item.id && perm.delete'
-                                                (change)="updatePermission(item, 4, $event)" />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        
+                                    </th>
+                                </tr>
+                                <tr class="tr-permissions">
+                                    <th scope="col" class="page-route"></th>
+                                    <th scope="col">Visualizar</th>
+                                    <th scope="col">Criar</th>
+                                    <th scope="col">Editar</th>
+                                    <th scope="col">Desabilitar</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="currentProfile.id === undefined">
+                                <tr *ngFor="let item of all_pages">
+                                    <th scope="row" class="page-route">{{item.title}}</th>
+                                    <td>
+                                        <input type="checkbox" [value]="1" disabled/>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" [value]="2" disabled/>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" [value]="3" disabled/>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" [value]="4" disabled/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody *ngFor="let item of all_pages">
+                                <tr *ngFor="let perm of permissionsFromProfile">
+                                    <th scope="row" *ngIf="perm.page.id === item.id" class="page-route">{{item.title}}</th>
+                                    <td *ngIf="perm.page.id === item.id">
+                                        <input type="checkbox" [value]="1" [checked]='perm.page.id === item.id && perm.read' (change)="updatePermission(item, 1, $event)" />
+                                    </td>
+                                    <td *ngIf="perm.page.id === item.id">
+                                        <input type="checkbox" [value]="2" [checked]='perm.page.id === item.id && perm.create' (change)="updatePermission(item, 2, $event)" />
+                                    </td>
+                                    <td *ngIf="perm.page.id === item.id">
+                                        <input type="checkbox" [value]="3" [checked]='perm.page.id === item.id && perm.update' (change)="updatePermission(item, 3, $event)" />
+                                    </td>
+                                    <td *ngIf="perm.page.id === item.id">
+                                        <input type="checkbox" [value]="4" [checked]='perm.page.id === item.id && perm.delete' (change)="updatePermission(item, 4, $event)" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
+
                 </div>
             </div>
+        </div>
 
-        </section>
-    </div>
-  
+    </section>
+</div>

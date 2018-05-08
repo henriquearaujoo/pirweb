@@ -12,13 +12,12 @@ import { Router, NavigationEnd } from '@angular/router';
 export class AppComponent {
 
   constructor( router: Router) {
-    router.events.subscribe((event) => {
-        if (event instanceof NavigationEnd) {
-          if (event.url !== '/chapter-dashboard') {
-            localStorage.setItem('chapterId', '');
-          }
-          // console.log(event);
-        }
+    /* Scroll to Top */
+    router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+          return;
+      }
+      window.scrollTo(0, 0);
     });
   }
   OnInit() {

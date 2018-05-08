@@ -42,6 +42,7 @@ export class PageComponent extends PagenateComponent implements OnInit {
   private hasPermissions: boolean;
   @Input() insertValue: boolean;
   private isAllChecked: boolean;
+  filter: any = {name: ''};
 
   constructor(
     pagerService: PageService,
@@ -73,6 +74,7 @@ export class PageComponent extends PagenateComponent implements OnInit {
     this.profileService.getAllProfiles().subscribe(
       success => {
         this.profiles = success;
+        this.profiles = this.profiles.filter( elem => elem.title.toUpperCase() !== 'ADMINISTRATOR');
       },
       error => console.log(error)
     );
@@ -89,7 +91,7 @@ export class PageComponent extends PagenateComponent implements OnInit {
 
   loadAllPermissions() {
     this.loaderService.show();
-    this.accessPageService.getPermissionsFromProfile(this.accessPageService.getProfile().id).subscribe(
+    this.accessPageService.getPermissionsFromProfile(this.accessPageService.getProfile().id, this.filter.name).subscribe(
       s => {
         this.permissionsFromProfile = s;
         this.isAllChecked = true;
@@ -234,8 +236,7 @@ export class PageComponent extends PagenateComponent implements OnInit {
 
   updateAllPermission(event) {
     this.rule = new Rule();
-    // console.log(this.currentProfile.id);
-    this.accessPageService.getPagesFromProfile(this.currentProfile.id).subscribe(
+    this.accessPageService.getPermissionsFromProfile(this.currentProfile.id).subscribe(
       success => {
         this.all_pages_profile = success;
         // * CHECKED * /
@@ -254,7 +255,6 @@ export class PageComponent extends PagenateComponent implements OnInit {
             this.all_pages_profile[i].update = false;
           }
         }
-        // console.log(this.all_pages_profile);
 
         for (let i = 0; i < this.all_pages_profile.length; i++) {
           this.ruleService.editRule(this.all_pages_profile[i]).subscribe(
@@ -295,12 +295,10 @@ export class PageComponent extends PagenateComponent implements OnInit {
             'success'
           );
         } else {
-          console.log('isAllChecked:', this.isAllChecked);
           this.isAllChecked = false;
         }
       });
     } else {
-      console.log('isAllChecked 1', this.isAllChecked);
       swal({
         title: 'Atenção',
         text: 'Remover todas as permissões do perfil?',
@@ -319,7 +317,6 @@ export class PageComponent extends PagenateComponent implements OnInit {
             'success'
           );
         } else {
-          console.log('isAllChecked 2:', this.isAllChecked);
           this.isAllChecked = true;
         }
       });

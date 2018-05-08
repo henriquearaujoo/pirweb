@@ -17,5 +17,6 @@ export class Chapter {
     public medias: any[] = new Array();
     public versions: Chapter[] = new Array();
     public thumbnails: any[] = new Array();
+    public period: number;
 
 }

@@ -173,18 +173,19 @@ div#_filter {
 }
 
 button.btn.btn-primary.add {
-    border-radius: 1em;
+    background-image: url('/assets/img/chapter/btn_add_chapter.png')!important;
+    background-repeat: no-repeat;
+    background-color: #f5deb300;
+    border: 0;
+    /* border-radius: 1em; */
     font-size: 12px;
-    padding: 8px 10px;
+    /* padding: 8px 10px; */
+    height: 35px;
+    width: 175px;
 }
 
-i.fa.fa-plus {
-    padding-right: 10px;
-}
-
-li.add {
-    /* text-align: right; */
-    /* float: right; */
+img.img-plus {
+    padding-right: 8px;
 }
 
 .navbar-custom-menu{   

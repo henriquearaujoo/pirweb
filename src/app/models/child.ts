@@ -23,7 +23,7 @@ export class Child {
     public has_education_diff: boolean;
     public education_diff_specification: string;
     public plays_with_who: string;
-    public responsible: Responsible = new Responsible();
+    public responsible: Responsible[] = new Array();
     public mother: Responsible = new Responsible();
 
 }
