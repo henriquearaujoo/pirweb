@@ -42,7 +42,7 @@ export class AgentLocationComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.permissions.canActivate(['/agent-location']);
+    this.permissions.canActivate(['/agente-dashboard/localizacao']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -61,7 +61,6 @@ export class AgentLocationComponent implements OnInit {
     this.userService.load(this.urlId).subscribe(
       agent => {
         this.agents = agent;
-        console.log(this.agents);
       }
     );
 

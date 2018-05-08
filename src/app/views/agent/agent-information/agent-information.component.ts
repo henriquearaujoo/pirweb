@@ -25,7 +25,7 @@ export class AgentInformationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.permissions.canActivate(['/agent-information']);
+    this.permissions.canActivate(['/agente-dashboard']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.profile = rules.profile;

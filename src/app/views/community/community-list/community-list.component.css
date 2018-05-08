@@ -13,22 +13,23 @@ tbody {
     background-color: white;
 }
 
-.content-top {
+/* .content-top {
     height: 64px;
     background-color: #e8e6e6;
-}
+} */
 
-i.fa.fa-user {
+i.fa.fa-home {
     margin-top: 18px;
-    margin-left: 34px;
+    margin-left: 24px;
     margin-right: 10px;
     color: white;
-    background-color: #373d40;
-    padding-right: 10px;
-    padding-left: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    background-color: #0075BD;
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-top: 4px;
+    padding-bottom: 4px;
     border-radius: 0.2em;
+    font-size: 34px;
 }
 
 th {   
@@ -44,12 +45,12 @@ th {
     width: 50px;
 }
 
-thead {
+/* thead {
     border-top: 0;
     color: #777;
     font-size: 12px;
     background-color: #e8e6e6;
-}
+} */
 
 .table>tbody>tr>td, 
 .table>tbody>tr>th, 
@@ -63,12 +64,12 @@ div.dataTables_filter {
     margin-left: 10px;
 }
 
-.box-header {
+/* .box-header {
     padding-top: 20px;
     background-color: #e8e6e6;
     height: 64px;
     padding: 25px;
-}
+} */
 
 .box {
     border-top: 0;
@@ -116,9 +117,9 @@ i.fa {
     font-size: 20px;
 }
 
-a {
+/* a {
     color: #373d40;
-}
+} */
 
 .pagination>.active>a {
     background-color: #373d40;
@@ -155,9 +156,9 @@ input#filter {
     border-radius: 0.5em;
 }
 
-.content_fa {
+/* .content_fa {
     color: #777777;
-}
+} */
 
 button#btn_cancel {
     width: 150px;
@@ -174,7 +175,7 @@ button#btn_confirm {
     float: right;  
 }
 
-.modal-body[_ngcontent-c5] {
+.modal-body {
     padding-top: 30px;
     margin-top: 20px;
 }

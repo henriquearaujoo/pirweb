@@ -144,19 +144,6 @@ input#filter {
     border-radius: 0.5em;
 }
 
-button#btn_cancel {
-    width: 210.5px;
-    height: 45px;
-    border-radius: 0;
-}
-
-button#btn_confirm {
-    background-image: url('/assets/img/global/btn_confirm.png')!important;
-    background-repeat: no-repeat;
-    width: 210.5px;
-    height: 45px;
-    border-radius: 0;
-}
 /* MODAL disable*/
 .modal-footer {
     padding: 0;
@@ -175,6 +162,19 @@ button#btn_confirm {
     padding: 32px;
     padding-bottom: 45px; 
     text-align: center;
+}
+button#btn_cancel {
+    width: 210.5px;
+    height: 45px;
+    border-radius: 0;
+}
+
+button#btn_confirm {
+    background-image: url('/assets/img/global/btn_confirm.png')!important;
+    background-repeat: no-repeat;
+    width: 210.5px;
+    height: 45px;
+    border-radius: 0;
 }
 .modal-icon {
     text-align: center;

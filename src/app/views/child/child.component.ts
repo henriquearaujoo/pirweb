@@ -1,6 +1,5 @@
 import { Router } from '@angular/router';
 import { Permissions, RuleState } from './../../helpers/permissions';
-import { Mother } from './../../models/mother';
 import { ResponsibleService } from './../../services/responsible/responsible.service';
 import { Responsible } from './../../models/responsible';
 import { SweetAlertService } from './../../services/sweetalert/sweet-alert.service';
@@ -26,8 +25,8 @@ export class ChildComponent implements OnInit {
   private subscription: Subscription;
   private isNewData: boolean;
   private urlId: string;
-  private data1Tab: string;
-  private data2Tab: string;
+  private infoTab: string;
+  private socialTab: string;
   private currentTab: number;
   private previousTab: string;
   private nextTab: string;
@@ -110,7 +109,7 @@ export class ChildComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.permissions.canActivate(['/child']);
+    this.permissions.canActivate(['/criancas/registro']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -126,7 +125,7 @@ export class ChildComponent implements OnInit {
       this.isNewData = false;
       this.load();
     } else {
-      this.route.navigate(['/child-list']);
+      this.route.navigate(['/criancas']);
     }
 
     this.getMothers();
@@ -136,8 +135,8 @@ export class ChildComponent implements OnInit {
     this.previousTab = '#tab_1';
     this.nextTab = '#tab_2';
 
-    this.data1Tab = './assets/img/child/ic_data_enable.png';
-    this.data2Tab = './assets/img/child/ic_data_disable.png';
+    this.infoTab = './assets/img/child/ic_section_info_enable.png';
+    this.socialTab = './assets/img/child/ic_section_info_social_disable.png';
 
     this.openSaveButtonTab1 = (<HTMLButtonElement>document.getElementById('btn_tab1'));
     this.openSaveButtonTab1.style.display = 'none';
@@ -156,9 +155,11 @@ export class ChildComponent implements OnInit {
 
     if (isValid && this._isSave) {
       this.verifyDate();
-
-      this.child.responsible_id = this.child.responsible.id;
-      this.child.mother_id = this.child.mother.id;
+      if ( this.child.mother !== undefined) {
+        if ( this.child.mother.id === undefined ) {
+          delete this.child.mother;
+        }
+      }
       if (this.child.is_premature_born === false) {
         this.child.born_week = 1;
       }
@@ -166,6 +167,10 @@ export class ChildComponent implements OnInit {
         this.child.education_diff_specification = '';
       }
       this.child.born_week = Number(this.child.born_week);
+      // udated community
+      for (let i = 0; i < this.child.responsible.length; i++) {
+        this.child.responsible[i].community.city_id = this.child.responsible[i].community.city.id;
+      }
       if (this.isNewData || this.child.id === undefined) {
         this.childService.insert(this.child).subscribe(
           success => {
@@ -178,10 +183,11 @@ export class ChildComponent implements OnInit {
           }
         );
       } else {
+        // console.log('update', this.child);
         this.childService.update(this.child).subscribe(
           success => {
             this.child = success;
-            this.sweetAlertService.alertSuccessUpdate('child-list');
+            this.sweetAlertService.alertSuccessUpdate('/criancas');
           },
           error => {
             this.toastService.toastError();
@@ -196,20 +202,22 @@ export class ChildComponent implements OnInit {
     this.childService.load(this.urlId).subscribe(
       success => {
         this.child = success;
+        // console.log(this.child);
         this.verifyDataCheckbox();
-        this.alterDate();
-        if (this.child === undefined) {
-          this.child = new Child();
+        this.changeDate();
+        if (this.child.mother === undefined) {
+          this.child.mother = new Responsible();
         }
       },
       error => console.log(error)
     );
   }
 
-  alterDate() {
+  changeDate() {
     const dateList = this.child.birth.split('-');
     this.child.birth = dateList[2] + '-' + dateList[1] + '-' + dateList[0];
     const d = new Date(this.child.birth);
+    // console.log(d);
     d.setMinutes( d.getMinutes() + d.getTimezoneOffset() );
     this.selDate = {year: d.getFullYear(),
                     month: d.getMonth() + 1,
@@ -263,7 +271,7 @@ export class ChildComponent implements OnInit {
 
   verifyDataCheckbox() {
     this.who_take_care = this.child.who_take_care;
-    this.who_take_care_list = this.who_take_care.split('|');
+    this.who_take_care_list = this.who_take_care.split(',');
 
     for (let i = 0; i < this._who_take_care.length; i++) {
       for (let j = 0; j < this.who_take_care_list.length; j++ ) {
@@ -280,7 +288,7 @@ export class ChildComponent implements OnInit {
         if ( i === 0 ) {
           this.who_take_care = this.who_take_care_list[i];
         } else {
-          this.who_take_care = this.who_take_care + '|' + this.who_take_care_list[i];
+          this.who_take_care = this.who_take_care + ',' + this.who_take_care_list[i];
         }
       }
     } else {
@@ -315,7 +323,7 @@ export class ChildComponent implements OnInit {
   }
 
   openModal() {
-    this.modalService.modalCancel('/child-list');
+    this.modalService.modalCancel('/criancas');
 
   }
 
@@ -371,12 +379,12 @@ export class ChildComponent implements OnInit {
         if (this.currentTab === 0) {
           (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
           (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
-          this.data1Tab = './assets/img/child/ic_data_enable.png';
-          this.data2Tab = './assets/img/child/ic_data_disable.png';
+          this.infoTab = './assets/img/child/ic_section_info_enable.png';
+          this.socialTab = './assets/img/child/ic_section_info_social_disable.png';
 
         }else if (this.currentTab === 1) {
-          this.data1Tab = './assets/img/child/ic_data_disable.png';
-          this.data2Tab = './assets/img/child/ic_data_enable.png';
+          this.infoTab = './assets/img/child/ic_section_info_disable.png';
+          this.socialTab = './assets/img/child/ic_section_info_social_enable.png';
           (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
           (<HTMLButtonElement>document.getElementById('btn_next')).style.display = 'none';
         }

@@ -15,8 +15,8 @@ export class ChildDetailsComponent implements OnInit {
   private urlId: string;
   private who_take_care: any[];
 
-  private data1Tab: string;
-  private data2Tab: string;
+  private infoTab: string;
+  private socialTab: string;
   private canRead: boolean;
   private canUpdate: boolean;
   private canCreate: boolean;
@@ -34,7 +34,7 @@ export class ChildDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.permissions.canActivate(['/child-details']);
+    this.permissions.canActivate(['/criancas/detalhes']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -49,16 +49,16 @@ export class ChildDetailsComponent implements OnInit {
       this.load();
     }
 
-    this.data1Tab = './assets/img/child/ic_data_enable.png';
-    this.data2Tab = './assets/img/child/ic_data_disable.png';
+    this.infoTab = './assets/img/child/ic_section_info_enable.png';
+    this.socialTab = './assets/img/child/ic_section_info_social_disable.png';
   }
 
   load() {
     this.childService.load(this.urlId).subscribe(
       success => {
         this.child = success;
-        this.who_take_care = this.child.who_take_care.split('|');
-        this.child.who_take_care = this.child.who_take_care.replace('|', ' / ');
+        this.who_take_care = this.child.who_take_care.split(',');
+        // this.child.who_take_care = this.child.who_take_care.replace(',', ' / ');
         if (this.child === undefined) {
           this.child = new Child();
         }
@@ -70,12 +70,12 @@ export class ChildDetailsComponent implements OnInit {
   walk ( tab: number) {
     switch (tab) {
       case 0:
-        this.data1Tab = './assets/img/child/ic_data_enable.png';
-        this.data2Tab = './assets/img/child/ic_data_disable.png';
+      this.infoTab = './assets/img/child/ic_section_info_enable.png';
+      this.socialTab = './assets/img/child/ic_section_info_social_disable.png';
       break;
       case 1:
-        this.data1Tab = './assets/img/child/ic_data_disable.png';
-        this.data2Tab = './assets/img/child/ic_data_enable.png';
+      this.infoTab = './assets/img/child/ic_section_info_disable.png';
+      this.socialTab = './assets/img/child/ic_section_info_social_enable.png';
       break;
     }
   }

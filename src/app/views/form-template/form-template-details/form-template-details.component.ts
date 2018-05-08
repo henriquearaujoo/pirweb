@@ -32,6 +32,8 @@ export class FormTemplateDetailsComponent extends PagenateComponent implements O
   private show_a: boolean;
   private show_b: boolean;
   public isNewQuestion: boolean;
+  private formTab: string;
+  private questionsTab: string;
 
   constructor(
     private formService: FormService,
@@ -48,7 +50,7 @@ export class FormTemplateDetailsComponent extends PagenateComponent implements O
    }
 
   ngOnInit() {
-    this.permissions.canActivate(['/form-template']);
+    this.permissions.canActivate(['/formularios/detalhes']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -64,6 +66,8 @@ export class FormTemplateDetailsComponent extends PagenateComponent implements O
       this.isNewData = false;
       this.load();
     }
+    this.formTab = './assets/img/form/ic_form_enable.png';
+    this.questionsTab = './assets/img/form/ic_questions_disable.png';
   }
 
   load() {
@@ -86,9 +90,17 @@ export class FormTemplateDetailsComponent extends PagenateComponent implements O
     this.question = item;
   }
 
-  onCancel() {
-    this.modalService.modalCancel('/form-template-list');
-    // this.sweetAlertService.alertToCancel('/form-template-list');
+  walk ( tab: number) {
+    switch (tab) {
+      case 0:
+      this.formTab = './assets/img/form/ic_form_enable.png';
+      this.questionsTab = './assets/img/form/ic_questions_disable.png';
+      break;
+      case 1:
+      this.formTab = './assets/img/form/ic_form_disable.png';
+      this.questionsTab = './assets/img/form/ic_questions_enable.png';
+      break;
+    }
   }
 
 }

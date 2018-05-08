@@ -43,10 +43,11 @@ export class ChildListComponent implements OnInit, OnDestroy {
       this.canUpdate = false;
       this.canRead = false;
       this.canDelete = false;
+      this.page = 0;
     }
 
   ngOnInit() {
-    this.permissions.canActivate(['/child-list']);
+    this.permissions.canActivate(['/criancas']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -68,6 +69,7 @@ export class ChildListComponent implements OnInit, OnDestroy {
       success => {
         this.paginate = success;
         this.children = this.paginate.content;
+        console.log(this.children);
         this.hasdata = true;
         setTimeout(() => {
           this.loaderService.hide();
@@ -82,12 +84,12 @@ export class ChildListComponent implements OnInit, OnDestroy {
   }
   setChild(child: Child) {
     localStorage.setItem('childId', child.id.toString());
-    this.router.navigate(['child']);
+    this.router.navigate(['/criancas/registro']);
   }
 
   toView(child: Child) {
     localStorage.setItem('childId', child.id.toString());
-    this.router.navigate(['child-details']);
+    this.router.navigate(['/criancas/detalhes']);
   }
 
   changeStatus(child: Child) {
@@ -96,6 +98,7 @@ export class ChildListComponent implements OnInit, OnDestroy {
 
   setPage(page: number) {
     this.page = page;
+    this.getChildren();
   }
 
   ngOnDestroy() {

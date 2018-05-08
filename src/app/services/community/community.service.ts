@@ -38,7 +38,6 @@ export class CommunityService extends RestService {
   }
 
   public load(id: string) {
-    console.log('id', id);
     return this.get(this.apiurl + id);
   }
 

@@ -31,19 +31,6 @@ a.pointer {
 .modal-icon {
     text-align: center;
 }
-
-/* .modal-footer label {
-    height: 30px;
-    margin-top: 10px;
-    color: #cccccc;
-    text-align: center;
-    cursor: pointer;
-} */
-
-/* button {
-    min-width: 120px;
-} */
-
 button#btn_cancel {
     background-color: #dfe8ed;
     width: 210.5px;
@@ -67,11 +54,14 @@ button#btn_confirm {
 .main-sidebar {
     padding-top: 70px;
     padding-top: 70px;
-    font-family: Roboto-Regular;
+    /* font-family: Roboto-Regular; */
     font-size: 14px;
     position: fixed;
 }
 
+.treeview-menu > li > a {
+    font-size: 11.5px;
+}
 section.sidebar.logout {
     position: absolute;
     bottom: 165px;

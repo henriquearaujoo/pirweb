@@ -3,7 +3,7 @@ import { Permissions, RuleState } from './../../../helpers/permissions';
 import { Chapter } from './../../../models/chapter';
 import { Response } from '@angular/http';
 import { TemplateItem } from './../../../models/templateItem';
-import { Component, OnInit, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output, ViewChild, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { ChapterService } from '../../../services/chapter/chapter.service';
 import { ToastService } from '../../../services/toast-notification/toast.service';
@@ -16,7 +16,7 @@ import { Paginate } from '../../../models/paginate';
   styleUrls: ['./template-chapter-item.component.css',
               '../../../../../node_modules/materialize-css/dist/css/materialize.min.css']
 })
-export class TemplateChapterItemComponent implements OnInit {
+export class TemplateChapterItemComponent implements OnInit, OnDestroy {
 
   @Input() chapter: Chapter;
   @Output() changeStatus = new EventEmitter<boolean>();
@@ -43,7 +43,7 @@ export class TemplateChapterItemComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.permissions.canActivate(['/template-chapter']);
+    this.permissions.canActivate(['/capitulos']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -75,18 +75,18 @@ export class TemplateChapterItemComponent implements OnInit {
    }
 
    editChapter(chapter: Chapter) {
-    localStorage.removeItem('chapterId');
-    localStorage.setItem('chapterId', chapter.id );
-    this.router.navigate(['chapter-dashboard']);
+    localStorage.setItem('_chapterId', chapter.id );
+    this.router.navigate(['capitulos/registro']);
   }
 
    addVersion(chapter: Chapter) {
+      localStorage.removeItem('_chapterId');
      if (chapter.percentage !== 100) {
        this.toastService.toastMsgWarn('Atenção', 'Você precisa concluir a versão atual do capítulo para adicionar outra versão!');
      } else {
       localStorage.setItem('chapterNumber', chapter.number.toString() );
       localStorage.setItem('lastVersion', this.lastVersion );
-      this.router.navigate(['chapter-dashboard']);
+      this.router.navigate(['capitulos/registro']);
      }
    }
 
@@ -123,5 +123,9 @@ export class TemplateChapterItemComponent implements OnInit {
         }
       );
     }
+   }
+
+   ngOnDestroy() {
+    // localStorage.removeItem('_chapterId');
    }
 }

@@ -46,10 +46,7 @@ export class AccessPageService extends RestService implements OnInit {
     return this.get(getPageURL);
   }
 
-  public getPermissionsFromProfile(profile_id?: number ): Observable<Rule[]> {
-    if ( profile_id === undefined ) {
-      return this.get(this.apiurl + 'rules/search/');
-    }
+  public getPermissionsFromProfile(profile_id?: number, filter?: string ): Observable<Rule[]> {
     const getPageURL = this.apiurl.concat('rules/search/?profile=' + profile_id );
     return this.get(getPageURL);
   }

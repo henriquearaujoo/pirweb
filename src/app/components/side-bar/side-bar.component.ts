@@ -94,13 +94,14 @@ export class SideBarComponent implements OnInit, OnDestroy {
     if (currentURL === null) {
       this.router.navigate([this.urlToNavigate]);
     } else {
-      this.isForm = (currentURL.toLowerCase() === '/chapter-dashboard') ||
-                    (currentURL.toLowerCase() === '/user') ||
-                    (currentURL.toLowerCase() === '/community') ||
-                    (currentURL.toLowerCase() === '/mother') ||
-                    (currentURL.toLowerCase() === '/responsible') ||
-                    (currentURL.toLowerCase() === '/child') ||
-                    (currentURL.toLowerCase() === '/agent');
+      this.isForm = (currentURL.toLowerCase() === '/capitulos/registro') ||
+                    (currentURL.toLowerCase() === '/usuarios/registro') ||
+                    (currentURL.toLowerCase() === '/comunidades/registro') ||
+                    (currentURL.toLowerCase() === '/gestantes/registro') ||
+                    (currentURL.toLowerCase() === '/responsaveis/registro') ||
+                    (currentURL.toLowerCase() === '/criancas/registro') ||
+                    (currentURL.toLowerCase() === '/agentes/registro') ||
+                    (currentURL.toLowerCase() === '/formularios/registro');
       if (this.isForm) {
         this.modalService.modalCancel(this.urlToNavigate);
       } else {

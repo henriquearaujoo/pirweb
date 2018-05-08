@@ -14,6 +14,7 @@ import { Rule } from '../../models/rule';
 import { Page } from '../../models/page';
 import { decodeToken } from 'jsontokens';
 import { Permissions } from '../../helpers/permissions';
+import { Constant } from '../../constant/constant';
 
 @Component({
   selector: 'app-login',
@@ -31,6 +32,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   private pages: Page[] = new Array();
   isActivate: boolean;
   private checked: boolean;
+  private ip = 'http://';
 
   constructor(
       private authenticationService: AuthenticationService,
@@ -58,6 +60,9 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.toastService.toastMsg('Sucesso', 'Senha alterada com sucesso!');
         }
     );
+    if (localStorage.getItem('server')) {
+        this.ip = localStorage.getItem('server');
+    }
   }
 
     sendData() {
@@ -66,7 +71,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             (data: Response) => {
                 const token = data.headers.get('authorization');
                 // const tokenData = decodeToken(token);
-                console.log('Token:', token);
+                // console.log('Token:', token);
                 localStorage.setItem('tokenPir', token );
                 if (token) {
                     const tokenData = decodeToken(token);
@@ -117,7 +122,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     resetPassword() {
-        this.router.navigate(['/send-email']);
+        this.router.navigate(['login/recover-password']);
     }
 
     remember(event) {
@@ -130,6 +135,11 @@ export class LoginComponent implements OnInit, OnDestroy {
             localStorage.removeItem('currentLogin');
             localStorage.removeItem('pirfas');
         }
+    }
+
+    saveIP() {
+        console.log('server:', this.ip);
+        localStorage.setItem('server', this.ip);
     }
 
     ngOnDestroy(): void {

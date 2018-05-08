@@ -65,7 +65,7 @@ export class InformationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.permissions.canActivate(['/chapter-dashboard']);
+    this.permissions.canActivate(['/capitulos/registro']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -86,7 +86,6 @@ export class InformationComponent implements OnInit {
   }
 
   public saveData() {
-    console.log(this.chapter);
     this.chapter.thumbnails = [];
     if (this.btn_cancel) {
       this.btn_cancel = false;
@@ -102,7 +101,6 @@ export class InformationComponent implements OnInit {
     if ( this.isNewData && this.chapter !== undefined ) {
       this.chapterService.insert(this.chapter).subscribe(
         s => {
-          console.log('chapters', this.chapter);
           this.chapter = s;
           this.returnEvent.emit(s);
           this.isNewData  = false;

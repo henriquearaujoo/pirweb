@@ -1,7 +1,6 @@
-
 .btn-primary {
     /* width: 100px; */
-    background-color:#373d40;
+    background-color: #373d40;
     border-color: #373d40;
 }
 
@@ -40,6 +39,7 @@ select.dropdown {
     padding: 10px 0px;
 }
 
+
 /* layout.css Style */
 
 .panel.panel-default {
@@ -77,6 +77,16 @@ select.dropdown {
     border-color: #ccc;
 }
 
+.btn.btn-default.image-preview-input {
+    height: 60px;
+    width: 100%;
+}
+
+button.btn.btn-labeled.btn-default,
+input#files {
+    height: 60px;
+}
+
 .image-preview-input input[type=file] {
     position: absolute;
     top: 0;
@@ -91,4 +101,8 @@ select.dropdown {
 
 .image-preview-input-title {
     margin-left: 2px;
+}
+
+.btn.btn-default.btn-sm.btn-file {
+    width: 100%;
 }

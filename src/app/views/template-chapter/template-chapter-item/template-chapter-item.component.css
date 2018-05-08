@@ -86,7 +86,7 @@ i.fa.fa-circle {
     /* height: 250px; */
 }
 li.version-header {
-    background-color: #e8e8e8;
+    background-color: #DFE8ED;
     height: 40px;
     text-align: center;
     padding: 8px 40px;
@@ -96,33 +96,44 @@ li.version-header {
     margin-bottom: 10px;
 }
 span.version-title {
-    margin-right: 50px;
+    margin-right: 20px;
+    color: #224860;
 }
 li.li-version {
     font-size: 14px;
-    border-bottom: 1px solid #d2d6de;
-    border-top: 1px solid #d2d6de;
+    /* border-bottom: 1px solid #d2d6de;
+    border-top: 1px solid #d2d6de; */
 }
-
+ul.list-version {
+    background-color: #F5F8FA;
+}
 i.fa.fa-toggle-on, i.fa.fa-toggle-off, i.fa.fa-plus {
-    font-size: 24px;
-    color: #373d40;
+    font-size: 32px;
     cursor: pointer;
+}
+i.fa.fa-toggle-on {
+    color: #8db561;
+}
+i.fa.fa-toggle-off {
+    color: #b34446;
 }
 
 i.fa.fa-pencil.edit-version {
-    font-size: 22px;
-    color: #373d40;
+    font-size: 24px;
+    color: #224860;
     margin-right: 10px;
     cursor: pointer;
 }
 
 span.version-add {
-    margin-right: 84px;
+    margin-right: 54px;
+    color: #224860;
+    font-weight: bold;
 }
 /* //PROGRESS BAR// */
 .progress.progress-xs {
     background-color: #b7b4b4;
+    height: 6px;
 }
 .progress-bar-primary {
     background-color: #0075BD;
@@ -130,6 +141,10 @@ span.version-add {
 .chapter-progress {
     margin-bottom: 15px;
     padding: 0px 25px;
+}
+span.percentage-n {
+    font-weight: bold;
+    color: #224860;
 }
 
 /* MATERIALIZE*/
@@ -139,14 +154,15 @@ span.version-add {
 
 .card.sticky-action {
     height: 368px;
-    width: 234px;
+    width: 219px;
     margin: 25px 30px;
 }
 
 .card.sticky-action .card-content {
-    padding: 0px 15px;
+    padding: 0px 22px;
     height: 250px;
     text-align: center;
+    color: #335164;
 }
 
 
@@ -185,7 +201,7 @@ button.btn.status, button.btn.edit {
     /* background-color: #373d40; */
 }
 button.btn.edit, button.btn.edit:hover {
-    margin-right: 30px;
+    margin-right: 10px;
     background-color: #224860;
 }
 button.btn.status.status-enable {
@@ -270,3 +286,14 @@ button#btn_confirm {
 }
 
 /* END MODAL*/
+
+i.fa.fa-check.v, i.fa.fa-times {
+    position: absolute;
+    bottom: 220px;
+    font-size: 11px;
+    right: 28px;
+}
+i.fa.fa-plus {
+    color: #224860;
+    font-size: 26px!important;
+}

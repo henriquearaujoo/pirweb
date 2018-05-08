@@ -51,12 +51,6 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
       this.hasdata = false;
       this.editProfile.title = this.selectedProfile.title;
       this.editProfile.type = this.selectedProfile.type;
-      if ( changes.edit) {
-        if (this.edit) {
-          // this.ngAfterViewInit();
-          // this.focusInput();
-        }
-      }
     }
 
     focusInput() {
@@ -64,7 +58,6 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
     }
 
     save() {
-      console.log(this.profile);
        this.profile.status = true;
 
         this.profile.rule = new Array();
@@ -94,7 +87,6 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
         this.selectedProfile.created_by = '';
         this.selectedProfile.modified_by = '';
         this.selectedProfile.type = this.editProfile.type;
-        console.log(this.selectedProfile);
         this.profileService.saveEditProfile(this.selectedProfile).subscribe(
           success => {
             // this.profile = success;

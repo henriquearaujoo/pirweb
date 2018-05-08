@@ -1,3 +1,4 @@
+import { Permissions, RuleState } from './../../../../helpers/permissions';
 import { LoaderService } from './../../../../services/loader/loader.service';
 import { ToastService } from './../../../../services/toast-notification/toast.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
@@ -52,18 +53,29 @@ export class ChapterDashboardComponent implements OnInit {
   conclusion: ConclusionComponent;
   @ViewChild('multimedia')
   multimedia: MultimediaComponent;
+  private canRead: boolean;
+  private canUpdate: boolean;
+  private canCreate: boolean;
+  private canDelete: boolean;
 
   constructor(
     private router: Router,
     private activeRoute: ActivatedRoute,
     private toastService: ToastService,
     private modalService: ModalService,
-    private loaderService: LoaderService) { }
+    private loaderService: LoaderService,
+    private permissions: Permissions) { }
 
   ngOnInit() {
-
-    // this.openModalButton = (<HTMLButtonElement>document.getElementById('openModalButton'));
-    // this.openModalButton.style.display = 'none';
+    this.permissions.canActivate(['/capitulos/registro']);
+    this.permissions.permissionsState.subscribe(
+      (rules: RuleState) => {
+        this.canCreate = rules.canCreate;
+        this.canUpdate = rules.canUpdate;
+        this.canRead = rules.canRead;
+        this.canDelete = rules.canDelete;
+      }
+    );
 
     this.informationTab = './assets/img/chapter/ic_chapter_tab_information_enable.png';
     this.receptionTab = './assets/img/chapter/ic_chapter_tab_reception_disable.png';
@@ -73,7 +85,7 @@ export class ChapterDashboardComponent implements OnInit {
 
     /*check if is a new or update*/
     this.isNewData = true;
-    this.urlId = localStorage.getItem('chapterId');
+    this.urlId = localStorage.getItem('_chapterId');
     if (this.urlId !== null && this.urlId !== '') {
       this.isNewData = false;
       this.information.isNewData = false;
@@ -211,7 +223,7 @@ export class ChapterDashboardComponent implements OnInit {
   }
 
   openModal() {
-   this.modalService.modalCancel('/template-chapter');
+   this.modalService.modalCancel('/capitulos');
   }
 
 }
