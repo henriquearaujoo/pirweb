@@ -148,7 +148,7 @@ export class VisitHistoryListComponent implements OnInit {
       success => {
         this.paginate = success;
         this.visits = success.content;
-        if (this.visits[0] !== undefined) {
+        if (this.visits[0] !== undefined || this.visits[0] !== null) {
           if (this.visits[0].agent !== undefined) {
             this.agentName = this.visits[0].agent.name;
             if (this.idAgent === this.currentUser) {
