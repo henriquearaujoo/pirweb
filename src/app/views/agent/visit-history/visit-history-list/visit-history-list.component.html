@@ -24,7 +24,7 @@
                     <div class="col-sm-6 data">
                         <div class="form-group">
                             <label class="label-control">AGENTE: </label>
-                            <span> {{ agent.name }}</span>
+                            <span *ngIf="visit !== undefined"> {{ visit.agent.name }}</span>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -38,7 +38,7 @@
                                         <li><a (click)="setFilter(1)">Número da Visita</a></li>
                                         <li><a (click)="setFilter(2)"> Nome da Criança</a></li>
                                         <li><a (click)="setFilter(3)">Nome da Responsável</a></li>
-                                        <li><a (click)="setFilter(4)">Data da Visita</a></li>
+                                        <!-- <li><a (click)="setFilter(4)">Data da Visita</a></li> -->
                                     </ul>
                                 </div>
                                 <input type="text" class="form-control" placeholder="Selecione o filtro" readonly *ngIf="type_filter === undefined">
@@ -48,7 +48,7 @@
 
                                 <input type="text" class="form-control" [(ngModel)]="filter.name" mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" name="filter" id="filter" (keyup)="getVisits()" placeholder="Nome do Responsável" *ngIf="type_filter === 3">
 
-                                <input type="date" class="form-control" [(ngModel)]="filter.name" name="filter" id="filter" (keyup)="getVisits()" *ngIf="type_filter === 4">
+                                <!-- <input type="date" class="form-control" [(ngModel)]="filter.name" name="filter" id="filter" (keyup)="getVisits()" *ngIf="type_filter === 4"> -->
 
                             </div>
                         </div>
@@ -76,11 +76,11 @@
                                 <th class="tbl-center"> AÇÃO</th>
                             </tr>
                         </thead>
-                        <div class="feedback" *ngIf="agents.length === 0">
+                        <div class="feedback" *ngIf="visits.length === 0">
                             <i class="material-icons" style="font-size: 24px;">error_outline</i>
                             <span class="feedback-message">Nenhum registro encontrado</span>
                         </div>
-                        <tbody *ngIf="agents.length !== 0">
+                        <tbody *ngIf="visits.length !== 0">
                             <tr *ngFor="let item of visits">
                                 <td class="tbl-left">
                                     <span *ngIf="item.child !== undefined">
@@ -99,10 +99,10 @@
                                     {{ item.number }}
                                 </td>
                                 <td class="tbl-left">
-                                    <p class="limit-text">{{ item.chapter.title }}</p>
+                                    <p class="limit-text">{{ item.chapter?.title }}</p>
                                 </td>
                                 <td class="tbl-left">
-                                    <p class="limit-text"> {{ item.chapter.subtitle }}</p>
+                                    <p class="limit-text"> {{ item.chapter?.subtitle }}</p>
                                 </td>
                                 <td class="tbl-center">
                                     <a (click)="setVisit(item)" id="btn_details" data-toggle="modal" data-target="#modal-visit" title="Ver detalhes" *ngIf="item.name  !== 'Administrator'">
@@ -142,14 +142,35 @@
                     </div>
                     <div class="col-md-8" style="padding-left: 0;">
                         <div class="when-visit">
-                            {{ visit.chapter.title }}
+                            {{ visit.chapter?.title }}
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group-data">
-                            <label class="label-control"> Tema: </label> {{ visit.chapter.subtitle }}
+                            <label class="label-control"> Tema: </label> {{ visit.chapter?.subtitle }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group-data">
+                            <label class="label-control"> Família: </label>
+                            <span *ngIf="visit.child !== undefined">
+                                {{ visit.child.name }}
+                            </span>
+                            <span *ngIf="visit.responsible !== undefined">
+                                {{ visit.responsible.name }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group-data">
+                            <label class="label-control"> Tipo: </label>
+                            <span>
+                                {{ visit.child !== undefined ? 'CRIANÇA' : 'GESTANTE' }}
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -157,7 +178,7 @@
                     <div class="col-md-12">
                         <div class="form-group-data">
                             <label class="label-control"> Data: </label>
-                            <span> {{ visit.done_at }}</span>
+                            <span> {{ visit.done_at | date:'dd-MM-yyyy' }}</span>
                         </div>
                     </div>
                 </div>

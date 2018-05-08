@@ -155,11 +155,10 @@ export class ChildComponent implements OnInit {
 
     if (isValid && this._isSave) {
       this.verifyDate();
-      if ( this.child.responsible.id !== undefined ) {
-        this.child.responsible_id = this.child.responsible.id;
-        this.child.mother_id = this.child.mother.id;
-        delete this.child.responsible;
-        delete this.child.mother;
+      if ( this.child.mother !== undefined) {
+        if ( this.child.mother.id === undefined ) {
+          delete this.child.mother;
+        }
       }
       if (this.child.is_premature_born === false) {
         this.child.born_week = 1;
@@ -168,6 +167,10 @@ export class ChildComponent implements OnInit {
         this.child.education_diff_specification = '';
       }
       this.child.born_week = Number(this.child.born_week);
+      // udated community
+      for (let i = 0; i < this.child.responsible.length; i++) {
+        this.child.responsible[i].community.city_id = this.child.responsible[i].community.city.id;
+      }
       if (this.isNewData || this.child.id === undefined) {
         this.childService.insert(this.child).subscribe(
           success => {
@@ -180,6 +183,7 @@ export class ChildComponent implements OnInit {
           }
         );
       } else {
+        // console.log('update', this.child);
         this.childService.update(this.child).subscribe(
           success => {
             this.child = success;
@@ -198,20 +202,22 @@ export class ChildComponent implements OnInit {
     this.childService.load(this.urlId).subscribe(
       success => {
         this.child = success;
+        // console.log(this.child);
         this.verifyDataCheckbox();
-        this.alterDate();
-        if (this.child === undefined) {
-          this.child = new Child();
+        this.changeDate();
+        if (this.child.mother === undefined) {
+          this.child.mother = new Responsible();
         }
       },
       error => console.log(error)
     );
   }
 
-  alterDate() {
+  changeDate() {
     const dateList = this.child.birth.split('-');
     this.child.birth = dateList[2] + '-' + dateList[1] + '-' + dateList[0];
     const d = new Date(this.child.birth);
+    // console.log(d);
     d.setMinutes( d.getMinutes() + d.getTimezoneOffset() );
     this.selDate = {year: d.getFullYear(),
                     month: d.getMonth() + 1,
@@ -265,7 +271,7 @@ export class ChildComponent implements OnInit {
 
   verifyDataCheckbox() {
     this.who_take_care = this.child.who_take_care;
-    this.who_take_care_list = this.who_take_care.split('|');
+    this.who_take_care_list = this.who_take_care.split(',');
 
     for (let i = 0; i < this._who_take_care.length; i++) {
       for (let j = 0; j < this.who_take_care_list.length; j++ ) {
@@ -282,7 +288,7 @@ export class ChildComponent implements OnInit {
         if ( i === 0 ) {
           this.who_take_care = this.who_take_care_list[i];
         } else {
-          this.who_take_care = this.who_take_care + '|' + this.who_take_care_list[i];
+          this.who_take_care = this.who_take_care + ',' + this.who_take_care_list[i];
         }
       }
     } else {

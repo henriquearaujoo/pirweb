@@ -145,9 +145,12 @@ export class PregnantComponent implements OnInit {
 
     if (isValid && this._isSave) {
       this.verifyDate();
-      if ( this.responsible.community.id !== undefined ) {
-        this.responsible.community_id = this.responsible.community.id;
-        delete this.responsible.community;
+      for (let i = 0; i < this.communities.length; i++) {
+        if ( this.responsible.community.id === this.communities[i].id) {
+          this.responsible.community =  this.communities[i];
+          this.responsible.community.city_id =  this.responsible.community.city.id;
+          break;
+        }
       }
       this.responsible.habitation_members_count = Number(this.responsible.habitation_members_count);
       this.responsible.mother.children_count = Number(this.responsible.mother.children_count);

@@ -51,7 +51,9 @@
                                     {{ item.birth }}
                                 </td>
                                 <td class="tbl-left">
-                                    {{ item.responsible.name }}
+                                    <div *ngFor="let resp of item.responsible">
+                                        {{ resp.name }}
+                                    </div>
                                 </td>
                                 <td class="tbl-right">
                                     <a (click)="toView(item)" id="btn_details" title="Ver detalhes">

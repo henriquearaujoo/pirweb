@@ -84,11 +84,11 @@ export class VisitHistoryListComponent implements OnInit {
      }
   ngOnInit() {
     this.hasdata = false;
-    this.getVisits();
     // this.familyId = localStorage.getItem('visitId');
     this.idAgent = localStorage.getItem('userId');
     if (this.idAgent !== undefined && this.idAgent !== null) {
-      this.load();
+      this.getVisits();
+      // this.load();
     }
     this.permissions.canActivate(['/agente-visita/historico']);
     this.permissions.permissionsState.subscribe(
@@ -115,14 +115,14 @@ export class VisitHistoryListComponent implements OnInit {
         this.loadVisits('number');
         break;
         case 2:
-        this.loadVisits('child');
+        this.loadVisits('child.name');
         break;
         case 3:
-        this.loadVisits('responsible');
+        this.loadVisits('responsible.name');
         break;
-        case 4:
-        this.loadVisits('done_at');
-        break;
+        // case 4:
+        // this.loadVisits('done_at');
+        // break;
         default:
         this.loadVisits('number');
         break;
@@ -132,20 +132,24 @@ export class VisitHistoryListComponent implements OnInit {
 
   loadVisits(type_filter) {
     this.loaderService.show();
+    if ( this.filter.name === null) {
+      this.filter.name = '';
+    }
     this.visitService.getVisits(this.idAgent, type_filter, this.filter.name, this.page).subscribe(
       success => {
         this.paginate = success;
         this.visits = success.content;
-        this.visits.forEach( elem => {
-          this.chapterService.load(elem.chapter_id).subscribe(
-              ch => {
-                elem.chapter = ch;
-              },
-              error => console.log(error)
-            );
-          }
-        );
         this.hasdata = true;
+        console.log(this.visits);
+        // this.visits.forEach( elem => {
+        //   this.chapterService.load(elem.chapter_id).subscribe(
+        //       ch => {
+        //         elem.chapter = ch;
+        //       },
+        //       error => console.log(error)
+        //     );
+        //   }
+        // );
         setTimeout(() => {
           this.loaderService.hide();
         }, 400);
@@ -161,6 +165,7 @@ export class VisitHistoryListComponent implements OnInit {
     this.userService.load(this.idAgent).subscribe(
       success => {
         this.agent = success[0];
+        this.getVisits();
       },
       error => console.log(error)
     );

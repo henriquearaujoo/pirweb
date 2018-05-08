@@ -3,27 +3,23 @@
 <!-- <button data-toggle="modal" data-target="#modal-cancel" id="openModalCancel">Open Modal</button> -->
 <div class="content_">
     <div class="content-top">
-        <div class="content_fa"> <i class="fa fa-user"></i> Família > Criança > Detalhes</div>
+        <div class="content_fa"> <i class="fa fa-users"></i> Família > Criança > Detalhes</div>
     </div>
 
     <section class="content_user">
         <div class="content-header ">
             <h5 class="content-title">CRIANÇA</h5>
         </div>
-        <!-- <form name="form" (ngSubmit)="f.form.valid && saveData()" #f="ngForm" novalidate> -->
-        <!-- Custom Tabs -->
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
                 <li>
                     <a class="tab-pane active" (click)="walk(0)" href="#tab_1" data-toggle="tab">
-                        <label class="lb-tab"> Dados de Identificação </label>
-                        <img src="{{ data1Tab }}" />
+                        <img src="{{ infoTab }}" />
                     </a>
                 </li>
                 <li>
                     <a class="tab-pane" (click)="walk(1)" href="#tab_2" data-toggle="tab">
-                        <label class="lb-tab"> Informações Sociais </label>
-                        <img src="{{ data2Tab }}" />
+                        <img src="{{ socialTab }}" />
                     </a>
                 </li>
             </ul>
@@ -31,7 +27,7 @@
                 <div class="tab-pane active" id="tab_1">
                     <div class="content">
                         <section class="content">
-                            <div class="box-header with-border">
+                            <div class="box-header_1 with-border">
                                 <h5 class="box-title"> Dados de Identificação
                                 </h5>
                             </div>
@@ -63,13 +59,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-6" *ngIf="child.mother !== undefined">
                                                         <div class="form-group">
                                                             <label class="control-label">Nome da Mãe</label>
                                                             <input type="text" name="name_mother" [(ngModel)]="child.mother.name" id="name_mother" class="form-control" disabled>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6">
+                                                    <div [ngClass]="child.mother === undefined ? 'col-sm-12' : 'col-sm-6'">
                                                         <div class="form-group">
                                                             <label class="control-label">Nome do pai</label>
                                                             <input type="text" name="fatherName" [(ngModel)]="child.father_name" id="fatherName" class="form-control" disabled>
@@ -78,27 +74,14 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <div class="form-group">
+                                                        <div class="form-group" *ngFor="let resp of child.responsible">
                                                             <label class="control-label">Nome do Responsável</label>
-                                                            <input type="text" name="nameResponsible" [(ngModel)]="child.responsible.name" id="nameResponsible" class="form-control" disabled>
+                                                            <input type="text" name="nameResponsible" [(ngModel)]="resp.name" id="nameResponsible" class="form-control" disabled>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- <div class="content-control">
-                          <div class="control">
-                            <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false, 1, 0)" id="btn_previous">
-                                <img src="./assets/img/global/ic_previous.png" />
-                                <b>Anterior</b>
-                            </a>
-                            <a href="{{nextTab}}" data-toggle="tab" (click)="isActive(true, 1)" id="btn_next">
-                                <b>Próximo</b>
-                                <img src="./assets/img/global/ic_next.png" />
-                            </a>
-                            <button type="submit" id="btn_tab1"></button>
-                          </div>
-                        </div> -->
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <button class="btn btn-default btn-block" [routerLink]="['/criancas']" id="btn_return1"> Voltar</button>
@@ -115,7 +98,7 @@
                 <div class="tab-pane" id="tab_2">
                     <div class="content">
                         <section class="content">
-                            <div class="box-header with-border">
+                            <div class="box-header_1 with-border">
                                 <h5 class="box-title"> Informações Sociais
                                 </h5>
                             </div>
@@ -186,12 +169,6 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <!-- <div class="col-sm-6">
-                                <div class="form-group">
-                                  <label class="control-label">Quem cuida da criança? </label>
-                                  <input type="text" class="form-control" name="_who_take_care" id="_who_take_care" [(ngModel)]="child.who_take_care" disabled>                                                                         
-                                </div>                                  
-                              </div> -->
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-4">
@@ -210,7 +187,7 @@
                                                             <div class="form-group" *ngIf="child.has_education_diff">
                                                                 <label class="control-label"> Justifique</label>
                                                                 <textarea class="form-control" [(ngModel)]="child.education_diff_specification" name="educationDiffSpecification" id="educationDiffSpecification" disabled>
-                                    </textarea>
+                                                                </textarea>
                                                             </div>
                                                         </div>
                                                     </div>

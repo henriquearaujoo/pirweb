@@ -43,6 +43,7 @@ export class ChildListComponent implements OnInit, OnDestroy {
       this.canUpdate = false;
       this.canRead = false;
       this.canDelete = false;
+      this.page = 0;
     }
 
   ngOnInit() {
@@ -68,6 +69,7 @@ export class ChildListComponent implements OnInit, OnDestroy {
       success => {
         this.paginate = success;
         this.children = this.paginate.content;
+        console.log(this.children);
         this.hasdata = true;
         setTimeout(() => {
           this.loaderService.hide();
@@ -96,6 +98,7 @@ export class ChildListComponent implements OnInit, OnDestroy {
 
   setPage(page: number) {
     this.page = page;
+    this.getChildren();
   }
 
   ngOnDestroy() {

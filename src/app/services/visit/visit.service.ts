@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class VisitService extends RestService {
 
-  private apiurl = Constant.BASE_URL + 'visit/';
+  private apiurl = Constant.BASE_URL + 'visit/front/';
   private size: number;
   constructor(http: Http) {
     super(http);
@@ -17,10 +17,10 @@ export class VisitService extends RestService {
    public getVisits (idAgent: string, type_filter?: any, filter?: any, page?: number) {
     if ( filter === undefined ) {
       return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page +
-      'agent_id=' + idAgent );
+      '&agent.id=' + idAgent );
     } else {
       return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page +
-      'agent_id=' + idAgent + '&' + type_filter + '=' + filter);
+      '&agent.id=' + idAgent + '&' + type_filter + '=' + filter);
     }
   }
 
