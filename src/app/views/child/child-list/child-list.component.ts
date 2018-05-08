@@ -46,7 +46,7 @@ export class ChildListComponent implements OnInit, OnDestroy {
     }
 
   ngOnInit() {
-    this.permissions.canActivate('/child-list');
+    this.permissions.canActivate(['/child-list']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;

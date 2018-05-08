@@ -115,7 +115,7 @@ export class CommunityComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.permissions.canActivate('/community');
+    this.permissions.canActivate(['/community']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;

@@ -57,6 +57,51 @@ export const MENU = [
     },
     {
         'id': 6,
+        'title': 'AGENTE',
+        'route': '',
+        'routes': ['/', '/agent-information', '/agent-map', '/agent-list', '/agent', '/agent-details', '/agent-location',
+                   '/visit-historic', '/family-list', '/visit-historic-list'],
+        'read': false,
+        'iClass': 'fa fa-user',
+        'category': 'parent',
+        'hasChild': true,
+        'parent': 0
+    },
+    {
+        'id': 7,
+        'title': 'REGISTRO',
+        'route': 'agent-information',
+        'routes': ['/agent-information', '/agent-list', '/agent', '/agent-details', '/agent-location'],
+        'read': false,
+        'iClass': 'fa fa-circle-o',
+        'category': 'child',
+        'hasChild': false,
+        'parent': 6
+    },
+    // {
+    //     'id': 16,
+    //     'title': 'HISTÓRICO DE VISITAS',
+    //     'route': 'visit-historic',
+    //     'routes': ['/visit-historic', '/family-list', '/visit-historic-list'],
+    //     'read': false,
+    //     'iClass': 'fa fa-circle-o',
+    //     'category': 'child',
+    //     'hasChild': false,
+    //     'parent': 6
+    // },
+    // {
+    //     'id': 7,
+    //     'title': 'MAPA DOS AGENTES',
+    //     'route': 'agent-map',
+    //     'routes': ['/agent-map'],
+    //     'read': false,
+    //     'iClass': 'fa fa-circle-o',
+    //     'category': 'child',
+    //     'hasChild': false,
+    //     'parent': 6
+    // },
+    {
+        'id': 8,
         'title': 'COMUNIDADES',
         'route': '',
         'routes': ['/', '/community-list', '/community', '/community-details'],
@@ -67,7 +112,7 @@ export const MENU = [
         'parent': 0
     },
     {
-        'id': 8,
+        'id': 9,
         'title': 'REGISTRO',
         'route': 'community-list',
         'routes': ['/community-list', '/community', '/community-details'],
@@ -75,10 +120,10 @@ export const MENU = [
         'iClass': 'fa fa-circle-o',
         'category': 'child',
         'hasChild': false,
-        'parent': 6
+        'parent': 8
     },
     {
-        'id': 7,
+        'id': 10,
         'title': 'FAMÍLIA',
         'route': '',
         'routes': ['/', '/pregnant-list', '/pregnant-details', '/pregnant',
@@ -91,7 +136,7 @@ export const MENU = [
         'parent': 0
     },
     {
-        'id': 8,
+        'id': 11,
         'title': 'GESTANTE',
         'route': 'pregnant-list',
         'routes': ['/pregnant-list', '/pregnant', '/pregnant-details'],
@@ -99,10 +144,10 @@ export const MENU = [
         'iClass': 'fa fa-circle-o',
         'category': 'child',
         'hasChild': false,
-        'parent': 7
+        'parent': 10
     },
     {
-        'id': 9,
+        'id': 12,
         'title': 'RESPONSÁVEL',
         'route': 'responsible-list',
         'routes': ['/responsible-list', '/responsible', '/responsible-details'],
@@ -110,10 +155,10 @@ export const MENU = [
         'iClass': 'fa fa-circle-o',
         'category': 'child',
         'hasChild': false,
-        'parent': 7
+        'parent': 10
     },
     {
-        'id': 10,
+        'id': 13,
         'title': 'CRIANÇA',
         'route': 'child-list',
         'routes': ['/child-list', '/child', '/child-details'],
@@ -121,29 +166,29 @@ export const MENU = [
         'iClass': 'fa fa-circle-o',
         'category': 'child',
         'hasChild': false,
-        'parent': 7
+        'parent': 10
     },
     {
-        'id': 11,
+        'id': 14,
         'title': 'FORMULÁRIO',
         'route': '',
         'routes': ['/', '/form-template', '/form-template-list'],
-        'read': true,
+        'read': false,
         'iClass': 'fa fa-list-alt',
         'category': 'parent',
         'hasChild': true,
         'parent': 0
     },
     {
-        'id': 12,
+        'id': 15,
         'title': 'REGISTRO',
         'route': 'form-template-list',
         'routes': ['/form-template', '/form-template-list'],
-        'read': true,
+        'read': false,
         'iClass': 'fa fa-circle-o',
         'category': 'child',
         'hasChild': false,
-        'parent': 11
+        'parent': 14
     },
 
 

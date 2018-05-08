@@ -110,7 +110,7 @@ export class ChildComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.permissions.canActivate('/child');
+    this.permissions.canActivate(['/child']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;

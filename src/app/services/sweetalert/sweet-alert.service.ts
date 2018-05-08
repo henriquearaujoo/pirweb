@@ -50,6 +50,27 @@ export class SweetAlertService {
     });
   }
 
+  alertUpdatePassword(route: string) {
+    swal( {
+      title: '',
+      text: 'Sua senha foi alterada com Sucesso!',
+      icon: 'success',
+      buttons: {
+        confirm: {
+          text: 'Fechar',
+          className: 'swal-btn-close'
+        }
+      },
+      closeOnClickOutside: false,
+      className: 'swal-add-success'
+    })
+    .then((confirm) => {
+      if (confirm) {
+        this.router.navigate([route]);
+      }
+    });
+  }
+
   alertPermission(route: string) {
     swal( {
       title: '',

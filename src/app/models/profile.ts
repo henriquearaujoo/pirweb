@@ -8,6 +8,7 @@ export class Profile {
     public status: boolean;
     public modified_by: string;
     public rule: Rule[] = new Array();
+    public type: string;
     public number: number;
     constructor(id?: number, description?: string) {
         this.id = id;

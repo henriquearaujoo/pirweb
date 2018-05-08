@@ -1,8 +1,7 @@
 <simple-notifications></simple-notifications>
 <div class="container_">
     <div class="content-top">
-        <div class="content_fa"> <i class="fa fa-file-text-o"></i> Livro > Capítulos</div>
-
+        <div class="content_fa"> <img class="icon" src="./assets/img/chapter/ic_file.png"> Livro > Capítulos</div>
     </div>
     <section class="content">
         <div class="box">
@@ -61,10 +60,18 @@
                                                 <app-template-chapter-item (changeStatus)="changeStatus($event)" [chapter]="item" (click)="setChapter(item)"></app-template-chapter-item>
                                             </div>
                                         </div>
-                                        <div *ngIf="chapters.length === 0">
+                                        <div *ngIf="hasdata && chapters.length === 0">
                                             <section class="content">
                                                 <div class="feedback-icon"></div>
                                                 <span class="feedback-message">Não existem capítulos cadastrados</span>
+                                            </section>
+                                        </div>
+                                        <div *ngIf="!hasdata">
+                                            <section class="content">
+                                                <div class="feedback-icon"></div>
+                                                <span class="feedback-message">                                                    
+                                                    Carregando os capítulos...
+                                                </span> <br/>
                                             </section>
                                         </div>
                                     </div>

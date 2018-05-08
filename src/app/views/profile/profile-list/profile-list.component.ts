@@ -78,7 +78,7 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
       }
 
     ngOnInit() {
-      this.permissions.canActivate('/profile-list');
+      this.permissions.canActivate(['/profile-list']);
       this.permissions.permissionsState.subscribe(
         (rules: RuleState) => {
           this.canCreate = rules.canCreate;

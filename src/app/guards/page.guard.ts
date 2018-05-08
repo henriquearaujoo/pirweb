@@ -1,3 +1,4 @@
+import { SweetAlertService } from './../services/sweetalert/sweet-alert.service';
 import { ToastService } from './../services/toast-notification/toast.service';
 import { error } from 'util';
 import { Injectable, OnInit } from '@angular/core';
@@ -13,7 +14,8 @@ export class PageGuard implements CanActivate {
 
     constructor(
         private permissions: Permissions,
-        private  router: Router
+        private  router: Router,
+        private sweetAlertService: SweetAlertService
     ) {
         // this.permissions.canActivate(router.routerState.snapshot.url);
     }
@@ -23,7 +25,7 @@ export class PageGuard implements CanActivate {
         state: RouterStateSnapshot
         ): Observable<boolean> | boolean {
 
-        this.permissions.canActivate(state.url);
+        this.permissions.canActivate([state.url]);
         return this.permissions.permissionsState.map(
             (rules: RuleState) => {
             if (rules.canRead) {
@@ -31,7 +33,8 @@ export class PageGuard implements CanActivate {
                 return rules.canRead;
             }
             console.log('Negado');
-            this.router.navigate(['/home']);
+            this.sweetAlertService.alertPermission('/home');
+            // this.router.navigate(['/home']);
             return rules.canRead;
         });
     }

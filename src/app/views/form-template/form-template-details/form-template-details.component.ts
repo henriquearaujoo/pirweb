@@ -48,7 +48,7 @@ export class FormTemplateDetailsComponent extends PagenateComponent implements O
    }
 
   ngOnInit() {
-    this.permissions.canActivate('/form-template');
+    this.permissions.canActivate(['/form-template']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;

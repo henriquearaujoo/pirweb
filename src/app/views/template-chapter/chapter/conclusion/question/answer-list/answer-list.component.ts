@@ -45,7 +45,6 @@ export class AnswerListComponent extends PagenateComponent implements OnInit {
     placeholder: '',
     theme: 'snow'
   };
-
   constructor(
     private conclusionService: ConclusionService,
     private toastService: ToastService,
@@ -80,8 +79,18 @@ export class AnswerListComponent extends PagenateComponent implements OnInit {
 
   saveData() {
     console.log('answer', this.answer);
-    if (this.answer.answer === null || this.answer.answer === undefined) {
+    if ((this.answer.answer === null || this.answer.answer === undefined) &&
+        (this.answer.type === null || this.answer.type === undefined) ) {
       this.toastService.toastMsgError('Erro', 'Descrição da resposta é um campo obrigatório!');
+      this.toastService.toastMsgError('Erro', 'Tipo da resposta é um campo obrigatório!');
+      this.getAnswers();
+      return false;
+    } else if (this.answer.answer === null || this.answer.answer === undefined) {
+      this.toastService.toastMsgError('Erro', 'Descrição da resposta é um campo obrigatório!');
+      this.getAnswers();
+      return false;
+    } else if (this.answer.type === null || this.answer.type === undefined) {
+      this.toastService.toastMsgError('Erro', 'Tipo da resposta é um campo obrigatório!');
       this.getAnswers();
       return false;
     }

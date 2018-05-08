@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { LoaderService } from './../../services/loader/loader.service';
 import { SweetAlertService } from './../../services/sweetalert/sweet-alert.service';
 import { Community } from './../../models/community';
@@ -12,19 +13,20 @@ import { Profile } from '../../models/profile';
 import { Types } from '../../models/types';
 
 import { UserService } from '../../services/user/user.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterStateSnapshot, ActivatedRouteSnapshot, RouterState } from '@angular/router';
 import * as $ from 'jquery';
 import { IFormCanDeActivate } from '../../guards/iform-candeactivate';
 import { ModalService } from '../../components/modal/modal.service';
 import { sha256, sha224 } from 'js-sha256';
 import { Permissions, RuleState } from '../../helpers/permissions';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, OnDestroy {
 
   private isOk = false;
   private user: User;
@@ -33,7 +35,7 @@ export class UserComponent implements OnInit {
   private states = new Array();
   private cities = new Array();
   private profiles: Profile[] = new Array();
-  private profile: string;
+  private profile: Profile = new Profile();
   private entity: Org;
   private person: Person;
   private first_name: string;
@@ -44,9 +46,6 @@ export class UserComponent implements OnInit {
   private error_list = new Array();
   private error_item = new Array<string>();
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
-  private maskCEP = [ /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/];
-  private maskCPF = [ /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/];
-  private maskRg = [ /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/];
   private accountTab: string;
   private personalTab: string;
   private adressTab: string;
@@ -77,6 +76,8 @@ export class UserComponent implements OnInit {
   private urlId: string;
   private city_id: number;
   private currentId: string;
+  private url: string;
+  private isAgent: boolean;
 
   constructor(
     private userService: UserService,
@@ -87,7 +88,8 @@ export class UserComponent implements OnInit {
     private modalService: ModalService,
     private permissions: Permissions,
     private sweetAlertService: SweetAlertService,
-    private loaderService: LoaderService) {
+    private loaderService: LoaderService,
+    private _location: Location) {
       this.user = new User();
       this.entity = new Org();
       this.person = new Person();
@@ -95,17 +97,26 @@ export class UserComponent implements OnInit {
       this.canUpdate = false;
       this.canRead = false;
       this.canDelete = false;
+      this.hasdata = false;
+      this.isAgent = false;
   }
 
   ngOnInit() {
-    this.permissions.canActivate('/user');
+    const state: RouterState = this.router.routerState;
+    const snapshot: RouterStateSnapshot = state.snapshot;
+    this.url = snapshot.url;
+    this.permissions.canActivate(['/user', '/agent']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
+        this.profile = rules.profile;
         this.canCreate = rules.canCreate;
         this.canUpdate = rules.canUpdate;
         this.canRead = rules.canRead;
         this.canDelete = rules.canDelete;
-        // this.loaderService.hide();
+        if (this.profile.type === 'AGENT') {
+          this.isAgent = true;
+          localStorage.setItem('userId', localStorage.getItem('currentIdPir'));
+        }
       }
     );
     /*check if is a new or update*/
@@ -161,7 +172,11 @@ export class UserComponent implements OnInit {
         if (this.canCreate) {
           this.userService.createUser(this.user).subscribe(
             success => {
-              this.sweetAlertService.alertSuccess('user-list');
+              if (this.url === '/user') {
+                this.sweetAlertService.alertSuccess('user-list');
+              } else {
+                this.sweetAlertService.alertSuccess('agent-information');
+              }
             },
             error => {
               this.toastService.toastError();
@@ -170,7 +185,11 @@ export class UserComponent implements OnInit {
             }
           );
         } else {
-          this.sweetAlertService.alertPermission('user-list');
+          if (this.url === '/user') {
+            this.sweetAlertService.alertPermission('user-list');
+          } else {
+            this.sweetAlertService.alertPermission('agent-information');
+          }
         }
       } else {
         if (this.canUpdate) {
@@ -218,7 +237,11 @@ export class UserComponent implements OnInit {
                   }
                 });
               } else {
-                this.sweetAlertService.alertSuccessUpdate('user-list');
+                if (this.url === '/user') {
+                  this.sweetAlertService.alertSuccessUpdate('user-list');
+                } else {
+                  this.sweetAlertService.alertSuccessUpdate('agent-information');
+                }
               }
             },
             error => {
@@ -227,22 +250,29 @@ export class UserComponent implements OnInit {
             }
           );
         } else {
-          this.sweetAlertService.alertPermission('/user-list');
+          if (this.url === '/user') {
+            this.sweetAlertService.alertPermission('user-list');
+          } else {
+            this.sweetAlertService.alertPermission('agent-information');
+          }
         }
       }
     }
   }
 
   openModal() {
-    this.modalService.modalCancel('/user-list');
-    // this.sweetAlertService.alertToCancel('user-list');
+    console.log(this.url);
+    if (this.url === '/user') {
+      this.modalService.modalCancel('/user-list');
+    } else {
+      this.modalService.modalCancel('/agent-information');
+    }
   }
 
   public loadProfiles() {
     this.profileService.getProfiles().subscribe(
       success => {
           this.profiles = success;
-          this.hasdata = true;
       },
       error => console.log(error)
     );
@@ -252,10 +282,8 @@ export class UserComponent implements OnInit {
     this.userService.getStates(id).subscribe(
       success => {
         if (success == null) {
-          this.hasdata = false;
         }
         this.states = success;
-        this.hasdata = true;
       },
       error => console.log(error)
     );
@@ -265,10 +293,8 @@ export class UserComponent implements OnInit {
     this.userService.getCities(state_id).subscribe(
       success => {
         if (success == null) {
-          this.hasdata = false;
         }
         this.cities = success.cities;
-        this.hasdata = true;
       },
       error => console.log(error)
     );
@@ -415,11 +441,8 @@ export class UserComponent implements OnInit {
       success => {
         this.user = success[0];
         if (this.user !== undefined) {
-          // this.person = this.user.person;
-          // this.org = this.user.entity;
           this.first_name = this.user.name.split(' ')[0];
           this.last_name = this.user.name.substring(this.first_name.length + 1);
-          console.log(this.user);
           if (this.user.person !== undefined ) {
             this.user.type = 'PFIS';
             this.person = new Person();
@@ -431,9 +454,6 @@ export class UserComponent implements OnInit {
             this.entity = this.user.entity;
             this.show_pjur = true;
           }
-          // this.city_id = this.user.address.city;
-          // this.selectType();
-          // this.loadStates();
           this.loadCities(this.user.address.city.state.id);
           this.loadProfiles();
           this.loaderService.hide();
@@ -442,6 +462,7 @@ export class UserComponent implements OnInit {
             this.entity = new Org();
             this.person = new Person();
         }
+        this.hasdata = true;
       },
       error => {
         console.log(error);
@@ -535,8 +556,7 @@ export class UserComponent implements OnInit {
       'has-feedback': this.verifyValidSubmitted(form, field)
     };
   }
-
-  backToList() {
-    this.router.navigate(['user-list']);
+  ngOnDestroy() {
+    localStorage.removeItem('userId');
   }
 }

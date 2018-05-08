@@ -60,13 +60,7 @@ export class UserListComponent implements OnInit {
     this.hasdata = false;
     this.getUsers();
     localStorage.removeItem('userId');
-    // this.userService.disable.subscribe(
-    //   success => {
-    //     this.users = this.users.filter( user => user.id !== success.id);
-    //     this.getUsers();
-    //   }
-    // );
-    this.permissions.canActivate('/user-list');
+    this.permissions.canActivate(['/user-list']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -89,10 +83,6 @@ export class UserListComponent implements OnInit {
         this.paginate = success;
         this.users = success.content;
         this.hasdata = true;
-        // if (this.userService.show_msg) {
-        //   this.toastService.toastSuccess();
-        //   this.userService.show_msg = false;
-        // }
         setTimeout(() => {
           this.loaderService.hide();
         }, 400);

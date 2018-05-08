@@ -55,6 +55,7 @@
   
   .box-body {
     background-color: #FBFBFB;
+    color: #335164;
     /* border: 1px solid #ccc; */
   }
 
@@ -75,4 +76,7 @@
     padding-top: 25px;
     padding-left: 20px;
     padding-right: 20px;
+}
+.control-button.col-md-3 {
+  padding-top: 30px;
 }

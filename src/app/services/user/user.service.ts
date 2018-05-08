@@ -30,6 +30,15 @@ export class UserService extends RestService {
     }
   }
 
+  public getAgents(filter?: any, page?: number) {
+    if ( filter === undefined ) {
+      return this.get(this.apiurl + 'users/search/page/?size=' + this.size + '&page=' + page + '&profile.name=agente&sort=name,asc');
+    } else {
+      return this.get(this.apiurl + 'users/search/page/?size=' + this.size + '&page=' + page +
+      '&profile.type=AGENT&name=' + filter + '&sort=name,asc');
+    }
+  }
+
   public createUser(user: User) {
     return this.post(this.apiurl + 'users/', user);
   }

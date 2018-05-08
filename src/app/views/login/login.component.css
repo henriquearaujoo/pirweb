@@ -10,26 +10,28 @@ body .login-box{
 
 .form-group, .form-control{
     color: grey;
+    height: 42px;
 }
 
-.btn-primary{
-    background-color:#373d40;
-    border-color:   #373d40;
+.btn-primary{   
+    background: #00426D;
+    box-shadow: 3px 3px 9px 0 rgba(0,0,0,0.25);
+    width: 154px;
+    height: 42px;
 }
 
 .btn-primary:active:hover {
-    background-color: #1c2123;
-    border-color: #1c2123;
+    background: #00426D;
 }
 
 p{
-    color: grey;
-    font-size: 14px;
+    color: #335164;
+    font-size: 18px;
     text-align: center;
 }
 label{
-    color: grey;
-    font-size: 14px;
+    color: #335164;
+    font-size: 16px;
     font-weight: normal;
 }
 
@@ -38,17 +40,65 @@ label{
     color: rgb(129, 21, 21);
 }
 
-.login-logo {
+.login-box, .register-box {
+    width: 487px;
+}
+
+.login-box-body, .register-box-body {
+    background: #D9E1E7;
+    height: 292px;
+    padding-top: 40px;
+    padding-right: 130px;
+    padding-left: 60px;
+    border-radius: 0 0 14px 14px;
+}
+
+.login-logo, .register-logo {
     margin-bottom: 0;
-    background: white;
+    background: #D9E1E7;
+    padding-top: 30px;
+    border-radius: 14px 14px 0 0;
 }
 
 .login-logo img {
-    height: 130px;
+    height: 120px;
 }
 
 .pointer {cursor: pointer;}
 
 .checkbox.icheck {
     padding-left: 20px;
+}
+
+span.input-group-addon {
+    width: 50px;
+}
+.input-group .input-group-addon {
+    border-color: #d2d6de;
+    background-color: #0076bc;
+    color: #d2d6de;
+}
+
+.input-group {
+    width: 367px;
+}
+i.fa.fa-user.fa-fw {
+    font-size: 23px;
+}
+
+.form-group {
+    margin-bottom: 35px;
+}
+a.pointer {
+    font-size: 16px;
+    color: #335164;
+}
+
+section.content.samsung {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.form-group.has-error {
+    margin-bottom: 60px;
 }

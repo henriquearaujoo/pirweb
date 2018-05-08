@@ -46,11 +46,11 @@
     min-height: 100%;
 }
 
-.content-top {
+/* .content-top {
     height: 64px;
     background-color: #e8e6e6;
     padding-bottom: 75px;
-}
+} */
 
 i.fa-file-text-o {
     margin-top: 18px;
@@ -68,9 +68,10 @@ i.fa-file-text-o {
 
 .box-header {
     padding-top: 20px;
-    background-color: #e8e6e6;
-    height: 64px;
+    background-color: #0075BD;
+    height: 71px;
     padding-bottom: 50px;
+    color: #fff;
 }
 .box {
     border-top: 0;
