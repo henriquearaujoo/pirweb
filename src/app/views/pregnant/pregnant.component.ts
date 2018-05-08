@@ -130,14 +130,14 @@ export class PregnantComponent implements OnInit {
     this.isValidDate = true;
 
     this.income_participation = [
-      'Não trabalha e é sustentado pela família',
+      'Não trabalha e é sustentado pela familia',
       'Trabalha e recebe ajuda financeira',
       'Trabalha e é responsável pelo próprio sustento',
       'Trabalha e contribui parcialmente em casa',
-      'Trabalha e é a principal responsável pelo sustento da família'
+      'Trabalha e é a principal responsável pelo sustento da familia'
     ];
 
-    this.family_income = ['Pesca', 'Farinha', 'Caça', 'Roçado', 'Outra'];
+    this.family_income = ['pesca', 'farinha', 'caça', 'roçado', 'outra'];
     this.family_income_other_count = 0;
   }
 
@@ -159,7 +159,7 @@ export class PregnantComponent implements OnInit {
         this.responsible.mother.children_count = 0;
       }
 
-      if ( this.responsible.family_income === 'Outra') {
+      if ( this.responsible.family_income === 'outra') {
         this.responsible.family_income = this.responsible.family_income_other;
       }
 
@@ -245,11 +245,11 @@ export class PregnantComponent implements OnInit {
     }
     if ( this.family_income_other_count !== 1 ) {
       this.responsible.family_income_other = this.responsible.family_income;
-      this.responsible.family_income = 'Outra';
+      this.responsible.family_income = 'outra';
     }
 
     // VERIFY drinking_water_treatment
-    if (this.responsible.drinking_water_treatment === 'Não') {
+    if ((this.responsible.drinking_water_treatment === 'Não') || (this.responsible.drinking_water_treatment === '')) {
       this.responsible.drinking_water_treatment2 = false;
       this.responsible.drinking_water_treatment = '';
     } else {

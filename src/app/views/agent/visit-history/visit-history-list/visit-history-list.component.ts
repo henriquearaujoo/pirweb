@@ -24,7 +24,7 @@ export class VisitHistoryListComponent implements OnInit {
 
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
   private agents: User[] = new Array();
-  private visits: Visit[] = new Array();
+  private visits: any[] = new Array();
   hasdata: boolean;
   private agent: User = new User();
   private paginate: Paginate = new Paginate();
@@ -36,8 +36,11 @@ export class VisitHistoryListComponent implements OnInit {
   private canCreate: boolean;
   private canDelete: boolean;
   private idAgent: string;
+  private currentUser: string;
+  private isAgent: boolean;
   private familyId: string;
   private visit: any;
+  private agentName: string;
   private _visits: any = [
     {
       number: '01',
@@ -81,14 +84,20 @@ export class VisitHistoryListComponent implements OnInit {
       this.canUpdate = false;
       this.canRead = false;
       this.canDelete = false;
+      this.isAgent = false;
      }
   ngOnInit() {
     this.hasdata = false;
     // this.familyId = localStorage.getItem('visitId');
     this.idAgent = localStorage.getItem('userId');
+    this.currentUser = localStorage.getItem('currentIdPir');
     if (this.idAgent !== undefined && this.idAgent !== null) {
       this.getVisits();
       // this.load();
+    } else {
+      this.idAgent = localStorage.getItem('currentIdPir');
+      this.isAgent = true;
+      this.getVisits();
     }
     this.permissions.canActivate(['/agente-visita/historico']);
     this.permissions.permissionsState.subscribe(
@@ -139,6 +148,14 @@ export class VisitHistoryListComponent implements OnInit {
       success => {
         this.paginate = success;
         this.visits = success.content;
+        if (this.visits[0] !== undefined) {
+          if (this.visits[0].agent !== undefined) {
+            this.agentName = this.visits[0].agent.name;
+            if (this.idAgent === this.currentUser) {
+              this.isAgent = true;
+            }
+          }
+        }
         this.hasdata = true;
         console.log(this.visits);
         // this.visits.forEach( elem => {

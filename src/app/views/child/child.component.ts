@@ -64,7 +64,7 @@ export class ChildComponent implements OnInit {
       checked: null
     },
     {
-      description: 'Irmão/Irmã',
+      description: 'Irmãos / Irmãs',
       checked: null
     },
     {
@@ -72,7 +72,7 @@ export class ChildComponent implements OnInit {
       checked: null
     },
     {
-      description: 'Tio/Tia',
+      description: 'Tios/Tia',
       checked: null
     },
     {

@@ -1,3 +1,4 @@
+import { User } from './user';
 import { Chapter } from './chapter';
 import { Child } from './child';
 import { Answer } from './answer';
@@ -18,4 +19,5 @@ export class Visit {
     public visit_time: number;
 
     public chapter: Chapter = new Chapter();
+    public agent: User = new User();
 }

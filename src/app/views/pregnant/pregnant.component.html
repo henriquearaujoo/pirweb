@@ -74,6 +74,7 @@
                                                             <option value="DIVORCED">Divorciada</option>
                                                             <option value="SEPARATED">Separada</option>
                                                             <option value="WIDOWED">Viúva</option>
+                                                            <option value="UNDEFINED">Indefinido</option>
                                                           </select>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f1, civilState)" msgError="Selecione um estado civil">
                                                             </app-control-field-error>
@@ -186,9 +187,9 @@
                                                         <div class="form-group" [ngClass]="applyCssError(f2, liveWith)">
                                                             <label class="control-label">Com quem mora atualmente?</label>
                                                             <select class="form-control" #liveWith="ngModel" name="liveWith" [(ngModel)]="responsible.live_with" id="liveWith" required>
-                                                                <option value="Pais ou Parentes">Pais ou Parentes</option>
-                                                                <option value="Esposo e filhos">Esposo e filhos</option>
-                                                                <option value="Amigos">Amigos</option>
+                                                                <option value="Com seus pais ou/e parentes">Com seus pais ou/e parentes</option>
+                                                                <option value="Com esposo e filhos">Com esposo e filhos</option>
+                                                                <option value="Com amigos">Com amigos</option>
                                                                 <option value="Sozinho"> Sozinho</option>
                                                             </select>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f2, liveWith)" msgError="Selecione com quem mora atualmente">
@@ -227,7 +228,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="form-group col" [ngClass]="applyCssError(f2, familyIncomeOther)" *ngIf="responsible.family_income === 'Outra'">
+                                                            <div class="form-group col" [ngClass]="applyCssError(f2, familyIncomeOther)" *ngIf="responsible.family_income === 'outra'">
                                                                 <input class="form-control" #familyIncomeOther="ngModel" name="familyIncomeOther" placeholder="Especifique a fonte de renda" [(ngModel)]="responsible.family_income_other" id="familyIncomeOther" required>
 
                                                                 <app-control-field-error [showError]="verifyValidSubmitted(f2, familyIncomeOther)" msgError="Especifique a fonte de renda">

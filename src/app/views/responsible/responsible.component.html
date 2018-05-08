@@ -207,7 +207,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="form-group col" [ngClass]="applyCssError(f2, familyIncomeOther)" *ngIf="responsible.family_income === 'Outra'">
+                                                            <div class="form-group col" [ngClass]="applyCssError(f2, familyIncomeOther)" *ngIf="responsible.family_income === 'outra'">
                                                                 <input class="form-control" #familyIncomeOther="ngModel" name="familyIncomeOther" placeholder="Especifique a fonte de renda" [(ngModel)]="responsible.family_income_other" id="familyIncomeOther" required>
                                                                 <app-control-field-error [showError]="verifyValidSubmitted(f2, familyIncomeOther)" msgError="Especifique a fonte de renda">
                                                                 </app-control-field-error>
