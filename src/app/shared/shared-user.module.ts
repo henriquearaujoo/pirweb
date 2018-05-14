@@ -21,7 +21,6 @@ import { SharedModule } from './shared.module';
     UserDetailsComponent
   ],
   providers: [
-    UserService,
     UserDetailsComponent
   ],
   exports: [

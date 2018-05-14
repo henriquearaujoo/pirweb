@@ -2,7 +2,7 @@ export const Constant = {
     //  BASE_URL : 'http://10.10.3.88:8080/pir/rest/',
     BASE_URL : localStorage.getItem('server') ?
                localStorage.getItem('server') :
-               'http://10.10.3.88:8080/pir-dev/rest/',
+               'http://10.10.3.88:8080/pir/rest/',
             //    'http://samsung.institutoitn.com.br/pir-dev/rest/',
     //  BASE_URL : 'http://10.10.3.89:8080/pir/rest/',
     //   BASE_URL : 'http://10.10.3.148:2020/pir/rest/',
