@@ -3,6 +3,7 @@ import { Node } from './../../models/node';
 import { BigraphService } from './../../services/bi-graph/bigraph.service';
 import { Component, OnInit } from '@angular/core';
 declare const $: any;
+
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
@@ -14,7 +15,9 @@ export class ReportComponent implements OnInit {
   private currentTable = 'Selecione uma tabela';
   private properties: Node;
 
-  constructor(private report: BigraphService) { }
+  constructor(private report: BigraphService) {
+
+  }
 
   ngOnInit() {
 
@@ -24,12 +27,15 @@ export class ReportComponent implements OnInit {
         const content = JSON.stringify(s);
         const body = JSON.parse(content);
         const nodes = JSON.parse(body['_body']);
+
         // init nodes
         for (let i = 0; i < nodes.length; i++) {
+
           this.nodeList[i] = {
             child: {nodes : new Array<Node>(), fk: new Array<string>()} ,
             node: nodes[i],
-            entityName: nodes[i].entity
+            entityName: nodes[i].entity,
+            alias: nodes[i].alias
           };
         }
 
@@ -60,6 +66,7 @@ export class ReportComponent implements OnInit {
             }
           }
         }
+        console.log(this.nodeList);
         // this.showDeepPath(this.nodeList[3].entityName);
         // this.showBreadthPath(this.nodeList[3].entityName);
       },
@@ -70,9 +77,9 @@ export class ReportComponent implements OnInit {
   }
 
   amountProps(entity) {
-    this.currentTable = entity;
     const startIndex = this.nodeList.findIndex(o => o.entityName === entity);
     this.properties = this.nodeList[startIndex];
+    this.currentTable = this.properties.alias;
   }
 
   private showDeepPath(startNode) {

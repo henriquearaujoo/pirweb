@@ -200,5 +200,27 @@ export const MENU = [
         'hasChild': false,
         'parent': 17
     },
+    {
+        'id': 19,
+        'title': 'RELATÓRIOS',
+        'route': '',
+        'routes': ['/relatorios'],
+        'read': false,
+        'iClass': 'fa fa-circle-o',
+        'category': 'parent',
+        'hasChild': true,
+        'parent': 0
+    },
+    {
+        'id': 20,
+        'title': 'REGISTRO',
+        'route': 'relatorios',
+        'routes': ['/relatorios'],
+        'read': false,
+        'iClass': 'fa fa-circle-o',
+        'category': 'child',
+        'hasChild': false,
+        'parent': 19
+    },
 ];
 

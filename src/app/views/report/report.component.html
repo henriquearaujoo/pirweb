@@ -1,380 +1,181 @@
 <div class="content_" *ngIf="!isAgent">
     <div class="content-top">
         <div class="content_fa">
-            <!-- <img class="icon" src="./assets/img/global/ic_usuarios.png"> -->
             <i class="large material-icons">insert_chart</i> Relatórios
         </div>
-
     </div>
-    <section class="content">
+
+    <div class="content">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col col-md-10">
+                            <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse1" class="panel-title expand">
+                                <a href="#">Agrupadores (total : 1)</a>
+                            </h4>
+                        </div>
+                        <div class="col col-md-2">
+                            <div class="right-arrow pull-right">
+                                <button class="btn btn-small btn-default" data-toggle="modal" data-target="#modal-report"> +</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <span class="badge badge-primary badge-labeled">Visitas <i class="fa fa-times"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse2" class="panel-title expand">
+                        <div class="right-arrow pull-right">+</div>
+                        <a href="#">Agrupados (total : 0)</a>
+                    </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <span class="badge badge-warning badge-labeled">Warning <i class="fa fa-times"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse3" class="panel-title expand">
+                        <div class="right-arrow pull-right">+</div>
+                        <a href="#">Filtros & parametros(Total : 0)</a>
+                    </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                    <div class="panel-body"></div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse4" class="panel-title expand">
+                        <div class="right-arrow pull-right">+</div>
+                        <a href="#">Ordem (Total : 0)</a>
+                    </h4>
+                </div>
+                <div id="collapse4" class="panel-collapse collapse">
+                    <div class="panel-body"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <section class="content">
         <div class="box">
             <div class="col-md-12">
                 <div class="btn-group col-md-3">
                     <i class="dropdown-arrow dropdown-arrow-inverse"></i>
                     <button class="btn btn-primary status" data-toggle="dropdown">{{currentTable}}</button>
                     <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> <span class="caret"></span>
-                    </button>
+                        </button>
                     <ul class="dropdown-menu dropdown-inverse">
                         <li *ngFor="let item of nodeList">
-                            <a (click)="amountProps(item.node.entity)">{{item.node.entity}}</a>
+                            <a (click)="amountProps(item.node.entity)">{{item.node.alias}}</a>
                         </li>
                     </ul>
                 </div>
                 <div *ngIf="properties">
-                    <table class="col-md-9">
-                        <thead>
-                            <tr>
-                                <th *ngFor="let prop of properties.node.properties">
-                                    {{prop.property}}
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <td *ngFor="let prop of properties.node.properties">
-                                {{prop.property}}
-                            </td>
-                        </tbody>
-                    </table>
-                    <!-- <div class="funkyradio col-md-3" *ngFor="let prop of properties.node.properties">
+                    <div class="funkyradio col-md-3" *ngFor="let prop of properties.node.properties">
                         <div class="funkyradio-primary">
                             <input type="checkbox" name="{{prop.property}}" id="{{prop.property}}" checked/>
-                            <label for="{{prop.property}}">{{prop.property}}</label>
+                            <label for="{{prop.property}}">{{prop.alias}}</label>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
-
             </div>
         </div>
-    </section>
+    </section> -->
 </div>
 
-
-
-
-
-
-
-
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-
-
-<!DOCTYPE html>
-<html lang='en' class=''>
-
-<head>
-    <script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'>
-    </script>
-    <script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script>
-    <script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'>
-    </script>
-    <meta charset='UTF-8'>
-    <meta name="robots" content="noindex">
-    <link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
-    <link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
-    <link rel="canonical" href="https://codepen.io/yurigor/pen/vXYomB?depth=everything&order=popularity&page=4&q=editable&show_forks=false" />
-
-
-    <style class="cp-pen-styles">
-        .container {
-            background-color: black;
-            color: #00BFFF;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            top: 0;
-        }
-        
-        .panzoom {
-            position: absolute;
-            width: 500px;
-            height: 250px;
-            background-color: rgba(0, 0, 255, 0.1);
-            left: 50px;
-            top: 20px;
-            overflow: visible;
-            border: 5px dotted rgba(204, 204, 204, 0.1);
-        }
-        
-        .diagram {
-            position: absolute;
-        }
-        
-        .item {
-            cursor: pointer;
-            position: absolute;
-            overflow: hidden;
-            white-space: nowrap;
-            border: 1px solid #004c66;
-            padding: 8px;
-            border-radius: 3px;
-            background-color: rgba(0, 191, 255, 0.2);
-        }
-        
-        .item:hover {
-            border: 1px solid #00BFFF;
-        }
-        
-        .jsplumb-connector path {
-            stroke: #00BFFF;
-        }
-        
-        .hint {
-            position: absolute;
-            color: grey;
-            left: 100%;
-            top: -24px;
-            white-space: nowrap;
-            font-size: 14px;
-        }
-        
-        .hint h4 {
-            margin-left: 15px;
-        }
-        
-        .hint a {
-            margin-left: 25px;
-            color: red;
-            text-decoration: none;
-        }
-        
-        .hint a:hover {
-            text-decoration: underline;
-        }
-        
-        .hint li a {
-            margin-left: 0;
-            color: #00BFFF;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
-        <div class="panzoom">
-            <div class="diagram">
-                <div id="i0" class="item">Root!</div>
-                <div id="i1" class="item">Child 1</div>
-                <div id="i11" class="item">Child 1.1</div>
-                <div id="i12" class="item">Child 1.2</div>
-                <div id="i2" class="item">Child 2</div>
-                <div id="i21" class="item">Child 2.1</div>
-                <div id="i3" class="item">Child 3</div>
+<div class="modal fade" id="modal-report">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <ul class="nav nav-pills pull-right">
+                    <li class="active">
+                        <a href="#entity" data-toggle="pill">Agrupadores</a>
+                    </li>
+                    <li><a href="#groupby" data-toggle="pill">Agrupados</a></li>
+                    <li><a href="#filter" data-toggle="pill">Filtros/Parametros</a></li>
+                    <li><a href="#orderby" data-toggle="pill">Ordem</a></li>
+                </ul>
+                <h4>Configuração</h4>
             </div>
-            <div class="hint">
-                <h4>Hint</h4>
-                <ul>
-                    <li>Drag and drop empty space to pan</li>
-                    <li>Nodes are also draggable</li>
-                    <li>Mouse wheel to pan up/down</li>
-                    <li>Shift+Mouse wheel to pan left/right</li>
-                    <li>Ctrl+Mouse wheel to zoom in/out</li>
-                </ul>
-                <h4>Used</h4>
-                <ul>
-                    <li><a href="https://jsplumbtoolkit.com/community/doc/home.html">jsPlumb Community Edition</a></li>
-                    <li><a href="https://github.com/timmywil/jquery.panzoom">jQuery Panzoom plugin</a><br>My <a href="https://github.com/YuriGor/jquery.panzoom/tree/ignoreChildrensEvents">branch</a> used, to avoid children's events conflict, see discussion
-                        <a href="https://github.com/timmywil/jquery.panzoom/issues/299">here</a> for details.</li>
-                    <li><a href="https://github.com/cpettitt/dagre">Dagre for initial auto-layout</a></li>
-                    <li><a href="https://jqueryui.com/draggable/">jQueryUI Draggable for dragging nodes</a></li>
-                </ul>
-                <a target="_blank" href="http://yurigor.com/pan-zoom-jsplumb-dagrejs-jqueryui-draggable/">See my blog for details</a>
+            <div class="modal-body">
+                <div class="row-fluid">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="entity">
+
+                            <div class="box">
+                                <div class="col-md-12">
+                                    <div class="funkyradio" *ngFor="let item of nodeList">
+                                        <div class="funkyradio-primary col-md-3" *ngIf="item.alias !== undefined ">
+                                            <input type="checkbox" name="{{item.node.entity}}" id="{{item.node.entity}}" />
+                                            <label for="{{item.node.entity}}">{{item.node.alias}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="tab-pane" id="groupby">
+                            <div class="box">
+                                <div class="col-md-12">
+                                    <div class="funkyradio" *ngFor="let item of nodeList">
+                                        <div class="funkyradio-primary col-md-3" *ngIf="item.alias !== undefined ">
+                                            <input type="checkbox" name="{{item.node.entity}}" id="{{item.node.entity}}" />
+                                            <label for="{{item.node.entity}}">{{item.node.alias}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="filter">
+                            <div class="box">
+                                <div class="col-md-12">
+                                    <div class="btn-group col-md-3">
+                                        <i class="dropdown-arrow dropdown-arrow-inverse"></i>
+                                        <button class="btn btn-primary status" data-toggle="dropdown">{{currentTable}}</button>
+                                        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> <span class="caret"></span>
+                                                    </button>
+                                        <ul class="dropdown-menu dropdown-inverse">
+                                            <li *ngFor="let item of nodeList">
+                                                <a *ngIf="item.alias !== undefined " (click)="amountProps(item.node.entity)">{{item.node.alias}}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div *ngIf="properties">
+                                        <div class="funkyradio col-md-3" *ngFor="let prop of properties.node.properties">
+                                            <div class="funkyradio-primary" *ngIf="prop.alias !== undefined ">
+                                                <input type="checkbox" name="{{prop.property}}" id="{{prop.property}}" checked/>
+                                                <label for="{{prop.property}}">{{prop.alias}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="orderby">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" data-dismiss="modal">
+                <!-- <div class="row"> -->
+                <div class="modal-btn-confirm">
+                    <button type="button" class="btn btn-primary btn-md" data-dismiss="modal" id="btn_confirm">Aplicar</button>
+                </div>
             </div>
         </div>
     </div>
-    <script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
-    <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.12.0/lodash.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.0.7/jsPlumb.min.js'></script>
-    <script src='https://cdn.rawgit.com/cpettitt/dagre/e66c29b8/dist/dagre.min.js'></script>
-    <script src='https://cdn.rawgit.com/YuriGor/jquery.panzoom/ignoreChildrensEvents/dist/jquery.panzoom.min.js'></script>
-    <script>
-        var minScale = 0.4;
-        var maxScale = 2;
-        var incScale = 0.1;
-        var plumb = null;
-        var $container = $(".container");
-        $diagram = $container.find(".diagram");
-        var $panzoom = null;
-        var links = [{
-            from: "i0",
-            to: "i1"
-        }, {
-            from: "i1",
-            to: "i11"
-        }, {
-            from: "i1",
-            to: "i12"
-        }, {
-            from: "i0",
-            to: "i2"
-        }, {
-            from: "i2",
-            to: "i21"
-        }, {
-            from: "i0",
-            to: "i3"
-        }, ];
-
-        jsPlumb.ready(function() {
-            plumb = jsPlumb.getInstance({
-                PaintStyle: {
-                    strokeWidth: 1
-                },
-                Anchors: [
-                    ["Left", "Right", "Bottom"],
-                    ["Top", "Bottom"]
-                ],
-                Container: $diagram,
-            });
-            _.each(links, function(link) {
-                plumb.connect({
-                    source: link.from,
-                    target: link.to,
-                    connector: ["Flowchart", {
-                        cornerRadius: 3,
-                        stub: 16
-                    }],
-                    endpoints: ["Blank", "Blank"],
-                    overlays: [
-                        ["Arrow", {
-                            location: 1,
-                            width: 10,
-                            length: 10
-                        }]
-                    ],
-                });
-            });
-            var dg = new dagre.graphlib.Graph();
-            dg.setGraph({
-                nodesep: 30,
-                ranksep: 30,
-                marginx: 50,
-                marginy: 50
-            });
-            dg.setDefaultEdgeLabel(function() {
-                return {};
-            });
-            $container.find(".item").each(
-                function(idx, node) {
-                    var $n = $(node);
-                    var box = {
-                        width: Math.round($n.outerWidth()),
-                        height: Math.round($n.outerHeight())
-                    };
-                    dg.setNode($n.attr('id'), box);
-                }
-            );
-            plumb.getAllConnections()
-                .forEach(function(edge) {
-                    dg.setEdge(edge.source.id, edge.target.id);
-                });
-            dagre.layout(dg);
-            var graphInfo = dg.graph();
-            dg.nodes().forEach(
-                function(n) {
-                    var node = dg.node(n);
-                    var top = Math.round(node.y - node.height / 2) + 'px';
-                    var left = Math.round(node.x - node.width / 2) + 'px';
-                    $('#' + n).css({
-                        left: left,
-                        top: top
-                    });
-                });
-            plumb.repaintEverything();
-            _.defer(function() {
-                $panzoom = $container.find('.panzoom').panzoom({
-                        minScale: minScale,
-                        maxScale: maxScale,
-                        increment: incScale,
-                        cursor: "",
-                        ignoreChildrensEvents: true,
-                    }).on("panzoomstart", function(e, pz, ev) {
-                        $panzoom.css("cursor", "move");
-                    })
-                    .on("panzoomend", function(e, pz) {
-                        $panzoom.css("cursor", "");
-                    });
-                $panzoom.parent()
-                    .on('mousewheel.focal', function(e) {
-                        if (e.ctrlKey || e.originalEvent.ctrlKey) {
-                            e.preventDefault();
-                            var delta = e.delta || e.originalEvent.wheelDelta;
-                            var zoomOut = delta ? delta < 0 : e.originalEvent.deltaY > 0;
-                            $panzoom.panzoom('zoom', zoomOut, {
-                                animate: true,
-                                exponential: false,
-                            });
-                        } else {
-                            e.preventDefault();
-                            var deltaY = e.deltaY || e.originalEvent.wheelDeltaY || (-e.originalEvent.deltaY);
-                            var deltaX = e.deltaX || e.originalEvent.wheelDeltaX || (-e.originalEvent.deltaX);
-                            $panzoom.panzoom("pan", deltaX / 2, deltaY / 2, {
-                                animate: true,
-                                relative: true,
-                            });
-                        }
-                    })
-                    .on("mousedown touchstart", function(ev) {
-                        var matrix = $container.find(".panzoom").panzoom("getMatrix");
-                        var offsetX = matrix[4];
-                        var offsetY = matrix[5];
-                        var dragstart = {
-                            x: ev.pageX,
-                            y: ev.pageY,
-                            dx: offsetX,
-                            dy: offsetY
-                        };
-                        $(ev.target).css("cursor", "move");
-                        $(this).data('dragstart', dragstart);
-                    })
-                    .on("mousemove touchmove", function(ev) {
-                        var dragstart = $(this).data('dragstart');
-                        if (dragstart) {
-                            var deltaX = dragstart.x - ev.pageX;
-                            var deltaY = dragstart.y - ev.pageY;
-                            var matrix = $container.find(".panzoom").panzoom("getMatrix");
-                            matrix[4] = parseInt(dragstart.dx) - deltaX;
-                            matrix[5] = parseInt(dragstart.dy) - deltaY;
-                            $container.find(".panzoom").panzoom("setMatrix", matrix);
-                        }
-                    })
-                    .on("mouseup touchend touchcancel", function(ev) {
-                        $(this).data('dragstart', null);
-                        $(ev.target).css("cursor", "");
-                    });
-            });
-            var currentScale = 1;
-            $container.find(".diagram .item").draggable({
-                start: function(e) {
-                    var pz = $container.find(".panzoom");
-                    currentScale = pz.panzoom("getMatrix")[0];
-                    $(this).css("cursor", "move");
-                    pz.panzoom("disable");
-                },
-                drag: function(e, ui) {
-                    ui.position.left = ui.position.left / currentScale;
-                    ui.position.top = ui.position.top / currentScale;
-                    if ($(this).hasClass("jsplumb-connected")) {
-                        plumb.repaint($(this).attr('id'), ui.position);
-                    }
-                },
-                stop: function(e, ui) {
-                    var nodeId = $(this).attr('id');
-                    if ($(this).hasClass("jsplumb-connected")) {
-                        plumb.repaint(nodeId, ui.position);
-                    }
-                    $(this).css("cursor", "");
-                    $container.find(".panzoom").panzoom("enable");
-                }
-            });
-        });
-        //# sourceURL=pen.js
-    </script>
-</body>
-
-</html>
+</div>
+<!-- /.modal -->
