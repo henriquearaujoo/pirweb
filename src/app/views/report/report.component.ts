@@ -20,8 +20,12 @@ export class ReportComponent implements OnInit {
   private groupedList = [] = new Array();
   private orderList = [] = new Array();
   private path = [] = new Array();
-  private searchedList = [] = new Array();
   private allPath: any[] = Array();
+  private treeToSearch: any[] = Array();
+  private searchedList = [] = new Array();
+
+  private startNode: string;
+
   constructor(private report: BigraphService) {
 
   }
@@ -84,28 +88,40 @@ export class ReportComponent implements OnInit {
     );
   }
 
-  createPath(entity, event) {
+  createPath(node: Node, event) {
+
+    this.path = new Array();
+
     if (event.target.checked) {
-      this.searchedList.push(entity);
+      this.searchedList.push(node);
+      if (this.searchedList.length > 1) {
+        this.showDeepPath(this.searchedList[0].entity, this.searchedList[this.searchedList.length - 1].entity); // visit to community
+      }else if (this.searchedList.length === 1) {
+        this.path.push(node.entity);
+        this.allPath.push(this.path);
+      }else {
+        this.path = new Array();
+      }
     }else {
 
-      const index = this.searchedList.findIndex(o => o === entity);
+      const index = this.searchedList.findIndex(o => o.entity === node.entity);
       this.searchedList.splice(index, 1);
-      // this.allPath.splice(index, 1);
-      // if (this.searchedList.length > 0) {
-      //   this.allPath.splice(index, 1);
-      // }
+      this.allPath[index].splice(index, this.allPath[index].length);
+      this.allPath.splice(index, 1);
     }
-
-    if (this.searchedList.length > 1) {
-      this.showDeepPath(this.searchedList[0], this.searchedList[this.searchedList.length - 1]); // visit to community
-    }else if (this.searchedList.length === 1) {
-      this.path = new Array();
-      this.path.push(entity);
-      console.log(this.path);
-    }else {
-      this.path = new Array();
+    if (this.searchedList.length > 0) {
+      this.startNode = this.searchedList[0].entity;
     }
+    console.log(this.allPath);
+    // for (let i = 0 ; this.searchedList.length; i ++) {
+    //   this.allPath[0] = {
+    //     child: {nodes : new Array<Node>(), fk: new Array<string>()} ,
+    //     node: this.searchedList[i],
+    //     entityName: this.searchedList[i].entity,
+    //     alias: this.searchedList[i].alias
+    //   };
+    // }
+    // console.log(this.allPath);
   }
 
   amountProps(entity) {
@@ -142,7 +158,6 @@ export class ReportComponent implements OnInit {
         if (!visited[entityDest]) {
           visited[entityDest] = true;
           stack.push(childrenNodes[i].nodes.entityName);
-          this.path.push(childrenNodes[i].nodes.entityName);
           // console.log(currentNode + '-----[' +  childrenNodes[i].fk + ']------>' + childrenNodes[i].nodes.entityName);
           hasDeepNodes = true;
 
@@ -157,8 +172,7 @@ export class ReportComponent implements OnInit {
       }
     }
     this.path = stack;
-    console.log(this.path);
-    // this.allPath.push(this.path);
+    this.allPath.push(this.path);
   }
 
   private showBreadthPath(startNode, endNode) {
@@ -198,7 +212,6 @@ export class ReportComponent implements OnInit {
           }
         }
       }
-      console.log(this.path);
     }
 
   }

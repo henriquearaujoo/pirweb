@@ -116,8 +116,8 @@
                             <div class="box">
                                 <div class="col-md-12">
                                     <div class="funkyradio" *ngFor="let item of nodeList">
-                                        <div class="funkyradio-success col-md-3" *ngIf="item.alias !== undefined " [ngClass]="this.searchedList.lenght > 0 && this.searchedList[0] === item.node.entity ? 'funkyradio-success' : 'funkyradio-primary'">
-                                            <input type="checkbox" (change)="createPath(item.node.entity,$event)" name="{{item.node.entity+'_i'}}" id="{{item.node.entity+'_i'}}" />
+                                        <div class="col col-md-3" *ngIf="item.alias !== undefined " [ngClass]="startNode === item.node.entity ? 'funkyradio-success' : 'funkyradio-primary'">
+                                            <input type="checkbox" (change)="createPath(item.node,$event)" name="{{item.node.entity+'_i'}}" id="{{item.node.entity+'_i'}}" />
                                             <label for="{{item.node.entity+'_i'}}">{{item.node.alias}}</label>
                                         </div>
                                     </div>
