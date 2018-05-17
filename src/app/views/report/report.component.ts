@@ -45,7 +45,7 @@ export class ReportComponent implements OnInit {
           this.nodeList[i] = {
             child: {nodes : new Array<Node>(), fk: new Array<string>()} ,
             node: nodes[i],
-            entityName: nodes[i].entity,
+            entity: nodes[i].entity,
             alias: nodes[i].alias
           };
         }
@@ -66,21 +66,21 @@ export class ReportComponent implements OnInit {
             prop.property = nodes[i].properties[j].property;
             node.properties.push(prop);
 
-            let entityName = prop.type;
+            let entity = prop.type;
             if (prop.type.indexOf('Collection<') !== -1) {
-              entityName = prop.type.slice(11, prop.type.length - 1);
+              entity = prop.type.slice(11, prop.type.length - 1);
             }else if (prop.type.indexOf('Set<') !== -1) {
-              entityName = prop.type.slice(4, prop.type.length - 1);
+              entity = prop.type.slice(4, prop.type.length - 1);
             }
-            const k = this.nodeList.find(o => o.entityName === entityName);
+            const k = this.nodeList.find(o => o.entity === entity);
             if (k !== undefined ) {
               this.nodeList[i].child.nodes.push({nodes: k, fk: prop.property});
             }
           }
         }
         // console.log(this.nodeList);
-        // this.showDeepPath(this.nodeList[5].entityName, this.nodeList[11].entityName); // visit to community
-        // this.showBreadthPath(this.nodeList[18].entityName, this.nodeList[4].entityName); // visit to community
+        // this.showDeepPath(this.nodeList[5].entity, this.nodeList[11].entity); // visit to community
+        // this.showBreadthPath(this.nodeList[18].entity, this.nodeList[4].entity); // visit to community
       },
       e => {
         console.log(e);
@@ -95,9 +95,9 @@ export class ReportComponent implements OnInit {
     if (event.target.checked) {
       this.searchedList.push(node);
       if (this.searchedList.length > 1) {
-        this.showDeepPath(this.searchedList[0].entity, this.searchedList[this.searchedList.length - 1].entity); // visit to community
+        this.showDeepPath(this.searchedList[0], this.searchedList[this.searchedList.length - 1]);
       }else if (this.searchedList.length === 1) {
-        this.path.push(node.entity);
+        this.path.push(node);
         this.allPath.push(this.path);
       }else {
         this.path = new Array();
@@ -112,25 +112,17 @@ export class ReportComponent implements OnInit {
     if (this.searchedList.length > 0) {
       this.startNode = this.searchedList[0].entity;
     }
+    this.groupedList = this.searchedList;
     console.log(this.allPath);
-    // for (let i = 0 ; this.searchedList.length; i ++) {
-    //   this.allPath[0] = {
-    //     child: {nodes : new Array<Node>(), fk: new Array<string>()} ,
-    //     node: this.searchedList[i],
-    //     entityName: this.searchedList[i].entity,
-    //     alias: this.searchedList[i].alias
-    //   };
-    // }
-    // console.log(this.allPath);
   }
 
   amountProps(entity) {
-    const startIndex = this.nodeList.findIndex(o => o.entityName === entity);
+    const startIndex = this.nodeList.findIndex(o => o.entity === entity);
     this.properties = this.nodeList[startIndex];
     this.currentTable = this.properties.alias;
   }
 
-  private showDeepPath(startNode, endNode) {
+  private showDeepPath(startNode: Node, endNode: Node) {
     const visited = [];
     const stack = new Array();
 
@@ -140,28 +132,28 @@ export class ReportComponent implements OnInit {
     for (let i = 0; i < this.nodeList.length; i++) {
       visited[i] = false;
     }
-    const startIndex = this.nodeList.findIndex(o => o.entityName === startNode);
-    const endIndex = this.nodeList.findIndex(o => o.entityName === endNode);
+    const startIndex = this.nodeList.findIndex(o => o.entity === startNode.entity);
+    const endIndex = this.nodeList.findIndex(o => o.entity === endNode.entity);
 
     visited[startIndex] = true;
-    this.path.push(stack[startIndex]);
+    // this.path.push(stack[startIndex]);
     while (stack.length > 0 && !foundEnd) {
 
       const currentNode = stack[stack.length - 1];
-      const currentIndex = this.nodeList.findIndex(o => o.entityName === currentNode);
+      const currentIndex = this.nodeList.findIndex(o => o.entity === currentNode.entity);
       // get other connected nodes from current node
       const childrenNodes = this.nodeList[currentIndex].child.nodes;
       let hasDeepNodes = false;
 
       for (let i = 0; i < childrenNodes.length && !hasDeepNodes; i++) {
-        const entityDest =  this.nodeList.findIndex(o => o.entityName === childrenNodes[i].nodes.entityName);
+        const entityDest =  this.nodeList.findIndex(o => o.entity === childrenNodes[i].nodes.entity);
         if (!visited[entityDest]) {
           visited[entityDest] = true;
-          stack.push(childrenNodes[i].nodes.entityName);
-          // console.log(currentNode + '-----[' +  childrenNodes[i].fk + ']------>' + childrenNodes[i].nodes.entityName);
+          stack.push(childrenNodes[i].nodes);
+          // console.log(currentNode + '-----[' +  childrenNodes[i].fk + ']------>' + childrenNodes[i].nodes.entity);
           hasDeepNodes = true;
 
-          if (childrenNodes[i].nodes.entityName === this.nodeList[endIndex].entityName) {
+          if (childrenNodes[i].nodes.entity === this.nodeList[endIndex].entity) {
             foundEnd = true;
           }
         }
@@ -184,8 +176,8 @@ export class ReportComponent implements OnInit {
     }
 
     let foundEnd = false;
-    const startIndex = this.nodeList.findIndex(o => o.entityName === startNode);
-    const endIndex = this.nodeList.findIndex(o => o.entityName === endNode);
+    const startIndex = this.nodeList.findIndex(o => o.entity === startNode);
+    const endIndex = this.nodeList.findIndex(o => o.entity === endNode);
     visited[startIndex] = true;
 
     this.path.push(queue[startIndex]);
@@ -193,21 +185,21 @@ export class ReportComponent implements OnInit {
     while (queue.length > 0 ) {
       this.path.splice(0, 1);
       const currentNode = queue.splice(0, 1);
-      const currentIndex = this.nodeList.findIndex(o => o.entityName === currentNode[0]);
+      const currentIndex = this.nodeList.findIndex(o => o.entity === currentNode[0]);
       const childrenNodes = this.nodeList[currentIndex].child.nodes;
 
       for (let i = 0; i < childrenNodes.length; i++) {
 
-        const entityDest =  this.nodeList.findIndex(o => o.entityName === childrenNodes[i].nodes.entityName);
+        const entityDest =  this.nodeList.findIndex(o => o.entity === childrenNodes[i].nodes.entity);
 
         if (!visited[entityDest]) {
 
           visited[entityDest] = true;
-          queue.push(childrenNodes[i].nodes.entityName);
-          this.path.push(childrenNodes[i].nodes.entityName);
+          queue.push(childrenNodes[i].nodes.entity);
+          this.path.push(childrenNodes[i].nodes.entity);
 
-          // console.log(currentNode + '->' + childrenNodes[i].nodes.entityName);
-          if (childrenNodes[i].nodes.entityName === this.nodeList[endIndex].entityName) {
+          // console.log(currentNode + '->' + childrenNodes[i].nodes.entity);
+          if (childrenNodes[i].nodes.entity === this.nodeList[endIndex].entity) {
             foundEnd = true;
           }
         }

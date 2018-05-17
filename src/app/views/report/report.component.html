@@ -127,10 +127,10 @@
                         <div class="tab-pane" id="groupby">
                             <div class="box">
                                 <div class="col-md-12">
-                                    <div class="funkyradio" *ngFor="let item of nodeList">
+                                    <div class="funkyradio" *ngFor="let item of this.groupedList">
                                         <div class="funkyradio-success col-md-3" *ngIf="item.alias !== undefined">
-                                            <input type="checkbox" name="{{item.node.entity}}" id="{{item.node.entity}}" />
-                                            <label for="{{item.node.entity}}">{{item.node.alias}}</label>
+                                            <input type="checkbox" name="{{item.entity}}" id="{{item.entity}}" />
+                                            <label for="{{item.entity}}">{{item.alias}}</label>
                                         </div>
                                     </div>
                                 </div>
