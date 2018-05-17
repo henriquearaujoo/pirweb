@@ -198,6 +198,7 @@ i.large.material-icons {
 }
 
 .modal-content {
+    margin-left: -200px;
     width: 1020px;
     height: 700px;
 }

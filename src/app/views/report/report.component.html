@@ -100,9 +100,9 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <ul class="nav nav-pills pull-right">
                     <li class="active">
-                        <a href="#entity" data-toggle="pill">Agrupadores</a>
+                        <a href="#entity" data-toggle="pill">Pesquisar</a>
                     </li>
-                    <li><a href="#groupby" data-toggle="pill">Agrupados</a></li>
+                    <li><a href="#groupby" data-toggle="pill">Agrupadores</a></li>
                     <li><a href="#filter" data-toggle="pill">Filtros/Parametros</a></li>
                     <li><a href="#orderby" data-toggle="pill">Ordem</a></li>
                 </ul>
@@ -116,21 +116,19 @@
                             <div class="box">
                                 <div class="col-md-12">
                                     <div class="funkyradio" *ngFor="let item of nodeList">
-                                        <div class="funkyradio-primary col-md-3" *ngIf="item.alias !== undefined ">
-                                            <input type="checkbox" name="{{item.node.entity}}" id="{{item.node.entity}}" />
-                                            <label for="{{item.node.entity}}">{{item.node.alias}}</label>
+                                        <div class="funkyradio-success col-md-3" *ngIf="item.alias !== undefined " [ngClass]="this.searchedList.lenght > 0 && this.searchedList[0] === item.node.entity ? 'funkyradio-success' : 'funkyradio-primary'">
+                                            <input type="checkbox" (change)="createPath(item.node.entity,$event)" name="{{item.node.entity+'_i'}}" id="{{item.node.entity+'_i'}}" />
+                                            <label for="{{item.node.entity+'_i'}}">{{item.node.alias}}</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                         <div class="tab-pane" id="groupby">
                             <div class="box">
                                 <div class="col-md-12">
                                     <div class="funkyradio" *ngFor="let item of nodeList">
-                                        <div class="funkyradio-primary col-md-3" *ngIf="item.alias !== undefined ">
+                                        <div class="funkyradio-success col-md-3" *ngIf="item.alias !== undefined">
                                             <input type="checkbox" name="{{item.node.entity}}" id="{{item.node.entity}}" />
                                             <label for="{{item.node.entity}}">{{item.node.alias}}</label>
                                         </div>

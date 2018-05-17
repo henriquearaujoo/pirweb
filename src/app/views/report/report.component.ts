@@ -15,6 +15,13 @@ export class ReportComponent implements OnInit {
   private currentTable = 'Selecione uma tabela';
   private properties: Node;
 
+  private joinList = [] = new Array();
+  private columnList = [] = new Array();
+  private groupedList = [] = new Array();
+  private orderList = [] = new Array();
+  private path = [] = new Array();
+  private searchedList = [] = new Array();
+  private allPath: any[] = Array();
   constructor(private report: BigraphService) {
 
   }
@@ -39,6 +46,7 @@ export class ReportComponent implements OnInit {
           };
         }
 
+        // create graph
         for (let i = 0; i < nodes.length; i++) {
           const x = new Array<Node[]>();
           const node = new Node();
@@ -66,14 +74,38 @@ export class ReportComponent implements OnInit {
             }
           }
         }
-        console.log(this.nodeList);
-        // this.showDeepPath(this.nodeList[3].entityName);
-        // this.showBreadthPath(this.nodeList[3].entityName);
+        // console.log(this.nodeList);
+        // this.showDeepPath(this.nodeList[5].entityName, this.nodeList[11].entityName); // visit to community
+        // this.showBreadthPath(this.nodeList[18].entityName, this.nodeList[4].entityName); // visit to community
       },
       e => {
         console.log(e);
       }
     );
+  }
+
+  createPath(entity, event) {
+    if (event.target.checked) {
+      this.searchedList.push(entity);
+    }else {
+
+      const index = this.searchedList.findIndex(o => o === entity);
+      this.searchedList.splice(index, 1);
+      // this.allPath.splice(index, 1);
+      // if (this.searchedList.length > 0) {
+      //   this.allPath.splice(index, 1);
+      // }
+    }
+
+    if (this.searchedList.length > 1) {
+      this.showDeepPath(this.searchedList[0], this.searchedList[this.searchedList.length - 1]); // visit to community
+    }else if (this.searchedList.length === 1) {
+      this.path = new Array();
+      this.path.push(entity);
+      console.log(this.path);
+    }else {
+      this.path = new Array();
+    }
   }
 
   amountProps(entity) {
@@ -82,19 +114,26 @@ export class ReportComponent implements OnInit {
     this.currentTable = this.properties.alias;
   }
 
-  private showDeepPath(startNode) {
+  private showDeepPath(startNode, endNode) {
     const visited = [];
     const stack = new Array();
+
+    let foundEnd = false;
+
     stack.push(startNode);
     for (let i = 0; i < this.nodeList.length; i++) {
       visited[i] = false;
     }
     const startIndex = this.nodeList.findIndex(o => o.entityName === startNode);
+    const endIndex = this.nodeList.findIndex(o => o.entityName === endNode);
+
     visited[startIndex] = true;
-    while (stack.length > 0 ) {
+    this.path.push(stack[startIndex]);
+    while (stack.length > 0 && !foundEnd) {
 
       const currentNode = stack[stack.length - 1];
       const currentIndex = this.nodeList.findIndex(o => o.entityName === currentNode);
+      // get other connected nodes from current node
       const childrenNodes = this.nodeList[currentIndex].child.nodes;
       let hasDeepNodes = false;
 
@@ -103,39 +142,64 @@ export class ReportComponent implements OnInit {
         if (!visited[entityDest]) {
           visited[entityDest] = true;
           stack.push(childrenNodes[i].nodes.entityName);
-          // console.log(currentNode + '-----' +  childrenNodes[i].fk + '------>' + childrenNodes[i].nodes.entityName);
+          this.path.push(childrenNodes[i].nodes.entityName);
+          // console.log(currentNode + '-----[' +  childrenNodes[i].fk + ']------>' + childrenNodes[i].nodes.entityName);
           hasDeepNodes = true;
+
+          if (childrenNodes[i].nodes.entityName === this.nodeList[endIndex].entityName) {
+            foundEnd = true;
+          }
         }
       }
       if (!hasDeepNodes) {
+        // console.log(stack);
         stack.pop();
       }
     }
+    this.path = stack;
+    console.log(this.path);
+    // this.allPath.push(this.path);
   }
 
-  private showBreadthPath(startNode) {
+  private showBreadthPath(startNode, endNode) {
     const visited = [];
     const queue = new Array();
     queue.push(startNode);
     for (let i = 0; i < this.nodeList.length; i++) {
       visited[i] = false;
     }
-    const startIndex = this.nodeList.findIndex(o => o.entityName === startNode);
-    visited[startIndex] = true;
-    while (queue.length > 0 ) {
 
+    let foundEnd = false;
+    const startIndex = this.nodeList.findIndex(o => o.entityName === startNode);
+    const endIndex = this.nodeList.findIndex(o => o.entityName === endNode);
+    visited[startIndex] = true;
+
+    this.path.push(queue[startIndex]);
+
+    while (queue.length > 0 ) {
+      this.path.splice(0, 1);
       const currentNode = queue.splice(0, 1);
       const currentIndex = this.nodeList.findIndex(o => o.entityName === currentNode[0]);
       const childrenNodes = this.nodeList[currentIndex].child.nodes;
 
       for (let i = 0; i < childrenNodes.length; i++) {
+
         const entityDest =  this.nodeList.findIndex(o => o.entityName === childrenNodes[i].nodes.entityName);
+
         if (!visited[entityDest]) {
+
           visited[entityDest] = true;
           queue.push(childrenNodes[i].nodes.entityName);
-          console.log(currentNode + '->' + childrenNodes[i].nodes.entityName);
+          this.path.push(childrenNodes[i].nodes.entityName);
+
+          // console.log(currentNode + '->' + childrenNodes[i].nodes.entityName);
+          if (childrenNodes[i].nodes.entityName === this.nodeList[endIndex].entityName) {
+            foundEnd = true;
+          }
         }
       }
+      console.log(this.path);
     }
+
   }
 }
