@@ -103,7 +103,8 @@
                         <a href="#entity" data-toggle="pill">Pesquisar</a>
                     </li>
                     <li><a href="#groupby" data-toggle="pill">Agrupadores</a></li>
-                    <li><a href="#filter" data-toggle="pill">Filtros/Parametros</a></li>
+                    <li><a href="#filter" data-toggle="pill">Filtros</a></li>
+                    <li><a href="#param" data-toggle="pill">Parametros</a></li>
                     <li><a href="#orderby" data-toggle="pill">Ordem</a></li>
                 </ul>
                 <h4>Configuração</h4>
@@ -111,49 +112,48 @@
             <div class="modal-body">
                 <div class="row-fluid">
                     <div class="tab-content">
+                        <!-- Seach -->
                         <div class="tab-pane active" id="entity">
-
-                            <div class="box">
-                                <div class="col-md-12">
-                                    <div class="funkyradio" *ngFor="let item of nodeList">
-                                        <div class="col col-md-3" *ngIf="item.alias !== undefined " [ngClass]="startNode === item.node.entity ? 'funkyradio-success' : 'funkyradio-primary'">
-                                            <input type="checkbox" (change)="createPath(item.node,$event)" name="{{item.node.entity+'_i'}}" id="{{item.node.entity+'_i'}}" />
-                                            <label for="{{item.node.entity+'_i'}}">{{item.node.alias}}</label>
-                                        </div>
+                            <div class="col-md-12" style="height: 550px; overflow-y: auto;">
+                                <div class="funkyradio" *ngFor="let item of nodeList">
+                                    <div class="col col-md-3" *ngIf="item.alias !== undefined " [ngClass]="startNode === item.node.entity ? 'funkyradio-success' : 'funkyradio-primary'">
+                                        <input type="checkbox" (change)="createPath(item.node,$event)" name="{{item.node.entity+'_i'}}" id="{{item.node.entity+'_i'}}" />
+                                        <label for="{{item.node.entity+'_i'}}">{{item.node.alias}}</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- Group -->
                         <div class="tab-pane" id="groupby">
-                            <div class="box">
-                                <div class="col-md-12">
-                                    <div class="funkyradio" *ngFor="let item of this.groupedList">
-                                        <div class="funkyradio-success col-md-3" *ngIf="item.alias !== undefined">
-                                            <input type="checkbox" name="{{item.entity}}" id="{{item.entity}}" />
-                                            <label for="{{item.entity}}">{{item.alias}}</label>
-                                        </div>
+                            <div class="col-md-12" style="height: 550px; overflow-y: auto;">
+                                <div class="funkyradio" *ngFor="let item of groupedList">
+                                    <div class="funkyradio-primary col-md-3" *ngIf="item.alias !== undefined">
+                                        <input type="checkbox" name="{{item.entity}}" id="{{item.entity}}" />
+                                        <label for="{{item.entity}}">{{item.alias}}</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- Filter -->
                         <div class="tab-pane" id="filter">
-                            <div class="box">
-                                <div class="col-md-12">
-                                    <div class="btn-group col-md-3">
-                                        <i class="dropdown-arrow dropdown-arrow-inverse"></i>
-                                        <button class="btn btn-primary status" data-toggle="dropdown">{{currentTable}}</button>
-                                        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> <span class="caret"></span>
-                                                    </button>
-                                        <ul class="dropdown-menu dropdown-inverse">
-                                            <li *ngFor="let item of nodeList">
-                                                <a *ngIf="item.alias !== undefined " (click)="amountProps(item.node.entity)">{{item.node.alias}}</a>
-                                            </li>
-                                        </ul>
+                            <div class="col-md-12" style="height: 550px; overflow-y: auto;">
+                                <div class="funkyradio">
+                                    <div class="funkyradio-primary col-md-12">
+                                        <div class="funkyradio">
+                                            <div class=" col-md-3 funkyradio-primary">
+                                                <input type="checkbox" name="select_all" id="select_all" />
+                                                <label for="select_all_label">Selecionar Todos</label>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div *ngIf="properties">
-                                        <div class="funkyradio col-md-3" *ngFor="let prop of properties.node.properties">
-                                            <div class="funkyradio-primary" *ngIf="prop.alias !== undefined ">
-                                                <input type="checkbox" name="{{prop.property}}" id="{{prop.property}}" checked/>
+                                </div>
+
+                                <div class="funkyradio" *ngFor="let item of groupedList">
+                                    <label for="{{item.entity+'_filter'}}" class="padding">{{item.alias}}</label>
+                                    <div class="funkyradio-primary col-md-12" *ngIf="item.alias !== undefined">
+                                        <div class="funkyradio" *ngFor="let prop of item.properties">
+                                            <div class=" col-md-3 funkyradio-primary" *ngIf="prop.alias !== undefined && prop.alias !== null">
+                                                <input type="checkbox" name="{{prop.property}}" id="{{prop.property}}" />
                                                 <label for="{{prop.property}}">{{prop.alias}}</label>
                                             </div>
                                         </div>
@@ -161,16 +161,66 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane" id="orderby">
+                        <!-- Param -->
+                        <div class="tab-pane" id="param">
+                            <div class="col-md-12" style="height: 550px; overflow-y: auto;">
+                                <div class="funkyradio">
+                                    <div class="funkyradio-primary col-md-12">
+                                        <div class="funkyradio">
+                                            <div class=" col-md-3 funkyradio-primary">
+                                                <input type="checkbox" name="select_all" id="select_all" />
+                                                <label for="select_all_label">Selecionar Todos</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
+                                <div class="funkyradio" *ngFor="let item of groupedList">
+                                    <label for="{{item.entity+'_filter'}}" class="padding">{{item.alias}}</label>
+                                    <div class="funkyradio-primary col-md-12" *ngIf="item.alias !== undefined">
+                                        <div class="funkyradio" *ngFor="let prop of item.properties">
+                                            <div class=" col-md-3 funkyradio-primary" *ngIf="prop.alias !== undefined && prop.alias !== null">
+                                                <input type="checkbox" name="{{prop.property}}" id="{{prop.property}}" />
+                                                <label for="{{prop.property}}">{{prop.alias}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Param -->
+                        <div class="tab-pane" id="orderby">
+                            <div class="col-md-12" style="height: 550px; overflow-y: auto;">
+                                <div class="funkyradio">
+                                    <div class="funkyradio-primary col-md-12">
+                                        <div class="funkyradio">
+                                            <div class=" col-md-3 funkyradio-primary">
+                                                <input type="checkbox" name="select_all" id="select_all" />
+                                                <label for="select_all_label">Selecionar Todos</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="funkyradio" *ngFor="let item of groupedList">
+                                    <label for="{{item.entity+'_filter'}}" class="padding">{{item.alias}}</label>
+                                    <div class="funkyradio-primary col-md-12" *ngIf="item.alias !== undefined">
+                                        <div class="funkyradio" *ngFor="let prop of item.properties">
+                                            <div class=" col-md-3 funkyradio-primary" *ngIf="prop.alias !== undefined && prop.alias !== null">
+                                                <input type="checkbox" name="{{prop.property}}" id="{{prop.property}}" />
+                                                <label for="{{prop.property}}">{{prop.alias}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer" data-dismiss="modal">
-                <!-- <div class="row"> -->
-                <div class="modal-btn-confirm">
-                    <button type="button" class="btn btn-primary btn-md" data-dismiss="modal" id="btn_confirm">Aplicar</button>
+                <div class="modal-btn-confirm" style="margin-right: 20px; margin-top: 10px;">
+                    <button type="button" class="btn btn-primary btn-md" (click)="apply()" data-dismiss="modal" id="btn_confirm">Aplicar</button>
                 </div>
             </div>
         </div>

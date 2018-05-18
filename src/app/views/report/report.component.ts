@@ -1,3 +1,4 @@
+import { BIThreeSearch } from './../../models/bi_tree_search';
 import { Properties } from './../../models/properties';
 import { Node } from './../../models/node';
 import { BigraphService } from './../../services/bi-graph/bigraph.service';
@@ -12,11 +13,12 @@ declare const $: any;
 export class ReportComponent implements OnInit {
 
   private nodeList = [];
+  private biThreeSearch: BIThreeSearch[];
   private currentTable = 'Selecione uma tabela';
   private properties: Node;
 
-  private joinList = [] = new Array();
-  private columnList = [] = new Array();
+  private filterList = [] = new Array();
+  private paramList = [] = new Array();
   private groupedList = [] = new Array();
   private orderList = [] = new Array();
   private path = [] = new Array();
@@ -26,9 +28,7 @@ export class ReportComponent implements OnInit {
 
   private startNode: string;
 
-  constructor(private report: BigraphService) {
-
-  }
+  constructor(private report: BigraphService) {  }
 
   ngOnInit() {
 
@@ -52,6 +52,7 @@ export class ReportComponent implements OnInit {
 
         // create graph
         for (let i = 0; i < nodes.length; i++) {
+
           const x = new Array<Node[]>();
           const node = new Node();
           node.size =  nodes[i].size;
@@ -78,9 +79,6 @@ export class ReportComponent implements OnInit {
             }
           }
         }
-        // console.log(this.nodeList);
-        // this.showDeepPath(this.nodeList[5].entity, this.nodeList[11].entity); // visit to community
-        // this.showBreadthPath(this.nodeList[18].entity, this.nodeList[4].entity); // visit to community
       },
       e => {
         console.log(e);
@@ -88,7 +86,7 @@ export class ReportComponent implements OnInit {
     );
   }
 
-  createPath(node: Node, event) {
+  private createPath(node: Node, event) {
 
     this.path = new Array();
 
@@ -96,30 +94,43 @@ export class ReportComponent implements OnInit {
       this.searchedList.push(node);
       if (this.searchedList.length > 1) {
         this.showDeepPath(this.searchedList[0], this.searchedList[this.searchedList.length - 1]);
+        this.allPath.push(this.path);
       }else if (this.searchedList.length === 1) {
+
         this.path.push(node);
         this.allPath.push(this.path);
+
+
       }else {
         this.path = new Array();
       }
-    }else {
 
+    }else {
+      // remove and prune tree
       const index = this.searchedList.findIndex(o => o.entity === node.entity);
       this.searchedList.splice(index, 1);
-      this.allPath[index].splice(index, this.allPath[index].length);
       this.allPath.splice(index, 1);
+      // rebuild three starting new root node
+      if (index === 0 && this.searchedList.length > 0 ) {
+
+        this.allPath = new Array();
+        this.path.push(this.searchedList[0]);
+        this.allPath.push(this.path);
+        this.path = new Array();
+
+        for (let i = 1; i < this.searchedList.length; i++) {
+          const currentNode = this.searchedList[i];
+          this.showDeepPath(this.searchedList[0], currentNode);
+          this.allPath.push(this.path);
+        }
+
+      }
     }
     if (this.searchedList.length > 0) {
       this.startNode = this.searchedList[0].entity;
     }
     this.groupedList = this.searchedList;
-    console.log(this.allPath);
-  }
 
-  amountProps(entity) {
-    const startIndex = this.nodeList.findIndex(o => o.entity === entity);
-    this.properties = this.nodeList[startIndex];
-    this.currentTable = this.properties.alias;
   }
 
   private showDeepPath(startNode: Node, endNode: Node) {
@@ -159,12 +170,49 @@ export class ReportComponent implements OnInit {
         }
       }
       if (!hasDeepNodes) {
-        // console.log(stack);
         stack.pop();
       }
     }
     this.path = stack;
-    this.allPath.push(this.path);
+  }
+
+  private apply() {
+
+    const biThreeSearch = new Array();
+    // biThreeSearch.push({
+    //   entity : this.allPath[0][0]
+    // });
+    // let levelToInsert = 0;
+    // for (let i = 0; i < this.allPath.length; i++) {
+    //   for (let j = 0; j < this.allPath[i].length; j++) {
+    //     const index = biThreeSearch.findIndex(o => o.entity === this.allPath[i][j].entity);
+    //     if (index === -1) {
+    //       biThreeSearch.push({
+    //         entity : this.allPath[i][j].entity
+    //       });
+    //     }else {
+    //       biThreeSearch[index].push({
+    //         entity : this.allPath[i][j].entity
+    //       });
+    //     }
+    //     // if (biThreeSearch.findIndex(o => o.entity === this.allPath[i][j].entity) === -1) {
+    //       biThreeSearch.push({
+    //         entity : this.allPath[i][j].entity
+    //       });
+    //     // }
+    //   }
+
+    // }
+    // console.log(biThreeSearch);
+  }
+
+  insertIntoTree(biThreeSearch: BIThreeSearch[], level: number, node: Node) {
+    for (let i = 0; i < biThreeSearch.join.length; i++) {
+      const currentNode = biThreeSearch.join[i];
+      if (currentNode.entity === node.entity) {
+        this.insertIntoTree(currentNode.joins, i, node);
+      }
+    }
   }
 
   private showBreadthPath(startNode, endNode) {
@@ -197,8 +245,6 @@ export class ReportComponent implements OnInit {
           visited[entityDest] = true;
           queue.push(childrenNodes[i].nodes.entity);
           this.path.push(childrenNodes[i].nodes.entity);
-
-          // console.log(currentNode + '->' + childrenNodes[i].nodes.entity);
           if (childrenNodes[i].nodes.entity === this.nodeList[endIndex].entity) {
             foundEnd = true;
           }

@@ -1,3 +1,13 @@
+_body {
+    height: 550px;
+    overflow-y: auto;
+}
+
+.padding {
+    padding: 10px;
+    margin: 10px;
+}
+
 .funkyradio label {
     width: 100%;
     border-radius: 3px;
@@ -29,6 +39,7 @@ i.large.material-icons {
     line-height: 2.5em;
     text-indent: 3.25em;
     margin-top: 2em;
+    font-size: 13px;
     cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
