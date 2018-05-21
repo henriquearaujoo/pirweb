@@ -57,6 +57,7 @@ import { PregnantService } from './services/pregnant/pregnant.service';
 import { SweetAlertService } from './services/sweetalert/sweet-alert.service';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { VisitService } from './services/visit/visit.service';
+import { ReportFilterComponent } from './components/report-filter/report-filter.component';
 
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
@@ -73,6 +74,7 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     TemplateSelectModelComponent,
     ModalWaitingAnswerComponent,
     EqualValidatorDirective,
+    ReportFilterComponent,
   ],
   imports: [
     BrowserModule,

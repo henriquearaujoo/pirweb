@@ -18,4 +18,7 @@ export class BigraphService  extends RestService {
      return  this.http.get(this.apiurl);
    }
 
+   public generateReport(item) {
+    return this.http.post(this.apiurl, item);
+   }
 }

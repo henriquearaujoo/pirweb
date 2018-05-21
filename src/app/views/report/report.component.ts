@@ -13,11 +13,11 @@ declare const $: any;
 export class ReportComponent implements OnInit {
 
   private nodeList = [];
-  private biThreeSearch: BIThreeSearch[];
+
   private currentTable = 'Selecione uma tabela';
   private properties: Node;
-
   private filterList = [] = new Array();
+  private currentFilter: any;
   private paramList = [] = new Array();
   private groupedList = [] = new Array();
   private orderList = [] = new Array();
@@ -84,6 +84,27 @@ export class ReportComponent implements OnInit {
         console.log(e);
       }
     );
+  }
+
+  private handlerFilter(event, prop, i, j) {
+    console.log(this.groupedList[i]);
+    console.log(prop);
+    if (event.target.checked) {
+      this.filterList.push({
+        entity: this.groupedList[i].entity,
+        filters: new Array(),
+        prop: prop
+      });
+      this.currentFilter = this.filterList[this.filterList.length - 1];
+      $('#btnmodal').click();
+    }else {
+      const index = this.filterList.findIndex(
+        o => o.entity === this.groupedList[i].entity && o.prop.property === prop.property
+      );
+      if (index !== -1) {
+        this.filterList.splice(index, 1);
+      }
+    }
   }
 
   private createPath(node: Node, event) {
@@ -161,7 +182,6 @@ export class ReportComponent implements OnInit {
         if (!visited[entityDest]) {
           visited[entityDest] = true;
           stack.push(childrenNodes[i].nodes);
-          // console.log(currentNode + '-----[' +  childrenNodes[i].fk + ']------>' + childrenNodes[i].nodes.entity);
           hasDeepNodes = true;
 
           if (childrenNodes[i].nodes.entity === this.nodeList[endIndex].entity) {
@@ -178,79 +198,42 @@ export class ReportComponent implements OnInit {
 
   private apply() {
 
-    const biThreeSearch = new Array();
-    // biThreeSearch.push({
-    //   entity : this.allPath[0][0]
-    // });
-    // let levelToInsert = 0;
-    // for (let i = 0; i < this.allPath.length; i++) {
-    //   for (let j = 0; j < this.allPath[i].length; j++) {
-    //     const index = biThreeSearch.findIndex(o => o.entity === this.allPath[i][j].entity);
-    //     if (index === -1) {
-    //       biThreeSearch.push({
-    //         entity : this.allPath[i][j].entity
-    //       });
-    //     }else {
-    //       biThreeSearch[index].push({
-    //         entity : this.allPath[i][j].entity
-    //       });
-    //     }
-    //     // if (biThreeSearch.findIndex(o => o.entity === this.allPath[i][j].entity) === -1) {
-    //       biThreeSearch.push({
-    //         entity : this.allPath[i][j].entity
-    //       });
-    //     // }
-    //   }
-
-    // }
-    // console.log(biThreeSearch);
-  }
-
-  insertIntoTree(biThreeSearch: BIThreeSearch[], level: number, node: Node) {
-    for (let i = 0; i < biThreeSearch.join.length; i++) {
-      const currentNode = biThreeSearch.join[i];
-      if (currentNode.entity === node.entity) {
-        this.insertIntoTree(currentNode.joins, i, node);
-      }
-    }
-  }
-
-  private showBreadthPath(startNode, endNode) {
-    const visited = [];
-    const queue = new Array();
-    queue.push(startNode);
-    for (let i = 0; i < this.nodeList.length; i++) {
-      visited[i] = false;
-    }
-
-    let foundEnd = false;
-    const startIndex = this.nodeList.findIndex(o => o.entity === startNode);
-    const endIndex = this.nodeList.findIndex(o => o.entity === endNode);
-    visited[startIndex] = true;
-
-    this.path.push(queue[startIndex]);
-
-    while (queue.length > 0 ) {
-      this.path.splice(0, 1);
-      const currentNode = queue.splice(0, 1);
-      const currentIndex = this.nodeList.findIndex(o => o.entity === currentNode[0]);
-      const childrenNodes = this.nodeList[currentIndex].child.nodes;
-
-      for (let i = 0; i < childrenNodes.length; i++) {
-
-        const entityDest =  this.nodeList.findIndex(o => o.entity === childrenNodes[i].nodes.entity);
-
-        if (!visited[entityDest]) {
-
-          visited[entityDest] = true;
-          queue.push(childrenNodes[i].nodes.entity);
-          this.path.push(childrenNodes[i].nodes.entity);
-          if (childrenNodes[i].nodes.entity === this.nodeList[endIndex].entity) {
-            foundEnd = true;
+    // create new graph from paths
+    const newGraph = new Array();
+    this.allPath.forEach(ele => {
+      ele.forEach(node => {
+        const index = newGraph.findIndex(o => o.entity === node.entity);
+        if (index === -1) {
+          newGraph.push({entity: node.entity, joins: new Array(), filters: new Array()});
+        }
+      });
+    });
+    this.allPath.forEach(ele => {
+      for (let i = 0 ; i < ele.length ; i ++) {
+        const parentIndex =  newGraph.findIndex(o => o.entity === ele[i].entity);
+        if ( i + 1 < ele.length) {
+          const currIndex =  newGraph.findIndex(o => o.entity === ele[i + 1].entity);
+          const nIndex = newGraph[parentIndex].joins.findIndex(o => o.entity === newGraph[currIndex].entity);
+          if (nIndex === -1) {
+            newGraph[parentIndex].joins.push(newGraph[currIndex]);
           }
         }
       }
+    });
+    // start from root
+    if (newGraph.length > 0) {
+      const json = new Array();
+      json.push(newGraph[0]);
+      console.log(json);
+      this.report.generateReport(json).subscribe(
+        s => {
+          console.log(s);
+        },
+        e => {
+          console.log(e);
+        }
+      );
     }
-
   }
+
 }

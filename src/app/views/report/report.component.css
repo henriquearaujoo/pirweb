@@ -3,9 +3,17 @@ _body {
     overflow-y: auto;
 }
 
+.setting {
+    margin: 25px;
+    color: #333;
+}
+
 .padding {
     padding: 10px;
     margin: 10px;
+    background: #004c66;
+    color: white;
+    font-weight: bolder;
 }
 
 .funkyradio label {
@@ -211,5 +219,5 @@ i.large.material-icons {
 .modal-content {
     margin-left: -200px;
     width: 1020px;
-    height: 700px;
+    height: 500px;
 }
