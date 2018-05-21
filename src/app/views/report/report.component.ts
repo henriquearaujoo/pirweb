@@ -1,8 +1,9 @@
+import { ReportFilterComponent } from './../../components/report-filter/report-filter.component';
 import { BIThreeSearch } from './../../models/bi_tree_search';
 import { Properties } from './../../models/properties';
 import { Node } from './../../models/node';
 import { BigraphService } from './../../services/bi-graph/bigraph.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 declare const $: any;
 
 @Component({
@@ -25,6 +26,9 @@ export class ReportComponent implements OnInit {
   private allPath: any[] = Array();
   private treeToSearch: any[] = Array();
   private searchedList = [] = new Array();
+
+  @ViewChild('filter')
+  private reportFilter: ReportFilterComponent;
 
   private startNode: string;
 
@@ -87,8 +91,6 @@ export class ReportComponent implements OnInit {
   }
 
   private handlerFilter(event, prop, i, j) {
-    console.log(this.groupedList[i]);
-    console.log(prop);
     if (event.target.checked) {
       this.filterList.push({
         entity: this.groupedList[i].entity,
@@ -97,6 +99,9 @@ export class ReportComponent implements OnInit {
       });
       this.currentFilter = this.filterList[this.filterList.length - 1];
       $('#btnmodal').click();
+      if (this.reportFilter !== undefined) {
+        this.reportFilter.invoke();
+      }
     }else {
       const index = this.filterList.findIndex(
         o => o.entity === this.groupedList[i].entity && o.prop.property === prop.property
@@ -204,7 +209,7 @@ export class ReportComponent implements OnInit {
       ele.forEach(node => {
         const index = newGraph.findIndex(o => o.entity === node.entity);
         if (index === -1) {
-          newGraph.push({entity: node.entity, joins: new Array(), filters: new Array()});
+          newGraph.push({entity: node.entity, joins: new Array(), grouped: new Array()});
         }
       });
     });
@@ -222,10 +227,12 @@ export class ReportComponent implements OnInit {
     });
     // start from root
     if (newGraph.length > 0) {
+      this.groupedList.forEach(element => {
+        newGraph[0].grouped.push(element.entity);
+      });
       const json = new Array();
       json.push(newGraph[0]);
-      console.log(json);
-      this.report.generateReport(json).subscribe(
+      this.report.generateReport(json[0]).subscribe(
         s => {
           console.log(s);
         },

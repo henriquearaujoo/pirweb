@@ -218,6 +218,7 @@ i.large.material-icons {
 
 .modal-content {
     margin-left: -200px;
-    width: 1020px;
-    height: 500px;
+    height: 700px;
+    width: 1080px;
+    padding: 10px;
 }

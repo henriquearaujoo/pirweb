@@ -117,16 +117,16 @@
 </div>
 <button type="button" id="btnmodal" [hidden]="true" data-toggle="modal" data-target="#modal-report"></button>
 <div class="modal fade" id="modal-report">
-    <div class="modal-dialog">
+    <div class="modal-dialog" *ngIf="currentFilter !== undefined">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <!-- <h4>Configuração: {{currentFilter.prop.alias}}</h4> -->
+                <h4>Configuração: {{currentFilter.prop.alias}}</h4>
             </div>
             <div class="modal-body">
-                <div class="row-fluid" style="height: 320px; overflow-y: auto;">
+                <div class="row-fluid" style="height: 520px;">
                     <div class="tab-content">
-                        <!-- <app-report-filter [currentFilter]="currentFilter"></app-report-filter> -->
+                        <app-report-filter #filter [currentFilter]="currentFilter"></app-report-filter>
                     </div>
                 </div>
             </div>

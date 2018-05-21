@@ -1,4 +1,167 @@
-<!-- Seach -->
-<label>valor: </label>
-<input type="{{currentFilter.prop.type}}" />
-<!-- se tipo data entao adicionar o ^Entre^ -->
+<div>
+    <form [formGroup]="formFilter" class="form-inline" (ngSubmit)="OnSubmit(formFilter.value)">
+        <div class="col-md-12">
+            <div class="panel panel-default panel-table">
+                <!-- <div class="panel-heading">
+                    <div class="row">
+                        <div class="col col-xs-6">
+                            <h3 class="panel-title">Panel Heading</h3>
+                        </div>
+                        <div class="col col-xs-6 text-right">
+                            <button type="button" class="btn btn-sm btn-primary btn-create" (click)="addItem()">Create New</button>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="panel-body">
+                    <table class="table table-striped table-bordered table-list">
+                        <thead>
+                            <tr>
+                                <th><em class="fa fa-cog"></em></th>
+                                <th class="hidden-xs">Argumento 1</th>
+                                <th class="text-center">E</th>
+                                <th class="hidden-xs">Argumento 2</th>
+                                <th class="hidden-xs">Condição</th>
+                            </tr>
+                        </thead>
+                        <tbody [ngSwitch]="t_var">
+                            <tr formArrayName="items" *ngFor="let item of filterItems.controls; let i = index;">
+                                <div [formGroupName]="i">
+                                    <td align="center">
+                                        <a *ngIf="i !== 0" class="btn btn-danger" (click)="removeItem(item, i)"><em class="fa fa-trash"></em></a>
+                                    </td>
+                                    <td class="form-group">
+                                        <span *ngSwitchCase="0">
+                                            <input name="number" type="number" placeholder="Parametro inicial" class="form-control">
+                                        </span>
+                                        <span *ngSwitchCase="1">
+                                            <input name="number" type="text" placeholder="Parametro inicial" class="form-control">
+                                        </span>
+                                        <span *ngSwitchCase="2">
+                                            <input name="number" type="number" placeholder="Parametro inicial" class="form-control">
+                                        </span>
+                                        <span *ngSwitchCase="3">
+                                            <input name="number" type="number" placeholder="Parametro inicial" class="form-control">
+                                        </span>
+                                    </td>
+                                    <td class="form-group">
+                                        <span *ngSwitchCase="0">
+                                            <select id="time" name="operation" class="form-control">
+                                                <option value="equal">--</option>
+                                                <option value="equal">=</option>
+                                                <option value="lessThan"><</option>
+                                                <option value="moreThan">></option>
+                                                <option value="and">E</option>
+                                                <option value="or">OU</option>
+                                                <option value="not">NÃO</option>
+                                            </select>
+                                        </span>
+                                    </td>
+                                    <td class="form-group">
+                                        <span *ngSwitchCase="0">
+                                            <input name="number" type="number" placeholder="Parametro final" class="form-control">
+                                        </span>
+                                    </td>
+                                    <td class="form-group">
+                                        <select id="time" name="time" class="form-control" (change)="addCondition($event, item, i)">
+                                            <option> -- </option>
+                                            <option value="and">E</option>
+                                            <option value="or">OU</option>
+                                            <option value="not">NÃO</option>
+                                        </select>
+                                    </td>
+                                </div>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- <div class="col add">
+        <a id="add_row" class="btn btn-success fa fa-plus" (click)="addItem()"></a>
+    </div> -->
+<!-- <form [formGroup]="formFilter" class="form-inline" (ngSubmit)="OnSubmit(formFilter.value)">
+    <div formArrayName="items" *ngFor="let item of filterItems.controls; let i = index;">
+        <div [formGroupName]="i" class="row-item">
+            <div class="row">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div [ngSwitch]="t_var">
+                            <div class="row" *ngSwitchCase="0">
+                                <div class="col-md-12 col-md-offset-0">
+                                    <div class="panel panel-default panel-table">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col col-xs-6">
+                                                    <h3 class="panel-title">Panel Heading</h3>
+                                                </div>
+                                                <div class="col col-xs-6 text-right">
+                                                    <button type="button" class="btn btn-sm btn-primary btn-create" (click)="addItem()">Create New</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <table class="table table-striped table-bordered table-list">
+                                                <thead>
+                                                    <tr>
+                                                        <th><em class="fa fa-cog"></em></th>
+                                                        <th class="hidden-xs">ID</th>
+                                                        <th>Name</th>
+                                                        <th>Email</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td align="center">
+                                                            <a class="btn btn-default"><em class="fa fa-pencil"></em></a>
+                                                            <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
+                                                        </td>
+                                                        <td class="hidden-xs">1</td>
+                                                        <td>John Doe</td>
+                                                        <td>johndoe@example.com</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form> -->
+
+<!-- <div class="col-md-3">
+    <div class="form-group">
+        <label class="control-label" for="name">Parametro 1</label>
+        <input id="name" name="number" type="number" placeholder="Name" class="form-control input-md">
+    </div>
+</div>
+<div class="col-md-4">
+    <div class="form-group">
+        <label class="control-label" for="time">Preferred Time</label>
+        <select id="time" name="time" class="form-control">
+            <option value="8:00 to 9:00">8:00 to 9:00</option>
+            <option value="9:00 to 10:00">9:00 to 10:00</option>
+            <option value="10:00 to 1:00">10:00 to 1:00</option>
+        </select>
+    </div>
+</div>
+<div class="col-md-3">
+    <div class="form-group">
+        <label class="control-label" for="name">Parametro 2</label>
+        <input name="number" type="text" placeholder="E-Mail" class="form-control input-md">
+    </div>
+</div>
+<div class="col-sm-2" *ngIf="i !== 0">
+    <button class='btn btn-default glyphicon glyphicon-remove row-remove' (click)="removeItem(item, i)">
+        </button>
+</div> -->

@@ -74,7 +74,6 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     TemplateSelectModelComponent,
     ModalWaitingAnswerComponent,
     EqualValidatorDirective,
-    ReportFilterComponent,
   ],
   imports: [
     BrowserModule,
@@ -92,7 +91,7 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     NgxPaginationModule,
     ToastyModule.forRoot(),
     HttpClientModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [
     { provide: XHRBackend, useClass: Interceptor },
