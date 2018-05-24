@@ -14,102 +14,170 @@
             <li><a href="#orderby" data-toggle="pill">Ordem</a></li>
         </ul>
         <h4 class="setting"><i class="fa fa-sliders" aria-hidden="true"></i> Configuração</h4>
-        <div class="tab-content">
-            <!-- Seach -->
-            <div class="tab-pane active" id="entity">
-                <div class="col-md-12" style="height: 550px; overflow-y: auto;">
-                    <div class="funkyradio" *ngFor="let item of nodeList">
-                        <div class="col col-md-3" *ngIf="item.alias !== undefined " [ngClass]="startNode === item.node.entity ? 'funkyradio-success' : 'funkyradio-primary'">
-                            <input type="checkbox" (change)="createPath(item.node,$event)" name="{{item.node.entity+'_i'}}" id="{{item.node.entity+'_i'}}" />
-                            <label for="{{item.node.entity+'_i'}}">{{item.node.alias}}</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Group -->
-            <!-- <div class="tab-pane" id="groupby">
+        <div class="col col-md-8">
+            <div class="tab-content">
+                <!-- Seach -->
+                <div class="tab-pane active" id="entity">
                     <div class="col-md-12" style="height: 550px; overflow-y: auto;">
-                        <div class="funkyradio" *ngFor="let item of groupedList">
-                            <div class="funkyradio-primary col-md-3" *ngIf="item.alias !== undefined">
-                                <input type="checkbox" name="{{item.entity}}" id="{{item.entity}}" />
-                                <label for="{{item.entity}}">{{item.alias}}</label>
+                        <div class="funkyradio" *ngFor="let item of nodeList">
+                            <div class="col col-md-3" *ngIf="item.alias !== undefined " [ngClass]="startNode === item.node.entity ? 'funkyradio-success' : 'funkyradio-primary'">
+                                <input type="checkbox" (change)="createPath(item.node,$event)" name="{{item.node.entity+'_i'}}" id="{{item.node.entity+'_i'}}" />
+                                <label for="{{item.node.entity+'_i'}}">{{item.node.alias}}</label>
                             </div>
                         </div>
                     </div>
-                </div> -->
-            <!-- Filter -->
-            <div class="tab-pane" id="filter">
-                <div class="col-md-12" style="height: 550px; overflow-y: auto;">
-                    <div class="funkyradio" *ngFor="let item of groupedList; let i = index;">
-                        <label for="{{item.entity+'_filter'}}" class="padding">{{item.alias}}</label>
-                        <div class="funkyradio-primary col-md-12" *ngIf="item.alias !== undefined">
-                            <div class="funkyradio" *ngFor="let prop of item.properties; let j = index;">
-                                <div class=" col-md-3 funkyradio-primary" *ngIf="prop.alias !== undefined && prop.alias !== null">
-                                    <input type="checkbox" name="{{prop.property}}" (change)="handlerFilter($event, prop, i, j)" id="{{prop.property}}" />
-                                    <label for="{{prop.property}}">{{prop.alias}}</label>
+                </div>
+                <!-- Filter -->
+                <div class="tab-pane" id="filter">
+                    <div class="col-md-12" style="height: 550px; overflow-y: auto;">
+                        <div class="funkyradio" *ngFor="let item of groupedList; let i = index;">
+                            <label for="{{item.entity+'_filter'}}" class="padding">{{item.alias}}</label>
+                            <div class="funkyradio-primary col-md-12" *ngIf="item.alias !== undefined">
+                                <div class="funkyradio" *ngFor="let prop of item.properties; let j = index;">
+                                    <div class=" col-md-3 funkyradio-primary" *ngIf="prop.alias !== undefined && prop.alias !== null">
+                                        <input type="checkbox" name="{{prop.property + '_'  + i + '_' + j}}" (change)="handlerFilter($event, prop, i, j)" id="{{prop.property + '_'  + i + '_' + j}}" />
+                                        <label for="{{prop.property + '_'  + i + '_' + j}}">{{prop.alias}}</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- Param -->
-            <div class="tab-pane" id="param">
-                <div class="col-md-12" style="height: 550px; overflow-y: auto;">
-                    <!-- <div class="funkyradio">
-                        <div class="funkyradio-primary col-md-12">
-                            <div class="funkyradio">
+                <!-- Param -->
+                <div class="tab-pane" id="param">
+                    <div class="col-md-12" style="height: 550px; overflow-y: auto;">
+                        <div class="funkyradio">
+
+                            <div class="funkyradio-primary col-md-12">
+                                <div class="funkyradio">
                                     <div class=" col-md-3 funkyradio-primary">
-                                        <input type="checkbox" name="select_all" id="select_all" />
+                                        <input type="checkbox" name="select_all_label" id="select_all_label" />
                                         <label for="select_all_label">Selecionar Todos</label>
                                     </div>
                                 </div>
-                        </div>
-                    </div>
-
-                    <div class="funkyradio" *ngFor="let item of groupedList">
-                        <label for="{{item.entity+'_filter'}}" class="padding">{{item.alias}}</label>
-                        <div class="funkyradio-primary col-md-12" *ngIf="item.alias !== undefined">
-                            <div class="funkyradio" *ngFor="let prop of item.properties">
-                                <div class=" col-md-3 funkyradio-primary" *ngIf="prop.alias !== undefined && prop.alias !== null">
-                                    <input type="checkbox" name="{{prop.property}}" id="{{prop.property}}" />
-                                    <label for="{{prop.property}}">{{prop.alias}}</label>
-                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div> -->
-                </div>
-            </div>
-            <!-- Param -->
-            <div class="tab-pane" id="orderby">
-                <div class="col-md-12" style="height: 550px; overflow-y: auto;">
-                    <div class="funkyradio">
-                        <div class="funkyradio-primary col-md-12">
-                            <div class="funkyradio">
-                                <div class=" col-md-3 funkyradio-primary">
-                                    <input type="checkbox" name="select_all" id="select_all" />
-                                    <label for="select_all_label">Selecionar Todos</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="funkyradio" *ngFor="let item of groupedList">
-                        <label for="{{item.entity+'_filter'}}" class="padding">{{item.alias}}</label>
-                        <div class="funkyradio-primary col-md-12" *ngIf="item.alias !== undefined">
-                            <div class="funkyradio" *ngFor="let prop of item.properties">
-                                <div class=" col-md-3 funkyradio-primary" *ngIf="prop.alias !== undefined && prop.alias !== null">
-                                    <input type="checkbox" name="{{prop.property}}" id="{{prop.property}}" />
-                                    <label for="{{prop.property}}">{{prop.alias}}</label>
+                            <div class="funkyradio" *ngFor="let item of groupedList; let i = index;">
+                                <label for="{{item.entity+'_param'}}" class="padding">{{item.alias}}</label>
+                                <div class="funkyradio-primary col-md-12" *ngIf="item.alias !== undefined">
+                                    <div class="funkyradio" *ngFor="let prop of item.properties; let j = index;">
+                                        <div class=" col-md-3 funkyradio-primary" *ngIf="prop.alias !== undefined && prop.alias !== null">
+                                            <input type="checkbox" name="{{prop.property+'_param'+ i + '_' + j }}" id="{{prop.property+'_param'+ i + '_' + j}}" />
+                                            <label for="{{prop.property + '_param' + i + '_' + j}}">{{prop.alias}}</label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- Order -->
+                <div class="tab-pane" id="orderby">
+                    <div class="col-md-12" style="height: 550px; overflow-y: auto;">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="funkyradio">
+                                    <div class=" col-md-12 funkyradio-primary">
+                                        <input type="checkbox" name="select_all_label" id="select_all_label" />
+                                        <label for="select_all_label">Selecionar Todos</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="funkyradio">
+                                    <div class=" col-md-12 funkyradio-primary">
+                                        <select class="form-control col-md-9" name="order_mode" id="order_mode">
+                                            <option value="desc">Decrescente</option>
+                                            <option value="esc">Crescente</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="funkyradio" *ngFor="let item of groupedList; let i = index;">
+                            <label for="{{item.entity+'_filter'}}" class="padding">{{item.alias}}</label>
+                            <div class="funkyradio-primary col-md-12" *ngIf="item.alias !== undefined">
+                                <div class="funkyradio" *ngFor="let prop of item.properties; let j = index;">
+                                    <div class=" col-md-3 funkyradio-primary" *ngIf="prop.alias !== undefined && prop.alias !== null">
+                                        <input type="checkbox" [checked]="selectAllOrder" name="{{prop.property + 'order_'  + i + '_' + j}}" id="{{prop.property + 'order_'  + i + '_' + j}}" />
+                                        <label for="{{prop.property + 'order_' + i + '_' + j}}">{{prop.alias}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-right: 20px; float: right;">
+                    <button type="button" style="width: 100px;" class="btn btn-primary btn-md" (click)="apply()" id="btn_apply">Aplicar</button>
+                </div>
             </div>
-            <div style="margin-right: 20px; float: right;">
-                <button type="button" style="width: 100px;" class="btn btn-primary btn-md" (click)="apply()" id="btn_apply">Aplicar</button>
+        </div>
+        <div class="col col-md-4">
+            <div class="right-side" style="height: 550px; overflow-y: auto; margin-top: 30px; background: rgb(241, 241, 241);">
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse1" class="panel-title expand">
+                                <div class="right-arrow pull-right">+</div>
+                                <a href="#">Pesquisar</a>
+                            </h4>
+                        </div>
+                        <div id="collapse1" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col col-md-12">
+                                        <div class="funkyradio" *ngFor="let item of nodeList">
+                                            <div class="col col-md-12" *ngIf="item.alias !== undefined " [ngClass]="startNode === item.node.entity ? 'funkyradio-success' : 'funkyradio-primary'">
+                                                <input type="checkbox" (change)="createPath(item.node,$event)" name="{{item.node.entity+'_i'}}" id="{{item.node.entity+'_i'}}" />
+                                                <label for="{{item.node.entity+'_i'}}">{{item.node.alias}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse2" class="panel-title expand">
+                                <div class="right-arrow pull-right">+</div>
+                                <a href="#">Filtrar</a>
+                            </h4>
+                        </div>
+                        <div id="collapse2" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                filtro
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse3" class="panel-title expand">
+                                <div class="right-arrow pull-right">+</div>
+                                <a href="#">Parametro</a>
+                            </h4>
+                        </div>
+                        <div id="collapse3" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                teste
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse4" class="panel-title expand">
+                                <div class="right-arrow pull-right">+</div>
+                                <a href="#">Ordem</a>
+                            </h4>
+                        </div>
+                        <div id="collapse4" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                teste
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- / .wall -->
             </div>
         </div>
     </div>
@@ -126,7 +194,7 @@
             <div class="modal-body">
                 <div class="row-fluid" style="height: 520px;">
                     <div class="tab-content">
-                        <app-report-filter #filter [currentFilter]="currentFilter"></app-report-filter>
+                        <app-report-filter #filter [currentFilter]="currentFilter" [filterList]="filterList"></app-report-filter>
                     </div>
                 </div>
             </div>

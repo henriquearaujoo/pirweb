@@ -1,43 +1,12 @@
-table {
-    width: 100%;
+html,
+body {
+    padding-top: 20px;
 }
 
-thead,
-tbody,
-tr,
-td,
-th {
-    display: block;
+[data-role="dynamic-fields"]>.form-inline+.form-inline {
+    margin-top: 0.5em;
 }
 
-tr:after {
-    content: ' ';
-    display: block;
-    visibility: hidden;
-    clear: both;
-}
-
-thead th {
-    height: 30px;
-    /*text-align: left;*/
-}
-
-tbody {
-    height: 320px;
-    overflow-y: auto;
-}
-
-thead {
-    /* fallback */
-}
-
-.form-control {
-    width: 100%;
-}
-
-tbody td,
-thead th {
-    width: 19.2%;
-    float: left;
-    padding: 10px;
+.condition {
+    width: 200px;
 }

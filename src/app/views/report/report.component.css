@@ -1,3 +1,5 @@
+/* ============================= */
+
 _body {
     height: 550px;
     overflow-y: auto;
@@ -53,6 +55,29 @@ i.large.material-icons {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+select {
+    position: relative;
+    line-height: 2.5em;
+    text-indent: 3.25em;
+    margin-top: 2em;
+    font-size: 13px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.mode {
+    position: absolute;
+    width: 50px;
+    margin-top: -33px;
+    line-height: 2.3em;
+    border: 0px;
+    border-right: 1px dotted rgb(209, 209, 209);
+    margin-left: 5px;
 }
 
 .funkyradio input[type="radio"]:empty~label:before,
@@ -210,6 +235,37 @@ i.large.material-icons {
 }
 
 
+/* ************ */
+
+.right-side {
+    overflow-y: visible;
+    overflow-x: hidden;
+}
+
+.red {
+    color: red;
+}
+
+.form-area {
+    background-color: #FAFAFA;
+    padding: 10px 40px 60px;
+    margin: 10px 0px 60px;
+    border: 1px solid GREY;
+}
+
+.btn-bordered-primary {
+    color: #428BCA;
+    background: #FFFFFF;
+    border: 2px solid #428BCA;
+}
+
+.btn-bordered-primary:hover {
+    color: #FFFFFF;
+    background: #428BCA;
+    border: 2px solid #FFFFFF
+}
+
+
 /******** Modal *********/
 
 .modal-footer {
@@ -219,6 +275,6 @@ i.large.material-icons {
 .modal-content {
     margin-left: -200px;
     height: 700px;
-    width: 1080px;
+    width: 1184px;
     padding: 10px;
 }

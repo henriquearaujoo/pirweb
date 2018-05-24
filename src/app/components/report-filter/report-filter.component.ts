@@ -20,9 +20,9 @@ export class ReportFilterComponent implements OnInit {
 
   ngOnInit() {
     this.formFilter = this.formBuilder.group({
-      description: '',
-      responsible: '',
-      date: '',
+      param1: '',
+      condition: '',
+      param2: '',
       items: this.formBuilder.array([ this.createFilterItem()])
     });
     this.createFilterItem();
@@ -31,24 +31,47 @@ export class ReportFilterComponent implements OnInit {
   }
 
   public invoke() {
+    this.formFilter = this.formBuilder.group({
+      param1: '',
+      condition: '',
+      param2: '',
+      items: this.formBuilder.array([ this.createFilterItem()])
+    });
+    this.createFilterItem();
     const type = this.type.getValue(this.currentFilter.prop.type);
     this.t_var = type;
-    console.log(type, '===', this.currentFilter.prop.type);
   }
 
-  change(event, index, type) {
-    // if ( this.dthree.length === 0 ) {
-    //   const i = new DThree();
-    //   this.dthree.push(i);
-    // }
-    // if (type === 0) {
-    //   this.dthree[index].responsible = this.members[event.target.value];
-    // } else if (type === 1) {
-    //   console.log(event.target.valueAsDate);
-    //   this.dthree[index].registeredAt = event.target.valueAsDate;
-    // } else {
-    //   this.dthree[index].description = event.target.value;
-    // }
+  change(event, id, type) {
+    const idx = id;
+    this.filterList.forEach(node => {
+      if (node.entity === this.currentFilter.entity) {
+        if (node.prop.property === this.currentFilter.prop.property) {
+          switch (type) {
+            case 1: // value
+              if (idx === node.filters.length) {
+                node.filters.push({
+                  arg: event.target.value,
+                  condition: undefined
+                });
+              }else {
+                node.filters[idx].arg = event.target.value;
+              }
+            break;
+            default: // condition
+              if (idx === node.filters.length) {
+                node.filters.push({
+                  arg: undefined,
+                  condition: event.target.value
+                });
+              }else {
+                node.filters[idx].condition = event.target.value;
+              }
+            break;
+          }
+        }
+      }
+    });
   }
 
   createFilterItem(): FormGroup {

@@ -26,6 +26,7 @@ export class ReportComponent implements OnInit {
   private allPath: any[] = Array();
   private treeToSearch: any[] = Array();
   private searchedList = [] = new Array();
+  private selectAllOrder = true;
 
   @ViewChild('filter')
   private reportFilter: ReportFilterComponent;
@@ -95,7 +96,8 @@ export class ReportComponent implements OnInit {
       this.filterList.push({
         entity: this.groupedList[i].entity,
         filters: new Array(),
-        prop: prop
+        prop: prop,
+        connected: undefined
       });
       this.currentFilter = this.filterList[this.filterList.length - 1];
       $('#btnmodal').click();
@@ -209,7 +211,12 @@ export class ReportComponent implements OnInit {
       ele.forEach(node => {
         const index = newGraph.findIndex(o => o.entity === node.entity);
         if (index === -1) {
-          newGraph.push({entity: node.entity, joins: new Array(), grouped: new Array()});
+          const idxFilters = this.filterList.findIndex(o => o.entity === node.entity);
+          if (idxFilters === -1) {
+            newGraph.push({entity: node.entity, joins: new Array(), grouped: new Array(), filters: new Array()});
+          }else {
+            newGraph.push({entity: node.entity, joins: new Array(), grouped: new Array(), filters: this.filterList[idxFilters]});
+          }
         }
       });
     });
@@ -232,15 +239,30 @@ export class ReportComponent implements OnInit {
       });
       const json = new Array();
       json.push(newGraph[0]);
-      this.report.generateReport(json[0]).subscribe(
-        s => {
-          console.log(s);
-        },
-        e => {
-          console.log(e);
-        }
-      );
+      console.log(newGraph[0]);
+      // this.report.generateReport(json[0]).subscribe(
+      //   s => {
+      //     console.log(s);
+      //   },
+      //   e => {
+      //     console.log(e);
+      //   }
+      // );
     }
   }
 
+  selectAll(event, type) {
+    switch (type) {
+      case 1:
+
+      break;
+      case 2:
+        if (event.target.checked) {
+          this.selectAllOrder = true;
+        }else {
+          this.selectAllOrder = true;
+        }
+      break;
+    }
+  }
 }
