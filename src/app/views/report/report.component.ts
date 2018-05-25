@@ -1,9 +1,13 @@
+import { PagenateComponent } from './../../components/pagenate/pagenate.component';
+import { PageService } from './../../services/pagenate/page.service';
+import { Paginate } from './../../models/paginate';
+import { RReport } from './../../models/r_report';
 import { ReportFilterComponent } from './../../components/report-filter/report-filter.component';
 import { BIThreeSearch } from './../../models/bi_tree_search';
 import { Properties } from './../../models/properties';
 import { Node } from './../../models/node';
 import { BigraphService } from './../../services/bi-graph/bigraph.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output } from '@angular/core';
 declare const $: any;
 
 @Component({
@@ -11,29 +15,69 @@ declare const $: any;
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.css']
 })
-export class ReportComponent implements OnInit {
+// https://bootsnipp.com/snippets/ND48z
+// https://bootsnipp.com/snippets/featured/material-toggle-button
+export class ReportComponent  extends PagenateComponent implements OnInit {
+  private loading = false;
+  private general: any = {};
+  private hasdata: boolean;
+  private items: any[] = new Array();
+  private paginate: Paginate;
 
+  // ===============================
+  private headerList: Array<any>;
+  private bodyList: Array<any>;
+  // ==============================
+  // Chart
+  // lineChart
+  public lineChartData: Array<any> = [
+    [65, 59, 80, 81, 56, 55, 40],
+    [28, 48, 40, 19, 86, 27, 90]
+  ];
+  public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartType = 'line';
+  public pieChartType = 'pie';
+
+  // Pie
+  public pieChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail Sales'];
+  public pieChartData: number[] = [300, 500, 100];
+
+  // Report
   private nodeList = [];
-
+  private tableColunm = new Array();
   private currentTable = 'Selecione uma tabela';
   private properties: Node;
   private filterList = [] = new Array();
   private currentFilter: any;
   private paramList = [] = new Array();
-  private groupedList = [] = new Array();
+  private groupedList: Node[] = new Array();
   private orderList = [] = new Array();
-  private path = [] = new Array();
   private allPath: any[] = Array();
   private treeToSearch: any[] = Array();
-  private searchedList = [] = new Array();
+  private searchedList: Node[] = new Array();
   private selectAllOrder = true;
-
   @ViewChild('filter')
   private reportFilter: ReportFilterComponent;
-
   private startNode: string;
 
-  constructor(private report: BigraphService) {  }
+  constructor(private report: BigraphService, private pagerService: PageService) {
+    super(pagerService);
+    this.hasdata = false;
+  }
+
+  // Chart
+  public randomizeType(): void {
+    this.lineChartType = this.lineChartType === 'line' ? 'bar' : 'line';
+    this.pieChartType = this.pieChartType === 'doughnut' ? 'pie' : 'doughnut';
+  }
+
+  public chartClicked(e: any): void {
+    console.log(e);
+  }
+
+  public chartHovered(e: any): void {
+    console.log(e);
+  }
 
   ngOnInit() {
 
@@ -115,22 +159,20 @@ export class ReportComponent implements OnInit {
   }
 
   private createPath(node: Node, event) {
-
-    this.path = new Array();
-
+    let path = new Array();
     if (event.target.checked) {
       this.searchedList.push(node);
       if (this.searchedList.length > 1) {
-        this.showDeepPath(this.searchedList[0], this.searchedList[this.searchedList.length - 1]);
-        this.allPath.push(this.path);
+        path = this.showDeepPath(this.searchedList[0], this.searchedList[this.searchedList.length - 1]);
+        this.allPath.push(path);
       }else if (this.searchedList.length === 1) {
 
-        this.path.push(node);
-        this.allPath.push(this.path);
+        path.push(node);
+        this.allPath.push(path);
 
 
       }else {
-        this.path = new Array();
+        path = new Array();
       }
 
     }else {
@@ -142,16 +184,15 @@ export class ReportComponent implements OnInit {
       if (index === 0 && this.searchedList.length > 0 ) {
 
         this.allPath = new Array();
-        this.path.push(this.searchedList[0]);
-        this.allPath.push(this.path);
-        this.path = new Array();
+        path.push(this.searchedList[0]);
+        this.allPath.push(path);
+        path = new Array();
 
         for (let i = 1; i < this.searchedList.length; i++) {
           const currentNode = this.searchedList[i];
           this.showDeepPath(this.searchedList[0], currentNode);
-          this.allPath.push(this.path);
+          this.allPath.push(path);
         }
-
       }
     }
     if (this.searchedList.length > 0) {
@@ -159,6 +200,11 @@ export class ReportComponent implements OnInit {
     }
     this.groupedList = this.searchedList;
 
+    this.tableColunm = new Array();
+    this.groupedList.forEach(o => {
+      this.tableColunm.push(o.properties);
+    });
+    this.apply();
   }
 
   private showDeepPath(startNode: Node, endNode: Node) {
@@ -200,27 +246,66 @@ export class ReportComponent implements OnInit {
         stack.pop();
       }
     }
-    this.path = stack;
+    return stack;
+  }
+
+  private checkWormRole(startNode: Node, destNode: Node): boolean {
+
+    const startIndex = this.nodeList.findIndex(o => o.entity === startNode.entity);
+    const endIndex = this.nodeList.findIndex(o => o.entity === destNode.entity);
+
+    // ignore root
+    if (startIndex === endIndex) {
+      return false;
+    }
+
+    // get other connected nodes from current node
+    const childrenNodes = this.nodeList[startIndex].child.nodes;
+    let foundEnd = false;
+      for (let i = 0; i < childrenNodes.length && !foundEnd; i++) {
+        const entityDest =  this.nodeList.findIndex(o => o.entity === childrenNodes[i].nodes.entity);
+
+        if (childrenNodes[i].nodes.entity === this.nodeList[endIndex].entity) {
+          foundEnd = true;
+        }
+    }
+    return foundEnd;
   }
 
   private apply() {
-
+    // console.log(this.allPath);
     // create new graph from paths
     const newGraph = new Array();
-    this.allPath.forEach(ele => {
+    const paths = new Array();
+    this.allPath.forEach(o => {
+      if (o.length > 1) {
+        for (let i = 0; i < o.length; i++) {
+          const hasConn = this.checkWormRole(o[i], o[o.length - 1]);
+          if (hasConn) {
+            const temp = new Array();
+            for (let j = 0; j <= i; j++) {
+              temp.push(o[j]);
+            }
+            temp.push(o[o.length - 1]);
+            paths.push(temp);
+          }
+        }
+      }
+    });
+    paths.forEach(ele => {
       ele.forEach(node => {
         const index = newGraph.findIndex(o => o.entity === node.entity);
         if (index === -1) {
           const idxFilters = this.filterList.findIndex(o => o.entity === node.entity);
           if (idxFilters === -1) {
-            newGraph.push({entity: node.entity, joins: new Array(), grouped: new Array(), filters: new Array()});
+            newGraph.push({entity: node.entity, joins: new Array()});
           }else {
-            newGraph.push({entity: node.entity, joins: new Array(), grouped: new Array(), filters: this.filterList[idxFilters]});
+            newGraph.push({entity: node.entity, joins: new Array()});
           }
         }
       });
     });
-    this.allPath.forEach(ele => {
+    paths.forEach(ele => {
       for (let i = 0 ; i < ele.length ; i ++) {
         const parentIndex =  newGraph.findIndex(o => o.entity === ele[i].entity);
         if ( i + 1 < ele.length) {
@@ -233,25 +318,60 @@ export class ReportComponent implements OnInit {
       }
     });
     // start from root
+    const json = new Array();
     if (newGraph.length > 0) {
-      this.groupedList.forEach(element => {
-        newGraph[0].grouped.push(element.entity);
-      });
-      const json = new Array();
       json.push(newGraph[0]);
       console.log(newGraph[0]);
-      // this.report.generateReport(json[0]).subscribe(
-      //   s => {
-      //     console.log(s);
-      //   },
-      //   e => {
-      //     console.log(e);
-      //   }
-      // );
+    }else {
+      if (this.allPath.length > 0) {
+        json.push({entity: this.allPath[0][0].entity, joins: new Array()});
+      }
+    }
+    if (json.length > 0) {
+      (<HTMLButtonElement> document.getElementById('showmodal')).click();
+      this.report.generateReport(json[0]).subscribe(
+        s => {
+          this.handlerData(s);
+        },
+        e => {
+          console.log(e);
+        }
+      );
     }
   }
 
-  selectAll(event, type) {
+  private handlerData(rrport: RReport) {
+    this.headerList = new Array();
+    this.bodyList = new Array();
+    const data = new Array();
+    data.push(rrport);
+    data.forEach(o => {
+
+      o.forEach(item => {
+        const keys = Object.keys(item.key);
+        for (let i = 0; i < keys.length; i++) {
+          if ( this.headerList.findIndex( u => u === keys[i]) === -1) {
+            this.headerList.push(keys[i]);
+          }
+        }
+        const entity = Object.keys(item.value);
+        item.value[entity[0]].forEach(value => {
+          this.bodyList.push(Object.values(value));
+        });
+      });
+    });
+
+    this.allItems = this.bodyList;
+    if (this.allItems.length > 0) {
+      this.hasdata = true;
+      this.setPage(1);
+    }
+    (<HTMLButtonElement> document.getElementById('closeModal')).click();
+    console.log('close');
+
+  }
+
+  private selectAll(event, type) {
     switch (type) {
       case 1:
 
