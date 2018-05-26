@@ -7,7 +7,6 @@
     <div class="row margin-10">
         <div class="col-md-7">
             <canvas baseChart [data]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
-            <br/><br/>
         </div>
 
         <div class="col-md-5">
@@ -22,14 +21,19 @@
                                     <a href="#">Entidades (<span class="label-12">Selecione o que deseja pesquisar</span>)</a>
                                 </h4>
                             </div>
-                            <div id="collapse1" class="panel-collapse">
+                            <div id="collapse1" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col col-md-12">
                                             <div class="funkyradio" *ngFor="let item of nodeList">
-                                                <div class="col col-md-12" *ngIf="item.alias !== undefined " [ngClass]="startNode === item.node.entity ? 'funkyradio-success' : 'funkyradio-primary'">
+                                                <!-- <div class="col col-md-12" *ngIf="item.alias !== undefined " [ngClass]="startNode === item.node.entity ? 'funkyradio-success' : 'funkyradio-primary'">
                                                     <input type="checkbox" (change)="createPath(item.node,$event)" name="{{item.node.entity+'_i'}}" id="{{item.node.entity+'_i'}}" />
                                                     <label for="{{item.node.entity+'_i'}}">{{item.node.alias}}</label>
+                                                </div> -->
+                                                <div class="col col-md-3" *ngIf="item.alias !== undefined " [ngClass]="startNode === item.node.entity ? 'funkyradio-success' : 'funkyradio-primary'">
+                                                    <!-- <input type="checkbox" (change)="createPath(item.node,$event)" name="{{item.node.entity+'_i'}}" id="{{item.node.entity+'_i'}}" />
+                                                    <label for="{{item.node.entity+'_i'}}">{{item.node.alias}}</label> -->
+                                                    <app-report-entity [entity]="item.node" (apply)="createPath(item.node,$event)"></app-report-entity>
                                                 </div>
                                             </div>
                                         </div>
@@ -41,12 +45,12 @@
                             <div class="panel-heading">
                                 <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse2" class="panel-title expand">
                                     <div class="right-arrow pull-right">+</div>
-                                    <a href="#">Filtrar</a>
+                                    <a href="#">Filtros</a>
                                 </h4>
                             </div>
                             <div id="collapse2" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    filtro
+                                    <app-report-filter-item></app-report-filter-item>
                                 </div>
                             </div>
                         </div>
@@ -54,7 +58,7 @@
                             <div class="panel-heading">
                                 <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse3" class="panel-title expand">
                                     <div class="right-arrow pull-right">+</div>
-                                    <a href="#">Parametro</a>
+                                    <a href="#">Colunas</a>
                                 </h4>
                             </div>
                             <div id="collapse3" class="panel-collapse collapse">
@@ -68,6 +72,7 @@
             </form>
         </div>
     </div>
+    <br/><br/>
     <div class="row margin-10">
         <div class="col col-md-12">
             <div style="width:100%; height:auto; overflow:auto;">

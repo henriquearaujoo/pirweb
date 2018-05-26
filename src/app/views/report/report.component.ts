@@ -160,7 +160,7 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
 
   private createPath(node: Node, event) {
     let path = new Array();
-    if (event.target.checked) {
+    if (event) {
       this.searchedList.push(node);
       if (this.searchedList.length > 1) {
         path = this.showDeepPath(this.searchedList[0], this.searchedList[this.searchedList.length - 1]);
@@ -321,7 +321,6 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
     const json = new Array();
     if (newGraph.length > 0) {
       json.push(newGraph[0]);
-      console.log(newGraph[0]);
     }else {
       if (this.allPath.length > 0) {
         json.push({entity: this.allPath[0][0].entity, joins: new Array()});
@@ -340,35 +339,66 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
     }
   }
 
-  private handlerData(rrport: RReport) {
+  private handlerData(rrport: any) {
     this.headerList = new Array();
     this.bodyList = new Array();
     const data = new Array();
-    data.push(rrport);
-    data.forEach(o => {
 
-      o.forEach(item => {
-        const keys = Object.keys(item.key);
-        for (let i = 0; i < keys.length; i++) {
-          if ( this.headerList.findIndex( u => u === keys[i]) === -1) {
-            this.headerList.push(keys[i]);
-          }
+    for (let i = 0; i < rrport.length; i++) {
+      // const index = data.findIndex(o => o.node.entity===);
+      if ( i === 0 ) {
+        data.push({node: this.groupedList[0], values: new Array()});
+        data[i].values.push(rrport[i].key);
+      } else {
+        const index = data.findIndex(o => o.node.entity === Object.keys(rrport[i].value)[0]);
+        if (index === -1) {
+          const currentEntity = Object.keys(rrport[i].value);
+          const nodeIndex = this.groupedList.findIndex(o => o.entity === currentEntity[0]);
+          data.push({node: this.groupedList[nodeIndex], values: new Array()});
+          const x = Object.values(rrport[i].value);
+          x.forEach(o => {
+            for (let j = 0; j < o.length; j++) {
+              data[i].values.push(o[j]);
+            }
+          });
+        }else {
+          const x = Object.values(rrport[i].value);
+          x.forEach(o => {
+            for (let j = 0; j < o.length; j++) {
+              data[index].values.push(o[j]);
+            }
+          });
         }
-        const entity = Object.keys(item.value);
-        item.value[entity[0]].forEach(value => {
-          this.bodyList.push(Object.values(value));
-        });
-      });
-    });
-
-    this.allItems = this.bodyList;
-    if (this.allItems.length > 0) {
-      this.hasdata = true;
-      this.setPage(1);
+      }
     }
-    (<HTMLButtonElement> document.getElementById('closeModal')).click();
-    console.log('close');
+    console.log(data);
+    // console.log(this.tableColunm);
 
+    // data.push(rrport);
+    // data.forEach(o => {
+
+    //   o.forEach(item => {
+    //     const keys = Object.keys(item.key);
+    //     for (let i = 0; i < keys.length; i++) {
+    //       if ( this.headerList.findIndex( u => u === keys[i]) === -1) {
+    //         this.headerList.push(keys[i]);
+    //       }
+    //     }
+    //     const entity = Object.keys(item.value);
+    //     if (entity.length > 0 ) {
+    //       item.value[entity[0]].forEach(value => {
+    //         this.bodyList.push(Object.values(value));
+    //       });
+    //     }
+    //   });
+    // });
+
+    // this.allItems = this.bodyList;
+    // if (this.allItems.length > 0) {
+    //   this.hasdata = true;
+    //   this.setPage(1);
+    // }
+    (<HTMLButtonElement> document.getElementById('closeModal')).click();
   }
 
   private selectAll(event, type) {
