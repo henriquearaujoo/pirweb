@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReportFilterItemComponent } from './report-filter-item.component';
+import { ReportColumnComponent } from './report-column.component';
 
-describe('ReportFilterItemComponent', () => {
-  let component: ReportFilterItemComponent;
-  let fixture: ComponentFixture<ReportFilterItemComponent>;
+describe('ReportColumnComponent', () => {
+  let component: ReportColumnComponent;
+  let fixture: ComponentFixture<ReportColumnComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReportFilterItemComponent ]
+      declarations: [ ReportColumnComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ReportFilterItemComponent);
+    fixture = TestBed.createComponent(ReportColumnComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

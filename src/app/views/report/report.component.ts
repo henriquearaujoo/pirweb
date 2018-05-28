@@ -8,6 +8,7 @@ import { Properties } from './../../models/properties';
 import { Node } from './../../models/node';
 import { BigraphService } from './../../services/bi-graph/bigraph.service';
 import { Component, OnInit, ViewChild, Output } from '@angular/core';
+
 declare const $: any;
 
 @Component({
@@ -15,8 +16,7 @@ declare const $: any;
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.css']
 })
-// https://bootsnipp.com/snippets/ND48z
-// https://bootsnipp.com/snippets/featured/material-toggle-button
+
 export class ReportComponent  extends PagenateComponent implements OnInit {
   private loading = false;
   private general: any = {};
@@ -26,7 +26,7 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
 
   // ===============================
   private headerList: Array<any>;
-  private bodyList: Array<any>;
+  private headerShower: Array<any>;
   // ==============================
   // Chart
   // lineChart
@@ -204,7 +204,7 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
     this.groupedList.forEach(o => {
       this.tableColunm.push(o.properties);
     });
-    this.apply();
+    // this.apply();
   }
 
   private showDeepPath(startNode: Node, endNode: Node) {
@@ -270,6 +270,10 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
         }
     }
     return foundEnd;
+  }
+  private filterColumn(prop, event, i) {
+    console.log(prop);
+    this.headerShower[i] = event;
   }
 
   private apply() {
@@ -340,18 +344,23 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
   }
 
   private handlerData(rrport: any) {
-    this.headerList = new Array();
-    this.bodyList = new Array();
-    const data = new Array();
 
+    this.headerList = new Array();
+    this.headerShower = new Array();
+    const data = new Array();
+    console.log(rrport);
     for (let i = 0; i < rrport.length; i++) {
-      // const index = data.findIndex(o => o.node.entity===);
       if ( i === 0 ) {
+
         data.push({node: this.groupedList[0], values: new Array()});
         data[i].values.push(rrport[i].key);
+
       } else {
+
         const index = data.findIndex(o => o.node.entity === Object.keys(rrport[i].value)[0]);
+
         if (index === -1) {
+
           const currentEntity = Object.keys(rrport[i].value);
           const nodeIndex = this.groupedList.findIndex(o => o.entity === currentEntity[0]);
           data.push({node: this.groupedList[nodeIndex], values: new Array()});
@@ -361,6 +370,7 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
               data[i].values.push(o[j]);
             }
           });
+
         }else {
           const x = Object.values(rrport[i].value);
           x.forEach(o => {
@@ -371,33 +381,47 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
         }
       }
     }
-    console.log(data);
-    // console.log(this.tableColunm);
+    // console.log(data);
+    data.forEach(d => {
 
-    // data.push(rrport);
-    // data.forEach(o => {
+      const currentNode = Object.keys(d);
 
-    //   o.forEach(item => {
-    //     const keys = Object.keys(item.key);
-    //     for (let i = 0; i < keys.length; i++) {
-    //       if ( this.headerList.findIndex( u => u === keys[i]) === -1) {
-    //         this.headerList.push(keys[i]);
-    //       }
-    //     }
-    //     const entity = Object.keys(item.value);
-    //     if (entity.length > 0 ) {
-    //       item.value[entity[0]].forEach(value => {
-    //         this.bodyList.push(Object.values(value));
-    //       });
-    //     }
-    //   });
-    // });
+      for (let i = 0 ; i < d[currentNode[0]].properties.length; i++) {
+        const currProp = d[currentNode[0]].properties[i];
+        const index = Object.keys(d[currentNode[1]][0]).findIndex(o => o === currProp.property);
+        if (index !== -1 && currProp.alias !== null) {
+          this.headerList.push({prop: currProp.property, alias: currProp.alias, rows: new Array()});
+          this.headerShower.push(true);
+        }
+      }
+      // let field;
+      for (let i = 0; i < d[currentNode[1]].length; i++) {
+        const fields = Object.values(d[currentNode[1]][i]);
+        for (let j = 0 ; j < fields.length ; j++) {
+          const index = this.headerList.findIndex(o => o.prop === Object.keys(d[currentNode[1]][i])[j]);
+          if (index !== -1) {
+            this.headerList[index].rows.push(fields[j]);
+          }
+        }
+      }
+    });
 
-    // this.allItems = this.bodyList;
-    // if (this.allItems.length > 0) {
-    //   this.hasdata = true;
-    //   this.setPage(1);
-    // }
+    const body = new Array();
+    // for (let i = 0; i < this.headerList.length; i++) {
+    //   console.log(this.headerList.length);
+    for (let j = 0; j < this.headerList[0].rows.length; j++) {
+      const row = new Array();
+      for (let k = 0; k < this.headerList.length; k++) {
+        const element = this.headerList[k].rows[j];
+        row.push(element);
+      }
+      body.push(row);
+    }
+    this.allItems = body;
+    if (this.allItems.length > 0) {
+      this.hasdata = true;
+      this.setPage(1);
+    }
     (<HTMLButtonElement> document.getElementById('closeModal')).click();
   }
 

@@ -1,0 +1,44 @@
+.material-button-anim {
+    position: relative;
+    padding: 127px 15px 27px;
+    text-align: center;
+    max-width: 320px;
+    margin: 0 auto 20px;
+}
+
+.material-button {
+    position: relative;
+    top: 0;
+    z-index: 1;
+    width: 70px;
+    height: 70px;
+    font-size: 0.8em;
+    color: rgb(53, 53, 53);
+    background: #fff;
+    border: 1px solid #2C98DE;
+    border-radius: 50%;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .275);
+    outline: none;
+}
+
+.material-button-active {
+    position: relative;
+    top: 0;
+    z-index: 1;
+    width: 70px;
+    height: 70px;
+    font-size: 0.8em;
+    color: whitesmoke;
+    background: #2C98DE;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .275);
+    outline: none;
+}
+
+.material-button-toggle {
+    z-index: 3;
+    width: 90px;
+    height: 90px;
+    margin: 0 auto;
+}

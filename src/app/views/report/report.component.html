@@ -26,13 +26,7 @@
                                     <div class="row">
                                         <div class="col col-md-12">
                                             <div class="funkyradio" *ngFor="let item of nodeList">
-                                                <!-- <div class="col col-md-12" *ngIf="item.alias !== undefined " [ngClass]="startNode === item.node.entity ? 'funkyradio-success' : 'funkyradio-primary'">
-                                                    <input type="checkbox" (change)="createPath(item.node,$event)" name="{{item.node.entity+'_i'}}" id="{{item.node.entity+'_i'}}" />
-                                                    <label for="{{item.node.entity+'_i'}}">{{item.node.alias}}</label>
-                                                </div> -->
                                                 <div class="col col-md-3" *ngIf="item.alias !== undefined " [ngClass]="startNode === item.node.entity ? 'funkyradio-success' : 'funkyradio-primary'">
-                                                    <!-- <input type="checkbox" (change)="createPath(item.node,$event)" name="{{item.node.entity+'_i'}}" id="{{item.node.entity+'_i'}}" />
-                                                    <label for="{{item.node.entity+'_i'}}">{{item.node.alias}}</label> -->
                                                     <app-report-entity [entity]="item.node" (apply)="createPath(item.node,$event)"></app-report-entity>
                                                 </div>
                                             </div>
@@ -50,7 +44,7 @@
                             </div>
                             <div id="collapse2" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <app-report-filter-item></app-report-filter-item>
+                                    <!-- <app-report-filter-item></app-report-filter-item> -->
                                 </div>
                             </div>
                         </div>
@@ -63,12 +57,21 @@
                             </div>
                             <div id="collapse3" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    teste
+                                    <div class="row">
+                                        <div class="col col-md-12">
+                                            <div class="funkyradio" *ngFor="let prop of headerList; let i = index;">
+                                                <div class="col col-md-3">
+                                                    <app-report-column [property]="prop" (apply)="filterColumn(prop,$event,i)"></app-report-column>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <button class="btn btn-primary" (click)="apply()">Aplicar</button>
             </form>
         </div>
     </div>
@@ -79,19 +82,19 @@
                 <table id="example2" class="table">
                     <thead>
                         <tr>
-                            <th *ngFor="let h of headerList;" class="tbl-left">{{h}}<span class="glyphicon"></span></th>
+                            <th *ngFor="let h of headerList; let i = index;" [hidden]="!headerShower[i]" class="tbl-left">{{h.alias}}<span class="glyphicon"></span></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let data of pagedItems">
-                            <td class="tbl-left" *ngFor="let d of data; let i = index;">
+                            <td class="tbl-left" *ngFor="let d of data;let i = index;" [hidden]="!headerShower[i]">
                                 {{d}}
                             </td>
                         </tr>
                     </tbody>
                     <thead>
                         <tr>
-                            <th *ngFor="let h of headerList;" class="tbl-left">{{h}}<span class="glyphicon"></span></th>
+                            <th *ngFor="let h of headerList;let i = index;" class="tbl-left" [hidden]="!headerShower[i]">{{h.alias}}<span class="glyphicon"></span></th>
                         </tr>
                     </thead>
                 </table>

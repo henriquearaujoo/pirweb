@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 import { ReportComponent } from './report.component';
 import { NgForm } from '@angular/forms';
 import { ReportEntityComponent } from './report-entity/report-entity.component';
-import { ReportFilterItemComponent } from './report-filter-item/report-filter-item.component';
+import { ReportColumnComponent } from './report-column/report-column.component';
 @NgModule({
     imports: [
       CommonModule,
@@ -24,7 +24,7 @@ import { ReportFilterItemComponent } from './report-filter-item/report-filter-it
       ReportComponent,
       ReportFilterComponent,
       ReportEntityComponent,
-      ReportFilterItemComponent,
+      ReportColumnComponent,
     ],
     exports: [
       ReportComponent
