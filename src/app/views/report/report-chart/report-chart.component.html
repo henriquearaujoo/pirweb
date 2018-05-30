@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="col-md-9">
+            <div class="col-md-3">
+                <div class="funkyradio">
+                    <div class="funkyradio-primary">
+                        <input type="radio" name="radio" id="rdBar" (change)="chartType('bar')" checked/>
+                        <label for="rdBar">Barra</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="funkyradio">
+                    <div class="funkyradio-primary">
+                        <input type="radio" name="radio" id="rdPizza" (change)="chartType('pie')" />
+                        <label for="rdPizza">Pizza</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="funkyradio">
+                    <div class="funkyradio-primary">
+                        <input type="radio" name="radio" id="rdLine" (change)="chartType('line')" />
+                        <label for="rdLine">Linha</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="funkyradio">
+                    <div class="funkyradio-primary">
+                        <input type="radio" name="radio" id="rdDoughnut" (change)="chartType('doughnut')" />
+                        <label for="rdDoughnut">Torta</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-12">
+        <div style="display: block;">
+            <canvas baseChart width="400" height="250" [datasets]="dataChartData" [labels]="dataChartLabels" [options]="dataChartOptions" [legend]="dataChartLegend" [chartType]="dataChartType"></canvas>
+        </div>
+    </div>
+</div>

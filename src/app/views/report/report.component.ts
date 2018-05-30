@@ -8,6 +8,7 @@ import { Properties } from './../../models/properties';
 import { Node } from './../../models/node';
 import { BigraphService } from './../../services/bi-graph/bigraph.service';
 import { Component, OnInit, ViewChild, Output } from '@angular/core';
+import { ReportChartComponent } from './report-chart/report-chart.component';
 
 declare const $: any;
 
@@ -28,19 +29,6 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
   private headerList: Array<any>;
   private headerShower: Array<any>;
   // ==============================
-  // Chart
-  // lineChart
-  public lineChartData: Array<any> = [
-    [65, 59, 80, 81, 56, 55, 40],
-    [28, 48, 40, 19, 86, 27, 90]
-  ];
-  public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public lineChartType = 'line';
-  public pieChartType = 'pie';
-
-  // Pie
-  public pieChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail Sales'];
-  public pieChartData: number[] = [300, 500, 100];
 
   // Report
   private nodeList = [];
@@ -56,27 +44,18 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
   private treeToSearch: any[] = Array();
   private searchedList: Node[] = new Array();
   private selectAllOrder = true;
+
   @ViewChild('filter')
   private reportFilter: ReportFilterComponent;
+
+  @ViewChild('chart')
+  private chart: ReportChartComponent;
+
   private startNode: string;
 
   constructor(private report: BigraphService, private pagerService: PageService) {
     super(pagerService);
     this.hasdata = false;
-  }
-
-  // Chart
-  public randomizeType(): void {
-    this.lineChartType = this.lineChartType === 'line' ? 'bar' : 'line';
-    this.pieChartType = this.pieChartType === 'doughnut' ? 'pie' : 'doughnut';
-  }
-
-  public chartClicked(e: any): void {
-    console.log(e);
-  }
-
-  public chartHovered(e: any): void {
-    console.log(e);
   }
 
   ngOnInit() {
@@ -271,13 +250,12 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
     }
     return foundEnd;
   }
+
   private filterColumn(prop, event, i) {
-    console.log(prop);
     this.headerShower[i] = event;
   }
 
   private apply() {
-    // console.log(this.allPath);
     // create new graph from paths
     const newGraph = new Array();
     const paths = new Array();
@@ -302,9 +280,9 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
         if (index === -1) {
           const idxFilters = this.filterList.findIndex(o => o.entity === node.entity);
           if (idxFilters === -1) {
-            newGraph.push({entity: node.entity, joins: new Array()});
+            newGraph.push({entity: node.entity, joins: new Array(), leafs: new Array()});
           }else {
-            newGraph.push({entity: node.entity, joins: new Array()});
+            newGraph.push({entity: node.entity, joins: new Array(), leafs: new Array()});
           }
         }
       });
@@ -324,23 +302,54 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
     // start from root
     const json = new Array();
     if (newGraph.length > 0) {
+      const leafs = new Array();
+      for (let i = 1; i < this.groupedList.length; i++) {
+        leafs.push(this.groupedList[i].entity);
+      }
+      newGraph[0].leafs = leafs;
       json.push(newGraph[0]);
     }else {
       if (this.allPath.length > 0) {
-        json.push({entity: this.allPath[0][0].entity, joins: new Array()});
+        json.push({entity: this.allPath[0][0].entity, joins: new Array(), leafs: new Array()});
       }
     }
+
     if (json.length > 0) {
       (<HTMLButtonElement> document.getElementById('showmodal')).click();
       this.report.generateReport(json[0]).subscribe(
         s => {
-          this.handlerData(s);
+          this.gettingData(s);
         },
         e => {
+          (<HTMLButtonElement> document.getElementById('closeModal')).click();
           console.log(e);
         }
       );
     }
+  }
+
+  private gettingData(data: any) {
+    this.chart.showChart(data, this.groupedList);
+    this.handlerData(data);
+  }
+
+  private createTable(data) {
+    const listHeader = new Array();
+    const listBody = new Array();
+    let index = 0;
+    const header = new Array();
+    data.forEach(curr => {
+      if (index === 0) {
+        const prop = Object.keys(curr['key']);
+        listHeader.push(prop);
+      }
+      const values = Object.keys(curr['value']);
+      values.forEach( ent => {
+        const entity = Object.keys(curr['value'][ent]);
+      });
+      index++;
+    });
+    console.log(listHeader);
   }
 
   private handlerData(rrport: any) {
@@ -348,7 +357,7 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
     this.headerList = new Array();
     this.headerShower = new Array();
     const data = new Array();
-    console.log(rrport);
+
     for (let i = 0; i < rrport.length; i++) {
       if ( i === 0 ) {
 
@@ -407,8 +416,7 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
     });
 
     const body = new Array();
-    // for (let i = 0; i < this.headerList.length; i++) {
-    //   console.log(this.headerList.length);
+
     for (let j = 0; j < this.headerList[0].rows.length; j++) {
       const row = new Array();
       for (let k = 0; k < this.headerList.length; k++) {
@@ -423,6 +431,7 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
       this.setPage(1);
     }
     (<HTMLButtonElement> document.getElementById('closeModal')).click();
+    // this.chart.showChart(data, this.groupedList);
   }
 
   private selectAll(event, type) {

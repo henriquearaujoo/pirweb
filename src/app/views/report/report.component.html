@@ -6,7 +6,7 @@
     </div>
     <div class="row margin-10">
         <div class="col-md-7">
-            <canvas baseChart [data]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+            <app-report-chart #chart [headerShower]="headerShower" [headerList]="headerList" [pagedItems]="pagedItems"></app-report-chart>
         </div>
 
         <div class="col-md-5">
@@ -32,19 +32,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse2" class="panel-title expand">
-                                    <div class="right-arrow pull-right">+</div>
-                                    <a href="#">Filtros</a>
-                                </h4>
-                            </div>
-                            <div id="collapse2" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <!-- <app-report-filter-item></app-report-filter-item> -->
                                 </div>
                             </div>
                         </div>
@@ -78,12 +65,36 @@
     <br/><br/>
     <div class="row margin-10">
         <div class="col col-md-12">
+            <app-report-table [headerShower]="headerShower" [headerList]="headerList" [pagedItems]="pagedItems"></app-report-table>
+            <div class="row" *ngIf="hasdata">
+                <div class="col-md-2 text-left">
+                    <div class="register">
+                        Registros de {{pager.startIndex + 1}} a {{pager.endIndex + 1}} de {{allItems.length}}
+                    </div>
+                </div>
+                <div class="col-md-10 text-right ">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="setPage(pager.currentPage - 1)">Anterior
+                                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                </a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="setPage(pager.currentPage + 1)">
+                                <i class="fa fa-angle-right" aria-hidden="true"></i> Próximo
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- 
             <div style="width:100%; height:auto; overflow:auto;">
                 <table id="example2" class="table">
                     <thead>
                         <tr>
                             <th *ngFor="let h of headerList; let i = index;" [hidden]="!headerShower[i]" class="tbl-left">{{h.alias}}<span class="glyphicon"></span></th>
-                        </tr>
+                        </tr>  
                     </thead>
                     <tbody>
                         <tr *ngFor="let data of pagedItems">
@@ -100,7 +111,6 @@
                 </table>
             </div>
             <div class="row" *ngIf="hasdata">
-                <!-- pager -->
                 <div class="col-md-2 text-left">
                     <div class="register">
                         Registros de {{pager.startIndex + 1}} a {{pager.endIndex + 1}} de {{allItems.length}}
@@ -121,7 +131,7 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        -->
     </div>
 
 </div>
