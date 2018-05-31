@@ -65,7 +65,28 @@
     <br/><br/>
     <div class="row margin-10">
         <div class="col col-md-12">
-            <app-report-table [headerShower]="headerShower" [headerList]="headerList" [pagedItems]="pagedItems"></app-report-table>
+            <!-- <app-report-table #table [headerShower]="headerShower" [rootEntity]="currentTable" [headerList]="headerList" [pagedItems]="pagedItems"></app-report-table> -->
+            <div style="width:100%; height:auto; overflow:auto;">
+                <table id="example2" class="table">
+                    <thead>
+                        <tr>
+                            <th *ngFor="let h of headerList; let i = index;" [hidden]="!headerShower[i]" class="tbl-left">{{h}}<span class="glyphicon"></span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- <tr *ngFor="let data of pagedItems">
+                                <td class="tbl-left" *ngFor="let d of data;let i = index;" [hidden]="!headerShower[i]">
+                                    {{d}}
+                                </td>
+                            </tr> -->
+                    </tbody>
+                    <thead>
+                        <tr>
+                            <th *ngFor="let h of headerList;let i = index;" class="tbl-left" [hidden]="!headerShower[i]">{{h}}<span class="glyphicon"></span></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
             <div class="row" *ngIf="hasdata">
                 <div class="col-md-2 text-left">
                     <div class="register">
@@ -76,8 +97,8 @@
                     <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
                         <li [ngClass]="{disabled:pager.currentPage === 1}">
                             <a (click)="setPage(pager.currentPage - 1)">Anterior
-                                    <i class="fa fa-angle-left" aria-hidden="true"></i>
-                                </a>
+                                <i class="fa fa-angle-left" aria-hidden="true"></i>
+                            </a>
                         </li>
                         <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
                             <a (click)="setPage(pager.currentPage + 1)">

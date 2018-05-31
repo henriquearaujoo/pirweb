@@ -8,6 +8,7 @@ declare const $: any;
 export class ReportTableComponent implements OnInit {
 
   @Input() headerList: any;
+  @Input() rootEntity: any;
   @Input() headerShower: boolean[];
   @Input() pagedItems: any;
 
@@ -59,4 +60,9 @@ export class ReportTableComponent implements OnInit {
   });
   }
 
+  public loadData(currentTable, headerList, headerShower) {
+    this.rootEntity = currentTable;
+    this.headerList = headerList;
+    this.headerShower = headerShower;
+  }
 }

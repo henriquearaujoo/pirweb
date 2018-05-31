@@ -1,3 +1,4 @@
+import { Permissions, RuleState } from './../../helpers/permissions';
 import { PagenateComponent } from './../../components/pagenate/pagenate.component';
 import { PageService } from './../../services/pagenate/page.service';
 import { Paginate } from './../../models/paginate';
@@ -9,6 +10,8 @@ import { Node } from './../../models/node';
 import { BigraphService } from './../../services/bi-graph/bigraph.service';
 import { Component, OnInit, ViewChild, Output } from '@angular/core';
 import { ReportChartComponent } from './report-chart/report-chart.component';
+import { ReportTableComponent } from './report-table/report-table.component';
+import { forEach } from '@angular/router/src/utils/collection';
 
 declare const $: any;
 
@@ -51,15 +54,21 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
   @ViewChild('chart')
   private chart: ReportChartComponent;
 
+  @ViewChild('table')
+  private table: ReportTableComponent;
+
   private startNode: string;
 
-  constructor(private report: BigraphService, private pagerService: PageService) {
+  constructor(private report: BigraphService, private pagerService: PageService, private permissions: Permissions) {
     super(pagerService);
     this.hasdata = false;
   }
 
   ngOnInit() {
-
+    this.permissions.canActivate(['/relatorios']);
+    this.permissions.permissionsState.subscribe(
+      (rules: RuleState) => {
+      });
     this.nodeList = new Array();
     this.report.getGraph().subscribe(
       s => {
@@ -318,7 +327,7 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
       (<HTMLButtonElement> document.getElementById('showmodal')).click();
       this.report.generateReport(json[0]).subscribe(
         s => {
-          this.gettingData(s);
+          this.collectData(s);
         },
         e => {
           (<HTMLButtonElement> document.getElementById('closeModal')).click();
@@ -328,28 +337,104 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
     }
   }
 
-  private gettingData(data: any) {
+  private gettingData(d: any) {
+    const data = d['maps'];
+    this.headerShower = new Array();
     this.chart.showChart(data, this.groupedList);
-    this.handlerData(data);
+    const entity = new Array();
+
+    // handler data
+    for (let k = 0 ; k < data.length ; k++) {
+
+      const vlue = Object.values(data[k]['key']);
+
+      if (k === 0) {
+        const root = Object.keys(data[k]['key']);
+        const bodyList = new Array();
+        bodyList.push({v: vlue, parentIndex: k});
+        entity.push({entity: this.groupedList[0].entity, countProp: root.length, prop: root, values:  bodyList});
+      }else {
+        const root = Object.keys(data[k]['key']);
+        entity[0].values.push({v: vlue, parentIndex: k});
+      }
+
+      const tdata = Object.keys(data[k]['value']);
+      const keys = Object.values(tdata);
+
+      for (let i = 0; i < keys.length; i++) {
+
+        const currentity = keys[i];
+        const values = data[k]['value'][currentity];
+        const valueList = Object.values(values);
+        let props = [];
+        let value = [];
+        const dataEntity = [];
+        if (valueList.length > 0) {
+          const prop = Object.keys(valueList[0]);
+          valueList.forEach( u => {
+            dataEntity.push({v: Object.values(u), parentIndex: k});
+          });
+          value =  dataEntity;
+          props = prop;
+        }
+        const index = entity.findIndex(o => o.entity === currentity);
+        if (index === -1) {
+          const v = Object.values(data[k]['key']);
+          entity.push({entity: currentity, countProp: props.length, prop: props, values:  value});
+        }else {
+          if (entity[index].countProp === 0) {
+            entity[index].countProp = props.length;
+            entity[index].prop = props;
+            entity[index].values = value;
+          }else {
+            const s = Object.values(value);
+            if (s.length > 0) {
+              const v = Object.values(s);
+              const x = Object.values(v);
+              x.forEach(el => {
+                entity[index].values.push(el);
+              });
+            }
+          }
+        }
+      }
+    }
+    // console.log(entity);
+    // create table
+    this.headerList = new Array();
+    const body = new Array();
+    for (let i = 0; i < entity.length; i++) {
+      for (let j = 0; j < entity[i].countProp; j++) {
+        const currProp = entity[i].prop[j];
+        const x = this.groupedList.findIndex(o => o.entity === entity[i].entity);
+        const idx = this.groupedList[x].properties.findIndex(p => p.property === currProp);
+        if (idx !== -1) {
+          if (this.groupedList[x].properties[idx].alias !== null) {
+            this.headerList.push(this.groupedList[x].properties[idx].alias);
+            this.headerShower.push(true);
+          }
+        }
+      }
+    }
+    console.log(entity);
+    data.forEach(dat => {
+      const rootK = Object.values(dat['key']);
+      const rootV = Object.values(dat['value']);
+      for (let j = 0; j < rootV.length; j++) {
+        for (let k = 0; k < rootV[j].length; k++) {
+          const element = rootV[j][k];
+          // console.log(element);
+        }
+      }
+    });
+    this.currentTable = this.groupedList[0].alias;
+    // this.table.loadData(this.currentTable, this.headerList, this.headerShower);
+    (<HTMLButtonElement> document.getElementById('closeModal')).click();
   }
 
-  private createTable(data) {
-    const listHeader = new Array();
-    const listBody = new Array();
-    let index = 0;
-    const header = new Array();
-    data.forEach(curr => {
-      if (index === 0) {
-        const prop = Object.keys(curr['key']);
-        listHeader.push(prop);
-      }
-      const values = Object.keys(curr['value']);
-      values.forEach( ent => {
-        const entity = Object.keys(curr['value'][ent]);
-      });
-      index++;
-    });
-    console.log(listHeader);
+  private collectData(data) {
+    this.chart.showChart(data['maps'], this.groupedList);
+    (<HTMLButtonElement> document.getElementById('closeModal')).click();
   }
 
   private handlerData(rrport: any) {
