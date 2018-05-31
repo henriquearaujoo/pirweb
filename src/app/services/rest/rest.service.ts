@@ -132,7 +132,7 @@ export class RestService {
   }
 
   private optionsHeader(params?: URLSearchParams): RequestOptions {
-    if (params !== null) {
+    if (params !== null && params !== undefined) {
       this.options = new RequestOptions({ headers: this.headers, params: params });
     } else {
       this.options = new RequestOptions({ headers: this.headers });

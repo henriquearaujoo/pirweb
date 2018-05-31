@@ -1,0 +1,55 @@
+<form [formGroup]="formFilter" class="form-inline" (ngSubmit)="OnSubmit(formFilter.value)">
+
+    <div class="row">
+        <div class="col-md-2 text-right">
+            <h5>{{currentFilter.prop.alias}} seja: </h5>
+        </div>
+        <div class="col-md-10">
+            <div data-role="dynamic-fields" class="col-md-6" *ngFor="let item of filterItems.controls; let i = index;" style="width: 470px; padding: 5px;">
+                <div class="form-inline" [ngSwitch]="t_var">
+                    <select name="operation" class="form-control condition" (change)="change($event,i,2)">
+                        <option class="text-center" value="sc">-- S / C --</option>
+                        <option value="equal" *ngIf="i == 0">igual á</option>
+                        <option value="not equal" *ngIf="i == 0">não seja igual á</option>
+                        <option value="more than" *ngIf="i == 0">maior que</option>
+                        <option value="less than" *ngIf="i == 0">menor que</option>
+                        <option value="more than or iqual" *ngIf="i == 0">maior ou igual á</option>
+                        <option value="less than or iqual" *ngIf="i == 0">menor ou igual á</option>
+                        <option value="or equal" *ngIf="i > 0" >ou igual á</option>
+                        <option value="and equal" *ngIf="i > 0">e igual á</option>
+                        <option value="or not less than" *ngIf="i > 0">ou não seja menor que</option>
+                        <option value="or not more than" *ngIf="i > 0"> ou não seja maior que</option>
+                        <option value="and not less than" *ngIf="i > 0"> e não seja menor que</option>
+                        <option value="and not more than" *ngIf="i > 0"> e não seja maior que</option>
+                        <option value="and less than" *ngIf="i > 0">e menor que</option>
+                        <option value="and more than" *ngIf="i > 0">e maior que</option>
+                        <option value="or more than" *ngIf="i > 0">ou maior que</option>
+                        <option value="or less than" *ngIf="i > 0">e menor que</option>
+                        <option value="between" *ngIf="t_var === 3">Entre</option>
+                    </select>
+                    <div class="form-group" *ngSwitchCase="0">
+                        <input type="number" class="form-control" (change)="change($event,i,1)" placeholder="Insira um valor">
+                    </div>
+                    <div class="form-group" *ngSwitchCase="1">
+                        <input type="text" class="form-control" (change)="change($event,i,1)" placeholder="Insira um valor">
+                    </div>
+                    <div class="form-group" *ngSwitchCase="2">
+                        <select name="bool_args" class="form-control condition" (change)="change($event,i,1)">
+                            <option class="text-center" value="true">Verdadeiro</option>
+                            <option class="text-center" value="false">Falso</option>
+                        </select>
+                    </div>
+                    <div class="form-group" *ngSwitchCase="3">
+                        <input type="date" class="form-control" (change)="change($event,i,1)" placeholder="Insira um valor">
+                    </div>
+                    <button class="btn btn-danger" data-role="remove" *ngIf="i !== 0" (click)="removeItem(item, i)">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                    <button class="btn btn-success btn-add" type="button" (click)="addItem()" *ngIf="i === 0">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

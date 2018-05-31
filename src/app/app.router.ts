@@ -72,6 +72,11 @@ const App_Router: Routes = [
           path: 'dashboard',
           loadChildren: './views/dashboard/dashboard.module#DashboardModule'
         },
+
+        {
+          path: 'relatorios',
+          loadChildren: './views/report/report.module#ReportModule'
+        },
       ]
     },
     {
