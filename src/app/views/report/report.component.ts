@@ -34,6 +34,7 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
   // ==============================
 
   // Report
+  private tableData: any;
   private nodeList = [];
   private tableColunm = new Array();
   private currentTable = 'Selecione uma tabela';
@@ -121,29 +122,6 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
         console.log(e);
       }
     );
-  }
-
-  private handlerFilter(event, prop, i, j) {
-    if (event.target.checked) {
-      this.filterList.push({
-        entity: this.groupedList[i].entity,
-        filters: new Array(),
-        prop: prop,
-        connected: undefined
-      });
-      this.currentFilter = this.filterList[this.filterList.length - 1];
-      $('#btnmodal').click();
-      if (this.reportFilter !== undefined) {
-        this.reportFilter.invoke();
-      }
-    }else {
-      const index = this.filterList.findIndex(
-        o => o.entity === this.groupedList[i].entity && o.prop.property === prop.property
-      );
-      if (index !== -1) {
-        this.filterList.splice(index, 1);
-      }
-    }
   }
 
   private createPath(node: Node, event) {
@@ -338,185 +316,35 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
   }
 
   private gettingData(d: any) {
-    const data = d['maps'];
-    this.headerShower = new Array();
-    this.chart.showChart(data, this.groupedList);
-    const entity = new Array();
-
-    // handler data
-    for (let k = 0 ; k < data.length ; k++) {
-
-      const vlue = Object.values(data[k]['key']);
-
-      if (k === 0) {
-        const root = Object.keys(data[k]['key']);
-        const bodyList = new Array();
-        bodyList.push({v: vlue, parentIndex: k});
-        entity.push({entity: this.groupedList[0].entity, countProp: root.length, prop: root, values:  bodyList});
-      }else {
-        const root = Object.keys(data[k]['key']);
-        entity[0].values.push({v: vlue, parentIndex: k});
-      }
-
-      const tdata = Object.keys(data[k]['value']);
-      const keys = Object.values(tdata);
-
-      for (let i = 0; i < keys.length; i++) {
-
-        const currentity = keys[i];
-        const values = data[k]['value'][currentity];
-        const valueList = Object.values(values);
-        let props = [];
-        let value = [];
-        const dataEntity = [];
-        if (valueList.length > 0) {
-          const prop = Object.keys(valueList[0]);
-          valueList.forEach( u => {
-            dataEntity.push({v: Object.values(u), parentIndex: k});
-          });
-          value =  dataEntity;
-          props = prop;
-        }
-        const index = entity.findIndex(o => o.entity === currentity);
-        if (index === -1) {
-          const v = Object.values(data[k]['key']);
-          entity.push({entity: currentity, countProp: props.length, prop: props, values:  value});
-        }else {
-          if (entity[index].countProp === 0) {
-            entity[index].countProp = props.length;
-            entity[index].prop = props;
-            entity[index].values = value;
-          }else {
-            const s = Object.values(value);
-            if (s.length > 0) {
-              const v = Object.values(s);
-              const x = Object.values(v);
-              x.forEach(el => {
-                entity[index].values.push(el);
-              });
-            }
-          }
-        }
-      }
-    }
-    // console.log(entity);
-    // create table
+    const data = d;
     this.headerList = new Array();
-    const body = new Array();
-    for (let i = 0; i < entity.length; i++) {
-      for (let j = 0; j < entity[i].countProp; j++) {
-        const currProp = entity[i].prop[j];
-        const x = this.groupedList.findIndex(o => o.entity === entity[i].entity);
-        const idx = this.groupedList[x].properties.findIndex(p => p.property === currProp);
-        if (idx !== -1) {
-          if (this.groupedList[x].properties[idx].alias !== null) {
-            this.headerList.push(this.groupedList[x].properties[idx].alias);
-            this.headerShower.push(true);
-          }
-        }
-      }
-    }
-    console.log(entity);
-    data.forEach(dat => {
-      const rootK = Object.values(dat['key']);
-      const rootV = Object.values(dat['value']);
-      for (let j = 0; j < rootV.length; j++) {
-        for (let k = 0; k < rootV[j].length; k++) {
-          const element = rootV[j][k];
-          // console.log(element);
-        }
-      }
+    this.headerShower = new Array();
+    data.forEach(col => {
+      this.headerShower.push(true);
+      this.headerList.push(col.property);
     });
+    const table = new Array();
+    for (let j = 0; j < data[0].values.length; j++) {
+      const row = new Array();
+      for (let k = 0; k < data.length; k++) {
+        const element = data[k].values[j];
+        row.push(element);
+      }
+      table.push(row);
+    }
+    this.allItems = table;
+      if (this.allItems.length > 0) {
+        this.hasdata = true;
+        this.setPage(1);
+      }
     this.currentTable = this.groupedList[0].alias;
-    // this.table.loadData(this.currentTable, this.headerList, this.headerShower);
     (<HTMLButtonElement> document.getElementById('closeModal')).click();
   }
 
   private collectData(data) {
     this.chart.showChart(data['maps'], this.groupedList);
     (<HTMLButtonElement> document.getElementById('closeModal')).click();
-  }
-
-  private handlerData(rrport: any) {
-
-    this.headerList = new Array();
-    this.headerShower = new Array();
-    const data = new Array();
-
-    for (let i = 0; i < rrport.length; i++) {
-      if ( i === 0 ) {
-
-        data.push({node: this.groupedList[0], values: new Array()});
-        data[i].values.push(rrport[i].key);
-
-      } else {
-
-        const index = data.findIndex(o => o.node.entity === Object.keys(rrport[i].value)[0]);
-
-        if (index === -1) {
-
-          const currentEntity = Object.keys(rrport[i].value);
-          const nodeIndex = this.groupedList.findIndex(o => o.entity === currentEntity[0]);
-          data.push({node: this.groupedList[nodeIndex], values: new Array()});
-          const x = Object.values(rrport[i].value);
-          x.forEach(o => {
-            for (let j = 0; j < o.length; j++) {
-              data[i].values.push(o[j]);
-            }
-          });
-
-        }else {
-          const x = Object.values(rrport[i].value);
-          x.forEach(o => {
-            for (let j = 0; j < o.length; j++) {
-              data[index].values.push(o[j]);
-            }
-          });
-        }
-      }
-    }
-    // console.log(data);
-    data.forEach(d => {
-
-      const currentNode = Object.keys(d);
-
-      for (let i = 0 ; i < d[currentNode[0]].properties.length; i++) {
-        const currProp = d[currentNode[0]].properties[i];
-        const index = Object.keys(d[currentNode[1]][0]).findIndex(o => o === currProp.property);
-        if (index !== -1 && currProp.alias !== null) {
-          this.headerList.push({prop: currProp.property, alias: currProp.alias, rows: new Array()});
-          this.headerShower.push(true);
-        }
-      }
-      // let field;
-      for (let i = 0; i < d[currentNode[1]].length; i++) {
-        const fields = Object.values(d[currentNode[1]][i]);
-        for (let j = 0 ; j < fields.length ; j++) {
-          const index = this.headerList.findIndex(o => o.prop === Object.keys(d[currentNode[1]][i])[j]);
-          if (index !== -1) {
-            this.headerList[index].rows.push(fields[j]);
-          }
-        }
-      }
-    });
-
-    const body = new Array();
-
-    for (let j = 0; j < this.headerList[0].rows.length; j++) {
-      const row = new Array();
-      for (let k = 0; k < this.headerList.length; k++) {
-        const element = this.headerList[k].rows[j];
-        row.push(element);
-      }
-      body.push(row);
-    }
-    this.allItems = body;
-    if (this.allItems.length > 0) {
-      this.hasdata = true;
-      this.setPage(1);
-    }
-    (<HTMLButtonElement> document.getElementById('closeModal')).click();
-    // this.chart.showChart(data, this.groupedList);
+    // this.gettingData(data['table']);
   }
 
   private selectAll(event, type) {

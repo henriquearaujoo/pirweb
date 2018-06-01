@@ -27,7 +27,7 @@
                                         <div class="col col-md-12">
                                             <div class="funkyradio" *ngFor="let item of nodeList">
                                                 <div class="col col-md-3" *ngIf="item.alias !== undefined " [ngClass]="startNode === item.node.entity ? 'funkyradio-success' : 'funkyradio-primary'">
-                                                    <app-report-entity [entity]="item.node" (apply)="createPath(item.node,$event)"></app-report-entity>
+                                                    <app-report-entity [entity]="item.node" [rootNode]="startNode === item.node.entity" (apply)="createPath(item.node,$event)"></app-report-entity>
                                                 </div>
                                             </div>
                                         </div>
@@ -35,7 +35,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="panel panel-default">
+                        <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse3" class="panel-title expand">
                                     <div class="right-arrow pull-right">+</div>
@@ -48,14 +48,14 @@
                                         <div class="col col-md-12">
                                             <div class="funkyradio" *ngFor="let prop of headerList; let i = index;">
                                                 <div class="col col-md-3">
-                                                    <app-report-column [property]="prop" (apply)="filterColumn(prop,$event,i)"></app-report-column>
+                                                    <!-- <app-report-column [property]="prop" (apply)="filterColumn(prop,$event,i)"></app-report-column> -->
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
                 <button class="btn btn-primary" (click)="apply()">Aplicar</button>
@@ -66,7 +66,7 @@
     <div class="row margin-10">
         <div class="col col-md-12">
             <!-- <app-report-table #table [headerShower]="headerShower" [rootEntity]="currentTable" [headerList]="headerList" [pagedItems]="pagedItems"></app-report-table> -->
-            <div style="width:100%; height:auto; overflow:auto;">
+            <!-- <div style="width:100%; height:auto; overflow:auto;">
                 <table id="example2" class="table">
                     <thead>
                         <tr>
@@ -74,11 +74,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- <tr *ngFor="let data of pagedItems">
-                                <td class="tbl-left" *ngFor="let d of data;let i = index;" [hidden]="!headerShower[i]">
-                                    {{d}}
-                                </td>
-                            </tr> -->
+                        <tr *ngFor="let data of pagedItems">
+                            <td class="tbl-left" *ngFor="let d of data;let i = index;" [hidden]="!headerShower[i]">
+                                {{d}}
+                            </td>
+                        </tr>
                     </tbody>
                     <thead>
                         <tr>
@@ -107,7 +107,7 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> -->
         </div>
         <!-- 
             <div style="width:100%; height:auto; overflow:auto;">

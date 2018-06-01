@@ -21,6 +21,21 @@
     outline: none;
 }
 
+.material-button-active-root {
+    position: relative;
+    top: 0;
+    z-index: 1;
+    width: 70px;
+    height: 70px;
+    font-size: 0.8em;
+    color: whitesmoke;
+    background: #5bb85b;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .275);
+    outline: none;
+}
+
 .material-button-active {
     position: relative;
     top: 0;

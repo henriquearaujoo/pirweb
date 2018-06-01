@@ -12,7 +12,7 @@ export class ReportEntityComponent implements OnInit {
 
   @Input() entity: any;
   @Output() apply = new EventEmitter();
-  @Input() rootNode = true;
+  @Input() rootNode = false;
   private selected = false;
 
   constructor() { }
