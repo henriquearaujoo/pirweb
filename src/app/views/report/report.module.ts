@@ -18,8 +18,8 @@ import { ReportChartComponent } from './report-chart/report-chart.component';
       CommonModule,
       ReportRoutingModule,
       HttpModule,
-      SharedModule,
       FormsModule,
+      SharedModule,
       ReactiveFormsModule
     ],
     declarations: [

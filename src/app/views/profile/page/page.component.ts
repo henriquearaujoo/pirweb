@@ -133,7 +133,9 @@ export class PageComponent extends PagenateComponent implements OnInit {
     this.accessPageService.getPagesFromProfile(this.currentProfile.id, this.currentPage.id).subscribe(
       success_page_profile => {
         this.all_pages_profile = success_page_profile;
-
+        this.all_pages_profile[0].page.rules = new Array();
+        this.all_pages_profile[0].profile.description = '';
+        this.all_pages_profile[0].profile.updated_at = '';
         // * CHECKED * /
         const index = this.checked.indexOf(option);
 

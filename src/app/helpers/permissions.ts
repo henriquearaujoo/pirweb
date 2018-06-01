@@ -49,6 +49,7 @@ export class Permissions implements OnDestroy {
                         for ( let i = 0; i < this.rules.length; i++) {
                             if ( this.returnUrl.includes('/' + this.rules[i].page.route)) {
                                 if ( this.rules[i].read) {
+                                    // console.log('acesso permitido!');
                                     this.permissionsSubject.next(<RuleState>{
                                         profile: this.rules[i].profile,
                                         canRead: this.rules[i].read,
@@ -58,6 +59,7 @@ export class Permissions implements OnDestroy {
                                     });
                                     break;
                                 } else {
+                                    // console.log('acesso negado!');
                                     this.permissionsSubject.next(<RuleState>{
                                         profile: this.rules[i].profile,
                                         canRead: this.rules[i].read,

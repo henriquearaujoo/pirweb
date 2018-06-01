@@ -1,3 +1,4 @@
+import { Visit } from './visit';
 import { Profile } from './profile';
 import { Address } from './address';
 import { Person } from './person';
@@ -21,5 +22,6 @@ export class User {
     public longitude: number;
     public latitude: number;
 
+    public visits: Visit[] = new Array();
     constructor() { }
 }

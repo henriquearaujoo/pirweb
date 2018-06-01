@@ -167,19 +167,28 @@ export class CommunityComponent implements OnInit {
             this.sweetAlertService.alertSuccess('/comunidades');
           },
           error => {
-            this.toastService.toastError();
-            console.log('save error:', error);
+            if ( error === 'community_name.found') {
+              this.toastService.toastMsgWarn('Atenção', 'Comunidade já cadastrada!');
+            } else {
+              this.toastService.toastError();
+              console.log('save error:', error);
+            }
           }
         );
       } else {
+        this.community.city.state.cities = [];
         this.communityService.update(this.community).subscribe(
           success => {
             this.community = success;
             this.sweetAlertService.alertSuccessUpdate('/comunidades');
           },
           error => {
-            this.toastService.toastError();
-            console.log('update error:', error);
+            if ( error === 'community_name.found') {
+              this.toastService.toastMsgWarn('Atenção', 'Comunidade já cadastrada!');
+            } else {
+              this.toastService.toastError();
+              console.log('update error:', error);
+            }
           }
         );
       }

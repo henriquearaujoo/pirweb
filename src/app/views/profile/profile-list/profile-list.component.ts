@@ -144,7 +144,7 @@ export class ProfileListComponent extends PagenateComponent implements OnInit, O
 
       this.profile.description = '';
       this.profile.created_by = '';
-      this.profile.modified_by = '';
+      this.profile.updated_at = '';
       this.profileService.disableProfile(this.profile).subscribe(
         success => {
           this.router.navigate(['/perfis']);
