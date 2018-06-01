@@ -164,6 +164,14 @@ export class UserComponent implements OnInit, OnDestroy {
       this.verifyType();
       this.user.profile_id = this.user.profile.id;
       this.user.address.city_id = this.user.address.city.id;
+      this.user.profile.description = '';
+      this.user.profile.updated_at = '';
+      this.user.address.city.state.cities = [];
+      if ( this.user.latitude === null && this.user.longitude == null) {
+        this.user.latitude = 0;
+        this.user.longitude = 0;
+      }
+
       if (this.isNewData || this.user.id === undefined) {
         if (this.canCreate) {
           this.userService.createUser(this.user).subscribe(
@@ -189,6 +197,7 @@ export class UserComponent implements OnInit, OnDestroy {
         }
       } else {
         if (this.canUpdate) {
+          delete this.user.visits;
           this.userService.saveEditUser(this.user).subscribe(
             success2 => {
               this.currentId = localStorage.getItem('currentIdPir');
@@ -381,7 +390,7 @@ export class UserComponent implements OnInit, OnDestroy {
     } else {
       const er  = this.error_list.toString();
       switch (er) {
-        case 'user.login.exists': {
+        case 'login.found': {
           console.log(er);
           this.toastService.toastErrorExists('LOGIN');
           break;
@@ -438,7 +447,7 @@ export class UserComponent implements OnInit, OnDestroy {
         if (this.user !== undefined) {
           this.first_name = this.user.name.split(' ')[0];
           this.last_name = this.user.name.substring(this.first_name.length + 1);
-          if (this.user.person !== undefined ) {
+          if ((this.user.person !== undefined) && (this.user.person !== null)) {
             this.user.type = 'PFIS';
             this.person = new Person();
             this.person = this.user.person;

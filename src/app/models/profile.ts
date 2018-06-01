@@ -6,7 +6,7 @@ export class Profile {
     public description: string;
     public created_by: string;
     public status: boolean;
-    public modified_by: string;
+    public updated_at: string;
     public rule: Rule[] = new Array();
     public type: string;
     public number: number;
