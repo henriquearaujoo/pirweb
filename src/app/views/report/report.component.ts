@@ -265,11 +265,14 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
       ele.forEach(node => {
         const index = newGraph.findIndex(o => o.entity === node.entity);
         if (index === -1) {
+
           const idxFilters = this.filterList.findIndex(o => o.entity === node.entity);
+          const idx = this.groupedList.findIndex(o => o.entity === node.entity);
+
           if (idxFilters === -1) {
-            newGraph.push({entity: node.entity, joins: new Array(), leafs: new Array()});
+            newGraph.push({entity: node.entity, joins: new Array(), isLeaf: idx > 0});
           }else {
-            newGraph.push({entity: node.entity, joins: new Array(), leafs: new Array()});
+            newGraph.push({entity: node.entity, joins: new Array(), isLeaf: idx > 0});
           }
         }
       });
@@ -289,15 +292,10 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
     // start from root
     const json = new Array();
     if (newGraph.length > 0) {
-      const leafs = new Array();
-      for (let i = 1; i < this.groupedList.length; i++) {
-        leafs.push(this.groupedList[i].entity);
-      }
-      newGraph[0].leafs = leafs;
       json.push(newGraph[0]);
     }else {
       if (this.allPath.length > 0) {
-        json.push({entity: this.allPath[0][0].entity, joins: new Array(), leafs: new Array()});
+        json.push({entity: this.allPath[0][0].entity, joins: new Array(), isLeaf: true});
       }
     }
 
@@ -344,7 +342,7 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
   private collectData(data) {
     this.chart.showChart(data['maps'], this.groupedList);
     (<HTMLButtonElement> document.getElementById('closeModal')).click();
-    // this.gettingData(data['table']);
+    this.gettingData(data['table']);
   }
 
   private selectAll(event, type) {

@@ -48,7 +48,7 @@
                                         <div class="col col-md-12">
                                             <div class="funkyradio" *ngFor="let prop of headerList; let i = index;">
                                                 <div class="col col-md-3">
-                                                    <!-- <app-report-column [property]="prop" (apply)="filterColumn(prop,$event,i)"></app-report-column> -->
+                                                    <app-report-column [property]="prop" (apply)="filterColumn(prop,$event,i)"></app-report-column>
                                                 </div>
                                             </div>
                                         </div>
@@ -66,7 +66,7 @@
     <div class="row margin-10">
         <div class="col col-md-12">
             <!-- <app-report-table #table [headerShower]="headerShower" [rootEntity]="currentTable" [headerList]="headerList" [pagedItems]="pagedItems"></app-report-table> -->
-            <!-- <div style="width:100%; height:auto; overflow:auto;">
+            <div style="width:100%; height:auto; overflow:auto;">
                 <table id="example2" class="table">
                     <thead>
                         <tr>
@@ -107,7 +107,7 @@
                         </li>
                     </ul>
                 </div>
-            </div> -->
+            </div>
         </div>
         <!-- 
             <div style="width:100%; height:auto; overflow:auto;">
