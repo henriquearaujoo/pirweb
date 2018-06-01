@@ -109,50 +109,6 @@
                 </div>
             </div>
         </div>
-        <!-- 
-            <div style="width:100%; height:auto; overflow:auto;">
-                <table id="example2" class="table">
-                    <thead>
-                        <tr>
-                            <th *ngFor="let h of headerList; let i = index;" [hidden]="!headerShower[i]" class="tbl-left">{{h.alias}}<span class="glyphicon"></span></th>
-                        </tr>  
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let data of pagedItems">
-                            <td class="tbl-left" *ngFor="let d of data;let i = index;" [hidden]="!headerShower[i]">
-                                {{d}}
-                            </td>
-                        </tr>
-                    </tbody>
-                    <thead>
-                        <tr>
-                            <th *ngFor="let h of headerList;let i = index;" class="tbl-left" [hidden]="!headerShower[i]">{{h.alias}}<span class="glyphicon"></span></th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-            <div class="row" *ngIf="hasdata">
-                <div class="col-md-2 text-left">
-                    <div class="register">
-                        Registros de {{pager.startIndex + 1}} a {{pager.endIndex + 1}} de {{allItems.length}}
-                    </div>
-                </div>
-                <div class="col-md-10 text-right ">
-                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-                        <li [ngClass]="{disabled:pager.currentPage === 1}">
-                            <a (click)="setPage(pager.currentPage - 1)">Anterior
-                                <i class="fa fa-angle-left" aria-hidden="true"></i>
-                            </a>
-                        </li>
-                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-                            <a (click)="setPage(pager.currentPage + 1)">
-                                <i class="fa fa-angle-right" aria-hidden="true"></i> Próximo
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        -->
     </div>
 
 </div>
