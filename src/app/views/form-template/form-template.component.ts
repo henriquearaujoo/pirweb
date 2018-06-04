@@ -135,7 +135,7 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
       this.toastService.toastMsgError('Erro', 'Indicador inválido');
       break;
       default:
-      this.toastService.toastError();
+      this.toastService.toastMsgError('Erro', 'Indicador inválido');
       console.log('update error:', error);
       break;
     }

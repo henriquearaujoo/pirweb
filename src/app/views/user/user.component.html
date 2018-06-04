@@ -108,8 +108,8 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group" [ngClass]="applyCssError(f1, login)" *ngIf="!isAgent || url === '/usuarios/registro'">
                                                             <label class="control-label">Usuário</label>
-                                                            <input type="text" [(ngModel)]="user.login" #login="ngModel" name="login" id="user_login" class="form-control" placeholder="Usuário" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, login)" msgError="Digite um nome de usuário">
+                                                            <input type="text" [(ngModel)]="user.login" #login="ngModel" name="login" id="user_login" maxlength="30" class="form-control" placeholder="Usuário" required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, login)" [field]="login.model" msgError="Digite um nome de usuário">
                                                             </app-control-field-error>
                                                         </div>
                                                         <!-- PROFILE AGENT-->
@@ -123,7 +123,7 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group" [ngClass]="applyCssError(f1, password)" *ngIf="isNewData">
                                                             <label class="control-label">Senha</label>
-                                                            <input type="password" [(ngModel)]="user.password" #password="ngModel" name="password" id="user_password" class="form-control" required minlength="8" placeholder="Inserir uma senha (Digite uma senha. Mínimo 8 caracteres)">
+                                                            <input type="password" [(ngModel)]="user.password" #password="ngModel" name="password" id="user_password" maxlength="20" class="form-control" required minlength="8" placeholder="Inserir uma senha (Digite uma senha. Mínimo 8 caracteres)">
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f1, password)" msgError="">
                                                             </app-control-field-error>
                                                             <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
@@ -133,17 +133,23 @@
                                                                 <div *ngIf="password.errors.minlength">
                                                                     A senha precisa ter no mínimo 8 caracteres.
                                                                 </div>
+                                                                <div *ngIf="password.errors.maxlength">
+                                                                    A senha precisa ter no máximo 20 caracteres.
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="form-group" *ngIf="!isNewData">
                                                             <label class="control-label">Senha</label>
-                                                            <input type="password" [(ngModel)]="user.password" #password="ngModel" name="password" id="user_password" class="form-control" minlength="8" placeholder="Inserir uma senha (Digite uma senha. Mínimo 8 caracteres)">
+                                                            <input type="password" [(ngModel)]="user.password" #password="ngModel" name="password" id="user_password" maxlength="20" class="form-control" minlength="8" placeholder="Inserir uma senha (Digite uma senha. Mínimo 8 caracteres)">
                                                             <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
                                                                 <div *ngIf="password.errors.required">
                                                                     Digite uma senha. Mínimo 8 caracteres
                                                                 </div>
                                                                 <div *ngIf="password.errors.minlength">
                                                                     A senha precisa ter no mínimo 8 caracteres.
+                                                                </div>
+                                                                <div *ngIf="password.errors.maxlength">
+                                                                    A senha precisa ter no máximo 20 caracteres.
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -199,7 +205,7 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group left" [ngClass]="applyCssError(f2, firstname)">
                                                             <label class="control-label">Nome</label>
-                                                            <input type="text" #firstname="ngModel" [(ngModel)]="first_name" name="first_name" id="first_name" class="form-control" placeholder="Nome" required>
+                                                            <input type="text" #firstname="ngModel" [(ngModel)]="first_name" name="first_name" id="first_name" maxlength="30" class="form-control" placeholder="Nome" required>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f2, firstname)" msgError="Digite um nome">
                                                             </app-control-field-error>
                                                         </div>
@@ -207,7 +213,7 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group" [ngClass]="applyCssError(f2, lastname)">
                                                             <label class="control-label">Sobrenome</label>
-                                                            <input type="text" #lastname="ngModel" [(ngModel)]="last_name" name="last_name" id="last_name" class="form-control" placeholder="Sobrenome" required>
+                                                            <input type="text" #lastname="ngModel" [(ngModel)]="last_name" name="last_name" id="last_name" maxlength="40" class="form-control" placeholder="Sobrenome" required>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f2, lastname)" msgError="Digite um nome">
                                                             </app-control-field-error>
                                                         </div>
@@ -217,7 +223,7 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group" [ngClass]="applyCssError(f2, email)">
                                                             <label class="control-label">E-mail</label>
-                                                            <input type="email" [(ngModel)]="user.email" #email="ngModel" name="email" id="user_email" class="form-control" placeholder="Inserir E-mail ..." ngModel email required>
+                                                            <input type="email" [(ngModel)]="user.email" #email="ngModel" name="email" id="user_email" maxlength="60" class="form-control" placeholder="Inserir E-mail ..." ngModel email required>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f2, email)" msgError="E-mail válido">
                                                             </app-control-field-error>
                                                         </div>
@@ -235,7 +241,7 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group" [ngClass]="applyCssError(f2, emitter)" *ngIf="!show_pjur">
                                                             <label class="control-label">Orgão Emissor</label>
-                                                            <input type="text" #emitter="ngModel" [(ngModel)]="person.emitter" name="rg_emitter" id="user_rgemitter" class="form-control" placeholder="Inserir Orgão Emissor ..." required>
+                                                            <input type="text" #emitter="ngModel" [(ngModel)]="person.emitter" name="rg_emitter" id="user_rgemitter" maxlength="15" class="form-control" placeholder="Inserir Orgão Emissor ..." required>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f2, emitter)" msgError="Orgão Emissor">
                                                             </app-control-field-error>
                                                         </div>
@@ -336,7 +342,7 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group left" [ngClass]="applyCssError(f3, street)">
                                                             <label class="control-label">Rua</label>
-                                                            <input type="text" #street="ngModel" [(ngModel)]="user.address.street" name="street" id="user_street" class="form-control" placeholder="Rua" required>
+                                                            <input type="text" #street="ngModel" [(ngModel)]="user.address.street" name="street" id="user_street" maxlength="40" class="form-control" placeholder="Rua" required>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f3, street)" msgError="Digite uma rua">
                                                             </app-control-field-error>
                                                         </div>
@@ -344,7 +350,7 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group" [ngClass]="applyCssError(f3, number)">
                                                             <label class="control-label">Número</label>
-                                                            <input type="text" #number="ngModel" [(ngModel)]="user.address.number" name="number" id="user_number" class="form-control" placeholder="Número" required>
+                                                            <input type="text" #number="ngModel" [(ngModel)]="user.address.number" name="number" id="user_number" maxlength="20" class="form-control" placeholder="Número" required>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f3, number)" msgError="Digite um número">
                                                             </app-control-field-error>
                                                         </div>
@@ -354,7 +360,7 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group left" [ngClass]="applyCssError(f3, neighborhood)">
                                                             <label class="control-label">Bairro</label>
-                                                            <input type="text" #neighborhood="ngModel" [(ngModel)]="user.address.neighborhood" name="neighborhood" id="user_neighborhood" class="form-control" placeholder="Bairro" required>
+                                                            <input type="text" #neighborhood="ngModel" [(ngModel)]="user.address.neighborhood" name="neighborhood" id="user_neighborhood" maxlength="40" class="form-control" placeholder="Bairro" required>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f3, neighborhood)" msgError="Digite um bairro">
                                                             </app-control-field-error>
                                                         </div>
@@ -363,7 +369,7 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label class="control-label">Complemento</label>
-                                                            <input type="text" [(ngModel)]="user.address.complement" name="complement" id="user_complement" class="form-control" placeholder="Complemento">
+                                                            <input type="text" [(ngModel)]="user.address.complement" name="complement" id="user_complement" maxlength="40" class="form-control" placeholder="Complemento">
                                                         </div>
                                                     </div>
                                                 </div>

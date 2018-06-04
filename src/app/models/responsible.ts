@@ -18,6 +18,7 @@ export class Responsible {
     public has_sanitation: boolean;
     public has_other_children: boolean;
     public mother: Pregnant = new Pregnant();
+    public agent_id: number;
 
     public family_income_other: string;
     public drinking_water_treatment2: boolean;

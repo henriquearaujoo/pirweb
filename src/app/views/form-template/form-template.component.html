@@ -50,8 +50,8 @@
                                                         <div class="form-group" [ngClass]="applyCssError(f, range)">
                                                             <label class="control-label"> Faixa </label>
                                                             <select class="form-control" name="range" id="range" #range="ngModel" [(ngModel)]="form.age_zone" required>
-                                              <option [ngValue]="item" *ngFor="let item of _range"> {{ item }} </option>
-                                            </select>
+                                                                <option [ngValue]="item" *ngFor="let item of _range"> {{ item }} </option>
+                                                            </select>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f, range)" msgError="Selecione a faixa">
                                                             </app-control-field-error>
                                                         </div>
@@ -62,31 +62,31 @@
                                                         <div class="form-group" [ngClass]="applyCssError(f, inYears)">
                                                             <label class="control-label">  Faixa etária</label> <br/>
                                                             <label class="radio-inline">
-                                            <input type="radio" name="in_years" id="in_years" #inYears="ngModel" [value]="false" [(ngModel)]="form.in_years" required>
-                                            Meses
-                                          </label>
+                                                                <input type="radio" name="in_years" id="in_years" #inYears="ngModel" [value]="false" [(ngModel)]="form.in_years" required>
+                                                                Meses
+                                                            </label>
                                                             <label class="radio-inline">
-                                            <input type="radio" name="in_years" id="in_years" #inYears="ngModel" [value]="true" [(ngModel)]="form.in_years" required>
-                                            Anos
-                                          </label>
+                                                                <input type="radio" name="in_years" id="in_years" #inYears="ngModel" [value]="true" [(ngModel)]="form.in_years" required>
+                                                                Anos
+                                                            </label>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f, inYears)" msgError="Escolha uma das opções">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-sm-12">
+                                                    <div class="col-sm-12">quest
                                                         <div class="form-group">
                                                             <!-- <label class="control-label">Indicadores</label> -->
 
                                                             <label class="control-label"> Indicadores </label>
                                                             <div class="form-inline">
                                                                 <label [ngClass]="applyCssError(f, from)">
-                                                <input class="form-control" type="number"  name="from" id="from" #from="ngModel" min="0" maxlength="10" [(ngModel)]="form.from" placeholder="De" required>                                   
-                                              </label>
-                                                                <label class="control-label" [ngClass]="applyCssError(f, to)">             
-                                                <input class="form-control" type="number" name="to" id="to" #to="ngModel" min="0" maxlength="10" [(ngModel)]="form.to" placeholder="Até" required>                        
-                                                <label class="control-label"> {{ form.in_years ? 'Anos' : 'Meses' }} </label>
+                                                                    <input class="form-control" type="number"  name="from" id="from" mask="000" #from="ngModel" min="0" maxlength="3" [(ngModel)]="form.from" placeholder="De" required>                                   
+                                                                </label>
+                                                                <label [ngClass]="applyCssError(f, to)">             
+                                                                    <input class="form-control" type="number" name="to"  mask="000" id="to" #to="ngModel" min="0" maxlength="3" [(ngModel)]="form.to" placeholder="Até" required>                        
+                                                                    <label class="control-label"> {{ form.in_years ? 'Anos' : 'Meses' }} </label>
                                                                 </label>
                                                             </div>
                                                             <app-control-field-error [ngClass]="applyCssError(f, from)" [showError]="verifyValidSubmitted(f, from)" msgError="Digite o valor inicial do indicador">
@@ -240,8 +240,8 @@
                             <div class="form-group">
                                 <label class="control-label">Questão</label> <br/>
                                 <!-- <textarea disabled *ngIf="show"> {{ question.description }}</textarea> -->
-                                <textarea class="form-control" rows="3" name="description" id="description" #description="ngModel" [(ngModel)]="question.description" maxlength="200" [disabled]="show">
-                  </textarea>
+                                <textarea class="form-control" rows="3" name="description" id="description" #description="ngModel" [(ngModel)]="question.description" maxlength="100" [disabled]="show">
+                                </textarea>
                                 <!-- <app-control-field-error [showError]="verifyValidSubmitted(fQuestion, description)" msgError="Digite uma descrição">
                   </app-control-field-error>  -->
                             </div>
@@ -260,12 +260,12 @@
                             <div class="form-group" *ngIf="!show">
                                 <label class="control-label"> Tipo da Questão</label>
                                 <select class="form-control" name="type_question" id="type_question" #typeQuestion="ngModel" [(ngModel)]="question.type">
-                      <option value="SOCIO_AFFECTIVE"> Socioafetiva </option>
-                      <option value="MOTOR"> Motora </option>
-                      <option value="COGNITIVE "> Cognitiva </option>
-                      <option value="LANGUAGE"> Comunicação e linguagem </option>
-                      <option value="UNDEFINED"> Outros </option>
-                    </select>
+                                    <option value="SOCIO_AFFECTIVE"> Socioafetiva </option>
+                                    <option value="MOTOR"> Motora </option>
+                                    <option value="COGNITIVE "> Cognitiva </option>
+                                    <option value="LANGUAGE"> Comunicação e linguagem </option>
+                                    <option value="UNDEFINED"> Outros </option>
+                                </select>
                                 <!-- <app-control-field-error [showError]="verifyValidSubmitted(fQuestion, typeQuestion)" 
                       msgError="Selecione o tipo da questão" *ngIf="!show">
                     </app-control-field-error>                     -->

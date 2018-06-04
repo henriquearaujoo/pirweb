@@ -78,6 +78,7 @@ export class UserComponent implements OnInit, OnDestroy {
   private currentId: string;
   private url: string;
   private isAgent: boolean;
+  private isWhitespace: boolean;
 
   constructor(
     private userService: UserService,
@@ -183,7 +184,7 @@ export class UserComponent implements OnInit, OnDestroy {
               }
             },
             error => {
-              this.toastService.toastError();
+              // this.toastService.toastError();
               this.error_list = error;
               this.verifyError();
             }
@@ -405,7 +406,7 @@ export class UserComponent implements OnInit, OnDestroy {
           this.toastService.toastErrorExists('CNPJ');
           break;
         }
-        case 'user.email.exists': {
+        case 'email.found': {
           console.log(er);
           this.toastService.toastErrorExists('EMAIL');
           break;
@@ -492,7 +493,7 @@ export class UserComponent implements OnInit, OnDestroy {
     } else {
       this.isFormValid = true;
     }
-
+    console.log(this.isWhitespace);
 
     if ( this.isFormValid) {
       this.isFormValid = false;
@@ -550,11 +551,16 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   verifyValidSubmitted(form, field) {
-    this.isOk = form.submitted && !field.valid;
-    return form.submitted && !field.valid;
+    // this.isOk = form.submitted && !field.valid;
+      return form.submitted && !field.valid;
   }
 
   applyCssError(form, field) {
+    if (field.model === '') {
+      this.isWhitespace  = true;
+    } else {
+     // this.isWhitespace = false;
+    }
     return {
       'has-error': this.verifyValidSubmitted(form, field),
       'has-feedback': this.verifyValidSubmitted(form, field)

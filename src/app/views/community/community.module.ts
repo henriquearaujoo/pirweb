@@ -16,8 +16,8 @@ import { CommunityRoutingModule } from './community-routing.module';
     CommunityRoutingModule,
     HttpModule,
     FormsModule,
-    MyDatePickerModule,
-    SharedModule
+    SharedModule,
+    MyDatePickerModule
   ],
   declarations: [
     CommunityComponent,

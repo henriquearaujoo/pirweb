@@ -184,7 +184,7 @@ export class CommunityComponent implements OnInit {
           },
           error => {
             if ( error === 'community_name.found') {
-              this.toastService.toastMsgWarn('Atenção', 'Comunidade já cadastrada!');
+              this.toastService.toastMsgWarn('Atenção', 'Não é possível editar comunidade com um nome já existente!');
             } else {
               this.toastService.toastError();
               console.log('update error:', error);

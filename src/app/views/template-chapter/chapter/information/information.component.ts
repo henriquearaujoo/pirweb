@@ -113,6 +113,11 @@ export class InformationComponent implements OnInit {
         }
       );
     }else {
+      this.chapter.medias.forEach( elem => {
+        elem.media_type = undefined;
+        elem.storage_type = undefined;
+      });
+
       this.chapterService.update(this.chapter).subscribe(
         s => {
           this.chapter = s;

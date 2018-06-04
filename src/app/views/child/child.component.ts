@@ -1,3 +1,4 @@
+import { forEach } from '@angular/router/src/utils/collection';
 import { Router } from '@angular/router';
 import { Permissions, RuleState } from './../../helpers/permissions';
 import { ResponsibleService } from './../../services/responsible/responsible.service';
@@ -171,6 +172,8 @@ export class ChildComponent implements OnInit {
       for (let i = 0; i < this.child.responsible.length; i++) {
         this.child.responsible[i].community.city_id = this.child.responsible[i].community.city.id;
       }
+
+      this.verifyNull();
       if (this.isNewData || this.child.id === undefined) {
         this.childService.insert(this.child).subscribe(
           success => {
@@ -196,6 +199,31 @@ export class ChildComponent implements OnInit {
         );
       }
     }
+  }
+
+  verifyNull() {
+    if (this.child.mother.agent_id === null) {
+      this.child.mother.agent_id = undefined;
+    }
+    if (this.child.mother.community.city.state.cities === null) {
+      this.child.mother.community.city.state.cities = [];
+    }
+    if (this.child.mother.community.city_id === null) {
+      this.child.mother.community.city_id = undefined;
+    }
+
+    if ( (this.child.mother.community.city_id === undefined) || this.child.mother.community.city_id === null) {
+      this.child.mother.community.city_id = this.child.mother.community.city.id;
+    }
+
+    this.child.responsible.forEach( resp => {
+      if (resp.community.city.state.cities === null) {
+        resp.community.city.state.cities = [];
+      }
+      if (resp.agent_id === null) {
+        resp.agent_id = undefined;
+      }
+    });
   }
 
   load() {

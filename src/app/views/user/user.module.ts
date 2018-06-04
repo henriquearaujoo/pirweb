@@ -1,3 +1,4 @@
+import { LoaderService } from './../../services/loader/loader.service';
 import { SharedModule } from './../../shared/shared.module';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserComponent } from './user.component';
@@ -23,7 +24,7 @@ import { SharedUserModule } from '../../shared/shared-user.module';
   declarations: [
     UserListComponent
   ],
-  providers: [],
+  providers: [LoaderService],
   exports: [UserListComponent]
 })
 export class UserModule { }

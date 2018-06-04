@@ -259,6 +259,19 @@ export class PageComponent extends PagenateComponent implements OnInit {
         }
 
         for (let i = 0; i < this.all_pages_profile.length; i++) {
+          // VERIFY NULL
+          if (this.all_pages_profile[i].page.rules === null) {
+            delete this.all_pages_profile[i].page.rules;
+          }
+
+          if (this.all_pages_profile[i].profile.description === null) {
+            this.all_pages_profile[i].profile.description = '';
+          }
+
+          if (this.all_pages_profile[i].profile.updated_at === null) {
+            this.all_pages_profile[i].profile.updated_at = '';
+          }
+
           this.ruleService.editRule(this.all_pages_profile[i]).subscribe(
             s => {
               this.loadAllPermissions();
@@ -291,11 +304,11 @@ export class PageComponent extends PagenateComponent implements OnInit {
       }).then((result) => {
         if (result.value) {
           this.updateAllPermission(event);
-          swal(
-            'Sucesso!',
-            'Todas as permissões foram atribuídas.',
-            'success'
-          );
+           swal(
+                'Sucesso!',
+                'Todas as permissões foram atribuídas.',
+                'success'
+              );
         } else {
           this.isAllChecked = false;
         }

@@ -167,6 +167,11 @@ export class PregnantComponent implements OnInit {
         this.responsible.drinking_water_treatment = 'Não';
       }
 
+      this.responsible.community.city.state.cities = [];
+      if (this.responsible.agent_id == null) {
+        this.responsible.agent_id = undefined;
+      }
+
       if (this.isNewData || this.responsible.id === undefined) {
         this.responsibleService.insert(this.responsible).subscribe(
           success => {
@@ -182,6 +187,7 @@ export class PregnantComponent implements OnInit {
       } else {
         this.responsibleService.update(this.responsible).subscribe(
           success => {
+            console.log('success: ', success);
             this.sweetAlertService.alertSuccessUpdate('/gestantes');
           },
           error => {

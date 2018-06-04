@@ -7,51 +7,41 @@
                         <div class="box-body">
                             <div class="form-group" [ngClass]="applyCssError(f, title)">
                                 <label class="control-label">Título</label>
-                                <input type="text" id="chapter_title" name="chapter_title" #title="ngModel" maxlength="100" [(ngModel)]="chapter.title" value="{{chapter.title}}" class="form-control" placeholder="Inserir Título..." required>
+                                <input type="text" id="chapter_title" name="chapter_title" #title="ngModel" maxlength="60" [(ngModel)]="chapter.title" value="{{chapter.title}}" class="form-control" placeholder="Inserir Título..." required>
                                 <app-control-field-error [showError]="verifyValidSubmitted(f, title)" msgError="Digite um título">
                                 </app-control-field-error>
                             </div>
                             <div class="form-group" [ngClass]="applyCssError(f, subtitle)">
                                 <label class="control-label">Subtítulo</label>
-                                <input type="text" id="chapter_subtitle" name="chapter_subtitle" #subtitle="ngModel" maxlength="100" class="form-control" [(ngModel)]="chapter.subtitle" value="{{chapter.subtitle}}" placeholder="Inserir Subtítulo..." required>
+                                <input type="text" id="chapter_subtitle" name="chapter_subtitle" #subtitle="ngModel" maxlength="60" class="form-control" [(ngModel)]="chapter.subtitle" value="{{chapter.subtitle}}" placeholder="Inserir Subtítulo..." required>
                                 <app-control-field-error [showError]="verifyValidSubmitted(f, subtitle)" msgError="Digite um título"></app-control-field-error>
                             </div>
 
                             <div class="form-group" *ngIf="isNewData">
                                 <label class="control-label">Versão</label>
-                                <input type="text" readonly id="chapter_version" name="chapter_version" maxlength="100" [(ngModel)]="lastVersion" value="lastVersion" class="form-control">
+                                <input type="text" readonly id="chapter_version" name="chapter_version" maxlength="60" [(ngModel)]="lastVersion" value="lastVersion" class="form-control">
                             </div>
 
                             <div class="form-group" *ngIf="!isNewData">
                                 <label class="control-label">Versão</label>
-                                <input type="text" readonly id="chapter_version" name="chapter_version" maxlength="100" [(ngModel)]="chapter.version" value="chapter.version" class="form-control">
+                                <input type="text" readonly id="chapter_version" name="chapter_version" maxlength="60" [(ngModel)]="chapter.version" value="chapter.version" class="form-control">
                             </div>
 
                             <div class="form-group" [ngClass]="applyCssError(f, description)">
                                 <label class="control-label">Descrição</label>
-                                <quill-editor
-                                    (change)="onKey($event)"
-                                    [options]="editorOptions"
-                                    id="chapter_description"
-                                    name="editor_description" #description="ngModel" 
-                                    [(ngModel)]="chapter.description" required>
+                                <quill-editor (change)="onKey($event)" [options]="editorOptions" id="chapter_description" name="editor_description" #description="ngModel" [(ngModel)]="chapter.description" required>
                                 </quill-editor>
                                 <!-- <div style="float: right; color: #999;">
                                     <small>Caracteres restantes: {{ characters }}</small>
-                                </div>  -->                                                          
+                                </div>  -->
                                 <app-control-field-error [showError]="verifyValidSubmitted(f, description)" msgError="Digite uma descrição">
                                 </app-control-field-error>
                             </div>
 
                             <div class="form-group" [ngClass]="applyCssError(f, content)">
                                 <label class="control-label">Conteúdo</label>
-                                <quill-editor 
-                                    (change)="onKey($event)"
-                                    [options]="editorOptions"  
-                                    id="chapter_content" name="editor_content" 
-                                    #content="ngModel" 
-                                    [(ngModel)]="chapter.content" required>
-                                </quill-editor>                                                                
+                                <quill-editor (change)="onKey($event)" [options]="editorOptions" id="chapter_content" name="editor_content" #content="ngModel" [(ngModel)]="chapter.content" required>
+                                </quill-editor>
                                 <app-control-field-error [showError]="verifyValidSubmitted(f, content)" msgError="Digite um conteúdo">
                                 </app-control-field-error>
                             </div>
@@ -71,41 +61,35 @@
 
                             <div class="form-group" [ngClass]="applyCssError(f, time)">
                                 <label class="control-label">Estimativa de Tempo (em minutos)</label>
-                                <input type="number" min="1" id="chapter_estimated_time" mask="00000000000000000000" name="chapter_estimated_time" maxlength="20" #time="ngModel" [(ngModel)]="chapter.estimated_time" value="chapter.estimated_time" class="form-control" placeholder="Inserir Estimativa de Tempo..." required>
+                                <input type="number" min="1" id="chapter_estimated_time" mask="00000000000000000000" name="chapter_estimated_time" maxlength="20" #time="ngModel" [(ngModel)]="chapter.estimated_time" value="chapter.estimated_time" class="form-control" placeholder="Inserir Estimativa de Tempo..."
+                                    required>
                                 <app-control-field-error [showError]="verifyValidSubmitted(f, time)" msgError="Digite uma Estimativa de Tempo (minutos)">
                                 </app-control-field-error>
                             </div>
 
                             <div class="form-group" [ngClass]="applyCssError(f, timeNextVisit)">
                                 <label class="control-label">Digite uma Estimativa de Tempo (em dias)</label>
-                                <input type="number" min="0" id="chapter_time_next_visit" mask="00000000000000000000" name="chapter_time_next_visit" maxlength="20" #timeNextVisit="ngModel" [(ngModel)]="chapter.time_next_visit" value="chapter.time_next_visit" class="form-control" placeholder="Tempo para a próxima visita..." required>
+                                <input type="number" min="0" id="chapter_time_next_visit" mask="00000000000000000000" name="chapter_time_next_visit" maxlength="20" #timeNextVisit="ngModel" [(ngModel)]="chapter.time_next_visit" value="chapter.time_next_visit" class="form-control" placeholder="Tempo para a próxima visita..."
+                                    required>
                                 <app-control-field-error [showError]="verifyValidSubmitted(f, timeNextVisit)" msgError="Digite uma Estimativa de Tempo (em dia)">
                                 </app-control-field-error>
                             </div>
 
                             <div class="form-group" [ngClass]="applyCssError(f, goal)">
                                 <label class="control-label">Objetivo</label>
-                                <quill-editor 
-                                    (change)="onKey($event)"
-                                    [options]="editorOptions" id="chapter_goal" 
-                                    name="editor_goal" #goal="ngModel" 
-                                    [(ngModel)]="chapter.goal" required>
-                                </quill-editor>                               
+                                <quill-editor (change)="onKey($event)" [options]="editorOptions" id="chapter_goal" name="editor_goal" #goal="ngModel" [(ngModel)]="chapter.goal" required>
+                                </quill-editor>
                                 <app-control-field-error [showError]="verifyValidSubmitted(f, goal)" msgError="Digite um objetivo">
                                 </app-control-field-error>
                             </div>
 
                             <div class="form-group" [ngClass]="applyCssError(f, task)">
                                 <label class="control-label">Tarefa para a família</label>
-                                <quill-editor 
-                                    (change)="onKey($event)"
-                                    [options]="editorOptions" id="chapter_task" 
-                                    name="editor_task" #task="ngModel" 
-                                    [(ngModel)]="chapter.family_tasks" required>
-                                </quill-editor>                               
+                                <quill-editor (change)="onKey($event)" [options]="editorOptions" id="chapter_task" name="editor_task" #task="ngModel" [(ngModel)]="chapter.family_tasks" required>
+                                </quill-editor>
                                 <app-control-field-error [showError]="verifyValidSubmitted(f, task)" msgError="Digite a conclusão">
                                 </app-control-field-error>
-                            </div>                           
+                            </div>
                         </div>
                     </div>
 

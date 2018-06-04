@@ -163,6 +163,15 @@ export class ResponsibleComponent implements OnInit {
         this.responsible.drinking_water_treatment = 'Não';
       }
 
+      this.responsible.community.city.state.cities = [];
+      if (this.responsible.agent_id == null) {
+        this.responsible.agent_id = undefined;
+      }
+
+      if (this.responsible.mother == null) {
+        delete this.responsible.mother;
+      }
+
       if (this.isNewData || this.responsible.id === undefined) {
         this.responsibleService.insert(this.responsible).subscribe(
           success => {

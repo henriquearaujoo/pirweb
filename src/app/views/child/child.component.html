@@ -41,7 +41,7 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group" [ngClass]="applyCssError(f1, nameChild)">
                                                             <label class="control-label">Nome completo da criança</label>
-                                                            <input type="text" #nameChild="ngModel" name="name_child" maxlength="100" [(ngModel)]="child.name" id="name_child" class="form-control" placeholder="Nome completo da criança" required>
+                                                            <input type="text" #nameChild="ngModel" name="name_child" maxlength="60" [(ngModel)]="child.name" id="name_child" class="form-control" placeholder="Nome completo da criança" required>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f1, nameChild)" msgError="Digite um nome para a criança">
                                                             </app-control-field-error>
                                                         </div>
@@ -88,7 +88,7 @@
                                                     <div [ngClass]="child.mother === undefined ? 'col-sm-12' : 'col-sm-6'">
                                                         <div class="form-group">
                                                             <label class="control-label">Nome do pai</label>
-                                                            <input type="text" #fatherName="ngModel" name="fatherName" maxlength="100" [(ngModel)]="child.father_name" id="fatherName" class="form-control" placeholder="Nome completo do pai">
+                                                            <input type="text" #fatherName="ngModel" name="fatherName" maxlength="60" [(ngModel)]="child.father_name" id="fatherName" class="form-control" placeholder="Nome completo do pai">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -211,7 +211,8 @@
                                                     <div class="col-sm-12" *ngIf="child.has_civil_registration === false">
                                                         <div class="form-group" [ngClass]="applyCssError(f2, civilRegJustificative)">
                                                             <label class="control-label">Justifique</label>
-                                                            <textarea type="text" #civilRegJustificative="ngModel" name="civilRegJustificative" id="civilRegJustificative" [(ngModel)]="child.civil_reg_justificative" class="form-control" placeholder="Por que a criança não possui registro civil? " required>
+                                                            <textarea type="text" #civilRegJustificative="ngModel" name="civilRegJustificative" id="civilRegJustificative" maxlength="200" [(ngModel)]="child.civil_reg_justificative" class="form-control" placeholder="Por que a criança não possui registro civil? "
+                                                                required>
                                                             </textarea>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f2, civilRegJustificative)" msgError="Justifique a ausência do registro civil">
                                                             </app-control-field-error>
@@ -305,7 +306,7 @@
                                                             <div class="col">
                                                                 <div class="form-group" [ngClass]="applyCssError(f2, educationDiffSpecification)" *ngIf="child.has_education_diff">
                                                                     <label class="label-control"> Justifique</label>
-                                                                    <textarea class="form-control" #educationDiffSpecification="ngModel" [(ngModel)]="child.education_diff_specification" name="educationDiffSpecification" id="educationDiffSpecification" required>
+                                                                    <textarea class="form-control" #educationDiffSpecification="ngModel" [(ngModel)]="child.education_diff_specification" name="educationDiffSpecification" maxlength="200" id="educationDiffSpecification" required>
                                                                     </textarea>
                                                                     <app-control-field-error [showError]="verifyValidSubmitted(f2, educationDiffSpecification)" msgError="Especifique a dificuldade para educar a criança">
                                                                     </app-control-field-error>
