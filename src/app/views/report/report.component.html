@@ -6,7 +6,7 @@
     </div>
     <div class="row margin-10">
         <div class="col-md-7">
-            <app-report-chart #chart [headerShower]="headerShower" [headerList]="headerList" [pagedItems]="pagedItems"></app-report-chart>
+            <app-report-chart #chart (exportData)="export_excel($event)" [headerShower]="headerShower" [headerList]="headerList" [pagedItems]="pagedItems"></app-report-chart>
         </div>
 
         <div class="col-md-5">
@@ -65,12 +65,15 @@
     <br/><br/>
     <div class="row margin-10">
         <div class="col col-md-12">
-            <!-- <app-report-table #table [headerShower]="headerShower" [rootEntity]="currentTable" [headerList]="headerList" [pagedItems]="pagedItems"></app-report-table> -->
-            <div style="width:100%; height:auto; overflow:auto;">
+            <!-- <div style="width:100%; height:auto; overflow:auto;"> -->
+            <app-report-table #table [headerShower]="headerShower" [rootEntity]="currentTable" [headerList]="headerList" [pagedItems]="pagedItems"></app-report-table>
+            <!-- </div> -->
+            <!-- <div style="width:100%; height:auto; overflow:auto;">
                 <table id="example2" class="table">
                     <thead>
                         <tr>
-                            <th *ngFor="let h of headerList; let i = index;" [hidden]="!headerShower[i]" class="tbl-left">{{h}}<span class="glyphicon"></span></th>
+                            <th *ngFor="let h of headerList; let i = index;" [hidden]="!headerShower[i]" class="tbl-left">
+                                {{h}}<span class="glyphicon"></span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -86,7 +89,7 @@
                         </tr>
                     </thead>
                 </table>
-            </div>
+            </div> -->
             <div class="row" *ngIf="hasdata">
                 <div class="col-md-2 text-left">
                     <div class="register">

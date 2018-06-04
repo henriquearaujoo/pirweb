@@ -1,3 +1,9 @@
+import { ReportModel } from './../../export/report-model';
+import { ExportFactory } from './../../export/report-export';
+import { XlsImage } from './../../export/xls-image';
+import { XlsExport } from './../../export/xls-export';
+import { VariableType } from './../../enums/variable_type';
+import { Constant } from './../../constant/constant';
 import { Permissions, RuleState } from './../../helpers/permissions';
 import { PagenateComponent } from './../../components/pagenate/pagenate.component';
 import { PageService } from './../../services/pagenate/page.service';
@@ -12,6 +18,8 @@ import { Component, OnInit, ViewChild, Output } from '@angular/core';
 import { ReportChartComponent } from './report-chart/report-chart.component';
 import { ReportTableComponent } from './report-table/report-table.component';
 import { forEach } from '@angular/router/src/utils/collection';
+import { DatePipe } from '@angular/common';
+// import { DatePipe } from '@angular/common';
 
 declare const $: any;
 
@@ -22,6 +30,9 @@ declare const $: any;
 })
 
 export class ReportComponent  extends PagenateComponent implements OnInit {
+
+  private datasource: Array<ReportModel>;
+
   private loading = false;
   private general: any = {};
   private hasdata: boolean;
@@ -60,7 +71,8 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
 
   private startNode: string;
 
-  constructor(private report: BigraphService, private pagerService: PageService, private permissions: Permissions) {
+  constructor(
+    private report: BigraphService, private pagerService: PageService, private permissions: Permissions) {
     super(pagerService);
     this.hasdata = false;
   }
@@ -314,19 +326,46 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
   }
 
   private gettingData(d: any) {
+
     const data = d;
     this.headerList = new Array();
     this.headerShower = new Array();
+
+    const varType = new VariableType();
+
     data.forEach(col => {
-      this.headerShower.push(true);
-      this.headerList.push(col.property);
+      const type = varType.getValue(col.type);
+      if (type !== 4) {
+        this.headerList.push(col.property);
+        this.headerShower.push(true);
+      }
     });
+
     const table = new Array();
+    const datePipe = new DatePipe('pt-BR');
     for (let j = 0; j < data[0].values.length; j++) {
+
       const row = new Array();
+
       for (let k = 0; k < data.length; k++) {
-        const element = data[k].values[j];
-        row.push(element);
+        const type = varType.getValue(data[k].type);
+        if (type !== 4) {
+          const element = Constant.PROP_VALUE[data[k].values[j]];
+          if (element === undefined) {
+            if (type === 3) {
+              const dt = new Date(data[k].values[j]);
+              try {
+                row.push(datePipe.transform(dt, 'dd/MM/yyyy'));
+              } catch (error) {
+                row.push(data[k].values[j]);
+              }
+            }else {
+              row.push(data[k].values[j]);
+            }
+          }else {
+            row.push(element);
+          }
+        }
       }
       table.push(row);
     }
@@ -357,6 +396,20 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
           this.selectAllOrder = true;
         }
       break;
+    }
+  }
+
+  // ============================= EXPORT ==============================
+  export_excel(canvas) {
+    this.datasource = new Array();
+    this.datasource.push({alias: new Array(this.headerList), row: this.allItems});
+    try {
+      const xls = XlsExport.createWorkbook();
+      XlsExport.addWorksheet(xls, this.currentTable, ExportFactory.main(this.headerList, this.allItems),
+      XlsImage.fromCanvas(canvas, 0, 10));
+      ExportFactory.exportAndSave(xls);
+    } catch (err) {
+      console.log(err);
     }
   }
 }

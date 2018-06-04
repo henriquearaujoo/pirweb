@@ -26,3 +26,13 @@
 .filterable .filters input[disabled]:-ms-input-placeholder {
     color: #333;
 }
+
+tr th {
+    width: 1%;
+    white-space: nowrap;
+}
+
+tr td {
+    width: 1%;
+    white-space: nowrap;
+}

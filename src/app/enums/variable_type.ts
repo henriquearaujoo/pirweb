@@ -13,9 +13,7 @@ export class VariableType {
             type.toLowerCase() === 'char' ||
             type.toLowerCase() === 'string') {
                 return 1;
-        } else if (
-            type.toLowerCase() === 'boolean'
-        ) {
+        } else if (type.toLowerCase() === 'boolean') {
             return 2;
         } else if (type.toLowerCase() === 'date') {
             return 3;

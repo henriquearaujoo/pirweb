@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-report-chart',
@@ -10,6 +10,7 @@ export class ReportChartComponent implements OnInit {
   @Input() headerShower: any;
   @Input() headerList: any;
   @Input() pagedItems: any;
+  @Output() exportData = new EventEmitter();
 
   private dataChartData: Array<any> = [
     {data: [0], label: 'Selecione uma entidade'},
@@ -18,7 +19,10 @@ export class ReportChartComponent implements OnInit {
   private dataChartLabels: Array<any> = [ '' ];
   private dataChartOptions: any = {
     responsive: true,
-    legend: { position: 'bottom' }
+    legend: { position: 'bottom' },
+    scales: {
+      yAxes: [{ ticks: {min: 0}}]
+    }
   };
   private dataChartLegend = true;
   private dataChartType = 'bar';
@@ -26,6 +30,10 @@ export class ReportChartComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  private export() {
+    this.exportData.emit(document.getElementsByTagName('canvas')[0]);
   }
 
   public randomize(): void {
