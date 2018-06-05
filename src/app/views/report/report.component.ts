@@ -29,7 +29,7 @@ declare const $: any;
   styleUrls: ['./report.component.css']
 })
 
-export class ReportComponent  extends PagenateComponent implements OnInit {
+export class ReportComponent implements OnInit {
 
   private datasource: Array<ReportModel>;
 
@@ -72,12 +72,12 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
   private startNode: string;
 
   constructor(
-    private report: BigraphService, private pagerService: PageService, private permissions: Permissions) {
-    super(pagerService);
+    private report: BigraphService, private permissions: Permissions) {
     this.hasdata = false;
   }
 
   ngOnInit() {
+
     this.permissions.canActivate(['/relatorios']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
@@ -335,8 +335,8 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
 
     data.forEach(col => {
       const type = varType.getValue(col.type);
-      if (type !== 4) {
-        this.headerList.push(col.property);
+      if (type !== 15) {
+        this.headerList.push({alias: col.property, type: col.type});
         this.headerShower.push(true);
       }
     });
@@ -349,7 +349,7 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
 
       for (let k = 0; k < data.length; k++) {
         const type = varType.getValue(data[k].type);
-        if (type !== 4) {
+        if (type !== 15) {
           const element = Constant.PROP_VALUE[data[k].values[j]];
           if (element === undefined) {
             if (type === 3) {
@@ -369,12 +369,9 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
       }
       table.push(row);
     }
-    this.allItems = table;
-      if (this.allItems.length > 0) {
-        this.hasdata = true;
-        this.setPage(1);
-      }
+    this.tableData = table;
     this.currentTable = this.groupedList[0].alias;
+    this.table.loadData(this.currentTable, this.headerList, this.headerShower, table);
     (<HTMLButtonElement> document.getElementById('closeModal')).click();
   }
 
@@ -402,10 +399,10 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
   // ============================= EXPORT ==============================
   export_excel(canvas) {
     this.datasource = new Array();
-    this.datasource.push({alias: new Array(this.headerList), row: this.allItems});
+    this.datasource.push({alias: new Array(this.headerList), row: this.tableData});
     try {
       const xls = XlsExport.createWorkbook();
-      XlsExport.addWorksheet(xls, this.currentTable, ExportFactory.main(this.headerList, this.allItems),
+      XlsExport.addWorksheet(xls, this.currentTable, ExportFactory.main(this.headerList, this.tableData),
       XlsImage.fromCanvas(canvas, 0, 10));
       ExportFactory.exportAndSave(xls);
     } catch (err) {

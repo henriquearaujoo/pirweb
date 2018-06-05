@@ -2,7 +2,8 @@
     <div class="panel-heading">
         <h3 class="panel-title">{{rootEntity}}</h3>
         <div class="pull-right">
-            <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filtro</button>
+            <button class="btn btn-default btn-xs btn-filter" (click)="filter()"><span class="glyphicon glyphicon-filter"></span> Filtro</button>
+            <button class="btn btn-default btn-xs btn-clear" (click)="reset()"><span class="glyphicon glyphicon-clean"></span> Resetar</button>
         </div>
     </div>
     <div style="width:100%; height:auto; overflow:auto;">
@@ -10,8 +11,91 @@
             <thead>
                 <tr class="filters">
                     <th *ngFor="let h of headerList; let i = index;" [hidden]="!headerShower[i]" class="block">
-                        {{h}}<span class="glyphicon"></span>
-                        <!-- <input type="text" class="form-control" placeholder="{{h}}" disabled> -->
+                        <span>{{h.alias}} <span class="glyphicon"></span></span>
+                        <span [ngSwitch]="varType.getValue(h.type)">
+                                <span  *ngSwitchCase="0">
+                                    <input type="{{applyFilter ? 'number' : 'hidden'}}" (change)="filterApply($event, h, i)" class="form-control" placeholder="{{h.alias}}" disabled>
+                                </span>
+                        <span *ngSwitchCase="1">
+                                <input type="{{applyFilter ? 'text' : 'hidden'}}" (change)="filterApply($event, h, i)"class="form-control" placeholder="{{h.alias}}" disabled>
+                            </span>
+                        <span *ngSwitchCase="2">
+                                <select class="form-control" *ngIf="applyFilter" (change)="filterApply($event, h, i)">
+                                    <option value="true">Selecione uma opção</option>
+                                    <option value="sim">Sim</option>
+                                    <option value="não">Não</option>
+                                </select>
+                            </span>
+                        <span *ngSwitchCase="3">
+                                <input type="{{applyFilter ? 'date' : 'hidden'}}" (change)="filterApply($event, h, i)" class="form-control" placeholder="{{h.alias}}" disabled>
+                            </span>
+                        <span *ngSwitchCase="4">
+                                    <select class="form-control" *ngIf="applyFilter" (change)="filterApply($event, h, i)">
+                                        <option value="">Selecione uma opção</option>
+                                        <option *ngFor="let item of getCivilState()" [value]="item.key" [label]="item.value"></option>
+                                    </select>
+                                </span>
+                        <span *ngSwitchCase="5">
+                                    <select class="form-control" *ngIf="applyFilter" (change)="filterApply($event, h, i)">
+                                        <option value="">Selecione uma opção</option>
+                                        <option *ngFor="let item of getEAnswerType()" [value]="item.key" [label]="item.value"></option>
+                                    </select>
+                                </span>
+                        <span *ngSwitchCase="6">
+                                    <select class="form-control" *ngIf="applyFilter" (change)="filterApply($event, h, i)">
+                                        <option value="">Selecione uma opção</option>
+                                        <option *ngFor="let item of getEAudience()" [value]="item.key" [label]="item.value"></option>
+                                    </select>
+                                </span>
+                        <span *ngSwitchCase="7">
+                                <select class="form-control" *ngIf="applyFilter" (change)="filterApply($event, h, i)">
+                                    <option value="">Selecione uma opção</option>
+                                    <option *ngFor="let item of getEChildGender()" [value]="item.key" [label]="item.value"></option>
+                                </select>
+                            </span>
+                        <span *ngSwitchCase="8">
+                                <select class="form-control" *ngIf="applyFilter" (change)="filterApply($event, h, i)">
+                                    <option value="">Selecione uma opção</option>
+                                    <option *ngFor="let item of getECommunityZone()" [value]="item.key" [label]="item.value"></option>
+                                </select>
+                            </span>
+                        <span *ngSwitchCase="9">
+                                <select class="form-control" *ngIf="applyFilter" (change)="filterApply($event, h, i)">
+                                    <option value="">Selecione uma opção</option>
+                                    <option *ngFor="let item of getEFormType()" [value]="item.key" [label]="item.value"></option>
+                                </select>
+                            </span>
+                        <span *ngSwitchCase="10">
+                                <select class="form-control" *ngIf="applyFilter" (change)="filterApply($event, h, i)">
+                                    <option value="">Selecione uma opção</option>
+                                    <option *ngFor="let item of getEFormQuestionType()" [value]="item.key" [label]="item.value"></option>
+                                </select>
+                            </span>
+                        <span *ngSwitchCase="11">
+                                    <select class="form-control" *ngIf="applyFilter" (change)="filterApply($event, h, i)">
+                                        <option value="">Selecione uma opção</option>
+                                        <option *ngFor="let item of getEHabitationType()" [value]="item.key" [label]="item.value"></option>
+                                    </select>
+                                </span>
+                        <span *ngSwitchCase="12">
+                                    <select class="form-control" *ngIf="applyFilter" (change)="filterApply($event, h, i)">
+                                        <option value="">Selecione uma opção</option>
+                                        <option *ngFor="let item of getEMediaType()" [value]="item.key" [label]="item.value"></option>
+                                    </select>
+                                </span>
+                        <span *ngSwitchCase="13">
+                                    <select class="form-control" *ngIf="applyFilter" (change)="filterApply($event, h, i)">
+                                        <option value="">Selecione uma opção</option>
+                                        <option *ngFor="let item of getEProfileType()" [value]="item.key" [label]="item.value"></option>
+                                    </select>
+                                </span>
+                        <span *ngSwitchCase="14">
+                                    <select class="form-control" *ngIf="applyFilter" (change)="filterApply($event, h, i)">
+                                        <option value="">Selecione uma opção</option>
+                                        <option *ngFor="let item of getEUserType()" [value]="item.key" [label]="item.value"></option>
+                                    </select>
+                                </span>
+                        </span>
                     </th>
                 </tr>
             </thead>
@@ -23,5 +107,26 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+</div>
+<div class="row" *ngIf="hasdata">
+    <div class="col-md-2 text-left">
+        <div class="register">
+            Registros de {{pager.startIndex + 1}} a {{pager.endIndex + 1}} de {{allItems.length}}
+        </div>
+    </div>
+    <div class="col-md-10 text-right ">
+        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                <a (click)="setPage(pager.currentPage - 1)">Anterior
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    </a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a (click)="setPage(pager.currentPage + 1)">
+                    <i class="fa fa-angle-right" aria-hidden="true"></i> Próximo
+                </a>
+            </li>
+        </ul>
     </div>
 </div>
