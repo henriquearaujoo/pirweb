@@ -116,4 +116,15 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
         (<HTMLElement>document.getElementById('title_edit')).focus();
       }
     }
+
+  verifyValidSubmitted(form, field) {
+    return (field.dirty || field.touched || form.submitted) && !field.valid;
+  }
+
+  applyCssError(form, field) {
+    return {
+      'has-error': this.verifyValidSubmitted(form, field),
+      'has-feedback': this.verifyValidSubmitted(form, field)
+    };
+  }
 }

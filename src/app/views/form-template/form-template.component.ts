@@ -142,13 +142,15 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
   }
 
   saveQuestion() {
-    if ((this.question.description === null || this.question.description === undefined || this.question.description === '') &&
+    if ((this.question.description === null || this.question.description === undefined ||
+        this.question.description.toString().trim() === '') &&
        (this.question.type === null || this.question.type === undefined)) {
       this.toastService.toastMsgError('Erro', 'Descrição da questão e Tipo da questão são campos obrigatórios!');
       this.load();
       return false;
     }
-    if (this.question.description === null || this.question.description === undefined || this.question.description === '') {
+    if (this.question.description === null || this.question.description === undefined ||
+       this.question.description.toString().trim() === '') {
       this.toastService.toastMsgError('Erro', 'Descrição da questão é um campo obrigatório!');
       this.load();
       return false;

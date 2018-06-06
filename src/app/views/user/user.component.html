@@ -108,9 +108,10 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group" [ngClass]="applyCssError(f1, login)" *ngIf="!isAgent || url === '/usuarios/registro'">
                                                             <label class="control-label">Usuário</label>
-                                                            <input type="text" [(ngModel)]="user.login" #login="ngModel" name="login" id="user_login" pattern="/^\S{0,50}$/" maxlength="30" class="form-control" placeholder="Usuário" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, login)" msgError="Digite um nome de usuário">
+                                                            <input type="text" [(ngModel)]="user.login" #login="ngModel" name="login" id="user_login" pattern="[\w,./_=?-].*" maxlength="30" class="form-control" placeholder="Usuário" required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, login)" [field]="login" msgError="Digite um nome de usuário">
                                                             </app-control-field-error>
+                                                            <!-- não permite espaços nas palavras: pattern="[\w,./_=?-]+" -->
                                                         </div>
                                                         <!-- PROFILE AGENT-->
                                                         <div class="form-group" *ngIf="isAgent && url !== '/usuarios/registro'">
@@ -123,8 +124,8 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group" [ngClass]="applyCssError(f1, password)" *ngIf="isNewData">
                                                             <label class="control-label">Senha</label>
-                                                            <input type="password" [(ngModel)]="user.password" #password="ngModel" name="password" id="user_password" maxlength="20" class="form-control" required minlength="8" placeholder="Inserir uma senha (Digite uma senha. Mínimo 8 caracteres)">
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, password)" msgError="">
+                                                            <input type="password" [(ngModel)]="user.password" #password="ngModel" name="password" id="user_password" pattern="[\w,./_=?-].*" maxlength="20" class="form-control" required minlength="8" placeholder="Inserir uma senha (Digite uma senha. Mínimo 8 caracteres)">
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, password)" [field]="password" msgError="">
                                                             </app-control-field-error>
                                                             <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
                                                                 <div *ngIf="password.errors.required">
@@ -205,16 +206,16 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group left" [ngClass]="applyCssError(f2, firstname)">
                                                             <label class="control-label">Nome</label>
-                                                            <input type="text" #firstname="ngModel" [(ngModel)]="first_name" name="first_name" id="first_name" maxlength="30" class="form-control" placeholder="Nome" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, firstname)" msgError="Digite um nome">
+                                                            <input type="text" #firstname="ngModel" [(ngModel)]="first_name" name="first_name" id="first_name" pattern="[\w,./_=?-].*" maxlength="30" class="form-control" placeholder="Nome" required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, firstname)" [field]="firstname" msgError="Digite um nome">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <div class="form-group" [ngClass]="applyCssError(f2, lastname)">
                                                             <label class="control-label">Sobrenome</label>
-                                                            <input type="text" #lastname="ngModel" [(ngModel)]="last_name" name="last_name" id="last_name" maxlength="40" class="form-control" placeholder="Sobrenome" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, lastname)" msgError="Digite um nome">
+                                                            <input type="text" #lastname="ngModel" [(ngModel)]="last_name" name="last_name" id="last_name" pattern="[\w,./_=?-].*" maxlength="40" class="form-control" placeholder="Sobrenome" required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, lastname)" [field]="lastname" msgError="Digite um nome">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
@@ -223,8 +224,8 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group" [ngClass]="applyCssError(f2, email)">
                                                             <label class="control-label">E-mail</label>
-                                                            <input type="email" [(ngModel)]="user.email" #email="ngModel" name="email" id="user_email" maxlength="60" class="form-control" placeholder="Inserir E-mail ..." ngModel email required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, email)" msgError="E-mail válido">
+                                                            <input type="text" [(ngModel)]="user.email" #email="ngModel" name="email" id="user_email" pattern="[\w,./_=?-].*" maxlength="60" class="form-control" placeholder="Inserir E-mail ..." email required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, email)" [field]="email" msgError="Digite um E-mail válido">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
@@ -234,15 +235,15 @@
                                                         <div class="form-group left" [ngClass]="applyCssError(f2, rg)" *ngIf="!show_pjur">
                                                             <label class="control-label">RG</label>
                                                             <input type="text" [(ngModel)]="person.rg" #rg="ngModel" name="rg" id="user_rg" class="form-control" mask="000000000000000" placeholder="Inserir RG ..." required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, rg)" msgError="RG">
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, rg)" msgError="Digite um RG">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <div class="form-group" [ngClass]="applyCssError(f2, emitter)" *ngIf="!show_pjur">
                                                             <label class="control-label">Orgão Emissor</label>
-                                                            <input type="text" #emitter="ngModel" [(ngModel)]="person.emitter" name="rg_emitter" id="user_rgemitter" maxlength="15" class="form-control" placeholder="Inserir Orgão Emissor ..." required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, emitter)" msgError="Orgão Emissor">
+                                                            <input type="text" #emitter="ngModel" [(ngModel)]="person.emitter" name="rg_emitter" id="user_rgemitter" pattern="[\w,./_=?-].*" maxlength="15" class="form-control" placeholder="Inserir Orgão Emissor ..." required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, emitter)" [field]="emitter" msgError="Digite um Orgão Emissor">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
@@ -265,8 +266,8 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group left" [ngClass]="applyCssError(f2, ie)" *ngIf="show_pjur">
                                                             <label class="control-label">Inscrição Estadual</label>
-                                                            <input type="text" #ie="ngModel" [(ngModel)]="entity.ie" name="ie" id="user_ie" class="form-control" placeholder="Inscrição Estadual" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, ie)" msgError="Digite uma inscrição estadual">
+                                                            <input type="text" #ie="ngModel" [(ngModel)]="entity.ie" name="ie" id="user_ie" pattern="[\w,./_=?-].*" class="form-control" placeholder="Inscrição Estadual" required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, ie)" field]="ie" msgError="Digite uma inscrição estadual">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
@@ -283,8 +284,8 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group" [ngClass]="applyCssError(f2, socialname)" *ngIf="show_pjur">
                                                             <label class="control-label">Razão Social</label>
-                                                            <input type="text" #socialname="ngModel" [(ngModel)]="entity.social_name" name="social_name" id="user_socialname" class="form-control" placeholder="Razão Social" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, socialname)" msgError="Digite uma razão social">
+                                                            <input type="text" #socialname="ngModel" [(ngModel)]="entity.social_name" name="social_name" id="user_socialname" pattern="[\w,./_=?-].*" class="form-control" placeholder="Razão Social" required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, socialname)" [field]="socialname" msgError="Digite uma razão social">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
@@ -293,8 +294,8 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group" [ngClass]="applyCssError(f2, fantasyname)" *ngIf="show_pjur">
                                                             <label class="control-label">Nome Fantasia</label>
-                                                            <input type="text" #fantasyname="ngModel" [(ngModel)]="entity.fantasy_name" name="fantasy_name" id="user_fantasyname" class="form-control" placeholder="Nome Fantasia" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, fantasyname)" msgError="Digite um nome fantasia">
+                                                            <input type="text" #fantasyname="ngModel" [(ngModel)]="entity.fantasy_name" name="fantasy_name" id="user_fantasyname" pattern="[\w,./_=?-].*" class="form-control" placeholder="Nome Fantasia" required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, fantasyname)" [field]="fantasyname" msgError="Digite um nome fantasia">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
@@ -342,16 +343,16 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group left" [ngClass]="applyCssError(f3, street)">
                                                             <label class="control-label">Rua</label>
-                                                            <input type="text" #street="ngModel" [(ngModel)]="user.address.street" name="street" id="user_street" maxlength="40" class="form-control" placeholder="Rua" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f3, street)" msgError="Digite uma rua">
+                                                            <input type="text" #street="ngModel" [(ngModel)]="user.address.street" name="street" id="user_street" pattern="[\w,./_=?-].*" maxlength="40" class="form-control" placeholder="Rua" required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f3, street)" [field]="street" msgError="Digite uma rua">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <div class="form-group" [ngClass]="applyCssError(f3, number)">
                                                             <label class="control-label">Número</label>
-                                                            <input type="text" #number="ngModel" [(ngModel)]="user.address.number" name="number" id="user_number" maxlength="20" class="form-control" placeholder="Número" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f3, number)" msgError="Digite um número">
+                                                            <input type="text" #number="ngModel" [(ngModel)]="user.address.number" name="number" id="user_number" pattern="[\w,./_=?-].*" maxlength="20" class="form-control" placeholder="Número" required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f3, number)" [field]="number" msgError="Digite um número">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
@@ -360,16 +361,18 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group left" [ngClass]="applyCssError(f3, neighborhood)">
                                                             <label class="control-label">Bairro</label>
-                                                            <input type="text" #neighborhood="ngModel" [(ngModel)]="user.address.neighborhood" name="neighborhood" id="user_neighborhood" maxlength="40" class="form-control" placeholder="Bairro" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f3, neighborhood)" msgError="Digite um bairro">
+                                                            <input type="text" #neighborhood="ngModel" [(ngModel)]="user.address.neighborhood" name="neighborhood" id="user_neighborhood" pattern="[\w,./_=?-].*" maxlength="40" class="form-control" placeholder="Bairro" required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f3, neighborhood)" [field]="neighborhood" msgError="Digite um bairro">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-sm-6">
-                                                        <div class="form-group">
+                                                        <div class="form-group" [ngClass]="applyCssError(f3, complement)">
                                                             <label class="control-label">Complemento</label>
-                                                            <input type="text" [(ngModel)]="user.address.complement" name="complement" id="user_complement" maxlength="40" class="form-control" placeholder="Complemento">
+                                                            <input type="text" [(ngModel)]="user.address.complement" #complement="ngModel" name="complement" id="user_complement" pattern="[\w,./_=?-].*" maxlength="40" class="form-control" placeholder="Complemento">
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f3, complement)" [field]="complement">
+                                                            </app-control-field-error>
                                                         </div>
                                                     </div>
                                                 </div>

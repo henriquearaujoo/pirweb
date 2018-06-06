@@ -551,16 +551,10 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   verifyValidSubmitted(form, field) {
-    // this.isOk = form.submitted && !field.valid;
-      return form.submitted && !field.valid;
+      return (field.dirty || field.touched || form.submitted) && !field.valid;
   }
 
   applyCssError(form, field) {
-    if (field.model === '') {
-      this.isWhitespace  = true;
-    } else {
-     // this.isWhitespace = false;
-    }
     return {
       'has-error': this.verifyValidSubmitted(form, field),
       'has-feedback': this.verifyValidSubmitted(form, field)

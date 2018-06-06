@@ -59,8 +59,8 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group" [ngClass]="applyCssError(f1, nameResponsible)">
                                                             <label class="control-label">Nome do responsável</label>
-                                                            <input type="text" #nameResponsible="ngModel" name="name_responsible" maxlength="60" [(ngModel)]="responsible.name" id="name_responsible" class="form-control" placeholder="Nome completo do responsável" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, nameResponsible)" msgError="Digite um nome para o responsável">
+                                                            <input type="text" #nameResponsible="ngModel" name="name_responsible" pattern="[\w,./_=?-].*" maxlength="60" [(ngModel)]="responsible.name" id="name_responsible" class="form-control" placeholder="Nome completo do responsável" required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, nameResponsible)" [field]="nameResponsible" msgError="Digite um nome para o responsável">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
@@ -324,9 +324,11 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <div class="form-group">
+                                                        <div class="form-group" [ngClass]="applyCssError(f3, observations)">
                                                             <label class="control-label">Observações gerais</label> <br/>
-                                                            <textarea class="form-control" rows="5" name="generalObservations" maxlength="200" [(ngModel)]="responsible.observations" id="generalObservations"></textarea>
+                                                            <textarea class="form-control" rows="5" name="generalObservations" maxlength="200" pattern="[\w,./_=?-].*" #observations="ngModel" [(ngModel)]="responsible.observations" id="generalObservations"></textarea>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f3, observations)" [field]="observations" msgError="Especifique o tratamento">
+                                                            </app-control-field-error>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -41,8 +41,8 @@
 
                                                         <div class="form-group" [ngClass]="applyCssError(f1, uc)">
                                                             <label class="control-label">UC</label>
-                                                            <input class="form-control" #uc="ngModel" [(ngModel)]="community.uc" name="community_uc" id="community_uc" maxlength="60" placeholder="UC" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, uc)" msgError="Digite um UC">
+                                                            <input class="form-control" #uc="ngModel" [(ngModel)]="community.uc" name="community_uc" id="community_uc" pattern="[\w,./_=?-].*" maxlength="60" placeholder="UC" required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, uc)" [field]="uc" msgError="Digite um UC">
                                                             </app-control-field-error>
                                                         </div>
 
@@ -50,8 +50,8 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group profile" [ngClass]="applyCssError(f1, regional)">
                                                             <label class="control-label">Regional</label>
-                                                            <input class="form-control" #regional="ngModel" [(ngModel)]="community.regional" name="community_regional" id="community_regional" maxlength="60" placeholder="Regional" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, regional)" msgError="Selecione um regional">
+                                                            <input class="form-control" #regional="ngModel" [(ngModel)]="community.regional" name="community_regional" pattern="[\w,./_=?-].*" id="community_regional" maxlength="60" placeholder="Regional" required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, regional)" [field]="regional" msgError="Selecione um regional">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
@@ -61,8 +61,8 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group" [ngClass]="applyCssError(f1, name)">
                                                             <label class="control-label">Nome da comunidade</label>
-                                                            <input type="text" #name="ngModel" [(ngModel)]="community.name" name="name" id="name" maxlength="60" class="form-control" placeholder="Nome completo da comunidade" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, name)" msgError="Digite um nome completo da comunidade">
+                                                            <input type="text" #name="ngModel" [(ngModel)]="community.name" name="name" id="name" pattern="[\w,./_=?-].*" maxlength="60" class="form-control" placeholder="Nome completo da comunidade" required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, name)" [field]="name" msgError="Digite um nome completo da comunidade">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
@@ -232,8 +232,8 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group left" [ngClass]="applyCssError(f2, healthService)">
                                                             <label class="control-label">Serviços de saúde na comunidade</label>
-                                                            <input type="text" #healthService="ngModel" name="health_service" maxlength="60" [(ngModel)]="community.health_service" id="health_service" class="form-control" placeholder="serviços de saúde existentes na comunidade" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, healthService)" msgError="Digite os serviços de saúde existentes na comunidade">
+                                                            <input type="text" #healthService="ngModel" name="health_service" pattern="[\w,./_=?-].*" maxlength="60" [(ngModel)]="community.health_service" id="health_service" class="form-control" placeholder="serviços de saúde existentes na comunidade" required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, healthService)" [field]="healthService" msgError="Digite os serviços de saúde existentes na comunidade">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
