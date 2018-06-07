@@ -31,7 +31,7 @@ export class ReportTableComponent extends PagenateComponent implements OnInit {
     private type = 'hidden';
     private varType = new VariableType();
     private hasdata: boolean;
-    private table: any;
+    public table: any;
 
     constructor(private pagerService: PageService) {
         super(pagerService);
@@ -39,49 +39,6 @@ export class ReportTableComponent extends PagenateComponent implements OnInit {
     }
 
     ngOnInit() {
-        $(document).ready(function(){
-            $('.filterable .btn-filter').click(function(){
-                const $panel = $(this).parents('.filterable'),
-                $filters = $panel.find('.filters span input'),
-                $tbody = $panel.find('.table tbody');
-                if ($filters.prop('disabled') === true) {
-                    $filters.prop('disabled', false);
-                    $filters.first().focus();
-                } else {
-                    $filters.val('').prop('disabled', true);
-                    $tbody.find('.no-result').remove();
-                    $tbody.find('tr').show();
-                }
-            });
-
-            $('.filterable .filters input').keyup(function(e){
-                /* Ignore tab key */
-                const code = e.keyCode || e.which;
-                if (code === '9') { return; }
-                /* Useful DOM data and selectors */
-                const $input = $(this),
-                inputContent = $input.val().toLowerCase(),
-                $panel = $input.parents('.filterable'),
-                column = $panel.find('.filters th').index($input.parents('th')),
-                $table = $panel.find('.table'),
-                $rows = $table.find('tbody tr');
-                /* Dirtiest filter function ever ;) */
-                const $filteredRows = $rows.filter(function(){
-                    const value = $(this).find('td').eq(column).text().toLowerCase();
-                    return value.indexOf(inputContent) === -1;
-                });
-                /* Clean previous no-result if exist */
-                $table.find('tbody .no-result').remove();
-                /* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
-                $rows.show();
-                $filteredRows.hide();
-                /* Prepend no-result row if all rows are filtered */
-                if ($filteredRows.length === $rows.length) {
-                    // tslint:disable-next-line:max-line-length
-                    $table.find('tbody').prepend($('<tr class="no-result text-center"><td colspan="' + $table.find('.filters th').length + '">No result found</td></tr>'));
-                }
-            });
-        });
         this.getCivilState();
     }
 
@@ -112,7 +69,7 @@ export class ReportTableComponent extends PagenateComponent implements OnInit {
             case 3:
                 const datePipe = new DatePipe('pt-BR');
                 const dt = new Date(event.target.value);
-                v = this.allItems.filter(o => o[i] === datePipe.transform(dt, 'dd/MM/yyyy'));
+                v = this.allItems.filter(o => o[i] === datePipe.transform(event.target.value, 'dd/MM/yyyy'));
                 this.allItems = v;
             break;
             default:
@@ -130,11 +87,12 @@ export class ReportTableComponent extends PagenateComponent implements OnInit {
 
     private reset() {
         if (this.table !== undefined) {
-            this.allItems = this.table;
-            if (this.allItems.length > 0) {
-                this.hasdata = true;
-                this.setPage(1);
-            }
+            this.loadData(this.rootEntity, this.headerList, this.headerShower, this.table);
+            // this.allItems = this.table;
+            // if (this.allItems.length > 0) {
+            //     this.hasdata = true;
+            //     this.setPage(1);
+            // }
         }
         // this.applyFilter = false;
     }

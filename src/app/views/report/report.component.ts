@@ -398,11 +398,13 @@ export class ReportComponent implements OnInit {
 
   // ============================= EXPORT ==============================
   export_excel(canvas) {
-    this.datasource = new Array();
-    this.datasource.push({alias: new Array(this.headerList), row: this.tableData});
     try {
       const xls = XlsExport.createWorkbook();
-      XlsExport.addWorksheet(xls, this.currentTable, ExportFactory.main(this.headerList, this.tableData),
+      const header = new Array();
+      this.headerList.forEach( u => {
+        header.push(u.alias);
+      });
+      XlsExport.addWorksheet(xls, this.currentTable, ExportFactory.main(header, this.tableData),
       XlsImage.fromCanvas(canvas, 0, 10));
       ExportFactory.exportAndSave(xls);
     } catch (err) {

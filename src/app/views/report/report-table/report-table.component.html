@@ -14,20 +14,20 @@
                         <span>{{h.alias}} <span class="glyphicon"></span></span>
                         <span [ngSwitch]="varType.getValue(h.type)">
                                 <span  *ngSwitchCase="0">
-                                    <input type="{{applyFilter ? 'number' : 'hidden'}}" (change)="filterApply($event, h, i)" class="form-control" placeholder="{{h.alias}}" disabled>
+                                    <input type="{{applyFilter ? 'number' : 'hidden'}}" size="3" (change)="filterApply($event, h, i)" class="form-control_cust" placeholder="{{h.alias}}" >
                                 </span>
                         <span *ngSwitchCase="1">
-                                <input type="{{applyFilter ? 'text' : 'hidden'}}" (change)="filterApply($event, h, i)"class="form-control" placeholder="{{h.alias}}" disabled>
+                                <input type="{{applyFilter ? 'text' : 'hidden'}}" (change)="filterApply($event, h, i)"class="form-control" placeholder="{{h.alias}}" >
                             </span>
                         <span *ngSwitchCase="2">
                                 <select class="form-control" *ngIf="applyFilter" (change)="filterApply($event, h, i)">
-                                    <option value="true">Selecione uma opção</option>
+                                    <option value="">Selecione uma opção</option>
                                     <option value="sim">Sim</option>
                                     <option value="não">Não</option>
                                 </select>
                             </span>
                         <span *ngSwitchCase="3">
-                                <input type="{{applyFilter ? 'date' : 'hidden'}}" (change)="filterApply($event, h, i)" class="form-control" placeholder="{{h.alias}}" disabled>
+                                <input type="{{applyFilter ? 'date' : 'hidden'}}" (change)="filterApply($event, h, i)" class="form-control" placeholder="{{h.alias}}" >
                             </span>
                         <span *ngSwitchCase="4">
                                     <select class="form-control" *ngIf="applyFilter" (change)="filterApply($event, h, i)">
