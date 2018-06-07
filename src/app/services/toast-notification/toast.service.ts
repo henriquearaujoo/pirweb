@@ -73,14 +73,14 @@ export class ToastService {
       });
     }
 
-    toastErrorExist() {
+    /*toastErrorExist() {
       this.toastService.error('Erro!', 'Perfil já cadastrado!', {
         timeOut: 3000,
         showProgressBar: true,
         pauseOnHover: true,
         clickToClose: true
       });
-    }
+    } */
 
     toastErrorExists(res) {
       this.toastService.warn('Atenção!', res + ' já cadastrado.', {

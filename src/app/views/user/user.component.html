@@ -267,7 +267,7 @@
                                                         <div class="form-group left" [ngClass]="applyCssError(f2, ie)" *ngIf="show_pjur">
                                                             <label class="control-label">Inscrição Estadual</label>
                                                             <input type="text" #ie="ngModel" [(ngModel)]="entity.ie" name="ie" id="user_ie" pattern="[\w,./_=?-].*" class="form-control" placeholder="Inscrição Estadual" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, ie)" field]="ie" msgError="Digite uma inscrição estadual">
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, ie)" [field]="ie" msgError="Digite uma inscrição estadual">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>

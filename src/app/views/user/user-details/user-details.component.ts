@@ -77,7 +77,7 @@ export class UserDetailsComponent implements OnInit {
 
   verifyType() {
     if (this.user !== undefined) {
-      if (this.user.person !== undefined ) {
+      if (this.user.person !== undefined && this.user.person !== null ) {
         this.user.type = 'PFIS';
         this.show_pjur = false;
       } else {

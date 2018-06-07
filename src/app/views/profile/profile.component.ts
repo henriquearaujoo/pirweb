@@ -68,8 +68,8 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
             this.toastService.toastSuccess();
           },
           error => {
-            if ( error === 'profile.title.exists') {
-              this.toastService.toastErrorExist();
+            if ( error === 'profile_name.found') {
+              this.toastService.toastErrorExists('Título de perfil');
             } else {
               this.toastService.toastError();
             }
@@ -96,8 +96,8 @@ export class ProfileComponent extends PagenateComponent implements OnInit, OnCha
           },
           error => {
             this.insertValue.emit(this.profile);
-            if ( error === 'profile.title.exists') {
-              this.toastService.toastErrorExist();
+            if ( error === 'profile_name.found') {
+              this.toastService.toastErrorExists('Título de perfil');
             } else {
               this.toastService.toastError();
             }

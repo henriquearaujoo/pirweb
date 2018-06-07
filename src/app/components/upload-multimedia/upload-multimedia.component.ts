@@ -26,6 +26,10 @@ export class UploadMultimediaComponent implements OnInit {
 
   _mediaTypeId: any;
 
+  private loading: boolean;
+  private sending: boolean;
+  private dragging: boolean;
+
   @Input() canChangeType: any = true;
   @Input() isNewData: boolean;
 
@@ -86,26 +90,53 @@ export class UploadMultimediaComponent implements OnInit {
       this._fileData = new FileData();
     }
     this.selectedType = '';
+    this.loading = false;
+    this.sending = false;
+
+    window.addEventListener('dragover', e => {
+      if (!this.isNewData && this.selectedType !== '') {
+        this.dragging = true;
+      }
+      if ((<Element>e.target).tagName  !== 'INPUT') {
+        e.preventDefault();
+      }
+    }, false);
+    window.addEventListener('drop', e => {
+      if ((<Element>e.target).tagName  !== 'INPUT') {
+        e.preventDefault();
+      }
+      this.dragging = false;
+    }, false);
+
+    window.addEventListener('mouseup', e => {
+      this.dragging = false;
+    }, false);
+
   }
 
   onChange(files) {
+   // this.loading = true;
     const fi = this.fileInput.nativeElement;
     if (fi.files && fi.files.length > 0) {
       for (let i = 0 ; i < fi.files.length ; i ++ ) {
+        this.loading = true;
         const fileToUpload = fi.files[i];
         if ( (this.selectedType.accept.includes(fileToUpload.type) && (fileToUpload.type !== '')) ) {
           if ( fileToUpload.size <= this.selectedType.size) {
             this.files.push(fileToUpload);
             this.hasFile = true;
+            this.loading = false;
           } else {
             this.toastService.toastMsgError('Erro', 'Não foi possível carregar o arquivo ' + fileToUpload.name +
             '. Verifique o tamanho máximo permitido para o tipo de mídia selecionado');
             this.reset();
+            this.loading = false;
           }
         } else {
           this.toastService.toastMsgError('Erro', 'Não foi possível carregar o arquivo ' + fileToUpload.name +
             '. Verifique as extensões permitidas para o tipo de mídia selecionado');
             this.reset();
+            this.loading = false;
         }
       }
     }
@@ -123,6 +154,7 @@ export class UploadMultimediaComponent implements OnInit {
   }
 
   upload(): void {
+    this.sending = true;
     if (this._fileData && !this._fileData.mediaType) {
       return;
     }
@@ -137,18 +169,22 @@ export class UploadMultimediaComponent implements OnInit {
 
             this.files = [];
             this.hasFile = false;
-
+            this.sending = false;
             if (this.uploaded) {
               this.uploaded.emit(this._fileData);
               this.selectedType = '';
               this.reset();
               // this._fileData = null;
             }
-          }, error => console.log('ERROR UPLOAD:', error)
+          }, error => {
+            console.log('ERROR UPLOAD:', error);
+            this.sending = false;
+          }
         );
         }
       }
     } else {
+      this.sending = false;
       this.toastService.toastMsgWarn('Atenção', 'Selecione um ou mais arquivos para upload!');
     }
   }
