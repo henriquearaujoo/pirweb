@@ -27,6 +27,8 @@ export class InterventionComponent implements OnInit {
 
   private limit = Constant.LIMIT_CHARACTERS;
   private characters =  this.limit;
+  private fieldEditor: string[] = new Array();
+  private validEditor: boolean;
 
   public editorOptions = {
     modules: {
@@ -75,33 +77,46 @@ export class InterventionComponent implements OnInit {
       return;
     }
     this.intervention.chapter_id = this.chapter;
-    if (this.isNewData || this.intervention.id === undefined) {
-      this.service.insert(this.intervention).subscribe(
-        s => {
-          this.isNewData  = false;
-          this.intervention = s;
-          this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
-        },
-        e => {
-          if ( e[0] === 'chapter.intervention.chapter.missing') {
-            this.toastService.toastErrorChapterId();
-          } else {
-            this.toastService.toastError();
+    this.verifyEditor();
+    if (this.validEditor) {
+      if (this.isNewData || this.intervention.id === undefined) {
+        this.service.insert(this.intervention).subscribe(
+          s => {
+            this.isNewData  = false;
+            this.intervention = s;
+            this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
+          },
+          e => {
+            if ( e[0] === 'chapter.intervention.chapter.missing') {
+              this.toastService.toastErrorChapterId();
+            } else {
+              this.toastService.toastError();
+            }
+            console.log('error: ' + e);
           }
-          console.log('error: ' + e);
-        }
-      );
-    }else {
-      this.service.update(this.intervention).subscribe(
-        s => {
-          this.intervention = s;
-          this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso');
-        },
-        e => {
-          this.toastService.toastError();
-          console.log('error: ' + e);
-        }
-      );
+        );
+      }else {
+        this.service.update(this.intervention).subscribe(
+          s => {
+            this.intervention = s;
+            this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso');
+          },
+          e => {
+            this.toastService.toastError();
+            console.log('error: ' + e);
+          }
+        );
+      }
+    }
+  }
+
+  public verifyEditor() {
+    this.validEditor = true;
+    for (let i = 0; i < this.fieldEditor.length; i++) {
+      if (this.fieldEditor[i] === '') {
+        this.validEditor = false;
+        break;
+      }
     }
   }
 
@@ -126,17 +141,22 @@ export class InterventionComponent implements OnInit {
   }
 
   verifyValidSubmitted(form, field) {
-    return form.submitted && !field.valid;
+    return (field.dirty || field.touched || form.submitted) && !field.valid;
   }
 
-  applyCssError(form, field) {
+  applyCssError(form, field, position) {
     return {
-      'has-error': this.verifyValidSubmitted(form, field),
-      'has-feedback': this.verifyValidSubmitted(form, field)
+      'has-error': this.verifyValidSubmitted(form, field) || this.verifyValidSubmittedEditor(form, field, position),
+      'has-feedback': this.verifyValidSubmitted(form, field) || this.verifyValidSubmittedEditor(form, field, position)
     };
   }
 
-  onKey(event) {
+  verifyValidSubmittedEditor(form, field, position?) {
+    return this.fieldEditor[position] === '' && (form.submitted || field.dirty || field.touched);
+  }
+
+  onKey(event, position) {
+    this.fieldEditor[position] = event.text.trim();
     this.characters = (this.limit - event.editor.getLength()) + 1;
     if (event.editor.getLength() - 1 > this.limit) {
       event.editor.deleteText(this.limit, event.editor.getLength());

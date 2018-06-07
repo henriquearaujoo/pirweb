@@ -43,7 +43,7 @@ export class Permissions implements OnDestroy {
                 success_rules => {
                     this.rules = success_rules;
                     // console.log(this.rules);
-                    this.loaderService.hide();
+                    // this.loaderService.hide();
                     if (this.rules.length !== 0) {
                         this.rulesSubject.next(<RuleState>{permissions: this.rules});
                         for ( let i = 0; i < this.rules.length; i++) {

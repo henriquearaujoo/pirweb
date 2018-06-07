@@ -52,11 +52,11 @@
                 <div class="col-sm-12">
                     <div class="box box-primary">
                         <div class="box-body">
-                            <div class="form-group" [ngClass]="applyCssError(fReception, description)">
+                            <div class="form-group" [ngClass]="applyCssError(fReception, description, 0)">
                                 <label class="control-label">Descrição do Acolhimento</label>
-                                <quill-editor (change)="onKey($event)" style="height: 150px;" [options]="editorOptions" id="reception_description" name="reception_description" #description="ngModel" [(ngModel)]="reception.description" required>
+                                <quill-editor (change)="onKey($event, 0)" style="height: 150px;" [options]="editorOptions" id="reception_description" name="reception_description" #description="ngModel" [(ngModel)]="reception.description" required>
                                 </quill-editor>
-                                <app-control-field-error [showError]="verifyValidSubmitted(fReception, description)" msgError="Digite a descrição">
+                                <app-control-field-error [showError]="verifyValidSubmitted(fReception, description)" [field]="fieldEditor[0]" msgError="Digite a descrição">
                                 </app-control-field-error>
                             </div>
                         </div>

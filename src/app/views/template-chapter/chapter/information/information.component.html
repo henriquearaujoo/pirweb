@@ -27,20 +27,20 @@
                                 <input type="text" readonly id="chapter_version" name="chapter_version" maxlength="60" [(ngModel)]="chapter.version" value="chapter.version" class="form-control">
                             </div>
 
-                            <div class="form-group" [ngClass]="applyCssError(f, description)">
+                            <div class="form-group" [ngClass]="applyCssError(f, description, 0)">
                                 <label class="control-label">Descrição</label>
-                                <quill-editor (change)="onKey($event)" [options]="editorOptions" id="chapter_description" name="editor_description" #description="ngModel" [(ngModel)]="chapter.description" required>
+                                <quill-editor (change)="onKey($event, 0)" [options]="editorOptions" id="chapter_description" name="editor_description" #description="ngModel" [(ngModel)]="chapter.description" required>
                                 </quill-editor>
                                 <!-- pattern="[\w,./_=?-?<=<].*" -->
-                                <app-control-field-error [showError]="verifyValidSubmitted(f, description)" [field]="description" msgError="Digite uma descrição">
+                                <app-control-field-error [showError]="verifyValidSubmitted(f, description)" [field]="fieldEditor[0]" msgError="Digite uma descrição">
                                 </app-control-field-error>
                             </div>
 
-                            <div class="form-group" [ngClass]="applyCssError(f, content)">
+                            <div class="form-group" [ngClass]="applyCssError(f, content, 1)">
                                 <label class="control-label">Conteúdo</label>
-                                <quill-editor (change)="onKey($event)" [options]="editorOptions" id="chapter_content" name="editor_content" #content="ngModel" [(ngModel)]="chapter.content" required>
+                                <quill-editor (change)="onKey($event, 1)" [options]="editorOptions" id="chapter_content" name="editor_content" #content="ngModel" [(ngModel)]="chapter.content" required>
                                 </quill-editor>
-                                <app-control-field-error [showError]="verifyValidSubmitted(f, content)" msgError="Digite um conteúdo">
+                                <app-control-field-error [showError]="verifyValidSubmitted(f, content)" [field]="fieldEditor[1]" msgError="Digite um conteúdo">
                                 </app-control-field-error>
                             </div>
                         </div>
@@ -74,19 +74,19 @@
                                 </app-control-field-error>
                             </div>
 
-                            <div class="form-group" [ngClass]="applyCssError(f, goal)">
+                            <div class="form-group" [ngClass]="applyCssError(f, goal, 2)">
                                 <label class="control-label">Objetivo</label>
-                                <quill-editor (change)="onKey($event)" [options]="editorOptions" id="chapter_goal" name="editor_goal" #goal="ngModel" [(ngModel)]="chapter.goal" required>
+                                <quill-editor (change)="onKey($event, 2)" [options]="editorOptions" id="chapter_goal" name="editor_goal" #goal="ngModel" [(ngModel)]="chapter.goal" required>
                                 </quill-editor>
-                                <app-control-field-error [showError]="verifyValidSubmitted(f, goal)" msgError="Digite um objetivo">
+                                <app-control-field-error [showError]="verifyValidSubmitted(f, goal)" [field]="fieldEditor[2]" msgError="Digite um objetivo">
                                 </app-control-field-error>
                             </div>
 
-                            <div class="form-group" [ngClass]="applyCssError(f, task)">
+                            <div class="form-group" [ngClass]="applyCssError(f, task, 3)">
                                 <label class="control-label">Tarefa para a família</label>
-                                <quill-editor (change)="onKey($event)" [options]="editorOptions" id="chapter_task" name="editor_task" #task="ngModel" [(ngModel)]="chapter.family_tasks" required>
+                                <quill-editor (change)="onKey($event, 3)" [options]="editorOptions" id="chapter_task" name="editor_task" #task="ngModel" [(ngModel)]="chapter.family_tasks" required>
                                 </quill-editor>
-                                <app-control-field-error [showError]="verifyValidSubmitted(f, task)" msgError="Digite a conclusão">
+                                <app-control-field-error [showError]="verifyValidSubmitted(f, task)" [field]="fieldEditor[3]" msgError="Digite a conclusão">
                                 </app-control-field-error>
                             </div>
                         </div>

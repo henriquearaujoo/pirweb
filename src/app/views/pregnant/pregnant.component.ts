@@ -1,3 +1,4 @@
+import { LoaderService } from './../../services/loader/loader.service';
 import { Router } from '@angular/router';
 import { Permissions, RuleState } from './../../helpers/permissions';
 import { Pregnant } from './../../models/pregnant';
@@ -67,6 +68,7 @@ export class PregnantComponent implements OnInit {
     private modalService: ModalService,
     private sweetAlertService: SweetAlertService,
     private permissions: Permissions,
+    private loaderService: LoaderService,
     private route: Router
   ) {
       this.canCreate = false;
@@ -215,10 +217,12 @@ export class PregnantComponent implements OnInit {
   }
 
   load() {
+    this.loaderService.show();
     this.responsibleService.load(this.urlId).subscribe(
       success => {
         this.responsible = success;
         this.alterData();
+        this.loaderService.hide();
         if (this.responsible.mother.children_count === 0) {
           this.otherChildren.has = false;
         } else {
@@ -228,7 +232,10 @@ export class PregnantComponent implements OnInit {
           this.responsible.mother = new Pregnant();
         }
       },
-      error => console.log(error)
+      error => {
+        this.loaderService.hide();
+        console.log(error);
+      }
     );
   }
 

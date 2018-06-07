@@ -44,6 +44,8 @@ export class ConclusionComponent implements OnInit {
 
   private limit = Constant.LIMIT_CHARACTERS;
   private characters =  this.limit;
+  private fieldEditor: string[] = new Array();
+  private validEditor: boolean;
 
   public editorOptions = {
     modules: {
@@ -100,44 +102,56 @@ export class ConclusionComponent implements OnInit {
     }
     if (this.btn_save) {
       this.conclusion.chapter_id = this.chapter;
-      if (this.isNewData || this.conclusion.id === undefined) {
-        this.conclusionService.insert(this.conclusion).subscribe(
-          s => {
-            this.isNewData  = false;
-            this.index = 0;
-            this.conclusion = s;
-            this.hasdata = true;
-            this.btn_save = false;
-            this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
-          },
-          error => {
-            if ( error[0] === 'chapter.conclusion.chapter.missing') {
-              this.toastService.toastErrorChapterId();
-            } else {
-              this.toastService.toastError();
+      this.verifyEditor();
+      if (this.validEditor) {
+        if (this.isNewData || this.conclusion.id === undefined) {
+          this.conclusionService.insert(this.conclusion).subscribe(
+            s => {
+              this.isNewData  = false;
+              this.index = 0;
+              this.conclusion = s;
+              this.hasdata = true;
+              this.btn_save = false;
+              this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
+            },
+            error => {
+              if ( error[0] === 'chapter.conclusion.chapter.missing') {
+                this.toastService.toastErrorChapterId();
+              } else {
+                this.toastService.toastError();
+              }
+              console.log('error save: ', error);
             }
-            console.log('error save: ', error);
-          }
-        );
-      } else {
-        this.conclusionService.update(this.conclusion).subscribe(
-          s => {
-            this.conclusion = s;
-            this.hasdata = true;
-            this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso');
-          },
-          error => {
-            if ( error[0] === 'chapter.conclusion.chapter.missing') {
-              this.toastService.toastErrorChapterId();
-            } else {
-              this.toastService.toastError();
+          );
+        } else {
+          this.conclusionService.update(this.conclusion).subscribe(
+            s => {
+              this.conclusion = s;
+              this.hasdata = true;
+              this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso');
+            },
+            error => {
+              if ( error[0] === 'chapter.conclusion.chapter.missing') {
+                this.toastService.toastErrorChapterId();
+              } else {
+                this.toastService.toastError();
+              }
+              console.log('error update: ', error);
             }
-            console.log('error update: ', error);
-          }
-        );
+          );
+        }
       }
     }
+  }
 
+  public verifyEditor() {
+    this.validEditor = true;
+    for (let i = 0; i < this.fieldEditor.length; i++) {
+      if (this.fieldEditor[i] === '') {
+        this.validEditor = false;
+        break;
+      }
+    }
   }
 
   load(chapter) {
@@ -241,17 +255,22 @@ export class ConclusionComponent implements OnInit {
   }
 
   verifyValidSubmitted(form, field) {
-    return form.submitted && !field.valid;
+    return (field.dirty || field.touched || form.submitted) && !field.valid;
   }
 
-  applyCssError(form, field) {
+  applyCssError(form, field, position) {
     return {
-      'has-error': this.verifyValidSubmitted(form, field),
-      'has-feedback': this.verifyValidSubmitted(form, field)
+      'has-error': this.verifyValidSubmitted(form, field) || this.verifyValidSubmittedEditor(form, field, position),
+      'has-feedback': this.verifyValidSubmitted(form, field) || this.verifyValidSubmittedEditor(form, field, position)
     };
   }
 
-  onKey(event) {
+  verifyValidSubmittedEditor(form, field, position?) {
+    return this.fieldEditor[position] === '' && (form.submitted || field.dirty || field.touched);
+  }
+
+  onKey(event, position) {
+    this.fieldEditor[position] = event.text.trim();
     this.characters = (this.limit - event.editor.getLength()) + 1;
     if (event.editor.getLength() - 1 > this.limit) {
       event.editor.deleteText(this.limit, event.editor.getLength());

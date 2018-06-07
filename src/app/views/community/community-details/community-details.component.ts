@@ -1,3 +1,4 @@
+import { LoaderService } from './../../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../../helpers/permissions';
 import { Component, OnInit } from '@angular/core';
 import { CommunityService } from '../../../services/community/community.service';
@@ -21,6 +22,7 @@ export class CommunityDetailsComponent implements OnInit {
 
   constructor(
     private communityService: CommunityService,
+    private loaderService: LoaderService,
     private permissions: Permissions
   ) {
       this.canCreate = false;
@@ -48,16 +50,19 @@ export class CommunityDetailsComponent implements OnInit {
   }
 
   load() {
+    this.loaderService.show();
     this.communityService.load(this.urlId).subscribe(
       success => {
         this.community = success;
-        // this.community.water_supply = this.community.water_supply.replace(',', ' / ');
-        // this.community.cultural_production = this.community.cultural_production.replace(',', ' / ');
+        this.loaderService.hide();
         if (this.community === undefined) {
           this.community = new Community();
         }
       },
-      error => console.log(error)
+      error => {
+        this.loaderService.hide();
+        console.log(error);
+      }
     );
   }
 

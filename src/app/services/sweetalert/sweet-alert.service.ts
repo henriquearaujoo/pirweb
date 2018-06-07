@@ -159,4 +159,20 @@ export class SweetAlertService {
     });
   }
 
+  alertToSave(): Promise<boolean> {
+    return swal( {
+      title: '',
+      text: 'Deseja salvar as alterações?',
+      icon: 'warning',
+
+      buttons: {
+        confirm: true,
+        cancel: {
+          text: 'Não'
+        },
+      },
+      closeOnClickOutside: false
+    });
+  }
+
 }

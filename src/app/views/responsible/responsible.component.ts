@@ -1,3 +1,4 @@
+import { LoaderService } from './../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../helpers/permissions';
 import { SweetAlertService } from './../../services/sweetalert/sweet-alert.service';
 import { ResponsibleService } from './../../services/responsible/responsible.service';
@@ -65,6 +66,7 @@ export class ResponsibleComponent implements OnInit {
     private toastService: ToastService,
     private modalService: ModalService,
     private sweetAlertService: SweetAlertService,
+    private loaderService: LoaderService,
     private permissions: Permissions,
     private route: Router
   ) {
@@ -215,15 +217,20 @@ export class ResponsibleComponent implements OnInit {
   }
 
   load() {
+    this.loaderService.show();
     this.responsibleService.load(this.urlId).subscribe(
       success => {
         this.responsible = success;
         this.alterData();
+        this.loaderService.hide();
         if (this.responsible === undefined) {
           this.responsible = new Responsible();
         }
       },
-      error => console.log(error)
+      error => {
+        this.loaderService.hide();
+        console.log(error);
+      }
     );
   }
 

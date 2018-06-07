@@ -179,7 +179,8 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <button class="btn btn-default btn-block" (click)="openModal()" id="btn_return1"> Cancelar</button>
+                                                <!-- <button class="btn btn-default btn-block" (click)="openModal()" id="btn_return3"> Cancelar</button> -->
+                                                <button class="btn btn-default btn-block" (click)="onCancel()" id="btn_return1"> Cancelar</button>
                                             </div>
                                         </div>
                                     </form>
@@ -317,7 +318,8 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <button class="btn btn-default btn-block" (click)="openModal()" id="btn_return2"> Cancelar</button>
+                                                <!-- <button class="btn btn-default btn-block" (click)="openModal()" id="btn_return3"> Cancelar</button> -->
+                                                <button class="btn btn-default btn-block" (click)="onCancel()" id="btn_return2"> Cancelar</button>
                                             </div>
                                         </div>
                                     </form>
@@ -336,7 +338,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <form name="form" (ngSubmit)="saveData(f3.valid) && save(3, f3.valid)" #f3="ngForm" novalidate>
+                                    <form name="form" (ngSubmit)="saveData(f1.valid, f2.valid, f3.valid) && save(3, f3.valid)" #f3="ngForm" novalidate>
                                         <div class="box box-primary">
                                             <div class="box-body">
                                                 <div class="row">
@@ -424,7 +426,8 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <button class="btn btn-default btn-block" (click)="openModal()" id="btn_return3"> Cancelar</button>
+                                                <!-- <button class="btn btn-default btn-block" (click)="openModal()" id="btn_return3"> Cancelar</button> -->
+                                                <button type="button" class="btn btn-default btn-block" (click)="onCancel()" id="btn_return3"> Cancelar</button>
                                             </div>
                                         </div>
                                         <div class="col-md-3 col-md-offset-6">

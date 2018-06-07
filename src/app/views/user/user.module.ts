@@ -24,7 +24,6 @@ import { SharedUserModule } from '../../shared/shared-user.module';
   declarations: [
     UserListComponent
   ],
-  providers: [LoaderService],
   exports: [UserListComponent]
 })
 export class UserModule { }

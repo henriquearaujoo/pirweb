@@ -182,13 +182,13 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group left" *ngIf="show_pjur">
                                                             <label class="control-label">Inscrição Estadual</label>
-                                                            <input type="text" name="ie" class="form-control" value="{{ user.entity.ie }}" disabled>
+                                                            <input type="text" name="ie" class="form-control" value="{{ user.entity?.ie }}" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <div class="form-group" *ngIf="show_pjur">
                                                             <label class="control-label">CNPJ</label>
-                                                            <input type="text" name="cnpj" class="form-control" value="{{ user.entity.cnpj }}" disabled>
+                                                            <input type="text" name="cnpj" class="form-control" value="{{ user.entity?.cnpj }}" disabled>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -196,7 +196,7 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group" *ngIf="show_pjur">
                                                             <label class="control-label">Razão Social</label>
-                                                            <input type="text" name="social_name" class="form-control" value="{{ user.entity.social_name }}" disabled>
+                                                            <input type="text" name="social_name" class="form-control" value="{{ user.entity?.social_name }}" disabled>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -204,7 +204,7 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group" *ngIf="show_pjur">
                                                             <label class="control-label">Nome Fantasia</label>
-                                                            <input type="text" name="fantasy_name" class="form-control" value="{{ user.entity.fantasy_name }}" disabled>
+                                                            <input type="text" name="fantasy_name" class="form-control" value="{{ user.entity?.fantasy_name }}" disabled>
                                                         </div>
                                                     </div>
                                                 </div>

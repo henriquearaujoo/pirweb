@@ -1,3 +1,4 @@
+import { LoaderService } from './../../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../../helpers/permissions';
 import { ResponsibleService } from './../../../services/responsible/responsible.service';
 import { Child } from './../../../models/child';
@@ -25,6 +26,7 @@ export class ChildDetailsComponent implements OnInit {
   constructor(
     private childService: ChildService,
     private responsibleService: ResponsibleService,
+    private loaderService: LoaderService,
     private permissions: Permissions
   ) {
     this.canCreate = false;
@@ -54,16 +56,20 @@ export class ChildDetailsComponent implements OnInit {
   }
 
   load() {
+    this.loaderService.show();
     this.childService.load(this.urlId).subscribe(
       success => {
         this.child = success;
         this.who_take_care = this.child.who_take_care.split(',');
-        // this.child.who_take_care = this.child.who_take_care.replace(',', ' / ');
+        this.loaderService.hide();
         if (this.child === undefined) {
           this.child = new Child();
         }
       },
-      error => console.log(error)
+      error => {
+        this.loaderService.hide();
+        console.log(error);
+      }
     );
   }
 

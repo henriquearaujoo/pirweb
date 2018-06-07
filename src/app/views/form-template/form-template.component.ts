@@ -1,3 +1,4 @@
+import { LoaderService } from './../../services/loader/loader.service';
 import { PagenateComponent } from './../../components/pagenate/pagenate.component';
 import { PageService } from './../../services/pagenate/page.service';
 import { PageComponent } from './../profile/page/page.component';
@@ -49,6 +50,7 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
     private route: Router,
     private toastService: ToastService,
     private modalService: ModalService,
+    private loaderService: LoaderService,
     private servicePage: PageService
   ) {
     super(servicePage);
@@ -76,6 +78,8 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
     if (this.urlId !== null && this.urlId !== '') {
       this.isNewData = false;
       this.load();
+    } else {
+      this.loaderService.hide();
     }
 
     for (let i = 1; i <= 11; i++) {
@@ -190,6 +194,7 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
   }
 
   load() {
+    this.loaderService.show();
     this.formService.load(this.urlId).subscribe(
       success => {
         this.form = success;
@@ -204,6 +209,7 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
         this.allItems = this.questions;
         this.pagedItems = this.questions;
         this.setPage(1);
+        this.loaderService.hide();
       },
       error => console.log(error)
     );

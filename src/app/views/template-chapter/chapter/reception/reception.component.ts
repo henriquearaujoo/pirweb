@@ -29,6 +29,8 @@ export class ReceptionComponent implements OnInit {
 
   private limit = Constant.LIMIT_CHARACTERS;
   private characters =  this.limit;
+  private fieldEditor: string[] = new Array();
+  private validEditor: boolean;
 
   public editorOptions = {
     modules: {
@@ -84,29 +86,42 @@ export class ReceptionComponent implements OnInit {
     }
 
     this.reception.chapter_id = this.chapter;
-    if (this.isNewData || this.reception.id === undefined) {
-      this.service.insert(this.reception).subscribe(
-        s => {
-          this.reception = s;
-          this.returnEvent.emit(true);
-          this.isNewData  = false;
-         },
-        e => {
-          console.log(e);
-          this.returnEvent.emit(false);
-        }
-      );
-    }else {
-      this.service.update(this.reception).subscribe(
-        s => {
-          this.reception = s;
-          this.returnEvent.emit(true);
-         },
-        e => {
-          console.log(e);
-          this.returnEvent.emit(false);
-        }
-      );
+    this.verifyEditor();
+    if (this.validEditor) {
+      if (this.isNewData || this.reception.id === undefined) {
+        this.service.insert(this.reception).subscribe(
+          s => {
+            this.reception = s;
+            this.returnEvent.emit(true);
+            this.isNewData  = false;
+           },
+          e => {
+            console.log(e);
+            this.returnEvent.emit(false);
+          }
+        );
+      }else {
+        this.service.update(this.reception).subscribe(
+          s => {
+            this.reception = s;
+            this.returnEvent.emit(true);
+           },
+          e => {
+            console.log(e);
+            this.returnEvent.emit(false);
+          }
+        );
+      }
+    }
+  }
+
+  public verifyEditor() {
+    this.validEditor = true;
+    for (let i = 0; i < this.fieldEditor.length; i++) {
+      if (this.fieldEditor[i] === '') {
+        this.validEditor = false;
+        break;
+      }
     }
   }
 
@@ -126,17 +141,22 @@ export class ReceptionComponent implements OnInit {
   }
 
   verifyValidSubmitted(form, field) {
-    return form.submitted && !field.valid;
+    return (field.dirty || field.touched || form.submitted) && !field.valid;
   }
 
-  applyCssError(form, field) {
+  applyCssError(form, field, position) {
     return {
-      'has-error': this.verifyValidSubmitted(form, field),
-      'has-feedback': this.verifyValidSubmitted(form, field)
+      'has-error': this.verifyValidSubmitted(form, field) || this.verifyValidSubmittedEditor(form, field, position),
+      'has-feedback': this.verifyValidSubmitted(form, field) || this.verifyValidSubmittedEditor(form, field, position)
     };
   }
 
-  onKey(event) {
+  verifyValidSubmittedEditor(form, field, position?) {
+    return this.fieldEditor[position] === '' && (form.submitted || field.dirty || field.touched);
+  }
+
+  onKey(event, position) {
+    this.fieldEditor[position] = event.text.trim();
     this.characters = (this.limit - event.editor.getLength()) + 1;
     if (event.editor.getLength() - 1 > this.limit) {
       event.editor.deleteText(this.limit, event.editor.getLength());

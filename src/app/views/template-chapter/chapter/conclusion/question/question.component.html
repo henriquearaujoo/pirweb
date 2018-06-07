@@ -22,12 +22,12 @@
                                     <app-control-field-error [showError]="verifyValidSubmitted(fQuestion, type)" msgError="Selecione o tipo da questão">
                                     </app-control-field-error>
                                 </div>
-                                <div class="form-group" [ngClass]="applyCssError(fQuestion, description)">
+                                <div class="form-group" [ngClass]="applyCssError(fQuestion, description, 0)">
                                     <label class="control-label">Descrição da questão</label>
                                     <div class="box-body pad">
-                                        <quill-editor (change)="onKey($event)" [options]="editorOptions" id="question_description" name="question_description" #description="ngModel" [(ngModel)]="question.description" required>
+                                        <quill-editor (change)="onKey($event, 0)" [options]="editorOptions" id="question_description" name="question_description" #description="ngModel" [(ngModel)]="question.description" required>
                                         </quill-editor>
-                                        <app-control-field-error [showError]="verifyValidSubmitted(fQuestion, description)" msgError="Digite a descrição">
+                                        <app-control-field-error [showError]="verifyValidSubmitted(fQuestion, description)" [field]="fieldEditor[0]" msgError="Digite a descrição">
                                         </app-control-field-error>
                                     </div>
                                 </div>

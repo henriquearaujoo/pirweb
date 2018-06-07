@@ -1,3 +1,4 @@
+import { LoaderService } from './../../services/loader/loader.service';
 import { forEach } from '@angular/router/src/utils/collection';
 import { Router } from '@angular/router';
 import { Permissions, RuleState } from './../../helpers/permissions';
@@ -100,6 +101,7 @@ export class ChildComponent implements OnInit {
     private toastService: ToastService,
     private modalService: ModalService,
     private sweetAlertService: SweetAlertService,
+    private loaderService: LoaderService,
     private permissions: Permissions,
     private route: Router
   ) {
@@ -227,17 +229,22 @@ export class ChildComponent implements OnInit {
   }
 
   load() {
+    this.loaderService.show();
     this.childService.load(this.urlId).subscribe(
       success => {
         this.child = success;
         // console.log(this.child);
         this.verifyDataCheckbox();
         this.changeDate();
+        this.loaderService.hide();
         if (this.child.mother === undefined) {
           this.child.mother = new Responsible();
         }
       },
-      error => console.log(error)
+      error => {
+        this.loaderService.hide();
+        console.log(error);
+      }
     );
   }
 

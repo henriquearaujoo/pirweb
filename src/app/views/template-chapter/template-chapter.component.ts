@@ -93,9 +93,7 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
           hash[chapter.number] = true;
           return exists;
         });
-        setTimeout(() => {
-          this.loaderService.hide();
-        }, 500);
+        // this.loaderService.hide();
       },
       error => {
         console.log('ERROR', error);
@@ -123,9 +121,7 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
           hash[chapter.number] = true;
           return exists;
         });
-        setTimeout(() => {
-          this.loaderService.hide();
-        }, 500);
+        // this.loaderService.hide();
       },
       error => {
         console.log('ERROR', error);
@@ -149,9 +145,7 @@ export class TemplateChapterComponent implements OnInit, OnChanges {
           hash[chapter.number] = true;
           return exists;
         });
-        setTimeout(() => {
-          this.loaderService.hide();
-        }, 500);
+        this.loaderService.hide();
       },
       error => {
         console.log('ERROR', error);

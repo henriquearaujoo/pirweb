@@ -1,3 +1,5 @@
+import { SweetAlert2Service } from './services/sweetalert/sweet-alert.2service';
+import { LoaderService } from './services/loader/loader.service';
 import { SharedModule } from './shared/shared.module';
 
 import { FormService } from './services/form/form.service';
@@ -118,8 +120,10 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     ResponsibleService,
     ChildService,
     SweetAlertService,
+    SweetAlert2Service,
     FormService,
-    VisitService
+    VisitService,
+    LoaderService
   ],
   exports: [],
   bootstrap: [AppComponent]

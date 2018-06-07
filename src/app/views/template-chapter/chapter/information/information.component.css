@@ -30,6 +30,7 @@
     padding-left: 35px;
 }
 
+
 /* .editor {
     width: 100%;
     font-size: 14px;
@@ -40,7 +41,7 @@
     background-color: white!important;
 }
 
-.ql-toolbar.ql-snow + .ql-container.ql-snow {
+.ql-toolbar.ql-snow+.ql-container.ql-snow {
     height: 150px;
 }
 
@@ -60,4 +61,9 @@ label.control-label.col-md-2 {
 
 .chapter-number {
     text-align: right;
+}
+
+.form-group.has-error .help-block,
+.help-block.has-error {
+    color: #a94442;
 }

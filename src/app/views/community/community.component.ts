@@ -1,3 +1,4 @@
+import { LoaderService } from './../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../helpers/permissions';
 import { SweetAlertService } from './../../services/sweetalert/sweet-alert.service';
 import { Types } from './../../models/types';
@@ -106,6 +107,7 @@ export class CommunityComponent implements OnInit {
     private modalService: ModalService,
     private sweetAlertService: SweetAlertService,
     private permissions: Permissions,
+    private loaderService: LoaderService,
     private route: Router
   ) {
       this.canCreate = false;
@@ -131,6 +133,8 @@ export class CommunityComponent implements OnInit {
     if (this.urlId !== null && this.urlId !== '') {
       this.isNewData = false;
       this.load();
+    } else {
+      this.loaderService.hide();
     }
 
     this.currentTab = 0;
@@ -220,15 +224,20 @@ export class CommunityComponent implements OnInit {
   }
 
   load() {
+    this.loaderService.show();
     this.communityService.load(this.urlId).subscribe(
       success => {
         this.community = success;
         this.verifyDataCheckbox();
+        this.loaderService.hide();
         if (this.community === undefined) {
           this.community = new Community();
         }
       },
-      error => console.log(error)
+      error => {
+        this.loaderService.hide();
+        console.log(error);
+      }
     );
   }
 
