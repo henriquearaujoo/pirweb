@@ -1,3 +1,4 @@
+import { SweetAlert2Service } from './../../../../services/sweetalert/sweet-alert.2service';
 import { Constant } from './../../../../constant/constant';
 import { Permissions, RuleState } from './../../../../helpers/permissions';
 import { Question } from './../../../../models/question';
@@ -9,6 +10,7 @@ import { ToastService } from '../../../../services/toast-notification/toast.serv
 import { QuestionComponent } from './question/question.component';
 import { Paginate } from '../../../../models/paginate';
 import { Alternative } from '../../../../models/alternative';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-conclusion',
@@ -46,7 +48,7 @@ export class ConclusionComponent implements OnInit {
   private characters =  this.limit;
   private fieldEditor: string[] = new Array();
   private validEditor: boolean;
-
+  private onChange: boolean;
   public editorOptions = {
     modules: {
       toolbar: [
@@ -63,7 +65,9 @@ export class ConclusionComponent implements OnInit {
   constructor(
     private conclusionService: ConclusionService,
     private toastService: ToastService,
-    private permissions: Permissions
+    private permissions: Permissions,
+    private sweetAlert2Service: SweetAlert2Service,
+    private router: Router
   ) {
     this.size = 5;
     this.index = 0;
@@ -92,10 +96,10 @@ export class ConclusionComponent implements OnInit {
   }
 
   saveData() {
-    if (this.btn_cancel) {
-      this.btn_cancel = false;
-      return false;
-    }
+    // if (this.btn_cancel) {
+    //   this.btn_cancel = false;
+    //   return false;
+    // }
     if ( this.chapter === undefined) {
       this.returnEvent.emit(false);
       return;
@@ -129,6 +133,11 @@ export class ConclusionComponent implements OnInit {
               this.conclusion = s;
               this.hasdata = true;
               this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso');
+              setTimeout(() => {
+                if (this.btn_cancel) {
+                  this.router.navigate(['/capitulos']);
+                }
+              }, 1000);
             },
             error => {
               if ( error[0] === 'chapter.conclusion.chapter.missing') {
@@ -140,6 +149,9 @@ export class ConclusionComponent implements OnInit {
             }
           );
         }
+      }  else {
+        this.btn_cancel = false;
+        this.toastService.toastMsgError('Erro', 'Preencha todos os campos obrigatórios do formulário!');
       }
     }
   }
@@ -231,9 +243,27 @@ export class ConclusionComponent implements OnInit {
     );
   }
 
+  // onCancel() {
+  //   this.cancelEvent.emit();
+  //   this.btn_cancel = true;
+  // }
+
   onCancel() {
-    this.cancelEvent.emit();
-    this.btn_cancel = true;
+    if (this.onChange) {
+      this.sweetAlert2Service.alertToSave()
+        .then((result) => {
+          if (result.value) {
+            this.btn_cancel = true;
+            this.onSave();
+            this.saveData();
+          } else {
+            this.router.navigate(['/capitulos']);
+          }
+        });
+    } else {
+      this.cancelEvent.emit();
+      this.btn_cancel = true;
+    }
   }
 
   onSave() {
@@ -255,6 +285,9 @@ export class ConclusionComponent implements OnInit {
   }
 
   verifyValidSubmitted(form, field) {
+    if (field.dirty) {
+      this.onChange = true;
+    }
     return (field.dirty || field.touched || form.submitted) && !field.valid;
   }
 
@@ -266,6 +299,9 @@ export class ConclusionComponent implements OnInit {
   }
 
   verifyValidSubmittedEditor(form, field, position?) {
+    if (field.dirty) {
+      this.onChange = true;
+    }
     return this.fieldEditor[position] === '' && (form.submitted || field.dirty || field.touched);
   }
 

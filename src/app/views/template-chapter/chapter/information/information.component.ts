@@ -1,3 +1,4 @@
+import { SweetAlert2Service } from './../../../../services/sweetalert/sweet-alert.2service';
 import { Constant } from './../../../../constant/constant';
 import { element } from 'protractor';
 import { Permissions, RuleState } from './../../../../helpers/permissions';
@@ -30,6 +31,7 @@ export class InformationComponent implements OnInit {
   private canDelete: boolean;
   private fieldEditor: string[] = new Array();
   private validEditor: boolean;
+  private onChange: boolean;
 
   @Output() returnEvent = new EventEmitter();
   @Output() cancelEvent = new EventEmitter();
@@ -50,16 +52,17 @@ export class InformationComponent implements OnInit {
     theme: 'snow',
   };
 
-  onCancel() {
-    this.cancelEvent.emit();
-    this.btn_cancel = true;
-  }
+  // onCancel() {
+  //   this.cancelEvent.emit();
+  //   this.btn_cancel = true;
+  // }
 
   constructor(
     private router: Router,
     private chapterService: ChapterService,
     private toastService: ToastService,
-    private permissions: Permissions) {
+    private permissions: Permissions,
+    private sweetAlert2Service: SweetAlert2Service) {
       this.canCreate = false;
       this.canUpdate = false;
       this.canRead = false;
@@ -91,10 +94,10 @@ export class InformationComponent implements OnInit {
 
   public saveData() {
     this.chapter.thumbnails = [];
-    if (this.btn_cancel) {
-      this.btn_cancel = false;
-      return false;
-    }
+    // if (this.btn_cancel) {
+    //   this.btn_cancel = false;
+    //   return false;
+    // }
     if (this.isNewData) {
       this.chapter.number = Number(this.number);
     }
@@ -127,6 +130,11 @@ export class InformationComponent implements OnInit {
           s => {
             this.chapter = s;
             this.returnEvent.emit(s);
+            setTimeout(() => {
+              if (this.btn_cancel) {
+                this.router.navigate(['/capitulos']);
+              }
+            }, 1000);
           },
           e => {
             this.returnEvent.emit(null);
@@ -134,7 +142,9 @@ export class InformationComponent implements OnInit {
           }
         );
       }
-    }
+    } else {
+        this.toastService.toastMsgError('Erro', 'Preencha todos os campos obrigatórios do formulário!');
+      }
   }
 
   public verifyEditor() {
@@ -155,7 +165,27 @@ export class InformationComponent implements OnInit {
     this.chapter = c;
   }
 
+    onCancel() {
+    if (this.onChange) {
+      this.sweetAlert2Service.alertToSave()
+        .then((result) => {
+          if (result.value) {
+            this.btn_cancel = true;
+            this.saveData();
+          } else {
+            this.router.navigate(['/capitulos']);
+          }
+        });
+    } else {
+      this.cancelEvent.emit();
+      this.btn_cancel = true;
+    }
+  }
+
   verifyValidSubmitted(form, field) {
+    if (field.dirty) {
+      this.onChange = true;
+    }
     return (field.dirty || field.touched || form.submitted) && !field.valid;
   }
 
@@ -167,6 +197,9 @@ export class InformationComponent implements OnInit {
   }
 
   verifyValidSubmittedEditor(form, field, position?) {
+    if (field.dirty) {
+      this.onChange = true;
+    }
     return this.fieldEditor[position] === '' && (form.submitted || field.dirty || field.touched);
   }
 

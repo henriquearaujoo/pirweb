@@ -26,7 +26,9 @@ false;" ondragover="return false;" ondrop="return false;" -->
             <div class="row footer">
                 <div class="col-md-2">
                     <div>
-                        <button type="button" class="btn btn-default btn-block" (click)="onCancel()" id="btn_return"> Cancelar</button>
+                        <button type="button" class="btn btn-default btn-block" (click)="onCancel()" id="btn_return">
+                            <span *ngIf="isNewData">Cancelar</span>   <span *ngIf="!isNewData">Voltar</span> 
+                        </button>
                     </div>
                 </div>
                 <!-- <div class="col-md-2 col-md-offset-8">

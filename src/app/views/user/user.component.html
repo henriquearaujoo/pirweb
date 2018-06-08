@@ -177,12 +177,12 @@
                                                 <button type="submit" id="btn_tab1"></button>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <!-- <div class="col-md-3">
                                             <div class="form-group">
-                                                <!-- <button class="btn btn-default btn-block" (click)="openModal()" id="btn_return3"> Cancelar</button> -->
+                                               
                                                 <button class="btn btn-default btn-block" (click)="onCancel()" id="btn_return1"> Cancelar</button>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </form>
                                 </div>
                             </div>
@@ -316,12 +316,12 @@
                                                 <button type="submit" id="btn_tab2"></button>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <!-- <div class="col-md-3">
                                             <div class="form-group">
-                                                <!-- <button class="btn btn-default btn-block" (click)="openModal()" id="btn_return3"> Cancelar</button> -->
+                                              
                                                 <button class="btn btn-default btn-block" (click)="onCancel()" id="btn_return2"> Cancelar</button>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </form>
                                 </div>
                             </div>
@@ -424,13 +424,13 @@
                                                 <button type="submit" id="btn_tab3"></button>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <!-- <div class="col-md-3">
                                             <div class="form-group">
-                                                <!-- <button class="btn btn-default btn-block" (click)="openModal()" id="btn_return3"> Cancelar</button> -->
+                                             
                                                 <button type="button" class="btn btn-default btn-block" (click)="onCancel()" id="btn_return3"> Cancelar</button>
                                             </div>
-                                        </div>
-                                        <div class="col-md-3 col-md-offset-6">
+                                        </div> -->
+                                        <div class="col-md-12">
                                             <div class="form-group save" *ngIf="isNewData">
                                                 <button class="btn btn-primary" (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save">Cadastrar</button>
                                             </div>
@@ -444,30 +444,14 @@
                         </section>
                     </div>
                 </div>
-                <!-- /.tab-pane -->
-                <!-- <div class="content-control">
-                        <div class="control">
-                            <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false)" id="btn_previous">
-                                <img src="../../../assets/img/global/ic_previous.png" />
-                                <b>Anterior</b>
-                            </a>
-                            <a href="{{nextTab}}" data-toggle="tab" (click)="isActive(true)" id="btn_next">
-                                <b>Próximo</b>
-                                <img src="../../../assets/img/global/ic_next.png" />
-                            </a>
-                        </div>
-                    </div> -->
                 <div class="row footer">
-                    <!-- <div class="col-md-3">
-                            <div class="form-group">
-                                <button class="btn btn-default btn-block" (click)="openModal()" id="btn_return"> Cancelar</button>
-                            </div>
-                        </div> -->
-                    <!-- <div class="col-md-3 col-md-offset-6">
-                            <div class="form-group save">
-                                <button class="btn btn-primary btn-block" name="submit" id="btn_save" [disabled]="!enable_save">Cadastrar</button>                                
-                            </div>
-                        </div> -->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-default btn-block" (click)="onCancel()" id="btn_return3">
+                                <span *ngIf="isNewData">Cancelar</span>   <span *ngIf="!isNewData">Voltar</span> 
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- /.tab-content -->
@@ -477,48 +461,3 @@
         <!-- </form> -->
     </section>
 </div>
-
-<!-- Modal Add -->
-<!-- <div class="modal fade" id="modal-default" (click)='backToList()'>
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content" [ngStyle]="object">
-            <div class="modal-body">
-                <div class="modal-icon">
-                    <i class="material-icons" style="font-size: 60px;">done</i>
-                </div>
-                <h5> Cadastro realizado com Sucesso!</h5>
-            </div>
-            <div class="modal-footer" data-dismiss="modal" id="btn_confirm" (click)='backToList()'>
-                <label>Fechar</label>
-            </div>
-        </div> -->
-<!-- /.modal-content -->
-<!-- </div> -->
-<!-- /.modal-dialog -->
-<!-- </div> -->
-<!-- /.modal -->
-
-<!-- Modal Cancel -->
-<!-- <div class="modal fade" id="modal-cancel">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content" [ngStyle]="object">
-            <div class="modal-body">
-                <div class="modal-icon">                    
-                    <i class="material-icons" style="font-size: 60px;">error_outline</i>
-                </div>
-                <h5> Deseja realmente <strong>CANCELAR</strong> ? 999</h5>
-            </div>
-            <div class="modal-footer" data-dismiss="modal"> 
-                    <div class="modal-btn-cancel">
-                        <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal" id="btn_cancel">Não</button>
-                    </div>
-                    <div class="modal-btn-confirm">
-                        <button type="button" (click)="backToList()" class="btn btn-primary btn-md btn-block" data-dismiss="modal" id="btn_confirm">Sim</button>
-                    </div>
-            </div>
-        </div> -->
-<!-- /.modal-content -->
-<!-- </div> -->
-<!-- /.modal-dialog -->
-<!-- </div> -->
-<!-- /.modal -->

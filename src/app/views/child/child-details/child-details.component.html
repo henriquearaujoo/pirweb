@@ -59,13 +59,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-sm-6" *ngIf="child.mother !== undefined">
+                                                    <div class="col-sm-6" *ngIf="child.mother !== undefined && child.mother !== null">
                                                         <div class="form-group">
                                                             <label class="control-label">Nome da Mãe</label>
                                                             <input type="text" name="name_mother" [(ngModel)]="child.mother.name" id="name_mother" class="form-control" disabled>
                                                         </div>
                                                     </div>
-                                                    <div [ngClass]="child.mother === undefined ? 'col-sm-12' : 'col-sm-6'">
+                                                    <div [ngClass]="child.mother === undefined || child.mother === null? 'col-sm-12' : 'col-sm-6'">
                                                         <div class="form-group">
                                                             <label class="control-label">Nome do pai</label>
                                                             <input type="text" name="fatherName" [(ngModel)]="child.father_name" id="fatherName" class="form-control" disabled>

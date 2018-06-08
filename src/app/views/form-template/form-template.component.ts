@@ -1,3 +1,4 @@
+import { SweetAlert2Service } from './../../services/sweetalert/sweet-alert.2service';
 import { LoaderService } from './../../services/loader/loader.service';
 import { PagenateComponent } from './../../components/pagenate/pagenate.component';
 import { PageService } from './../../services/pagenate/page.service';
@@ -42,6 +43,8 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
   private btn_cancel: boolean;
   private formTab: string;
   private questionsTab: string;
+  private onChange: boolean;
+  private saveButton: HTMLButtonElement;
 
   constructor(
     private formService: FormService,
@@ -51,7 +54,8 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
     private toastService: ToastService,
     private modalService: ModalService,
     private loaderService: LoaderService,
-    private servicePage: PageService
+    private servicePage: PageService,
+    private sweetAlert2Service: SweetAlert2Service
   ) {
     super(servicePage);
     this.canCreate = false;
@@ -89,44 +93,55 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
     this.formTab = './assets/img/form/ic_form_enable.png';
     this.questionsTab = './assets/img/form/ic_questions_disable.png';
 
+    this.saveButton = (<HTMLButtonElement>document.getElementById('btn_saveForm'));
+    this.saveButton.style.display = 'none';
   }
 
-  saveData() {
+  saveData(isValid) {
     this.form.from = Number(this.form.from);
     this.form.to = Number(this.form.to);
     // this.form.is_enabled = true;
-    if ( this.btn_cancel) {
-      return;
-    }
-    if (this.isNewData || this.form.id === undefined) {
-      if (this.canCreate) {
-        this.formService.insertForm(this.form).subscribe(
-          success => {
-            this.form = success;
-            this.urlId = this.form.id;
-            this.isNewData  = false;
-            this.sweetAlertService.alertSuccess('/formularios/registro');
-          },
-          error => {
-            this.verifyError(error);
-          }
-        );
+    // if ( this.btn_cancel) {
+    //   return;
+    // }
+    if (isValid) {
+      if (this.isNewData || this.form.id === undefined) {
+        if (this.canCreate) {
+          this.formService.insertForm(this.form).subscribe(
+            success => {
+              this.form = success;
+              this.urlId = this.form.id;
+              this.isNewData  = false;
+              this.sweetAlertService.alertSuccess('/formularios/registro');
+            },
+            error => {
+              this.verifyError(error);
+            }
+          );
+        } else {
+          this.sweetAlertService.alertPermission('/formularios');
+        }
       } else {
-        this.sweetAlertService.alertPermission('/formularios');
+        if (this.canUpdate) {
+          this.formService.updateForm(this.form).subscribe(
+            success => {
+              if (this.btn_cancel) {
+                this.sweetAlertService.alertSuccessUpdate('/formularios');
+              } else {
+                this.sweetAlertService.alertSuccessUpdate('/formularios/registro');
+              }
+            },
+            error => {
+              this.verifyError(error);
+            }
+          );
+        } else {
+          this.sweetAlertService.alertPermission('/formularios');
+        }
       }
     } else {
-      if (this.canUpdate) {
-        this.formService.updateForm(this.form).subscribe(
-          success => {
-            this.sweetAlertService.alertSuccessUpdate('/formularios/registro');
-          },
-          error => {
-            this.verifyError(error);
-          }
-        );
-      } else {
-        this.sweetAlertService.alertPermission('/formularios');
-      }
+        this.btn_cancel = false;
+        this.toastService.toastMsgError('Erro', 'Preencha todos os campos obrigatórios do formulário!');
     }
   }
 
@@ -264,13 +279,32 @@ export class FormTemplateComponent extends PagenateComponent implements OnInit {
    this.load();
   }
 
+  // onCancel() {
+  //   this.btn_cancel = true;
+  //   this.modalService.modalCancel('/formularios');
+  // }
+
   onCancel() {
-    this.btn_cancel = true;
-    this.modalService.modalCancel('/formularios');
+    if (this.onChange) {
+      this.sweetAlert2Service.alertToSave()
+      .then((result) => {
+        if (result.value) {
+          this.btn_cancel = true;
+          this.saveButton.click();
+        } else {
+          this.route.navigate(['/formularios']);
+        }
+      });
+    } else {
+      this.modalService.modalCancel('/formularios');
+    }
   }
 
   verifyValidSubmitted(form, field) {
-    return form.submitted && !field.valid;
+    if (field.dirty) {
+      this.onChange = true;
+    }
+    return (field.dirty || field.touched || form.submitted) && !field.valid;
   }
 
   applyCssError(form, field) {

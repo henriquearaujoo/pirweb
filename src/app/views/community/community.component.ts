@@ -1,3 +1,4 @@
+import { SweetAlert2Service } from './../../services/sweetalert/sweet-alert.2service';
 import { LoaderService } from './../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../helpers/permissions';
 import { SweetAlertService } from './../../services/sweetalert/sweet-alert.service';
@@ -47,6 +48,7 @@ export class CommunityComponent implements OnInit {
   private canUpdate: boolean;
   private canCreate: boolean;
   private canDelete: boolean;
+  private onChange: boolean;
 
   private type: any;
   private culturalProduction: string;
@@ -106,6 +108,7 @@ export class CommunityComponent implements OnInit {
     private toastService: ToastService,
     private modalService: ModalService,
     private sweetAlertService: SweetAlertService,
+    private sweetAlert2Service: SweetAlert2Service,
     private permissions: Permissions,
     private loaderService: LoaderService,
     private route: Router
@@ -158,7 +161,8 @@ export class CommunityComponent implements OnInit {
     this.getCities();
   }
 
-  saveData(isValid: boolean) {
+  saveData(form1, fomr2) {
+    const isValid = form1 && fomr2;
     this.updateOptions();
 
     if (isValid && this._isSave) {
@@ -195,6 +199,10 @@ export class CommunityComponent implements OnInit {
             }
           }
         );
+      }
+    }  else {
+      if (!isValid) {
+        this.toastService.toastMsgError('Erro', 'Preencha todos os campos obrigatórios do formulário!');
       }
     }
   }
@@ -244,6 +252,22 @@ export class CommunityComponent implements OnInit {
   openModal() {
     this.modalService.modalCancel('/comunidades');
 
+  }
+
+  onCancel() {
+    if (this.onChange) {
+      this.sweetAlert2Service.alertToSave()
+      .then((result) => {
+        if (result.value) {
+          this._isSave = true;
+          this.openSaveButtonTab2.click();
+        } else {
+          this.route.navigate(['/comunidades']);
+        }
+      });
+    } else {
+      this.openModal();
+    }
   }
 
   updateOptions() {
@@ -406,6 +430,9 @@ export class CommunityComponent implements OnInit {
   }
 
   verifyValidSubmitted(form, field) {
+    if (field.dirty) {
+      this.onChange = true;
+    }
     return (field.dirty || field.touched || form.submitted) && !field.valid;
   }
 

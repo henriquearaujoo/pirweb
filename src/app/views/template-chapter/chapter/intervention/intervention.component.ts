@@ -1,3 +1,4 @@
+import { SweetAlert2Service } from './../../../../services/sweetalert/sweet-alert.2service';
 import { Constant } from './../../../../constant/constant';
 import { Permissions, RuleState } from './../../../../helpers/permissions';
 import { ToastService } from './../../../../services/toast-notification/toast.service';
@@ -5,6 +6,7 @@ import { InterventionService } from './../../../../services/intervention/interve
 import { Intervention } from './../../../../models/intervention';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Input } from '@angular/core/src/metadata/directives';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-intervention',
@@ -29,6 +31,7 @@ export class InterventionComponent implements OnInit {
   private characters =  this.limit;
   private fieldEditor: string[] = new Array();
   private validEditor: boolean;
+  private onChange: boolean;
 
   public editorOptions = {
     modules: {
@@ -46,7 +49,9 @@ export class InterventionComponent implements OnInit {
   constructor(
     private service: InterventionService,
     private toastService: ToastService,
-    private permissions: Permissions) {
+    private permissions: Permissions,
+    private sweetAlert2Service: SweetAlert2Service,
+    private router: Router) {
       this.canCreate = false;
       this.canUpdate = false;
       this.canRead = false;
@@ -68,10 +73,10 @@ export class InterventionComponent implements OnInit {
   }
 
   saveData() {
-    if (this.btn_cancel) {
-      this.btn_cancel = false;
-      return false;
-    }
+    // if (this.btn_cancel) {
+    //   this.btn_cancel = false;
+    //   return false;
+    // }
     if ( this.chapter === undefined) {
       this.returnEvent.emit(false);
       return;
@@ -100,6 +105,11 @@ export class InterventionComponent implements OnInit {
           s => {
             this.intervention = s;
             this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso');
+            setTimeout(() => {
+              if (this.btn_cancel) {
+                this.router.navigate(['/capitulos']);
+              }
+            }, 1000);
           },
           e => {
             this.toastService.toastError();
@@ -107,6 +117,9 @@ export class InterventionComponent implements OnInit {
           }
         );
       }
+    } else {
+      this.btn_cancel = false;
+      this.toastService.toastMsgError('Erro', 'Preencha todos os campos obrigatórios do formulário!');
     }
   }
 
@@ -135,12 +148,32 @@ export class InterventionComponent implements OnInit {
     );
   }
 
+  // onCancel() {
+  //   this.cancelEvent.emit();
+  //   this.btn_cancel = true;
+  // }
+
   onCancel() {
-    this.cancelEvent.emit();
-    this.btn_cancel = true;
+    if (this.onChange) {
+      this.sweetAlert2Service.alertToSave()
+        .then((result) => {
+          if (result.value) {
+            this.btn_cancel = true;
+            this.saveData();
+          } else {
+            this.router.navigate(['/capitulos']);
+          }
+        });
+    } else {
+      this.cancelEvent.emit();
+      this.btn_cancel = true;
+    }
   }
 
   verifyValidSubmitted(form, field) {
+    if (field.dirty) {
+      this.onChange = true;
+    }
     return (field.dirty || field.touched || form.submitted) && !field.valid;
   }
 
@@ -152,6 +185,9 @@ export class InterventionComponent implements OnInit {
   }
 
   verifyValidSubmittedEditor(form, field, position?) {
+    if (field.dirty) {
+      this.onChange = true;
+    }
     return this.fieldEditor[position] === '' && (form.submitted || field.dirty || field.touched);
   }
 

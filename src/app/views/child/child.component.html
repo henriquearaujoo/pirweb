@@ -74,7 +74,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-6">
-                                                        <div class="form-group" [ngClass]="applyCssError(f1, nameMother)" *ngIf="child.mother !== undefined">
+                                                        <div class="form-group" [ngClass]="applyCssError(f1, nameMother)" *ngIf="child.mother !== undefined && child.mother !== null">
                                                             <label class="control-label">Nome da Mãe</label>
                                                             <select #nameMother="ngModel" name="name_mother" [(ngModel)]="child.mother.id" id="name_mother" class="form-control">
                                                               <option [value]="item.id" *ngFor="let item of mothers">
@@ -85,7 +85,7 @@
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
-                                                    <div [ngClass]="child.mother === undefined ? 'col-sm-12' : 'col-sm-6'">
+                                                    <div [ngClass]="child.mother === undefined || child.mother === null ? 'col-sm-12' : 'col-sm-6'">
                                                         <div class="form-group" [ngClass]="applyCssError(f1, fatherName)">
                                                             <label class="control-label">Nome do pai</label>
                                                             <input type="text" #fatherName="ngModel" name="fatherName" pattern="[\w,./_=?-].*" maxlength="60" [(ngModel)]="child.father_name" id="fatherName" class="form-control" placeholder="Nome completo do pai">
@@ -123,11 +123,11 @@
                                                 <button type="submit" id="btn_tab1"></button>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <!-- <div class="col-md-3">
                                             <div class="form-group">
                                                 <button class="btn btn-default btn-block" (click)="openModal()" id="btn_return1"> Cancelar</button>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </form>
                                 </div>
                             </div>
@@ -145,7 +145,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <form name="form" (ngSubmit)="saveData(f2.valid) && save(2, f2.valid)" #f2="ngForm" novalidate>
+                                    <form name="form" (ngSubmit)="saveData(f1.valid, f2.valid) && save(2, f2.valid)" #f2="ngForm" novalidate>
                                         <div class="box box-primary">
                                             <div class="box-body">
                                                 <div class="row">
@@ -270,18 +270,18 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-4">
-                                                        <div class="form-group" [ngClass]="{ 'has-error': f2.submitted && who_take_care_list.length === 0 }">
+                                                        <div class="form-group" [ngClass]="{ 'has-error': who_take_care_list.length === 1 }">
                                                             <label class="control-label">Quem cuida da criança? </label>
                                                             <div class="checkbox" *ngFor="let item of _who_take_care">
                                                                 <label>
-                                                                    <input type="checkbox" name="_who_take_care"  
+                                                                    <input type="checkbox" name="WhoTakeCare"
                                                                     id="_who_take_care" [value]="item.description" 
                                                                     [checked]="item.checked"
                                                                     (change)="verifyCheckbox(1, $event)" required>
                                                                     {{ item.description }}
                                                                 </label>
                                                             </div>
-                                                            <div *ngIf="f2.submitted && who_take_care_list.length === 0" class="help-block"> Escolha uma ou mais alternativas</div>
+                                                            <div *ngIf="who_take_care_list.length === 1" class="help-block"> Escolha uma ou mais alternativas</div>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
@@ -341,12 +341,12 @@
                                                 <button type="submit" id="btn_tab2"></button>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <!-- <div class="col-md-3">
                                             <div class="form-group">
                                                 <button class="btn btn-default btn-block" (click)="openModal()" id="btn_return3"> Cancelar</button>
                                             </div>
-                                        </div>
-                                        <div class="col-md-3 col-md-offset-6">
+                                        </div> -->
+                                        <div class="col-md-12">
                                             <div class="form-group save">
                                                 <button class="btn btn-primary btn-block" (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save" *ngIf="isNewData && canCreate">Cadastrar</button>
                                                 <button class="btn btn-primary btn-block" (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save" *ngIf="!isNewData && canUpdate">Salvar</button>
@@ -356,6 +356,15 @@
                                 </div>
                             </div>
                         </section>
+                    </div>
+                </div>
+                <div class="row footer">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-default btn-block" (click)="onCancel()" id="btn_return3">
+                                <span *ngIf="isNewData">Cancelar</span>   <span *ngIf="!isNewData">Voltar</span> 
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

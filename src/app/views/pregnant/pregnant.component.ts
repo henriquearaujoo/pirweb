@@ -1,3 +1,4 @@
+import { SweetAlert2Service } from './../../services/sweetalert/sweet-alert.2service';
 import { LoaderService } from './../../services/loader/loader.service';
 import { Router } from '@angular/router';
 import { Permissions, RuleState } from './../../helpers/permissions';
@@ -54,6 +55,7 @@ export class PregnantComponent implements OnInit {
   private canCreate: boolean;
   private canDelete: boolean;
   private dateDisable = new Date();
+  private onChange: boolean;
 
   public myDatePickerOptions: IMyDpOptions;
 
@@ -67,6 +69,7 @@ export class PregnantComponent implements OnInit {
     private toastService: ToastService,
     private modalService: ModalService,
     private sweetAlertService: SweetAlertService,
+    private sweetAlert2Service: SweetAlert2Service,
     private permissions: Permissions,
     private loaderService: LoaderService,
     private route: Router
@@ -94,6 +97,7 @@ export class PregnantComponent implements OnInit {
       this.isNewData = false;
       this.load();
     }  else {
+      // this.loaderService.hide();
       this.route.navigate(['/gestantes']);
     }
 
@@ -143,7 +147,8 @@ export class PregnantComponent implements OnInit {
     this.family_income_other_count = 0;
   }
 
-  saveData(isValid: boolean) {
+  saveData(form1, fomr2, form3) {
+    const isValid = form1 && fomr2 && form3;
 
     if (isValid && this._isSave) {
       this.verifyDate();
@@ -197,6 +202,10 @@ export class PregnantComponent implements OnInit {
             console.log('update error:', error);
           }
         );
+      }
+    } else {
+      if (!isValid) {
+        this.toastService.toastMsgError('Erro', 'Preencha todos os campos obrigatórios do formulário!');
       }
     }
   }
@@ -284,6 +293,22 @@ export class PregnantComponent implements OnInit {
 
   }
 
+  onCancel() {
+    if (this.onChange) {
+      this.sweetAlert2Service.alertToSave()
+      .then((result) => {
+        if (result.value) {
+          this._isSave = true;
+          this.openSaveButtonTab3.click();
+        } else {
+          this.route.navigate(['/gestantes']);
+        }
+      });
+    } else {
+      this.openModal();
+    }
+  }
+
   save(tab: string, isValid: boolean) {
     this.isFormValid = isValid;
     this.tab = tab;
@@ -368,6 +393,9 @@ export class PregnantComponent implements OnInit {
   }
 
   verifyValidSubmitted(form, field) {
+    if (field.dirty) {
+      this.onChange = true;
+    }
     return (field.dirty || field.touched || form.submitted) && !field.valid;
   }
 

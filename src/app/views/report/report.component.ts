@@ -1,3 +1,4 @@
+import { LoaderService } from './../../services/loader/loader.service';
 import { ReportModel } from './../../export/report-model';
 import { ExportFactory } from './../../export/report-export';
 import { XlsImage } from './../../export/xls-image';
@@ -72,7 +73,7 @@ export class ReportComponent implements OnInit {
   private startNode: string;
 
   constructor(
-    private report: BigraphService, private permissions: Permissions) {
+    private report: BigraphService, private permissions: Permissions, private loaderService: LoaderService) {
     this.hasdata = false;
   }
 
@@ -134,6 +135,8 @@ export class ReportComponent implements OnInit {
         console.log(e);
       }
     );
+
+    this.loaderService.hide();
   }
 
   private createPath(node: Node, event) {

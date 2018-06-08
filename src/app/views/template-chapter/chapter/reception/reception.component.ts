@@ -1,3 +1,4 @@
+import { SweetAlert2Service } from './../../../../services/sweetalert/sweet-alert.2service';
 import { Constant } from './../../../../constant/constant';
 import { Permissions, RuleState } from './../../../../helpers/permissions';
 import { ToastService } from './../../../../services/toast-notification/toast.service';
@@ -6,6 +7,7 @@ import { Subject } from 'rxjs/Subject';
 import { Reception } from './../../../../models/reception';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Chapter } from '../../../../models/chapter';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-reception',
@@ -26,6 +28,7 @@ export class ReceptionComponent implements OnInit {
 
   @Output() returnEvent = new EventEmitter();
   @Output() cancelEvent = new EventEmitter();
+  private onChange: boolean;
 
   private limit = Constant.LIMIT_CHARACTERS;
   private characters =  this.limit;
@@ -45,16 +48,18 @@ export class ReceptionComponent implements OnInit {
     theme: 'snow'
   };
 
-  onCancel() {
-    this.cancelEvent.emit();
-    this.btn_cancel = true;
-  }
+  // onCancel() {
+  //   this.cancelEvent.emit();
+  //   this.btn_cancel = true;
+  // }
 
 
   constructor(
     private service: ReceptionService,
-    private toast: ToastService,
-    private permissions: Permissions) {
+    private toastService: ToastService,
+    private permissions: Permissions,
+    private sweetAlert2Service: SweetAlert2Service,
+    private router: Router) {
     this.canCreate = false;
     this.canUpdate = false;
     this.canRead = false;
@@ -76,10 +81,10 @@ export class ReceptionComponent implements OnInit {
    }
 
   saveData() {
-    if (this.btn_cancel) {
-      this.btn_cancel = false;
-      return false;
-    }
+    // if (this.btn_cancel) {
+    //   this.btn_cancel = false;
+    //   return false;
+    // }
     if ( this.chapter === undefined) {
       this.returnEvent.emit(false);
       return;
@@ -94,6 +99,7 @@ export class ReceptionComponent implements OnInit {
             this.reception = s;
             this.returnEvent.emit(true);
             this.isNewData  = false;
+            // this.btn_cancel = true;
            },
           e => {
             console.log(e);
@@ -105,6 +111,11 @@ export class ReceptionComponent implements OnInit {
           s => {
             this.reception = s;
             this.returnEvent.emit(true);
+            setTimeout(() => {
+              if (this.btn_cancel) {
+                this.router.navigate(['/capitulos']);
+              }
+            }, 1000);
            },
           e => {
             console.log(e);
@@ -112,6 +123,9 @@ export class ReceptionComponent implements OnInit {
           }
         );
       }
+    } else {
+      this.btn_cancel = false;
+      this.toastService.toastMsgError('Erro', 'Preencha todos os campos obrigatórios do formulário!');
     }
   }
 
@@ -140,7 +154,27 @@ export class ReceptionComponent implements OnInit {
     );
   }
 
+  onCancel() {
+    if (this.onChange) {
+      this.sweetAlert2Service.alertToSave()
+        .then((result) => {
+          if (result.value) {
+            this.btn_cancel = true;
+            this.saveData();
+          } else {
+            this.router.navigate(['/capitulos']);
+          }
+        });
+    } else {
+      this.cancelEvent.emit();
+      this.btn_cancel = true;
+    }
+  }
+
   verifyValidSubmitted(form, field) {
+    if (field.dirty) {
+      this.onChange = true;
+    }
     return (field.dirty || field.touched || form.submitted) && !field.valid;
   }
 
@@ -152,6 +186,9 @@ export class ReceptionComponent implements OnInit {
   }
 
   verifyValidSubmittedEditor(form, field, position?) {
+    if (field.dirty) {
+      this.onChange = true;
+    }
     return this.fieldEditor[position] === '' && (form.submitted || field.dirty || field.touched);
   }
 
