@@ -320,10 +320,10 @@
                                                         <div class="form-group" [ngClass]="applyCssError(f2, playsWithWho)">
                                                             <label class="control-label">Com quem a criança brinca?</label>
                                                             <select class="form-control" name="playsWithWho" id="playsWithWho" #playsWithWho="ngModel" [(ngModel)]="child.plays_with_who" required>
-                                                                <option value="Com adulto"> Com adulto</option>
-                                                                <option value=" Com adulto e criança"> Com adulto e criança</option>
-                                                                <option value="Com criança"> Com criança</option>
-                                                                <option value="Sozinha"> Sozinha</option>
+                                                                <option value="Adultos"> Com adulto</option>
+                                                                <option value="Adultos e Crianças"> Com adulto e criança</option>
+                                                                <option value="Crianças"> Com criança</option>
+                                                                <option value="Sozinha"> Sozinha</option>h
                                                             </select>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f2, playsWithWho)" msgError="Selecione com quem a criança brinca">
                                                             </app-control-field-error>
