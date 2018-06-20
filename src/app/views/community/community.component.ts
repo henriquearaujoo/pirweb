@@ -164,12 +164,12 @@ export class CommunityComponent implements OnInit {
   saveData(form1, fomr2) {
     const isValid = form1 && fomr2;
     this.updateOptions();
-    if (this.community.latitude === null) {
+    /*if (this.community.latitude === null) {
       this.community.latitude = 0;
     }
     if (this.community.longitude === null) {
       this.community.longitude = 0;
-    }
+    } */
 
     if (isValid && this._isSave) {
       this.community.city_id = this.community.city.id;
@@ -191,6 +191,7 @@ export class CommunityComponent implements OnInit {
         );
       } else {
         this.community.city.state.cities = [];
+        // delete this.community.responsible;
         this.communityService.update(this.community).subscribe(
           success => {
             this.community = success;

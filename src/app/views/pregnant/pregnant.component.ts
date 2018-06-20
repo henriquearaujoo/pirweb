@@ -160,10 +160,10 @@ export class PregnantComponent implements OnInit {
         }
       }
       this.responsible.habitation_members_count = Number(this.responsible.habitation_members_count);
-      this.responsible.mother.children_count = Number(this.responsible.mother.children_count);
+      this.responsible.children_count = Number(this.responsible.children_count);
 
       if (!this.otherChildren.has) {
-        this.responsible.mother.children_count = 0;
+        this.responsible.children_count = 0;
       }
 
       if ( this.responsible.family_income === 'outra') {
@@ -192,6 +192,9 @@ export class PregnantComponent implements OnInit {
           }
         );
       } else {
+        delete this.responsible.mother.pregnancies;
+        delete this.responsible.mother.responsible;
+        delete this.responsible.children;
         this.responsibleService.update(this.responsible).subscribe(
           success => {
             console.log('success: ', success);
@@ -232,7 +235,7 @@ export class PregnantComponent implements OnInit {
         this.responsible = success;
         this.alterData();
         this.loaderService.hide();
-        if (this.responsible.mother.children_count === 0) {
+        if (this.responsible.children_count === 0) {
           this.otherChildren.has = false;
         } else {
           this.otherChildren.has = true;

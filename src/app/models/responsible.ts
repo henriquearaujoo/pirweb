@@ -1,3 +1,4 @@
+import { Child } from './child';
 import { Pregnant } from './pregnant';
 import { Community } from './community';
 export class Responsible {
@@ -19,8 +20,12 @@ export class Responsible {
     public has_other_children: boolean;
     public mother: Pregnant = new Pregnant();
     public agent_id: number;
+    public civil_state: string;
+    public children_count: number;
 
     public family_income_other: string;
     public drinking_water_treatment2: boolean;
     public community: Community = new Community();
+
+    public children: Child[] = new Array();
 }

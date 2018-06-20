@@ -1,6 +1,9 @@
+import { Child } from './child';
 import { Responsible } from './responsible';
 
 export class Pregnant {
-    public children_count: number;
-    public civil_state: string;
+    public is_pregnant: boolean;
+    public pregnancies: any;
+    public children: Child[] = Array();
+    public responsible: Responsible;
 }

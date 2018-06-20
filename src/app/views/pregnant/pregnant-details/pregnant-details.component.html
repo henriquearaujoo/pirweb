@@ -53,10 +53,16 @@
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col-sm-12">
+                                                    <div class="col-sm-9">
                                                         <div class="form-group">
                                                             <label class="control-label">Nome da gestante</label>
                                                             <input type="text" #nameMother="ngModel" name="name_mother" [(ngModel)]="responsible.name" id="name_mother" class="form-control" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Gestante? </label> <br/>
+                                                            <span class="form-control"> {{ responsible.mother.is_pregnant ? 'Sim' : 'Não' }} </span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -64,12 +70,12 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label class="control-label">Estado Civil</label>
-                                                            <span class="form-control" *ngIf="responsible.mother.civil_state === 'MARRIED'"> Casada </span>
-                                                            <span class="form-control" *ngIf="responsible.mother.civil_state === 'SINGLE'"> Solteira </span>
-                                                            <span class="form-control" *ngIf="responsible.mother.civil_state === 'DIVORCED'"> Divorciada </span>
-                                                            <span class="form-control" *ngIf="responsible.mother.civil_state === 'SEPARATED'"> Separada </span>
-                                                            <span class="form-control" *ngIf="responsible.mother.civil_state === 'WIDOWED'"> Viúva </span>
-                                                            <span class="form-control" *ngIf="responsible.mother.civil_state === 'UNDEFINED'"> Indefinido </span>
+                                                            <span class="form-control" *ngIf="responsible.civil_state === 'MARRIED'"> Casada </span>
+                                                            <span class="form-control" *ngIf="responsible.civil_state === 'SINGLE'"> Solteira </span>
+                                                            <span class="form-control" *ngIf="responsible.civil_state === 'DIVORCED'"> Divorciada </span>
+                                                            <span class="form-control" *ngIf="responsible.civil_state === 'SEPARATED'"> Separada </span>
+                                                            <span class="form-control" *ngIf="responsible.civil_state === 'WIDOWED'"> Viúva </span>
+                                                            <span class="form-control" *ngIf="responsible.civil_state === 'UNDEFINED'"> Indefinido </span>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
@@ -117,7 +123,7 @@
                                                     <div class="col-sm-4">
                                                         <div class="form-group">
                                                             <label class="control-label">Tem outros filhos?</label> <br/>
-                                                            <span class="form-control"> {{ responsible.mother.children_count === 0 ? 'Não' : responsible.mother.children_count  }} </span>
+                                                            <span class="form-control"> {{ responsible.children_count === 0 ? 'Não' : responsible.children_count  }} </span>
                                                         </div>
                                                     </div>
                                                     <div>

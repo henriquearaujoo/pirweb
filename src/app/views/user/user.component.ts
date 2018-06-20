@@ -178,7 +178,6 @@ export class UserComponent implements OnInit, OnDestroy {
         this.user.latitude = 0;
         this.user.longitude = 0;
       }
-
       if (this.isNewData || this.user.id === undefined) {
         if (this.canCreate) {
           this.userService.createUser(this.user).subscribe(
@@ -486,7 +485,7 @@ export class UserComponent implements OnInit, OnDestroy {
     this.loaderService.show();
     this.userService.load(this.urlId).subscribe(
       success => {
-        this.user = success[0];
+        this.user = success;
         if (this.user !== undefined) {
           this.first_name = this.user.name.split(' ')[0];
           this.last_name = this.user.name.substring(this.first_name.length + 1);

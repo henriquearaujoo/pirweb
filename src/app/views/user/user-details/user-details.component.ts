@@ -91,7 +91,7 @@ export class UserDetailsComponent implements OnInit {
     this.loaderService.show();
     this.userService.load(this.urlId).subscribe(
       success => {
-        this.user = success[0];
+        this.user = success;
         this.verifyType();
         setTimeout(() => {
           this.loaderService.hide();

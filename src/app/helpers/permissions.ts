@@ -69,6 +69,8 @@ export class Permissions implements OnDestroy {
                                     });
                                     // this.loaderService.hide();
                                 }
+                            } else {
+                                this.loaderService.hide();
                             }
                         }
                     }
