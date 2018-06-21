@@ -10,6 +10,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FormTemplateRoutingModule } from './form-template-routing.module';
+import { FormBuilderComponent } from './form-builder/form-builder.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule, MatSelectModule } from '@angular/material';
+import {MatRadioModule} from '@angular/material/radio';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormQuestionsComponent } from './form-builder/form-questions/form-questions.component';
+import { FormAlternativeComponent } from './form-builder/form-questions/form-alternative/form-alternative.component';
+
 
 @NgModule({
   imports: [
@@ -19,12 +27,20 @@ import { FormTemplateRoutingModule } from './form-template-routing.module';
     FormsModule,
     MyDatePickerModule,
     NgxMaskModule,
-    SharedModule
+    SharedModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatRadioModule,
+    ReactiveFormsModule
   ],
   declarations: [
     FormTemplateListComponent,
     FormTemplateComponent,
-    FormTemplateDetailsComponent
+    FormTemplateDetailsComponent,
+    FormBuilderComponent,
+    FormQuestionsComponent,
+    FormAlternativeComponent
   ],
   exports: [
     FormTemplateListComponent,

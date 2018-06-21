@@ -1,0 +1,20 @@
+<div [formGroup]="alternativeForm">
+    <div class="form-group">
+        <div class="col-xs-6">
+            <mat-form-field>
+                <input matInput placeholder="Opçao" formControlName="description">
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-6">
+            <mat-form-field>
+                <mat-select placeholder="Valor" formControlName="value_type">
+                    <mat-option value="text">Texto</mat-option>
+                    <mat-option value="date">Data</mat-option>
+                    <mat-option value="number">Número</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+</div>

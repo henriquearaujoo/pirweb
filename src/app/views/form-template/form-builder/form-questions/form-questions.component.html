@@ -1,0 +1,70 @@
+<div [formGroup]="questionForm">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <mat-form-field>
+                <input matInput placeholder="Descrição da Questão" formControlName="description">
+            </mat-form-field>
+            <!-- <small [hidden]="questionForm.controls.description.valid" class="text-danger">
+              Description is required
+          </small> -->
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-6">
+            <mat-form-field>
+                <mat-select placeholder="Tipo" formControlName="type">
+                    <mat-option value="multiple">
+                        Múltipla Escolha
+                    </mat-option>
+                    <mat-option value="select">
+                        Caixa de Seleção
+                    </mat-option>
+                    <mat-option value="text">
+                        Parágrafo
+                    </mat-option>
+                    <mat-option value="date">
+                        Data
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-6">
+            <mat-form-field>
+                <mat-select placeholder="Valor" formControlName="value_type">
+                    <mat-option value="text">Texto</mat-option>
+                    <mat-option value="date">Data</mat-option>
+                    <mat-option value="number">Número</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="form-group">
+        <!-- <div class="row"> -->
+        <div class="col-xs-6">
+            <div formArrayName="alternatives">
+                <div *ngFor="let alternative of questionForm.controls.alternatives.controls; let i=index" class="panel panel-default">
+                    <div class="panel-body" [formGroupName]="i">
+                        <app-form-alternative [group]="questionForm.controls.alternatives.controls[i]"></app-form-alternative>
+                    </div>
+                    <div class="panel-footer alternative-footer">
+                        <!-- <span>Alternative {{i + 1}}</span> -->
+                        <span *ngIf="questionForm.controls.alternatives.controls.length > 1" (click)="removeAlternative(i)">
+                        <i class="material-icons">delete</i>
+                      </span>
+                        <span *ngIf="questionForm.controls.alternatives.controls.length > 1" (click)="removeAlternative(i)">
+                        <i class="fa fa-toggle-off"></i>
+                      </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- </div> -->
+    </div>
+    <div class="margin-20">
+        <a (click)="addAlternative()" style="cursor: default">
+            Add Alternative +
+        </a>
+    </div>
+</div>

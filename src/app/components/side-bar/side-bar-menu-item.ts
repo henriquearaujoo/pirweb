@@ -202,6 +202,17 @@ export const MENU = [
     },
     {
         'id': 19,
+        'title': 'CONSTRUTOR',
+        'route': 'construtor',
+        'routes': ['/construtor'],
+        'read': true,
+        'iClass': 'fa fa-circle-o',
+        'category': 'child',
+        'hasChild': false,
+        'parent': 17
+    },
+    {
+        'id': 20,
         'title': 'RELATÓRIOS',
         'route': '',
         'routes': ['/', '/relatorios'],
@@ -212,7 +223,7 @@ export const MENU = [
         'parent': 0
     },
     {
-        'id': 20,
+        'id': 21,
         'title': 'REGISTRO',
         'route': 'relatorios',
         'routes': ['/relatorios'],
@@ -220,7 +231,7 @@ export const MENU = [
         'iClass': 'fa fa-circle-o',
         'category': 'child',
         'hasChild': false,
-        'parent': 19
+        'parent': 20
     },
 ];
 

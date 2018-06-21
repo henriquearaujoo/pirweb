@@ -1,0 +1,19 @@
+.mat-form-field {
+    width: 90%;
+}
+
+.panel-default>.panel-heading {
+    color: #333;
+    background-color: #ffffff;
+    border-color: #dfe8ed;
+}
+
+
+/* i.material-icons.icon-select {
+    position: absolute;
+    padding: 9px;
+}
+
+span.mat-option-text {
+    padding-left: 28px!important;
+} */
