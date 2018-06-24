@@ -12,6 +12,9 @@ export class FormQuestionsComponent implements OnInit {
   @Input('group')
   questionForm: FormGroup;
 
+  @Input() formBuilder;
+  // private questions: QuestionFormBuilder = new QuestionFormBuilder;
+
   constructor(private _fb: FormBuilder) { }
 
   ngOnInit() {

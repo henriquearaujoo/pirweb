@@ -2,14 +2,20 @@
     <div class="form-group">
         <div class="col-xs-6">
             <mat-form-field>
-                <input matInput placeholder="Opçao" formControlName="description">
+                <span matPrefix *ngIf="type === 'radio'"> 
+                    <i class = "material-icons"> radio_button_unchecked </i>&nbsp;
+                </span>
+                <span matPrefix *ngIf="type === 'multiple'"> 
+                    <i class = "material-icons"> check_box_outline_blank </i>&nbsp;
+                </span> 
+                <input matInput placeholder="Descrição da opção" formControlName="description">
             </mat-form-field>
         </div>
     </div>
     <div class="form-group">
         <div class="col-xs-6">
             <mat-form-field>
-                <mat-select placeholder="Valor" formControlName="value_type">
+                <mat-select placeholder="Tipo de valor" formControlName="value_type">
                     <mat-option value="text">Texto</mat-option>
                     <mat-option value="date">Data</mat-option>
                     <mat-option value="number">Número</mat-option>

@@ -4,5 +4,6 @@ export class QuestionFormBuilder {
     public id: string;
     public type: string;
     public value_type:	string;
+    public mandatory: boolean
     public alternatives: AlternativeFormBuilder[] = new Array();
 }

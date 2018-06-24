@@ -12,12 +12,14 @@ import { CommonModule } from '@angular/common';
 import { FormTemplateRoutingModule } from './form-template-routing.module';
 import { FormBuilderComponent } from './form-builder/form-builder.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { MatInputModule, MatSelectModule } from '@angular/material';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatInputModule, MatSelectModule, MatSlideToggleModule } from '@angular/material';
+import { MatRadioModule} from '@angular/material/radio';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormQuestionsComponent } from './form-builder/form-questions/form-questions.component';
 import { FormAlternativeComponent } from './form-builder/form-questions/form-alternative/form-alternative.component';
-
+import { FormBuilderListComponent } from './form-builder/form-builder-list/form-builder-list.component';
+import { FormBuilderListItemComponent } from './form-builder/form-builder-list-item/form-builder-list-item.component';
+import { FormBuilderService } from '../../services/form/formBuilder.service';
 
 @NgModule({
   imports: [
@@ -32,6 +34,7 @@ import { FormAlternativeComponent } from './form-builder/form-questions/form-alt
     MatInputModule,
     MatSelectModule,
     MatRadioModule,
+    MatSlideToggleModule,
     ReactiveFormsModule
   ],
   declarations: [
@@ -40,12 +43,15 @@ import { FormAlternativeComponent } from './form-builder/form-questions/form-alt
     FormTemplateDetailsComponent,
     FormBuilderComponent,
     FormQuestionsComponent,
-    FormAlternativeComponent
+    FormAlternativeComponent,
+    FormBuilderListComponent,
+    FormBuilderListItemComponent
   ],
   exports: [
     FormTemplateListComponent,
     FormTemplateComponent,
     FormTemplateDetailsComponent
-  ]
+  ],
+  providers: [FormBuilderService]
 })
 export class FormTemplateModule { }

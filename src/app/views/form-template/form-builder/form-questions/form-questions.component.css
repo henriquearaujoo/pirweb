@@ -3,17 +3,17 @@
 }
 
 .panel-default>.panel-heading {
-    color: #333;
+    color: #999;
     background-color: #ffffff;
     border-color: #dfe8ed;
+    font-weight: bold;
+}
+.panel {
+    border: 0;
 }
 
-
-/* i.material-icons.icon-select {
-    position: absolute;
-    padding: 9px;
+.description-question {
+    border-bottom: 1px dotted gray;
+    font-style: italic;
+    font-size: 12px;
 }
-
-span.mat-option-text {
-    padding-left: 28px!important;
-} */

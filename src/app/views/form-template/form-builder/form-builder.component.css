@@ -1,5 +1,6 @@
 .mat-form-field {
     width: 90%;
+    font-size: 16px;
 }
 
 .mat-radio-button~.mat-radio-button {
@@ -7,7 +8,16 @@
 }
 
 .panel-default>.panel-heading {
-    color: #333;
+    color: #999;
     background-color: #ffffff;
     border-color: #dfe8ed;
+    font-weight: bold;
+}
+
+i.fa.fa-trash {
+    font-size: 24px;
+}
+
+.panel-footer.question-footer {
+    text-align: right;
 }

@@ -5,36 +5,40 @@
     </div>
 
     <section class="content_user">
-        <div class="content-header ">
+        <!-- <div class="content-header ">
             <h5 class="content-title">FORMULÁRIOS</h5>
-        </div>
+        </div> -->
         <div class="box">
             <div class="box-body">
                 <form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
                     <div class="row">
                         <div class="col-sm-12">
-                            <mat-form-field>
+                            <mat-form-field style.fontSize="32px">
                                 <input matInput placeholder="Título do Formulário" formControlName="title">
                             </mat-form-field>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <mat-form-field>
-                                <input matInput placeholder="Descrição" formControlName="description">
+                                <input matInput placeholder="Descrição do formulário" formControlName="description">
                             </mat-form-field>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col">
+                        <div class="col-sm-12">
                             <div formArrayName="questions">
                                 <div *ngFor="let question of myForm.controls.questions.controls; let i=index" class="panel panel-default">
                                     <div class="panel-heading">
-                                        <span>Questão {{i + 1}}</span>
-                                        <span class="glyphicon glyphicon-remove pull-right" *ngIf="myForm.controls.questions.controls.length > 1" (click)="removeQuestion(i)"></span>
+                                        <span>Pergunta {{i + 1}}</span>                                        
                                     </div>
                                     <div class="panel-body" [formGroupName]="i">
                                         <app-form-questions [group]="myForm.controls.questions.controls[i]"></app-form-questions>
+                                    </div>
+                                    <div class="panel-footer question-footer">
+                                        <span *ngIf="myForm.controls.questions.controls.length > 1" (click)="removeQuestion(i)">
+                                        <i class="fa fa-trash"></i>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -42,19 +46,29 @@
                     </div>
                     <div class="margin-20">
                         <a (click)="addQuestion()" style="cursor: default">
-                            Add questão +
+                            <i class="fa fa-plus-circle"></i>&nbsp;Adicionar Pergunta
                         </a>
                     </div>
 
-                    <div class="margin-20">
-                        <button type="submit" class="btn btn-primary pull-right" [disabled]="!myForm.valid">Submit</button>
+                    <div class="box-footer">
+                        <div class="margin-20">
+                            <button type="button" [routerLink]="['/formularios/construtor']" class="btn btn-default pull-left">Voltar</button>
+                        </div>
+                        <div class="margin-20">
+                            <button type="submit" class="btn btn-primary pull-right">Salvar</button>
+                        </div>
                     </div>
+                    
                     <div class="clearfix"></div>
 
                     <div class="margin-20">
                         <div>myForm details:-</div>
                         <pre>Is myForm valid?: <br>{{myForm.valid | json}}</pre>
                         <pre>form value: <br>{{myForm.value | json}}</pre>
+                    </div>
+                    <div class="margin-20">
+                        <div>FormBuilder details:-</div>
+                        <pre>form value: <br>{{_formBuilder | json}}</pre>
                     </div>
                 </form>
 

@@ -1,4 +1,5 @@
 import { FormBuilderComponent } from './form-builder/form-builder.component';
+import { FormBuilderListComponent } from './form-builder/form-builder-list/form-builder-list.component';
 import { FormTemplateDetailsComponent } from './form-template-details/form-template-details.component';
 import { FormTemplateListComponent } from './form-template-list/form-template-list.component';
 import { PageGuard } from './../../guards/page.guard';
@@ -24,6 +25,11 @@ const routes: Routes = [
   },
   {
     path: 'construtor',
+    component: FormBuilderListComponent
+      // canActivate: [PageGuard]
+  },
+  {
+    path: 'construtor/registro',
     component: FormBuilderComponent
       // canActivate: [PageGuard]
   },

@@ -11,6 +11,8 @@ export class FormAlternativeComponent implements OnInit {
     // tslint:disable-next-line:no-input-rename
     @Input('group')
     alternativeForm: FormGroup;
+    @Input() type;
+    @Input() formBuilder;
   constructor() { }
 
   ngOnInit() {
