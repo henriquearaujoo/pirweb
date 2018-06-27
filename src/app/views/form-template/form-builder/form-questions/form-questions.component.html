@@ -1,113 +1,146 @@
-<div [formGroup]="questionForm">
-    <div class="form-group">
-        <div class="col-xs-12">
-            <mat-form-field>
-                <input matInput placeholder="Título da pergunta" formControlName="description">
-            </mat-form-field>
-            <!-- <small [hidden]="questionForm.controls.description.valid" class="text-danger">
-              Description is required
-          </small> -->
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-xs-6">
-        <span>
-            <span matPrefix *ngIf="type.value === 'radio'"> 
-                <i class="fa fa-check-circle"></i>&nbsp;
-            </span>
-            <span matPrefix *ngIf="type.value === 'multiple'">
-                <i class="fa fa-check-square"></i>&nbsp;
-            </span> 
-            <span matPrefix *ngIf="type.value === 'text'">
-                <i class="fa fa-align-left"></i>&nbsp;
-            </span> 
-            <span matPrefix *ngIf="type.value === 'date'">
-                <i class="fa fa-calendar"></i>&nbsp;
-            </span> 
-        </span>
-            <mat-form-field>
-                <mat-select placeholder="Tipo" #type formControlName="type">                    
-                    <mat-option value="radio">                    
-                    <span matPrefix> <i class="fa fa-check-circle"></i>&nbsp;</span> Múltipla Escolha
-                    </mat-option>                    
-                    <mat-option value="multiple">
-                        <span matPrefix> <i class="fa fa-check-square"></i>&nbsp;</span> Caixa de Seleção
-                    </mat-option>
-                    <mat-option value="text">
-                        <span matPrefix> <i class="fa fa-align-left"></i>&nbsp;</span> Parágrafo
-                    </mat-option>
-                    <mat-option value="date">
-                        <span matPrefix> <i class="fa fa-calendar"></i>&nbsp;</span> Data
-                    </mat-option>                    
-                </mat-select>                
-            </mat-form-field>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-xs-6">
-            <mat-form-field>
-                <mat-select placeholder="Tipo de valor" formControlName="value_type">
-                    <mat-option value="text">Texto</mat-option>
-                    <mat-option value="date">Data</mat-option>
-                    <mat-option value="number">Número</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-    </div>
-    <div class="form-group" *ngIf="type.value === 'radio' || type.value === 'multiple'">
-        <!-- <div class="row"> -->
-        <div class="col-xs-12">
-            <div formArrayName="alternatives">
-                <div *ngFor="let alternative of questionForm.controls.alternatives.controls; let i=index" class="panel panel-default">
-                    <div class="panel-heading">
-                        <span>
-                        Opção {{i + 1}}
-                        </span>
-                        <span class="glyphicon glyphicon-remove pull-right"  *ngIf="questionForm.controls.alternatives.controls.length > 1" (click)="removeAlternative(i)">
-                        </span>
-                    </div>
-                    <div class="panel-body" [formGroupName]="i">
-                        <app-form-alternative [type]="type.value" [group]="questionForm.controls.alternatives.controls[i]"></app-form-alternative>
-                    </div>
-                    <!-- <div class="panel-footer alternative-footer">
-                    </div> -->
+<div [formGroup]="parentQuestion">
+    <div formArrayName="questions">
+        <div *ngFor="let question of questions.controls; let i=index" [formGroupName]="i" class="panel panel-default">
+            <div class="panel-heading">
+                <span>Pergunta {{i + 1}}</span>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <mat-form-field>
+                        <input matInput placeholder="Título da pergunta" formControlName="description" required>
+                    </mat-form-field>
+                    <!-- <small [hidden]="questionForm.controls.description.valid" class="text-danger">
+                                  Description is required
+                              </small> -->
                 </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-6">
+                    <span>
+                        <span matPrefix *ngIf="type.value === 'radio'"> 
+                            <i class="fa fa-check-circle"></i>&nbsp;
+                        </span>
+                    <span matPrefix *ngIf="type.value === 'multiple'">
+                            <i class="fa fa-check-square"></i>&nbsp;
+                        </span>
+                    <span matPrefix *ngIf="type.value === 'text'">
+                            <i class="fa fa-align-left"></i>&nbsp;
+                        </span>
+                    <span matPrefix *ngIf="type.value === 'date'">
+                            <i class="fa fa-calendar"></i>&nbsp;
+                        </span>
+                    </span>
+                    <mat-form-field>
+                        <mat-select placeholder="Tipo" #type formControlName="type" required>
+                            <mat-option value="OBJECTIVE">
+                                <span matPrefix> <i class="fa fa-check-circle"></i>&nbsp;</span> Múltipla Escolha
+                            </mat-option>
+                            <mat-option value="OBJECTIVE2">
+                                <span matPrefix> <i class="fa fa-check-square"></i>&nbsp;</span> Caixa de Seleção
+                            </mat-option>
+                            <mat-option value="DISSERTATIVE">
+                                <span matPrefix> <i class="fa fa-align-left"></i>&nbsp;</span> Parágrafo
+                            </mat-option>
+                            <mat-option value="DATE">
+                                <span matPrefix> <i class="fa fa-calendar"></i>&nbsp;</span> Data
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-6">
+                    <mat-form-field>
+                        <mat-select placeholder="Tipo de valor" formControlName="value_type" required>
+                            <mat-option value="text">Texto</mat-option>
+                            <mat-option value="date">Data</mat-option>
+                            <mat-option value="number">Número</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="form.questions[i].type === 'OBJECTIVE' || form.questions[i].type === 'OBJECTIVE2' || type.value === 'OBJECTIVE' || type.value === 'OBJECTIVE2'">
+                <div class="col-xs-12">
+                    <div class="panel-body">
+                        <!-- <app-form-alternative [form]="form" [parentAlternative]="question"></app-form-alternative> -->
+                        <div>
+                            <div *ngFor="let alternative of question.controls.alternatives.controls; let a=index" class="panel panel-default">
+                                <div class="panel-heading">
+                                    <span>
+                                            Opção {{a + 1}}
+                                        </span>
+                                    <span class="glyphicon glyphicon-remove pull-right" *ngIf="question.controls.alternatives.controls.length > 1" (click)="removeAlternative(question, i, a)">
+                                        </span>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-6">
+                                        <mat-form-field>
+                                            <span matPrefix *ngIf="type === 'radio'"> 
+                                                    <i class = "material-icons"> radio_button_unchecked </i>&nbsp;
+                                                </span>
+                                            <span matPrefix *ngIf="type === 'multiple'"> 
+                                                    <i class = "material-icons"> check_box_outline_blank </i>&nbsp;
+                                                </span>
+                                            <input matInput placeholder="Descrição da opção" [formControl]="alternative.controls.description">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-6">
+                                        <mat-form-field>
+                                            <mat-select placeholder="Tipo de valor" [formControl]="alternative.controls.value_type">
+                                                <mat-option value="text">Texto</mat-option>
+                                                <mat-option value="date">Data</mat-option>
+                                                <mat-option value="number">Número</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="margin-20">
+                                <a (click)="addAlternative(question, i)" style="cursor: default">
+                                    <span matPrefix *ngIf="type.value === 'radio'"> 
+                                                <i class = "material-icons"> radio_button_unchecked </i>&nbsp;
+                                            </span>
+                                    <span matPrefix *ngIf="type.value === 'multiple'">
+                                            <i class = "material-icons"> check_box_outline_blank </i>&nbsp;
+                                        </span> Adicionar Opção +
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" *ngIf="type.value === 'text'">
+                <div class="col-xs-12">
+                    <div class="description-question"> Pergunta com resposta do tipo parágrafo
+                        <i class="fa fa-align-left"></i>&nbsp;
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="type.value === 'date'">
+                <div class="col-xs-12">
+                    <div class="description-question"> Pergunta com resposta do tipo Data: dia, mês, ano
+                        <i class="fa fa-calendar"></i>&nbsp;
+                    </div>
+                </div>
+            </div>
+            <div class="text-right">
+                <mat-slide-toggle formControlName="required" class="example-margin" [checked]="required" [disabled]="required">
+                    Obrigatório
+                </mat-slide-toggle>
+            </div>
+            <div class="panel-footer question-footer">
+                <span *ngIf="questions.controls.length > 1" (click)="removeQuestion(i)">
+                    <i class="fa fa-trash"></i>
+                </span>
             </div>
         </div>
         <div class="margin-20">
-            <a (click)="addAlternative()" style="cursor: default">
-                <span matPrefix *ngIf="type.value === 'radio'"> 
-                    <i class = "material-icons"> radio_button_unchecked </i>&nbsp;
-                </span>
-                <span matPrefix *ngIf="type.value === 'multiple'">
-                    <i class = "material-icons"> check_box_outline_blank </i>&nbsp;
-                </span> 
-                Adicionar Opção +
+            <a (click)="addQuestion()" style="cursor: default">
+                <i class="fa fa-plus-circle"></i>&nbsp;Adicionar Pergunta
             </a>
-        </div>    
-    </div>
-
-    <div class="form-group" *ngIf="type.value === 'text'">
-        <div class="col-xs-12">
-            <div class="description-question"> Pergunta com resposta do tipo parágrafo
-            <i class="fa fa-align-left"></i>&nbsp;
-            </div>
-        </div>        
-    </div>
-    <div class="form-group" *ngIf="type.value === 'date'">
-        <div class="col-xs-12">
-            <div class="description-question"> Pergunta com resposta do tipo Data: dia, mês, ano 
-            <i class="fa fa-calendar"></i>&nbsp;
-            </div>
-        </div>        
-    </div>
-    <div class="text-right">
-        <mat-slide-toggle 
-            formControlName="mandatory"
-            class="example-margin"
-            [checked]="mandatory"
-            [disabled]="mandatory">
-            Obrigatório
-        </mat-slide-toggle>
+        </div>
     </div>
 </div>

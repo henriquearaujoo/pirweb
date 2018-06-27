@@ -8,6 +8,7 @@
     border-color: #dfe8ed;
     font-weight: bold;
 }
+
 .panel {
     border: 0;
 }
@@ -16,4 +17,12 @@
     border-bottom: 1px dotted gray;
     font-style: italic;
     font-size: 12px;
+}
+
+i.fa.fa-trash {
+    font-size: 22px;
+}
+
+.panel-footer.question-footer {
+    text-align: right;
 }

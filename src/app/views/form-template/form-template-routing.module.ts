@@ -25,13 +25,13 @@ const routes: Routes = [
   },
   {
     path: 'construtor',
-    component: FormBuilderListComponent
-      // canActivate: [PageGuard]
+    component: FormBuilderListComponent,
+      canActivate: [PageGuard]
   },
   {
     path: 'construtor/registro',
-    component: FormBuilderComponent
-      // canActivate: [PageGuard]
+    component: FormBuilderComponent,
+      canActivate: [PageGuard]
   },
 ];
 

@@ -51,7 +51,7 @@ import { FormBuilderService } from '../../services/form/formBuilder.service';
     FormTemplateListComponent,
     FormTemplateComponent,
     FormTemplateDetailsComponent
-  ],
-  providers: [FormBuilderService]
+  ]
+  // providers: [FormBuilderService]
 })
 export class FormTemplateModule { }

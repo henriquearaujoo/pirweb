@@ -3,8 +3,8 @@ export const Constant = {
     BASE_URL : localStorage.getItem('server') ?
                localStorage.getItem('server') :
 
-                'http://localhost:3000/',
-            //    'http://10.10.2.181:8080/pir/rest/',
+                // 'http://localhost:3000/',
+                'http://10.10.2.181:8080/pir/rest/',
 
             //    'http://samsung.institutoitn.com.br/pir-dev/rest/',
             // 'http://10.10.3.148:8080/pir/rest/',

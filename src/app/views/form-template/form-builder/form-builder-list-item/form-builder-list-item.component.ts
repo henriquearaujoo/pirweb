@@ -20,4 +20,5 @@ export class FormBuilderListItemComponent implements OnInit {
      localStorage.setItem('formBuilderId', this.form.id );
     this.router.navigate(['/formularios/construtor/registro']);
   }
+
 }

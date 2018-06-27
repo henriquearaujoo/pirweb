@@ -4,17 +4,17 @@
         <span class="card-title activator grey-text text-darken-4">
                   <!-- <i [ngClass]="currentVersion.status === true ? 'fa fa-circle active_circle': 'fa fa-circle inactive_circle' "  aria-hidden="true"></i>
                   <i class="medium material-icons right">arrow_drop_down</i>-->
-        </span> 
+        </span>
         <div class="row">
             <div class="col-sm-12">
-                <h5> {{ form.title }}</h5>
+                <h5> {{ form.description }}</h5>
             </div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-sm-12">
                 <h5> Versão </h5>
             </div>
-        </div>
+        </div> -->
         <!-- <div class="row">
             <div class="col-sm-12">
                 <h5>
@@ -36,19 +36,19 @@
         <button class="btn edit" (click)="editForm()">
             <i class="fa fa-pencil"  aria-hidden="true"> </i> Editar
         </button>
-        <button class="btn status">
+        <!-- <button class="btn status">
             <i [ngClass]="true ? 'fa fa-ban': 'fa fa-check' " aria-hidden="true"></i>                    
             {{ true ? 'Desativar': 'Ativar'}} 
-        </button>
+        </button> -->
     </div>
     <div class="card-reveal">
         <span class="card-title grey-text text-darken-4">
                     <!-- <i [ngClass]="currentVersion.status === true ? 'fa fa-circle active_circle': 'fa fa-circle inactive_circle' " style="margin-top: 15px;"  aria-hidden="true"></i> -->
                     <i class="medium material-icons right">arrow_drop_up</i></span>
-        <div class="version">
+        <!-- <div class="version">
             <ul class="list-version">
-                <li class="version-header">Form versao x</li>
-                <!-- <li *ngFor="let item of chapter.versions" class="li-version">
+                <li class="version-header">Form versao x</li> -->
+        <!-- <li *ngFor="let item of chapter.versions" class="li-version">
                     <span class="version-title">Versão {{ item.version }}</span>
                     <a [title]="Editar" (click)=editChapter(item) *ngIf="canUpdate">
                         <i class="fa fa-pencil edit-version" aria-hidden="true"></i>
@@ -58,10 +58,10 @@
                         </i>
                     </a>
                 </li> -->
-                <li *ngIf="canCreate"> <span class="version-add"> Adicionar </span>
-                    <a > <i class="fa fa-plus" aria-hidden="true"></i> </a>
+        <!-- <li *ngIf="canCreate"> <span class="version-add"> Adicionar </span>
+                    <a> <i class="fa fa-plus" aria-hidden="true"></i> </a>
                 </li>
             </ul>
-        </div>
+        </div> -->
     </div>
 </div>

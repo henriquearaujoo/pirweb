@@ -1,296 +1,272 @@
 {
-  "profiles": [
-    {
-      "title": "Administrador",
-      "id": 1
-    },
-    {
-      "title": "Agente",
-      "id": 2
-    },
-    {
-      "title": "Terceiro",
-      "id": 3
-    },
-    {
-      "title": "admin",
-      "id": 4
-    },
-    {
-      "title": "dfsf",
-      "id": 5
-    },
-    {
-      "title": "fggdf",
-      "id": 6
-    },
-    {
-      "title": "sdsfdfs",
-      "id": 7
-    },
-    {
-      "title": "dsddfds",
-      "id": 8
-    }
-  ],
-  "rules": [
-    {
-      "id": 1,
-      "page_id": 1,
-      "read": false,
-      "create": false,
-      "delete": false,
-      "update": true
-    },
-    {
-      "id": 2,
-      "page_id": 2,
-      "read": false,
-      "create": false,
-      "delete": false,
-      "update": true
-    },
-    {
-      "id": 3,
-      "page_id": 3,
-      "read": true,
-      "create": false,
-      "delete": false,
-      "update": true
-    },
-    {
-      "id": 4,
-      "page_id": 4,
-      "read": true,
-      "create": false,
-      "delete": false,
-      "update": true
-    }
-  ],
-  "pages": [
-    {
-      "id": 1,
-      "route": "user-list"
-    },
-    {
-      "id": 2,
-      "name": "profile-list"
-    },
-    {
-      "id": 3,
-      "name": "template-chapter"
-    },
-    {
-      "id": 4,
-      "name": "user"
-    }
-  ],
-  "users": [
-    {
-      "pfis": {
-        "cpf": "85584258253",
-        "rg": "433434",
-        "emitter": "sp"
-      },
-      "address": {
-        "state": "1",
-        "city": "1",
-        "postalcode": "43443",
-        "neighborhood": "sesds",
-        "street": "edeee",
-        "number": "2"
-      },
-      "login": "admin",
-      "password": "adm343434434",
-      "profile": "1",
-      "type": "PFIS",
-      "name": "Fabrícia Moreira Galibi",
-      "email": "fabriciasimoes@gmail.com",
-      "status": "true",
-      "id": 1
-    },
-    {
-      "pfis": {
-        "cpf": "85584258253",
-        "rg": "dedede",
-        "emitter": "sss"
-      },
-      "address": {
-        "postalcode": "33333",
-        "state": "1",
-        "city": "1",
-        "neighborhood": "sssss",
-        "street": "sede",
-        "number": "2"
-      },
-      "login": "admin",
-      "password": "admedffrefreferef",
-      "profile": "1",
-      "type": "PFIS",
-      "name": "Deuza Maria Alves de Lima",
-      "email": "fabriciasimoes@gmail.com",
-      "status": "true",
-      "id": 2
-    },
-    {
-      "pfis": {
-        "cpf": "767676",
-        "rg": "7676",
-        "emitter": "hb"
-      },
-      "address": {
-        "postalcode": "69078460",
-        "state": "1",
-        "city": "1",
-        "neighborhood": "mm",
-        "street": "km",
-        "number": "m"
-      },
-      "login": "admin",
-      "password": "sddddddddddefe",
-      "profile": "2",
-      "type": "PFIS",
-      "name": "m",
-      "email": "kknkm@GMAIL.COM",
-      "status": "true",
-      "id": 3
-    }
-  ],
-  "states": [
-    {
-      "id": 1,
-      "name": "Amazonas"
-    }
-  ],
-  "cities": [
-    {
-      "id": 1,
-      "name": "Manaus",
-      "state_id": 1
-    }
-  ],
-  "authenticate": [
-    {
-      "username": "admin",
-      "password": "adm"
-    }
-  ],
-  "chapters": [
-    {
-   "id": 1,
-    "number": 1,
-    "title": "Cap01",
-    "description": "test test",
-    "content": " test content",
-    "task": "aaaa",
-    "family_tasks": "bbbb",
-    "estimated_time": 18000,
-    "time_next_visit": 1800,
-    "status": true,
-    "percentage": 25
-    },
-    {
-      "id": 2,
-       "number": 1,
-       "title": "Cap01",
-       "description": "test version test",
-       "content": " test content",
-       "task": "aaaa",
-       "family_tasks": "bbbb",
-       "estimated_time": 18000,
-       "time_next_visit": 1800,
-       "status": false,
-       "percentage": 100
-       },
-       {
-        "id": 2,
-         "number": 2,
-         "title": "Cap02",
-         "description": "test test",
-         "content": " test content",
-         "task": "aaaa",
-         "family_tasks": "bbbb",
-         "estimated_time": 18000,
-         "time_next_visit": 1800,
-         "status": false,
-         "percentage": 45
-         }
-  ],
+    "profiles": [{
+            "title": "Administrador",
+            "id": 1
+        },
+        {
+            "title": "Agente",
+            "id": 2
+        },
+        {
+            "title": "Terceiro",
+            "id": 3
+        },
+        {
+            "title": "admin",
+            "id": 4
+        },
+        {
+            "title": "dfsf",
+            "id": 5
+        },
+        {
+            "title": "fggdf",
+            "id": 6
+        },
+        {
+            "title": "sdsfdfs",
+            "id": 7
+        },
+        {
+            "title": "dsddfds",
+            "id": 8
+        }
+    ],
+    "rules": [{
+            "id": 1,
+            "page_id": 1,
+            "read": false,
+            "create": false,
+            "delete": false,
+            "update": true
+        },
+        {
+            "id": 2,
+            "page_id": 2,
+            "read": false,
+            "create": false,
+            "delete": false,
+            "update": true
+        },
+        {
+            "id": 3,
+            "page_id": 3,
+            "read": true,
+            "create": false,
+            "delete": false,
+            "update": true
+        },
+        {
+            "id": 4,
+            "page_id": 4,
+            "read": true,
+            "create": false,
+            "delete": false,
+            "update": true
+        }
+    ],
+    "pages": [{
+            "id": 1,
+            "route": "user-list"
+        },
+        {
+            "id": 2,
+            "name": "profile-list"
+        },
+        {
+            "id": 3,
+            "name": "template-chapter"
+        },
+        {
+            "id": 4,
+            "name": "user"
+        }
+    ],
+    "users": [{
+            "pfis": {
+                "cpf": "85584258253",
+                "rg": "433434",
+                "emitter": "sp"
+            },
+            "address": {
+                "state": "1",
+                "city": "1",
+                "postalcode": "43443",
+                "neighborhood": "sesds",
+                "street": "edeee",
+                "number": "2"
+            },
+            "login": "admin",
+            "password": "adm343434434",
+            "profile": "1",
+            "type": "PFIS",
+            "name": "Fabrícia Moreira Galibi",
+            "email": "fabriciasimoes@gmail.com",
+            "status": "true",
+            "id": 1
+        },
+        {
+            "pfis": {
+                "cpf": "85584258253",
+                "rg": "dedede",
+                "emitter": "sss"
+            },
+            "address": {
+                "postalcode": "33333",
+                "state": "1",
+                "city": "1",
+                "neighborhood": "sssss",
+                "street": "sede",
+                "number": "2"
+            },
+            "login": "admin",
+            "password": "admedffrefreferef",
+            "profile": "1",
+            "type": "PFIS",
+            "name": "Deuza Maria Alves de Lima",
+            "email": "fabriciasimoes@gmail.com",
+            "status": "true",
+            "id": 2
+        },
+        {
+            "pfis": {
+                "cpf": "767676",
+                "rg": "7676",
+                "emitter": "hb"
+            },
+            "address": {
+                "postalcode": "69078460",
+                "state": "1",
+                "city": "1",
+                "neighborhood": "mm",
+                "street": "km",
+                "number": "m"
+            },
+            "login": "admin",
+            "password": "sddddddddddefe",
+            "profile": "2",
+            "type": "PFIS",
+            "name": "m",
+            "email": "kknkm@GMAIL.COM",
+            "status": "true",
+            "id": 3
+        }
+    ],
+    "states": [{
+        "id": 1,
+        "name": "Amazonas"
+    }],
+    "cities": [{
+        "id": 1,
+        "name": "Manaus",
+        "state_id": 1
+    }],
+    "authenticate": [{
+        "username": "admin",
+        "password": "adm"
+    }],
+    "chapters": [{
+            "id": 1,
+            "number": 1,
+            "title": "Cap01",
+            "description": "test test",
+            "content": " test content",
+            "task": "aaaa",
+            "family_tasks": "bbbb",
+            "estimated_time": 18000,
+            "time_next_visit": 1800,
+            "status": true,
+            "percentage": 25
+        },
+        {
+            "id": 2,
+            "number": 1,
+            "title": "Cap01",
+            "description": "test version test",
+            "content": " test content",
+            "task": "aaaa",
+            "family_tasks": "bbbb",
+            "estimated_time": 18000,
+            "time_next_visit": 1800,
+            "status": false,
+            "percentage": 100
+        },
+        {
+            "id": 2,
+            "number": 2,
+            "title": "Cap02",
+            "description": "test test",
+            "content": " test content",
+            "task": "aaaa",
+            "family_tasks": "bbbb",
+            "estimated_time": 18000,
+            "time_next_visit": 1800,
+            "status": false,
+            "percentage": 45
+        }
+    ],
 
-  "pregnant": [
-    {
-   "id": 1,
-    "name": "Maria Silva",
-    "community_id": "Comunidade 01",
-    "regional": "Regional 01",
-    "status": true
-    },
-    {
-   "id": 2,
-    "name": "Joana Souza",
-    "community_id": "comunidade 02",    
-    "regional": "Regional 02",
-    "status": false
-    }
-  ],
-  "responsible": [
-    {
-     "id": 1,
-      "nameResponsible": "Rodrigo Pereira",
-      "community_id": "comunidade 01",    
-      "nameChild": "criança 02",
-      "status": true
-    },
-    {
-    "id": 2,
-      "nameResponsible": "José Souza",
-      "community_id": "comunidade 02",    
-      "nameChild": "criança 01",
-      "status": false
-    }
-  ],
-  "forms": [
-    {
-     "id": 1,
-      "title": "titulo 01",
-      "description": "descricao 01",    
-      "questions": [
+    "pregnant": [{
+            "id": 1,
+            "name": "Maria Silva",
+            "community_id": "Comunidade 01",
+            "regional": "Regional 01",
+            "status": true
+        },
         {
-          "id": 1,
-          "description": "descricao da questao 01",
-          "type": "radio",
-          "value_type": "text",
-          "mandatory": true,
-          "alternatives": [
-            {
-              "id": 1,
-              "description": "descricao alternativa",
-              "type_value": "text"
-            }
-          ]
+            "id": 2,
+            "name": "Joana Souza",
+            "community_id": "comunidade 02",
+            "regional": "Regional 02",
+            "status": false
         }
-      ]
-    },
-    {
-     "id": 2,
-      "title": "titulo 02 form02",
-      "description": "descricao 02",    
-      "questions": [
+    ],
+    "responsible": [{
+            "id": 1,
+            "nameResponsible": "Rodrigo Pereira",
+            "community_id": "comunidade 01",
+            "nameChild": "criança 02",
+            "status": true
+        },
         {
-          "id": 2,
-          "description": "descricao da questao 01",
-          "type": "radio",
-          "type_value": "text",
-          "mandatory": false,
-          "alternatives": [
-            {
-              "id": 2,
-              "description": "descricao alternativa",
-              "type_value": "text"
-            }
-          ]
+            "id": 2,
+            "nameResponsible": "José Souza",
+            "community_id": "comunidade 02",
+            "nameChild": "criança 01",
+            "status": false
         }
-      ]
-    }
-  ]
+    ],
+    "survey": [{
+            "id": 1,
+            "description": "descricao 01",
+            "questions": [{
+                "id": 1,
+                "description": "descricao da questao 01",
+                "type": "radio",
+                "value_type": "text",
+                "required": true,
+                "alternatives": [{
+                    "id": 1,
+                    "description": "descricao alternativa form01",
+                    "value_type": "text"
+                }]
+            }]
+        },
+        {
+            "id": 2,
+            "description": "descricao 02",
+            "questions": [{
+                "id": 2,
+                "description": "descricao da questao 01",
+                "type": "radio",
+                "value_type": "text",
+                "required": false,
+                "alternatives": [{
+                    "id": 2,
+                    "description": "descricao alternativa do form02",
+                    "value_type": "text"
+                }]
+            }]
+        }
+    ]
 }

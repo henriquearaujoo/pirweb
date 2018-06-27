@@ -1,4 +1,5 @@
 export class AlternativeFormBuilder {
-    public description: string;
-    public value_type:	string;
+    public id: string = undefined;
+    public description: string = undefined;
+    public value_type:	string = undefined;
 }

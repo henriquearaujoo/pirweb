@@ -203,9 +203,9 @@ export const MENU = [
     {
         'id': 19,
         'title': 'CONSTRUTOR',
-        'route': 'construtor',
-        'routes': ['/construtor'],
-        'read': true,
+        'route': 'formularios/construtor',
+        'routes': ['/formularios/construtor'],
+        'read': false,
         'iClass': 'fa fa-circle-o',
         'category': 'child',
         'hasChild': false,
