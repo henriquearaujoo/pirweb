@@ -106,3 +106,11 @@ input#files {
 .btn.btn-default.btn-sm.btn-file {
     width: 100%;
 }
+
+.sending-file {
+    position: relative;
+    left: 4%;
+    padding: 5px;
+    color: #23547e;
+    font-weight: bold;
+}

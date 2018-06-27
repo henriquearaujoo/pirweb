@@ -1,5 +1,7 @@
 <simple-notifications></simple-notifications>
 
+<!-- onDragStart="return false;" ondragenter="return 
+false;" ondragover="return false;" ondrop="return false;" -->
 <div class="content">
     <section class="content">
         <form name="form_intervention" #fIntervention="ngForm" novalidate>
@@ -7,16 +9,16 @@
                 <div class="col">
                     <div class="box box-primary">
                         <div class="box-body">
-                          <div class="row">
-                            <div class="col">
-                                <app-upload-multimedia [isNewData]="isNewData" [(fileData)]="media" (uploaded)="uploadMedia($event)" disabled></app-upload-multimedia>                                  
+                            <div class="row">
+                                <div class="col">
+                                    <app-upload-multimedia [isNewData]="isNewData" [(fileData)]="media" (uploaded)="uploadMedia($event)" disabled></app-upload-multimedia>
+                                </div>
                             </div>
-                          </div>
-                          <div class="row">
-                            <div class="col">
-                                <app-multimedia-gallery #gallery [datasource]="multimedias" (remove)="removeMultimedia($event)" *ngIf="hasData"></app-multimedia-gallery>
+                            <div class="row">
+                                <div class="col">
+                                    <app-multimedia-gallery #gallery [datasource]="multimedias" (remove)="removeMultimedia($event)" *ngIf="hasData"></app-multimedia-gallery>
+                                </div>
                             </div>
-                          </div>
                         </div>
                     </div>
                 </div>
@@ -24,7 +26,9 @@
             <div class="row footer">
                 <div class="col-md-2">
                     <div>
-                        <button type="button" class="btn btn-default btn-block" (click)="onCancel()" id="btn_return"> Cancelar</button>
+                        <button type="button" class="btn btn-default btn-block" (click)="onCancel()" id="btn_return">
+                            <span *ngIf="isNewData">Cancelar</span>   <span *ngIf="!isNewData">Voltar</span> 
+                        </button>
                     </div>
                 </div>
                 <!-- <div class="col-md-2 col-md-offset-8">
@@ -37,16 +41,15 @@
     </section>
 </div>
 
-<button  style="display:none"class="btn btn-default" data-toggle="modal" data-target="#myModal" 
-    id="openModalRemove"> Remover</button>
+<button style="display:none" class="btn btn-default" data-toggle="modal" data-target="#myModal" id="openModalRemove"> Remover</button>
 
 <!-- Modal Remove -->
 <div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">  
-        <div class="modal-content"  [ngStyle]="object">
+    <div class="modal-dialog">
+        <div class="modal-content" [ngStyle]="object">
             <div class="modal-body">
                 <div class="modal-icon">
-                        <img class="icon" src="./assets/img/global/ic_action.png">
+                    <img class="icon" src="./assets/img/global/ic_action.png">
                 </div>
                 <h5 *ngIf="item_remove"> Deseja realmente <strong>EXCLUIR <span style="color: #a94442;"> {{ item_remove.name }} </span> </strong> ?</h5>
             </div>
@@ -61,4 +64,3 @@
         </div>
     </div>
 </div>
-    

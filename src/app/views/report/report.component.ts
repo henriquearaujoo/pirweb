@@ -1,3 +1,10 @@
+import { LoaderService } from './../../services/loader/loader.service';
+import { ReportModel } from './../../export/report-model';
+import { ExportFactory } from './../../export/report-export';
+import { XlsImage } from './../../export/xls-image';
+import { XlsExport } from './../../export/xls-export';
+import { VariableType } from './../../enums/variable_type';
+import { Constant } from './../../constant/constant';
 import { Permissions, RuleState } from './../../helpers/permissions';
 import { PagenateComponent } from './../../components/pagenate/pagenate.component';
 import { PageService } from './../../services/pagenate/page.service';
@@ -12,6 +19,8 @@ import { Component, OnInit, ViewChild, Output } from '@angular/core';
 import { ReportChartComponent } from './report-chart/report-chart.component';
 import { ReportTableComponent } from './report-table/report-table.component';
 import { forEach } from '@angular/router/src/utils/collection';
+import { DatePipe } from '@angular/common';
+// import { DatePipe } from '@angular/common';
 
 declare const $: any;
 
@@ -21,7 +30,10 @@ declare const $: any;
   styleUrls: ['./report.component.css']
 })
 
-export class ReportComponent  extends PagenateComponent implements OnInit {
+export class ReportComponent implements OnInit {
+
+  private datasource: Array<ReportModel>;
+
   private loading = false;
   private general: any = {};
   private hasdata: boolean;
@@ -60,12 +72,13 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
 
   private startNode: string;
 
-  constructor(private report: BigraphService, private pagerService: PageService, private permissions: Permissions) {
-    super(pagerService);
+  constructor(
+    private report: BigraphService, private permissions: Permissions, private loaderService: LoaderService) {
     this.hasdata = false;
   }
 
   ngOnInit() {
+
     this.permissions.canActivate(['/relatorios']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
@@ -122,6 +135,8 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
         console.log(e);
       }
     );
+
+    this.loaderService.hide();
   }
 
   private createPath(node: Node, event) {
@@ -265,11 +280,14 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
       ele.forEach(node => {
         const index = newGraph.findIndex(o => o.entity === node.entity);
         if (index === -1) {
+
           const idxFilters = this.filterList.findIndex(o => o.entity === node.entity);
+          const idx = this.groupedList.findIndex(o => o.entity === node.entity);
+
           if (idxFilters === -1) {
-            newGraph.push({entity: node.entity, joins: new Array(), leafs: new Array()});
+            newGraph.push({entity: node.entity, joins: new Array(), isLeaf: idx > 0});
           }else {
-            newGraph.push({entity: node.entity, joins: new Array(), leafs: new Array()});
+            newGraph.push({entity: node.entity, joins: new Array(), isLeaf: idx > 0});
           }
         }
       });
@@ -289,15 +307,10 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
     // start from root
     const json = new Array();
     if (newGraph.length > 0) {
-      const leafs = new Array();
-      for (let i = 1; i < this.groupedList.length; i++) {
-        leafs.push(this.groupedList[i].entity);
-      }
-      newGraph[0].leafs = leafs;
       json.push(newGraph[0]);
     }else {
       if (this.allPath.length > 0) {
-        json.push({entity: this.allPath[0][0].entity, joins: new Array(), leafs: new Array()});
+        json.push({entity: this.allPath[0][0].entity, joins: new Array(), isLeaf: true});
       }
     }
 
@@ -316,35 +329,59 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
   }
 
   private gettingData(d: any) {
+
     const data = d;
     this.headerList = new Array();
     this.headerShower = new Array();
+
+    const varType = new VariableType();
+
     data.forEach(col => {
-      this.headerShower.push(true);
-      this.headerList.push(col.property);
+      const type = varType.getValue(col.type);
+      if (type !== 15) {
+        this.headerList.push({alias: col.property, type: col.type});
+        this.headerShower.push(true);
+      }
     });
+
     const table = new Array();
+    const datePipe = new DatePipe('pt-BR');
     for (let j = 0; j < data[0].values.length; j++) {
+
       const row = new Array();
+
       for (let k = 0; k < data.length; k++) {
-        const element = data[k].values[j];
-        row.push(element);
+        const type = varType.getValue(data[k].type);
+        if (type !== 15) {
+          const element = Constant.PROP_VALUE[data[k].values[j]];
+          if (element === undefined) {
+            if (type === 3) {
+              const dt = new Date(data[k].values[j]);
+              try {
+                row.push(datePipe.transform(dt, 'dd/MM/yyyy'));
+              } catch (error) {
+                row.push(data[k].values[j]);
+              }
+            }else {
+              row.push(data[k].values[j]);
+            }
+          }else {
+            row.push(element);
+          }
+        }
       }
       table.push(row);
     }
-    this.allItems = table;
-      if (this.allItems.length > 0) {
-        this.hasdata = true;
-        this.setPage(1);
-      }
+    this.tableData = table;
     this.currentTable = this.groupedList[0].alias;
+    this.table.loadData(this.currentTable, this.headerList, this.headerShower, table);
     (<HTMLButtonElement> document.getElementById('closeModal')).click();
   }
 
   private collectData(data) {
     this.chart.showChart(data['maps'], this.groupedList);
     (<HTMLButtonElement> document.getElementById('closeModal')).click();
-    // this.gettingData(data['table']);
+    this.gettingData(data['table']);
   }
 
   private selectAll(event, type) {
@@ -359,6 +396,22 @@ export class ReportComponent  extends PagenateComponent implements OnInit {
           this.selectAllOrder = true;
         }
       break;
+    }
+  }
+
+  // ============================= EXPORT ==============================
+  export_excel(canvas) {
+    try {
+      const xls = XlsExport.createWorkbook();
+      const header = new Array();
+      this.headerList.forEach( u => {
+        header.push(u.alias);
+      });
+      XlsExport.addWorksheet(xls, this.currentTable, ExportFactory.main(header, this.tableData),
+      XlsImage.fromCanvas(canvas, 0, 10));
+      ExportFactory.exportAndSave(xls);
+    } catch (err) {
+      console.log(err);
     }
   }
 }

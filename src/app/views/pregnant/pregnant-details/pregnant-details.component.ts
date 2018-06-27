@@ -1,3 +1,4 @@
+import { LoaderService } from './../../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../../helpers/permissions';
 import { CommunityService } from './../../../services/community/community.service';
 import { Pregnant } from './../../../models/pregnant';
@@ -25,6 +26,7 @@ export class PregnantDetailsComponent implements OnInit {
   constructor(
     private responsibleService: ResponsibleService,
     private communityService: CommunityService,
+    private loaderService: LoaderService,
     private permissions: Permissions
   ) {
     this.canCreate = false;
@@ -53,14 +55,19 @@ export class PregnantDetailsComponent implements OnInit {
   }
 
   load() {
+    this.loaderService.show();
     this.responsibleService.load(this.urlId).subscribe(
       success => {
         this.responsible = success;
+        this.loaderService.hide();
         if (this.responsible.mother === undefined) {
           this.responsible.mother = new Pregnant();
         }
       },
-      error => console.log(error)
+      error => {
+        this.loaderService.hide();
+        console.log(error);
+      }
     );
   }
 

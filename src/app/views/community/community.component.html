@@ -41,8 +41,8 @@
 
                                                         <div class="form-group" [ngClass]="applyCssError(f1, uc)">
                                                             <label class="control-label">UC</label>
-                                                            <input class="form-control" #uc="ngModel" [(ngModel)]="community.uc" name="community_uc" id="community_uc" placeholder="UC" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, uc)" msgError="Digite um UC">
+                                                            <input class="form-control" #uc="ngModel" [(ngModel)]="community.uc" name="community_uc" id="community_uc" pattern="[\w,./_=?-].*" maxlength="60" placeholder="UC" required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, uc)" [field]="uc" msgError="Digite um UC">
                                                             </app-control-field-error>
                                                         </div>
 
@@ -50,8 +50,8 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group profile" [ngClass]="applyCssError(f1, regional)">
                                                             <label class="control-label">Regional</label>
-                                                            <input class="form-control" #regional="ngModel" [(ngModel)]="community.regional" name="community_regional" id="community_regional" placeholder="Regional" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, regional)" msgError="Selecione um regional">
+                                                            <input class="form-control" #regional="ngModel" [(ngModel)]="community.regional" name="community_regional" pattern="[\w,./_=?-].*" id="community_regional" maxlength="60" placeholder="Regional" required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, regional)" [field]="regional" msgError="Selecione um regional">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
@@ -61,8 +61,8 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group" [ngClass]="applyCssError(f1, name)">
                                                             <label class="control-label">Nome da comunidade</label>
-                                                            <input type="text" #name="ngModel" [(ngModel)]="community.name" name="name" id="name" class="form-control" placeholder="Nome completo da comunidade" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, name)" msgError="Digite um nome completo da comunidade">
+                                                            <input type="text" #name="ngModel" [(ngModel)]="community.name" name="name" id="name" pattern="[\w,./_=?-].*" maxlength="60" class="form-control" placeholder="Nome completo da comunidade" required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, name)" [field]="name" msgError="Digite um nome completo da comunidade">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
@@ -70,8 +70,8 @@
                                                         <div class="form-group profile" [ngClass]="applyCssError(f1, country)">
                                                             <label class="control-label">Município</label>
                                                             <select class="form-control" #country="ngModel" name="community_country" id="community_country" [(ngModel)]="community.city.id" required>
-                                    <option [ngValue]="item.id" *ngFor="let item of cities"> {{ item.name }} </option>
-                                  </select>
+                                                                <option [ngValue]="item.id" *ngFor="let item of cities"> {{ item.name }} </option>
+                                                            </select>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f1, country)" msgError="Selecione um município">
                                                             </app-control-field-error>
                                                         </div>
@@ -84,13 +84,13 @@
                                                         <div class="form-group" [ngClass]="applyCssError(f1, zone)">
                                                             <label class="control-label">Zona de Localização</label> <br/>
                                                             <label class="radio-inline">                          
-                                    <input type="radio" #zone="ngModel" name="location_zone" [(ngModel)]="community.zone" id="zone" value="URBAN" required>
-                                    Urbana
-                                  </label>
+                                                                <input type="radio" #zone="ngModel" name="location_zone" [(ngModel)]="community.zone" id="zone" value="URBAN" required>
+                                                                Urbana
+                                                            </label>
                                                             <label class="radio-inline"> 
-                                    <input type="radio" #zone="ngModel" name="location_zone" [(ngModel)]="community.zone" id="zone" value="RURAL" required>
-                                    Rural
-                                  </label>
+                                                                <input type="radio" #zone="ngModel" name="location_zone" [(ngModel)]="community.zone" id="zone" value="RURAL" required>
+                                                                Rural
+                                                            </label>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f1, zone)" msgError="Escolha uma das alternativas">
                                                             </app-control-field-error>
                                                         </div>
@@ -203,11 +203,11 @@
                                                 <button type="submit" id="btn_tab1"></button>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <!-- <div class="col-md-3">
                                             <div class="form-group">
                                                 <button type="button" class="btn btn-default btn-block" (click)="openModal()" id="btn_return1"> Cancelar</button>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </form>
                                 </div>
                             </div>
@@ -225,15 +225,15 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <form name="form" (ngSubmit)="saveData(f2.valid) && save(3, f2.valid)" #f2="ngForm" novalidate>
+                                    <form name="form" (ngSubmit)="saveData(f1.valid, f2.valid) && save(3, f2.valid)" #f2="ngForm" novalidate>
                                         <div class="box box-primary">
                                             <div class="box-body">
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="form-group left" [ngClass]="applyCssError(f2, healthService)">
                                                             <label class="control-label">Serviços de saúde na comunidade</label>
-                                                            <input type="text" #healthService="ngModel" name="health_service" [(ngModel)]="community.health_service" id="health_service" class="form-control" placeholder="serviços de saúde existentes na comunidade" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, healthService)" msgError="Digite os serviços de saúde existentes na comunidade">
+                                                            <input type="text" #healthService="ngModel" name="health_service" pattern="[\w,./_=?-].*" maxlength="60" [(ngModel)]="community.health_service" id="health_service" class="form-control" placeholder="serviços de saúde existentes na comunidade" required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, healthService)" [field]="healthService" msgError="Digite os serviços de saúde existentes na comunidade">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
@@ -243,13 +243,13 @@
                                                         <div class="form-group" [ngClass]="applyCssError(f2, hasKindergarten)">
                                                             <label class="control-label">Escolas de Ensino Infantil</label> <br/>
                                                             <label class="radio-inline">                          
-                                    <input type="radio" #hasKindergarten="ngModel" name="hasKindergarten" [(ngModel)]="community.has_kindergarten" id="hasKindergarten" [value]="true" required>
-                                    Sim
-                                  </label>
+                                                                <input type="radio" #hasKindergarten="ngModel" name="hasKindergarten" [(ngModel)]="community.has_kindergarten" id="hasKindergarten" [value]="true" required>
+                                                                Sim
+                                                            </label>
                                                             <label class="radio-inline"> 
-                                    <input type="radio" #hasKindergarten="ngModel" name="hasKindergarten" [(ngModel)]="community.has_kindergarten" id="hasKindergarten" [value]="false" required>
-                                    Não
-                                  </label>
+                                                                <input type="radio" #hasKindergarten="ngModel" name="hasKindergarten" [(ngModel)]="community.has_kindergarten" id="hasKindergarten" [value]="false" required>
+                                                                Não
+                                                            </label>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f2, hasKindergarten)" msgError="Escolha uma das alternativas">
                                                             </app-control-field-error>
                                                         </div>
@@ -258,13 +258,13 @@
                                                         <div class="form-group" [ngClass]="applyCssError(f2, hasElementarySchool)">
                                                             <label class="control-label">Escolas de Ensino Fundamental</label> <br/>
                                                             <label class="radio-inline">                          
-                                    <input type="radio" #hasElementarySchool="ngModel" name="hasElementarySchool" [(ngModel)]="community.has_elementary_school" id="hasElementarySchool" [value]="true" required>
-                                    Sim
-                                  </label>
+                                                                <input type="radio" #hasElementarySchool="ngModel" name="hasElementarySchool" [(ngModel)]="community.has_elementary_school" id="hasElementarySchool" [value]="true" required>
+                                                                Sim
+                                                            </label>
                                                             <label class="radio-inline">
-                                    <input type="radio" #hasElementarySchool="ngModel" name="hasElementarySchool" [(ngModel)]="community.has_elementary_school" id="hasElementarySchool" [value]="false" required>
-                                    Não
-                                  </label>
+                                                                <input type="radio" #hasElementarySchool="ngModel" name="hasElementarySchool" [(ngModel)]="community.has_elementary_school" id="hasElementarySchool" [value]="false" required>
+                                                                Não
+                                                            </label>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f2, hasElementarySchool)" msgError="Escolha uma das alternativas">
                                                             </app-control-field-error>
                                                         </div>
@@ -275,13 +275,13 @@
                                                         <div class="form-group" [ngClass]="applyCssError(f2, hasHighSchool)">
                                                             <label class="control-label">Escolas de Ensino Médio</label> <br/>
                                                             <label class="radio-inline">                          
-                                    <input type="radio" #hasHighSchool="ngModel" name="hasHighSchool" [(ngModel)]="community.has_high_school" id="hasHighSchool" [value]="true" required>
-                                    Sim
-                                  </label>
+                                                                    <input type="radio" #hasHighSchool="ngModel" name="hasHighSchool" [(ngModel)]="community.has_high_school" id="hasHighSchool" [value]="true" required>
+                                                                    Sim
+                                                                </label>
                                                             <label class="radio-inline">
-                                    <input type="radio" #hasHighSchool="ngModel" name="hasHighSchool" [(ngModel)]="community.has_high_school" id="hasHighSchool" [value]="false" required>
-                                    Não
-                                  </label>
+                                                                    <input type="radio" #hasHighSchool="ngModel" name="hasHighSchool" [(ngModel)]="community.has_high_school" id="hasHighSchool" [value]="false" required>
+                                                                    Não
+                                                                </label>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f2, hasHighSchool)" msgError="Escolha uma das alternativas">
                                                             </app-control-field-error>
                                                         </div>
@@ -290,13 +290,13 @@
                                                         <div class="form-group">
                                                             <label class="control-label">Escolas de Educação Superior</label> <br/>
                                                             <label class="radio-inline">                          
-                                    <input type="radio" #hasCollege="ngModel" name="hasCollege" [(ngModel)]="community.has_college" id="hasCollege" [value]="true" required>
-                                    Sim
-                                  </label>
+                                                                <input type="radio" #hasCollege="ngModel" name="hasCollege" [(ngModel)]="community.has_college" id="hasCollege" [value]="true" required>
+                                                                Sim
+                                                            </label>
                                                             <label class="radio-inline">
-                                    <input type="radio" #hasCollege="ngModel" name="hasCollege" [(ngModel)]="community.has_college" id="hasCollege" [value]="false" required>
-                                    Não
-                                  </label>
+                                                                <input type="radio" #hasCollege="ngModel" name="hasCollege" [(ngModel)]="community.has_college" id="hasCollege" [value]="false" required>
+                                                                Não
+                                                            </label>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f2, hasCollege)" msgError="Escolha uma das alternativas">
                                                             </app-control-field-error>
                                                         </div>
@@ -307,13 +307,13 @@
                                                         <div class="form-group" [ngClass]="applyCssError(f2, hasCommunityCenter)">
                                                             <label class="control-label">Centro Comunitário</label> <br/>
                                                             <label class="radio-inline">                          
-                                    <input type="radio" #hasCommunityCenter="ngModel" name="hasCommunityCenter" [(ngModel)]="community.has_community_center" id="hasCommunityCenter" [value]="true" required>
-                                    Sim
-                                  </label>
+                                                                <input type="radio" #hasCommunityCenter="ngModel" name="hasCommunityCenter" [(ngModel)]="community.has_community_center" id="hasCommunityCenter" [value]="true" required>
+                                                                Sim
+                                                            </label>
                                                             <label class="radio-inline">
-                                    <input type="radio" #hasCommunityCenter="ngModel" name="hasCommunityCenter" [(ngModel)]="community.has_community_center" id="hasCommunityCenter" [value]="false" required>
-                                    Não
-                                  </label>
+                                                                <input type="radio" #hasCommunityCenter="ngModel" name="hasCommunityCenter" [(ngModel)]="community.has_community_center" id="hasCommunityCenter" [value]="false" required>
+                                                                Não
+                                                            </label>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f2, hasCommunityCenter)" msgError="Escolha uma das alternativas">
                                                             </app-control-field-error>
                                                         </div>
@@ -322,13 +322,13 @@
                                                         <div class="form-group" [ngClass]="applyCssError(f2, hasReligiousPlace)">
                                                             <label class="control-label">Local Religioso</label> <br/>
                                                             <label class="radio-inline">                          
-                                    <input type="radio" #hasReligiousPlace="ngModel" name="hasReligiousPlace" [(ngModel)]="community.has_religious_place" id="hasReligiousPlace" [value]="true" required>
-                                    Sim
-                                  </label>
+                                                                <input type="radio" #hasReligiousPlace="ngModel" name="hasReligiousPlace" [(ngModel)]="community.has_religious_place" id="hasReligiousPlace" [value]="true" required>
+                                                                Sim
+                                                            </label>
                                                             <label class="radio-inline">
-                                    <input type="radio" #hasReligiousPlace="ngModel" name="hasReligiousPlace" [(ngModel)]="community.has_religious_place" id="hasReligiousPlace" [value]="false" required>
-                                    Não
-                                  </label>
+                                                                <input type="radio" #hasReligiousPlace="ngModel" name="hasReligiousPlace" [(ngModel)]="community.has_religious_place" id="hasReligiousPlace" [value]="false" required>
+                                                                Não
+                                                            </label>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f2, hasReligiousPlace)" msgError="Escolha uma das alternativas">
                                                             </app-control-field-error>
                                                         </div>
@@ -339,13 +339,13 @@
                                                         <div class="form-group" [ngClass]="applyCssError(f2, hasCulturalEvents)">
                                                             <label class="control-label">Eventos Culturais</label> <br/>
                                                             <label class="radio-inline">                          
-                                    <input type="radio" #hasCulturalEvents="ngModel" name="hasCulturalEvents" [(ngModel)]="community.has_cultural_events" id="hasCulturalEvents" [value]="true" required>
-                                    Sim
-                                  </label>
+                                                                <input type="radio" #hasCulturalEvents="ngModel" name="hasCulturalEvents" [(ngModel)]="community.has_cultural_events" id="hasCulturalEvents" [value]="true" required>
+                                                                Sim
+                                                            </label>
                                                             <label class="radio-inline">
-                                    <input type="radio" #hasCulturalEvents="ngModel" name="hasCulturalEvents" [(ngModel)]="community.has_cultural_events" id="hasCulturalEvents" [value]="false" required>
-                                    Não
-                                  </label>
+                                                                <input type="radio" #hasCulturalEvents="ngModel" name="hasCulturalEvents" [(ngModel)]="community.has_cultural_events" id="hasCulturalEvents" [value]="false" required>
+                                                                Não
+                                                            </label>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f2, hasCulturalEvents)" msgError="Escolha uma das alternativas">
                                                             </app-control-field-error>
                                                         </div>
@@ -354,13 +354,13 @@
                                                         <div class="form-group" [ngClass]="applyCssError(f2, hasPatron)">
                                                             <label class="control-label">Patrono</label> <br/>
                                                             <label class="radio-inline">                          
-                                    <input type="radio" #hasPatron="ngModel" name="hasPatron" [(ngModel)]="community.has_patron" id="hasPatron" [value]="true" required>
-                                    Sim
-                                  </label>
+                                                                <input type="radio" #hasPatron="ngModel" name="hasPatron" [(ngModel)]="community.has_patron" id="hasPatron" [value]="true" required>
+                                                                Sim
+                                                            </label>
                                                             <label class="radio-inline">
-                                    <input type="radio" #hasPatron="ngModel" name="hasPatron" [(ngModel)]="community.has_patron" id="hasPatron" [value]="false" required>
-                                    Não
-                                  </label>
+                                                                <input type="radio" #hasPatron="ngModel" name="hasPatron" [(ngModel)]="community.has_patron" id="hasPatron" [value]="false" required>
+                                                                Não
+                                                            </label>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f2, hasPatron)" msgError="Escolha uma das alternativas">
                                                             </app-control-field-error>
                                                         </div>
@@ -371,12 +371,12 @@
                                                         <div class="form-group" [ngClass]="{ 'has-error': f2.submitted && culturalProduction_list.length === 0 }">
                                                             <label class="control-label">Produções culturais</label> <br/>
                                                             <label class="checkbox-inline" *ngFor="let item of _culturalProducion">                          
-                                    <input type="checkbox" name="culturalProduction"  
-                                      id="culturalProduction" [value]="item.type" 
-                                      [checked]="item.checked"
-                                      (change)="verifyCheckbox(1, $event)" required>
-                                     {{ item.type }}
-                                  </label>
+                                                                <input type="checkbox" name="culturalProduction"  
+                                                                id="culturalProduction" [value]="item.type" 
+                                                                [checked]="item.checked"
+                                                                (change)="verifyCheckbox(1, $event)" required>
+                                                                {{ item.type }}
+                                                            </label>
                                                             <div *ngIf="f2.submitted && culturalProduction_list.length === 0" class="help-block"> Escolha uma ou mais alternativas</div>
 
                                                         </div>
@@ -385,13 +385,13 @@
                                                         <div class="form-group" [ngClass]="applyCssError(f2, hasCommunityLeaders)">
                                                             <label class="control-label">Existem líderes comunitário</label> <br/>
                                                             <label class="radio-inline">                          
-                                    <input type="radio" #hasCommunityLeaders="ngModel" name="hasCommunityLeaders" [(ngModel)]="community.has_community_leaders" id="hasCommunityLeaders" [value]="true" required>
-                                    Sim
-                                  </label>
+                                                                <input type="radio" #hasCommunityLeaders="ngModel" name="hasCommunityLeaders" [(ngModel)]="community.has_community_leaders" id="hasCommunityLeaders" [value]="true" required>
+                                                                Sim
+                                                            </label>
                                                             <label class="radio-inline">
-                                    <input type="radio" #hasCommunityLeaders="ngModel" name="hasCommunityLeaders" [(ngModel)]="community.has_community_leaders" id="hasCommunityLeaders" [value]="false" required>
-                                    Não
-                                  </label>
+                                                                <input type="radio" #hasCommunityLeaders="ngModel" name="hasCommunityLeaders" [(ngModel)]="community.has_community_leaders" id="hasCommunityLeaders" [value]="false" required>
+                                                                Não
+                                                            </label>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f2, hasCommunityLeaders)" msgError="Escolha uma das alternativas">
                                                             </app-control-field-error>
                                                         </div>
@@ -408,12 +408,14 @@
                                                 <button type="submit" id="btn_tab2"></button>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <!-- <div class="col-md-3">
                                             <div class="form-group">
-                                                <button type="button" class="btn btn-default" (click)="openModal()" id="btn_return3"> Cancelar</button>
+                                                <button type="button" class="btn btn-default" (click)="openModal()" id="btn_return3">
+                                                    <span *ngIf="isNewData">Cancelar</span>   <span *ngIf="!isNewData">Voltar</span> 
+                                                </button>
                                             </div>
-                                        </div>
-                                        <div class="col-md-3 col-md-offset-6">
+                                        </div> -->
+                                        <div class="col-md-12">
                                             <div class="form-group save">
                                                 <button class="btn btn-primary" (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save" *ngIf="isNewData && canCreate">Cadastrar</button>
                                                 <button class="btn btn-primary" (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save" *ngIf="!isNewData && canUpdate"> Salvar</button>
@@ -426,6 +428,15 @@
                     </div>
                 </div>
                 <!-- /.tab-pane -->
+                <div class="row footer">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-default" (click)="onCancel()" id="btn_return3">
+                                <span *ngIf="isNewData">Cancelar</span>   <span *ngIf="!isNewData">Voltar</span> 
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- /.tab-content -->
         </div>

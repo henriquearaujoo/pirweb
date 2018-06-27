@@ -1,3 +1,5 @@
+import { SweetAlert2Service } from './../../services/sweetalert/sweet-alert.2service';
+import { LoaderService } from './../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../helpers/permissions';
 import { SweetAlertService } from './../../services/sweetalert/sweet-alert.service';
 import { Types } from './../../models/types';
@@ -46,6 +48,7 @@ export class CommunityComponent implements OnInit {
   private canUpdate: boolean;
   private canCreate: boolean;
   private canDelete: boolean;
+  private onChange: boolean;
 
   private type: any;
   private culturalProduction: string;
@@ -105,7 +108,9 @@ export class CommunityComponent implements OnInit {
     private toastService: ToastService,
     private modalService: ModalService,
     private sweetAlertService: SweetAlertService,
+    private sweetAlert2Service: SweetAlert2Service,
     private permissions: Permissions,
+    private loaderService: LoaderService,
     private route: Router
   ) {
       this.canCreate = false;
@@ -131,6 +136,8 @@ export class CommunityComponent implements OnInit {
     if (this.urlId !== null && this.urlId !== '') {
       this.isNewData = false;
       this.load();
+    } else {
+      this.loaderService.hide();
     }
 
     this.currentTab = 0;
@@ -154,8 +161,15 @@ export class CommunityComponent implements OnInit {
     this.getCities();
   }
 
-  saveData(isValid: boolean) {
+  saveData(form1, fomr2) {
+    const isValid = form1 && fomr2;
     this.updateOptions();
+    if (this.community.latitude === null) {
+      this.community.latitude = 0;
+    }
+    if (this.community.longitude === null) {
+      this.community.longitude = 0;
+    }
 
     if (isValid && this._isSave) {
       this.community.city_id = this.community.city.id;
@@ -167,21 +181,34 @@ export class CommunityComponent implements OnInit {
             this.sweetAlertService.alertSuccess('/comunidades');
           },
           error => {
-            this.toastService.toastError();
-            console.log('save error:', error);
+            if ( error === 'community_name.found') {
+              this.toastService.toastMsgWarn('Atenção', 'Comunidade já cadastrada!');
+            } else {
+              this.toastService.toastError();
+              console.log('save error:', error);
+            }
           }
         );
       } else {
+        this.community.city.state.cities = [];
         this.communityService.update(this.community).subscribe(
           success => {
             this.community = success;
             this.sweetAlertService.alertSuccessUpdate('/comunidades');
           },
           error => {
-            this.toastService.toastError();
-            console.log('update error:', error);
+            if ( error === 'community_name.found') {
+              this.toastService.toastMsgWarn('Atenção', 'Não é possível editar comunidade com um nome já existente no mesmo município!');
+            } else {
+              this.toastService.toastError();
+              console.log('update error:', error);
+            }
           }
         );
+      }
+    }  else {
+      if (!isValid) {
+        this.toastService.toastMsgError('Erro', 'Preencha todos os campos obrigatórios do formulário!');
       }
     }
   }
@@ -211,21 +238,42 @@ export class CommunityComponent implements OnInit {
   }
 
   load() {
+    this.loaderService.show();
     this.communityService.load(this.urlId).subscribe(
       success => {
         this.community = success;
         this.verifyDataCheckbox();
+        this.loaderService.hide();
         if (this.community === undefined) {
           this.community = new Community();
         }
       },
-      error => console.log(error)
+      error => {
+        this.loaderService.hide();
+        console.log(error);
+      }
     );
   }
 
   openModal() {
     this.modalService.modalCancel('/comunidades');
 
+  }
+
+  onCancel() {
+    if (this.onChange) {
+      this.sweetAlert2Service.alertToSave()
+      .then((result) => {
+        if (result.value) {
+          this._isSave = true;
+          this.openSaveButtonTab2.click();
+        } else {
+          this.route.navigate(['/comunidades']);
+        }
+      });
+    } else {
+      this.openModal();
+    }
   }
 
   updateOptions() {
@@ -388,7 +436,10 @@ export class CommunityComponent implements OnInit {
   }
 
   verifyValidSubmitted(form, field) {
-    return form.submitted && !field.valid;
+    if (field.dirty) {
+      this.onChange = true;
+    }
+    return (field.dirty || field.touched || form.submitted) && !field.valid;
   }
 
   applyCssError(form, field) {

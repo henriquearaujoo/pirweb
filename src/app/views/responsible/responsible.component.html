@@ -59,8 +59,8 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group" [ngClass]="applyCssError(f1, nameResponsible)">
                                                             <label class="control-label">Nome do responsável</label>
-                                                            <input type="text" #nameResponsible="ngModel" name="name_responsible" [(ngModel)]="responsible.name" id="name_responsible" class="form-control" placeholder="Nome completo do responsável" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, nameResponsible)" msgError="Digite um nome para o responsável">
+                                                            <input type="text" #nameResponsible="ngModel" name="name_responsible" pattern="[\w,./_=?-].*" maxlength="60" [(ngModel)]="responsible.name" id="name_responsible" class="form-control" placeholder="Nome completo do responsável" required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, nameResponsible)" [field]="nameResponsible" msgError="Digite um nome para o responsável">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
@@ -90,11 +90,11 @@
                                                 <button type="submit" id="btn_tab1"></button>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <!-- <div class="col-md-3">
                                             <div class="form-group">
                                                 <button class="btn btn-default btn-block" type="button" (click)="openModal()" id="btn_return1"> Cancelar</button>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </form>
                                 </div>
                             </div>
@@ -230,11 +230,11 @@
                                                 <button type="submit" id="btn_tab2"></button>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <!-- <div class="col-md-3">
                                             <div class="form-group">
                                                 <button class="btn btn-default btn-block" type="button" (click)="openModal()" id="btn_return2"> Cancelar</button>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </form>
                                 </div>
                             </div>
@@ -251,7 +251,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <form name="form" (ngSubmit)="saveData(f3.valid) && save(3, f3.valid)" #f3="ngForm" novalidate>
+                                    <form name="form" (ngSubmit)="saveData(f1.valid, f2.valid, f3.valid) && save(3, f3.valid)" #f3="ngForm" novalidate>
                                         <div class="box box-primary">
                                             <div class="box-body">
                                                 <div class="row">
@@ -324,9 +324,11 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <div class="form-group">
+                                                        <div class="form-group" [ngClass]="applyCssError(f3, observations)">
                                                             <label class="control-label">Observações gerais</label> <br/>
-                                                            <textarea class="form-control" rows="5" name="generalObservations" [(ngModel)]="responsible.observations" id="generalObservations"></textarea>
+                                                            <textarea class="form-control" rows="5" name="generalObservations" maxlength="200" pattern="[\w,./_=?-].*" #observations="ngModel" [(ngModel)]="responsible.observations" id="generalObservations"></textarea>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f3, observations)" [field]="observations" msgError="Especifique o tratamento">
+                                                            </app-control-field-error>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -341,12 +343,12 @@
                                                 <button type="submit" id="btn_tab3"></button>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <!-- <div class="col-md-3">
                                             <div class="form-group">
                                                 <button class="btn btn-default btn-block" type="button" (click)="openModal()" id="btn_return3"> Cancelar</button>
                                             </div>
-                                        </div>
-                                        <div class="col-md-3 col-md-offset-6">
+                                        </div> -->
+                                        <div class="col-md-12">
                                             <div class="form-group save">
                                                 <button class="btn btn-primary btn-block" (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save" *ngIf="isNewData && canCreate">Cadastrar</button>
                                                 <button class="btn btn-primary btn-block" (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save" *ngIf="!isNewData && canUpdate">Salvar</button>
@@ -359,6 +361,15 @@
                     </div>
                 </div>
                 <!-- /.tab-pane -->
+                <div class="row footer">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-default btn-block" (click)="onCancel()" id="btn_return3">
+                                <span *ngIf="isNewData">Cancelar</span>   <span *ngIf="!isNewData">Voltar</span> 
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- /.tab-content -->
         </div>

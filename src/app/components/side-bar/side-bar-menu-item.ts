@@ -204,7 +204,7 @@ export const MENU = [
         'id': 19,
         'title': 'RELATÓRIOS',
         'route': '',
-        'routes': ['/relatorios'],
+        'routes': ['/', '/relatorios'],
         'read': false,
         'iClass': 'fa fa-circle-o',
         'category': 'parent',

@@ -1,3 +1,4 @@
+import { SweetAlert2Service } from './../../../../services/sweetalert/sweet-alert.2service';
 import { Constant } from './../../../../constant/constant';
 import { Permissions, RuleState } from './../../../../helpers/permissions';
 import { ToastService } from './../../../../services/toast-notification/toast.service';
@@ -6,6 +7,7 @@ import { Subject } from 'rxjs/Subject';
 import { Reception } from './../../../../models/reception';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Chapter } from '../../../../models/chapter';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-reception',
@@ -26,9 +28,12 @@ export class ReceptionComponent implements OnInit {
 
   @Output() returnEvent = new EventEmitter();
   @Output() cancelEvent = new EventEmitter();
+  private onChange: boolean;
 
   private limit = Constant.LIMIT_CHARACTERS;
   private characters =  this.limit;
+  private fieldEditor: string[] = new Array();
+  private validEditor: boolean;
 
   public editorOptions = {
     modules: {
@@ -43,16 +48,18 @@ export class ReceptionComponent implements OnInit {
     theme: 'snow'
   };
 
-  onCancel() {
-    this.cancelEvent.emit();
-    this.btn_cancel = true;
-  }
+  // onCancel() {
+  //   this.cancelEvent.emit();
+  //   this.btn_cancel = true;
+  // }
 
 
   constructor(
     private service: ReceptionService,
-    private toast: ToastService,
-    private permissions: Permissions) {
+    private toastService: ToastService,
+    private permissions: Permissions,
+    private sweetAlert2Service: SweetAlert2Service,
+    private router: Router) {
     this.canCreate = false;
     this.canUpdate = false;
     this.canRead = false;
@@ -74,39 +81,61 @@ export class ReceptionComponent implements OnInit {
    }
 
   saveData() {
-    if (this.btn_cancel) {
-      this.btn_cancel = false;
-      return false;
-    }
+    // if (this.btn_cancel) {
+    //   this.btn_cancel = false;
+    //   return false;
+    // }
     if ( this.chapter === undefined) {
       this.returnEvent.emit(false);
       return;
     }
 
     this.reception.chapter_id = this.chapter;
-    if (this.isNewData || this.reception.id === undefined) {
-      this.service.insert(this.reception).subscribe(
-        s => {
-          this.reception = s;
-          this.returnEvent.emit(true);
-          this.isNewData  = false;
-         },
-        e => {
-          console.log(e);
-          this.returnEvent.emit(false);
-        }
-      );
-    }else {
-      this.service.update(this.reception).subscribe(
-        s => {
-          this.reception = s;
-          this.returnEvent.emit(true);
-         },
-        e => {
-          console.log(e);
-          this.returnEvent.emit(false);
-        }
-      );
+    this.verifyEditor();
+    if (this.validEditor) {
+      if (this.isNewData || this.reception.id === undefined) {
+        this.service.insert(this.reception).subscribe(
+          s => {
+            this.reception = s;
+            this.returnEvent.emit(true);
+            this.isNewData  = false;
+            // this.btn_cancel = true;
+           },
+          e => {
+            console.log(e);
+            this.returnEvent.emit(false);
+          }
+        );
+      }else {
+        this.service.update(this.reception).subscribe(
+          s => {
+            this.reception = s;
+            this.returnEvent.emit(true);
+            setTimeout(() => {
+              if (this.btn_cancel) {
+                this.router.navigate(['/capitulos']);
+              }
+            }, 1000);
+           },
+          e => {
+            console.log(e);
+            this.returnEvent.emit(false);
+          }
+        );
+      }
+    } else {
+      this.btn_cancel = false;
+      this.toastService.toastMsgError('Erro', 'Preencha todos os campos obrigatórios do formulário!');
+    }
+  }
+
+  public verifyEditor() {
+    this.validEditor = true;
+    for (let i = 0; i < this.fieldEditor.length; i++) {
+      if (this.fieldEditor[i] === '') {
+        this.validEditor = false;
+        break;
+      }
     }
   }
 
@@ -125,18 +154,46 @@ export class ReceptionComponent implements OnInit {
     );
   }
 
-  verifyValidSubmitted(form, field) {
-    return form.submitted && !field.valid;
+  onCancel() {
+    if (this.onChange) {
+      this.sweetAlert2Service.alertToSave()
+        .then((result) => {
+          if (result.value) {
+            this.btn_cancel = true;
+            this.saveData();
+          } else {
+            this.router.navigate(['/capitulos']);
+          }
+        });
+    } else {
+      this.cancelEvent.emit();
+      this.btn_cancel = true;
+    }
   }
 
-  applyCssError(form, field) {
+  verifyValidSubmitted(form, field) {
+    if (field.dirty) {
+      this.onChange = true;
+    }
+    return (field.dirty || field.touched || form.submitted) && !field.valid;
+  }
+
+  applyCssError(form, field, position) {
     return {
-      'has-error': this.verifyValidSubmitted(form, field),
-      'has-feedback': this.verifyValidSubmitted(form, field)
+      'has-error': this.verifyValidSubmitted(form, field) || this.verifyValidSubmittedEditor(form, field, position),
+      'has-feedback': this.verifyValidSubmitted(form, field) || this.verifyValidSubmittedEditor(form, field, position)
     };
   }
 
-  onKey(event) {
+  verifyValidSubmittedEditor(form, field, position?) {
+    if (field.dirty) {
+      this.onChange = true;
+    }
+    return this.fieldEditor[position] === '' && (form.submitted || field.dirty || field.touched);
+  }
+
+  onKey(event, position) {
+    this.fieldEditor[position] = event.text.trim();
     this.characters = (this.limit - event.editor.getLength()) + 1;
     if (event.editor.getLength() - 1 > this.limit) {
       event.editor.deleteText(this.limit, event.editor.getLength());

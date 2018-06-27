@@ -76,8 +76,8 @@ export class UserListComponent implements OnInit {
   }
 
   getUsers() {
-    if ( this.filter.name !== '') { this.page = 0; }
     this.loaderService.show();
+    if ( this.filter.name !== '') { this.page = 0; }
     this.userService.getUsers(this.filter.name, this.page).subscribe(
       success => {
         this.paginate = success;
@@ -116,6 +116,25 @@ export class UserListComponent implements OnInit {
     }
     this.user.profile_id = this.user.profile.id;
     this.user.address.city_id = this.user.address.city.id;
+    this.user.profile.description = '';
+    this.user.profile.updated_at = '';
+    this.user.address.city.state.cities = [];
+    this.user.password = undefined;
+    if ( this.user.latitude === null && this.user.longitude == null) {
+      this.user.latitude = 0;
+      this.user.longitude = 0;
+    }
+
+    delete this.user.visits;
+
+    if (this.user.entity === null) {
+      delete this.user.entity;
+    }
+
+    if (this.user.person === null) {
+      delete this.user.person;
+    }
+
     this.userService.saveEditUser(this.user).subscribe(
       s_org => {
         this.getUsers();

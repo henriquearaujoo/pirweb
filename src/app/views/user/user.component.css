@@ -12,6 +12,7 @@
     color: grey;
 }
 
+
 /* .btn-primary {
     background-image: url('/assets/img/global/btn_new.png')!important;
     background-repeat: repeat;
@@ -58,6 +59,7 @@ label {
     box-shadow: none;
 }
 
+
 /* .box-header {
     background-color: #e8e6e6;
 } */
@@ -65,6 +67,7 @@ label {
 .box-header .box-title {
     font-size: 14px;
 }
+
 
 /* .box-header {
     background-color: #e8e6e6;
@@ -81,6 +84,7 @@ label {
     padding-left: 40px;
     padding-top: 30px;
 }
+
 
 /* .col-sm-6 {
     padding: 0;
@@ -130,6 +134,7 @@ button#btn_confirm {
     float: left;
 }
 
+
 /* .modal-body[_ngcontent-c5] {
     padding-top: 30px;
     margin-top: 20px;
@@ -138,6 +143,7 @@ button#btn_confirm {
 .modal-icon {
     text-align: center;
 }
+
 
 /* .content-top {
     height: 64px;
@@ -164,14 +170,14 @@ i.fa.fa-user {
 
 .nav-tabs-custom {
     background-color: #f4f4f4;
-    padding: 20px;    
+    padding: 20px;
 }
 
-.nav-tabs-custom > .nav-tabs {
+.nav-tabs-custom>.nav-tabs {
     height: 55px;
 }
 
-.nav-tabs-custom > .tab-content {
+.nav-tabs-custom>.tab-content {
     padding-top: 10px;
     padding-left: 25px;
     padding-right: 25px;
@@ -179,15 +185,6 @@ i.fa.fa-user {
 
 section.content_user {
     padding: 24px;
-}
-
-/* .form-group.left {
-    padding-right: 30px;
-} */
-
-.row.footer {
-    /* padding-right: 25px; */
-    padding-left: 10px;
 }
 
 .control {
@@ -255,7 +252,19 @@ section.content_user {
     text-align: right;
     padding-right: 22px;
 }
+
 label.label-control {
     font-weight: bold;
     color: gray;
+}
+
+.form-group.save {
+    position: absolute;
+    top: 20px;
+    right: 1px;
+}
+
+.row.footer {
+    padding-top: 20px;
+    padding-left: 10px;
 }

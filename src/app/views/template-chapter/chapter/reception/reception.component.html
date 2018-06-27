@@ -15,11 +15,7 @@
                         </div>
                         <div class="row img">
                             <img src="./assets/img/chapter/ic_reception_turnoff_eletronics.png">
-<<<<<<< HEAD
                             <input type="checkbox" id="turnoff_eletronics" name="turn_off_tv" [(ngModel)]="reception.turnoff_eletronics" value='{{reception.turnoff_eletronics}}' />
-=======
-                            <input type="checkbox" id="turnoff_eletronics" name="turn_off_tv" [(ngModel)]="reception.turnoff_eletronics" value='{{reception.turnoff_eletronics}}' />                           
->>>>>>> sprint6
                         </div>
                     </div>
                     <div class="col-sm-3 routine">
@@ -56,11 +52,11 @@
                 <div class="col-sm-12">
                     <div class="box box-primary">
                         <div class="box-body">
-                            <div class="form-group" [ngClass]="applyCssError(fReception, description)">
+                            <div class="form-group" [ngClass]="applyCssError(fReception, description, 0)">
                                 <label class="control-label">Descrição do Acolhimento</label>
-                                <quill-editor (change)="onKey($event)" style="height: 150px;" [options]="editorOptions" id="reception_description" name="reception_description" #description="ngModel" [(ngModel)]="reception.description" required>
+                                <quill-editor (change)="onKey($event, 0)" style="height: 150px;" [options]="editorOptions" id="reception_description" name="reception_description" #description="ngModel" [(ngModel)]="reception.description" required>
                                 </quill-editor>
-                                <app-control-field-error [showError]="verifyValidSubmitted(fReception, description)" msgError="Digite a descrição">
+                                <app-control-field-error [showError]="verifyValidSubmitted(fReception, description)" [field]="fieldEditor[0]" msgError="Digite a descrição">
                                 </app-control-field-error>
                             </div>
                         </div>
@@ -71,7 +67,9 @@
             <div class="row footer">
                 <div class="col-md-2">
                     <div class="form-group">
-                        <button class="btn btn-default btn-block" (click)="onCancel()" id="btn_return"> Cancelar</button>
+                        <button type="button" class="btn btn-default btn-block" (click)="onCancel()" id="btn_return">
+                            <span *ngIf="isNewData">Cancelar</span>   <span *ngIf="!isNewData">Voltar</span> 
+                        </button>
                     </div>
                 </div>
                 <div class="col-md-2 col-md-offset-8">

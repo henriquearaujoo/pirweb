@@ -8,12 +8,12 @@
                     <div class="col-sm-12">
                         <div class="box box-primary">
                             <div class="box-body">
-                                <div class="form-group" [ngClass]="applyCssError(fConclusion, description)">
+                                <div class="form-group" [ngClass]="applyCssError(fConclusion, description, 0)">
                                     <label class="control-label">Descrição da conclusão</label>
                                     <div class="box-body pad">
-                                        <quill-editor (change)="onKey($event)" [options]="editorOptions" id="conclusion_description" name="conclusion_description" #description="ngModel" [(ngModel)]="conclusion.description" required>
+                                        <quill-editor (change)="onKey($event, 0)" [options]="editorOptions" id="conclusion_description" name="conclusion_description" #description="ngModel" [(ngModel)]="conclusion.description" required>
                                         </quill-editor>
-                                        <app-control-field-error [showError]="verifyValidSubmitted(fConclusion, description)" msgError="Digite a descrição">
+                                        <app-control-field-error [showError]="verifyValidSubmitted(fConclusion, description)" [field]="fieldEditor[0]" msgError="Digite a descrição">
                                         </app-control-field-error>
                                     </div>
                                 </div>
@@ -86,7 +86,9 @@
             <div class="row footer">
                 <div class="col-md-2">
                     <div>
-                        <button class="btn btn-default btn-block" (click)="onCancel()" id="btn_return"> Cancelar</button>
+                        <button type="button" class="btn btn-default btn-block" (click)="onCancel()" id="btn_return">
+                            <span *ngIf="isNewData">Cancelar</span>   <span *ngIf="!isNewData">Voltar</span> 
+                        </button>
                     </div>
                 </div>
                 <div class="col-md-2 col-md-offset-8">

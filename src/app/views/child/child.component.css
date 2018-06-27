@@ -41,7 +41,8 @@ label {
 }
 
 .form-group.has-error .form-control,
-.form-group.has-error .input-group-addon {
+.form-group.has-error .input-group-addon,
+.help-block {
     border-color: #a94442;
 }
 
@@ -230,4 +231,15 @@ label.lb-tab {
 
 .nav-tabs-custom>.nav-tabs>li.active {
     border-top: 0;
+}
+
+.form-group.save {
+    position: absolute;
+    top: 20px;
+    right: 1px;
+}
+
+.row.footer {
+    padding-top: 20px;
+    padding-left: 10px;
 }

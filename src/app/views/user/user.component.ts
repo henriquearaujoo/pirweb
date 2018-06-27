@@ -1,3 +1,4 @@
+import { SweetAlert2Service } from './../../services/sweetalert/sweet-alert.2service';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { LoaderService } from './../../services/loader/loader.service';
 import { SweetAlertService } from './../../services/sweetalert/sweet-alert.service';
@@ -78,6 +79,8 @@ export class UserComponent implements OnInit, OnDestroy {
   private currentId: string;
   private url: string;
   private isAgent: boolean;
+  private isWhitespace: boolean;
+  private onChange: boolean;
 
   constructor(
     private userService: UserService,
@@ -88,6 +91,7 @@ export class UserComponent implements OnInit, OnDestroy {
     private modalService: ModalService,
     private permissions: Permissions,
     private sweetAlertService: SweetAlertService,
+    private sweetAlert2Service: SweetAlert2Service,
     private loaderService: LoaderService,
     private _location: Location) {
       this.user = new User();
@@ -125,6 +129,8 @@ export class UserComponent implements OnInit, OnDestroy {
     if (this.urlId !== undefined && this.urlId !== '' && this.urlId !== null) {
       this.isNewData = false;
       this.loadUser();
+    } else {
+      this.loaderService.hide();
     }
     this.loadStates();
     this.loadProfiles();
@@ -158,7 +164,8 @@ export class UserComponent implements OnInit, OnDestroy {
 
   }
 
-  saveData(isValid: boolean) {
+  saveData(form1, fomr2, form3) {
+    const isValid = form1 && fomr2 && form3;
     if (isValid && this._isSave) {
       this.modalOpened = false;
       this.verifyType();
@@ -183,7 +190,7 @@ export class UserComponent implements OnInit, OnDestroy {
               }
             },
             error => {
-              this.toastService.toastError();
+              // this.toastService.toastError();
               this.error_list = error;
               this.verifyError();
             }
@@ -262,6 +269,10 @@ export class UserComponent implements OnInit, OnDestroy {
           }
         }
       }
+    } else {
+      if (!isValid) {
+        this.toastService.toastMsgError('Erro', 'Preencha todos os campos obrigatórios do formulário!');
+      }
     }
   }
 
@@ -270,6 +281,38 @@ export class UserComponent implements OnInit, OnDestroy {
       this.modalService.modalCancel('/usuarios');
     } else {
       this.modalService.modalCancel('/agente-dashboard');
+    }
+  }
+
+  onCancel() {
+    if (this.onChange) {
+      if (this.url === '/usuarios/registro') {
+        this.sweetAlert2Service.alertToSave()
+        .then((result) => {
+          if (result.value) {
+            this._isSave = true;
+            this.openSaveButtonTab3.click();
+          } else {
+            this.router.navigate(['/usuarios']);
+          }
+        });
+      } else {
+        this.sweetAlert2Service.alertToSave()
+        .then((result) => {
+          if (result.value) {
+            this._isSave = true;
+            this.openSaveButtonTab3.click();
+          } else {
+            this.router.navigate(['/agente-dashboard']);
+          }
+        });
+      }
+    } else {
+      if (this.url === '/usuarios/registro') {
+        this.modalService.modalCancel('/usuarios');
+      } else {
+        this.modalService.modalCancel('/agente-dashboard');
+      }
     }
   }
 
@@ -405,7 +448,7 @@ export class UserComponent implements OnInit, OnDestroy {
           this.toastService.toastErrorExists('CNPJ');
           break;
         }
-        case 'user.email.exists': {
+        case 'email.found': {
           console.log(er);
           this.toastService.toastErrorExists('EMAIL');
           break;
@@ -492,7 +535,7 @@ export class UserComponent implements OnInit, OnDestroy {
     } else {
       this.isFormValid = true;
     }
-
+    console.log(this.isWhitespace);
 
     if ( this.isFormValid) {
       this.isFormValid = false;
@@ -550,8 +593,10 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   verifyValidSubmitted(form, field) {
-    this.isOk = form.submitted && !field.valid;
-    return form.submitted && !field.valid;
+    if (field.dirty) {
+      this.onChange = true;
+    }
+      return (field.dirty || field.touched || form.submitted) && !field.valid;
   }
 
   applyCssError(form, field) {

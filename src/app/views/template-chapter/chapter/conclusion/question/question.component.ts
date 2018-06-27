@@ -30,6 +30,8 @@ export class QuestionComponent implements OnInit {
 
   private limit = Constant.LIMIT_CHARACTERS;
   private characters =  this.limit;
+  private fieldEditor: string[] = new Array();
+  private validEditor: boolean;
 
   public editorOptions = {
     modules: {
@@ -57,39 +59,52 @@ export class QuestionComponent implements OnInit {
 
   saveData() {
     this.question.conclusion_id = this.conclusion.id;
-    if (this.isNewData || this.conclusion.id === undefined) {
-      this.conclusionService.insertQuestion(this.question).subscribe(
-        success => {
-          this.question = success;
-          this.isNewData  = false;
-          this.indexEdit = this.index;
-          localStorage.setItem('questionId', this.question.id);
-          this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
-        },
-        error => {
-          if ( error === 'question.exists') {
-            this.toastService.toastMsgWarn('Atenção', 'Questão já está cadastrada');
-          } else {
-            this.toastService.toastError();
+    this.verifyEditor();
+    if (this.validEditor) {
+      if (this.isNewData || this.conclusion.id === undefined) {
+        this.conclusionService.insertQuestion(this.question).subscribe(
+          success => {
+            this.question = success;
+            this.isNewData  = false;
+            this.indexEdit = this.index;
+            localStorage.setItem('questionId', this.question.id);
+            this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
+          },
+          error => {
+            if ( error === 'question.exists') {
+              this.toastService.toastMsgWarn('Atenção', 'Questão já está cadastrada');
+            } else {
+              this.toastService.toastError();
+            }
+            console.log(error);
           }
-          console.log(error);
-        }
-      );
-     } else {
-      this.conclusionService.updateQuestion(this.question).subscribe(
-        s => {
-          this.question = s;
-          this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso');
-        },
-        error => {
-          if ( error === 'question.exists') {
-            this.toastService.toastMsgWarn('Atenção', 'Questão já está cadastrada');
-          } else {
-            this.toastService.toastError();
+        );
+       } else {
+        this.conclusionService.updateQuestion(this.question).subscribe(
+          s => {
+            this.question = s;
+            this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso');
+          },
+          error => {
+            if ( error === 'question.exists') {
+              this.toastService.toastMsgWarn('Atenção', 'Questão já está cadastrada');
+            } else {
+              this.toastService.toastError();
+            }
+            console.log('error update: ' + error);
           }
-          console.log('error update: ' + error);
-        }
-      );
+        );
+      }
+    }
+  }
+
+  public verifyEditor() {
+    this.validEditor = true;
+    for (let i = 0; i < this.fieldEditor.length; i++) {
+      if (this.fieldEditor[i] === '') {
+        this.validEditor = false;
+        break;
+      }
     }
   }
 
@@ -124,17 +139,22 @@ export class QuestionComponent implements OnInit {
   }
 
   verifyValidSubmitted(form, field) {
-    return form.submitted && !field.valid;
+    return (field.dirty || field.touched || form.submitted) && !field.valid;
   }
 
-  applyCssError(form, field) {
+  applyCssError(form, field, position) {
     return {
-      'has-error': this.verifyValidSubmitted(form, field),
-      'has-feedback': this.verifyValidSubmitted(form, field)
+      'has-error': this.verifyValidSubmitted(form, field) || this.verifyValidSubmittedEditor(form, field, position),
+      'has-feedback': this.verifyValidSubmitted(form, field) || this.verifyValidSubmittedEditor(form, field, position)
     };
   }
 
-  onKey(event) {
+  verifyValidSubmittedEditor(form, field, position?) {
+    return this.fieldEditor[position] === '' && (form.submitted || field.dirty || field.touched);
+  }
+
+  onKey(event, position) {
+    this.fieldEditor[position] = event.text.trim();
     this.characters = (this.limit - event.editor.getLength()) + 1;
     if (event.editor.getLength() - 1 > this.limit) {
       event.editor.deleteText(this.limit, event.editor.getLength());

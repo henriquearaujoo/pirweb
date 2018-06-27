@@ -1,3 +1,4 @@
+import { SweetAlert2Service } from './../../../../services/sweetalert/sweet-alert.2service';
 import { Constant } from './../../../../constant/constant';
 import { element } from 'protractor';
 import { Permissions, RuleState } from './../../../../helpers/permissions';
@@ -28,6 +29,9 @@ export class InformationComponent implements OnInit {
   private canUpdate: boolean;
   private canCreate: boolean;
   private canDelete: boolean;
+  private fieldEditor: string[] = new Array();
+  private validEditor: boolean;
+  private onChange: boolean;
 
   @Output() returnEvent = new EventEmitter();
   @Output() cancelEvent = new EventEmitter();
@@ -48,16 +52,17 @@ export class InformationComponent implements OnInit {
     theme: 'snow',
   };
 
-  onCancel() {
-    this.cancelEvent.emit();
-    this.btn_cancel = true;
-  }
+  // onCancel() {
+  //   this.cancelEvent.emit();
+  //   this.btn_cancel = true;
+  // }
 
   constructor(
     private router: Router,
     private chapterService: ChapterService,
     private toastService: ToastService,
-    private permissions: Permissions) {
+    private permissions: Permissions,
+    private sweetAlert2Service: SweetAlert2Service) {
       this.canCreate = false;
       this.canUpdate = false;
       this.canRead = false;
@@ -79,6 +84,8 @@ export class InformationComponent implements OnInit {
     if (!this.lastVersion) {
       this.lastVersion = 0;
     }
+    this.validEditor = true;
+    console.log(this.fieldEditor);
   }
 
   getNextChapterNumber() {
@@ -87,42 +94,66 @@ export class InformationComponent implements OnInit {
 
   public saveData() {
     this.chapter.thumbnails = [];
-    if (this.btn_cancel) {
-      this.btn_cancel = false;
-      return false;
-    }
+    // if (this.btn_cancel) {
+    //   this.btn_cancel = false;
+    //   return false;
+    // }
     if (this.isNewData) {
       this.chapter.number = Number(this.number);
     }
 
     this.chapter.time_next_visit = Number(this.chapter.time_next_visit);
     this.chapter.estimated_time = Number(this.chapter.estimated_time);
+    this.verifyEditor();
+    if (this.validEditor) {
+      if ( this.isNewData && this.chapter !== undefined ) {
+        this.chapterService.insert(this.chapter).subscribe(
+          s => {
+            this.chapter = s;
+            this.returnEvent.emit(s);
+            this.isNewData  = false;
+            this.chapter.version = this.lastVersion;
+          },
+          e => {
+            // this.toastService.toastError();
+            this.returnEvent.emit(null);
+            console.log('error: ' + e);
+          }
+        );
+      }else {
+        this.chapter.medias.forEach( elem => {
+          elem.media_type = undefined;
+          elem.storage_type = undefined;
+        });
 
-    if ( this.isNewData && this.chapter !== undefined ) {
-      this.chapterService.insert(this.chapter).subscribe(
-        s => {
-          this.chapter = s;
-          this.returnEvent.emit(s);
-          this.isNewData  = false;
-          this.chapter.version = this.lastVersion;
-        },
-        e => {
-          // this.toastService.toastError();
-          this.returnEvent.emit(null);
-          console.log('error: ' + e);
-        }
-      );
-    }else {
-      this.chapterService.update(this.chapter).subscribe(
-        s => {
-          this.chapter = s;
-          this.returnEvent.emit(s);
-        },
-        e => {
-          this.returnEvent.emit(null);
-          console.log('error: ' + e);
-        }
-      );
+        this.chapterService.update(this.chapter).subscribe(
+          s => {
+            this.chapter = s;
+            this.returnEvent.emit(s);
+            setTimeout(() => {
+              if (this.btn_cancel) {
+                this.router.navigate(['/capitulos']);
+              }
+            }, 1000);
+          },
+          e => {
+            this.returnEvent.emit(null);
+            console.log('error: ' + e);
+          }
+        );
+      }
+    } else {
+        this.toastService.toastMsgError('Erro', 'Preencha todos os campos obrigatórios do formulário!');
+      }
+  }
+
+  public verifyEditor() {
+    this.validEditor = true;
+    for (let i = 0; i < this.fieldEditor.length; i++) {
+      if (this.fieldEditor[i] === '') {
+        this.validEditor = false;
+        break;
+      }
     }
   }
 
@@ -134,18 +165,47 @@ export class InformationComponent implements OnInit {
     this.chapter = c;
   }
 
-  verifyValidSubmitted(form, field) {
-    return form.submitted && !field.valid;
+    onCancel() {
+    if (this.onChange) {
+      this.sweetAlert2Service.alertToSave()
+        .then((result) => {
+          if (result.value) {
+            this.btn_cancel = true;
+            this.saveData();
+          } else {
+            this.router.navigate(['/capitulos']);
+          }
+        });
+    } else {
+      this.cancelEvent.emit();
+      this.btn_cancel = true;
+    }
   }
 
-  applyCssError(form, field) {
+  verifyValidSubmitted(form, field) {
+    if (field.dirty) {
+      this.onChange = true;
+    }
+    return (field.dirty || field.touched || form.submitted) && !field.valid;
+  }
+
+  applyCssError(form, field, position) {
     return {
-      'has-error': this.verifyValidSubmitted(form, field),
-      'has-feedback': this.verifyValidSubmitted(form, field)
+      'has-error': this.verifyValidSubmitted(form, field) || this.verifyValidSubmittedEditor(form, field, position),
+      'has-feedback': this.verifyValidSubmitted(form, field) || this.verifyValidSubmittedEditor(form, field, position)
     };
   }
 
-  onKey(event) {
+  verifyValidSubmittedEditor(form, field, position?) {
+    if (field.dirty) {
+      this.onChange = true;
+    }
+    return this.fieldEditor[position] === '' && (form.submitted || field.dirty || field.touched);
+  }
+
+  onKey(event, position) {
+    this.fieldEditor[position] = event.text.trim();
+    console.log('position ' + position +  this.fieldEditor[position]);
     this.characters = (this.limit - event.editor.getLength()) + 1;
     if (event.editor.getLength() - 1 > this.limit) {
       event.editor.deleteText(this.limit, event.editor.getLength());

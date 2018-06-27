@@ -1,3 +1,6 @@
+import { SweetAlert2Service } from './../../services/sweetalert/sweet-alert.2service';
+import { LoaderService } from './../../services/loader/loader.service';
+import { forEach } from '@angular/router/src/utils/collection';
 import { Router } from '@angular/router';
 import { Permissions, RuleState } from './../../helpers/permissions';
 import { ResponsibleService } from './../../services/responsible/responsible.service';
@@ -49,6 +52,7 @@ export class ChildComponent implements OnInit {
   private canUpdate: boolean;
   private canCreate: boolean;
   private canDelete: boolean;
+  private onChange: boolean;
 
   private index1: any;
   private index2: any;
@@ -99,6 +103,8 @@ export class ChildComponent implements OnInit {
     private toastService: ToastService,
     private modalService: ModalService,
     private sweetAlertService: SweetAlertService,
+    private sweetAlert2Service: SweetAlert2Service,
+    private loaderService: LoaderService,
     private permissions: Permissions,
     private route: Router
   ) {
@@ -150,12 +156,13 @@ export class ChildComponent implements OnInit {
     this.isCkeckboxValid = true;
   }
 
-  saveData(isValid: boolean) {
+  saveData(form1, fomr2) {
+    const isValid = form1 && fomr2;
     this.updateOptions();
 
     if (isValid && this._isSave) {
       this.verifyDate();
-      if ( this.child.mother !== undefined) {
+      if ( this.child.mother !== undefined && this.child.mother !== null) {
         if ( this.child.mother.id === undefined ) {
           delete this.child.mother;
         }
@@ -171,6 +178,8 @@ export class ChildComponent implements OnInit {
       for (let i = 0; i < this.child.responsible.length; i++) {
         this.child.responsible[i].community.city_id = this.child.responsible[i].community.city.id;
       }
+
+      this.verifyNull();
       if (this.isNewData || this.child.id === undefined) {
         this.childService.insert(this.child).subscribe(
           success => {
@@ -190,26 +199,70 @@ export class ChildComponent implements OnInit {
             this.sweetAlertService.alertSuccessUpdate('/criancas');
           },
           error => {
-            this.toastService.toastError();
-            console.log('update error:', error);
+            if (error[0] === 'whotakecare.missing') {
+              this.toastService.toastMsgError('Atenção', 'Informe quem cuida da criança!');
+            } else {
+              this.toastService.toastError();
+              console.log('update error:', error);
+            }
           }
         );
+      }
+    } else {
+      if (!isValid) {
+        this.toastService.toastMsgError('Erro', 'Preencha todos os campos obrigatórios do formulário!');
       }
     }
   }
 
+  verifyNull() {
+    if (this.child.mother !== undefined && this.child.mother !== null) {
+      if (this.child.mother.agent_id === null) {
+        this.child.mother.agent_id = undefined;
+      }
+      if (this.child.mother.community.city.state.cities === null) {
+        this.child.mother.community.city.state.cities = [];
+      }
+      if (this.child.mother.community.city_id === null) {
+        this.child.mother.community.city_id = undefined;
+      }
+      if ( (this.child.mother.community.city_id === undefined) || this.child.mother.community.city_id === null) {
+        this.child.mother.community.city_id = this.child.mother.community.city.id;
+      }
+    } else {
+      delete this.child.mother;
+    }
+
+    this.child.responsible.forEach( resp => {
+      if (resp.community.city.state.cities === null) {
+        resp.community.city.state.cities = [];
+      }
+      if (resp.agent_id === null) {
+        resp.agent_id = undefined;
+      }
+      if (resp.mother === null) {
+        resp.mother = undefined;
+      }
+    });
+  }
+
   load() {
+    this.loaderService.show();
     this.childService.load(this.urlId).subscribe(
       success => {
         this.child = success;
         // console.log(this.child);
         this.verifyDataCheckbox();
         this.changeDate();
+        this.loaderService.hide();
         if (this.child.mother === undefined) {
           this.child.mother = new Responsible();
         }
       },
-      error => console.log(error)
+      error => {
+        this.loaderService.hide();
+        console.log(error);
+      }
     );
   }
 
@@ -300,11 +353,12 @@ export class ChildComponent implements OnInit {
 
   verifyCheckbox(option, event) {
     // * CHECKED * /
+    this.onChange = true;
     const value = event.target.value;
     if (event.target.checked) {
       this.who_take_care_list.push(value);
 
-      if (this.who_take_care_list.length === 0) {
+      if (this.who_take_care_list.length === 1) {
         this.isCkeckboxValid = false;
       } else {
         this.isCkeckboxValid = true;
@@ -314,17 +368,33 @@ export class ChildComponent implements OnInit {
       this.index1 = this.who_take_care_list.indexOf(value);
       this.who_take_care_list.splice(this.index1, 1);
 
-      if (this.who_take_care_list.length === 0) {
+      if (this.who_take_care_list.length === 1) {
         this.isCkeckboxValid = false;
       } else {
         this.isCkeckboxValid = true;
       }
+      console.log(this.who_take_care_list);
     }
   }
 
   openModal() {
     this.modalService.modalCancel('/criancas');
+  }
 
+  onCancel() {
+    if (this.onChange) {
+      this.sweetAlert2Service.alertToSave()
+      .then((result) => {
+        if (result.value) {
+          this._isSave = true;
+          this.openSaveButtonTab2.click();
+        } else {
+          this.route.navigate(['/criancas']);
+        }
+      });
+    } else {
+      this.openModal();
+    }
   }
 
   save(tab: string, isValid: boolean) {
@@ -397,7 +467,10 @@ export class ChildComponent implements OnInit {
   }
 
   verifyValidSubmitted(form, field) {
-    return form.submitted && !field.valid;
+    if (field.dirty) {
+      this.onChange = true;
+    }
+    return (field.dirty || field.touched || form.submitted) && !field.valid;
   }
 
   applyCssError(form, field) {

@@ -1,3 +1,5 @@
+import { SweetAlert2Service } from './../../services/sweetalert/sweet-alert.2service';
+import { LoaderService } from './../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../helpers/permissions';
 import { SweetAlertService } from './../../services/sweetalert/sweet-alert.service';
 import { ResponsibleService } from './../../services/responsible/responsible.service';
@@ -58,6 +60,7 @@ export class ResponsibleComponent implements OnInit {
   private canUpdate: boolean;
   private canCreate: boolean;
   private canDelete: boolean;
+  private onChange: boolean;
 
   constructor(
     private communityService: CommunityService,
@@ -65,6 +68,8 @@ export class ResponsibleComponent implements OnInit {
     private toastService: ToastService,
     private modalService: ModalService,
     private sweetAlertService: SweetAlertService,
+    private sweetAlert2Service: SweetAlert2Service,
+    private loaderService: LoaderService,
     private permissions: Permissions,
     private route: Router
   ) {
@@ -140,7 +145,8 @@ export class ResponsibleComponent implements OnInit {
     this.family_income_other_count = 0;
   }
 
-  saveData(isValid: boolean) {
+  saveData(form1, fomr2, form3) {
+    const isValid = form1 && fomr2 && form3;
 
     if (isValid && this._isSave) {
       this.verifyDate();
@@ -161,6 +167,15 @@ export class ResponsibleComponent implements OnInit {
 
       if ( !this.responsible.drinking_water_treatment2) {
         this.responsible.drinking_water_treatment = 'Não';
+      }
+
+      this.responsible.community.city.state.cities = [];
+      if (this.responsible.agent_id == null) {
+        this.responsible.agent_id = undefined;
+      }
+
+      if (this.responsible.mother == null) {
+        delete this.responsible.mother;
       }
 
       if (this.isNewData || this.responsible.id === undefined) {
@@ -187,6 +202,10 @@ export class ResponsibleComponent implements OnInit {
           }
         );
       }
+    } else {
+      if (!isValid) {
+        this.toastService.toastMsgError('Erro', 'Preencha todos os campos obrigatórios do formulário!');
+      }
     }
   }
 
@@ -206,15 +225,20 @@ export class ResponsibleComponent implements OnInit {
   }
 
   load() {
+    this.loaderService.show();
     this.responsibleService.load(this.urlId).subscribe(
       success => {
         this.responsible = success;
         this.alterData();
+        this.loaderService.hide();
         if (this.responsible === undefined) {
           this.responsible = new Responsible();
         }
       },
-      error => console.log(error)
+      error => {
+        this.loaderService.hide();
+        console.log(error);
+      }
     );
   }
 
@@ -261,6 +285,22 @@ export class ResponsibleComponent implements OnInit {
   openModal() {
     this.modalService.modalCancel('/responsaveis');
 
+  }
+
+  onCancel() {
+    if (this.onChange) {
+      this.sweetAlert2Service.alertToSave()
+      .then((result) => {
+        if (result.value) {
+          this._isSave = true;
+          this.openSaveButtonTab3.click();
+        } else {
+          this.route.navigate(['/responsaveis']);
+        }
+      });
+    } else {
+      this.openModal();
+    }
   }
 
   save(tab: string, isValid: boolean) {
@@ -346,7 +386,10 @@ export class ResponsibleComponent implements OnInit {
   }
 
   verifyValidSubmitted(form, field) {
-    return form.submitted && !field.valid;
+    if (field.dirty) {
+      this.onChange = true;
+    }
+    return (field.dirty || field.touched || form.submitted) && !field.valid;
   }
 
   applyCssError(form, field) {

@@ -10,10 +10,12 @@ export class LoaderService {
   constructor() { }
 
   show() {
+    // console.log('show loader');
     this.loaderSubject.next(<LoaderState>{show: true});
   }
 
   hide() {
+    // console.log('hide loader');
       this.loaderSubject.next(<LoaderState>{show: false});
   }
 

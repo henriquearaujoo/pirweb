@@ -1,3 +1,4 @@
+import { NgxMaskModule } from 'ngx-mask';
 import { SharedModule } from './../../shared/shared.module';
 import { MyDatePickerModule } from 'mydatepicker';
 import { FormsModule } from '@angular/forms';
@@ -17,6 +18,7 @@ import { FormTemplateRoutingModule } from './form-template-routing.module';
     HttpModule,
     FormsModule,
     MyDatePickerModule,
+    NgxMaskModule,
     SharedModule
   ],
   declarations: [

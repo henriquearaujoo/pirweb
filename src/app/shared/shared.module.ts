@@ -1,7 +1,7 @@
 import { JasperoAlertsModule } from '@jaspero/ng2-alerts';
 import { RouterModule } from '@angular/router';
 import { ToastService } from './../services/toast-notification/toast.service';
-import { LoaderService } from './../services/loader/loader.service';
+// import { LoaderService } from './../services/loader/loader.service';
 import { LoaderComponent } from './../components/loader/loader.component';
 // import { HomeLayoutComponent } from './../components/layout/home-layout.component';
 import { HomeComponent } from './../components/home/home.component';
@@ -44,7 +44,7 @@ import { CommonModule } from '@angular/common';
     MapsComponent
   ],
   providers: [
-    LoaderService,
+    // LoaderService,
     ToastService
   ],
   exports: [

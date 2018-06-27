@@ -58,6 +58,7 @@ export class TemplateChapterItemComponent implements OnInit, OnDestroy {
    }
 
    getVersions() {
+    this.loaderService.show();
     this.chapterService.getVersionFromChapter(this.chapter.number).subscribe(
       s => {
         this.paginate = s;
@@ -70,6 +71,10 @@ export class TemplateChapterItemComponent implements OnInit, OnDestroy {
           this.currentVersion = this.chapter.versions[i];
         }
         this.lastVersion = this.chapter.versions.length;
+       this.loaderService.hide();
+      },
+      error => {
+       this.loaderService.hide();
       }
     );
    }

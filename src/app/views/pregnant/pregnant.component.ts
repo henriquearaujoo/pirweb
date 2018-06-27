@@ -1,3 +1,5 @@
+import { SweetAlert2Service } from './../../services/sweetalert/sweet-alert.2service';
+import { LoaderService } from './../../services/loader/loader.service';
 import { Router } from '@angular/router';
 import { Permissions, RuleState } from './../../helpers/permissions';
 import { Pregnant } from './../../models/pregnant';
@@ -53,6 +55,7 @@ export class PregnantComponent implements OnInit {
   private canCreate: boolean;
   private canDelete: boolean;
   private dateDisable = new Date();
+  private onChange: boolean;
 
   public myDatePickerOptions: IMyDpOptions;
 
@@ -66,7 +69,9 @@ export class PregnantComponent implements OnInit {
     private toastService: ToastService,
     private modalService: ModalService,
     private sweetAlertService: SweetAlertService,
+    private sweetAlert2Service: SweetAlert2Service,
     private permissions: Permissions,
+    private loaderService: LoaderService,
     private route: Router
   ) {
       this.canCreate = false;
@@ -92,6 +97,7 @@ export class PregnantComponent implements OnInit {
       this.isNewData = false;
       this.load();
     }  else {
+      // this.loaderService.hide();
       this.route.navigate(['/gestantes']);
     }
 
@@ -141,7 +147,8 @@ export class PregnantComponent implements OnInit {
     this.family_income_other_count = 0;
   }
 
-  saveData(isValid: boolean) {
+  saveData(form1, fomr2, form3) {
+    const isValid = form1 && fomr2 && form3;
 
     if (isValid && this._isSave) {
       this.verifyDate();
@@ -167,6 +174,11 @@ export class PregnantComponent implements OnInit {
         this.responsible.drinking_water_treatment = 'Não';
       }
 
+      this.responsible.community.city.state.cities = [];
+      if (this.responsible.agent_id == null) {
+        this.responsible.agent_id = undefined;
+      }
+
       if (this.isNewData || this.responsible.id === undefined) {
         this.responsibleService.insert(this.responsible).subscribe(
           success => {
@@ -182,6 +194,7 @@ export class PregnantComponent implements OnInit {
       } else {
         this.responsibleService.update(this.responsible).subscribe(
           success => {
+            console.log('success: ', success);
             this.sweetAlertService.alertSuccessUpdate('/gestantes');
           },
           error => {
@@ -189,6 +202,10 @@ export class PregnantComponent implements OnInit {
             console.log('update error:', error);
           }
         );
+      }
+    } else {
+      if (!isValid) {
+        this.toastService.toastMsgError('Erro', 'Preencha todos os campos obrigatórios do formulário!');
       }
     }
   }
@@ -209,10 +226,12 @@ export class PregnantComponent implements OnInit {
   }
 
   load() {
+    this.loaderService.show();
     this.responsibleService.load(this.urlId).subscribe(
       success => {
         this.responsible = success;
         this.alterData();
+        this.loaderService.hide();
         if (this.responsible.mother.children_count === 0) {
           this.otherChildren.has = false;
         } else {
@@ -222,7 +241,10 @@ export class PregnantComponent implements OnInit {
           this.responsible.mother = new Pregnant();
         }
       },
-      error => console.log(error)
+      error => {
+        this.loaderService.hide();
+        console.log(error);
+      }
     );
   }
 
@@ -269,6 +291,22 @@ export class PregnantComponent implements OnInit {
   openModal() {
     this.modalService.modalCancel('/gestantes');
 
+  }
+
+  onCancel() {
+    if (this.onChange) {
+      this.sweetAlert2Service.alertToSave()
+      .then((result) => {
+        if (result.value) {
+          this._isSave = true;
+          this.openSaveButtonTab3.click();
+        } else {
+          this.route.navigate(['/gestantes']);
+        }
+      });
+    } else {
+      this.openModal();
+    }
   }
 
   save(tab: string, isValid: boolean) {
@@ -355,7 +393,10 @@ export class PregnantComponent implements OnInit {
   }
 
   verifyValidSubmitted(form, field) {
-    return form.submitted && !field.valid;
+    if (field.dirty) {
+      this.onChange = true;
+    }
+    return (field.dirty || field.touched || form.submitted) && !field.valid;
   }
 
   applyCssError(form, field) {

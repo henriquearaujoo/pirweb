@@ -9,6 +9,7 @@ export class ControlFieldErrorComponent implements OnInit {
 
   @Input() showError: boolean;
   @Input() msgError: boolean;
+  @Input() field: any;
 
   constructor() { }
 

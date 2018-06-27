@@ -32,6 +32,8 @@ export class AnswerListComponent extends PagenateComponent implements OnInit {
 
   private limit = Constant.LIMIT_CHARACTERS;
   private characters =  this.limit;
+  private fieldEditor: string[] = new Array();
+  private validEditor: boolean;
 
   public editorOptions = {
     modules: {
@@ -78,59 +80,67 @@ export class AnswerListComponent extends PagenateComponent implements OnInit {
   }
 
   saveData() {
-    console.log('answer', this.answer);
-    if ((this.answer.answer === null || this.answer.answer === undefined) &&
-        (this.answer.type === null || this.answer.type === undefined) ) {
-      this.toastService.toastMsgError('Erro', 'Descrição da resposta é um campo obrigatório!');
-      this.toastService.toastMsgError('Erro', 'Tipo da resposta é um campo obrigatório!');
-      this.getAnswers();
-      return false;
-    } else if (this.answer.answer === null || this.answer.answer === undefined) {
-      this.toastService.toastMsgError('Erro', 'Descrição da resposta é um campo obrigatório!');
-      this.getAnswers();
-      return false;
-    } else if (this.answer.type === null || this.answer.type === undefined) {
-      this.toastService.toastMsgError('Erro', 'Tipo da resposta é um campo obrigatório!');
-      this.getAnswers();
-      return false;
-    }
-    if (this.isNewData || this.answer.id === undefined) {
-      this.answer.question_id = this.question.id;
-      this.conclusionService.insertAlternative(this.answer).subscribe(
-        success => {
-          this.toastService.toastSuccess();
-          this.isNewData = false;
-          this.getAnswers();
-        },
-        error => {
-          if ( error === 'answer.exists') {
-            this.toastService.toastMsgWarn('Atenção', 'Resposta já está cadastrada');
-          } else {
-            this.toastService.toastError();
+    this.verifyEditor();
+    if (this.validEditor) {
+      if (this.isNewData || this.answer.id === undefined) {
+        this.answer.question_id = this.question.id;
+        this.conclusionService.insertAlternative(this.answer).subscribe(
+          success => {
+            this.toastService.toastSuccess();
+            this.isNewData = false;
+            this.getAnswers();
+          },
+          error => {
+            this.verifyError(error);
           }
-          console.log('error save:', error);
+        );
+      } else {
+        if (this.answer.answer === null || this.answer.answer === undefined) {
+          this.toastService.toastMsgError('Erro', 'Descrição da resposta é um campo obrigatório!');
+          this.getAnswers();
+          return false;
         }
-      );
-    } else {
-      if (this.answer.answer === null || this.answer.answer === undefined) {
-        this.toastService.toastMsgError('Erro', 'Descrição da resposta é um campo obrigatório!');
-        this.getAnswers();
-        return false;
+        this.conclusionService.updateAlternative(this.answer).subscribe(
+          success => {
+            this.getAnswers();
+            this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso');
+          },
+          error => {
+            this.verifyError(error);
+          }
+        );
       }
-      this.conclusionService.updateAlternative(this.answer).subscribe(
-        success => {
-          this.getAnswers();
-          this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso');
-        },
-        error => {
-          if ( error === 'answer.exists') {
-            this.toastService.toastMsgWarn('Atenção', 'Resposta já está cadastrada');
-          } else {
-            this.toastService.toastError();
-          }
-          console.log('error save:', error);
+    } else {
+      this.toastService.toastMsgError('Erro', 'Ação não realizada. Verifique o preenchimento de todos os campos!');
+    }
+  }
+
+  public verifyEditor() {
+    this.validEditor = true;
+    for (let i = 0; i < this.fieldEditor.length; i++) {
+      if (this.fieldEditor[i] === '') {
+        this.validEditor = false;
+        break;
+      }
+    }
+  }
+
+  public verifyError(error) {
+    if (error.length < 3) {
+      for (let i = 0; i < error.length; i++) {
+        if (error[i] === 'answer.missing') {
+          this.toastService.toastMsgWarn('Atenção', 'Descrição da resposta é um campo obrigatório!');
         }
-      );
+        if (error[i] === 'type.missing') {
+          this.toastService.toastMsgWarn('Atenção', 'Tipo da resposta é um campo obrigatório!');
+        }
+      }
+    } else {
+      if ( error === 'answer.found') {
+        this.toastService.toastMsgWarn('Atenção', 'Resposta já está cadastrada');
+      } else {
+        this.toastService.toastError();
+      }
     }
 
   }
@@ -179,17 +189,22 @@ export class AnswerListComponent extends PagenateComponent implements OnInit {
   }
 
   verifyValidSubmitted(form, field) {
-    return form.submitted && !field.valid;
+    return (field.dirty || field.touched || form.submitted) && !field.valid;
   }
 
-  applyCssError(form, field) {
+  applyCssError(form, field, position?) {
     return {
-      'has-error': this.verifyValidSubmitted(form, field),
-      'has-feedback': this.verifyValidSubmitted(form, field)
+      'has-error': this.verifyValidSubmitted(form, field) || this.verifyValidSubmittedEditor(form, field, position),
+      'has-feedback': this.verifyValidSubmitted(form, field) || this.verifyValidSubmittedEditor(form, field, position)
     };
   }
 
-  onKey(event) {
+  verifyValidSubmittedEditor(form, field, position?) {
+    return this.fieldEditor[position] === '' && (form.submitted || field.dirty || field.touched);
+  }
+
+  onKey(event, position) {
+    this.fieldEditor[position] = event.text.trim();
     this.characters = (this.limit - event.editor.getLength()) + 1;
     if (event.editor.getLength() - 1 > this.limit) {
       event.editor.deleteText(this.limit, event.editor.getLength());

@@ -1,3 +1,4 @@
+import { SweetAlertService } from './../../../../services/sweetalert/sweet-alert.service';
 import { Permissions, RuleState } from './../../../../helpers/permissions';
 import { LoaderService } from './../../../../services/loader/loader.service';
 import { ToastService } from './../../../../services/toast-notification/toast.service';
@@ -64,6 +65,7 @@ export class ChapterDashboardComponent implements OnInit {
     private toastService: ToastService,
     private modalService: ModalService,
     private loaderService: LoaderService,
+    private sweetAlertService: SweetAlertService,
     private permissions: Permissions) { }
 
   ngOnInit() {

@@ -1,5 +1,18 @@
 <div *ngIf="showError">
     <span class="form-control-feedback"></span>
     <span class="sr-only"> (error) </span>
-    <div  class="help-block">{{ msgError }}</div>
-</div> 
+    <div class="help-block">{{ msgError }}</div>
+</div>
+
+<div *ngIf="field !== undefined">
+    <div *ngIf="field?.errors?.pattern">
+        <span class="form-control-feedback"></span>
+        <span class="sr-only"> (error) </span>
+        <div class="help-block has-error">Não pode iniciar ou conter somente espaços em branco </div>
+    </div>
+    <div *ngIf="field === ''">
+        <span class="form-control-feedback"></span>
+        <span class="sr-only"> (error) </span>
+        <div class="help-block has-error">Não pode conter somente espaços em branco </div>
+    </div>
+</div>

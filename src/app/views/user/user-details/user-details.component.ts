@@ -77,7 +77,7 @@ export class UserDetailsComponent implements OnInit {
 
   verifyType() {
     if (this.user !== undefined) {
-      if (this.user.person !== undefined ) {
+      if (this.user.person !== undefined && this.user.person !== null ) {
         this.user.type = 'PFIS';
         this.show_pjur = false;
       } else {
@@ -119,10 +119,7 @@ export class UserDetailsComponent implements OnInit {
     } else {
       this.user.status = true;
     }
-
-    this.user.profile_id = this.user.profile.id;
-    this.user.address.city_id = this.user.address.city.id;
-
+    this.verifyNull();
     this.userService.saveEditUser(this.user).subscribe(
       success => {
         this.toastService.toastSuccess();
@@ -130,6 +127,25 @@ export class UserDetailsComponent implements OnInit {
       },
       error => console.log(error)
     );
+  }
+
+  verifyNull() {
+    this.user.profile_id = this.user.profile.id;
+    this.user.address.city_id = this.user.address.city.id;
+    this.user.profile.description = '';
+    this.user.profile.updated_at = '';
+    this.user.address.city.state.cities = [];
+    if ( this.user.latitude === null && this.user.longitude == null) {
+      this.user.latitude = 0;
+      this.user.longitude = 0;
+    }
+    if (this.user.person !== null && this.user.person !== undefined ) {
+      delete this.user.entity;
+    } else {
+      delete this.user.person;
+    }
+    delete this.user.visits;
+    this.user.password = undefined;
   }
 
   walk ( tab: number) {

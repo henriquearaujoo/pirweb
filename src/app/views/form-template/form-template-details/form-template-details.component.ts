@@ -1,3 +1,4 @@
+import { LoaderService } from './../../../services/loader/loader.service';
 import { PagenateComponent } from './../../../components/pagenate/pagenate.component';
 import { PageService } from './../../../services/pagenate/page.service';
 import { ModalService } from './../../../components/modal/modal.service';
@@ -40,6 +41,7 @@ export class FormTemplateDetailsComponent extends PagenateComponent implements O
     private permissions: Permissions,
     private toastService: ToastService,
     private modalService: ModalService,
+    private loaderService: LoaderService,
     private servicePage: PageService
   ) {
     super(servicePage);
@@ -71,6 +73,7 @@ export class FormTemplateDetailsComponent extends PagenateComponent implements O
   }
 
   load() {
+    this.loaderService.show();
     this.formService.load(this.urlId).subscribe(
       success => {
         this.form = success;
@@ -80,6 +83,7 @@ export class FormTemplateDetailsComponent extends PagenateComponent implements O
         this.allItems = this.form.questions;
         this.pagedItems = this.form.questions;
         this.setPage(1);
+        this.loaderService.hide();
       },
       error => console.log(error)
     );

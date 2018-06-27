@@ -96,6 +96,11 @@ export class MultimediaComponent implements OnInit {
           this.chapter.medias.push(media[i]);
         }
 
+        this.chapter.medias.forEach( elem => {
+          elem.media_type = undefined;
+          elem.storage_type = undefined;
+        });
+
         this.chapter.thumbnails = [];
         this.chapterService.update(this.chapter).subscribe(
           s => {

@@ -1,3 +1,4 @@
+import { SweetAlert2Service } from './../../../../services/sweetalert/sweet-alert.2service';
 import { Constant } from './../../../../constant/constant';
 import { Permissions, RuleState } from './../../../../helpers/permissions';
 import { ToastService } from './../../../../services/toast-notification/toast.service';
@@ -5,6 +6,7 @@ import { InterventionService } from './../../../../services/intervention/interve
 import { Intervention } from './../../../../models/intervention';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Input } from '@angular/core/src/metadata/directives';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-intervention',
@@ -27,6 +29,9 @@ export class InterventionComponent implements OnInit {
 
   private limit = Constant.LIMIT_CHARACTERS;
   private characters =  this.limit;
+  private fieldEditor: string[] = new Array();
+  private validEditor: boolean;
+  private onChange: boolean;
 
   public editorOptions = {
     modules: {
@@ -44,7 +49,9 @@ export class InterventionComponent implements OnInit {
   constructor(
     private service: InterventionService,
     private toastService: ToastService,
-    private permissions: Permissions) {
+    private permissions: Permissions,
+    private sweetAlert2Service: SweetAlert2Service,
+    private router: Router) {
       this.canCreate = false;
       this.canUpdate = false;
       this.canRead = false;
@@ -66,42 +73,63 @@ export class InterventionComponent implements OnInit {
   }
 
   saveData() {
-    if (this.btn_cancel) {
-      this.btn_cancel = false;
-      return false;
-    }
+    // if (this.btn_cancel) {
+    //   this.btn_cancel = false;
+    //   return false;
+    // }
     if ( this.chapter === undefined) {
       this.returnEvent.emit(false);
       return;
     }
     this.intervention.chapter_id = this.chapter;
-    if (this.isNewData || this.intervention.id === undefined) {
-      this.service.insert(this.intervention).subscribe(
-        s => {
-          this.isNewData  = false;
-          this.intervention = s;
-          this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
-        },
-        e => {
-          if ( e[0] === 'chapter.intervention.chapter.missing') {
-            this.toastService.toastErrorChapterId();
-          } else {
-            this.toastService.toastError();
+    this.verifyEditor();
+    if (this.validEditor) {
+      if (this.isNewData || this.intervention.id === undefined) {
+        this.service.insert(this.intervention).subscribe(
+          s => {
+            this.isNewData  = false;
+            this.intervention = s;
+            this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
+          },
+          e => {
+            if ( e[0] === 'chapter.intervention.chapter.missing') {
+              this.toastService.toastErrorChapterId();
+            } else {
+              this.toastService.toastError();
+            }
+            console.log('error: ' + e);
           }
-          console.log('error: ' + e);
-        }
-      );
-    }else {
-      this.service.update(this.intervention).subscribe(
-        s => {
-          this.intervention = s;
-          this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso');
-        },
-        e => {
-          this.toastService.toastError();
-          console.log('error: ' + e);
-        }
-      );
+        );
+      }else {
+        this.service.update(this.intervention).subscribe(
+          s => {
+            this.intervention = s;
+            this.toastService.toastMsg('Sucesso', 'Informações atualizadas com sucesso');
+            setTimeout(() => {
+              if (this.btn_cancel) {
+                this.router.navigate(['/capitulos']);
+              }
+            }, 1000);
+          },
+          e => {
+            this.toastService.toastError();
+            console.log('error: ' + e);
+          }
+        );
+      }
+    } else {
+      this.btn_cancel = false;
+      this.toastService.toastMsgError('Erro', 'Preencha todos os campos obrigatórios do formulário!');
+    }
+  }
+
+  public verifyEditor() {
+    this.validEditor = true;
+    for (let i = 0; i < this.fieldEditor.length; i++) {
+      if (this.fieldEditor[i] === '') {
+        this.validEditor = false;
+        break;
+      }
     }
   }
 
@@ -120,23 +148,51 @@ export class InterventionComponent implements OnInit {
     );
   }
 
+  // onCancel() {
+  //   this.cancelEvent.emit();
+  //   this.btn_cancel = true;
+  // }
+
   onCancel() {
-    this.cancelEvent.emit();
-    this.btn_cancel = true;
+    if (this.onChange) {
+      this.sweetAlert2Service.alertToSave()
+        .then((result) => {
+          if (result.value) {
+            this.btn_cancel = true;
+            this.saveData();
+          } else {
+            this.router.navigate(['/capitulos']);
+          }
+        });
+    } else {
+      this.cancelEvent.emit();
+      this.btn_cancel = true;
+    }
   }
 
   verifyValidSubmitted(form, field) {
-    return form.submitted && !field.valid;
+    if (field.dirty) {
+      this.onChange = true;
+    }
+    return (field.dirty || field.touched || form.submitted) && !field.valid;
   }
 
-  applyCssError(form, field) {
+  applyCssError(form, field, position) {
     return {
-      'has-error': this.verifyValidSubmitted(form, field),
-      'has-feedback': this.verifyValidSubmitted(form, field)
+      'has-error': this.verifyValidSubmitted(form, field) || this.verifyValidSubmittedEditor(form, field, position),
+      'has-feedback': this.verifyValidSubmitted(form, field) || this.verifyValidSubmittedEditor(form, field, position)
     };
   }
 
-  onKey(event) {
+  verifyValidSubmittedEditor(form, field, position?) {
+    if (field.dirty) {
+      this.onChange = true;
+    }
+    return this.fieldEditor[position] === '' && (form.submitted || field.dirty || field.touched);
+  }
+
+  onKey(event, position) {
+    this.fieldEditor[position] = event.text.trim();
     this.characters = (this.limit - event.editor.getLength()) + 1;
     if (event.editor.getLength() - 1 > this.limit) {
       event.editor.deleteText(this.limit, event.editor.getLength());

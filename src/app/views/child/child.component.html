@@ -41,8 +41,8 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group" [ngClass]="applyCssError(f1, nameChild)">
                                                             <label class="control-label">Nome completo da criança</label>
-                                                            <input type="text" #nameChild="ngModel" name="name_child" maxlength="100" [(ngModel)]="child.name" id="name_child" class="form-control" placeholder="Nome completo da criança" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, nameChild)" msgError="Digite um nome para a criança">
+                                                            <input type="text" #nameChild="ngModel" name="name_child" pattern="[\w,./_=?-].*" maxlength="60" [(ngModel)]="child.name" id="name_child" class="form-control" placeholder="Nome completo da criança" required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, nameChild)" [field]="nameChild" msgError="Digite um nome para a criança">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
@@ -74,7 +74,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-6">
-                                                        <div class="form-group" [ngClass]="applyCssError(f1, nameMother)" *ngIf="child.mother !== undefined">
+                                                        <div class="form-group" [ngClass]="applyCssError(f1, nameMother)" *ngIf="child.mother !== undefined && child.mother !== null">
                                                             <label class="control-label">Nome da Mãe</label>
                                                             <select #nameMother="ngModel" name="name_mother" [(ngModel)]="child.mother.id" id="name_mother" class="form-control">
                                                               <option [value]="item.id" *ngFor="let item of mothers">
@@ -85,10 +85,12 @@
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
-                                                    <div [ngClass]="child.mother === undefined ? 'col-sm-12' : 'col-sm-6'">
-                                                        <div class="form-group">
+                                                    <div [ngClass]="child.mother === undefined || child.mother === null ? 'col-sm-12' : 'col-sm-6'">
+                                                        <div class="form-group" [ngClass]="applyCssError(f1, fatherName)">
                                                             <label class="control-label">Nome do pai</label>
-                                                            <input type="text" #fatherName="ngModel" name="fatherName" maxlength="100" [(ngModel)]="child.father_name" id="fatherName" class="form-control" placeholder="Nome completo do pai">
+                                                            <input type="text" #fatherName="ngModel" name="fatherName" pattern="[\w,./_=?-].*" maxlength="60" [(ngModel)]="child.father_name" id="fatherName" class="form-control" placeholder="Nome completo do pai">
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, fatherName)" [field]="fatherName" msgError="Digite um nome para a mãe da criança">
+                                                            </app-control-field-error>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -121,11 +123,11 @@
                                                 <button type="submit" id="btn_tab1"></button>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <!-- <div class="col-md-3">
                                             <div class="form-group">
                                                 <button class="btn btn-default btn-block" (click)="openModal()" id="btn_return1"> Cancelar</button>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </form>
                                 </div>
                             </div>
@@ -143,7 +145,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <form name="form" (ngSubmit)="saveData(f2.valid) && save(2, f2.valid)" #f2="ngForm" novalidate>
+                                    <form name="form" (ngSubmit)="saveData(f1.valid, f2.valid) && save(2, f2.valid)" #f2="ngForm" novalidate>
                                         <div class="box box-primary">
                                             <div class="box-body">
                                                 <div class="row">
@@ -211,9 +213,10 @@
                                                     <div class="col-sm-12" *ngIf="child.has_civil_registration === false">
                                                         <div class="form-group" [ngClass]="applyCssError(f2, civilRegJustificative)">
                                                             <label class="control-label">Justifique</label>
-                                                            <textarea type="text" #civilRegJustificative="ngModel" name="civilRegJustificative" id="civilRegJustificative" [(ngModel)]="child.civil_reg_justificative" class="form-control" placeholder="Por que a criança não possui registro civil? " required>
+                                                            <textarea type="text" #civilRegJustificative="ngModel" name="civilRegJustificative" pattern="[\w,./_=?-].*" id="civilRegJustificative" maxlength="200" [(ngModel)]="child.civil_reg_justificative" class="form-control" placeholder="Por que a criança não possui registro civil? "
+                                                                required>
                                                             </textarea>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, civilRegJustificative)" msgError="Justifique a ausência do registro civil">
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, civilRegJustificative)" [field]="civilRegJustificative" msgError="Justifique a ausência do registro civil">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
@@ -267,18 +270,18 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-4">
-                                                        <div class="form-group" [ngClass]="{ 'has-error': f2.submitted && who_take_care_list.length === 0 }">
+                                                        <div class="form-group" [ngClass]="{ 'has-error': who_take_care_list.length === 1 }">
                                                             <label class="control-label">Quem cuida da criança? </label>
                                                             <div class="checkbox" *ngFor="let item of _who_take_care">
                                                                 <label>
-                                                                    <input type="checkbox" name="_who_take_care"  
+                                                                    <input type="checkbox" name="WhoTakeCare"
                                                                     id="_who_take_care" [value]="item.description" 
                                                                     [checked]="item.checked"
                                                                     (change)="verifyCheckbox(1, $event)" required>
                                                                     {{ item.description }}
                                                                 </label>
                                                             </div>
-                                                            <div *ngIf="f2.submitted && who_take_care_list.length === 0" class="help-block"> Escolha uma ou mais alternativas</div>
+                                                            <div *ngIf="who_take_care_list.length === 1" class="help-block"> Escolha uma ou mais alternativas</div>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
@@ -305,9 +308,9 @@
                                                             <div class="col">
                                                                 <div class="form-group" [ngClass]="applyCssError(f2, educationDiffSpecification)" *ngIf="child.has_education_diff">
                                                                     <label class="label-control"> Justifique</label>
-                                                                    <textarea class="form-control" #educationDiffSpecification="ngModel" [(ngModel)]="child.education_diff_specification" name="educationDiffSpecification" id="educationDiffSpecification" required>
+                                                                    <textarea class="form-control" #educationDiffSpecification="ngModel" [(ngModel)]="child.education_diff_specification" pattern="[\w,./_=?-].*" name="educationDiffSpecification" maxlength="200" id="educationDiffSpecification" required>
                                                                     </textarea>
-                                                                    <app-control-field-error [showError]="verifyValidSubmitted(f2, educationDiffSpecification)" msgError="Especifique a dificuldade para educar a criança">
+                                                                    <app-control-field-error [showError]="verifyValidSubmitted(f2, educationDiffSpecification)" [field]="educationDiffSpecification" msgError="Especifique a dificuldade para educar a criança">
                                                                     </app-control-field-error>
                                                                 </div>
                                                             </div>
@@ -317,10 +320,10 @@
                                                         <div class="form-group" [ngClass]="applyCssError(f2, playsWithWho)">
                                                             <label class="control-label">Com quem a criança brinca?</label>
                                                             <select class="form-control" name="playsWithWho" id="playsWithWho" #playsWithWho="ngModel" [(ngModel)]="child.plays_with_who" required>
-                                                                <option value="Com adulto"> Com adulto</option>
-                                                                <option value=" Com adulto e criança"> Com adulto e criança</option>
-                                                                <option value="Com criança"> Com criança</option>
-                                                                <option value="Sozinha"> Sozinha</option>
+                                                                <option value="Adultos"> Com adulto</option>
+                                                                <option value="Adultos e Crianças"> Com adulto e criança</option>
+                                                                <option value="Crianças"> Com criança</option>
+                                                                <option value="Sozinha"> Sozinha</option>h
                                                             </select>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f2, playsWithWho)" msgError="Selecione com quem a criança brinca">
                                                             </app-control-field-error>
@@ -338,12 +341,12 @@
                                                 <button type="submit" id="btn_tab2"></button>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <!-- <div class="col-md-3">
                                             <div class="form-group">
                                                 <button class="btn btn-default btn-block" (click)="openModal()" id="btn_return3"> Cancelar</button>
                                             </div>
-                                        </div>
-                                        <div class="col-md-3 col-md-offset-6">
+                                        </div> -->
+                                        <div class="col-md-12">
                                             <div class="form-group save">
                                                 <button class="btn btn-primary btn-block" (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save" *ngIf="isNewData && canCreate">Cadastrar</button>
                                                 <button class="btn btn-primary btn-block" (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save" *ngIf="!isNewData && canUpdate">Salvar</button>
@@ -353,6 +356,15 @@
                                 </div>
                             </div>
                         </section>
+                    </div>
+                </div>
+                <div class="row footer">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-default btn-block" (click)="onCancel()" id="btn_return3">
+                                <span *ngIf="isNewData">Cancelar</span>   <span *ngIf="!isNewData">Voltar</span> 
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

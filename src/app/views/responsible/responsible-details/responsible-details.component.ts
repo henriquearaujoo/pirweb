@@ -1,3 +1,4 @@
+import { LoaderService } from './../../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../../helpers/permissions';
 import { CommunityService } from './../../../services/community/community.service';
 import { ResponsibleService } from './../../../services/responsible/responsible.service';
@@ -24,6 +25,7 @@ export class ResponsibleDetailsComponent implements OnInit {
   constructor(
     private responsibleService: ResponsibleService,
     private communityService: CommunityService,
+    private loaderService: LoaderService,
     private permissions: Permissions
   ) {
     this.canCreate = false;
@@ -55,14 +57,19 @@ export class ResponsibleDetailsComponent implements OnInit {
   }
 
   load() {
+    this.loaderService.show();
     this.responsibleService.load(this.urlId).subscribe(
       success => {
         this.responsible = success;
+        this.loaderService.hide();
         if (this.responsible === undefined) {
           this.responsible = new Responsible();
         }
       },
-      error => console.log(error)
+      error => {
+        this.loaderService.hide();
+        console.log(error);
+      }
     );
   }
 
