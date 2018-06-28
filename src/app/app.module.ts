@@ -1,3 +1,4 @@
+import { FormBuilderService } from './services/form/formBuilder.service';
 import { SweetAlert2Service } from './services/sweetalert/sweet-alert.2service';
 import { LoaderService } from './services/loader/loader.service';
 import { SharedModule } from './shared/shared.module';
@@ -22,6 +23,7 @@ import {
   MatCardModule,
   MatTooltipModule
 } from '@angular/material';
+// import  { MAT_LABEL_GLOBAL_OPTIONS } from '@angular/material/core';
 import { NgForm } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -123,7 +125,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     SweetAlert2Service,
     FormService,
     VisitService,
-    LoaderService
+    LoaderService,
+    FormBuilderService
   ],
   exports: [],
   bootstrap: [AppComponent]

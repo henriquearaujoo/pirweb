@@ -91,7 +91,7 @@ export class UserService extends RestService {
   }
 
   public load(id: string) {
-    return this.get(this.apiurl + 'users/search/?id=' + id);
+    return this.get(this.apiurl + 'users/' + id);
   }
 
   setUser(user: User) {

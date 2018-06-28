@@ -1,0 +1,28 @@
+.mat-form-field {
+    width: 90%;
+}
+
+.panel-default>.panel-heading {
+    color: #999;
+    background-color: #ffffff;
+    border-color: #dfe8ed;
+    font-weight: bold;
+}
+
+.panel {
+    border: 0;
+}
+
+.description-question {
+    border-bottom: 1px dotted gray;
+    font-style: italic;
+    font-size: 12px;
+}
+
+i.fa.fa-trash {
+    font-size: 22px;
+}
+
+.panel-footer.question-footer {
+    text-align: right;
+}

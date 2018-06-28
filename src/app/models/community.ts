@@ -1,4 +1,5 @@
 import { City } from './city';
+import { Responsible } from './responsible';
 export class Community {
     public id: string;
     public name: string;
@@ -25,6 +26,8 @@ export class Community {
     public longitude: number;
     public latitude: number;
     public city: City = new City();
+
+    public responsible: Responsible[] = new Array();
     // public status: boolean;
 
 // tslint:disable-next-line:eofline

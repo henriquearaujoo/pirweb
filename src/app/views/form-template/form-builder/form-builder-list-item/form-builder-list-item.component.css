@@ -1,0 +1,299 @@
+.content_ {
+    width: 100%;
+    height: 120px;
+    padding-right: 20px;
+}
+
+.btn-primary {
+    background-color: #373d40;
+    border-color: #373d40;
+}
+
+.box.box-primary {
+    border-top-color: #373d40;
+}
+
+/* CARD */
+
+.card {
+    width: 220px;
+    height: 248px;
+    float: left;
+    margin: 10px;
+    text-align: center;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.dp-version {
+    list-style: none;
+    float: right;
+}
+
+.col-sm-6 {
+    padding: 0;
+}
+
+.mat-card-header-text {
+    margin: 0;
+}
+
+.mat-card {
+    padding: 14px;
+}
+
+.mat-card-actions {
+    padding: 0;
+}
+
+i.fa.fa-picture-o {
+    font-size: 50px;
+}
+
+button.btn.btn-primary.btn-xs {
+    margin: 15px;
+}
+
+i.fa.fa-circle.active_circle {
+    color: #58c537;
+}
+
+/* .card-reveal.i.fa.fa-circle {    
+    margin-top: 16px;
+} */
+
+i.fa.fa-circle.inactive_circle {
+    color: #a60000;
+}
+
+i.fa.fa-circle {
+    float: left;
+    /* margin-top: 10px; */
+}
+
+.content-card {
+    padding-top: 15px;
+}
+
+/* VERSIONS*/
+/* ul.list-version { */
+    /* padding-top: 40px; */
+/* } */
+.version {
+    background-color: #f4f4f4;
+    margin-top: 1px;
+    margin-bottom: 30px;
+    /* height: 250px; */
+}
+li.version-header {
+    background-color: #DFE8ED;
+    height: 40px;
+    text-align: center;
+    padding: 8px 40px;
+    font-weight: bold;
+    color: gray;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+span.version-title {
+    margin-right: 20px;
+    color: #224860;
+}
+li.li-version {
+    font-size: 14px;
+    /* border-bottom: 1px solid #d2d6de;
+    border-top: 1px solid #d2d6de; */
+}
+ul.list-version {
+    background-color: #F5F8FA;
+}
+i.fa.fa-toggle-on, i.fa.fa-toggle-off, i.fa.fa-plus {
+    font-size: 32px;
+    cursor: pointer;
+}
+i.fa.fa-toggle-on {
+    color: #8db561;
+}
+i.fa.fa-toggle-off {
+    color: #b34446;
+}
+
+i.fa.fa-pencil.edit-version {
+    font-size: 24px;
+    color: #224860;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+span.version-add {
+    margin-right: 54px;
+    color: #224860;
+    font-weight: bold;
+}
+/* //PROGRESS BAR// */
+.progress.progress-xs {
+    background-color: #b7b4b4;
+    height: 6px;
+}
+.progress-bar-primary {
+    background-color: #0075BD;
+}
+.chapter-progress {
+    margin-bottom: 15px;
+    padding: 0px 25px;
+}
+span.percentage-n {
+    font-weight: bold;
+    color: #224860;
+}
+
+/* MATERIALIZE*/
+.row {
+    margin-bottom: 5px!important;
+}
+
+.card.sticky-action {
+    /* height: 368px; */
+    width: 219px;
+    margin: 25px 30px;
+}
+
+.card.sticky-action .card-content {
+    padding: 0px 22px;
+    height: 200px;
+    text-align: center;
+    color: #335164;
+}
+
+
+.card.sticky-action .card-action {
+    padding: 10px;
+}
+
+.card.sticky-action .card-reveal {
+    padding-bottom: 88px;
+}
+
+.card.sticky-action .card-reveal {
+    padding: 10px;
+    top: 97%;
+    width: 90%;
+    left: 5%;
+}
+
+.card-reveal {
+    overflow: scroll;
+}
+
+.limit-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 34px;
+}
+
+button.btn.status, button.btn.edit {
+    height: 22px;
+    width: 90px;
+    line-height: 22px;
+    padding: 0 0.8rem;
+    border-radius: 0.5em;
+    /* background-color: #373d40; */
+}
+button.btn.edit, button.btn.edit:hover {
+    margin-right: 10px;
+    background-color: #224860;
+}
+button.btn.status.status-enable {
+    background-color: #8DB561;
+}
+button.btn.status.status-disable {
+    background-color: #B34446;
+}
+.btn i {
+    font-size: 1.2rem!important;
+}
+
+/* button.btn.status:hover, button.btn.edit:hover {
+    background-color: #373d40;
+} */
+
+/* .btn[_ngcontent-c7]:hover, .btn-large[_ngcontent-c7]:hover {
+    background-color: #373d40;
+} */
+
+/* .card[_ngcontent-c7] {
+    margin: 25px 30px;
+} */
+
+.card.sticky-action .card-title {
+    font-size: 18px;
+}
+/* .card[_ngcontent-c7] .card-title[_ngcontent-c7] {
+    font-size: 18px;
+} */
+span.card-title.activator.grey-text.text-darken-4 {
+    padding-top: 10px;
+}
+span.card-title.grey-text.text-darken-4 {
+    height: 40px;
+    border-bottom: 1px solid #e8e6e6;
+}
+.ic_image {
+    height: 70px;
+}
+button.btn.status:focus, button.btn.edit:focus {
+    background-color: #444;
+}
+/* .btn[_ngcontent-c7]:focus, .btn-large[_ngcontent-c7]:focus, .btn-floating[_ngcontent-c7]:focus {
+    background-color: #444;
+} */
+
+/* END CARD*/
+
+/* MODAL */
+.modal-footer {
+    padding: 0;
+    margin-top: 90px;
+}
+
+.modal-content {
+    height: 200px;
+}
+
+.modal-btn-cancel {
+    float: right;  
+}
+
+.modal-body[_ngcontent-c5] {
+    padding-top: 30px;
+    margin-top: 20px;
+}
+.modal-icon {
+    text-align: center;
+}
+
+button#btn_cancel {
+    width: 150px;
+    height: 45px;
+    border-radius: 0;
+}
+
+button#btn_confirm {
+    width: 150px;
+    height: 45px;
+    border-radius: 0;
+}
+
+/* END MODAL*/
+
+i.fa.fa-check.v, i.fa.fa-times {
+    position: absolute;
+    bottom: 220px;
+    font-size: 11px;
+    right: 28px;
+}
+i.fa.fa-plus {
+    color: #224860;
+    font-size: 26px!important;
+}

@@ -55,11 +55,26 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-sm-12">
+                                                    <div class="col-sm-9">
                                                         <div class="form-group" [ngClass]="applyCssError(f1, nameMother)">
                                                             <label class="control-label">Nome da gestante</label>
                                                             <input type="text" #nameMother="ngModel" name="name_mother" pattern="[\w,./_=?-].*" [(ngModel)]="responsible.name" id="name_mother" maxlength="60" class="form-control" placeholder="Nome completo da gestante" required>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f1, nameMother)" [field]="number" msgError="Digite um nome para a gestante">
+                                                            </app-control-field-error>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group" [ngClass]="applyCssError(f1, isPregnant)">
+                                                            <label class="control-label">Gestante?</label> <br/>
+                                                            <label class="radio-inline">                          
+                                                            <input type="radio" #isPregnant="ngModel" name="isPregnant" [(ngModel)]="responsible.mother.is_pregnant" id="isPregnant" [value]="true" required>
+                                                             Sim
+                                                            </label>
+                                                            <label class="radio-inline"> 
+                                                            <input type="radio" #isPregnant="ngModel" name="isPregnant" [(ngModel)]="responsible.mother.is_pregnant" id="isPregnant" [value]="false" required>
+                                                             Não
+                                                            </label>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, isPregnant)" msgError="Escolha uma das alternativas">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
@@ -68,7 +83,7 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group" [ngClass]="applyCssError(f1, civilState)">
                                                             <label class="control-label">Estado Civil</label>
-                                                            <select class="form-control" #civilState="ngModel" name="civil_state" [(ngModel)]="responsible.mother.civil_state" id="civil_state" required>
+                                                            <select class="form-control" #civilState="ngModel" name="civil_state" [(ngModel)]="responsible.civil_state" id="civil_state" required>
                                                             <option value="MARRIED">Casada</option>
                                                             <option value="SINGLE">Solteira</option>
                                                             <option value="DIVORCED">Divorciada</option>
@@ -164,7 +179,7 @@
                                                     <div class="col-sm-3" *ngIf="otherChildren.has">
                                                         <div class="form-group" [ngClass]="applyCssError(f2, childrenCount)">
                                                             <label class="control-label">Quantos?</label>
-                                                            <input type="number" #childrenCount="ngModel" name="number_children" [(ngModel)]="responsible.mother.children_count" mask="0000000000" id="number_children" class="form-control" placeholder="No de filhos" required>
+                                                            <input type="number" #childrenCount="ngModel" name="number_children" [(ngModel)]="responsible.children_count" mask="0000000000" id="number_children" class="form-control" placeholder="No de filhos" required>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f2, childrenCount)" msgError="Digite o número de filhos">
                                                             </app-control-field-error>
                                                         </div>

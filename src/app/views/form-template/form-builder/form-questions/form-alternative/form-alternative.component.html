@@ -1,0 +1,49 @@
+<div *ngIf="parentAlternative">
+    <div [formGroup]="parentAlternative">
+        <div formArrayName="alternatives">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span>
+                    Opção {{i + 1}}
+                </span>
+                    <!-- <span class="glyphicon glyphicon-remove pull-right" *ngIf="alternatives.controls.length > 1" (click)="removeAlternative(i)">
+                </span> -->
+                </div>
+                <!-- <div class="form-group">
+                <div class="col-xs-6">
+                    <mat-form-field>
+                        <span matPrefix *ngIf="type === 'radio'"> 
+                            <i class = "material-icons"> radio_button_unchecked </i>&nbsp;
+                        </span>
+                        <span matPrefix *ngIf="type === 'multiple'"> 
+                            <i class = "material-icons"> check_box_outline_blank </i>&nbsp;
+                        </span>
+                        <input matInput placeholder="Descrição da opção" formControlName="description">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-6">
+                    <mat-form-field>
+                        <mat-select placeholder="Tipo de valor" formControlName="value_type">
+                            <mat-option value="text">Texto</mat-option>
+                            <mat-option value="date">Data</mat-option>
+                            <mat-option value="number">Número</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div> -->
+                <div class="margin-20">
+                    <a (click)="addAlternative()" style="cursor: default">
+                        <span matPrefix *ngIf="type.value === 'radio'"> 
+                        <i class = "material-icons"> radio_button_unchecked </i>&nbsp;
+                    </span>
+                        <span matPrefix *ngIf="type.value === 'multiple'">
+                        <i class = "material-icons"> check_box_outline_blank </i>&nbsp;
+                    </span> Adicionar Opção +
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
