@@ -145,17 +145,17 @@ export const MENU = [
         'hasChild': true,
         'parent': 0
     },
-    {
-        'id': 14,
-        'title': 'GESTANTE',
-        'route': 'gestantes',
-        'routes': ['/gestantes', '/registro', '/detalhes'],
-        'read': false,
-        'iClass': 'fa fa-circle-o',
-        'category': 'child',
-        'hasChild': false,
-        'parent': 13
-    },
+    // {
+    //     'id': 14,
+    //     'title': 'GESTANTE',
+    //     'route': 'gestantes',
+    //     'routes': ['/gestantes', '/registro', '/detalhes'],
+    //     'read': false,
+    //     'iClass': 'fa fa-circle-o',
+    //     'category': 'child',
+    //     'hasChild': false,
+    //     'parent': 13
+    // },
     {
         'id': 15,
         'title': 'RESPONSÁVEL',

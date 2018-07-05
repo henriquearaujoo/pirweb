@@ -58,6 +58,7 @@ export class ResponsibleListComponent implements OnInit, OnDestroy {
     this.hasdata = false;
     this.getResponsibles();
     localStorage.removeItem('responsibleId');
+    localStorage.removeItem('route');
   }
 
   getResponsibles() {
@@ -67,6 +68,7 @@ export class ResponsibleListComponent implements OnInit, OnDestroy {
       success => {
         this.paginate = success;
         this.responsibleList = this.paginate.content;
+        console.log(this.responsibleList);
         this.hasdata = true;
         setTimeout(() => {
           this.loaderService.hide();

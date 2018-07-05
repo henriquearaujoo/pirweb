@@ -9,7 +9,7 @@
 
     <section class="content_user">
         <div class="content-header ">
-            <h5 class="content_fa">CAPÍTULO {{currentChapter}}</h5>            
+            <h5 class="content_fa">CAPÍTULO {{currentChapter}}</h5>
         </div>
         <form name="form" #f="ngForm" novalidate>
             <!-- Custom Tabs -->
@@ -17,27 +17,27 @@
                 <ul class="nav nav-tabs">
                     <li>
                         <a class="tab-pane active" (click)="walk(0)" href="#tab_1" data-toggle="tab">
-                            <img src="{{informationTab}}"/>
+                            <img src="{{informationTab}}" />
                         </a>
                     </li>
                     <li>
                         <a class="tab-pane" (click)="walk(1)" href="#tab_2" data-toggle="tab">
-                            <img src="{{receptionTab}}"  />
+                            <img src="{{receptionTab}}" />
                         </a>
                     </li>
                     <li>
                         <a class="tab-pane" (click)="walk(2)" href="#tab_3" data-toggle="tab">
-                            <img src="{{interventionTab}}"  />
+                            <img src="{{interventionTab}}" />
                         </a>
                     </li>
                     <li>
                         <a class="tab-pane" (click)="walk(3)" href="#tab_4" data-toggle="tab">
-                            <img src="{{conclusionTab}}"  />
+                            <img src="{{conclusionTab}}" />
                         </a>
                     </li>
                     <li>
                         <a class="tab-pane" (click)="walk(4)" href="#tab_5" data-toggle="tab">
-                            <img src="{{multimediaTab}}"  width="135"/>
+                            <img src="{{multimediaTab}}" />
                         </a>
                     </li>
                 </ul>
@@ -47,14 +47,14 @@
                             <section class="content">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <div class="box-header with-border">
+                                        <div class="box-header_1 with-border">
                                             <h5 class="box-title">
                                                 Informações do Capítulo
                                             </h5>
                                         </div>
                                     </div>
                                 </div>
-                               
+
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="box box-primary">
@@ -73,14 +73,14 @@
                             <section class="content">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <div class="box-header with-border">
+                                        <div class="box-header_1 with-border">
                                             <h5 class="box-title">
                                                 Acolhimento
                                             </h5>
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="box box-primary">
@@ -99,14 +99,14 @@
                             <section class="content">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <div class="box-header with-border">
+                                        <div class="box-header_1 with-border">
                                             <h5 class="box-title">
                                                 Intervenção
                                             </h5>
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="box box-primary">
@@ -125,14 +125,14 @@
                             <section class="content">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <div class="box-header with-border">
+                                        <div class="box-header_1 with-border">
                                             <h5 class="box-title">
                                                 Conclusão
                                             </h5>
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="box box-primary">
@@ -151,25 +151,24 @@
                             <section class="content">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <div class="box-header with-border">
+                                        <div class="box-header_1 with-border">
                                             <h5 class="box-title">
                                                 Mídias do Capítulo
                                             </h5>
                                         </div>
                                     </div>
                                 </div>
-                                
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="box box-primary">
                                             <div class="box-body">
-                                              <app-multimedia #multimedia (cancelEvent)='openModal()'></app-multimedia>
+                                                <app-multimedia #multimedia (cancelEvent)='openModal()'></app-multimedia>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </section>
-                        </div>                        
+                        </div>
                     </div>
                 </div>
                 <!-- /.tab-content -->

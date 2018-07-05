@@ -15,18 +15,12 @@ export class AgentLocationComponent implements OnInit {
   private canUpdate: boolean;
   private canCreate: boolean;
   private canDelete: boolean;
-  private agents: User[] = new Array();
+  private agent: User = new User();
   markers: Marker[] = [
-    // {
-    //   lat: -7.50427875,
-    //   lng: -63.0360884,
-    //   label: 'Humaitá',
-    //   draggable: true
-    // },
     {
       lat: -2.63776067,
       lng: -56.72981509,
-      label: 'Parintins',
+      label: '',
       draggable: false
     }
   ];
@@ -60,7 +54,11 @@ export class AgentLocationComponent implements OnInit {
   getAgent() {
     this.userService.load(this.urlId).subscribe(
       agent => {
-        this.agents = agent;
+        this.agent = agent;
+        for (let i = 0; i < this.markers.length; i++) {
+          this.markers[i].lat = this.agent.latitude;
+          this.markers[i].lng = this.agent.longitude;
+        }
       }
     );
 

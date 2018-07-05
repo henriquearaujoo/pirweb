@@ -8,7 +8,7 @@ import { RestService } from '../rest/rest.service';
 @Injectable()
 export class PregnantService extends RestService {
 
-  private apiurl = Constant.BASE_URL + 'mothers/';
+  private apiurl = Constant.BASE_URL + 'responsibles/';
   private size: number;
 
   constructor( http: Http) {
@@ -18,9 +18,9 @@ export class PregnantService extends RestService {
 
   public getMothers(filter?: any, page?: number) {
     if ( filter === undefined ) {
-      return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page);
+      return this.get(this.apiurl + 'mother/search/page/?size=' + this.size + '&page=' + page);
     } else {
-      return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page);
+      return this.get(this.apiurl + 'mother/search/page/?size=' + this.size + '&page=' + page);
     }
   }
 

@@ -25,9 +25,21 @@
                         <img src="{{ servicesTab }}" />
                     </a>
                 </li>
+                <li *ngIf="responsible.gender !== 'MALE'">
+                    <a class="tab-pane" (click)="walk(3)" href="#tab_4" data-toggle="tab">
+                        <label class="lb-tab"> Gestações</label>
+                        <img src="{{ pregnanciesTab }}" style="width: 171px;" />
+                    </a>
+                </li>
+                <li>
+                    <a class="tab-pane" (click)="walk(4)" href="#tab_5" data-toggle="tab">
+                        <label class="lb-tab"> Crianças</label>
+                        <img src="{{ childrenTab }}" style="width: 171px;" />
+                    </a>
+                </li>
             </ul>
             <div class="tab-content">
-                <div class="tab-pane active" id="tab_1">
+                <div class="tab-pane" [ngClass]="routeChild ? '' : 'active'" id="tab_1">
                     <div class="content">
                         <section class="content">
                             <div class="box-header_1 with-border">
@@ -47,7 +59,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
@@ -63,28 +74,20 @@
                                                             <span class="form-control"> {{ responsible.birth }} </span>
                                                         </div>
                                                     </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Sexo</label> <br/>
+                                                            <span class="form-control"> {{ responsible.gender === 'FEMALE' ? 'Feminino' : 'Masculino' }} </span>
+                                                        </div>
+                                                    </div>
                                                 </div>
-
                                             </div>
                                         </div>
-                                        <!-- <div class="content-control">
-                          <div class="control">
-                            <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false, 1, 0)" id="btn_previous">
-                                <img src="./assets/img/global/ic_previous.png" />
-                                <b>Anterior</b>
-                            </a>
-                            <a href="{{nextTab}}" data-toggle="tab" (click)="isActive(true, 1)" id="btn_next">
-                                <b>Próximo</b>
-                                <img src="./assets/img/global/ic_next.png" />
-                            </a>
-                            <button type="submit" id="btn_tab1"></button>
-                          </div>
-                        </div> -->
-                                        <div class="col-md-3">
+                                        <!-- <div class="col-md-3">
                                             <div class="form-group">
                                                 <button class="btn btn-default btn-block" [routerLink]="['/responsaveis']" id="btn_return1"> Voltar</button>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </form>
                                 </div>
                             </div>
@@ -159,11 +162,11 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <!-- <div class="col-md-3">
                                             <div class="form-group">
                                                 <button class="btn btn-default btn-block" [routerLink]="['/responsaveis']" id="btn_return2"> Voltar</button>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </form>
                                 </div>
                             </div>
@@ -221,25 +224,115 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- <div class="content-control">
-                            <div class="control">
-                                <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false, 3, 0)" id="btn_previous">
-                                    <img src="./assets/img/global/ic_previous.png" />
-                                    <b>Anterior</b>
-                                </a>                               
-                                <button type="submit" id="btn_tab3"></button>
-                            </div>
-                        </div> -->
-                                        <div class="col-md-3">
+                                        <!-- <div class="col-md-3">
                                             <div class="form-group">
                                                 <button class="btn btn-default btn-block" [routerLink]="['/responsaveis']" id="btn_return3"> Voltar</button>
                                             </div>
+                                        </div> -->
+                                        <div class="col-md-3 col-md-offset-6">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab_4">
+                    <div class="content">
+                        <section class="content">
+                            <div class="box-header_1 with-border">
+                                <h5 class="box-title"> Gestações
+                                </h5>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <form name="form" #f3="ngForm" novalidate>
+                                        <div class="box box-primary">
+                                            <div class="box-body">
+                                                <table id="example2" class="table" *ngIf="!showPregnancy">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="tbl-left">DATA DE REGISTRO
+                                                                <span class="glyphicon"></span>
+                                                            </th>
+                                                            <th class="text-center"> AÇÃO</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <div class="feedback" *ngIf="responsible.pregnancies.length === 0">
+                                                        <i class="material-icons" style="font-size: 24px;">error_outline</i>
+                                                        <span class="feedback-message">Nenhum registro encontrado</span>
+                                                    </div>
+                                                    <tbody *ngIf="responsible.pregnancies.length !== 0 && hasdata">
+                                                        <tr *ngFor="let item of responsible.pregnancies">
+                                                            <td class="tbl-left">
+                                                                {{ item.registered_at | date: 'dd/MM/yyyy' }}
+                                                            </td>
+                                                            <td class="text-center pointer">
+                                                                <a (click)="toViewPregnancies(item)" id="btn_details" title="Ver detalhes">
+                                                                    <i class="large material-icons">visibility</i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <app-pregnancies #pregnancies [pregnancy]="pregnancy" (showPregnancy)="toShowPregnancy($event)" *ngIf="showPregnancy"></app-pregnancies>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-md-3" *ngIf="!showPregnancy">
+                                            <div class="form-group">
+                                                <button class="btn btn-default btn-block" [routerLink]="['/responsaveis']" id="btn_return3"> Voltar</button>
+                                            </div>
+                                        </div> -->
+                                        <div class="col-md-3 col-md-offset-6">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <!-- /.tab-pane -->
+                <div class="tab-pane" [ngClass]="routeChild ? 'active' : ''" id="tab_5">
+                    <div class="content">
+                        <section class="content">
+                            <div class="box-header_1 with-border">
+                                <h5 class="box-title"> Crianças
+                                </h5>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <form name="form" #f3="ngForm" novalidate>
+                                        <div class="box box-primary">
+                                            <div class="box-body">
+                                                <table id="example2" class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="tbl-left">CRIANÇA
+                                                                <span class="glyphicon"></span>
+                                                            </th>
+                                                            <th class="text-center"> AÇÃO</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <div class="feedback" *ngIf="responsible.children.length === 0">
+                                                        <i class="material-icons" style="font-size: 24px;">error_outline</i>
+                                                        <span class="feedback-message">Nenhum registro encontrado</span>
+                                                    </div>
+                                                    <tbody *ngIf="responsible.children.length !== 0 && hasdata">
+                                                        <tr *ngFor="let item of responsible.children">
+                                                            <td class="tbl-left">
+                                                                {{ item.name }}
+                                                            </td>
+                                                            <td class="text-center pointer">
+                                                                <a (click)="toView(item)" id="btn_details" title="Ver detalhes">
+                                                                    <i class="large material-icons">visibility</i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                         <div class="col-md-3 col-md-offset-6">
-                                            <!-- <div class="form-group save">
-                              <button class="btn btn-primary btn-block"  (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save" *ngIf="isNewData && canCreate">Cadastrar</button>
-                              <button class="btn btn-primary btn-block"  (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save" *ngIf="!isNewData && canUpdate">Salvar</button>                                
-                          </div> -->
                                         </div>
                                     </form>
                                 </div>
@@ -250,6 +343,12 @@
                 <!-- /.tab-pane -->
             </div>
             <!-- /.tab-content -->
+            <div class="col-md-3">
+                <div class="form-group">
+                    <button class="btn btn-default btn-block" [routerLink]="['/responsaveis']" id="btn_return3" *ngIf="!routeChildResponsible"> Voltar</button>
+                    <button class="btn btn-default btn-block" (click)="toBack()" [routerLink]="['/criancas/detalhes']" id="btn_return3" *ngIf="routeChildResponsible"> Voltar</button>
+                </div>
+            </div>
         </div>
         <!-- </form> -->
     </section>

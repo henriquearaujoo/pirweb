@@ -188,7 +188,6 @@ section.content_user {
     padding-top: 20px;
     padding-left: 25px;
     padding-right: 25px;
-    padding-bottom: 50px;
 }
 
 .nav-tabs-custom>.nav-tabs>li.active {
@@ -199,7 +198,6 @@ section.content_user {
     background-color: #f4f4f4;
     border-bottom: 0;
     margin-top: 20px;
-    margin-bottom: 20px;
 }
 
 input#waterDrink2 {
@@ -245,4 +243,50 @@ label.control-label {
 
 .nav-tabs-custom>.nav-tabs>li.active>a {
     border: 0;
+}
+
+
+/* MODAL */
+
+.modal-body {
+    padding: 0;
+}
+
+.modal-dialog.modal-lg {
+    max-width: 680px;
+}
+
+.n-visit {
+    float: right;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 8px;
+    background-color: #0075BD;
+    color: #fff;
+    width: 76px;
+    border-right: 1px solid #fff;
+}
+
+.text-visit {
+    float: left;
+    font-size: 18px;
+    padding: 8px;
+    width: 65%;
+    background-color: #0075BD;
+    color: #fff;
+    text-align: center;
+}
+
+.when-visit {
+    text-align: center;
+    font-size: 18px;
+    background-color: #DFE8ED;
+    color: #224860;
+    padding: 8px;
+}
+
+.form-group-data {
+    padding: 10px;
+    font-size: 14px;
+    color: #224860;
 }

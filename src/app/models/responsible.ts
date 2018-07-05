@@ -28,4 +28,5 @@ export class Responsible {
     public community: Community = new Community();
 
     public children: Child[] = new Array();
+    public pregnancies: any[] = new Array();
 }

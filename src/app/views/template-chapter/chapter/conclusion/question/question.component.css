@@ -23,12 +23,13 @@ section.content {
 }
 
 .box {
-    background-color: #f4f4f4;
+    background-color: #FBFBFB;
     margin-bottom: 0;
     box-shadow: none;
 }
 
-.box-header .box-title, .title-answer {
+.box-header .box-title,
+.title-answer {
     font-size: 14px;
     font-weight: bold;
     color: gray;
@@ -43,7 +44,7 @@ section.content {
 }
 
 .box-body {
-    background-color: #f4f4f4;
+    background-color: #FBFBFB;
     padding: 0;
     padding-top: 10px;
 }

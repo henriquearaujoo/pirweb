@@ -141,7 +141,7 @@ export class ResponsibleComponent implements OnInit {
       'Trabalha e é a principal responsável pelo sustento da familia'
     ];
 
-    this.family_income = ['pesca', 'farinha', 'caça', 'roçado', 'outra'];
+    this.family_income = ['PESCA', 'FARINHA', 'CAÇA', 'ROÇADO', 'OUTRA'];
     this.family_income_other_count = 0;
   }
 
@@ -158,6 +158,9 @@ export class ResponsibleComponent implements OnInit {
           break;
         }
       }
+
+      delete this.responsible.children;
+      delete this.responsible.pregnancies;
 
       this.responsible.habitation_members_count = Number(this.responsible.habitation_members_count);
 

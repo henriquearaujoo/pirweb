@@ -116,6 +116,11 @@ img.ic_add {
     padding-bottom: 1px;
 }
 
+.ql-toolbar.ql-snow {
+    border: 1px solid #DFE8ED;
+    background-color: #DFE8ED;
+}
+
 
 /* TABLE */
 
@@ -184,10 +189,6 @@ a#btn_previous {
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 350px;
-}
-
-.content_ {
-    /* margin-left: 22px; */
 }
 
 .pointer {

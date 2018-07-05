@@ -1,3 +1,5 @@
+import { Paginate } from './../../../../models/paginate';
+import { LoaderService } from './../../../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../../../helpers/permissions';
 import { Route, Router } from '@angular/router';
 import { ToastService } from './../../../../services/toast-notification/toast.service';
@@ -20,12 +22,16 @@ private canRead: boolean;
 private canUpdate: boolean;
 private canCreate: boolean;
 private canDelete: boolean;
-
+private hasdata: boolean;
+private filter: any = {name: ''};
+private paginate: Paginate;
+private page: number;
   constructor(
     private formService: FormBuilderService,
     private toastService: ToastService,
     private router: Router,
-    private permissions: Permissions
+    private permissions: Permissions,
+    private loaderService: LoaderService
   ) { }
 
   ngOnInit() {
@@ -38,6 +44,7 @@ private canDelete: boolean;
         this.canDelete = rules.canDelete;
       }
     );
+    this.page = 0;
     this.getForms();
   }
 
@@ -47,12 +54,20 @@ private canDelete: boolean;
   }
 
   getForms() {
-    this.formService.getForms().subscribe(
+    this.loaderService.show();
+    if ( this.filter.name !== '') { this.page = 0; }
+    this.formService.getForms(this.filter.name, this.page).subscribe(
       s => {
-        this.forms = s;
-        console.log(s);
+        this.paginate = s;
+        this.forms = this.paginate.content;
+        this.hasdata = true;
+        this.loaderService.hide();
       },
-      error => console.log(error)
+      error => {
+        console.log(error);
+        this.hasdata = false;
+        this.loaderService.hide();
+      }
     );
   }
 
@@ -79,6 +94,8 @@ private canDelete: boolean;
       }
     );
   }
-
-
+  setPage(page: number) {
+    this.page = page;
+    this.getForms();
+  }
 }

@@ -1,6 +1,6 @@
 .form-group,
 .form-control {
-    color: grey;
+    color: #335164;
 }
 
 .box-header {
@@ -19,7 +19,7 @@
 }
 
 .box {
-    background-color: #f4f4f4;
+    background-color: #FBFBFB;
     box-shadow: none;
 }
 
@@ -40,14 +40,20 @@ label.control-label {
     padding-left: 10px;
 }
 
+
 /* HEADER */
 
 button.btn.btn-primary.add {
-    border-radius: 1em;
+    background-image: url(/assets/img/chapter/btn_add_chapter.png)!important;
+    background-repeat: no-repeat;
+    background-color: #f5deb300;
+    border: 0;
+    /* border-radius: 1em; */
     font-size: 12px;
-    padding: 8px 10px;
-    margin-right: 10px;
-    margin-top: 10px;
+    /* padding: 8px 10px; */
+    height: 35px;
+    width: 175px;
+    margin-top: 8px;
 }
 
 i.fa.fa-plus {
@@ -61,7 +67,9 @@ button.btn.btn-default {
 
 /* END HEADER */
 
+
 /* PAGINATe*/
+
 .paginate {
     text-align: center;
 }
@@ -74,7 +82,9 @@ button.btn.btn-default {
     text-align: right;
 }
 
+
 /**** QUESTIONS LIST ****/
+
 .col-sm-4.question.description {
     padding-top: 8px;
 }
@@ -85,7 +95,9 @@ button.btn.btn-default {
     text-overflow: ellipsis;
     max-height: 34px;
 }
-.col-sm-3.question, .col-sm-2.question {
+
+.col-sm-3.question,
+.col-sm-2.question {
     padding-top: 8px;
 }
 
@@ -99,7 +111,8 @@ button.btn.btn-default {
     color: #6d6c6c;
 }
 
-button.btn.remove, button.btn.edit {
+button.btn.remove,
+button.btn.edit {
     border-radius: 100px;
     width: 90px;
 }
@@ -114,11 +127,14 @@ h5.modal-title {
     color: #777;
 }
 
-i.fa.fa-pencil, i.fa.fa-remove {
+i.fa.fa-pencil,
+i.fa.fa-remove {
     padding-right: 6px;
 }
 
+
 /* CARDS */
+
 .card.horizontal.card-stacked.card-content {
     padding: 0;
     padding-top: 22px;
@@ -134,7 +150,9 @@ i.fa.fa-pencil, i.fa.fa-remove {
     padding: 19px 30px 1px 30px;
 }
 
+
 /* MODAL */
+
 div#modal-answer {
     height: 300px;
     width: 450px;
@@ -154,10 +172,12 @@ div#modal-answer {
     padding: 0;
 }
 
-.table.tbl-answers > thead > tr > th, .table.tbl-answers > tbody > tr > td {
+.table.tbl-answers>thead>tr>th,
+.table.tbl-answers>tbody>tr>td {
     text-align: center;
     color: #777;
 }
+
 
 /******** Modal DELETE*********/
 
@@ -194,6 +214,7 @@ div#modal-answer {
     cursor: pointer;
 }
 
+
 /* button.delete {
     min-width: 120px;
 } */
@@ -223,5 +244,6 @@ button#btn_confirm {
     background-color: #373d40;
     border-color: #373d40;
 }
+
 
 /******** END MODAL ********/

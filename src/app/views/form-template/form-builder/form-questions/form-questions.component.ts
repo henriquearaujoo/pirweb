@@ -2,7 +2,7 @@ import { QuestionFormBuilder } from './../../../../models/questionFormBuilder';
 import { FormBuilderComponent } from './../form-builder.component';
 import { Question } from './../../../../models/question';
 import { AlternativeFormBuilder } from './../../../../models/alternativeFormBuilder';
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import {FormControl, FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { FormBuilderM } from '../../../../models/formbuilder-m';
 
@@ -15,6 +15,7 @@ export class FormQuestionsComponent implements OnInit, OnChanges {
 
   _form: FormBuilderM;
   _parentQuestion: FormGroup;
+  @Input() formSubmitAttempt: boolean;
 
   @Input() set parentQuestion(y: FormGroup) {
     this._parentQuestion = y;
@@ -43,8 +44,22 @@ export class FormQuestionsComponent implements OnInit, OnChanges {
     }
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges) {
     this.rebuildForm();
+    if (changes.parentQuestion) {
+      this.form.questions = this.parentQuestion.controls['questions'].value;
+    }
+
+    this.parentQuestion.controls['questions'].valueChanges.subscribe((value) => {
+      console.log(value);
+      for (let i = 0; i < value.length; i++) {
+        if (value[i].type === 'DISSERTATIVE' || value[i].type === 'DATE') {
+          this.form.questions = value;
+        } else {
+          this.form.questions = value;
+        }
+      }
+    });
   }
 
   rebuildForm() {
@@ -63,8 +78,8 @@ initQuestion(q: QuestionFormBuilder) {
     return this._fb.group({
         id: [q.id],
         description: [q.description, Validators.required],
-        type: [q.type],
-        value_type: [q.value_type],
+        type: [q.type, Validators.required],
+        value_type: [q.value_type, Validators.required],
         required: q.required,
         alternatives: this._fb.array(
           (q.alternatives || []).map( s => this.initAlternative(s))
@@ -76,7 +91,7 @@ initQuestion(q: QuestionFormBuilder) {
     return this._fb.group({
         id: [a.id],
         description: [a.description, Validators.required],
-        value_type: [a.value_type]
+        value_type: [a.value_type, Validators.required]
     });
   }
 
@@ -111,5 +126,31 @@ initQuestion(q: QuestionFormBuilder) {
       this.form.questions[i].alternatives.splice(a, 1);
       question.controls.alternatives.removeAt(a);
     }
+  }
+
+  verifyValidSubmitted(form, field) {
+    if (field !== null) {
+      return (form.controls[field].dirty || form.controls[field].touched || this.formSubmitAttempt ) && !form.controls[field].valid;
+    }
+  }
+
+  applyCssError(form, field) {
+    return {
+      'has-error': this.verifyValidSubmitted(form, field),
+      'has-feedback': this.verifyValidSubmitted(form, field)
+    };
+  }
+
+  verifyValidSubmittedAlternatives(field) {
+    if (field !== null) {
+      return (field.dirty || field.touched || this.formSubmitAttempt ) && !field.valid;
+    }
+  }
+
+  applyCssErrorAlternatives(field) {
+    return {
+      'has-error': this.verifyValidSubmittedAlternatives(field),
+      'has-feedback': this.verifyValidSubmittedAlternatives(field)
+    };
   }
 }

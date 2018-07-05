@@ -12,16 +12,18 @@
             <div class="box-body" *ngIf="form">
                 <form [formGroup]="form" novalidate (ngSubmit)="save(form)">
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-12" [ngClass]="applyCssError('description')">
                             <mat-form-field style.fontSize="32px">
                                 <input matInput placeholder="Título do Formulário" formControlName="description" required>
                             </mat-form-field>
+                            <app-control-field-error [showError]="verifyValidSubmitted('description')" msgError="Digite um título para o formulário">
+                            </app-control-field-error>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="panel-body">
-                                <app-form-questions [form]="_formbuilder" [parentQuestion]="form"></app-form-questions>
+                                <app-form-questions [form]="_formbuilder" [parentQuestion]="form" [formSubmitAttempt]="formSubmitAttempt"></app-form-questions>
                             </div>
                         </div>
                     </div>

@@ -6,12 +6,15 @@ table {
 tr {
     border-bottom: 1px solid #ccc;
 }
-td  {
+
+td {
     border-bottom: 1px solid #d2d6de;
 }
+
 tbody {
     background-color: white;
 }
+
 
 /* .content-top {
     height: 64px;
@@ -31,18 +34,21 @@ i.fa.fa-list-alt {
     border-radius: 0.2em;
 }
 
-th {   
+th {
     padding: 12px;
     height: 50px;
 }
+
 .tbl-center {
     text-align: center;
     /* width: 150px; */
 }
+
 .tbl-right {
-    text-align: right;  
+    text-align: right;
     width: 50px;
 }
+
 
 /* thead {
     border-top: 0;
@@ -51,11 +57,11 @@ th {
     background-color: #e8e6e6;
 } */
 
-.table>tbody>tr>td, 
-.table>tbody>tr>th, 
-.table>thead>tr>td, 
-.table>thead>tr>th{
-    vertical-align: middle; 
+.table>tbody>tr>td,
+.table>tbody>tr>th,
+.table>thead>tr>td,
+.table>thead>tr>th {
+    vertical-align: middle;
 }
 
 div.dataTables_filter {
@@ -77,7 +83,10 @@ div.dataTables_filter {
     margin-top: 5px;
 }
 
-.box-header > .fa, .box-header > .glyphicon, .box-header > .ion, .box-header .box-title { 
+.box-header>.fa,
+.box-header>.glyphicon,
+.box-header>.ion,
+.box-header .box-title {
     font-size: 14px;
 }
 
@@ -99,7 +108,7 @@ div.box-footer {
 
 .btn-primary {
     width: 100px;
-    background-color:#373d40;
+    background-color: #373d40;
     border-color: #373d40;
 }
 
@@ -107,13 +116,14 @@ i.fa {
     font-size: 20px;
 }
 
+
 /* a {
     color: #373d40;
 } */
 
 .pagination>.active>a {
     background-color: #373d40;
-    border-color:  #373d40;
+    border-color: #373d40;
 }
 
 .edit .show-icon {
@@ -150,7 +160,9 @@ input#filter {
     color: #777777;
 }
 
+
 /* MODAL disable*/
+
 .modal-footer {
     padding: 0;
     margin-top: 90px;
@@ -160,20 +172,23 @@ input#filter {
     width: 421px;
     height: 234px;
 }
+
 .modal-btn-cancel {
-    float: left;  
+    float: left;
 }
 
 .modal-body {
     padding: 32px;
-    padding-bottom: 45px; 
+    padding-bottom: 45px;
     text-align: center;
 }
+
 button#btn_cancel {
     width: 210.5px;
     height: 45px;
     border-radius: 0;
 }
+
 button#btn_confirm {
     background-image: url('/assets/img/global/btn_confirm.png')!important;
     background-repeat: no-repeat;
@@ -181,8 +196,7 @@ button#btn_confirm {
     height: 45px;
     border-radius: 0;
 }
+
 .modal-icon {
     text-align: center;
 }
-
-

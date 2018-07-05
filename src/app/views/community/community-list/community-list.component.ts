@@ -94,6 +94,7 @@ export class CommunityListComponent implements OnInit, OnDestroy {
 
   setPage(page: number) {
     this.page = page;
+    this.getCommunities();
   }
 
   ngOnDestroy() {

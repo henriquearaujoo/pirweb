@@ -68,10 +68,25 @@
                                                 <div class="row">
                                                     <div class="col-sm-6">
                                                         <div class="form-group" [ngClass]="{ 'has-error': !isValidDate }">
-                                                            <label class="control-label">Data de nascimento do responsável</label>
+                                                            <label class="control-label">Data de nascimento</label>
                                                             <my-date-picker name="dateBirth" [options]="myDatePickerOptions" id="dateBirth" [selDate]="selDate" (dateChanged)="onDateChanged($event)" (inputFieldChanged)="onInputFieldChanged($event)" required>
                                                             </my-date-picker>
                                                             <div *ngIf="!isValidDate" class="help-block"> Data de nascimento inválida </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group" [ngClass]="applyCssError(f1, gender)">
+                                                            <label class="control-label">Sexo</label> <br/>
+                                                            <label class="radio-inline">                          
+                                                                  <input type="radio" #gender="ngModel" name="gender" [(ngModel)]="responsible.gender" id="gender" value="FEMALE" required>
+                                                                  Feminino
+                                                                </label>
+                                                            <label class="radio-inline"> 
+                                                                  <input type="radio" #gender="ngModel" name="gender" [(ngModel)]="responsible.gender" id="gender" value="MALE" required>
+                                                                  Masculino
+                                                                </label>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, gender)" msgError="Escolha uma das alternativas">
+                                                            </app-control-field-error>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -166,10 +181,10 @@
                                                         <div class="form-group" [ngClass]="applyCssError(f2, liveWith)">
                                                             <label class="control-label">Com quem mora atualmente?</label>
                                                             <select class="form-control" #liveWith="ngModel" name="liveWith" [(ngModel)]="responsible.live_with" id="liveWith" required>
-                                                              <option value="Com seus pais ou/e parentes">Com seus pais ou/e parentes</option>
-                                                              <option value="Com esposo e filhos">Com esposo e filhos</option>
-                                                              <option value="Com amigos">Com amigos</option>
-                                                              <option value="Sozinho"> Sozinho</option>
+                                                              <option value="COM PAIS E/OU PARENTES">Com seus pais ou/e parentes</option>
+                                                              <option value="COM ESPOSO E FILHOS">Com esposo e filhos</option>
+                                                              <option value="COM AMIGOS">Com amigos</option>
+                                                              <option value="SOZINHA"> Sozinho</option>
                                                             </select>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f2, liveWith)" msgError="Selecione com quem mora atualmente">
                                                             </app-control-field-error>
@@ -189,7 +204,7 @@
                                                         <div class="form-group" [ngClass]="applyCssError(f2, incomeParticipation)">
                                                             <label class="control-label">Qual é a sua participação na vida econômica do seu grupo familiar? </label>
                                                             <select class="form-control" #incomeParticipation="ngModel" name="incomeParticipation" [(ngModel)]="responsible.income_participation" id="incomeParticipation" required>
-                                                                <option [value]="item" *ngFor="let item of income_participation"> {{ item }}</option>
+                                                                <option [value]="item | uppercase" *ngFor="let item of income_participation"> {{ item }}</option>
                                                             </select>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f2, incomeParticipation)" msgError="Escolha uma das alternativas">
                                                             </app-control-field-error>
@@ -200,7 +215,7 @@
                                                             <div class="form-group" [ngClass]="applyCssError(f2, familyIncome)">
                                                                 <label class="control-label">Qual a principal fonte de renda da família? </label>
                                                                 <select class="form-control" #familyIncome="ngModel" name="familyIncome" [(ngModel)]="responsible.family_income" id="familyIncome" required>
-                                                                    <option [value]="item" *ngFor="let item of family_income">{{ item }}</option>
+                                                                    <option [value]="item" *ngFor="let item of family_income">{{ item | lowercase }}</option>
                                                                 </select>
                                                                 <app-control-field-error [showError]="verifyValidSubmitted(f2, familyIncome)" msgError="Selecione uma principal fonte de renda">
                                                                 </app-control-field-error>

@@ -1,5 +1,6 @@
-.form-group, .form-control{
-    color: grey;
+.form-group,
+.form-control {
+    color: #335164;
 }
 
 label.control-label {
@@ -8,12 +9,12 @@ label.control-label {
 
 .btn-primary {
     /* width: 100px; */
-    background-color:#373d40;
+    background-color: #373d40;
     border-color: #373d40;
 }
 
 .box {
-    background-color: #f4f4f4;
+    background-color: #FBFBFB;
     box-shadow: none;
 }
 
@@ -31,10 +32,10 @@ label.control-label {
 }
 
 .editor {
-    width: 100%; 
-    height: 200px; 
-    font-size: 14px; 
-    line-height: 18px; 
-    border: 1px solid #dddddd; 
+    width: 100%;
+    height: 200px;
+    font-size: 14px;
+    line-height: 18px;
+    border: 1px solid #dddddd;
     padding: 10px;
 }
