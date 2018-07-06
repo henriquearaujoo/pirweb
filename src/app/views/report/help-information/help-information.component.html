@@ -1,0 +1,49 @@
+<a type="button" data-toggle="modal" data-target="#modal-info">
+    <i class="fa fa-info-circle" aria-hidden="true"></i>
+</a>
+
+<!-- Modal INFO -->
+<div class="modal fade" id="modal-info">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" [ngStyle]="object">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12 title">
+                        Como gerar seu Relatório - Passo 01
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        1) Selecione as entidade e as colunas que gostaria de visualizar e gerar o relatório
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <img class="icon" src="./assets/img/report/shape_select_entidade_info.png">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <img class="icon" src="./assets/img/report/shape_select_colunas_info.png">
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-sm-12 steps">
+                        <span *ngFor="let page of [0, 1, 2, 3]">
+                            <a [ngClass]="pageActive === page ? 'fa fa-circle' : 'fa fa-circle gray'" (click)="setPage(page)"></a>
+                        </span>
+                    </div>
+                </div>
+                <div class="modal-btn-confirm">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn_cancel">Fechar</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

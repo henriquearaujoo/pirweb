@@ -217,7 +217,7 @@ export const MENU = [
         'route': '',
         'routes': ['/', '/relatorios'],
         'read': false,
-        'iClass': 'fa fa-circle-o',
+        'iClass': 'fa fa-line-chart',
         'category': 'parent',
         'hasChild': true,
         'parent': 0

@@ -1,0 +1,18 @@
+.title {
+    font-size: 16px;
+    color: #335164;
+    font-weight: bold;
+}
+
+.modal-body {
+    color: #335164;
+    font-size: 14px;
+}
+
+.steps {
+    text-align: center;
+}
+
+a.fa.fa-circle.gray {
+    color: #ccc;
+}
