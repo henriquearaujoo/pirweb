@@ -197,6 +197,7 @@ export class ResponsibleComponent implements OnInit {
         // console.log(this.responsible);
         this.responsibleService.update(this.responsible).subscribe(
           success => {
+            console.log(success);
             this.sweetAlertService.alertSuccessUpdate('/responsaveis');
           },
           error => {
