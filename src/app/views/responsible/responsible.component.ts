@@ -55,6 +55,7 @@ export class ResponsibleComponent implements OnInit {
 
   private family_income_other_count: number;
   private family_income: any[] = new Array();
+  private otherChildren: any  = { has: null};
 
   private canRead: boolean;
   private canUpdate: boolean;
@@ -181,6 +182,10 @@ export class ResponsibleComponent implements OnInit {
         delete this.responsible.mother;
       }
 
+      if (!this.responsible.has_other_children) {
+        this.responsible.children_count = 0;
+      }
+
       if (this.isNewData || this.responsible.id === undefined) {
         this.responsibleService.insert(this.responsible).subscribe(
           success => {
@@ -234,6 +239,11 @@ export class ResponsibleComponent implements OnInit {
       success => {
         this.responsible = success;
         this.alterData();
+        // if (this.responsible.children_count === 0) {
+        //   this.otherChildren.has = false;
+        // } else {
+        //   this.otherChildren.has = true;
+        // }
         this.loaderService.hide();
         if (this.responsible === undefined) {
           this.responsible = new Responsible();

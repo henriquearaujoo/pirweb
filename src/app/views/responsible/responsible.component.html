@@ -160,7 +160,15 @@
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-3" *ngIf="responsible.has_other_children">
+                                                        <div class="form-group" [ngClass]="applyCssError(f2, childrenCount)">
+                                                            <label class="control-label">Quantas?</label>
+                                                            <input type="number" #childrenCount="ngModel" name="number_children" [(ngModel)]="responsible.children_count" mask="0000000000" id="number_children" class="form-control" placeholder="No de filhos" required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, childrenCount)" msgError="Digite o número de filhos">
+                                                            </app-control-field-error>
+                                                        </div>
+                                                    </div>
+                                                    <div [ngClass]="responsible.has_other_children ? 'col-sm-3' : 'col-sm-6'">
                                                         <div class="form-group" [ngClass]="applyCssError(f2, habitationType)">
                                                             <label class="control-label">Tipo de moradia?</label>
                                                             <select class="form-control" #habitationType="ngModel" name="habitationType" [(ngModel)]="responsible.habitation_type" id="habitationType" required>
