@@ -7,27 +7,99 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content" [ngStyle]="object">
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-12 title">
-                        Como gerar seu Relatório - Passo 01
+                <div *ngIf="pageActive === 0">
+                    <div class="row">
+                        <div class="col-sm-12 title">
+                            <p>Como gerar seu Relatório - Passo 01</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p>1) Selecione as entidade e as colunas que gostaria de visualizar e gerar o relatório</p>
+                        </div>
+                    </div>
+                    <div class="row img-center">
+                        <div class="col-sm-12">
+                            <img class="icon" src="./assets/img/report/shape_select_entidade_info.png">
+                        </div>
+                    </div>
+                    <div class="row img-center">
+                        <div class="col-sm-12">
+                            <img class="icon" src="./assets/img/report/shape_select_colunas_info.png">
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        1) Selecione as entidade e as colunas que gostaria de visualizar e gerar o relatório
+                <div *ngIf="pageActive === 1">
+                    <div class="row">
+                        <div class="col-sm-12 title">
+                            <p>Como gerar seu Relatório - Passo 02</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p>2) Após selecionar as Entidades e Colunas clique no Botão Aplicar</p>
+                        </div>
+                    </div>
+                    <div class="row img-center">
+                        <div class="col-sm-12">
+                            <img class="icon" src="./assets/img/report/shape_apply_info.png">
+                        </div>
+                    </div>
+                    <div class="row img-center">
+                        <div class="col-sm-12">
+                            <img class="icon" src="./assets/img/report/shape_graphics_info.png">
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <img class="icon" src="./assets/img/report/shape_select_entidade_info.png">
+                <div *ngIf="pageActive === 2">
+                    <div class="row">
+                        <div class="col-sm-12 title">
+                            <p>Como gerar seu Relatório - Passo 03</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p>3) É possível visualizar as informações atráves de tabela com os dados selecionados</p>
+                        </div>
+                    </div>
+                    <div class="row img-center">
+                        <div class="col-sm-12">
+                            <img class="icon" src="./assets/img/report/shape_table_info.png">
+                        </div>
+                    </div>
+                    <div class="row img-left">
+                        <div class="col-sm-12">
+                            <img class="icon" src="./assets/img/report/shape_filter_info.png">
+                        </div>
+                    </div>
+                    <div class="row img-left" style="margin-left: 60px;">
+                        <p>
+                            As informações da tabela podem ser filtradas conforme a necessidade.
+                        </p>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <img class="icon" src="./assets/img/report/shape_select_colunas_info.png">
+                <div *ngIf="pageActive === 3">
+                    <div class="row">
+                        <div class="col-sm-12 title">
+                            <p>Como gerar seu Relatório - Passo 04</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p>4) Após ajustar as informações desejadas basta clicar em Exportar</p>
+                        </div>
+                    </div>
+                    <div class="row img-center">
+                        <div class="col-sm-12">
+                            <img class="icon" src="./assets/img/report/shape_table_export1.png">
+                        </div>
+                    </div>
+                    <div class="row img-left" style="margin-left: 60px;">
+                        <p>
+                            As informações são exportadas em formato Excel
+                        </p>
                     </div>
                 </div>
-
             </div>
             <div class="modal-footer">
                 <div class="row">
@@ -38,7 +110,7 @@
                     </div>
                 </div>
                 <div class="modal-btn-confirm">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn_cancel">Fechar</button>
+                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" id="btn_cancel">Fechar</button>
                 </div>
             </div>
         </div>
