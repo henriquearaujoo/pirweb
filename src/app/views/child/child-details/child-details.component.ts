@@ -116,26 +116,26 @@ export class ChildDetailsComponent implements OnInit {
       case 0:
       this.infoTab = './assets/img/child/ic_section_info_enable.png';
       this.socialTab = './assets/img/child/ic_section_info_social_disable.png';
-      this.responsiblesTab = './assets/img/pregnant/ic_data_disable.png';
-      this.visitsTab = './assets/img/pregnant/ic_data_disable.png';
+      this.responsiblesTab = './assets/img/child/ic_section_resp_disable.png';
+      this.visitsTab = './assets/img/child/ic_section_children_disable.png';
       break;
       case 1:
       this.infoTab = './assets/img/child/ic_section_info_disable.png';
       this.socialTab = './assets/img/child/ic_section_info_social_enable.png';
-      this.responsiblesTab = './assets/img/pregnant/ic_data_disable.png';
-      this.visitsTab = './assets/img/pregnant/ic_data_disable.png';
+      this.responsiblesTab = './assets/img/child/ic_section_resp_disable.png';
+      this.visitsTab = './assets/img/child/ic_section_children_disable.png';
       break;
       case 2:
       this.infoTab = './assets/img/child/ic_section_info_disable.png';
       this.socialTab = './assets/img/child/ic_section_info_social_disable.png';
-      this.responsiblesTab = './assets/img/pregnant/ic_data_enable.png';
-      this.visitsTab = './assets/img/pregnant/ic_data_disable.png';
+      this.responsiblesTab = './assets/img/child/ic_section_resp_enable.png';
+      this.visitsTab = './assets/img/child/ic_section_children_disable.png';
       break;
       case 3:
       this.infoTab = './assets/img/child/ic_section_info_disable.png';
       this.socialTab = './assets/img/child/ic_section_info_social_disable.png';
-      this.responsiblesTab = './assets/img/pregnant/ic_data_disable.png';
-      this.visitsTab = './assets/img/pregnant/ic_data_enable.png';
+      this.responsiblesTab = './assets/img/child/ic_section_resp_disable.png';
+      this.visitsTab = './assets/img/child/ic_section_visits_enable.png';
       break;
     }
   }

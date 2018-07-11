@@ -18,7 +18,7 @@ export const Constant = {
             VIDEO_360: 'VIDEO_360',
             FILE: 'FILE'
         },
-    LIMIT_CHARACTERS: 3000,
+    LIMIT_CHARACTERS: 6000,
     PROP_VALUE: {
         'null' : '<sem valor>',
         'true': 'sim',

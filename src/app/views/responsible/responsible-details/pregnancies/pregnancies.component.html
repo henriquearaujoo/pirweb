@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-sm-4">
                 <div class="form-group">
-                    <label class="control-label">Data de Registro da gestação</label> <br/>
+                    <label class="control-label">DATA DE REGISTRO</label> <br/>
                     <span class="form-control"> {{ pregnancy.registered_at | date: 'dd/MM/yyyy' }} </span>
                 </div>
             </div>
@@ -13,10 +13,10 @@
                 <table id="example2" class="table">
                     <thead>
                         <tr>
-                            <th class="tbl-left">VISITA Nº</th>
-                            <th class="tbl-left">QUANDO</th>
-                            <th class="tbl-left"> TEMA</th>
-                            <th class="tbl-center"> AÇÃO</th>
+                            <th class="text-center">VISITA Nº</th>
+                            <th class="text-center">PERÍODO</th>
+                            <th class="text-center"> TEMA</th>
+                            <th class="text-center"> DATA</th>
                         </tr>
                     </thead>
                     <div class="feedback" *ngIf="pregnancy.visits.length === 0">
@@ -25,30 +25,52 @@
                     </div>
                     <tbody *ngIf="pregnancy.visits.length !== 0">
                         <tr *ngFor="let item of pregnancy.visits">
-                            <td class="tbl-left">
+                            <td class="text-center">
                                 {{ item.number }}
                             </td>
-                            <td class="tbl-left">
+                            <td class="text-center">
                                 <p class="limit-text">{{ item.chapter?.title }}</p>
                             </td>
-                            <td class="tbl-left">
+                            <td class="text-center">
                                 <p class="limit-text"> {{ item.chapter?.subtitle }}</p>
                             </td>
-                            <td class="tbl-center">
-                                <a (click)="setVisit(item)" class="pointer" id="btn_details" data-toggle="modal" data-target="#modal-visit" title="Ver detalhes" *ngIf="item.name  !== 'Administrator'">
+                            <td class="text-center">
+                                <p class="limit-text"> {{ item.done_at | date: 'dd/MM/yyyy' }}</p>
+                                <!-- <a (click)="setVisit(item)" class="pointer" id="btn_details" data-toggle="modal" data-target="#modal-visit" title="Ver detalhes" *ngIf="item.name  !== 'Administrator'">
                                     <i class="large material-icons">visibility</i>
-                                </a>
+                                </a> -->
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-    </div>
-    <div class="">
-        <div class="col-sm-12">
-            <div class="form-group">
-                <button class="btn btn-default btn-block pull-right" (click)="toBack()" id="btn_return3"> Fechar</button>
+        <div class="">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <button class="btn btn-default btn-block pull-right" (click)="toBack()" id="btn_return3"> Fechar</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 text-right">
+                <ul *ngIf="pager.pages && pager.pages.length" class="pagination stylepage">
+                    <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="setPage(1)">Primeiro</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="setPage(pager.currentPage - 1)">Anterior</a>
+                    </li>
+                    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                        <a (click)="setPage(page)">{{page}}</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="setPage(pager.currentPage + 1)">Próxima</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="setPage(pager.totalPages)">Último</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

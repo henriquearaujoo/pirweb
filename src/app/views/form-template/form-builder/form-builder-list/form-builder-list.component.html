@@ -13,25 +13,31 @@
                             <h5 class="box-title">Lista de Formulários</h5>
                         </div>
                     </div>
-                    <div class="col-sm-2">
-                        <label> Filtro </label>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="filter_">
-                            <input type="text" maxlength="20" class="form-control form-border" (change)="getForms()" (keyup)="getForms()" name="name" id="filter" [(ngModel)]="filter.name" placeholder="Título do Formulário">
-                        </div>
-                    </div>
                 </div>
             </div>
             <div>
+                <div class="row _filter">
+                    <!-- <div class="col-sm-2">
+                        <label> Filtro </label>
+                    </div> -->
+                    <div class="col-md-8 col-md-offset-8">
+                        <div class="filter_">
+                            <div class="col-md-2">
+                                <label class="control-label"> Filtro </label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" maxlength="20" class="form-control form-border" (change)="getForms()" (keyup)="getForms()" name="name" id="filter" [(ngModel)]="filter.name" placeholder="Título do Formulário">
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="box box-primary">
                             <div class="box-body">
                                 <div>
-                                    <button class="btn btn-primary add pull-right" [routerLink]="['/formularios/construtor/registro']" (click)="newForm()">
-                                        <!-- <i class="fa fa-plus fa-lg"></i>ADICIONAR CAPÍTULO -->
-                                        <img class="img-plus" src="./assets/img/global/ic_add.png" >ADICIONAR Formulário
+                                    <button class="btn btn-primary add form pull-right" [routerLink]="['/formularios/construtor/registro']" (click)="newForm()">                                        
+                                       ADICIONAR FORMULÁRIO
                                     </button>
                                     <div *ngFor="let form of forms">
                                         <app-form-builder-list-item [form]="form"></app-form-builder-list-item>

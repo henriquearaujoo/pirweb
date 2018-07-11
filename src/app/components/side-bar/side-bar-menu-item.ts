@@ -135,6 +135,28 @@ export const MENU = [
     },
     {
         'id': 13,
+        'title': 'REGIONAL',
+        'route': 'regionais',
+        'routes': ['/regionais', '/registro', '/detalhes'],
+        'read': true,
+        'iClass': 'fa fa-circle-o',
+        'category': 'child',
+        'hasChild': false,
+        'parent': 11
+    },
+    {
+        'id': 14,
+        'title': 'UC',
+        'route': 'uc-lista',
+        'routes': ['/uc-lista', '/registro', '/detalhes'],
+        'read': true,
+        'iClass': 'fa fa-circle-o',
+        'category': 'child',
+        'hasChild': false,
+        'parent': 11
+    },
+    {
+        'id': 15,
         'title': 'FAMÍLIA',
         'route': '',
         'routes': ['/', '/gestantes', '/detalhes', '/registro',
@@ -157,7 +179,7 @@ export const MENU = [
     //     'parent': 13
     // },
     {
-        'id': 15,
+        'id': 16,
         'title': 'RESPONSÁVEL',
         'route': 'responsaveis',
         'routes': ['/responsaveis', '/registro', '/detalhes'],
@@ -165,10 +187,10 @@ export const MENU = [
         'iClass': 'fa fa-circle-o',
         'category': 'child',
         'hasChild': false,
-        'parent': 13
+        'parent': 15
     },
     {
-        'id': 16,
+        'id': 17,
         'title': 'CRIANÇA',
         'route': 'criancas',
         'routes': ['/criancas', '/registro', '/detalhes'],
@@ -176,10 +198,10 @@ export const MENU = [
         'iClass': 'fa fa-circle-o',
         'category': 'child',
         'hasChild': false,
-        'parent': 13
+        'parent': 15
     },
     {
-        'id': 17,
+        'id': 18,
         'title': 'FORMULÁRIO',
         'route': '',
         'routes': ['/', '/registro', '/formularios', '/detalhes'],
@@ -190,7 +212,7 @@ export const MENU = [
         'parent': 0
     },
     {
-        'id': 18,
+        'id': 19,
         'title': 'REGISTRO',
         'route': 'formularios',
         'routes': ['/formularios', '/registro', '/detalhes'],
@@ -198,10 +220,10 @@ export const MENU = [
         'iClass': 'fa fa-circle-o',
         'category': 'child',
         'hasChild': false,
-        'parent': 17
+        'parent': 18
     },
     {
-        'id': 19,
+        'id': 20,
         'title': 'CONSTRUTOR',
         'route': 'formularios/construtor',
         'routes': ['/formularios/construtor'],
@@ -209,10 +231,10 @@ export const MENU = [
         'iClass': 'fa fa-circle-o',
         'category': 'child',
         'hasChild': false,
-        'parent': 17
+        'parent': 18
     },
     {
-        'id': 20,
+        'id': 21,
         'title': 'RELATÓRIOS',
         'route': '',
         'routes': ['/', '/relatorios'],
@@ -223,7 +245,7 @@ export const MENU = [
         'parent': 0
     },
     {
-        'id': 21,
+        'id': 22,
         'title': 'REGISTRO',
         'route': 'relatorios',
         'routes': ['/relatorios'],
@@ -231,7 +253,7 @@ export const MENU = [
         'iClass': 'fa fa-circle-o',
         'category': 'child',
         'hasChild': false,
-        'parent': 20
+        'parent': 21
     },
 ];
 

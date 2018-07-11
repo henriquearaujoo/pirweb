@@ -27,14 +27,12 @@
                 </li>
                 <li *ngIf="responsible.gender !== 'MALE'">
                     <a class="tab-pane" (click)="walk(3)" href="#tab_4" data-toggle="tab">
-                        <label class="lb-tab"> Gestações</label>
-                        <img src="{{ pregnanciesTab }}" style="width: 171px;" />
+                        <img src="{{ pregnanciesTab }}" />
                     </a>
                 </li>
                 <li>
                     <a class="tab-pane" (click)="walk(4)" href="#tab_5" data-toggle="tab">
-                        <label class="lb-tab"> Crianças</label>
-                        <img src="{{ childrenTab }}" style="width: 171px;" />
+                        <img src="{{ childrenTab }}" />
                     </a>
                 </li>
             </ul>
@@ -244,6 +242,16 @@
                                 <h5 class="box-title"> Gestações
                                 </h5>
                             </div>
+                            <!-- <div class="row">
+                                <div class="col-sm-12">
+                                    <div id="_filter" class="dataTables_filter">
+                                        <label> Filtro
+                                        <input type="text" class="form-control form-border " name="name" id="filter" 
+                                          [(ngModel)]="filter.name" mask="SSSSSSSSSSSSSSSSSSSS"  maxlength="20" placeholder="Data">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div> -->
                             <div class="row">
                                 <div class="col-sm-12">
                                     <form name="form" #f3="ngForm" novalidate>
@@ -255,7 +263,7 @@
                                                             <th class="tbl-left">DATA DE REGISTRO
                                                                 <span class="glyphicon"></span>
                                                             </th>
-                                                            <th class="text-center"> AÇÃO</th>
+                                                            <th class="text-right"> AÇÃO</th>
                                                         </tr>
                                                     </thead>
                                                     <div class="feedback" *ngIf="responsible.pregnancies.length === 0">
@@ -267,7 +275,7 @@
                                                             <td class="tbl-left">
                                                                 {{ item.registered_at | date: 'dd/MM/yyyy' }}
                                                             </td>
-                                                            <td class="text-center pointer">
+                                                            <td class="text-right pointer">
                                                                 <a (click)="toViewPregnancies(item)" id="btn_details" title="Ver detalhes">
                                                                     <i class="large material-icons">visibility</i>
                                                                 </a>
@@ -276,6 +284,27 @@
                                                     </tbody>
                                                 </table>
                                                 <app-pregnancies #pregnancies [pregnancy]="pregnancy" (showPregnancy)="toShowPregnancy($event)" *ngIf="showPregnancy"></app-pregnancies>
+                                                <div class="row" *ngIf="!showPregnancy">
+                                                    <div class="col-sm-12 text-right">
+                                                        <ul *ngIf="pager.pages && pager.pages.length" class="pagination stylepage">
+                                                            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                                                <a (click)="setPage(1)">Primeiro</a>
+                                                            </li>
+                                                            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                                                <a (click)="setPage(pager.currentPage - 1)">Anterior</a>
+                                                            </li>
+                                                            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                                                <a (click)="setPage(page)">{{page}}</a>
+                                                            </li>
+                                                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                                                <a (click)="setPage(pager.currentPage + 1)">Próxima</a>
+                                                            </li>
+                                                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                                                <a (click)="setPage(pager.totalPages)">Último</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <!-- <div class="col-md-3" *ngIf="!showPregnancy">
@@ -343,7 +372,7 @@
                 <!-- /.tab-pane -->
             </div>
             <!-- /.tab-content -->
-            <div class="col-md-3">
+            <div class="col-md-3 action-back">
                 <div class="form-group">
                     <button class="btn btn-default btn-block" [routerLink]="['/responsaveis']" id="btn_return3" *ngIf="!routeChildResponsible"> Voltar</button>
                     <button class="btn btn-default btn-block" (click)="toBack()" [routerLink]="['/criancas/detalhes']" id="btn_return3" *ngIf="routeChildResponsible"> Voltar</button>

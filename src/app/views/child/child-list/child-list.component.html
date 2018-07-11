@@ -30,7 +30,7 @@
                                 <th class="tbl-left">DATA DE NASCIMENTO
                                     <span class="glyphicon"></span>
                                 </th>
-                                <th class="tbl-left">RESPONSÁVEL
+                                <th class="tbl-left">SEXO
                                     <span class="glyphicon"></span>
                                 </th>
                                 <th colspan="2" class="tbl-center"> AÇÃO</th>
@@ -51,9 +51,7 @@
                                     {{ item.birth }}
                                 </td>
                                 <td class="tbl-left">
-                                    <div *ngFor="let resp of item.responsible">
-                                        {{ resp.name }}
-                                    </div>
+                                    {{ item.gender === 'FEMALE' ? 'Feminino' : 'Masculino' }}
                                 </td>
                                 <td class="tbl-right">
                                     <a (click)="toView(item)" id="btn_details" title="Ver detalhes">

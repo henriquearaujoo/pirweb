@@ -1,3 +1,4 @@
+import { FilterPipe } from './views/responsible/responsible-details/filter.pipe';
 import { FormBuilderService } from './services/form/formBuilder.service';
 import { SweetAlert2Service } from './services/sweetalert/sweet-alert.2service';
 import { LoaderService } from './services/loader/loader.service';
@@ -75,9 +76,10 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     LoginLayoutComponent,
     AlertComponent,
     ProfilePipe,
+    FilterPipe,
     TemplateSelectModelComponent,
     ModalWaitingAnswerComponent,
-    EqualValidatorDirective,
+    EqualValidatorDirective
   ],
   imports: [
     BrowserModule,
@@ -126,7 +128,8 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     FormService,
     VisitService,
     LoaderService,
-    FormBuilderService
+    FormBuilderService,
+    FilterPipe
   ],
   exports: [],
   bootstrap: [AppComponent]

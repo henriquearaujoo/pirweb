@@ -192,15 +192,15 @@ div#_filter {
 }
 
 button.btn.btn-primary.add {
-    background-image: url('/assets/img/chapter/btn_add_chapter.png')!important;
+    background-image: url('/assets/img/form/btn_addFormDynm.png')!important;
     background-repeat: no-repeat;
     background-color: #f5deb300;
     border: 0;
-    /* border-radius: 1em; */
     font-size: 12px;
-    /* padding: 8px 10px; */
     height: 35px;
-    width: 175px;
+    width: 215px;
+    margin-right: 40px;
+    margin-top: 10px;
 }
 
 img.img-plus {
@@ -224,4 +224,10 @@ img.img-plus {
 
 span.show-chapter {
     color: gray;
+}
+
+._filter {
+    margin-top: 30px;
+    text-align: right;
+    margin-right: 20px;
 }

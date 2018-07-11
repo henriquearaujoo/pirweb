@@ -24,13 +24,11 @@
                 </li>
                 <li>
                     <a class="tab-pane" (click)="walk(2)" href="#tab_3" data-toggle="tab">
-                        <label class="lb-tab"> Responsáveis</label>
                         <img src="{{responsiblesTab }}" style="width: 171px;" />
                     </a>
                 </li>
                 <li>
                     <a class="tab-pane" (click)="walk(3)" href="#tab_4" data-toggle="tab">
-                        <label class="lb-tab"> Visitas</label>
                         <img src="{{ visitsTab }}" style="width: 171px;" />
                     </a>
                 </li>
@@ -84,14 +82,14 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
+                                                <!-- <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="form-group" *ngFor="let resp of child.responsible">
                                                             <label class="control-label">Nome do Responsável</label>
                                                             <input type="text" name="nameResponsible" [(ngModel)]="resp.name" id="nameResponsible" class="form-control" disabled>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- <div class="col-md-3">
