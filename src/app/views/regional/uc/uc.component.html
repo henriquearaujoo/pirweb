@@ -1,0 +1,193 @@
+<simple-notifications></simple-notifications>
+<div class="content">
+    <section class="content" *ngIf="!isNewUC">
+        <div class="box-header_1 with-border">
+            <h5 class="box-title"> Informações do Regional
+            </h5>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <form name="form" (ngSubmit)="saveData(f1.valid)" id="f_1" #f1="ngForm" novalidate>
+                    <div class="box box-primary">
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group profile" [ngClass]="applyCssError(f1, regional)">
+                                        <label class="control-label">Nome da UC</label>
+                                        <input class="form-control" #regional="ngModel" [(ngModel)]="regional.name" name="regional_name" pattern="[\w,./_=?-].*" id="regional_name" maxlength="60" placeholder="Regional" required>
+                                        <app-control-field-error [showError]="verifyValidSubmitted(f1, regional)" [field]="regional" msgError="Digite um nome para o regional">
+                                        </app-control-field-error>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- <div class="col-sm-6 cancel">
+                            <button type="button" class="btn btn-default" (click)="onCancel()" id="btn_return">
+                                    <span *ngIf="isNewData">Cancelar</span>   <span *ngIf="!isNewData">Voltar</span> 
+                                </button>
+                        </div> -->
+                        <div class="col-sm-12 save text-right">
+                            <button type="submit" class="btn btn-primary btn-sm" name="submit" id="btn_save">Salvar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <section class="content">
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="box-title">Municípios</div>
+                                </div>
+                                <div class="col-sm-6 actions">
+                                    <button class="btn btn-primary add" (click)="createNewUC()">
+                                        <i class="fa fa-plus"></i>ADICIONAR
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box-body">
+                        <table id="example2" class="table table-hover ">
+                            <thead>
+                                <tr>
+                                    <th class="tbl-left">NÚMERO </th>
+                                    <th>MUNICÍPIOS</th>
+                                    <th colspan="3" style="text-align: center;"> AÇÃO</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of pagedItems; let i = index">
+                                    <!-- <tr *ngFor="let item of answers"> -->
+                                    <td class="tbl-left">
+                                        {{ item.number }}
+                                    </td>
+                                    <td class="tbl-left text-max">
+                                        <p class="limit-text">{{ item.name }}</p>
+                                    </td>
+                                    <td>
+                                        <p> Municípios </p>
+                                    </td>
+
+                                    <td class="tbl-right">
+                                        <a href="" title="Ver detalhes" id="btn_details" data-toggle="modal" data-target="#modal-uc" (click)="showUC(item)">
+                                            <i class="large material-icons">visibility</i>
+                                        </a>
+                                    </td>
+                                    <td class="tbl-right" *ngIf="canUpdate">
+                                        <a href="" title="Editar" id="btn_edit" data-toggle="modal" data-target="#modal-uc" (click)="onEdit(item)">
+                                            <i class="fa fa-pencil fa-fw"></i>
+                                        </a>
+                                    </td>
+                                    <!-- <td class="tbl-right" *ngIf="canDelete">
+                                                <a href="" [title]="item.is_enabled === true ? 'Desativar': 'Ativar'" data-toggle="modal" data-target="#modal-status" (click)="changeStatus(item)" id="btn_status">
+                                                    <i [ngClass]="item.is_enabled === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' " aria-hidden="true"></i>
+                                                </a>
+                                            </td> -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="box-footer">
+                        <div class="row">
+                            <div class="col-sm-6 pagination1" *ngIf="regional.unities">
+                                <div class="pag1" *ngIf="regional.unities.length > 10">
+                                    Exibindo <strong>{{ pager.currentPage === 1 ? 1 : (pager.currentPage * 10) - 9 }} </strong> -
+                                    <strong>{{ pager.currentPage === pager.totalPages ? regional.unities.length : (pager.currentPage * 10)  }} </strong> &nbsp;de &nbsp;<strong>{{ regional.unities.length }} </strong>
+                                </div>
+                                <div class="pag2" *ngIf="regional.unities.length <= 10">
+                                    Exibindo <strong>{{ pager.currentPage === 1 ? 1 : (pager.currentPage * 10) - 9 }} </strong> -
+                                    <strong>{{ regional.unities.length }} </strong> &nbsp;de&nbsp; <strong>{{ regional.unities.length }} </strong>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 pagination2">
+                                <app-paginate [paginate]="paginate" (eventPage)="setPage($event)"></app-paginate>
+                                <ul *ngIf="pager.pages && pager.pages.length" class="pagination stylepage">
+                                    <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                        <a (click)="setPage(1)">Primeiro</a>
+                                    </li>
+                                    <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                        <a (click)="setPage(pager.currentPage - 1)">Anterior</a>
+                                    </li>
+                                    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                        <a (click)="setPage(page)">{{page}}</a>
+                                    </li>
+                                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                        <a (click)="setPage(pager.currentPage + 1)">Próxima</a>
+                                    </li>
+                                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                        <a (click)="setPage(pager.totalPages)">Último</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+    </section>
+    <app-uc *ngIf="isNewUC"></app-uc>
+</div>
+<app-modal></app-modal>
+
+<!-- Modal UC-->
+<div class="modal fade" id="modal-uc">
+    <div class="modal-dialog">
+        <div class="modal-content" [ngStyle]="object">
+            <div class="modal-header uc">
+            </div>
+            <div class="modal-body modal-uc">
+                <form name="fQuestion" (ngSubmit)="fuc.form.valid && saveUC()" #fuc="ngForm" novalidate>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">UC</label> <br/>
+                                <!-- <textarea disabled *ngIf="show"> {{ question.description }}</textarea> -->
+                                <input class="form-control" name="name_uc" id="name_uc" #nameUC="ngModel" [(ngModel)]="unity.name" maxlength="100" [disabled]="show">
+                                <!-- <app-control-field-error [showError]="verifyValidSubmitted(fQuestion, description)" msgError="Digite uma descrição">
+                      </app-control-field-error>  -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <!-- <div *ngIf="show">
+                                    <label class="control-label"> Tipo de Questão</label> <br/>
+                                    <span class="form-control" *ngIf="question.type === 'SOCIO_AFFECTIVE'"> Socioafetiva </span>
+                                    <span class="form-control" *ngIf="question.type === 'MOTOR'"> Motora </span>
+                                    <span class="form-control" *ngIf="question.type === 'COGNITIVE'"> Cognitiva </span>
+                                    <span class="form-control" *ngIf="question.type === 'LANGUAGE'"> Comunicação e linguagem </span>
+                                    <span class="form-control" *ngIf="question.type === 'UNDEFINED'"> Outros </span>
+                                </div> -->
+                            <div class="form-group" *ngIf="!show">
+                                <label class="control-label"> Município</label>
+                                <select class="form-control" name="city" id="city" #city="ngModel" [(ngModel)]="city.id">
+                                        <option value="SOCIO_AFFECTIVE" *ngFor="let item of cities">  {{ item.name }} </option>                                        
+                                    </select>
+                                <!-- <app-control-field-error [showError]="verifyValidSubmitted(fQuestion, typeQuestion)" 
+                          msgError="Selecione o tipo da questão" *ngIf="!show">
+                        </app-control-field-error>                     -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer footer-uc" *ngIf="!show">
+                        <button type="button" class="btn btn-default" id="btn_cancel_uc" data-dismiss="modal" (click)=onCancelUC()>Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="btn_save_uc" data-dismiss="modal" (click)=saveUC()>Salvar</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" *ngIf="show">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>
+<!-- /.modal -->

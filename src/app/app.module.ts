@@ -63,6 +63,7 @@ import { SweetAlertService } from './services/sweetalert/sweet-alert.service';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { VisitService } from './services/visit/visit.service';
 import { ReportFilterComponent } from './components/report-filter/report-filter.component';
+import { RegionalService } from './services/regional/regional.service';
 
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
@@ -129,6 +130,7 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     VisitService,
     LoaderService,
     FormBuilderService,
+    RegionalService,
     FilterPipe
   ],
   exports: [],

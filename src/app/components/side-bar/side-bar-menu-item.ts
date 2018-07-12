@@ -144,17 +144,17 @@ export const MENU = [
         'hasChild': false,
         'parent': 11
     },
-    {
-        'id': 14,
-        'title': 'UC',
-        'route': 'uc-lista',
-        'routes': ['/uc-lista', '/registro', '/detalhes'],
-        'read': true,
-        'iClass': 'fa fa-circle-o',
-        'category': 'child',
-        'hasChild': false,
-        'parent': 11
-    },
+    // {
+    //     'id': 14,
+    //     'title': 'UC',
+    //     'route': 'unidades',
+    //     'routes': ['/unidades', '/registro', '/detalhes'],
+    //     'read': true,
+    //     'iClass': 'fa fa-circle-o',
+    //     'category': 'child',
+    //     'hasChild': false,
+    //     'parent': 11
+    // },
     {
         'id': 15,
         'title': 'FAMÍLIA',

@@ -1,28 +1,24 @@
-import { City } from './../../models/city';
-import { Unity } from './../../models/unity';
-import { PageService } from './../../services/pagenate/page.service';
-import { PagenateComponent } from './../../components/pagenate/pagenate.component';
-import { RegionalService } from './../../services/regional/regional.service';
-import { Regional } from './../../models/regional';
-import { ToastService } from './../../services/toast-notification/toast.service';
-import { LoaderService } from './../../services/loader/loader.service';
-import { Permissions, RuleState } from './../../helpers/permissions';
-import { SweetAlert2Service } from './../../services/sweetalert/sweet-alert.2service';
-import { SweetAlertService } from './../../services/sweetalert/sweet-alert.service';
-import { ModalService } from './../../components/modal/modal.service';
-import { CommunityService } from './../../services/community/community.service';
-import { IMyDpOptions } from 'mydatepicker';
+import { PagenateComponent } from './../../../components/pagenate/pagenate.component';
+import { PageService } from './../../../services/pagenate/page.service';
+import { LoaderService } from './../../../services/loader/loader.service';
+import { Permissions, RuleState } from './../../../helpers/permissions';
+import { SweetAlert2Service } from './../../../services/sweetalert/sweet-alert.2service';
+import { SweetAlertService } from './../../../services/sweetalert/sweet-alert.service';
+import { ToastService } from './../../../services/toast-notification/toast.service';
+import { ModalService } from './../../../components/modal/modal.service';
+import { RegionalService } from './../../../services/regional/regional.service';
 import { Subscription } from 'rxjs/Subscription';
-import { Community } from './../../models/community';
+import { Unity } from './../../../models/unity';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '../../../../node_modules/@angular/router';
+import { Regional } from '../../../models/regional';
+import { Router } from '../../../../../node_modules/@angular/router';
 
 @Component({
-  selector: 'app-regional',
-  templateUrl: './regional.component.html',
-  styleUrls: ['./regional.component.css']
+  selector: 'app-uc',
+  templateUrl: './uc.component.html',
+  styleUrls: ['./uc.component.css']
 })
-export class RegionalComponent extends PagenateComponent implements OnInit {
+export class UcComponent extends PagenateComponent implements OnInit {
 
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
   private regional: Regional = new Regional();

@@ -68,10 +68,10 @@ const App_Router: Routes = [
           path: 'regionais',
           loadChildren: './views/regional/regional.module#RegionalModule'
         },
-        {
-          path: 'uc-lista',
-          loadChildren: './views/uc/uc.module#UcModule'
-        },
+        // {
+        //   path: 'unidades',
+        //   loadChildren: './views/uc/uc.module#UcModule'
+        // },
         {
           path: 'formularios',
           loadChildren: './views/form-template/form-template.module#FormTemplateModule'
