@@ -1,3 +1,5 @@
+import { PageService } from './../../../services/pagenate/page.service';
+import { PagenateComponent } from './../../../components/pagenate/pagenate.component';
 import { ToastService } from './../../../services/toast-notification/toast.service';
 import { LoaderService } from './../../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../../helpers/permissions';
@@ -13,7 +15,7 @@ import { Component, OnInit, Output, OnDestroy } from '@angular/core';
   templateUrl: './regional-list.component.html',
   styleUrls: ['./regional-list.component.css']
 })
-export class RegionalListComponent implements OnInit, OnDestroy {
+export class RegionalListComponent extends PagenateComponent implements OnInit, OnDestroy {
 
   private cities: any[] = new Array();
   private regional: Regional = new Regional();
@@ -34,8 +36,10 @@ export class RegionalListComponent implements OnInit, OnDestroy {
     private regionalService: RegionalService,
     private toastService: ToastService,
     private permissions: Permissions,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private servicePage: PageService
   ) {
+    super(servicePage);
       this.canCreate = false;
       this.canUpdate = false;
       this.canRead = false;
@@ -85,15 +89,22 @@ export class RegionalListComponent implements OnInit, OnDestroy {
   }
 
   toView(regional: Regional) {
-    localStorage.setItem('regionalId', regional.id);
-    this.router.navigate(['/regionais/detalhes']);
+    // localStorage.setItem('regionalId', regional.id);
+    // this.router.navigate(['/regionais/detalhes']);
   }
 
-  changeStatus(regional: Regional) {
+  toViewUC(regional: Regional) {
     this.regional = regional;
+    this.allItems = this.regional.unities;
+    this.pagedItems = this.regional.unities;
+    this.setPage(1);
   }
 
-  setPage(page: number) {
+  // changeStatus(regional: Regional) {
+  //   this.regional = regional;
+  // }
+
+  _setPage(page: number) {
     this.page = page;
     this.getRegionais();
   }

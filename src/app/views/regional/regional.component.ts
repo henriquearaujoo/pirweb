@@ -44,13 +44,7 @@ export class RegionalComponent extends PagenateComponent implements OnInit {
   private cities: any[] = new Array();
 
   private isFormValid: boolean;
-  private isCkeckboxValid: boolean;
-  private tab: string;
   private _isSave: boolean;
-  private openSaveButtonTab1: HTMLButtonElement;
-  private openSaveButtonTab2: HTMLButtonElement;
-  private openSaveButtonTab3: HTMLButtonElement;
-
   private canRead: boolean;
   private canUpdate: boolean;
   private canCreate: boolean;
@@ -82,6 +76,8 @@ export class RegionalComponent extends PagenateComponent implements OnInit {
       this.canRead = false;
       this.canDelete = false;
       this.index = 1;
+      this.allItems = [];
+      this.pagedItems = [];
    }
 
   ngOnInit() {
@@ -102,6 +98,7 @@ export class RegionalComponent extends PagenateComponent implements OnInit {
       this.isNewData = false;
       this.load();
     } else {
+      this.regional.name = '';
       this.loaderService.hide();
     }
 
@@ -112,19 +109,17 @@ export class RegionalComponent extends PagenateComponent implements OnInit {
     this.sectionInfoTab = './assets/img/regional/ic_dataTab2_enable.png';
     this.sectionUCTab = './assets/img/regional/ic_dataTab2_disable.png';
 
-    this.isCkeckboxValid = true;
-
     this.getCities();
   }
 
   saveData(isValid) {
-    if (isValid && this._isSave) {
+    if (isValid) {
       if (this.isNewData || this.regional.id === undefined) {
         this.regionalService.insert(this.regional).subscribe(
           success => {
             this.regional = success;
             this.isNewData  = false;
-            this.sweetAlertService.alertSuccess('/regionais');
+            this.sweetAlertService.alertSuccess('/regionais/registro');
           },
           error => {
             if ( error === 'regional_name.found') {
@@ -237,7 +232,6 @@ export class RegionalComponent extends PagenateComponent implements OnInit {
       .then((result) => {
         if (result.value) {
           this._isSave = true;
-          this.openSaveButtonTab2.click();
         } else {
           this.route.navigate(['/regionais']);
         }
@@ -250,6 +244,13 @@ export class RegionalComponent extends PagenateComponent implements OnInit {
   onCancelUC() {
     this.load();
    }
+
+   onCancelAddUC(event) {
+    if (event) {
+      this.isNewData = true;
+      this.isNewUC = false;
+    }
+  }
 
   getCities() {
     this.regionalService.getState().subscribe(
@@ -266,7 +267,6 @@ export class RegionalComponent extends PagenateComponent implements OnInit {
 
   save(tab: string, isValid: boolean) {
     this.isFormValid = isValid;
-    this.tab = tab;
     this._isSave = false;
   }
 
@@ -277,10 +277,10 @@ export class RegionalComponent extends PagenateComponent implements OnInit {
     this.unity = new Unity();
   }
 
-  onEdit(item) {
+  onEdit() {
     this.show = false;
     this.isNewUC = false;
-    this.unity = item;
+    // this.unity = item;
   }
 
   loadUnities() {
@@ -299,7 +299,6 @@ export class RegionalComponent extends PagenateComponent implements OnInit {
    isActive(tab: boolean, t?: number,  p?: number) {
     if ( p !== 0 ) {
       if (t === 1) {
-        this.openSaveButtonTab1.click();
       } else {
         if ( t === 2) {
           this.isFormValid = true;
@@ -310,7 +309,7 @@ export class RegionalComponent extends PagenateComponent implements OnInit {
     }
 
 
-    if ( this.isFormValid && this.isCkeckboxValid) {
+    if ( this.isFormValid) {
       this.isFormValid = false;
       if (tab) {
         if (this.currentTab === -1) {

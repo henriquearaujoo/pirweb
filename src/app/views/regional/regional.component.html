@@ -17,18 +17,11 @@
                     </a>
 
                 </li>
-                <!-- <li>
-                    <a class="tab-pane active" (click)="walk(1)" href="#tab_2" data-toggle="tab">
-                        <label class="lb-tab"> UC</label>
-                        <img src="{{ sectionUCTab }}" />
-                    </a>
-
-                </li> -->
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_1">
                     <div class="content">
-                        <section class="content" *ngIf="!isNewUC">
+                        <section class="content" *ngIf="!isShowUC">
                             <div class="box-header_1 with-border">
                                 <h5 class="box-title"> Informações do Regional
                                 </h5>
@@ -40,10 +33,10 @@
                                             <div class="box-body">
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <div class="form-group profile" [ngClass]="applyCssError(f1, regional)">
-                                                            <label class="control-label">Nome do Regional</label>
-                                                            <input class="form-control" #regional="ngModel" [(ngModel)]="regional.name" name="regional_name" pattern="[\w,./_=?-].*" id="regional_name" maxlength="60" placeholder="Regional" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, regional)" [field]="regional" msgError="Digite um nome para o regional">
+                                                        <div class="form-group profile" [ngClass]="applyCssError(f1, regionalName)">
+                                                            <label class="control-label">Nome</label>
+                                                            <input class="form-control" name="regional" #regionalName="ngModel" [(ngModel)]="regional.name" pattern="[\w,./_=?-].*" id="regional_name" maxlength="60" placeholder="Regional" required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, regionalName)" [field]="regional" msgError="Digite um nome para o regional">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
@@ -70,10 +63,10 @@
                                             <div class="box-header">
                                                 <div class="row">
                                                     <div class="col-sm-6">
-                                                        <div class="box-title">Unidade de Conservação</div>
+                                                        <div class="box-title">UNIDADES DE CONSERVAÇÃO</div>
                                                     </div>
                                                     <div class="col-sm-6 actions">
-                                                        <button class="btn btn-primary add" (click)="createNewUC()">
+                                                        <button class="btn btn-primary add" (click)="createNewUC()" [disabled]="regional.id === undefined">
                                                             <i class="fa fa-plus"></i>ADICIONAR
                                                         </button>
                                                     </div>
@@ -111,8 +104,8 @@
                                                                 <i class="large material-icons">visibility</i>
                                                             </a>
                                                         </td>
-                                                        <td class="tbl-right" *ngIf="canUpdate">
-                                                            <a href="" title="Editar" id="btn_edit" data-toggle="modal" data-target="#modal-uc" (click)="onEdit(item)">
+                                                        <td class="tbl-right">
+                                                            <a href="" title="Editar" id="btn_edit" data-toggle="modal" data-target="#modal-uc" (click)="onEdit()">
                                                                 <i class="fa fa-pencil fa-fw"></i>
                                                             </a>
                                                         </td>
@@ -138,7 +131,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6 pagination2">
-                                                    <app-paginate [paginate]="paginate" (eventPage)="setPage($event)"></app-paginate>
+                                                    <!-- <app-paginate [paginate]="paginate" (eventPage)="setPage($event)"></app-paginate> -->
                                                     <ul *ngIf="pager.pages && pager.pages.length" class="pagination stylepage">
                                                         <li [ngClass]="{disabled:pager.currentPage === 1}">
                                                             <a (click)="setPage(1)">Primeiro</a>
@@ -162,20 +155,20 @@
                                     </section>
                                 </div>
                             </div>
-
+                            <div class="row footer">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-default" (click)="onCancel()" id="btn_return3">
+                                            <span *ngIf="isNewData">Cancelar</span>   <span *ngIf="!isNewData">Voltar</span> 
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </section>
-                        <app-uc *ngIf="isNewUC"></app-uc>
+                        <app-uc *ngIf="isShowUC" [regional]="regional" (cancel)="onCancelAddUC($event)"></app-uc>
                     </div>
                 </div>
-                <div class="row footer">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <button type="button" class="btn btn-default" (click)="onCancel()" id="btn_return3">
-                                <span *ngIf="isNewData">Cancelar</span>   <span *ngIf="!isNewData">Voltar</span> 
-                            </button>
-                        </div>
-                    </div>
-                </div>
+
             </div>
             <!-- /.tab-content -->
         </div>

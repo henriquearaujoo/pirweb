@@ -1,19 +1,6 @@
-.content {
-    padding: 0px;
-}
-
-.container {
-    background: #e0e3e9;
-    width: 100%;
-}
-
 .form-group,
 .form-control {
     color: grey;
-}
-
-table#example2 {
-    color: #777;
 }
 
 .btn-primary {
@@ -22,268 +9,12 @@ table#example2 {
     border-color: #373d40;
 }
 
-.box.box-primary {
-    border-top-color: #373d40;
-    margin-top: 30px;
-}
-
-.img-logo {
-    height: 130px;
-    margin-left: 25%;
-    padding-bottom: 20px;
-}
-
-p {
-    color: #544f4f;
-    font-size: 14px;
-    text-align: center;
-}
-
-label {
-    color: #544f4f;
-    font-size: 14px;
-    font-weight: normal;
-}
-
-.form-group.has-error .form-control,
-.form-group.has-error .input-group-addon {
-    border-color: #a94442;
-}
-
-.form-group.has-error label {
-    color: #a94442;
-    font-weight: bold;
-}
-
-.form-group.has-error .help-block {
-    color: #a94442;
-}
-
-.box {
-    border-top: 0;
-    box-shadow: none;
-}
-
-
-/* .box-header {
-    background-color: #e8e6e6;
-} */
-
-.box-header .box-title {
-    font-size: 14px;
-    padding-top: 20px;
-}
-
-.box-header {
-    padding-top: 0;
-}
-
-
-/* 
-.box-title {
-    padding-top: 12px;
-} */
-
-
-/* .box-header {
-    background-color: #e8e6e6;
-    padding-bottom: 10px;
-    padding-top: 5px;
-    text-align: center;
-    color: gray;
-} */
-
-.box-body {
-    background-color: #FBFBFB;
-    margin-right: 14px;
-    margin-left: 14px;
-}
-
-.form-group.profile {
-    padding-right: 10px;
-}
-
-.form-group.type {
-    padding-left: 10px;
-}
-
-label {
-    color: #777;
-}
-
-
-/* .form-group {
-    padding-bottom: 20px;
-} */
-
-
-/* .content-header {
-    padding-top: 20px;
-    background-color: #e8e6e6;
-    height: 64px;
-} */
-
-.content_fa {
-    color: #777777;
-}
-
-button#btn_save,
-button#btn_return {
-    min-width: 120px;
-}
-
-
-/* .content-top {
-    height: 64px;
-    background-color: #e8e6e6;
-    margin-bottom: 10px;
-} */
-
-.content-title {
-    font-size: 14px;
-}
-
-i.fa.fa-home {
-    margin-top: 18px;
-    margin-left: 24px;
-    margin-right: 10px;
-    color: white;
-    background-color: #0075BD;
-    padding-right: 5px;
-    padding-left: 5px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    border-radius: 0.2em;
-    font-size: 34px;
-}
-
-section.content_user {
-    padding: 24px;
-}
-
-.row.footer {
-    /* padding-right: 25px; */
-    padding-left: 10px;
-}
-
-.control {
-    text-align: center;
-}
-
-.control a {
-    margin-left: 20px;
-    margin-right: 20px;
-}
-
-.control a {
-    color: #4d4949;
-}
-
-.content-control {
-    background-color: #f4f4f4;
-    padding-bottom: 25px;
-    margin-bottom: 20px;
-}
-
-.nav>li>a {
-    padding: 10px 0 0 0px;
-}
-
-.nav-tabs-custom {
-    background-color: #f4f4f4;
-    padding: 20px;
-}
-
-.nav-tabs-custom>.nav-tabs {
-    height: 55px;
-}
-
-.nav-tabs-custom>.tab-content {
-    padding-top: 10px;
-    padding-left: 25px;
-    padding-right: 25px;
-}
-
-.nav-tabs-custom>.nav-tabs>li.active {
-    border-top-color: #373d40;
-}
-
-.tab-pane {
-    /* background-color: #f4f4f4; */
-    border-bottom: 0;
-    margin-top: 20px;
-}
-
-input#waterDrink2 {
-    width: 60%;
-}
-
-input[type="radio"],
-input[type="checkbox"] {
-    cursor: pointer;
-}
-
-label.lb-tab {
-    position: absolute;
-    color: white;
-    font-size: 14px;
-    text-align: center;
-    top: 8px;
-    left: 20px;
-    right: 20px;
-}
-
-
-/* 
-.form-inline {
-    padding-top: 25px;
-} */
-
-.nav-tabs-custom>.nav-tabs>li.active>a,
-.nav-tabs-custom>.nav-tabs>li.active:hover>a {
-    background-color: #fff0;
-}
-
-.nav-tabs-custom>.nav-tabs>li.active {
-    border-top: 0;
-}
-
-.modal-header.uc {
-    background-color: #0075BD;
-}
-
-.col-sm-6.actions {
-    padding-top: 5px;
-    text-align: right;
-}
-
-label.control-label {
-    font-weight: bold;
-    color: #335164;
-}
-
-i.fa.fa-plus {
-    margin-right: 10px;
-}
-
-button.btn.btn-primary.add {
-    font-size: 12px;
-    background: #0075bd!important;
-    border-color: #0075bd;
-}
-
-.tbl-center {
-    text-align: center;
-    /* width: 150px; */
-}
-
-.tbl-right {
-    text-align: right;
-    width: 50px;
-}
-
 i.fa {
     font-size: 20px;
+}
+
+a {
+    color: #666;
 }
 
 .limit-text {
@@ -291,144 +22,177 @@ i.fa {
     overflow: hidden;
     text-overflow: ellipsis;
     max-height: 19px;
+}
+
+.pagination>.active>a {
+    background-color: #373d40;
+    border-color: #373d40;
+}
+
+.pagination {
+    margin: 0;
+}
+
+.box-header .box-title {
+    font-size: 14px;
+}
+
+.box-header.cities {
+    padding-top: 9px;
+}
+
+button#btn_save {
+    min-width: 120px;
+}
+
+.box-title.cities {
+    padding-top: 10px;
+}
+
+.box.box-primary {
+    border-top: 0;
+}
+
+.box-body {
+    padding: 0;
+}
+
+thead {
+    background-color: #999;
+    color: white;
+    font-size: 12px;
+}
+
+th,
+td {
+    text-align: center;
+}
+
+.table>thead>tr>th.tbl-left {
     text-align: left;
+    padding-left: 30px;
 }
 
-.text-max {
-    max-width: 40px;
+.table>tbody>tr>td.tbl-left {
+    text-align: left;
+    padding-left: 52px;
 }
 
-.form-control[disabled],
-.form-control[readonly],
-fieldset[disabled] .form-control,
-span.form-control {
-    background-color: #eeeeeed1;
-    border: 0;
+.table>tbody>tr>td.tbl-right {
+    text-align: right;
+    width: 50px;
+    padding-right: 35px;
 }
 
-.form-group.save {
+.col-sm-6.add {
     text-align: right;
 }
 
-span.form-control {
-    background-color: #eeeeee00;
+.modal-header.answer {
+    background-color: #ccc;
+}
+
+.col-sm-6.pagination1 {
+    padding-top: 16px;
 }
 
 .col-sm-6.pagination2 {
     text-align: right;
 }
 
-button#btn_return {
-    margin-right: 30px;
+p.form-control.answer {
+    height: auto;
 }
 
-.nav-tabs-custom>.nav-tabs>li,
-.nav-tabs-custom>.nav-tabs>li.active>a,
-.nav-tabs-custom>.nav-tabs>li>a,
-.nav-tabs-custom>.nav-tabs>li>a:hover {
-    border: 0;
+section.content {
+    padding-top: 0;
+}
+
+section.content.cities {
+    padding-top: 40px;
+}
+
+
+/******** Modal DELETE *********/
+
+.modal-footer.delete {
     padding: 0;
+    margin-top: 10px;
+    background-color: #302e2e;
+    text-align: center;
+    cursor: pointer;
 }
 
-.nav-tabs-custom>.nav-tabs>li.active>a,
-.nav-tabs-custom>.nav-tabs>li.active:hover>a {
-    background-color: #fff0;
-}
-
-.form-control[disabled],
-fieldset[disabled] .form-control {
-    cursor: unset;
-}
-
-span.form-control {
-    border: 0;
-}
-
-.col-sm-6.save {
-    text-align: right;
-}
-
-.col-sm-12.actions {
-    text-align: right;
-    margin-top: 29px;
-    padding-right: 38px;
-}
-
-thead {
-    font-size: 11px;
-}
-
-
-/* MODAL disable*/
-
-.modal-footer_.disable {
-    padding: 0;
-    /* margin-top: 90px; */
-}
-
-.modal-content.disable {
-    width: 421px;
-    height: 234px;
-}
-
-.modal-btn-cancel {
-    float: left;
-}
-
-.modal-body.disable {
-    padding: 32px;
-    padding-bottom: 45px;
+.modal-content.delete {
+    height: 200px;
+    width: 350px;
     text-align: center;
 }
 
-button#btn_cancel {
-    width: 210.5px;
-    height: 45px;
-    border-radius: 0;
-}
-
-button#btn_confirm {
-    background-image: url('/assets/img/global/btn_confirm.png')!important;
-    background-repeat: no-repeat;
-    width: 210.5px;
-    height: 45px;
-    border-radius: 0;
+.modal-body.delete {
+    padding-top: 30px;
+    margin-top: 20px;
+    padding-bottom: 30px;
+    text-align: center;
 }
 
 .modal-icon {
     text-align: center;
 }
 
-label.radio-inline {
-    margin-right: 60px;
-}
-
-input#from {
-    margin-right: 60px;
-}
-
-input#to {
-    margin-right: 20px;
-}
-
-input#from,
-input#to {
-    width: 310px;
-}
-
-button#btn_cancel_uc,
-button#btn_save_uc {
-    width: 79px;
+.modal-footer.delete label {
+    height: 30px;
+    margin-top: 10px;
+    color: #cccccc;
+    text-align: center;
+    cursor: pointer;
 }
 
 
-/* Modal UC */
+/* button.delete {
+    min-width: 120px;
+} */
 
-.modal-body.modal-uc {
-    margin-right: 30px;
-    margin-left: 30px;
+button#btn_cancel {
+    width: 175px;
+    height: 45px;
+    border-radius: 0;
 }
 
-.modal-footer.footer-uc {
-    padding-right: 0;
+button#btn_confirm {
+    width: 175px;
+    height: 45px;
+    border-radius: 0;
+}
+
+.modal-btn-cancel {
+    float: right;
+}
+
+.modal-body.delete {
+    padding-top: 30px;
+    margin-top: 20px;
+}
+
+.btn-primary {
+    background-color: #373d40;
+    border-color: #373d40;
+}
+
+button.btn.btn-primary.add {
+    background-image: url('/assets/img/chapter/btn_add_chapter.png')!important;
+    background-repeat: no-repeat;
+    background-color: #f5deb300;
+    border: 0;
+    font-size: 12px;
+    height: 38px;
+    width: 175px;
+    padding-bottom: 10px;
+}
+
+
+/******** END MODAL ********/
+
+.box.box-primary.uc {
+    padding: 20px 12px;
 }

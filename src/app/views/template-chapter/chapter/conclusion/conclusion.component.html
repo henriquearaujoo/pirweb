@@ -17,6 +17,14 @@
                                         </app-control-field-error>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label class="control-label">Observações</label>
+                                    <div class="box-body pad">
+                                        <textarea class="form-control" rows="3" name="generalObservations" maxlength="200" pattern="[\w,./_=?-].*" #observations="ngModel" [(ngModel)]="conclusion.observations" id="generalObservations"></textarea>
+                                        <!-- <app-control-field-error [showError]="verifyValidSubmitted(fConclusion, observations)" [field]="fieldEditor[1]" msgError="Digite a descrição">
+                                        </app-control-field-error> -->
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

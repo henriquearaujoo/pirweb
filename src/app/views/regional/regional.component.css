@@ -253,7 +253,7 @@ label.lb-tab {
 }
 
 .col-sm-6.actions {
-    padding-top: 5px;
+    padding-top: 8px;
     text-align: right;
 }
 
@@ -267,9 +267,14 @@ i.fa.fa-plus {
 }
 
 button.btn.btn-primary.add {
+    background-image: url('/assets/img/chapter/btn_add_chapter.png')!important;
+    background-repeat: no-repeat;
+    background-color: #f5deb300;
+    border: 0;
     font-size: 12px;
-    background: #0075bd!important;
-    border-color: #0075bd;
+    height: 38px;
+    width: 175px;
+    padding-bottom: 10px;
 }
 
 .tbl-center {

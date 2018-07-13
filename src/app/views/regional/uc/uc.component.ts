@@ -1,3 +1,4 @@
+import { City } from './../../../models/city';
 import { PagenateComponent } from './../../../components/pagenate/pagenate.component';
 import { PageService } from './../../../services/pagenate/page.service';
 import { LoaderService } from './../../../services/loader/loader.service';
@@ -9,7 +10,7 @@ import { ModalService } from './../../../components/modal/modal.service';
 import { RegionalService } from './../../../services/regional/regional.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Unity } from './../../../models/unity';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Regional } from '../../../models/regional';
 import { Router } from '../../../../../node_modules/@angular/router';
 
@@ -21,7 +22,7 @@ import { Router } from '../../../../../node_modules/@angular/router';
 export class UcComponent extends PagenateComponent implements OnInit {
 
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
-  private regional: Regional = new Regional();
+  @Input() regional: Regional;
   private unity: Unity = new Unity();
   private subscription: Subscription;
   private isNewData: boolean;
@@ -38,6 +39,7 @@ export class UcComponent extends PagenateComponent implements OnInit {
   private enable_previous: boolean;
   private cont: number;
   private cities: any[] = new Array();
+  private city: City = new City();
 
   private isFormValid: boolean;
   private isCkeckboxValid: boolean;
@@ -60,6 +62,7 @@ export class UcComponent extends PagenateComponent implements OnInit {
   private index: number;
   private show: boolean;
   private isShowUC: boolean;
+  @Output() private cancel = new EventEmitter<boolean>();
 
   constructor(
     private regionalService: RegionalService,
@@ -93,6 +96,7 @@ export class UcComponent extends PagenateComponent implements OnInit {
     );
     /*check if is a new or update*/
     this.isNewData = true;
+    console.log(this.regional);
     this.urlId = localStorage.getItem('regionalId');
     if (this.urlId !== null && this.urlId !== '') {
       this.isNewData = false;
@@ -114,25 +118,36 @@ export class UcComponent extends PagenateComponent implements OnInit {
   }
 
   saveData(isValid) {
-    if (isValid && this._isSave) {
-      if (this.isNewData || this.regional.id === undefined) {
-        this.regionalService.insert(this.regional).subscribe(
+    if (isValid) {
+      this.regional.unities.push(this.unity);
+      console.log(this.regional);
+      if (this.regional.id !== undefined) {
+        this.regionalService.update(this.regional).subscribe(
           success => {
             this.regional = success;
-            this.isNewData  = false;
-            this.sweetAlertService.alertSuccess('/regionais');
+            this.sweetAlertService.alertSuccessUpdate('/regionais/registro');
           },
           error => {
-            if ( error === 'regional_name.found') {
-              this.toastService.toastMsgWarn('Atenção', 'Regional já cadastrada!');
-            } else {
               this.toastService.toastError();
-              console.log('save error:', error);
-            }
           }
         );
-      } else {
-        // delete this.community.responsible;
+      }
+    } else {
+      if (!isValid) {
+        this.toastService.toastMsgError('Erro', 'Preencha todos os campos obrigatórios do formulário!');
+      }
+    }
+  }
+
+  saveCity() {
+    console.log(this.regional.unities);
+    this.regional.unities = this.regional.unities.filter( elem => {
+      if (elem.abbreviation === this.unity.abbreviation) {
+        elem.cities.push(this.city);
+      }
+    });
+      console.log(this.regional);
+      if (this.regional.id !== undefined) {
         this.regionalService.update(this.regional).subscribe(
           success => {
             this.regional = success;
@@ -143,60 +158,55 @@ export class UcComponent extends PagenateComponent implements OnInit {
           }
         );
       }
-    }  else {
-      if (!isValid) {
-        this.toastService.toastMsgError('Erro', 'Preencha todos os campos obrigatórios do formulário!');
-      }
-    }
   }
 
-  saveUC() {
-    if ((this.unity.name === null || this.unity.name === undefined ||
-        this.unity.name.toString().trim() === '') &&
-       (this.unity.cities === null || this.unity.cities === undefined)) {
-      this.toastService.toastMsgError('Erro', 'Nome da UC e Município são campos obrigatórios!');
-      this.load();
-      return false;
-    }
-    if (this.unity.name === null || this.unity.name === undefined ||
-       this.unity.name.toString().trim() === '') {
-      this.toastService.toastMsgError('Erro', 'Nome da UC é um campo obrigatório!');
-      this.load();
-      return false;
-    } else if (this.unity.cities === null || this.unity.cities === undefined) {
-      this.toastService.toastMsgError('Erro', 'Município é um campo obrigatório!');
-      this.load();
-      return false;
-    }
-    if ( this.isNewUC || this.unity.id === undefined ) {
-      if (this.canCreate) {
-        // this.unity.form_id = this.form.id;
-      this.regionalService.insertUC (this.unity).subscribe(
-        success => {
-          this.isNewUC = false;
-          this.unity = success;
-          this.load();
-          this.toastService.toastSuccess();
-        },
-        error => console.log(error)
-      );
-      } else {
-        this.sweetAlertService.alertPermission('/regionais');
-      }
-    } else {
-      if (this.canUpdate) {
-        this.regionalService.updateUC(this.unity).subscribe(
-          success => {
-            this.load();
-            this.toastService.toastSuccess();
-          },
-          error => console.log(error)
-        );
-      } else {
-        this.sweetAlertService.alertPermission('/regionais');
-      }
-    }
-  }
+  // saveUC() {
+  //   if ((this.unity.name === null || this.unity.name === undefined ||
+  //       this.unity.name.toString().trim() === '') &&
+  //      (this.unity.cities === null || this.unity.cities === undefined)) {
+  //     this.toastService.toastMsgError('Erro', 'Nome da UC e Município são campos obrigatórios!');
+  //     this.load();
+  //     return false;
+  //   }
+  //   if (this.unity.name === null || this.unity.name === undefined ||
+  //      this.unity.name.toString().trim() === '') {
+  //     this.toastService.toastMsgError('Erro', 'Nome da UC é um campo obrigatório!');
+  //     this.load();
+  //     return false;
+  //   } else if (this.unity.cities === null || this.unity.cities === undefined) {
+  //     this.toastService.toastMsgError('Erro', 'Município é um campo obrigatório!');
+  //     this.load();
+  //     return false;
+  //   }
+  //   if ( this.isNewUC || this.unity.id === undefined ) {
+  //     if (this.canCreate) {
+  //       // this.unity.form_id = this.form.id;
+  //     this.regionalService.insertUC (this.unity).subscribe(
+  //       success => {
+  //         this.isNewUC = false;
+  //         this.unity = success;
+  //         this.load();
+  //         this.toastService.toastSuccess();
+  //       },
+  //       error => console.log(error)
+  //     );
+  //     } else {
+  //       this.sweetAlertService.alertPermission('/regionais');
+  //     }
+  //   } else {
+  //     if (this.canUpdate) {
+  //       this.regionalService.updateUC(this.unity).subscribe(
+  //         success => {
+  //           this.load();
+  //           this.toastService.toastSuccess();
+  //         },
+  //         error => console.log(error)
+  //       );
+  //     } else {
+  //       this.sweetAlertService.alertPermission('/regionais');
+  //     }
+  //   }
+  // }
 
   load() {
     this.loaderService.show();
@@ -227,20 +237,25 @@ export class UcComponent extends PagenateComponent implements OnInit {
 
   }
 
+  // onCancel() {
+  //   if (this.onChange) {
+  //     this.sweetAlert2Service.alertToSave()
+  //     .then((result) => {
+  //       if (result.value) {
+  //         this._isSave = true;
+  //         this.openSaveButtonTab2.click();
+  //       } else {
+  //         this.route.navigate(['/regionais']);
+  //       }
+  //     });
+  //   } else {
+  //     this.openModal();
+  //   }
+  // }
+
   onCancel() {
-    if (this.onChange) {
-      this.sweetAlert2Service.alertToSave()
-      .then((result) => {
-        if (result.value) {
-          this._isSave = true;
-          this.openSaveButtonTab2.click();
-        } else {
-          this.route.navigate(['/regionais']);
-        }
-      });
-    } else {
-      this.openModal();
-    }
+    this.cancel.emit(true);
+    // this.btn_cancel = true;
   }
 
   onCancelUC() {
