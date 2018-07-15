@@ -132,6 +132,7 @@ export class RegionalComponent extends PagenateComponent implements OnInit {
         );
       } else {
         // delete this.community.responsible;
+        console.log(this.regional);
         this.regionalService.update(this.regional).subscribe(
           success => {
             this.regional = success;
@@ -168,6 +169,7 @@ export class RegionalComponent extends PagenateComponent implements OnInit {
       return false;
     }
     if ( this.isNewUC || this.unity.id === undefined ) {
+      this.canCreate = true;
       if (this.canCreate) {
         // this.unity.form_id = this.form.id;
       this.regionalService.insertUC (this.unity).subscribe(
@@ -183,6 +185,7 @@ export class RegionalComponent extends PagenateComponent implements OnInit {
         this.sweetAlertService.alertPermission('/regionais');
       }
     } else {
+      this.canUpdate = true;
       if (this.canUpdate) {
         this.regionalService.updateUC(this.unity).subscribe(
           success => {
@@ -249,21 +252,30 @@ export class RegionalComponent extends PagenateComponent implements OnInit {
     if (event) {
       this.isNewData = true;
       this.isNewUC = false;
+      this.isShowUC = false;
     }
   }
 
   getCities() {
-    this.regionalService.getState().subscribe(
-      state => {
-        this.regionalService.getCities(state[0].id).subscribe(
-          states => {
-            this.cities = states.cities;
-          },
-          error => console.log(error)
-        );
-      }
+    this.regionalService.getCities().subscribe(
+      states => {
+        this.cities = states;
+      },
+      error => console.log(error)
     );
-  }
+}
+  // getCities() {
+  //   this.regionalService.getState().subscribe(
+  //     state => {
+  //       this.regionalService.getCities(state[0].id).subscribe(
+  //         states => {
+  //           this.cities = states.cities;
+  //         },
+  //         error => console.log(error)
+  //       );
+  //     }
+  //   );
+  // }
 
   save(tab: string, isValid: boolean) {
     this.isFormValid = isValid;
@@ -277,10 +289,20 @@ export class RegionalComponent extends PagenateComponent implements OnInit {
     this.unity = new Unity();
   }
 
-  onEdit() {
+  onEdit(item: Unity) {
     this.show = false;
+    this.isShowUC = true;
     this.isNewUC = false;
-    // this.unity = item;
+    this.unity = item;
+  }
+
+  onSaveUnity(event) {
+    console.log(event);
+    this.load();
+  }
+
+  setUnity(item) {
+    this.unity = item;
   }
 
   loadUnities() {

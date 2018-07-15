@@ -30,6 +30,7 @@ export class RegionalListComponent extends PagenateComponent implements OnInit, 
   private canUpdate: boolean;
   private canCreate: boolean;
   private canDelete: boolean;
+  private index: number;
 
   constructor(
     private router: Router,
@@ -44,6 +45,7 @@ export class RegionalListComponent extends PagenateComponent implements OnInit, 
       this.canUpdate = false;
       this.canRead = false;
       this.canDelete = false;
+      this.index = 1;
     }
 
   ngOnInit() {
@@ -67,9 +69,15 @@ export class RegionalListComponent extends PagenateComponent implements OnInit, 
     this.loaderService.show();
     this.subscription = this.regionalService.getRegionais(this.filter.name, this.page).subscribe(
       success => {
-        this.paginate = success;
-        console.log( this.paginate);
-        this.regionais = this.paginate.content;
+        // this.paginate = success;
+        // this.regionais = this.paginate.content;
+        console.log( success);
+        this.regionais = success;
+        this.index = 1;
+        this.regionais.forEach( elem => {
+            elem.number = this.index ++;
+          }
+        );
         this.hasdata = true;
         setTimeout(() => {
           this.loaderService.hide();
@@ -89,8 +97,8 @@ export class RegionalListComponent extends PagenateComponent implements OnInit, 
   }
 
   toView(regional: Regional) {
-    // localStorage.setItem('regionalId', regional.id);
-    // this.router.navigate(['/regionais/detalhes']);
+    localStorage.setItem('regionalId', regional.id);
+    this.router.navigate(['/regionais/detalhes']);
   }
 
   toViewUC(regional: Regional) {

@@ -24,6 +24,7 @@ table#example2 {
 
 .box.box-primary {
     border-top-color: #373d40;
+    margin-top: 30px;
 }
 
 .img-logo {
@@ -63,12 +64,18 @@ label {
     box-shadow: none;
 }
 
-.box-header {
+
+/* .box-header {
     background-color: #e8e6e6;
-}
+} */
 
 .box-header .box-title {
     font-size: 14px;
+    padding-top: 20px;
+}
+
+.box-header {
+    padding-top: 0;
 }
 
 
@@ -77,13 +84,14 @@ label {
     padding-top: 12px;
 } */
 
-.box-header {
+
+/* .box-header {
     background-color: #e8e6e6;
     padding-bottom: 10px;
     padding-top: 5px;
     text-align: center;
     color: gray;
-}
+} */
 
 .box-body {
     background-color: #FBFBFB;
@@ -103,9 +111,10 @@ label {
     color: #777;
 }
 
-.form-group {
+
+/* .form-group {
     padding-bottom: 20px;
-}
+} */
 
 
 /* .content-header {
@@ -120,7 +129,7 @@ label {
 
 button#btn_save,
 button#btn_return {
-    min-width: 120px;
+    min-width: 80px;
 }
 
 
@@ -134,17 +143,18 @@ button#btn_return {
     font-size: 14px;
 }
 
-i.fa.fa-list-alt {
+i.fa.fa-home {
     margin-top: 18px;
-    margin-left: 34px;
+    margin-left: 24px;
     margin-right: 10px;
     color: white;
-    background-color: #373d40;
-    padding-right: 10px;
-    padding-left: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    background-color: #0075BD;
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-top: 4px;
+    padding-bottom: 4px;
     border-radius: 0.2em;
+    font-size: 34px;
 }
 
 section.content_user {
@@ -238,12 +248,12 @@ label.lb-tab {
     border-top: 0;
 }
 
-.modal-header.question {
+.modal-header.uc {
     background-color: #0075BD;
 }
 
 .col-sm-6.actions {
-    padding-top: 5px;
+    padding-top: 8px;
     text-align: right;
 }
 
@@ -257,9 +267,14 @@ i.fa.fa-plus {
 }
 
 button.btn.btn-primary.add {
+    background-image: url('/assets/img/chapter/btn_add_chapter.png')!important;
+    background-repeat: no-repeat;
+    background-color: #f5deb300;
+    border: 0;
     font-size: 12px;
-    background: #0075bd!important;
-    border-color: #0075bd;
+    height: 38px;
+    width: 175px;
+    padding-bottom: 10px;
 }
 
 .tbl-center {
@@ -300,10 +315,9 @@ span.form-control {
     text-align: right;
 }
 
-
-/* span.form-control {
+span.form-control {
     background-color: #eeeeee00;
-} */
+}
 
 .col-sm-6.pagination2 {
     text-align: right;
@@ -407,19 +421,22 @@ input#to {
     width: 310px;
 }
 
-button#btn_cancel_question,
-button#btn_save_question {
+button#btn_cancel_uc,
+button#btn_save_uc {
     width: 79px;
 }
 
 
-/* Modal Question */
+/* Modal UC */
 
-.modal-body.modal-question {
+/* .modal-body.modal-uc {
     margin-right: 30px;
     margin-left: 30px;
-}
+} */
 
-.modal-footer.footer-question {
+.modal-footer.footer-uc {
     padding-right: 0;
+}
+i.fa.fa-plus {
+    margin-right: 10px;
 }

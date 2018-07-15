@@ -23,7 +23,7 @@
                     <div class="content">
                         <section class="content" *ngIf="!isShowUC">
                             <div class="box-header_1 with-border">
-                                <h5 class="box-title"> Informações do Regional
+                                <h5 class="box-title"> Informações da Regional
                                 </h5>
                             </div>
                             <div class="row">
@@ -34,7 +34,7 @@
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="form-group profile" [ngClass]="applyCssError(f1, regionalName)">
-                                                            <label class="control-label">Nome</label>
+                                                            <label class="control-label">Nome da Regional</label>
                                                             <input class="form-control" name="regional" #regionalName="ngModel" [(ngModel)]="regional.name" pattern="[\w,./_=?-].*" id="regional_name" maxlength="60" placeholder="Regional" required>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f1, regionalName)" [field]="regional" msgError="Digite um nome para o regional">
                                                             </app-control-field-error>
@@ -82,7 +82,7 @@
                                                         <th>UC
                                                             <span class="glyphicon"></span>
                                                         </th>
-                                                        <th>MUNICÍPIOs</th>
+                                                        <th>MUNICÍPIO</th>
                                                         <th colspan="3" style="text-align: center;"> AÇÃO</th>
                                                     </tr>
                                                 </thead>
@@ -96,7 +96,7 @@
                                                             <p class="limit-text">{{ item.name }}</p>
                                                         </td>
                                                         <td>
-                                                            <p> ... </p>
+                                                            <a (click)="setUnity(item)" data-toggle="modal" data-target="#modal-cities"> Municípios </a>
                                                         </td>
 
                                                         <td class="tbl-right">
@@ -105,7 +105,7 @@
                                                             </a>
                                                         </td>
                                                         <td class="tbl-right">
-                                                            <a href="" title="Editar" id="btn_edit" data-toggle="modal" data-target="#modal-uc" (click)="onEdit()">
+                                                            <a title="Editar" id="btn_edit" (click)="onEdit(item)">
                                                                 <i class="fa fa-pencil fa-fw"></i>
                                                             </a>
                                                         </td>
@@ -165,7 +165,7 @@
                                 </div>
                             </div>
                         </section>
-                        <app-uc *ngIf="isShowUC" [regional]="regional" (cancel)="onCancelAddUC($event)"></app-uc>
+                        <app-uc [regional]="regional" [unity]="unity" [isNewUC]="isNewUC" (eventSave)="onSaveUnity($event)" (cancel)="onCancelAddUC($event)" *ngIf="isShowUC"></app-uc>
                     </div>
                 </div>
 
@@ -179,56 +179,47 @@
 <app-modal></app-modal>
 
 <!-- Modal UC-->
-<div class="modal fade" id="modal-uc">
-    <div class="modal-dialog">
-        <div class="modal-content" [ngStyle]="object">
-            <div class="modal-header uc">
-            </div>
-            <div class="modal-body modal-uc">
-                <form name="fQuestion" (ngSubmit)="fuc.form.valid && saveUC()" #fuc="ngForm" novalidate>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">UC</label> <br/>
-                                <!-- <textarea disabled *ngIf="show"> {{ question.description }}</textarea> -->
-                                <input class="form-control" name="name_uc" id="name_uc" #nameUC="ngModel" [(ngModel)]="unity.name" maxlength="100" [disabled]="show">
-                                <!-- <app-control-field-error [showError]="verifyValidSubmitted(fQuestion, description)" msgError="Digite uma descrição">
-                      </app-control-field-error>  -->
+<div class="modal fade" id="modal-cities">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header uc">
+                </div>
+                <div class="modal-body modal-uc">
+                    <section class="content">
+                        <div class="box">                            
+                            <div>
+                                <div class="box-body">
+                                    <table id="example2" class="table" *ngIf="unity.cities">
+                                        <thead>
+                                            <tr>
+                                                <th class="tbl-left">MUNICÍPIOS
+                                                    <span class="glyphicon"></span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <div class="feedback" *ngIf="unity.cities.length === 0">
+                                            <i class="material-icons" style="font-size: 24px;">error_outline</i>
+                                            <span class="feedback-message">Nenhum registro encontrado</span>
+                                        </div>
+                                        <tbody *ngIf="unity">
+                                            <tr *ngFor="let item of unity.cities">
+                                                <td class="tbl-left">
+                                                    {{ item.name }}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <!-- <div *ngIf="show">
-                                    <label class="control-label"> Tipo de Questão</label> <br/>
-                                    <span class="form-control" *ngIf="question.type === 'SOCIO_AFFECTIVE'"> Socioafetiva </span>
-                                    <span class="form-control" *ngIf="question.type === 'MOTOR'"> Motora </span>
-                                    <span class="form-control" *ngIf="question.type === 'COGNITIVE'"> Cognitiva </span>
-                                    <span class="form-control" *ngIf="question.type === 'LANGUAGE'"> Comunicação e linguagem </span>
-                                    <span class="form-control" *ngIf="question.type === 'UNDEFINED'"> Outros </span>
-                                </div> -->
-                            <div class="form-group" *ngIf="!show">
-                                <label class="control-label"> Município</label>
-                                <select class="form-control" name="city" id="city" #city="ngModel" [(ngModel)]="city.id">
-                                        <option value="SOCIO_AFFECTIVE" *ngFor="let item of cities">  {{ item.name }} </option>                                        
-                                    </select>
-                                <!-- <app-control-field-error [showError]="verifyValidSubmitted(fQuestion, typeQuestion)" 
-                          msgError="Selecione o tipo da questão" *ngIf="!show">
-                        </app-control-field-error>                     -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer footer-uc" *ngIf="!show">
-                        <button type="button" class="btn btn-default" id="btn_cancel_uc" data-dismiss="modal" (click)=onCancelUC()>Cancelar</button>
-                        <button type="submit" class="btn btn-primary" id="btn_save_uc" data-dismiss="modal" (click)=saveUC()>Salvar</button>
-                    </div>
-                </form>
+                    </section>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+                </div>
             </div>
-            <div class="modal-footer" *ngIf="show">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
-            </div>
+            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-content -->
     </div>
-</div>
-<!-- /.modal -->
+    <!-- /.modal -->

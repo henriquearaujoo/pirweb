@@ -8,6 +8,7 @@ import { RegionalListComponent } from './regional-list/regional-list.component';
 import { RegionalDetailsComponent } from './regional-details/regional-details.component';
 import { SharedModule } from '../../shared/shared.module';
 import { UcComponent } from './uc/uc.component';
+import { UcDetailsComponent } from './regional-details/uc-details/uc-details.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { UcComponent } from './uc/uc.component';
     // UcModule,
     RegionalRoutingModule
   ],
-  declarations: [RegionalComponent, RegionalListComponent, RegionalDetailsComponent, UcComponent]
+  declarations: [RegionalComponent, RegionalListComponent, RegionalDetailsComponent, UcComponent, UcDetailsComponent]
 })
 export class RegionalModule { }

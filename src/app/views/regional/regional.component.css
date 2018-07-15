@@ -129,7 +129,7 @@ label {
 
 button#btn_save,
 button#btn_return {
-    min-width: 120px;
+    min-width: 80px;
 }
 
 
@@ -429,11 +429,14 @@ button#btn_save_uc {
 
 /* Modal UC */
 
-.modal-body.modal-uc {
+/* .modal-body.modal-uc {
     margin-right: 30px;
     margin-left: 30px;
-}
+} */
 
 .modal-footer.footer-uc {
     padding-right: 0;
+}
+i.fa.fa-plus {
+    margin-right: 10px;
 }

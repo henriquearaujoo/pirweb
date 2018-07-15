@@ -25,12 +25,15 @@
                     <table id="example2" class="table">
                         <thead>
                             <tr>
-                                <th class="tbl-left">NOME
+                                <th class="tbl-left">NÚMERO
                                     <span class="glyphicon"></span>
                                 </th>
-                                <th class="tbl-left">UNIDADES DE CONSERVAÇÃO
+                                <th class="tbl-left">NOME DA REGIONAL
                                     <span class="glyphicon"></span>
                                 </th>
+                                <!-- <th class="tbl-left">UNIDADES DE CONSERVAÇÃO
+                                    <span class="glyphicon"></span>
+                                </th> -->
                                 <th colspan="2" class="tbl-center"> AÇÃO</th>
                             </tr>
                         </thead>
@@ -41,11 +44,14 @@
                         <tbody *ngIf="regionais.length !== 0">
                             <tr *ngFor="let item of regionais">
                                 <td class="tbl-left">
-                                    {{ item.name }}
+                                    {{ item.number }}
                                 </td>
                                 <td class="tbl-left">
-                                    <a class="pointer" (click)="toViewUC(item)" data-toggle="modal" data-target="#modal-uc"> Ver UC's</a>
+                                    {{ item.name }}
                                 </td>
+                                <!-- <td class="tbl-left">
+                                    <a class="pointer" (click)="toViewUC(item)" data-toggle="modal" data-target="#modal-uc"> Ver UC's</a>
+                                </td> -->
                                 <td class="tbl-right">
                                     <a (click)="toView(item)" id="btn_details" title="Ver detalhes">
                                         <i class="large material-icons">visibility</i>
@@ -66,7 +72,7 @@
             </div>
             <div class="row">
                 <div class="btn-col">
-                    <button class="btn btn-primary" [routerLink]="['/regionais/registro']" id="btn_new"> Novo </button>
+                    <button class="btn btn-primary" [routerLink]="['/regionais/registro']" id="btn_new"> Cadastrar </button>
                 </div>
             </div>
         </div>

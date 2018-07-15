@@ -1,25 +1,24 @@
-import { City } from './../../../models/city';
-import { PagenateComponent } from './../../../components/pagenate/pagenate.component';
-import { PageService } from './../../../services/pagenate/page.service';
-import { LoaderService } from './../../../services/loader/loader.service';
-import { Permissions, RuleState } from './../../../helpers/permissions';
-import { SweetAlert2Service } from './../../../services/sweetalert/sweet-alert.2service';
-import { SweetAlertService } from './../../../services/sweetalert/sweet-alert.service';
-import { ToastService } from './../../../services/toast-notification/toast.service';
-import { ModalService } from './../../../components/modal/modal.service';
-import { RegionalService } from './../../../services/regional/regional.service';
+import { PagenateComponent } from './../../../../components/pagenate/pagenate.component';
+import { PageService } from './../../../../services/pagenate/page.service';
+import { LoaderService } from './../../../../services/loader/loader.service';
+import { Permissions, RuleState } from './../../../../helpers/permissions';
+import { SweetAlert2Service } from './../../../../services/sweetalert/sweet-alert.2service';
+import { SweetAlertService } from './../../../../services/sweetalert/sweet-alert.service';
+import { ModalService } from './../../../../components/modal/modal.service';
+import { RegionalService } from './../../../../services/regional/regional.service';
+import { City } from './../../../../models/city';
 import { Subscription } from 'rxjs/Subscription';
-import { Unity } from './../../../models/unity';
+import { Unity } from './../../../../models/unity';
+import { Regional } from './../../../../models/regional';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Regional } from '../../../models/regional';
-import { Router } from '../../../../../node_modules/@angular/router';
+import { Router } from '../../../../../../node_modules/@angular/router';
 
 @Component({
-  selector: 'app-uc',
-  templateUrl: './uc.component.html',
-  styleUrls: ['./uc.component.css']
+  selector: 'app-uc-details',
+  templateUrl: './uc-details.component.html',
+  styleUrls: ['./uc-details.component.css']
 })
-export class UcComponent extends PagenateComponent implements OnInit {
+export class UcDetailsComponent extends PagenateComponent implements OnInit {
 
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
   @Input() regional: Regional;
@@ -69,7 +68,6 @@ export class UcComponent extends PagenateComponent implements OnInit {
 
   constructor(
     private regionalService: RegionalService,
-    private toastService: ToastService,
     private modalService: ModalService,
     private sweetAlertService: SweetAlertService,
     private sweetAlert2Service: SweetAlert2Service,
@@ -119,77 +117,10 @@ export class UcComponent extends PagenateComponent implements OnInit {
     this.getCities();
   }
 
-  saveData(isValid) {
-    if (isValid) {
-      if (this.regional.unities === undefined) {
-        this.regional.unities = new Array();
-      }
-      if (!this.isNewUC) {
-        this.regional.unities = this.regional.unities.filter(item => item.abbreviation !== this.unity.abbreviation);
-        console.log(this.regional.unities);
-      }
-      this.regional.unities.push(this.unity);
-      if (this.regional.id !== undefined) {
-        this.regionalService.update(this.regional).subscribe(
-          success => {
-            this.regional = success;
-            this.toastService.toastSuccess();
-            this.eventSave.emit(true);
-          },
-          error => {
-              this.toastService.toastError();
-          }
-        );
-      }
-    } else {
-      if (!isValid) {
-        this.toastService.toastMsgError('Erro', 'Preencha todos os campos obrigatórios do formulário!');
-      }
-    }
-  }
-
   changeCity(event) {
     console.log(event);
   }
 
-  saveCity() {
-
-    if (this.regional.unities !== undefined) {
-      for (let i = 0; i < this.regional.unities.length; i++) {
-        if (this.regional.unities[i].abbreviation === this.unity.abbreviation) {
-          if (this.regional.unities[i].cities === undefined) {
-            this.regional.unities[i].cities = new Array();
-          }
-          if (!this.isNewCity) {
-            this.regional.unities[i].cities = this.regional.unities[i].cities.filter(item => item.id !== this.changedCityId);
-            this.unity.cities = this.regional.unities[i].cities;
-            console.log(this.unity.cities);
-          }
-          this.cities.forEach( c => {
-            if ( c.id === this.cityId) {
-              this.regional.unities[i].cities.push(c);
-              this.unity.cities = this.regional.unities[i].cities;
-              console.log(this.unity.cities);
-            }
-          });
-          console.log(this.regional.unities[i].cities);
-        }
-      }
-    }
-      console.log(this.regional);
-      if (this.regional.id !== undefined) {
-        this.regionalService.update(this.regional).subscribe(
-          success => {
-            this.regional = success;
-            this.toastService.toastSuccess();
-            this.load();
-          },
-          error => {
-              this.toastService.toastError();
-          }
-        );
-      }
-  }
 
   load() {
     this.loaderService.show();
@@ -227,23 +158,6 @@ export class UcComponent extends PagenateComponent implements OnInit {
     this.modalService.modalCancel('/regionais');
 
   }
-
-  // onCancel() {
-  //   if (this.onChange) {
-  //     this.sweetAlert2Service.alertToSave()
-  //     .then((result) => {
-  //       if (result.value) {
-  //         this._isSave = true;
-  //         this.openSaveButtonTab2.click();
-  //       } else {
-  //         this.route.navigate(['/regionais']);
-  //       }
-  //     });
-  //   } else {
-  //     this.openModal();
-  //   }
-  // }
-
   toBack() {
     this.cancel.emit(true);
   }

@@ -19,11 +19,12 @@ export class RegionalService extends RestService {
    }
 
   public getRegionais(filter?: any, page?: number) {
-    if ( filter === undefined ) {
-      return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page + '&sort=name,asc');
-    } else {
-      return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page + '&name=' + filter + '&sort=name,asc');
-    }
+    return this.get(this.apiurl);
+    // if ( filter === undefined ) {
+    //   return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page + '&sort=name,asc');
+    // } else {
+    //   return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page + '&name=' + filter + '&sort=name,asc');
+    // }
   }
 
   public _getCommunities() {
@@ -34,16 +35,23 @@ export class RegionalService extends RestService {
     return this.post(this.apiurl, regional);
   }
 
+  // public update(regional: Regional): Observable<Regional> {
+  //   return this.put(this.apiurl, regional);
+  // }
   public update(regional: Regional): Observable<Regional> {
-    return this.put(this.apiurl, regional);
+    return this.put(this.apiurl + regional.id, regional);
   }
 
   public load(id: string) {
     return this.get(this.apiurl + id);
   }
 
-  public getCities(state_id: string) {
-    return this.get(Constant.BASE_URL + 'states/' + state_id);
+  // public getCities(state_id: string) {
+  //   return this.get(Constant.BASE_URL + 'states/' + state_id);
+  // }
+
+  public getCities() {
+    return this.get(Constant.BASE_URL + 'cities/');
   }
 
   public getState() {
