@@ -142,7 +142,7 @@ export class ResponsibleComponent implements OnInit {
       'Trabalha e é a principal responsável pelo sustento da familia'
     ];
 
-    this.family_income = ['PESCA', 'FARINHA', 'CAÇA', 'ROÇADO', 'OUTRA'];
+    this.family_income = ['PESCA', 'FARINHA', 'CAÇA', 'ROÇADO', 'PROGRAMAS SOCIAIS', 'OUTRA'];
     this.family_income_other_count = 0;
   }
 
