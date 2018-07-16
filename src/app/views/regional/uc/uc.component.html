@@ -21,7 +21,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group profile" [ngClass]="applyCssError(f1, abbreviation)">
                                     <label class="control-label">Sigla</label>
-                                    <input class="form-control" #abbreviation="ngModel" [(ngModel)]="unity.abbreviation" name="unity_abbreviation" pattern="[\w,./_=?-].*" id="regional_abbreviation" maxlength="60" placeholder="Sigla" required>
+                                    <input class="form-control" #abbreviation="ngModel" [(ngModel)]="unity.abbreviation" name="unity_abbreviation" pattern="[\w,./_=?-].*" id="regional_abbreviation" maxlength="2" placeholder="Sigla" required>
                                     <app-control-field-error [showError]="verifyValidSubmitted(f1, abbreviation)" [field]="abbreviation" msgError="Digite uma sigla para a UC">
                                     </app-control-field-error>
                                 </div>
@@ -81,7 +81,7 @@
                                 </td>
 
                                 <td class="tbl-right">
-                                    <a href="" title="Ver detalhes" id="btn_details" data-toggle="modal" data-target="#modal-uc">
+                                    <a href="" title="Ver detalhes" id="btn_details" data-toggle="modal" data-target="#modal-uc" (click)="showCity(item)">
                                         <i class="large material-icons">visibility</i>
                                     </a>
                                 </td>
@@ -163,22 +163,21 @@
             </div>
             <div class="modal-body modal-uc">
                 <form name="fQuestion" (ngSubmit)="fuc.form.valid && saveUC()" #fuc="ngForm" novalidate>
-                    <!-- <div class="row">
+                    <div class="row" *ngIf="show">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">UC</label> <br/>
-                                <input class="form-control" name="name_uc" id="name_uc" #nameUC="ngModel" [(ngModel)]="unity.name" maxlength="100" [disabled]="show">
+                                <label class="control-label"> Município</label>
+                                <input type="text" class="form-control" id="cityName" name="cityName" [(ngModel)]="city.name" readonly>
                             </div>
                         </div>
-                    </div> -->
-                    <div class="row">
+                    </div>
+                    <div class="row" *ngIf="!show">
                         <div class="col-sm-12">
-                            <div class="form-group" *ngIf="!show">
+                            <div class="form-group">
                                 <label class="control-label"> Município</label>
                                 <select class="form-control" name="cityName" id="cityName" #cityName="ngModel" [(ngModel)]="cityId">
                                     <option [ngValue]="item.id" *ngFor="let item of cities">  {{ item.name }} </option>                                        
                                 </select>
-                                {{ cityId }}
                             </div>
                         </div>
                     </div>

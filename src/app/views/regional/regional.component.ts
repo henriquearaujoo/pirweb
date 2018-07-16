@@ -81,7 +81,7 @@ export class RegionalComponent extends PagenateComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.permissions.canActivate(['/regional/registro']);
+    this.permissions.canActivate(['/regionais/registro']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -122,7 +122,7 @@ export class RegionalComponent extends PagenateComponent implements OnInit {
             this.sweetAlertService.alertSuccess('/regionais/registro');
           },
           error => {
-            if ( error === 'regional_name.found') {
+            if ( error === 'regional.name.violation') {
               this.toastService.toastMsgWarn('Atenção', 'Regional já cadastrada!');
             } else {
               this.toastService.toastError();
@@ -139,7 +139,12 @@ export class RegionalComponent extends PagenateComponent implements OnInit {
             this.sweetAlertService.alertSuccessUpdate('/regionais');
           },
           error => {
+            if ( error === 'regional.name.violation') {
+              this.toastService.toastMsgWarn('Atenção', 'Regional já cadastrada!');
+            } else {
               this.toastService.toastError();
+              console.log('save error:', error);
+            }
           }
         );
       }
@@ -234,7 +239,7 @@ export class RegionalComponent extends PagenateComponent implements OnInit {
       this.sweetAlert2Service.alertToSave()
       .then((result) => {
         if (result.value) {
-          this._isSave = true;
+          this.saveData(true);
         } else {
           this.route.navigate(['/regionais']);
         }
@@ -257,25 +262,17 @@ export class RegionalComponent extends PagenateComponent implements OnInit {
   }
 
   getCities() {
-    this.regionalService.getCities().subscribe(
-      states => {
-        this.cities = states;
-      },
-      error => console.log(error)
+    this.regionalService.getState().subscribe(
+      state => {
+        this.regionalService.getCities(state[0].id).subscribe(
+          states => {
+            this.cities = states.cities;
+          },
+          error => console.log(error)
+        );
+      }
     );
-}
-  // getCities() {
-  //   this.regionalService.getState().subscribe(
-  //     state => {
-  //       this.regionalService.getCities(state[0].id).subscribe(
-  //         states => {
-  //           this.cities = states.cities;
-  //         },
-  //         error => console.log(error)
-  //       );
-  //     }
-  //   );
-  // }
+  }
 
   save(tab: string, isValid: boolean) {
     this.isFormValid = isValid;
@@ -309,7 +306,7 @@ export class RegionalComponent extends PagenateComponent implements OnInit {
     // this.regionalService.getQuestions();
   }
 
-  showQuestion(item) {
+  showUC(item) {
     this.show = true;
     this.unity = item;
   }

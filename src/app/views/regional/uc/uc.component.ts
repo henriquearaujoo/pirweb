@@ -42,7 +42,8 @@ export class UcComponent extends PagenateComponent implements OnInit {
   private cont: number;
   private cities: City[] = new Array();
   private cityId: any;
-  private changedCityId: any;
+  private changedCityId: string;
+  private city: City = new City();
 
   private isFormValid: boolean;
   private isCkeckboxValid: boolean;
@@ -125,11 +126,12 @@ export class UcComponent extends PagenateComponent implements OnInit {
         this.regional.unities = new Array();
       }
       if (!this.isNewUC) {
-        this.regional.unities = this.regional.unities.filter(item => item.abbreviation !== this.unity.abbreviation);
-        console.log(this.regional.unities);
+        this.regional.unities = this.regional.unities.filter(item =>
+            item.abbreviation.toUpperCase() !== this.unity.abbreviation.toUpperCase());
       }
       this.regional.unities.push(this.unity);
       if (this.regional.id !== undefined) {
+        console.log('regional:', this.regional);
         this.regionalService.update(this.regional).subscribe(
           success => {
             this.regional = success;
@@ -137,7 +139,14 @@ export class UcComponent extends PagenateComponent implements OnInit {
             this.eventSave.emit(true);
           },
           error => {
+            if ( error === 'conservation.unity.violation') {
+              this.toastService.toastMsgWarn('Atenção', 'UC já cadastrada!');
+            } else if ( error = 'unity.abbreviation.violation') {
+              this.toastService.toastMsgWarn('Atenção', 'Sigla já cadastrada!');
+            } else {
               this.toastService.toastError();
+              console.log('save error:', error);
+            }
           }
         );
       }
@@ -156,33 +165,39 @@ export class UcComponent extends PagenateComponent implements OnInit {
 
     if (this.regional.unities !== undefined) {
       for (let i = 0; i < this.regional.unities.length; i++) {
-        if (this.regional.unities[i].abbreviation === this.unity.abbreviation) {
+        if (this.regional.unities[i].abbreviation.toUpperCase() === this.unity.abbreviation.toUpperCase()) {
           if (this.regional.unities[i].cities === undefined) {
             this.regional.unities[i].cities = new Array();
           }
           if (!this.isNewCity) {
             this.regional.unities[i].cities = this.regional.unities[i].cities.filter(item => item.id !== this.changedCityId);
             this.unity.cities = this.regional.unities[i].cities;
-            console.log(this.unity.cities);
           }
           this.cities.forEach( c => {
             if ( c.id === this.cityId) {
               this.regional.unities[i].cities.push(c);
               this.unity.cities = this.regional.unities[i].cities;
-              console.log(this.unity.cities);
+              this.allItems = this.unity.cities;
+              this.pagedItems = this.unity.cities;
             }
           });
-          console.log(this.regional.unities[i].cities);
         }
       }
     }
-      console.log(this.regional);
+      // console.log(this.regional);
       if (this.regional.id !== undefined) {
         this.regionalService.update(this.regional).subscribe(
           success => {
             this.regional = success;
+            this.regional.unities.forEach( u => {
+              if ( u.abbreviation.toUpperCase() === this.unity.abbreviation.toUpperCase()) {
+                // this.unity = u;
+                // this.allItems = this.unity.cities;
+                // this.pagedItems = this.unity.cities;
+              }
+            });
             this.toastService.toastSuccess();
-            this.load();
+            // this.load();
           },
           error => {
               this.toastService.toastError();
@@ -228,22 +243,6 @@ export class UcComponent extends PagenateComponent implements OnInit {
 
   }
 
-  // onCancel() {
-  //   if (this.onChange) {
-  //     this.sweetAlert2Service.alertToSave()
-  //     .then((result) => {
-  //       if (result.value) {
-  //         this._isSave = true;
-  //         this.openSaveButtonTab2.click();
-  //       } else {
-  //         this.route.navigate(['/regionais']);
-  //       }
-  //     });
-  //   } else {
-  //     this.openModal();
-  //   }
-  // }
-
   toBack() {
     this.cancel.emit(true);
   }
@@ -257,27 +256,18 @@ export class UcComponent extends PagenateComponent implements OnInit {
     // this.load();
    }
 
-   getCities() {
-        this.regionalService.getCities().subscribe(
-          s => {
-            this.cities = s;
-            console.log(this.cities);
+  getCities() {
+    this.regionalService.getState().subscribe(
+      state => {
+        this.regionalService.getCities(state[0].id).subscribe(
+          states => {
+            this.cities = states.cities;
           },
           error => console.log(error)
         );
+      }
+    );
   }
-  // getCities() {
-  //   this.regionalService.getState().subscribe(
-  //     state => {
-  //       this.regionalService.getCities(state[0].id).subscribe(
-  //         states => {
-  //           this.cities = states.cities;
-  //         },
-  //         error => console.log(error)
-  //       );
-  //     }
-  //   );
-  // }
 
   save(tab: string, isValid: boolean) {
     this.isFormValid = isValid;
@@ -304,13 +294,9 @@ export class UcComponent extends PagenateComponent implements OnInit {
     this.isNewCity = false;
   }
 
-  loadUnities() {
-    // this.regionalService.getQuestions();
-  }
-
-  showQuestion(item) {
+  showCity(item) {
     this.show = true;
-    this.unity = item;
+    this.city = item;
   }
 
   isSave() {

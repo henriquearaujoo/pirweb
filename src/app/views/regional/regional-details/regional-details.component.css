@@ -429,6 +429,7 @@ button#btn_save_uc {
 
 /* Modal UC */
 
+
 /* .modal-body.modal-uc {
     margin-right: 30px;
     margin-left: 30px;
@@ -437,6 +438,11 @@ button#btn_save_uc {
 .modal-footer.footer-uc {
     padding-right: 0;
 }
+
 i.fa.fa-plus {
     margin-right: 10px;
+}
+
+input#regional_name {
+    background-color: #f5f5f5;
 }

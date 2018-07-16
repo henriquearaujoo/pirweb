@@ -69,10 +69,10 @@ export class RegionalListComponent extends PagenateComponent implements OnInit, 
     this.loaderService.show();
     this.subscription = this.regionalService.getRegionais(this.filter.name, this.page).subscribe(
       success => {
-        // this.paginate = success;
-        // this.regionais = this.paginate.content;
+        this.paginate = success;
+        this.regionais = this.paginate.content;
         console.log( success);
-        this.regionais = success;
+        // this.regionais = success;
         this.index = 1;
         this.regionais.forEach( elem => {
             elem.number = this.index ++;

@@ -9,17 +9,17 @@ const routes: Routes = [
   {
     path: '',
     component: RegionalListComponent,
-    // canActivate: [PageGuard]
+    canActivate: [PageGuard]
   },
   {
     path: 'registro',
     component: RegionalComponent,
-    // canActivate: [PageGuard]
+    canActivate: [PageGuard]
   },
   {
     path: 'detalhes',
     component: RegionalDetailsComponent,
-    // canActivate: [PageGuard]
+    canActivate: [PageGuard]
   }
 ];
 

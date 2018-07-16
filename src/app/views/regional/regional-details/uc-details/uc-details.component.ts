@@ -171,27 +171,27 @@ export class UcDetailsComponent extends PagenateComponent implements OnInit {
     // this.load();
    }
 
-   getCities() {
-        this.regionalService.getCities().subscribe(
-          s => {
-            this.cities = s;
-            console.log(this.cities);
-          },
-          error => console.log(error)
-        );
-  }
-  // getCities() {
-  //   this.regionalService.getState().subscribe(
-  //     state => {
-  //       this.regionalService.getCities(state[0].id).subscribe(
-  //         states => {
-  //           this.cities = states.cities;
+  //  getCities() {
+  //       this.regionalService.getCities().subscribe(
+  //         s => {
+  //           this.cities = s;
+  //           console.log(this.cities);
   //         },
   //         error => console.log(error)
   //       );
-  //     }
-  //   );
   // }
+  getCities() {
+    this.regionalService.getState().subscribe(
+      state => {
+        this.regionalService.getCities(state[0].id).subscribe(
+          states => {
+            this.cities = states.cities;
+          },
+          error => console.log(error)
+        );
+      }
+    );
+  }
 
   save(tab: string, isValid: boolean) {
     this.isFormValid = isValid;

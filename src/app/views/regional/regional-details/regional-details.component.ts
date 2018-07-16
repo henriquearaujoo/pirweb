@@ -77,7 +77,7 @@ export class RegionalDetailsComponent extends PagenateComponent implements OnIni
    }
 
   ngOnInit() {
-    this.permissions.canActivate(['/regional/registro']);
+    this.permissions.canActivate(['/regionais/datalhes']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -106,94 +106,6 @@ export class RegionalDetailsComponent extends PagenateComponent implements OnIni
     this.sectionUCTab = './assets/img/regional/ic_dataTab2_disable.png';
 
     this.getCities();
-  }
-
-  saveData(isValid) {
-    if (isValid) {
-      if (this.isNewData || this.regional.id === undefined) {
-        this.regionalService.insert(this.regional).subscribe(
-          success => {
-            this.regional = success;
-            this.isNewData  = false;
-            this.sweetAlertService.alertSuccess('/regionais/registro');
-          },
-          error => {
-            if ( error === 'regional_name.found') {
-              this.toastService.toastMsgWarn('Atenção', 'Regional já cadastrada!');
-            } else {
-              this.toastService.toastError();
-              console.log('save error:', error);
-            }
-          }
-        );
-      } else {
-        // delete this.community.responsible;
-        console.log(this.regional);
-        this.regionalService.update(this.regional).subscribe(
-          success => {
-            this.regional = success;
-            this.sweetAlertService.alertSuccessUpdate('/regionais');
-          },
-          error => {
-              this.toastService.toastError();
-          }
-        );
-      }
-    }  else {
-      if (!isValid) {
-        this.toastService.toastMsgError('Erro', 'Preencha todos os campos obrigatórios do formulário!');
-      }
-    }
-  }
-
-  saveUC() {
-    if ((this.unity.name === null || this.unity.name === undefined ||
-        this.unity.name.toString().trim() === '') &&
-       (this.unity.cities === null || this.unity.cities === undefined)) {
-      this.toastService.toastMsgError('Erro', 'Nome da UC e Município são campos obrigatórios!');
-      this.load();
-      return false;
-    }
-    if (this.unity.name === null || this.unity.name === undefined ||
-       this.unity.name.toString().trim() === '') {
-      this.toastService.toastMsgError('Erro', 'Nome da UC é um campo obrigatório!');
-      this.load();
-      return false;
-    } else if (this.unity.cities === null || this.unity.cities === undefined) {
-      this.toastService.toastMsgError('Erro', 'Município é um campo obrigatório!');
-      this.load();
-      return false;
-    }
-    if ( this.isNewUC || this.unity.id === undefined ) {
-      this.canCreate = true;
-      if (this.canCreate) {
-        // this.unity.form_id = this.form.id;
-      this.regionalService.insertUC (this.unity).subscribe(
-        success => {
-          this.isNewUC = false;
-          this.unity = success;
-          this.load();
-          this.toastService.toastSuccess();
-        },
-        error => console.log(error)
-      );
-      } else {
-        this.sweetAlertService.alertPermission('/regionais');
-      }
-    } else {
-      this.canUpdate = true;
-      if (this.canUpdate) {
-        this.regionalService.updateUC(this.unity).subscribe(
-          success => {
-            this.load();
-            this.toastService.toastSuccess();
-          },
-          error => console.log(error)
-        );
-      } else {
-        this.sweetAlertService.alertPermission('/regionais');
-      }
-    }
   }
 
   load() {
@@ -226,18 +138,7 @@ export class RegionalDetailsComponent extends PagenateComponent implements OnIni
   }
 
   onCancel() {
-    if (this.onChange) {
-      this.sweetAlert2Service.alertToSave()
-      .then((result) => {
-        if (result.value) {
-          this._isSave = true;
-        } else {
-          this.route.navigate(['/regionais']);
-        }
-      });
-    } else {
-      this.openModal();
-    }
+    this.route.navigate(['/regionais']);
   }
 
   onCancelUC() {
@@ -251,53 +152,25 @@ export class RegionalDetailsComponent extends PagenateComponent implements OnIni
       this.isShowUC = false;
     }
   }
-
   getCities() {
-    this.regionalService.getCities().subscribe(
-      states => {
-        this.cities = states;
-      },
-      error => console.log(error)
+    this.regionalService.getState().subscribe(
+      state => {
+        this.regionalService.getCities(state[0].id).subscribe(
+          states => {
+            this.cities = states.cities;
+          },
+          error => console.log(error)
+        );
+      }
     );
-}
-  // getCities() {
-  //   this.regionalService.getState().subscribe(
-  //     state => {
-  //       this.regionalService.getCities(state[0].id).subscribe(
-  //         states => {
-  //           this.cities = states.cities;
-  //         },
-  //         error => console.log(error)
-  //       );
-  //     }
-  //   );
-  // }
-
-  save(tab: string, isValid: boolean) {
-    this.isFormValid = isValid;
-    this._isSave = false;
-  }
-
-  createNewUC() {
-    this.show = false;
-    this.isShowUC = true;
-    this.isNewUC = true;
-    this.unity = new Unity();
-  }
-
-  onEdit(item: Unity) {
-    this.show = false;
-    this.isShowUC = true;
-    this.isNewUC = false;
-    this.unity = item;
-  }
-
-  onSaveUnity(event) {
-    console.log(event);
-    this.load();
   }
 
   setUnity(item) {
+    this.unity = item;
+  }
+
+  showUC(item) {
+    this.show = true;
     this.unity = item;
   }
 
@@ -309,92 +182,4 @@ export class RegionalDetailsComponent extends PagenateComponent implements OnIni
     this.show = true;
     this.unity = item;
   }
-
-  isSave() {
-    this._isSave = true;
-  }
-
-   isActive(tab: boolean, t?: number,  p?: number) {
-    if ( p !== 0 ) {
-      if (t === 1) {
-      } else {
-        if ( t === 2) {
-          this.isFormValid = true;
-        }
-      }
-    } else {
-      this.isFormValid = true;
-    }
-
-
-    if ( this.isFormValid) {
-      this.isFormValid = false;
-      if (tab) {
-        if (this.currentTab === -1) {
-              this.currentTab = 0;
-        } else if (this.currentTab < 2) {
-              this.currentTab++;
-              this.cont++;
-          }
-      }else {
-        if (this.currentTab > 0) {
-              this.currentTab--;
-              this.cont--;
-            }
-      }
-        this.previousTab = '#tab_' + (this.currentTab + 1);
-        this.nextTab = '#tab_' + (this.currentTab + 1);
-
-        if (this.nextTab === '#tab_2') {
-          this.enable_save = true;
-        } else {
-          this.enable_save = false;
-        }
-
-        if (this.currentTab === 0) {
-          (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
-          this.sectionInfoTab = './assets/img/regional/ic_dataTab2_enable.png';
-          this.sectionUCTab = './assets/img/regional/ic_dataTab2_disable.png';
-
-        }else if (this.currentTab === 1) {
-          this.sectionInfoTab = './assets/img/regional/ic_dataTab2_disable.png';
-          this.sectionUCTab = './assets/img/regional/ic_dataTab2_enable.png';
-          (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
-          (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
-        }
-      } else {
-        if (t === 1) {
-          this.nextTab = '#tab_1';
-        }
-      }
-
-  }
-
-  walk ( tab: number) {
-    switch (tab) {
-      case 0:
-      this.sectionInfoTab = './assets/img/regional/ic_dataTab2_enable.png';
-      this.sectionUCTab = './assets/img/regional/ic_dataTab2_disable.png';
-      break;
-      case 1:
-      this.sectionInfoTab = './assets/img/regional/ic_dataTab2_disable.png';
-      this.sectionUCTab = './assets/img/regional/ic_dataTab2_enable.png';
-      break;
-    }
-  }
-
-  verifyValidSubmitted(form, field) {
-    if (field.dirty) {
-      this.onChange = true;
-    }
-    return (field.dirty || field.touched || form.submitted) && !field.valid;
-  }
-
-  applyCssError(form, field) {
-    return {
-      'has-error': this.verifyValidSubmitted(form, field),
-      'has-feedback': this.verifyValidSubmitted(form, field)
-    };
-  }
-
 }

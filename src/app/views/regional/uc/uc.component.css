@@ -57,11 +57,12 @@ button#btn_save {
     padding: 0;
 }
 
-thead {
+
+/* thead {
     background-color: #999;
     color: white;
     font-size: 12px;
-}
+} */
 
 th,
 td {
