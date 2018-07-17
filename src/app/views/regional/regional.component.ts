@@ -115,38 +115,45 @@ export class RegionalComponent extends PagenateComponent implements OnInit {
   saveData(isValid) {
     if (isValid) {
       if (this.isNewData || this.regional.id === undefined) {
-        this.regionalService.insert(this.regional).subscribe(
-          success => {
-            this.regional = success;
-            this.isNewData  = false;
-            this.sweetAlertService.alertSuccess('/regionais/registro');
-          },
-          error => {
-            if ( error === 'regional.name.violation') {
-              this.toastService.toastMsgWarn('Atenção', 'Regional já cadastrada!');
-            } else {
-              this.toastService.toastError();
-              console.log('save error:', error);
+        if ( this.canCreate) {
+          this.regionalService.insert(this.regional).subscribe(
+            success => {
+              this.regional = success;
+              localStorage.setItem('regionalId', this.regional.id);
+              this.isNewData  = false;
+              this.sweetAlertService.alertSuccess('/regionais/registro');
+            },
+            error => {
+              if ( error === 'regional.name.violation') {
+                this.toastService.toastMsgWarn('Atenção', 'Regional já cadastrada!');
+              } else {
+                this.toastService.toastError();
+                console.log('save error:', error);
+              }
             }
-          }
-        );
+          );
+        } else {
+          this.sweetAlertService.alertPermission('/regionais');
+        }
       } else {
-        // delete this.community.responsible;
-        console.log(this.regional);
-        this.regionalService.update(this.regional).subscribe(
-          success => {
-            this.regional = success;
-            this.sweetAlertService.alertSuccessUpdate('/regionais');
-          },
-          error => {
-            if ( error === 'regional.name.violation') {
-              this.toastService.toastMsgWarn('Atenção', 'Regional já cadastrada!');
-            } else {
-              this.toastService.toastError();
-              console.log('save error:', error);
+        if ( this.canUpdate) {
+          this.regionalService.update(this.regional).subscribe(
+            success => {
+              this.regional = success;
+              this.sweetAlertService.alertSuccessUpdate('/regionais');
+            },
+            error => {
+              if ( error === 'regional.name.violation') {
+                this.toastService.toastMsgWarn('Atenção', 'Regional já cadastrada!');
+              } else {
+                this.toastService.toastError();
+                console.log('save error:', error);
+              }
             }
-          }
-        );
+          );
+        } else {
+          this.sweetAlertService.alertPermission('/regionais');
+        }
       }
     }  else {
       if (!isValid) {
@@ -155,58 +162,9 @@ export class RegionalComponent extends PagenateComponent implements OnInit {
     }
   }
 
-  saveUC() {
-    if ((this.unity.name === null || this.unity.name === undefined ||
-        this.unity.name.toString().trim() === '') &&
-       (this.unity.cities === null || this.unity.cities === undefined)) {
-      this.toastService.toastMsgError('Erro', 'Nome da UC e Município são campos obrigatórios!');
-      this.load();
-      return false;
-    }
-    if (this.unity.name === null || this.unity.name === undefined ||
-       this.unity.name.toString().trim() === '') {
-      this.toastService.toastMsgError('Erro', 'Nome da UC é um campo obrigatório!');
-      this.load();
-      return false;
-    } else if (this.unity.cities === null || this.unity.cities === undefined) {
-      this.toastService.toastMsgError('Erro', 'Município é um campo obrigatório!');
-      this.load();
-      return false;
-    }
-    if ( this.isNewUC || this.unity.id === undefined ) {
-      this.canCreate = true;
-      if (this.canCreate) {
-        // this.unity.form_id = this.form.id;
-      this.regionalService.insertUC (this.unity).subscribe(
-        success => {
-          this.isNewUC = false;
-          this.unity = success;
-          this.load();
-          this.toastService.toastSuccess();
-        },
-        error => console.log(error)
-      );
-      } else {
-        this.sweetAlertService.alertPermission('/regionais');
-      }
-    } else {
-      this.canUpdate = true;
-      if (this.canUpdate) {
-        this.regionalService.updateUC(this.unity).subscribe(
-          success => {
-            this.load();
-            this.toastService.toastSuccess();
-          },
-          error => console.log(error)
-        );
-      } else {
-        this.sweetAlertService.alertPermission('/regionais');
-      }
-    }
-  }
-
   load() {
     this.loaderService.show();
+    this.urlId = localStorage.getItem('regionalId');
     this.regionalService.load(this.urlId).subscribe(
       success => {
         this.regional = success;

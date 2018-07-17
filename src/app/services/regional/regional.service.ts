@@ -10,13 +10,17 @@ import { Regional } from '../../models/regional';
 export class RegionalService extends RestService {
 
   private apiurl = Constant.BASE_URL + 'regional/';
-  private apiurl_unity = Constant.BASE_URL + 'unities/';
+  private apiurl_unity = Constant.BASE_URL + 'unity/';
   private size: number;
 
   constructor(http: Http) {
     super(http);
     this.size = 10;
    }
+
+  public getAll(filter?: any, page?: number) {
+      return this.get(this.apiurl);
+  }
 
   public getRegionais(filter?: any, page?: number) {
     if ( filter === undefined ) {
@@ -26,8 +30,8 @@ export class RegionalService extends RestService {
     }
   }
 
-  public _getCommunities() {
-      return this.get(this.apiurl + 'search/');
+  public loadUnity(id: string) {
+      return this.get(this.apiurl_unity + id);
   }
 
   public insert(regional: Regional): Observable<Regional> {

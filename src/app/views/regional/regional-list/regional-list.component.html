@@ -58,7 +58,7 @@
                                     </a>
                                 </td>
                                 <td class="tbl-right">
-                                    <a title="Editar" id="btn_edit" (click)="setRegional(item)">
+                                    <a title="Editar" id="btn_edit" (click)="setRegional(item)" *ngIf="canUpdate">
                                         <i class="fa fa-pencil fa-fw"></i>
                                     </a>
                                 </td>
@@ -70,7 +70,7 @@
                     <app-paginate [paginate]="paginate" (eventPage)="_setPage($event)"></app-paginate>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="canCreate">
                 <div class="btn-col">
                     <button class="btn btn-primary" [routerLink]="['/regionais/registro']" id="btn_new"> Cadastrar </button>
                 </div>

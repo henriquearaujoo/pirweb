@@ -38,20 +38,25 @@
                                             <div class="box-body">
                                                 <div class="row">
                                                     <div class="col-sm-6">
-
-                                                        <div class="form-group" [ngClass]="applyCssError(f1, uc)">
-                                                            <label class="control-label">UC</label>
-                                                            <input class="form-control" #uc="ngModel" [(ngModel)]="community.uc" name="community_uc" id="community_uc" pattern="[\w,./_=?-].*" maxlength="60" placeholder="UC" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, uc)" [field]="uc" msgError="Digite um UC">
+                                                        <div class="form-group profile" [ngClass]="applyCssError(f1, regional)">
+                                                            <label class="control-label">Regional</label>
+                                                            <select class="form-control" #regional="ngModel" [(ngModel)]="community.regional.id" (change)="getUnities()" name="community_regional" id="community_regional" required>
+                                                                <option [ngValue]="item.id" *ngFor="let item of regionais"> {{ item.name }} </option>
+                                                            </select>
+                                                            <!-- <input class="form-control" #regional="ngModel" [(ngModel)]="community.regional" name="community_regional" pattern="[\w,./_=?-].*" id="community_regional" maxlength="60" placeholder="Regional" required> -->
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, regional)" [field]="regional" msgError="Selecione um regional">
                                                             </app-control-field-error>
                                                         </div>
 
                                                     </div>
                                                     <div class="col-sm-6">
-                                                        <div class="form-group profile" [ngClass]="applyCssError(f1, regional)">
-                                                            <label class="control-label">Regional</label>
-                                                            <input class="form-control" #regional="ngModel" [(ngModel)]="community.regional" name="community_regional" pattern="[\w,./_=?-].*" id="community_regional" maxlength="60" placeholder="Regional" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, regional)" [field]="regional" msgError="Selecione um regional">
+                                                        <div class="form-group" [ngClass]="applyCssError(f1, uc)">
+                                                            <label class="control-label">UC</label>
+                                                            <select class="form-control" #uc="ngModel" [(ngModel)]="community.unity.id" name="community_uc" id="community_uc" (change)="getCities()" required>
+                                                                <option [ngValue]="item.id" *ngFor="let item of unities"> {{ item.name }} </option>
+                                                            </select>
+                                                            <!-- <input class="form-control" #uc="ngModel" [(ngModel)]="community.uc" name="community_uc" id="community_uc" pattern="[\w,./_=?-].*" maxlength="60" placeholder="UC" required> -->
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, uc)" [field]="uc" msgError="Digite um UC">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
