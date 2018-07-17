@@ -253,9 +253,9 @@ export class CommunityComponent implements OnInit {
        this.regionalService.loadUnity(this.community.unity.id).subscribe(
          u => {
           console.log('unities:', u);
-          this.community.regional = u.regional;
-          this.unities = u.regional.unities;
-          this.cities = u.cities;
+          // this.community.regional = u.regional;
+          // this.unities = u.regional.unities;
+          // this.cities = u.cities;
          }
        );
         console.log(this.community);
