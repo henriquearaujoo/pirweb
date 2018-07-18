@@ -131,7 +131,6 @@ export class UcComponent extends PagenateComponent implements OnInit {
       }
       this.regional.unities.push(this.unity);
       if (this.regional.id !== undefined) {
-        console.log('regional:', this.regional);
         this.regionalService.update(this.regional).subscribe(
           success => {
             this.regional = success;

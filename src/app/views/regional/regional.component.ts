@@ -251,7 +251,6 @@ export class RegionalComponent extends PagenateComponent implements OnInit {
   }
 
   onSaveUnity(event) {
-    console.log(event);
     this.load();
   }
 

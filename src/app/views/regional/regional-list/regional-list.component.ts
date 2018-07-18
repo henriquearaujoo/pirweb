@@ -71,8 +71,6 @@ export class RegionalListComponent extends PagenateComponent implements OnInit, 
       success => {
         this.paginate = success;
         this.regionais = this.paginate.content;
-        console.log( success);
-        // this.regionais = success;
         this.index = 1;
         this.regionais.forEach( elem => {
             elem.number = this.index ++;
