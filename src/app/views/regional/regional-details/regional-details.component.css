@@ -429,11 +429,14 @@ button#btn_save_uc {
 
 /* Modal UC */
 
+.modal-body {
+    padding: 0;
+}
 
-/* .modal-body.modal-uc {
-    margin-right: 30px;
-    margin-left: 30px;
-} */
+.box-body.uc {
+    margin: 0;
+    padding: 10px 0 0 0;
+}
 
 .modal-footer.footer-uc {
     padding-right: 0;

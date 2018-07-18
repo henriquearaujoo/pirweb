@@ -102,8 +102,7 @@ export class RegionalDetailsComponent extends PagenateComponent implements OnIni
     this.previousTab = '#tab_1';
     this.nextTab = '#tab_2';
 
-    this.sectionInfoTab = './assets/img/regional/ic_dataTab2_enable.png';
-    this.sectionUCTab = './assets/img/regional/ic_dataTab2_disable.png';
+    this.sectionInfoTab = './assets/img/regional/ic_section_info_enable.png';
 
     this.getCities();
   }

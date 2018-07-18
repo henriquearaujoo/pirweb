@@ -48,21 +48,21 @@ button.btn.btn-primary.add {
     background-repeat: no-repeat;
     background-color: #f5deb300;
     border: 0;
-    /* border-radius: 1em; */
     font-size: 12px;
-    /* padding: 8px 10px; */
     height: 35px;
     width: 175px;
     margin-top: 8px;
+    padding-top: 8px;
 }
 
 i.fa.fa-plus {
     padding-right: 10px;
 }
 
-button.btn.btn-default {
+
+/* button.btn.btn-default {
     width: auto;
-}
+} */
 
 
 /* END HEADER */
@@ -132,6 +132,11 @@ i.fa.fa-remove {
     padding-right: 6px;
 }
 
+button.btn.btn-primary.btn-sm.remove {
+    background: #B34446!important;
+    border-color: #B34446!important;
+}
+
 
 /* CARDS */
 
@@ -145,7 +150,8 @@ i.fa.fa-remove {
     margin-left: 10px;
     margin-right: 10px;
     box-shadow: none;
-    border: 1px solid #ccc;
+    border: 0;
+    background-color: white;
     border-radius: 0.5em;
     padding: 19px 30px 1px 30px;
 }

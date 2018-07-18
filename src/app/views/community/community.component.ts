@@ -139,8 +139,8 @@ export class CommunityComponent implements OnInit {
     /*check if is a new or update*/
     this.isNewData = true;
     this.urlId = localStorage.getItem('communityId');
-    this.getCities();
     this.getRegionais();
+    // this.community.regional = new Regional();
     if (this.urlId !== null && this.urlId !== '') {
       this.isNewData = false;
       this.load();
@@ -176,13 +176,25 @@ export class CommunityComponent implements OnInit {
     if (this.community.longitude === null) {
       this.community.longitude = 0;
     } */
-    console.log('community:', this.community);
+    console.log('community 01:', this.community);
     if (isValid && this._isSave) {
       this.community.city_id = this.community.city.id;
       if (this.isNewData || this.community.id === undefined) {
         this.communityService.insert(this.community).subscribe(
           success => {
             this.community = success;
+            console.log('community 02:', this.community);
+            this.community.regional = this.community.unity.regional;
+            this.regionalService.loadUnity(this.community.unity.id).subscribe(
+              u => {
+                console.log('unities:', u);
+                this.unities = u.regional.unities;
+                this.cities = u.cities;
+                // this.community.regional = u.regional;
+                // this.unities = u.regional.unities;
+                // this.cities = u.cities;
+              }
+            );
             this.isNewData  = false;
             this.sweetAlertService.alertSuccess('/comunidades');
           },
@@ -201,6 +213,18 @@ export class CommunityComponent implements OnInit {
         this.communityService.update(this.community).subscribe(
           success => {
             this.community = success;
+            console.log('community 02:', this.community);
+            this.community.regional = this.community.unity.regional;
+            this.regionalService.loadUnity(this.community.unity.id).subscribe(
+              u => {
+                console.log('unities:', u);
+                this.unities = u.regional.unities;
+                this.cities = u.cities;
+                // this.community.regional = u.regional;
+                // this.unities = u.regional.unities;
+                // this.cities = u.cities;
+              }
+            );
             this.sweetAlertService.alertSuccessUpdate('/comunidades');
           },
           error => {
@@ -249,15 +273,17 @@ export class CommunityComponent implements OnInit {
     this.communityService.load(this.urlId).subscribe(
       success => {
         this.community = success;
-       // this.unities = this.community.unities;
-       this.regionalService.loadUnity(this.community.unity.id).subscribe(
-         u => {
-          console.log('unities:', u);
-          // this.community.regional = u.regional;
-          // this.unities = u.regional.unities;
-          // this.cities = u.cities;
-         }
-       );
+        this.community.regional = this.community.unity.regional;
+        this.regionalService.loadUnity(this.community.unity.id).subscribe(
+          u => {
+            console.log('unities:', u);
+            this.unities = u.regional.unities;
+            this.cities = u.cities;
+            // this.community.regional = u.regional;
+            // this.unities = u.regional.unities;
+            // this.cities = u.cities;
+          }
+        );
         console.log(this.community);
         this.verifyDataCheckbox();
         this.loaderService.hide();
@@ -376,6 +402,7 @@ export class CommunityComponent implements OnInit {
     this.subscription = this.regionalService.getAll().subscribe(
       success => {
         this.regionais = success;
+        console.log(this.regionais);
       },
       error => {
         console.log(error);
@@ -384,7 +411,11 @@ export class CommunityComponent implements OnInit {
   }
 
   getUnities() {
-    this.unities = this.community.regional.unities;
+    this.regionais.filter( elem => {
+        if (elem.id === this.community.regional.id) {
+          this.unities = elem.unities;
+        }
+      });
     if (this.unities !== undefined) {
       if (this.unities.length > 0) {
         this.community.unity = this.unities[0];
@@ -394,21 +425,12 @@ export class CommunityComponent implements OnInit {
   }
 
   getCities() {
-    this.cities = this.community.unity.cities;
+    this.unities.filter( elem => {
+      if (elem.id === this.community.unity.id) {
+        this.cities = elem.cities;
+      }
+    });
   }
-
-  // getCities() {
-  //   this.communityService.getState().subscribe(
-  //     state => {
-  //       this.communityService.getCities(state[0].id).subscribe(
-  //         states => {
-  //           this.cities = states.cities;
-  //         },
-  //         error => console.log(error)
-  //       );
-  //     }
-  //   );
-  // }
 
   save(tab: string, isValid: boolean) {
     this.isFormValid = isValid;

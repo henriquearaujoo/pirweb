@@ -16,6 +16,11 @@ section.content {
     padding-right: 18px;
 }
 
+button#btn_save_question {
+    background: #0075BD!important;
+    border-color: #0075BD!important;
+}
+
 .btn-primary {
     /* width: 100px; */
     background-color: #373d40;
@@ -33,6 +38,10 @@ section.content {
     font-size: 14px;
     font-weight: bold;
     color: gray;
+}
+
+.box-header {
+    background-color: #fbfbfb;
 }
 
 .title-answer {

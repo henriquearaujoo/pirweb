@@ -106,8 +106,7 @@ export class RegionalComponent extends PagenateComponent implements OnInit {
     this.previousTab = '#tab_1';
     this.nextTab = '#tab_2';
 
-    this.sectionInfoTab = './assets/img/regional/ic_dataTab2_enable.png';
-    this.sectionUCTab = './assets/img/regional/ic_dataTab2_disable.png';
+    this.sectionInfoTab = './assets/img/regional/ic_section_info_enable.png';
 
     this.getCities();
   }
@@ -271,75 +270,6 @@ export class RegionalComponent extends PagenateComponent implements OnInit {
 
   isSave() {
     this._isSave = true;
-  }
-
-   isActive(tab: boolean, t?: number,  p?: number) {
-    if ( p !== 0 ) {
-      if (t === 1) {
-      } else {
-        if ( t === 2) {
-          this.isFormValid = true;
-        }
-      }
-    } else {
-      this.isFormValid = true;
-    }
-
-
-    if ( this.isFormValid) {
-      this.isFormValid = false;
-      if (tab) {
-        if (this.currentTab === -1) {
-              this.currentTab = 0;
-        } else if (this.currentTab < 2) {
-              this.currentTab++;
-              this.cont++;
-          }
-      }else {
-        if (this.currentTab > 0) {
-              this.currentTab--;
-              this.cont--;
-            }
-      }
-        this.previousTab = '#tab_' + (this.currentTab + 1);
-        this.nextTab = '#tab_' + (this.currentTab + 1);
-
-        if (this.nextTab === '#tab_2') {
-          this.enable_save = true;
-        } else {
-          this.enable_save = false;
-        }
-
-        if (this.currentTab === 0) {
-          (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
-          this.sectionInfoTab = './assets/img/regional/ic_dataTab2_enable.png';
-          this.sectionUCTab = './assets/img/regional/ic_dataTab2_disable.png';
-
-        }else if (this.currentTab === 1) {
-          this.sectionInfoTab = './assets/img/regional/ic_dataTab2_disable.png';
-          this.sectionUCTab = './assets/img/regional/ic_dataTab2_enable.png';
-          (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
-          (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
-        }
-      } else {
-        if (t === 1) {
-          this.nextTab = '#tab_1';
-        }
-      }
-
-  }
-
-  walk ( tab: number) {
-    switch (tab) {
-      case 0:
-      this.sectionInfoTab = './assets/img/regional/ic_dataTab2_enable.png';
-      this.sectionUCTab = './assets/img/regional/ic_dataTab2_disable.png';
-      break;
-      case 1:
-      this.sectionInfoTab = './assets/img/regional/ic_dataTab2_disable.png';
-      this.sectionUCTab = './assets/img/regional/ic_dataTab2_enable.png';
-      break;
-    }
   }
 
   verifyValidSubmitted(form, field) {

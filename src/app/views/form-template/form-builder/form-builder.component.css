@@ -26,8 +26,9 @@ i.fa.fa-trash {
 
 .panel-footer.question-footer {
     text-align: right;
-    background-color: #DFE8ED;
-    color: #335164;
+    background-color: #DFE8ED!important;
+    height: 36px;
+    padding: 5px 30px;
 }
 
 .nav-tabs-custom {

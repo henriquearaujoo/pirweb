@@ -6,15 +6,15 @@
             <div class="select-multimedia">
                 <div class="form-group" [ngClass]="{ 'has-error':!isNewData && !mediaType.valid }">
                     <label class="control-label">Tipo de Midia:</label>
-                    <div class="row">
-                        <div class="col-md-8">
-                            <select class="dropdown" name="media_Type" #mediaType="ngModel" [disabled]="isNewData" data-toggle="tooltip" data-placement="right" [title]="isNewData ? 'Salve primeiro as informações do capítulo' : 'Escolha o tipo de mídia'" [(ngModel)]="_fileData.mediaType"
-                                (change)="clear()" required>       
+                    <!-- <div class="row">
+                        <div class="col-md-8"> -->
+                    <select class="dropdown" name="media_Type" #mediaType="ngModel" [disabled]="isNewData" data-toggle="tooltip" data-placement="right" [title]="isNewData ? 'Salve primeiro as informações do capítulo' : 'Escolha o tipo de mídia'" [(ngModel)]="_fileData.mediaType"
+                        (change)="clear()" required>       
                             <option *ngFor="let item of type_file"
                                 [value]="item.type"> {{ item.name }} </option>
                             </select>
-                        </div>
-                    </div>
+                    <!-- </div>
+                    </div> -->
                     <div *ngIf="!isNewData && !mediaType.valid" class="help-block"> Selecione o tipo de mídia</div>
                 </div>
             </div>
@@ -35,8 +35,9 @@
                     <div class="input-group image-preview">
                         <!-- <input placeholder="" type="text" class="form-control image-preview-filename" disabled="disabled"> -->
                         <div class="form-group">
-                            <span class="input-group-btn">
-                            <div class="btn btn-default image-preview-input"> <span class="glyphicon glyphicon-folder-open"></span>
+                            <label class="control-label">Mídia:</label>
+                            <span class="input-group-btn">                                
+                                <div class="btn btn-default image-preview-input"> <span class="glyphicon glyphicon-folder-open"></span>
                             <span class="image-preview-input-title" *ngIf="!dragging">Selecione ou arraste e solte aqui</span>
                             <span class="image-preview-input-title" *ngIf="dragging">Solte os arquivos aqui</span>
                             <!-- <input type="file"  name="input-file-preview" /> -->
