@@ -54,6 +54,7 @@ export class CommunityDetailsComponent implements OnInit {
     this.communityService.load(this.urlId).subscribe(
       success => {
         this.community = success;
+        this.community.regional = this.community.unity.regional;
         this.loaderService.hide();
         if (this.community === undefined) {
           this.community = new Community();

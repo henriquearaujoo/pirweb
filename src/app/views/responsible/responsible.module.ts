@@ -10,6 +10,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ResponsibleRoutingModule } from './responsible-routing.module';
+import { PregnanciesComponent } from './responsible-details/pregnancies/pregnancies.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { ResponsibleRoutingModule } from './responsible-routing.module';
   declarations: [
     ResponsibleComponent,
     ResponsibleListComponent,
-    ResponsibleDetailsComponent
+    ResponsibleDetailsComponent,
+    PregnanciesComponent
   ],
   exports: [
     ResponsibleComponent,

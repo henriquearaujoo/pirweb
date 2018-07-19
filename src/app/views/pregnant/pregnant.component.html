@@ -63,21 +63,6 @@
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-3">
-                                                        <div class="form-group" [ngClass]="applyCssError(f1, isPregnant)">
-                                                            <label class="control-label">Gestante?</label> <br/>
-                                                            <label class="radio-inline">                          
-                                                            <input type="radio" #isPregnant="ngModel" name="isPregnant" [(ngModel)]="responsible.mother.is_pregnant" id="isPregnant" [value]="true" required>
-                                                             Sim
-                                                            </label>
-                                                            <label class="radio-inline"> 
-                                                            <input type="radio" #isPregnant="ngModel" name="isPregnant" [(ngModel)]="responsible.mother.is_pregnant" id="isPregnant" [value]="false" required>
-                                                             Não
-                                                            </label>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, isPregnant)" msgError="Escolha uma das alternativas">
-                                                            </app-control-field-error>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-6">

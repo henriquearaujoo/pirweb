@@ -64,6 +64,7 @@ export class CommunityListComponent implements OnInit, OnDestroy {
     this.subscription = this.communityService.getCommunities(this.filter.name, this.page).subscribe(
       success => {
         this.paginate = success;
+        console.log( this.paginate);
         this.communities = this.paginate.content;
         this.hasdata = true;
         setTimeout(() => {
@@ -94,6 +95,7 @@ export class CommunityListComponent implements OnInit, OnDestroy {
 
   setPage(page: number) {
     this.page = page;
+    this.getCommunities();
   }
 
   ngOnDestroy() {

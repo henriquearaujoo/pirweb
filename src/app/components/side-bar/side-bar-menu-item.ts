@@ -113,9 +113,9 @@ export const MENU = [
     },
     {
         'id': 11,
-        'title': 'COMUNIDADES',
+        'title': 'REGIONAL',
         'route': '',
-        'routes': ['/', '/comunidades', '/registro', '/detalhes'],
+        'routes': ['/', '/regionais', '/comunidades', '/registro', '/detalhes'],
         'read': false,
         'iClass': 'fa fa-home',
         'category': 'parent',
@@ -125,8 +125,8 @@ export const MENU = [
     {
         'id': 12,
         'title': 'REGISTRO',
-        'route': 'comunidades',
-        'routes': ['/comunidades', '/registro', '/detalhes'],
+        'route': 'regionais',
+        'routes': ['/regionais', '/registro', '/detalhes'],
         'read': false,
         'iClass': 'fa fa-circle-o',
         'category': 'child',
@@ -135,6 +135,28 @@ export const MENU = [
     },
     {
         'id': 13,
+        'title': 'COMUNIDADES',
+        'route': 'comunidades',
+        'routes': ['/comunidades', '/registro', '/detalhes'],
+        'read': true,
+        'iClass': 'fa fa-circle-o',
+        'category': 'child',
+        'hasChild': false,
+        'parent': 11
+    },
+    // {
+    //     'id': 14,
+    //     'title': 'UC',
+    //     'route': 'unidades',
+    //     'routes': ['/unidades', '/registro', '/detalhes'],
+    //     'read': true,
+    //     'iClass': 'fa fa-circle-o',
+    //     'category': 'child',
+    //     'hasChild': false,
+    //     'parent': 11
+    // },
+    {
+        'id': 15,
         'title': 'FAMÍLIA',
         'route': '',
         'routes': ['/', '/gestantes', '/detalhes', '/registro',
@@ -145,19 +167,19 @@ export const MENU = [
         'hasChild': true,
         'parent': 0
     },
+    // {
+    //     'id': 14,
+    //     'title': 'GESTANTE',
+    //     'route': 'gestantes',
+    //     'routes': ['/gestantes', '/registro', '/detalhes'],
+    //     'read': false,
+    //     'iClass': 'fa fa-circle-o',
+    //     'category': 'child',
+    //     'hasChild': false,
+    //     'parent': 13
+    // },
     {
-        'id': 14,
-        'title': 'GESTANTE',
-        'route': 'gestantes',
-        'routes': ['/gestantes', '/registro', '/detalhes'],
-        'read': false,
-        'iClass': 'fa fa-circle-o',
-        'category': 'child',
-        'hasChild': false,
-        'parent': 13
-    },
-    {
-        'id': 15,
+        'id': 16,
         'title': 'RESPONSÁVEL',
         'route': 'responsaveis',
         'routes': ['/responsaveis', '/registro', '/detalhes'],
@@ -165,10 +187,10 @@ export const MENU = [
         'iClass': 'fa fa-circle-o',
         'category': 'child',
         'hasChild': false,
-        'parent': 13
+        'parent': 15
     },
     {
-        'id': 16,
+        'id': 17,
         'title': 'CRIANÇA',
         'route': 'criancas',
         'routes': ['/criancas', '/registro', '/detalhes'],
@@ -176,10 +198,10 @@ export const MENU = [
         'iClass': 'fa fa-circle-o',
         'category': 'child',
         'hasChild': false,
-        'parent': 13
+        'parent': 15
     },
     {
-        'id': 17,
+        'id': 18,
         'title': 'FORMULÁRIO',
         'route': '',
         'routes': ['/', '/registro', '/formularios', '/detalhes'],
@@ -190,7 +212,7 @@ export const MENU = [
         'parent': 0
     },
     {
-        'id': 18,
+        'id': 19,
         'title': 'REGISTRO',
         'route': 'formularios',
         'routes': ['/formularios', '/registro', '/detalhes'],
@@ -198,10 +220,10 @@ export const MENU = [
         'iClass': 'fa fa-circle-o',
         'category': 'child',
         'hasChild': false,
-        'parent': 17
+        'parent': 18
     },
     {
-        'id': 19,
+        'id': 20,
         'title': 'CONSTRUTOR',
         'route': 'formularios/construtor',
         'routes': ['/formularios/construtor'],
@@ -209,21 +231,21 @@ export const MENU = [
         'iClass': 'fa fa-circle-o',
         'category': 'child',
         'hasChild': false,
-        'parent': 17
+        'parent': 18
     },
     {
-        'id': 20,
+        'id': 21,
         'title': 'RELATÓRIOS',
         'route': '',
         'routes': ['/', '/relatorios'],
         'read': false,
-        'iClass': 'fa fa-circle-o',
+        'iClass': 'fa fa-line-chart',
         'category': 'parent',
         'hasChild': true,
         'parent': 0
     },
     {
-        'id': 21,
+        'id': 22,
         'title': 'REGISTRO',
         'route': 'relatorios',
         'routes': ['/relatorios'],
@@ -231,7 +253,7 @@ export const MENU = [
         'iClass': 'fa fa-circle-o',
         'category': 'child',
         'hasChild': false,
-        'parent': 20
+        'parent': 21
     },
 ];
 

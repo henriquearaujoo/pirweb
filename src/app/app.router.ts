@@ -65,6 +65,14 @@ const App_Router: Routes = [
           loadChildren: './views/community/community.module#CommunityModule'
         },
         {
+          path: 'regionais',
+          loadChildren: './views/regional/regional.module#RegionalModule'
+        },
+        // {
+        //   path: 'unidades',
+        //   loadChildren: './views/uc/uc.module#UcModule'
+        // },
+        {
           path: 'formularios',
           loadChildren: './views/form-template/form-template.module#FormTemplateModule'
         },
@@ -72,7 +80,6 @@ const App_Router: Routes = [
           path: 'dashboard',
           loadChildren: './views/dashboard/dashboard.module#DashboardModule'
         },
-
         {
           path: 'relatorios',
           loadChildren: './views/report/report.module#ReportModule'

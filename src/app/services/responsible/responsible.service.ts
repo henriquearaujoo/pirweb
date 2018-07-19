@@ -18,18 +18,18 @@ export class ResponsibleService extends RestService {
 
   public getResponsibles(filter?: any, page?: number) {
     if ( filter === undefined ) {
-      return this.get(this.apiurl + 'no-mother/search/page/?size=' + this.size + '&page=' + page + '&sort=name,asc');
+      return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page + '&sort=name,asc');
     } else {
-      return this.get(this.apiurl + 'no-mother/search/page/?size=' + this.size + '&page=' + page +
+      return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page +
       '&name=' + filter  + '&sort=name,asc');
     }
   }
 
   public getMothers(filter?: any, page?: number) {
     if ( filter === undefined ) {
-      return this.get(Constant.BASE_URL + 'mothers/search/page/?size=' + this.size + '&page=' + page + '&sort=name,asc');
+      return this.get(this.apiurl + 'mother/search/page/?size=' + this.size + '&page=' + page + '&sort=name,asc');
     } else {
-      return this.get( Constant.BASE_URL + 'mothers/search/page/?size=' + this.size + '&page=' + page +
+      return this.get(this.apiurl + 'mother/search/page/?size=' + this.size + '&page=' + page +
       '&mother.name=' + filter);
     }
   }

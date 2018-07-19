@@ -24,6 +24,8 @@ export class FormBuilderComponent implements OnInit, OnChanges {
   private canUpdate: boolean;
   private canCreate: boolean;
   private canDelete: boolean;
+  private formSubmitAttempt: boolean;
+  private isFormValid: boolean;
 
   constructor(
     private _fb: FormBuilder,
@@ -55,6 +57,7 @@ export class FormBuilderComponent implements OnInit, OnChanges {
       this.isNewData = true;
       this.createForm();
     }
+    this.formSubmitAttempt = false;
   }
 
   ngOnChanges() {
@@ -64,7 +67,7 @@ export class FormBuilderComponent implements OnInit, OnChanges {
   createForm() {
     this.form = this._fb.group({
       id: [this._formbuilder.id],
-      description: [this._formbuilder.description],
+      description: [this._formbuilder.description, Validators.required],
       questions: this._fb.array([
         // this.initQuestion()
       ])
@@ -74,10 +77,10 @@ export class FormBuilderComponent implements OnInit, OnChanges {
   initQuestion() {
     return this._fb.group({
         id: [''],
-        description: [''],
-        type: [''],
-        value_type: [''],
-        required: false,
+        description: ['', Validators.required],
+        type: ['',  Validators.required],
+        value_type: ['',  Validators.required],
+        required: [false],
         alternatives: this._fb.array([
           this.initAlternative()
       ])
@@ -87,8 +90,8 @@ export class FormBuilderComponent implements OnInit, OnChanges {
   initAlternative() {
     return this._fb.group({
         id: [''],
-        description: [''],
-        value_type: ['']
+        description: ['',  Validators.required],
+        value_type: ['',  Validators.required]
     });
   }
 
@@ -100,28 +103,22 @@ export class FormBuilderComponent implements OnInit, OnChanges {
   }
 
   save() {
+    this.formSubmitAttempt = true;
     if (this.form.value.id === null) {
       this.form.value.id = undefined;
     }
+    if (!this.form.valid) {
+      return;
+    }
+    this.verifyNull();
     if ( this.isNewData || this._formbuilder.id === undefined ) {
-      if (this.form.value.questions.length > 0) {
-        for (let i = 0; i < this.form.value.questions.length; i++ ) {
-          this.form.value.questions[i].id = undefined;
-          if (this.form.value.questions[i].required === null) {
-            this.form.value.questions[i].required = false;
-          }
-          if (this.form.value.questions[i].alternatives.length > 0) {
-            for (let j = 0; j < this.form.value.questions.length; j++ ) {
-              this.form.value.questions[i].alternatives[j].id = undefined;
-            }
-          }
-        }
-      }
+
       if (this.canCreate) {
         console.log(this.form.value);
         this.formService.insertForm(this.form.value).subscribe(
         success => {
           this.isNewData = false;
+          this.formSubmitAttempt = false;
           // this._formbuilder = success;
           this.sweetAlertService.alertSuccess('/formularios/construtor');
         },
@@ -135,6 +132,7 @@ export class FormBuilderComponent implements OnInit, OnChanges {
         console.log(this.form.value);
         this.formService.updateForm(this.form.value).subscribe(
           success => {
+            this.formSubmitAttempt = false;
             this.sweetAlertService.alertSuccessUpdate('/formularios/construtor');
           },
           error => console.log(error)
@@ -145,15 +143,34 @@ export class FormBuilderComponent implements OnInit, OnChanges {
     }
   }
 
-  // save(model: FormBuilderM) {
-  //   const data = JSON.stringify(this.form.value);
-  //   const formB: FormBuilderM = this.form.value;
-  //   console.log(formB);
-  //   this.formService.insertForm(formB).subscribe(
-  //     s => {
-  //       console.log(s);
-  //     },
-  //     error => console.log(error)
-  //   );
-  // }
+  verifyNull() {
+    if (this.form.value.questions.length > 0) {
+      for (let i = 0; i < this.form.value.questions.length; i++ ) {
+        if (this.form.value.questions[i].id === null) {
+          this.form.value.questions[i].id = undefined;
+        }
+        if (this.form.value.questions[i].required === null) {
+          this.form.value.questions[i].required = false;
+        }
+        if (this.form.value.questions[i].alternatives.length > 0) {
+          for (let j = 0; j < this.form.value.questions[i].alternatives.length; j++ ) {
+            if (this.form.value.questions[i].alternatives[j].id === null) {
+              this.form.value.questions[i].alternatives[j].id = undefined;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  verifyValidSubmitted(field) {
+    return (this.form.controls[field].dirty || this.form.controls[field].touched ) && !this.form.controls[field].valid;
+  }
+
+  applyCssError(field) {
+    return {
+      'has-error': this.verifyValidSubmitted(field),
+      'has-feedback': this.verifyValidSubmitted(field)
+    };
+  }
 }

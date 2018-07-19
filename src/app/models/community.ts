@@ -1,9 +1,11 @@
+import { Regional } from './regional';
+import { Unity } from './unity';
 import { City } from './city';
 import { Responsible } from './responsible';
 export class Community {
     public id: string;
     public name: string;
-    public regional: string;
+    public regional: Regional = new Regional();
     public uc: string;
     public city_id: string;
     public zone: string;
@@ -26,6 +28,7 @@ export class Community {
     public longitude: number;
     public latitude: number;
     public city: City = new City();
+    public unity: Unity = new Unity();
 
     public responsible: Responsible[] = new Array();
     // public status: boolean;

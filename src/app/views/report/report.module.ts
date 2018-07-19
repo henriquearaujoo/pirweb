@@ -13,6 +13,7 @@ import { ReportEntityComponent } from './report-entity/report-entity.component';
 import { ReportColumnComponent } from './report-column/report-column.component';
 import { ReportTableComponent } from './report-table/report-table.component';
 import { ReportChartComponent } from './report-chart/report-chart.component';
+import { HelpInformationComponent } from './help-information/help-information.component';
 @NgModule({
     imports: [
       CommonModule,
@@ -29,6 +30,7 @@ import { ReportChartComponent } from './report-chart/report-chart.component';
       ReportColumnComponent,
       ReportTableComponent,
       ReportChartComponent,
+      HelpInformationComponent,
     ],
     exports: [
       ReportComponent

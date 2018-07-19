@@ -7,7 +7,14 @@
     background-color: #ffffff;
     border-color: #dfe8ed;
     font-weight: bold;
+    margin-bottom: 20px
 }
+
+
+/* .panel-footer {
+    background-color: #DFE8ED;
+    color: #335164;
+} */
 
 .panel {
     border: 0;
@@ -26,3 +33,16 @@ i.fa.fa-trash {
 .panel-footer.question-footer {
     text-align: right;
 }
+
+.mat-form-field-infix {
+    padding: .6975em 0;
+}
+
+.mat-form-field-placeholder {
+    font-size: 20px!important;
+}
+
+
+/* .text-space {
+    height: 130px;
+} */

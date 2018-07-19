@@ -1,3 +1,4 @@
+import { FilterPipe } from './views/responsible/responsible-details/filter.pipe';
 import { FormBuilderService } from './services/form/formBuilder.service';
 import { SweetAlert2Service } from './services/sweetalert/sweet-alert.2service';
 import { LoaderService } from './services/loader/loader.service';
@@ -62,6 +63,7 @@ import { SweetAlertService } from './services/sweetalert/sweet-alert.service';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { VisitService } from './services/visit/visit.service';
 import { ReportFilterComponent } from './components/report-filter/report-filter.component';
+import { RegionalService } from './services/regional/regional.service';
 
 
 export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
@@ -75,9 +77,10 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     LoginLayoutComponent,
     AlertComponent,
     ProfilePipe,
+    FilterPipe,
     TemplateSelectModelComponent,
     ModalWaitingAnswerComponent,
-    EqualValidatorDirective,
+    EqualValidatorDirective
   ],
   imports: [
     BrowserModule,
@@ -126,7 +129,9 @@ export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestO
     FormService,
     VisitService,
     LoaderService,
-    FormBuilderService
+    FormBuilderService,
+    RegionalService,
+    FilterPipe
   ],
   exports: [],
   bootstrap: [AppComponent]

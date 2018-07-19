@@ -82,8 +82,8 @@ export class PregnantListComponent implements OnInit, OnDestroy {
         this.hasdata = false;
       }
     );
-
   }
+
   setMother(responsible: Responsible) {
     localStorage.setItem('motherId', responsible.id);
     this.router.navigate(['/gestantes/registro']);

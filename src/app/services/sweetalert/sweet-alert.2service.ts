@@ -11,14 +11,20 @@ export class SweetAlert2Service {
     alertToSave(): Promise<SweetAlertResult> {
       return swal({
         title: '',
-        width: 350,
-        html: '<p style="font-size:18px;">Deseja salvar as alterações?</p>',
-        type: 'warning',
+        width: 421,
+        html: '<p style="font-size:16px;">Deseja salvar as alterações?</p>',
+        imageUrl: './assets/img/global/ic_action.png',
+        imageClass: 'img-warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
+        confirmButtonColor: '#373d40',
+        cancelButtonColor: '#dfe8ed',
+        cancelButtonText: 'Não',
         confirmButtonText: 'Sim',
-        cancelButtonText: 'Não'
+        reverseButtons: true,
+        customClass: 'modal-lg',
+        confirmButtonClass: 'confirm-lg',
+        cancelButtonClass: 'cancel-lg',
+        allowOutsideClick: false
       });
     }
 }

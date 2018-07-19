@@ -14,20 +14,7 @@ export class AgentMapComponent implements OnInit {
   private canUpdate: boolean;
   private canCreate: boolean;
   private canDelete: boolean;
-  markers: Marker[] = [
-    {
-      lat: -7.50427875,
-      lng: -63.0360884,
-      label: 'Humaitá',
-      draggable: true
-    },
-    {
-      lat: -2.63776067,
-      lng: -56.72981509,
-      label: 'Parintins',
-      draggable: false
-    }
-  ];
+  markers: Marker[] = new Array();
   constructor(
     private userService: UserService,
     private permissions: Permissions) {
@@ -47,12 +34,27 @@ export class AgentMapComponent implements OnInit {
         this.canDelete = rules.canDelete;
       }
     );
+
+    this.getAgents();
   }
 
   getAgents() {
     this.userService.getAgents().subscribe(
       agents => {
-        this.agents = agents;
+        this.agents = agents.content;
+        console.log(this.agents);
+        for (let i = 0; i < this.agents.length; i++) {
+          const mk = {
+            lat: this.agents[i].latitude,
+            lng: this.agents[i].longitude,
+            label: '',
+            draggable: false
+          };
+          // this.markers[i].lat = this.agents[i].latitude;
+          // this.markers[i].lng = this.agents[i].longitude;
+          this.markers.push(mk);
+        }
+        console.log(this.markers);
       },
       error => console.log(error)
     );
@@ -60,7 +62,7 @@ export class AgentMapComponent implements OnInit {
 
 }
 
-interface Marker {
+export class Marker {
   lat: number;
   lng: number;
   label?: string;

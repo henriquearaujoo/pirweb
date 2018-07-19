@@ -188,6 +188,7 @@ section.content_user {
     padding-top: 20px;
     padding-left: 25px;
     padding-right: 25px;
+    padding-bottom: 50px;
 }
 
 .nav-tabs-custom>.nav-tabs>li.active {
@@ -198,6 +199,7 @@ section.content_user {
     background-color: #f4f4f4;
     border-bottom: 0;
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 input#waterDrink2 {

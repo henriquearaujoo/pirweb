@@ -33,6 +33,7 @@ export class PaginateComponent implements OnInit, OnChanges {
       for (let i = 1; i <= this.paginate.totalPages; i++) {
         this.pages.push(i);
       }
+      this.pages = this.pages.slice(this.paginate.number, this.paginate.number + this.paginate.size);
     }
   }
 

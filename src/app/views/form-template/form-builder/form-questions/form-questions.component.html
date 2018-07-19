@@ -3,18 +3,22 @@
         <div *ngFor="let question of questions.controls; let i=index" [formGroupName]="i" class="panel panel-default">
             <div class="panel-heading">
                 <span>Pergunta {{i + 1}}</span>
+                <!-- <div class="text-right">
+                    <mat-slide-toggle formControlName="required" color="primary" [checked]="required" [disabled]="required">
+                        Obrigatório
+                    </mat-slide-toggle>
+                </div> -->
             </div>
-            <div class="form-group">
+            <div class="form-group" [ngClass]="applyCssError(question, 'description')">
                 <div class="col-xs-12">
-                    <mat-form-field>
+                    <mat-form-field style.fontSize="26px">
                         <input matInput placeholder="Título da pergunta" formControlName="description" required>
                     </mat-form-field>
-                    <!-- <small [hidden]="questionForm.controls.description.valid" class="text-danger">
-                                  Description is required
-                              </small> -->
+                    <app-control-field-error [showError]="verifyValidSubmitted(question, 'description')" msgError="Digite um título para a pergunta">
+                    </app-control-field-error>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" [ngClass]="applyCssError(question, 'type')">
                 <div class="col-xs-6">
                     <span>
                         <span matPrefix *ngIf="type.value === 'radio'"> 
@@ -31,7 +35,7 @@
                         </span>
                     </span>
                     <mat-form-field>
-                        <mat-select placeholder="Tipo" #type formControlName="type" required>
+                        <mat-select placeholder="Tipo" #type formControlName="type" (changes)="ngOnChanges()" required>
                             <mat-option value="OBJECTIVE">
                                 <span matPrefix> <i class="fa fa-check-circle"></i>&nbsp;</span> Múltipla Escolha
                             </mat-option>
@@ -46,9 +50,11 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
+                    <app-control-field-error [showError]="verifyValidSubmitted(question, 'type')" msgError="Selecione o tipo da pergunta">
+                    </app-control-field-error>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" [ngClass]="applyCssError(question, 'value_type')">
                 <div class="col-xs-6">
                     <mat-form-field>
                         <mat-select placeholder="Tipo de valor" formControlName="value_type" required>
@@ -57,9 +63,11 @@
                             <mat-option value="number">Número</mat-option>
                         </mat-select>
                     </mat-form-field>
+                    <app-control-field-error [showError]="verifyValidSubmitted(question, 'value_type')" msgError="Selecione o tipo de valor">
+                    </app-control-field-error>
                 </div>
             </div>
-            <div class="form-group" *ngIf="form.questions[i].type === 'OBJECTIVE' || form.questions[i].type === 'OBJECTIVE2' || type.value === 'OBJECTIVE' || type.value === 'OBJECTIVE2'">
+            <div class="form-group" *ngIf="form.questions[i].type === 'OBJECTIVE' || form.questions[i].type === 'OBJECTIVE2'">
                 <div class="col-xs-12">
                     <div class="panel-body">
                         <!-- <app-form-alternative [form]="form" [parentAlternative]="question"></app-form-alternative> -->
@@ -67,12 +75,12 @@
                             <div *ngFor="let alternative of question.controls.alternatives.controls; let a=index" class="panel panel-default">
                                 <div class="panel-heading">
                                     <span>
-                                            Opção {{a + 1}}
-                                        </span>
+                                        Opção {{a + 1}}
+                                    </span>
                                     <span class="glyphicon glyphicon-remove pull-right" *ngIf="question.controls.alternatives.controls.length > 1" (click)="removeAlternative(question, i, a)">
                                         </span>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" [ngClass]="applyCssErrorAlternatives(alternative.controls.description)">
                                     <div class="col-xs-6">
                                         <mat-form-field>
                                             <span matPrefix *ngIf="type === 'radio'"> 
@@ -83,9 +91,11 @@
                                                 </span>
                                             <input matInput placeholder="Descrição da opção" [formControl]="alternative.controls.description">
                                         </mat-form-field>
+                                        <app-control-field-error [showError]="verifyValidSubmittedAlternatives(alternative.controls.description)" msgError="Digite a descrição da opção">
+                                        </app-control-field-error>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" [ngClass]="applyCssErrorAlternatives(alternative.controls.value_type)">
                                     <div class="col-xs-6">
                                         <mat-form-field>
                                             <mat-select placeholder="Tipo de valor" [formControl]="alternative.controls.value_type">
@@ -94,17 +104,19 @@
                                                 <mat-option value="number">Número</mat-option>
                                             </mat-select>
                                         </mat-form-field>
+                                        <app-control-field-error [showError]="verifyValidSubmittedAlternatives(alternative.controls.value_type)" msgError="Selecione o tipo de valor">
+                                        </app-control-field-error>
                                     </div>
                                 </div>
                             </div>
                             <div class="margin-20">
-                                <a (click)="addAlternative(question, i)" style="cursor: default">
+                                <a (click)="addAlternative(question, i)" class="pointer">
                                     <span matPrefix *ngIf="type.value === 'radio'"> 
-                                                <i class = "material-icons"> radio_button_unchecked </i>&nbsp;
-                                            </span>
+                                        <i class = "material-icons"> radio_button_unchecked </i>&nbsp;
+                                    </span>
                                     <span matPrefix *ngIf="type.value === 'multiple'">
-                                            <i class = "material-icons"> check_box_outline_blank </i>&nbsp;
-                                        </span> Adicionar Opção +
+                                        <i class = "material-icons"> check_box_outline_blank </i>&nbsp;
+                                    </span> Adicionar Opção <img src="./assets/img/global/btn_addOptn.png" style="margin-left: 8px;">
                                 </a>
                             </div>
                         </div>
@@ -127,19 +139,19 @@
                 </div>
             </div>
             <div class="text-right">
-                <mat-slide-toggle formControlName="required" class="example-margin" [checked]="required" [disabled]="required">
+                <mat-slide-toggle formControlName="required" class="example-margin" color="primary" [checked]="required" [disabled]="required">
                     Obrigatório
                 </mat-slide-toggle>
             </div>
-            <div class="panel-footer question-footer">
-                <span *ngIf="questions.controls.length > 1" (click)="removeQuestion(i)">
+            <div class="panel-footer question-footer" *ngIf="questions.controls.length > 1">
+                <span (click)="removeQuestion(i)">
                     <i class="fa fa-trash"></i>
                 </span>
             </div>
         </div>
-        <div class="margin-20">
-            <a (click)="addQuestion()" style="cursor: default">
-                <i class="fa fa-plus-circle"></i>&nbsp;Adicionar Pergunta
+        <div>
+            <a (click)="addQuestion()" style="cursor: pointer">
+                <img src="./assets/img/global/btn_addOptn.png" style="margin-right: 8px;">Adicionar Pergunta
             </a>
         </div>
     </div>

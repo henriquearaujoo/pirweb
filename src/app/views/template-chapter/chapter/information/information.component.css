@@ -1,6 +1,6 @@
 .form-group,
 .form-control {
-    color: grey;
+    color: #335164;
 }
 
 .btn-primary {
@@ -18,7 +18,7 @@
 }
 
 .box-body {
-    background-color: #f4f4f4;
+    background-color: #FBFBFB;
 }
 
 .col-md-3.col-md-offset-6.save {

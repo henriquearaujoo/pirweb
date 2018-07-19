@@ -1,0 +1,37 @@
+.title {
+    font-size: 16px;
+    color: #335164;
+    font-weight: bold;
+}
+
+.modal-body {
+    color: #335164;
+    font-size: 14px;
+    padding: 45px;
+    min-height: 642px;
+}
+
+.steps {
+    text-align: center;
+}
+
+a.fa.fa-circle.gray {
+    color: #ccc;
+}
+
+.img-center {
+    text-align: center;
+}
+
+.img-left {
+    text-align: left;
+    margin-left: 30px;
+}
+
+.modal-dialog.modal-lg {
+    max-width: 740px;
+}
+
+button#btn_cancel {
+    width: 100px;
+}

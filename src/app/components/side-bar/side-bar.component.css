@@ -2,12 +2,12 @@
     margin-right: 5px;
     padding-right: 5px;
     cursor: pointer;
-    
 }
 
 a.pointer {
     cursor: pointer;
 }
+
 
 /******** Modal *********/
 
@@ -19,18 +19,21 @@ a.pointer {
     width: 421px;
     height: 234px;
 }
+
 .modal-btn-cancel {
-    float: left;  
+    float: left;
 }
 
 .modal-body {
     padding: 32px;
-    padding-bottom: 45px; 
+    padding-bottom: 45px;
     text-align: center;
 }
+
 .modal-icon {
     text-align: center;
 }
+
 button#btn_cancel {
     background-color: #dfe8ed;
     width: 210.5px;
@@ -45,12 +48,15 @@ button#btn_confirm {
     height: 45px;
     border-radius: 0;
 }
+
 .btn-primary {
     background-color: #373d40;
     border-color: #373d40;
 }
 
+
 /* UI */
+
 .main-sidebar {
     padding-top: 70px;
     padding-top: 70px;
@@ -59,13 +65,14 @@ button#btn_confirm {
     position: fixed;
 }
 
-.treeview-menu > li > a {
+.treeview-menu>li>a {
     font-size: 11.5px;
 }
+
 section.sidebar.logout {
     position: absolute;
     bottom: 165px;
-    padding-left: 10px;
+    padding-left: 25px;
 }
 
 .sidebar-item {
@@ -88,13 +95,16 @@ img.copyright {
     left: 10px;
 }
 
-i.fa.fa-user, i.fa.fa-users {
+i.fa.fa-user,
+i.fa.fa-users {
     font-size: 20px;
 }
-i.fa.fa-file-text, i.fa.fa-list-alt {
+
+i.fa.fa-file-text,
+i.fa.fa-list-alt {
     font-size: 21px;
 }
+
 i.fa.fa-home {
     font-size: 24px;
 }
-

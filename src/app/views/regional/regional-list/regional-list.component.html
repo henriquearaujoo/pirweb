@@ -1,0 +1,162 @@
+<simple-notifications></simple-notifications>
+<div class="content_">
+    <div class="content-top">
+        <div class="content_fa"> <i class="fa fa-home"></i> Regional > Registros > Lista de Regionais</div>
+
+    </div>
+    <section class="content">
+        <div class="box">
+            <div class="box-header_ ">
+                <h5 class="box-title">LISTA DE REGIONAIS</h5>
+            </div>
+
+            <div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="_filter" class="dataTables_filter">
+                            <label>
+                            <input type="text" class="form-control form-border " name="name" id="filter" (keyup)="getRegionais()" 
+                              [(ngModel)]="filter.name" mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" placeholder="Nome do Regional">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <table id="example2" class="table">
+                        <thead>
+                            <tr>
+                                <th class="tbl-left">NÚMERO
+                                    <span class="glyphicon"></span>
+                                </th>
+                                <th class="tbl-left">NOME DA REGIONAL
+                                    <span class="glyphicon"></span>
+                                </th>
+                                <!-- <th class="tbl-left">UNIDADES DE CONSERVAÇÃO
+                                    <span class="glyphicon"></span>
+                                </th> -->
+                                <th colspan="2" class="tbl-center"> AÇÃO</th>
+                            </tr>
+                        </thead>
+                        <div class="feedback" *ngIf="regionais.length === 0">
+                            <i class="material-icons" style="font-size: 24px;">error_outline</i>
+                            <span class="feedback-message">Nenhum registro encontrado</span>
+                        </div>
+                        <tbody *ngIf="regionais.length !== 0">
+                            <tr *ngFor="let item of regionais">
+                                <td class="tbl-left">
+                                    {{ item.number }}
+                                </td>
+                                <td class="tbl-left">
+                                    {{ item.name }}
+                                </td>
+                                <!-- <td class="tbl-left">
+                                    <a class="pointer" (click)="toViewUC(item)" data-toggle="modal" data-target="#modal-uc"> Ver UC's</a>
+                                </td> -->
+                                <td class="tbl-right">
+                                    <a (click)="toView(item)" id="btn_details" title="Ver detalhes">
+                                        <i class="large material-icons">visibility</i>
+                                    </a>
+                                </td>
+                                <td class="tbl-right">
+                                    <a title="Editar" id="btn_edit" (click)="setRegional(item)" *ngIf="canUpdate">
+                                        <i class="fa fa-pencil fa-fw"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="box-footer">
+                    <app-paginate [paginate]="paginate" (eventPage)="_setPage($event)"></app-paginate>
+                </div>
+            </div>
+            <div class="row" *ngIf="canCreate">
+                <div class="btn-col">
+                    <button class="btn btn-primary" [routerLink]="['/regionais/registro']" id="btn_new"> Cadastrar </button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Modal UC-->
+<div class="modal fade" id="modal-uc">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" [ngStyle]="object">
+            <div class="modal-header uc">
+            </div>
+            <div class="modal-body modal-uc">
+                <section class="content">
+                    <div class="box">
+                        <div class="box-header_ ">
+                            <h5 class="box-title">Unidades de Conservação</h5>
+                        </div>
+                        <div>
+                            <div class="box-body">
+                                <table id="example2" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="tbl-left">NOME
+                                                <span class="glyphicon"></span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <div class="feedback" *ngIf="regionais.length === 0">
+                                        <i class="material-icons" style="font-size: 24px;">error_outline</i>
+                                        <span class="feedback-message">Nenhum registro encontrado</span>
+                                    </div>
+                                    <tbody *ngIf="regionais.length !== 0">
+                                        <tr *ngFor="let item of pagedItems">
+                                            <td class="tbl-left">
+                                                {{ item.name }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="box-footer">
+                                <div class="row">
+                                    <div class="col-sm-6 pagination1" *ngIf="pagedItems">
+                                        <div class="pag1" *ngIf="pagedItems.length > 10">
+                                            Exibindo <strong>{{ pager.currentPage === 1 ? 1 : (pager.currentPage * 10) - 9 }} </strong> -
+                                            <strong>{{ pager.currentPage === pager.totalPages ? regional.unities.length : (pager.currentPage * 10)  }} </strong> &nbsp;de &nbsp;<strong>{{ regional.unities.length }} </strong>
+                                        </div>
+                                        <div class="pag2" *ngIf="pagedItems.length <= 10">
+                                            Exibindo <strong>{{ pager.currentPage === 1 ? 1 : (pager.currentPage * 10) - 9 }} </strong> -
+                                            <strong>{{ regional.unities.length }} </strong> &nbsp;de&nbsp; <strong>{{ regional.unities.length }} </strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 pagination2">
+                                        <!-- <app-paginate [paginate]="paginate" (eventPage)="setPage($event)"></app-paginate> -->
+                                        <ul *ngIf="pager.pages && pager.pages.length" class="pagination stylepage">
+                                            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                                <a (click)="setPage(1)">Primeiro</a>
+                                            </li>
+                                            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                                <a (click)="setPage(pager.currentPage - 1)">Anterior</a>
+                                            </li>
+                                            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                                <a (click)="setPage(page)">{{page}}</a>
+                                            </li>
+                                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                                <a (click)="setPage(pager.currentPage + 1)">Próxima</a>
+                                            </li>
+                                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                                <a (click)="setPage(pager.totalPages)">Último</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>
+<!-- /.modal -->

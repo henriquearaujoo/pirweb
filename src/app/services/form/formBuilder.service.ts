@@ -28,11 +28,11 @@ export class FormBuilderService extends RestService {
   }
 
   public getForms(filter?: any, page?: number) {
-    if ( filter === undefined ) {
-      return this.get(this.apiurl);
-    } else {
-      return this.get(this.apiurl);
+    if (filter === undefined) {
+      return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page + '&sort=description,asc');
     }
+    return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page + '&description=' + filter +
+      '&sort=description,asc');
   }
 
   public load(id: string) {

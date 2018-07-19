@@ -1,0 +1,197 @@
+<simple-notifications></simple-notifications>
+<section class="content">
+    <div class="box-header_1 with-border">
+        <h5 class="box-title"> Informações da Unidade de Conservação
+        </h5>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="form" (ngSubmit)="saveData(f1.valid)" id="f_1" #f1="ngForm" novalidate>
+                <div class="box box-primary uc">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="form-group profile" [ngClass]="applyCssError(f1, uc)">
+                                    <label class="control-label">Nome da Unidade de Conservação</label>
+                                    <input class="form-control" #uc="ngModel" [(ngModel)]="unity.name" name="unity_name" pattern="[\w,./_=?-].*" id="regional_name" maxlength="60" placeholder="Unidade de Conservação" required>
+                                    <app-control-field-error [showError]="verifyValidSubmitted(f1, uc)" [field]="uc" msgError="Digite um nome para o UC">
+                                    </app-control-field-error>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group profile" [ngClass]="applyCssError(f1, abbreviation)">
+                                    <label class="control-label">Sigla</label>
+                                    <input class="form-control" #abbreviation="ngModel" [(ngModel)]="unity.abbreviation" name="unity_abbreviation" pattern="[\w,./_=?-].*" id="regional_abbreviation" maxlength="2" placeholder="Sigla" required>
+                                    <app-control-field-error [showError]="verifyValidSubmitted(f1, abbreviation)" [field]="abbreviation" msgError="Digite uma sigla para a UC">
+                                    </app-control-field-error>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- <div class="col-sm-6 cancel">
+                            <button type="button" class="btn btn-default" (click)="onCancel()" id="btn_return">
+                                    <span *ngIf="isNewData">Cancelar</span>   <span *ngIf="!isNewData">Voltar</span> 
+                                </button>
+                        </div> -->
+                    <div class="col-sm-12 save text-right">
+                        <button type="submit" class="btn btn-primary btn-sm" name="submit" id="btn_save">Salvar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <section class="content cities">
+                <div class="box box-primary">
+                    <div class="box-header cities">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="box-title cities">MUNICÍPIOS</div>
+                            </div>
+                            <div class="col-sm-6 actions text-right">
+                                <button type="button" class="btn btn-primary add" name="submit" id="btn_add" (click)="addCity()" data-toggle="modal" data-target="#modal-uc" *ngIf="unity">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                          ADICIONAR                     
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box-body">
+                    <table id="example2" class="table table-hover ">
+                        <thead>
+                            <tr>
+                                <th class="tbl-left">NÚMERO </th>
+                                <th class="tbl-left">MUNICÍPIOS</th>
+                                <th colspan="3" style="text-align: center;"> AÇÃO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of pagedItems; let i = index">
+                                <!-- <tr *ngFor="let item of answers"> -->
+                                <td class="tbl-left">
+                                    {{ item.number }}
+                                </td>
+                                <td class="tbl-left text-max">
+                                    <p class="limit-text">{{ item.name }}</p>
+                                </td>
+
+                                <td class="tbl-right">
+                                    <a href="" title="Ver detalhes" id="btn_details" data-toggle="modal" data-target="#modal-uc" (click)="showCity(item)">
+                                        <i class="large material-icons">visibility</i>
+                                    </a>
+                                </td>
+                                <td class="tbl-right">
+                                    <a href="" title="Editar" id="btn_edit" data-toggle="modal" data-target="#modal-uc" (click)="onEdit(item)">
+                                        <i class="fa fa-pencil fa-fw"></i>
+                                    </a>
+                                </td>
+                                <!-- <td class="tbl-right" *ngIf="canDelete">
+                                                <a href="" [title]="item.is_enabled === true ? 'Desativar': 'Ativar'" data-toggle="modal" data-target="#modal-status" (click)="changeStatus(item)" id="btn_status">
+                                                    <i [ngClass]="item.is_enabled === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' " aria-hidden="true"></i>
+                                                </a>
+                                            </td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="col-sm-6 pagination1" *ngIf="pager.pages && pager.pages.length">
+                            <div class="pag1" *ngIf="pagedItems.length > 10">
+                                Exibindo <strong>{{ pager.currentPage === 1 ? 1 : (pager.currentPage * 10) - 9 }} </strong> -
+                                <strong>{{ pager.currentPage === pager.totalPages ? pagedItems.length : (pager.currentPage * 10)  }} </strong> &nbsp;de &nbsp;<strong>{{ pagedItems.length }} </strong>
+                            </div>
+                            <div class="pag2" *ngIf="pagedItems.length <= 10">
+                                Exibindo <strong>{{ pager.currentPage === 1 ? 1 : (pager.currentPage * 10) - 9 }} </strong> -
+                                <strong>{{ pagedItems.length }} </strong> &nbsp;de&nbsp; <strong>{{ pagedItems.length }} </strong>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 pagination2">
+                            <!-- <app-paginate [paginate]="paginate" (eventPage)="setPage($event)"></app-paginate> -->
+                            <ul *ngIf="pager.pages && pager.pages.length" class="pagination stylepage">
+                                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                    <a (click)="setPage(1)">Primeiro</a>
+                                </li>
+                                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                    <a (click)="setPage(pager.currentPage - 1)">Anterior</a>
+                                </li>
+                                <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                    <a (click)="setPage(page)">{{page}}</a>
+                                </li>
+                                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                    <a (click)="setPage(pager.currentPage + 1)">Próxima</a>
+                                </li>
+                                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                    <a (click)="setPage(pager.totalPages)">Último</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 ">
+            <div class="form-group">
+                <button class="btn btn-default btn-md" id="btn_return" (click)="toBack()"> Voltar</button>
+            </div>
+        </div>
+        <!-- <div class="col-sm-6 add">
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary btn-md" name="submit" id="btn_add" data-toggle="modal" data-target="#modal-uc" (click)="onNewAnswer()">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                      Adicionar Município                        
+                  </button>
+                </div>
+            </div> -->
+    </div>
+
+</section>
+<app-modal></app-modal>
+
+<!-- Modal UC-->
+<div class="modal fade" id="modal-uc">
+    <div class="modal-dialog">
+        <div class="modal-content" [ngStyle]="object">
+            <div class="modal-header uc">
+            </div>
+            <div class="modal-body modal-uc">
+                <form name="fQuestion" (ngSubmit)="fuc.form.valid && saveUC()" #fuc="ngForm" novalidate>
+                    <div class="row" *ngIf="show">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label"> Município</label>
+                                <input type="text" class="form-control" id="cityName" name="cityName" [(ngModel)]="city.name" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="!show">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label"> Município</label>
+                                <select class="form-control" name="cityName" id="cityName" #cityName="ngModel" [(ngModel)]="cityId">
+                                    <option [ngValue]="item.id" *ngFor="let item of cities">  {{ item.name }} </option>                                        
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer footer-uc" *ngIf="!show">
+                        <button type="button" class="btn btn-default" id="btn_cancel_uc" data-dismiss="modal" (click)=onCancelAddCity()>Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="btn_save_city" data-dismiss="modal" (click)=saveCity()>Salvar</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" *ngIf="show">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>
+<!-- /.modal -->

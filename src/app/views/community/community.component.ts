@@ -1,3 +1,5 @@
+import { Unity } from './../../models/unity';
+import { RegionalService } from './../../services/regional/regional.service';
 import { SweetAlert2Service } from './../../services/sweetalert/sweet-alert.2service';
 import { LoaderService } from './../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../helpers/permissions';
@@ -13,6 +15,7 @@ import { CommunityService } from '../../services/community/community.service';
 import { ModalService } from '../../components/modal/modal.service';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Regional } from '../../models/regional';
 @Component({
   selector: 'app-community',
   templateUrl: './community.component.html',
@@ -35,6 +38,8 @@ export class CommunityComponent implements OnInit {
   private enable_previous: boolean;
   private cont: number;
   private cities: any[] = new Array();
+  private regionais: Regional[] = new Array();
+  private unities: Unity[] = new Array();
 
   private isFormValid: boolean;
   private isCkeckboxValid: boolean;
@@ -105,6 +110,7 @@ export class CommunityComponent implements OnInit {
 
   constructor(
     private communityService: CommunityService,
+    private regionalService: RegionalService,
     private toastService: ToastService,
     private modalService: ModalService,
     private sweetAlertService: SweetAlertService,
@@ -133,6 +139,8 @@ export class CommunityComponent implements OnInit {
     /*check if is a new or update*/
     this.isNewData = true;
     this.urlId = localStorage.getItem('communityId');
+    this.getRegionais();
+    // this.community.regional = new Regional();
     if (this.urlId !== null && this.urlId !== '') {
       this.isNewData = false;
       this.load();
@@ -157,8 +165,6 @@ export class CommunityComponent implements OnInit {
 
     this.culturalProduction = '';
     this.isCkeckboxValid = true;
-
-    this.getCities();
   }
 
   saveData(form1, fomr2) {
@@ -170,13 +176,25 @@ export class CommunityComponent implements OnInit {
     if (this.community.longitude === null) {
       this.community.longitude = 0;
     } */
-
+    console.log('community 01:', this.community);
     if (isValid && this._isSave) {
       this.community.city_id = this.community.city.id;
       if (this.isNewData || this.community.id === undefined) {
         this.communityService.insert(this.community).subscribe(
           success => {
             this.community = success;
+            console.log('community 02:', this.community);
+            this.community.regional = this.community.unity.regional;
+            this.regionalService.loadUnity(this.community.unity.id).subscribe(
+              u => {
+                console.log('unities:', u);
+                this.unities = u.regional.unities;
+                this.cities = u.cities;
+                // this.community.regional = u.regional;
+                // this.unities = u.regional.unities;
+                // this.cities = u.cities;
+              }
+            );
             this.isNewData  = false;
             this.sweetAlertService.alertSuccess('/comunidades');
           },
@@ -195,6 +213,18 @@ export class CommunityComponent implements OnInit {
         this.communityService.update(this.community).subscribe(
           success => {
             this.community = success;
+            console.log('community 02:', this.community);
+            this.community.regional = this.community.unity.regional;
+            this.regionalService.loadUnity(this.community.unity.id).subscribe(
+              u => {
+                console.log('unities:', u);
+                this.unities = u.regional.unities;
+                this.cities = u.cities;
+                // this.community.regional = u.regional;
+                // this.unities = u.regional.unities;
+                // this.cities = u.cities;
+              }
+            );
             this.sweetAlertService.alertSuccessUpdate('/comunidades');
           },
           error => {
@@ -243,6 +273,18 @@ export class CommunityComponent implements OnInit {
     this.communityService.load(this.urlId).subscribe(
       success => {
         this.community = success;
+        this.community.regional = this.community.unity.regional;
+        this.regionalService.loadUnity(this.community.unity.id).subscribe(
+          u => {
+            console.log('unities:', u);
+            this.unities = u.regional.unities;
+            this.cities = u.cities;
+            // this.community.regional = u.regional;
+            // this.unities = u.regional.unities;
+            // this.cities = u.cities;
+          }
+        );
+        console.log(this.community);
         this.verifyDataCheckbox();
         this.loaderService.hide();
         if (this.community === undefined) {
@@ -356,17 +398,38 @@ export class CommunityComponent implements OnInit {
     }
   }
 
-  getCities() {
-    this.communityService.getState().subscribe(
-      state => {
-        this.communityService.getCities(state[0].id).subscribe(
-          states => {
-            this.cities = states.cities;
-          },
-          error => console.log(error)
-        );
+  getRegionais() {
+    this.subscription = this.regionalService.getAll().subscribe(
+      success => {
+        this.regionais = success;
+        console.log(this.regionais);
+      },
+      error => {
+        console.log(error);
       }
     );
+  }
+
+  getUnities() {
+    this.regionais.filter( elem => {
+        if (elem.id === this.community.regional.id) {
+          this.unities = elem.unities;
+        }
+      });
+    if (this.unities !== undefined) {
+      if (this.unities.length > 0) {
+        this.community.unity = this.unities[0];
+      }
+    }
+    this.getCities();
+  }
+
+  getCities() {
+    this.unities.filter( elem => {
+      if (elem.id === this.community.unity.id) {
+        this.cities = elem.cities;
+      }
+    });
   }
 
   save(tab: string, isValid: boolean) {

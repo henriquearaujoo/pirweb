@@ -11,7 +11,7 @@
         <!-- pager -->
         <ul *ngIf="pages && pages.length" class="pagination stylepage">
             <li *ngIf="paginate.first" [ngClass]="{disabled:paginate.first}">
-                <a >Primeiro</a>
+                <a>Primeiro</a>
             </li>
             <li *ngIf="!paginate.first" [ngClass]="{disabled:paginate.first}">
                 <a (click)="setPage(0)">Primeiro</a>
@@ -20,24 +20,24 @@
                 <a> Anterior</a>
             </li>
             <li [ngClass]="{disabled:paginate.first}" *ngIf="!paginate.first">
-                    <a (click)="setPage(paginate.number - 1)">Anterior</a>
-                </li>
+                <a (click)="setPage(paginate.number - 1)">Anterior</a>
+            </li>
             <li *ngFor="let page of pages" [ngClass]="{active:paginate.number + 1 === page}">
                 <a (click)="setPage(page - 1)" *ngIf="paginate.totalPages !== 0 && paginate.totalPages !== 1">{{page}}</a>
             </li>
             <li *ngIf="paginate.totalPages === 1" [ngClass]="{active:paginate.number + 1 === 1}">
-                    <a (click)="setPage(page - 1)">1</a>
+                <a (click)="setPage(page - 1)">1</a>
             </li>
             <li [ngClass]="{disabled:paginate.number === paginate.totalPages - 1}" *ngIf="!paginate.last">
                 <a (click)="setPage(paginate.number + 1)">Próximo</a>
             </li>
             <li [ngClass]="{disabled:paginate.last}" *ngIf="paginate.last">
-                    <a>Próximo</a>
-                </li>
+                <a>Próximo</a>
+            </li>
             <li *ngIf="!paginate.last" [ngClass]="{disabled:paginate.last}">
                 <a (click)="setPage(paginate.totalPages - 1)">Último</a>
             </li>
-            <li *ngIf="paginate.last"  [ngClass]="{disabled:paginate.last}">
+            <li *ngIf="paginate.last" [ngClass]="{disabled:paginate.last}">
                 <a>Último</a>
             </li>
         </ul>

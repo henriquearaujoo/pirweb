@@ -14,6 +14,7 @@ export class MapsComponent implements OnInit {
   lng: number =  -60.013124;
   @Input() markers;
   @Input() agents: User[];
+  @Input() agent: User;
 
   constructor() { }
 

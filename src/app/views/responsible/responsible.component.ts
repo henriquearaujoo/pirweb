@@ -55,6 +55,7 @@ export class ResponsibleComponent implements OnInit {
 
   private family_income_other_count: number;
   private family_income: any[] = new Array();
+  private otherChildren: any  = { has: null};
 
   private canRead: boolean;
   private canUpdate: boolean;
@@ -141,7 +142,7 @@ export class ResponsibleComponent implements OnInit {
       'Trabalha e é a principal responsável pelo sustento da familia'
     ];
 
-    this.family_income = ['pesca', 'farinha', 'caça', 'roçado', 'outra'];
+    this.family_income = ['PESCA', 'FARINHA', 'CAÇA', 'ROÇADO', 'PROGRAMAS SOCIAIS', 'OUTRA'];
     this.family_income_other_count = 0;
   }
 
@@ -158,6 +159,9 @@ export class ResponsibleComponent implements OnInit {
           break;
         }
       }
+
+      delete this.responsible.children;
+      delete this.responsible.pregnancies;
 
       this.responsible.habitation_members_count = Number(this.responsible.habitation_members_count);
 
@@ -178,6 +182,10 @@ export class ResponsibleComponent implements OnInit {
         delete this.responsible.mother;
       }
 
+      if (!this.responsible.has_other_children) {
+        this.responsible.children_count = 0;
+      }
+
       if (this.isNewData || this.responsible.id === undefined) {
         this.responsibleService.insert(this.responsible).subscribe(
           success => {
@@ -194,6 +202,7 @@ export class ResponsibleComponent implements OnInit {
         // console.log(this.responsible);
         this.responsibleService.update(this.responsible).subscribe(
           success => {
+            console.log(success);
             this.sweetAlertService.alertSuccessUpdate('/responsaveis');
           },
           error => {
@@ -230,6 +239,11 @@ export class ResponsibleComponent implements OnInit {
       success => {
         this.responsible = success;
         this.alterData();
+        // if (this.responsible.children_count === 0) {
+        //   this.otherChildren.has = false;
+        // } else {
+        //   this.otherChildren.has = true;
+        // }
         this.loaderService.hide();
         if (this.responsible === undefined) {
           this.responsible = new Responsible();

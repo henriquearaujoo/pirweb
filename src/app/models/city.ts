@@ -5,5 +5,7 @@ export class City {
     public state_id: string;
     public name: string;
 
+    public number: number;
+
     constructor() { }
 }

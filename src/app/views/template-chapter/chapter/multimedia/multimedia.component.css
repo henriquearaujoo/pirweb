@@ -1,5 +1,6 @@
-.form-group, .form-control{
-    color: grey;
+.form-group,
+.form-control {
+    color: #335164;
 }
 
 label.control-label {
@@ -8,12 +9,12 @@ label.control-label {
 
 .btn-primary {
     /* width: 100px; */
-    background-color:#373d40;
+    background-color: #373d40;
     border-color: #373d40;
 }
 
 .box {
-    background-color: #f4f4f4;
+    background-color: #FBFBFB;
     box-shadow: none;
 }
 
@@ -40,12 +41,15 @@ input[type=file] {
     cursor: inherit;
     display: block;
 }
+
 .btn.btn-default.image-preview-input {
     /* height: 80px; */
     width: 100%;
 }
 
+
 /******** Modal *********/
+
 .modal-footer {
     padding: 0;
 }
@@ -54,15 +58,17 @@ input[type=file] {
     width: 421px;
     height: 234px;
 }
+
 .modal-btn-cancel {
-    float: left;  
+    float: left;
 }
 
 .modal-body {
     padding: 32px;
-    padding-bottom: 45px; 
+    padding-bottom: 45px;
     text-align: center;
 }
+
 .modal-icon {
     text-align: center;
 }
@@ -81,5 +87,6 @@ button#btn_confirm {
     height: 45px;
     border-radius: 0;
 }
+
 
 /******** END MODAL ********/

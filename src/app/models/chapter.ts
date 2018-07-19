@@ -18,5 +18,6 @@ export class Chapter {
     public versions: Chapter[] = new Array();
     public thumbnails: any[] = new Array();
     public period: number;
+    public extra_forms: string;
 
 }

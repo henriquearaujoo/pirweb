@@ -22,9 +22,19 @@
                         <img src="{{ socialTab }}" />
                     </a>
                 </li>
+                <li>
+                    <a class="tab-pane" (click)="walk(2)" href="#tab_3" data-toggle="tab">
+                        <img src="{{responsiblesTab }}" style="width: 171px;" />
+                    </a>
+                </li>
+                <li>
+                    <a class="tab-pane" (click)="walk(3)" href="#tab_4" data-toggle="tab">
+                        <img src="{{ visitsTab }}" style="width: 171px;" />
+                    </a>
+                </li>
             </ul>
             <div class="tab-content">
-                <div class="tab-pane active" id="tab_1">
+                <div class="tab-pane" [ngClass]="routeChildResponsible ? '' : 'active'" id="tab_1">
                     <div class="content">
                         <section class="content">
                             <div class="box-header_1 with-border">
@@ -54,7 +64,7 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label class="control-label">Sexo</label> <br/>
-                                                            <span class="form-control"> {{ child.birth === 'FEMALE' ? 'Feminino' : 'Masculino' }} </span>
+                                                            <span class="form-control"> {{ child.gender === 'FEMALE' ? 'Feminino' : 'Masculino' }} </span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -72,21 +82,22 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
+                                                <!-- <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="form-group" *ngFor="let resp of child.responsible">
                                                             <label class="control-label">Nome do Responsável</label>
                                                             <input type="text" name="nameResponsible" [(ngModel)]="resp.name" id="nameResponsible" class="form-control" disabled>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <!-- <div class="col-md-3">
                                             <div class="form-group">
-                                                <button class="btn btn-default btn-block" [routerLink]="['/criancas']" id="btn_return1"> Voltar</button>
+                                                <button class="btn btn-default btn-block" [routerLink]="['/criancas']" id="btn_return1" *ngIf="!routeResp"> Voltar</button>
+                                                <button class="btn btn-default btn-block" (click)="toBack()" [routerLink]="['/responsaveis/detalhes']" id="btn_return1" *ngIf="routeResp"> Voltar</button>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </form>
                                 </div>
                             </div>
@@ -201,21 +212,211 @@
                                             </div>
                                         </div>
                                     </form>
-                                    <div class="col-md-3">
+                                    <!-- <div class="col-md-3">
                                         <div class="form-group">
                                             <button class="btn btn-default btn-block" [routerLink]="['/criancas']" id="btn_return3"> Voltar</button>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </section>
                     </div>
                 </div>
+                <div class="tab-pane" [ngClass]="routeChildResponsible ? 'active' : ''" id="tab_3">
+                    <div class="content">
+                        <section class="content">
+                            <div class="box-header_1 with-border">
+                                <h5 class="box-title"> Responsáveis
+                                </h5>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <form name="form" #f3="ngForm" novalidate>
+                                        <div class="box box-primary">
+                                            <div class="box-body">
+                                                <table id="example2" class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="tbl-left">NOME DO RESPONSÁVEL
+                                                                <span class="glyphicon"></span>
+                                                            </th>
+                                                            <th class="text-center"> AÇÃO</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <div class="feedback" *ngIf="child.responsible.length === 0">
+                                                        <i class="material-icons" style="font-size: 24px;">error_outline</i>
+                                                        <span class="feedback-message">Nenhum registro encontrado</span>
+                                                    </div>
+                                                    <tbody *ngIf="child.responsible.length !== 0 && hasdata">
+                                                        <tr *ngFor="let item of child.responsible">
+                                                            <td class="tbl-left">
+                                                                {{ item.name }}
+                                                            </td>
+                                                            <td class="text-center pointer">
+                                                                <a (click)="toViewResponsible(item)" id="btn_details" title="Ver detalhes">
+                                                                    <i class="large material-icons">visibility</i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-md-3" *ngIf="!showPregnancy">
+                                            <div class="form-group">
+                                                <button class="btn btn-default btn-block" [routerLink]="['/responsaveis']" id="btn_return3"> Voltar</button>
+                                            </div>
+                                        </div> -->
+                                        <div class="col-md-3 col-md-offset-6">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <!-- /.tab-pane -->
+                <div class="tab-pane" [ngClass]="routeChild ? 'active' : ''" id="tab_4">
+                    <div class="content">
+                        <section class="content">
+                            <div class="box-header_1 with-border">
+                                <h5 class="box-title"> Visitas
+                                </h5>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <form name="form" #f3="ngForm" novalidate>
+                                        <div class="box box-primary">
+                                            <div class="box-body">
+                                                <table id="example2" class="table" *ngIf="child.visits">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="tbl-left">VISITA Nº</th>
+                                                            <th class="tbl-left">QUANDO</th>
+                                                            <th class="tbl-left"> TEMA</th>
+                                                            <th class="tbl-center"> AÇÃO</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <div class="feedback" *ngIf="child.visits.length === 0">
+                                                        <i class="material-icons" style="font-size: 24px;">error_outline</i>
+                                                        <span class="feedback-message">Nenhum registro encontrado</span>
+                                                    </div>
+                                                    <tbody *ngIf="child.visits.length !== 0">
+                                                        <tr *ngFor="let item of child.visits">
+                                                            <td class="tbl-left">
+                                                                {{ item.number }}
+                                                            </td>
+                                                            <td class="tbl-left">
+                                                                <p class="limit-text">{{ item.chapter?.title }}</p>
+                                                            </td>
+                                                            <td class="tbl-left">
+                                                                <p class="limit-text"> {{ item.chapter?.subtitle }}</p>
+                                                            </td>
+                                                            <td class="tbl-center">
+                                                                <a (click)="setVisit(item)" class="pointer" id="btn_details" data-toggle="modal" data-target="#modal-visit" title="Ver detalhes" *ngIf="item.name  !== 'Administrator'">
+                                                                    <i class="large material-icons">visibility</i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-md-3">
+                                            <div class="form-group">
+                                                <button class="btn btn-default btn-block" [routerLink]="['/responsaveis']" id="btn_return3"> Voltar</button>
+                                            </div>
+                                        </div> -->
+                                        <div class="col-md-3 col-md-offset-6">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <button class="btn btn-default btn-block" [routerLink]="['/criancas']" id="btn_return1" *ngIf="!routeResp"> Voltar</button>
+                        <button class="btn btn-default btn-block" (click)="toBack()" [routerLink]="['/responsaveis/detalhes']" id="btn_return1" *ngIf="routeResp"> Voltar</button>
+                    </div>
+                </div>
             </div>
             <!-- /.tab-content -->
+
         </div>
         <!-- </form> -->
     </section>
 </div>
 
 <app-modal></app-modal>
+
+<!-- Modal VISIT -->
+<div class="modal fade" id="modal-visit">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" [ngStyle]="object">
+            <div class="modal-body" *ngIf="visit !== undefined">
+                <div class="row">
+                    <div class="col-md-4" style="padding-right: 0;">
+                        <div class="text-visit">
+                            VISITA
+                        </div>
+                        <div class="n-visit">
+                            Nº {{ visit.number }}
+                        </div>
+                    </div>
+                    <div class="col-md-8" style="padding-left: 0;">
+                        <div class="when-visit">
+                            {{ visit.chapter?.title }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group-data">
+                            <label class="label-control"> Tema: </label> {{ visit.chapter?.subtitle }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group-data">
+                            <label class="label-control"> Família: </label>
+                            <span *ngIf="visit.child !== undefined">
+                                    {{ visit.child.name }}
+                                </span>
+                            <span *ngIf="visit.responsible !== undefined">
+                                    {{ visit.responsible.name }}
+                                </span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group-data">
+                            <label class="label-control"> Tipo: </label>
+                            <span>
+                                    {{ visit.child !== undefined ? 'CRIANÇA' : 'GESTANTE' }}
+                                </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group-data">
+                            <label class="label-control"> Data: </label>
+                            <span> {{ visit.done_at | date:'dd-MM-yyyy' }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                <div class="modal-btn-confirm">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn_cancel">Fechar</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

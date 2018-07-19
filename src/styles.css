@@ -32,10 +32,42 @@ button.swal-button.swal-button--ok.swal-btn-ok {
 
 /* SweetAlert2*/
 
+button.swal2-confirm.confirm-lg.swal2-styled,
+button.swal2-cancel.cancel-lg.swal2-styled {
+    width: 210.5px;
+    margin: 0;
+    height: 45px;
+    border-radius: 0;
+    margin-top: 22px;
+    font-size: 15px;
+}
 
-/* .swal2-popup.swal2-modal.swal2-show {
-    height: 250px;
-} */
+.swal2-popup.swal2-modal.modal-lg.swal2-show {
+    padding: 24px 0 0 0;
+}
+
+.swal2-popup.swal2-modal.modal-lg.swal2-show {
+    height: 234px;
+}
+
+button.swal2-cancel.cancel-lg.swal2-styled {
+    color: #373d40;
+}
+
+.swal2-icon.swal2-warning.swal2-animate-warning-icon {
+    color: #db8989;
+    border-color: #db8989;
+}
+
+
+/* end SweetAlert2*/
+
+@media (max-height: 600px) {
+    section.sidebar.logout {
+        position: relative!important;
+        bottom: 0!important;
+    }
+}
 
 @media (max-height: 719px) {
     .wrapper {
@@ -116,6 +148,11 @@ img.ic_add {
     padding-bottom: 1px;
 }
 
+.ql-toolbar.ql-snow {
+    border: 1px solid #DFE8ED;
+    background-color: #DFE8ED;
+}
+
 
 /* TABLE */
 
@@ -184,10 +221,6 @@ a#btn_previous {
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 350px;
-}
-
-.content_ {
-    /* margin-left: 22px; */
 }
 
 .pointer {

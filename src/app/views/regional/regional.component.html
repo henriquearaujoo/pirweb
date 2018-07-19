@@ -1,0 +1,289 @@
+<simple-notifications></simple-notifications>
+<div class="content_">
+    <div class="content-top">
+        <div class="content_fa"> <i class="fa fa-home"></i> Regional > Registro </div>
+    </div>
+
+    <section class="content_user">
+        <div class="content-header ">
+            <h5 class="content-title"> REGIONAL</h5>
+        </div>
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li>
+                    <a class="tab-pane active" href="#tab_1" data-toggle="tab">
+                        <img src="{{ sectionInfoTab }}" />
+                    </a>
+
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1">
+                    <div class="content">
+                        <section class="content" *ngIf="!isShowUC">
+                            <div class="box-header_1 with-border">
+                                <h5 class="box-title"> Informações da Regional
+                                </h5>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <form name="form" (ngSubmit)="saveData(f1.valid)" id="f_1" #f1="ngForm" novalidate>
+                                        <div class="box box-primary">
+                                            <div class="box-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group profile" [ngClass]="applyCssError(f1, regionalName)">
+                                                            <label class="control-label">Nome da Regional</label>
+                                                            <input class="form-control" name="regional" #regionalName="ngModel" [(ngModel)]="regional.name" pattern="[\w,./_=?-].*" id="regional_name" maxlength="60" placeholder="Regional" required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, regionalName)" [field]="regional" msgError="Digite um nome para o regional">
+                                                            </app-control-field-error>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <!-- <div class="col-sm-6 cancel">
+                                                <button type="button" class="btn btn-default" (click)="onCancel()" id="btn_return">
+                                                        <span *ngIf="isNewData">Cancelar</span>   <span *ngIf="!isNewData">Voltar</span> 
+                                                    </button>
+                                            </div> -->
+                                            <div class="col-sm-12 save text-right">
+                                                <button type="submit" class="btn btn-primary btn-sm" name="submit" id="btn_save">Salvar</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <section class="content">
+                                        <div class="box box-primary">
+                                            <div class="box-header">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="box-title">UNIDADES DE CONSERVAÇÃO</div>
+                                                    </div>
+                                                    <div class="col-sm-6 actions">
+                                                        <button class="btn btn-primary add" (click)="createNewUC()" [disabled]="regional.id === undefined">
+                                                            <i class="fa fa-plus"></i>ADICIONAR
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="box-body">
+                                            <table id="example2" class="table table-hover ">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="tbl-left">NÚMERO </th>
+                                                        <th>UC
+                                                            <span class="glyphicon"></span>
+                                                        </th>
+                                                        <th>MUNICÍPIO</th>
+                                                        <th colspan="3" style="text-align: center;"> AÇÃO</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of pagedItems; let i = index">
+                                                        <!-- <tr *ngFor="let item of answers"> -->
+                                                        <td class="tbl-left">
+                                                            {{ item.number }}
+                                                        </td>
+                                                        <td class="tbl-left text-max">
+                                                            <p class="limit-text">{{ item.name }}</p>
+                                                        </td>
+                                                        <td>
+                                                            <a (click)="setUnity(item)" data-toggle="modal" data-target="#modal-cities"> Municípios </a>
+                                                        </td>
+
+                                                        <td class="tbl-right">
+                                                            <a href="" title="Ver detalhes" id="btn_details" data-toggle="modal" data-target="#modal-uc" (click)="showUC(item)">
+                                                                <i class="large material-icons">visibility</i>
+                                                            </a>
+                                                        </td>
+                                                        <td class="tbl-right">
+                                                            <a title="Editar" id="btn_edit" (click)="onEdit(item)">
+                                                                <i class="fa fa-pencil fa-fw"></i>
+                                                            </a>
+                                                        </td>
+                                                        <!-- <td class="tbl-right" *ngIf="canDelete">
+                                                                    <a href="" [title]="item.is_enabled === true ? 'Desativar': 'Ativar'" data-toggle="modal" data-target="#modal-status" (click)="changeStatus(item)" id="btn_status">
+                                                                        <i [ngClass]="item.is_enabled === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' " aria-hidden="true"></i>
+                                                                    </a>
+                                                                </td> -->
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="box-footer">
+                                            <div class="row">
+                                                <div class="col-sm-6 pagination1" *ngIf="pagedItems.length > 0">
+                                                    <div class="pag1" *ngIf="regional.unities.length > 10">
+                                                        Exibindo <strong>{{ pager.currentPage === 1 ? 1 : (pager.currentPage * 10) - 9 }} </strong> -
+                                                        <strong>{{ pager.currentPage === pager.totalPages ? regional.unities.length : (pager.currentPage * 10)  }} </strong> &nbsp;de &nbsp;<strong>{{ regional.unities.length }} </strong>
+                                                    </div>
+                                                    <div class="pag2" *ngIf="regional.unities.length <= 10">
+                                                        Exibindo <strong>{{ pager.currentPage === 1 ? 1 : (pager.currentPage * 10) - 9 }} </strong> -
+                                                        <strong>{{ regional.unities.length }} </strong> &nbsp;de&nbsp; <strong>{{ regional.unities.length }} </strong>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 pagination2">
+                                                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination stylepage">
+                                                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                                            <a (click)="setPage(1)">Primeiro</a>
+                                                        </li>
+                                                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                                            <a (click)="setPage(pager.currentPage - 1)">Anterior</a>
+                                                        </li>
+                                                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                                            <a (click)="setPage(page)">{{page}}</a>
+                                                        </li>
+                                                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                                            <a (click)="setPage(pager.currentPage + 1)">Próxima</a>
+                                                        </li>
+                                                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                                            <a (click)="setPage(pager.totalPages)">Último</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                            <div class="row footer">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-default" (click)="onCancel()" id="btn_return3">
+                                            <span *ngIf="isNewData">Cancelar</span>   <span *ngIf="!isNewData">Voltar</span> 
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <app-uc [regional]="regional" [unity]="unity" [isNewUC]="isNewUC" (eventSave)="onSaveUnity($event)" (cancel)="onCancelAddUC($event)" *ngIf="isShowUC"></app-uc>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.tab-content -->
+        </div>
+        <!-- </form> -->
+    </section>
+</div>
+
+<app-modal></app-modal>
+
+<!-- Modal Cities-->
+<div class="modal fade" id="modal-cities">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header uc">
+            </div>
+            <div class="modal-body modal-uc">
+                <section class="content">
+                    <div class="box">
+                        <div>
+                            <div class="box-body uc">
+                                <table id="example2" class="table" *ngIf="unity.cities">
+                                    <thead>
+                                        <tr>
+                                            <th class="tbl-left">MUNICÍPIOS
+                                                <span class="glyphicon"></span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <div class="feedback" *ngIf="unity.cities.length === 0">
+                                        <i class="material-icons" style="font-size: 24px;">error_outline</i>
+                                        <span class="feedback-message">Nenhum registro encontrado</span>
+                                    </div>
+                                    <tbody *ngIf="unity">
+                                        <tr *ngFor="let item of unity.cities">
+                                            <td class="tbl-left">
+                                                {{ item.name }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>
+<!-- /.modal -->
+
+<!-- Modal UC-->
+<div class="modal fade" id="modal-uc">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header uc">
+            </div>
+            <div class="modal-body modal-uc">
+                <section class="content">
+                    <div class="box">
+                        <div class="_box-header" style="padding: 18px;">
+                            <div class="row" *ngIf="show">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="control-label"> UC: </label>
+                                        <input type="text" class="form-control" name="unityName" [(ngModel)]="unity.name" readonly>
+                                        <!-- <label> {{ unity.name }}</label> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="show">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="control-label"> Sigla: </label>
+                                        <input type="text" class="form-control" name="unityAbbreviation" [(ngModel)]="unity.abbreviation" readonly>
+                                        <!-- <label> {{ unity.abbreviation }}</label> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="box-body uc">
+                                <table id="example2" class="table" *ngIf="unity.cities">
+                                    <thead>
+                                        <tr>
+                                            <th class="tbl-left">MUNICÍPIOS
+                                                <span class="glyphicon"></span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <div class="feedback" *ngIf="unity.cities.length === 0">
+                                        <i class="material-icons" style="font-size: 24px;">error_outline</i>
+                                        <span class="feedback-message">Nenhum registro encontrado</span>
+                                    </div>
+                                    <tbody *ngIf="unity">
+                                        <tr *ngFor="let item of unity.cities">
+                                            <td class="tbl-left">
+                                                {{ item.name }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>
+<!-- /.modal -->
