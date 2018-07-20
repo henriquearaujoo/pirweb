@@ -4,8 +4,8 @@ export const Constant = {
                localStorage.getItem('server') :
 
                 //  'http://localhost:3000/',
-                // 'http://10.10.2.181:8080/pir/rest/',
-                'http://10.10.3.146:8080/pir/rest/',
+                'http://10.10.2.181:8080/pir/rest/',
+                // 'http://10.10.3.146:8080/pir/rest/',
 
             //    'http://samsung.institutoitn.com.br/pir-dev/rest/',
             // 'http://10.10.3.148:8080/pir/rest/',

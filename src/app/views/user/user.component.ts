@@ -1,3 +1,7 @@
+import { IMyDateModel, IMyDate, IMyInputFieldChanged, IMyDpOptions } from 'mydatepicker';
+import { Unity } from './../../models/unity';
+import { Regional } from './../../models/regional';
+import { Agent } from './../../models/agent';
 import { SweetAlert2Service } from './../../services/sweetalert/sweet-alert.2service';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { LoaderService } from './../../services/loader/loader.service';
@@ -21,6 +25,7 @@ import { ModalService } from '../../components/modal/modal.service';
 import { sha256, sha224 } from 'js-sha256';
 import { Permissions, RuleState } from '../../helpers/permissions';
 import {Location} from '@angular/common';
+import { RegionalService } from '../../services/regional/regional.service';
 
 @Component({
   selector: 'app-user',
@@ -50,6 +55,7 @@ export class UserComponent implements OnInit, OnDestroy {
   private accountTab: string;
   private personalTab: string;
   private adressTab: string;
+  private agentTab: string;
   private currentTab: number;
   private previousTab: string;
   private nextTab: string;
@@ -64,6 +70,7 @@ export class UserComponent implements OnInit, OnDestroy {
   private openSaveButtonTab1: HTMLButtonElement;
   private openSaveButtonTab2: HTMLButtonElement;
   private openSaveButtonTab3: HTMLButtonElement;
+  private openSaveButtonTab4: HTMLButtonElement;
   private type: any;
   // private openModalCancel: HTMLButtonElement;
   private show_community: boolean;
@@ -81,6 +88,21 @@ export class UserComponent implements OnInit, OnDestroy {
   private isAgent: boolean;
   private isWhitespace: boolean;
   private onChange: boolean;
+  private agent: Agent = new Agent();
+  private isTypeAgent: boolean;
+  private citiesOfActivity: any[] = new Array();
+  private regionais: Regional[] = new Array();
+  private unities: Unity[] = new Array();
+  private isValidDate: boolean;
+  private selDate: IMyDate = {year: 0, month: 0, day: 0};
+  public myDatePickerOptions: IMyDpOptions = {
+    // other options...
+    dateFormat: 'dd/mm/yyyy',
+    dayLabels: {su: 'Dom', mo: 'Seg', tu: 'Ter', we: 'Qua', th: 'Qui', fr: 'Sex', sa: 'Sab'},
+    monthLabels: { 1: 'Jan', 2: 'Fev', 3: 'Mar', 4: 'Abr', 5: 'Mai', 6: 'Jun', 7: 'Jul',
+                   8: 'Ago', 9: 'Set', 10: 'Out', 11: 'Nov', 12: 'Dez' },
+    todayBtnTxt: 'Hoje'
+};
 
   constructor(
     private userService: UserService,
@@ -92,6 +114,7 @@ export class UserComponent implements OnInit, OnDestroy {
     private permissions: Permissions,
     private sweetAlertService: SweetAlertService,
     private sweetAlert2Service: SweetAlert2Service,
+    private regionalService: RegionalService,
     private loaderService: LoaderService,
     private _location: Location) {
       this.user = new User();
@@ -126,6 +149,7 @@ export class UserComponent implements OnInit, OnDestroy {
     /*check if is a new or update*/
     this.isNewData = true;
     this.urlId = localStorage.getItem('userId');
+    this.getRegionais();
     if (this.urlId !== undefined && this.urlId !== '' && this.urlId !== null) {
       this.isNewData = false;
       this.loadUser();
@@ -146,6 +170,7 @@ export class UserComponent implements OnInit, OnDestroy {
     this.accountTab = './assets/img/user/ic_account_enable.png';
     this.personalTab = './assets/img/user/ic_personal_disable.png';
     this.adressTab = './assets/img/user/ic_adress_disable.png';
+    this.agentTab = './assets/img/user/ic_dataTab_disable.png';
 
     this.enable_save = false;
     this.cont = 0;
@@ -160,8 +185,12 @@ export class UserComponent implements OnInit, OnDestroy {
     this.openSaveButtonTab3 = (<HTMLButtonElement>document.getElementById('btn_tab3'));
     this.openSaveButtonTab3.style.display = 'none';
 
+    this.openSaveButtonTab4 = (<HTMLButtonElement>document.getElementById('btn_tab4'));
+    this.openSaveButtonTab4.style.display = 'none';
+
     (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
 
+    this.isValidDate = true;
   }
 
   saveData(form1, fomr2, form3) {
@@ -174,9 +203,9 @@ export class UserComponent implements OnInit, OnDestroy {
       this.user.profile.description = '';
       this.user.profile.updated_at = '';
       this.user.address.city.state.cities = [];
-      if ( this.user.latitude === null && this.user.longitude == null) {
-        this.user.latitude = 0;
-        this.user.longitude = 0;
+      if ( this.user.person.agent.latitude === null && this.user.person.agent.longitude == null) {
+        this.user.person.agent.latitude = 0;
+        this.user.person.agent.longitude = 0;
       }
       if (this.isNewData || this.user.id === undefined) {
         if (this.canCreate) {
@@ -273,6 +302,83 @@ export class UserComponent implements OnInit, OnDestroy {
         this.toastService.toastMsgError('Erro', 'Preencha todos os campos obrigatórios do formulário!');
       }
     }
+  }
+
+  changeProfile() {
+    this.profiles.forEach( elem => {
+        if (elem.id === this.user.profile.id) {
+          this.profile = elem;
+          if (this.profile.type === 'AGENT') {
+            this.isTypeAgent = true;
+            if (this.user.person.agent === undefined) {
+              this.user.person.agent = new Agent();
+            }
+          } else {
+            this.isTypeAgent = false;
+          }
+        }
+      });
+  }
+
+  getRegionais() {
+    this.regionalService.getAll().subscribe(
+      success => {
+        this.regionais = success;
+        console.log(this.regionais);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  changeDate() {
+    const dateList = this.user.person.agent.birth.split('-');
+    this.user.person.agent.birth = dateList[2] + '-' + dateList[1] + '-' + dateList[0];
+    const d = new Date(this.user.person.agent.birth);
+    // console.log(d);
+    d.setMinutes( d.getMinutes() + d.getTimezoneOffset() );
+    this.selDate = {year: d.getFullYear(),
+                    month: d.getMonth() + 1,
+                    day: d.getDate()};
+    this.selDate = this.selDate;
+  }
+
+  onDateChanged(event: IMyDateModel) {
+    this.selDate = event.date;
+    const date = event.date.day + '-' + event.date.month + '-' + event.date.year;
+    this.user.person.agent.birth = date;
+  }
+
+  verifyDate() {
+    const date = this.selDate.day + '-' + this.selDate.month + '-' + this.selDate.year;
+    this.user.person.agent.birth = date;
+  }
+
+  onInputFieldChanged(event: IMyInputFieldChanged) {
+    this.isValidDate = event.valid;
+  }
+
+  getUnities() {
+    this.regionais.filter( elem => {
+        if (elem.id === this.user.person.agent.regional.id) {
+          this.unities = elem.unities;
+        }
+      });
+    if (this.unities !== undefined) {
+      if (this.unities.length > 0) {
+        this.user.person.agent.unity = this.unities[0];
+      }
+    }
+    this.getCities();
+  }
+
+  getCities() {
+    this.unities.filter( elem => {
+      if (elem.id === this.user.person.agent.unity.id) {
+        this.citiesOfActivity = elem.cities;
+      }
+    });
   }
 
   openModal() {
@@ -486,6 +592,7 @@ export class UserComponent implements OnInit, OnDestroy {
     this.userService.load(this.urlId).subscribe(
       success => {
         this.user = success;
+        console.log(this.user);
         if (this.user !== undefined) {
           this.first_name = this.user.name.split(' ')[0];
           this.last_name = this.user.name.substring(this.first_name.length + 1);
@@ -493,6 +600,9 @@ export class UserComponent implements OnInit, OnDestroy {
             this.user.type = 'PFIS';
             this.person = new Person();
             this.person = this.user.person;
+            if (this.user.profile.type === 'AGENT') {
+              this.isTypeAgent = true;
+            }
             this.show_pjur = false;
           } else {
             this.user.type = 'PJUR';
@@ -522,26 +632,36 @@ export class UserComponent implements OnInit, OnDestroy {
     if ( p !== 0 ) {
       if (t === 1) {
         this.openSaveButtonTab1.click();
-      } else {
-        if ( t === 2) {
-          this.openSaveButtonTab2.click();
-        } else {
-          if (t === 3) {
-            this.isFormValid = true;
-          }
-        }
+      } else if ( t === 2) {
+        this.openSaveButtonTab2.click();
+      } else if ( t === 3) {
+        this.openSaveButtonTab3.click();
+      } else if (t === 4) {
+          this.isFormValid = true;
       }
+      // if (t === 1) {
+      //   this.openSaveButtonTab1.click();
+      // } else {
+      //   if ( t === 2) {
+      //     this.openSaveButtonTab2.click();
+      //   } else if ( t === 3) {
+      //     this.openSaveButtonTab3.click();
+      //   } else {
+      //     if (t === 4) {
+      //       this.isFormValid = true;
+      //     }
+      //   }
+      // }
     } else {
       this.isFormValid = true;
     }
-    console.log(this.isWhitespace);
 
     if ( this.isFormValid) {
       this.isFormValid = false;
       if (tab) {
         if (this.currentTab === -1) {
               this.currentTab = 0;
-        } else if (this.currentTab < 2) {
+        } else if ((this.isTypeAgent && this.currentTab < 3) || (!this.isTypeAgent && this.currentTab < 2)) {
               this.currentTab++;
               this.cont++;
           }
@@ -554,7 +674,11 @@ export class UserComponent implements OnInit, OnDestroy {
         this.previousTab = '#tab_' + (this.currentTab + 1);
         this.nextTab = '#tab_' + (this.currentTab + 1);
 
-        if (this.nextTab === '#tab_3') {
+        let lastTab = '#tab_3';
+        if (this.isTypeAgent) {
+          lastTab = '#tab_4';
+        }
+        if (this.nextTab === lastTab) {
           this.enable_save = true;
         } else {
           this.enable_save = false;
@@ -565,18 +689,28 @@ export class UserComponent implements OnInit, OnDestroy {
             this.accountTab = './assets/img/user/ic_account_enable.png';
             this.personalTab = './assets/img/user/ic_personal_disable.png';
             this.adressTab = './assets/img/user/ic_adress_disable.png';
+            this.agentTab = './assets/img/user/ic_dataTab_disable.png';
 
         }else if (this.currentTab === 1) {
             this.accountTab = './assets/img/user/ic_account_disable.png';
             this.personalTab = './assets/img/user/ic_personal_enable.png';
             this.adressTab = './assets/img/user/ic_adress_disable.png';
+            this.agentTab = './assets/img/user/ic_dataTab_disable.png';
             (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
             (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
-        }else {
+        } else if (this.currentTab === 2) {
             (<HTMLButtonElement>document.getElementById('btn_next')).style.display = 'none';
             this.accountTab = './assets/img/user/ic_account_disable.png';
             this.personalTab = './assets/img/user/ic_personal_disable.png';
             this.adressTab = './assets/img/user/ic_adress_enable.png';
+            this.agentTab = './assets/img/user/ic_dataTab_disable.png';
+            this.next = 'Salvar';
+        } else {
+            (<HTMLButtonElement>document.getElementById('btn_next')).style.display = 'none';
+            this.accountTab = './assets/img/user/ic_account_disable.png';
+            this.personalTab = './assets/img/user/ic_personal_disable.png';
+            this.adressTab = './assets/img/user/ic_adress_disable.png';
+            this.agentTab = './assets/img/user/ic_dataTab_enable.png';
             this.next = 'Salvar';
           }
       } else {

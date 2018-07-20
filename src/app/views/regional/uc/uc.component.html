@@ -21,7 +21,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group profile" [ngClass]="applyCssError(f1, abbreviation)">
                                     <label class="control-label">Sigla</label>
-                                    <input class="form-control" #abbreviation="ngModel" [(ngModel)]="unity.abbreviation" name="unity_abbreviation" pattern="[\w,./_=?-].*" id="regional_abbreviation" maxlength="2" placeholder="Sigla" required>
+                                    <input class="form-control" #abbreviation="ngModel" [(ngModel)]="unity.abbreviation" name="unity_abbreviation" pattern="[\w,./_=?-].*" id="regional_abbreviation" maxlength="5" placeholder="Sigla" required>
                                     <app-control-field-error [showError]="verifyValidSubmitted(f1, abbreviation)" [field]="abbreviation" msgError="Digite uma sigla para a UC">
                                     </app-control-field-error>
                                 </div>
