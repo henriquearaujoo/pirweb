@@ -95,8 +95,8 @@ export class ResponsibleDetailsComponent extends PagenateComponent implements On
       success => {
         this.responsible = success;
         this.hasdata = true;
-        this.pagedItems = this.responsible.pregnancies;
-        this.allItems = this.responsible.pregnancies;
+        // this.pagedItems = this.responsible.pregnancies;
+        // this.allItems = this.responsible.pregnancies;
         this.setPage(1);
         console.log(this.responsible);
         this.loaderService.hide();

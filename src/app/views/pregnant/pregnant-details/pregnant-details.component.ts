@@ -60,9 +60,9 @@ export class PregnantDetailsComponent implements OnInit {
       success => {
         this.responsible = success;
         this.loaderService.hide();
-        if (this.responsible.mother === undefined) {
-          this.responsible.mother = new Pregnant();
-        }
+        // if (this.responsible.mother === undefined) {
+        //   this.responsible.mother = new Pregnant();
+        // }
       },
       error => {
         this.loaderService.hide();
