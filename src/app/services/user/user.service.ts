@@ -56,6 +56,11 @@ export class UserService extends RestService {
     return this.put(saveUserUrl, user);
   }
 
+  public changeStatus(user: User): Observable<User> {
+    const changeStatusUrl = this.apiurl.concat('users/enable/' + user.id);
+    return this.put(changeStatusUrl, user);
+  }
+
   public saveEditPerson(person: Person) {
     const saveUserUrl = this.apiurl.concat('users/person/');
     return this.put(saveUserUrl, person);

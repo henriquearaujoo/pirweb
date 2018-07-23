@@ -25,14 +25,14 @@ export class ResponsibleService extends RestService {
     }
   }
 
-  public getMothers(filter?: any, page?: number) {
-    if ( filter === undefined ) {
-      return this.get(this.apiurl + 'mother/search/page/?size=' + this.size + '&page=' + page + '&sort=name,asc');
-    } else {
-      return this.get(this.apiurl + 'mother/search/page/?size=' + this.size + '&page=' + page +
-      '&mother.name=' + filter);
-    }
-  }
+  // public getPregnant(filter?: any, page?: number) {
+  //   if ( filter === undefined ) {
+  //     return this.get(this.apiurl + 'mother/search/page/?size=' + this.size + '&page=' + page + '&sort=name,asc');
+  //   } else {
+  //     return this.get(this.apiurl + 'mother/search/page/?size=' + this.size + '&page=' + page +
+  //     '&mother.name=' + filter);
+  //   }
+  // }
 
   public _getMothers() {
     return this.get(Constant.BASE_URL + 'mothers/');

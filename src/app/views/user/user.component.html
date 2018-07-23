@@ -81,13 +81,13 @@
 
                                                     <!-- select type-->
                                                     <div class="col-sm-6">
-                                                        <div class="form-group type" [ngClass]="applyCssError(f1, type)">
+                                                        <div class="form-group type" [ngClass]="!isTypeAgent ? applyCssError(f1, type) : ''">
                                                             <label class="control-label">Tipo de usuário</label>
-                                                            <select class="form-control" name="type" id="user_type" [(ngModel)]="user.type" #type="ngModel" (change)="selectType()" required>
+                                                            <select class="form-control" name="type" id="user_type" [(ngModel)]="user.type" #type="ngModel" (change)="selectType()" [disabled]="isTypeAgent" required>
                                                                     <!-- <option disabled >Tipo de Usuário</option> -->
                                                                     <option *ngFor="let type of types" [value]="type.id">{{type.description}}</option>
                                                                 </select>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, type)" msgError="Selecione um tipo de usuário">
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, type)" msgError="Selecione um tipo de usuário" *ngIf="!isTypeAgent">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
@@ -468,7 +468,7 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group left" [ngClass]="applyCssError(f4, code)">
                                                             <label class="control-label">Código do Agente</label>
-                                                            <input type="text" #code="ngModel" [(ngModel)]="user.person.agent.code" name="code" id="agent_code" pattern="[\w,./_=?-].*" maxlength="40" class="form-control" placeholder="Código do Agente" required>
+                                                            <input type="text" #code="ngModel" [(ngModel)]="agent.code" name="code" id="agent_code" pattern="[\w,./_=?-].*" maxlength="40" class="form-control" placeholder="Código do Agente" required>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f4, code)" [field]="code" msgError="Digite um código para o agente">
                                                             </app-control-field-error>
                                                         </div>
@@ -476,29 +476,29 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-6">
-                                                        <!-- <div class="form-group" [ngClass]="{ 'has-error': !isValidDate }">
+                                                        <div class="form-group" [ngClass]="{ 'has-error': !isValidDate }">
                                                             <label class="control-label">Data de nascimento</label>
                                                             <my-date-picker name="dateBirth" [options]="myDatePickerOptions" id="dateBirth" [selDate]="selDate" (dateChanged)="onDateChanged($event)" (inputFieldChanged)="onInputFieldChanged($event)" required>
                                                             </my-date-picker>
                                                             <div *ngIf="!isValidDate" class="help-block"> Data de nascimento inválida</div>
-                                                        </div> -->
-                                                        <div class="form-group left" [ngClass]="applyCssError(f4, birth)">
+                                                        </div>
+                                                        <!-- <div class="form-group left" [ngClass]="applyCssError(f4, birth)">
                                                             <label class="control-label">Data de Nascimento</label>
-                                                            <input type="text" #birth="ngModel" [(ngModel)]="user.person.agent.birth" name="birth" id="agent_birth" pattern="[\w,./_=?-].*" maxlength="40" class="form-control" placeholder="Data de Nascimento" required>
+                                                            <input type="text" #birth="ngModel" [(ngModel)]="agent.birth" name="birth" id="agent_birth" pattern="[\w,./_=?-].*" maxlength="40" class="form-control" placeholder="Data de Nascimento" required>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f4, birth)" [field]="birth" msgError="Digite uma data de nascimento">
                                                             </app-control-field-error>
-                                                        </div>
+                                                        </div> -->
                                                     </div>
 
                                                     <div class="col-sm-6">
                                                         <div class="form-group" [ngClass]="applyCssError(f4, gender)">
                                                             <label class="control-label">Sexo</label> <br/>
                                                             <label class="radio-inline">                          
-                                                                <input type="radio" #gender="ngModel" name="gender" [(ngModel)]="user.person.agent.gender" id="gender1" value="FEMALE" required>
+                                                                <input type="radio" #gender="ngModel" name="gender" [(ngModel)]="agent.gender" id="gender1" value="FEMALE" required>
                                                                 Feminino
                                                             </label>
                                                             <label class="radio-inline"> 
-                                                                <input type="radio" #gender="ngModel" name="gender" [(ngModel)]="user.person.agent.gender" id="gender2" value="MALE" required>
+                                                                <input type="radio" #gender="ngModel" name="gender" [(ngModel)]="agent.gender" id="gender2" value="MALE" required>
                                                                 Masculino
                                                             </label>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f4, gender)" msgError="Escolha uma das alternativas">
@@ -510,8 +510,8 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group left" [ngClass]="applyCssError(f4, phone)">
                                                             <label class="control-label">Telefone</label>
-                                                            <input type="text" #phone="ngModel" [(ngModel)]="user.person.agent.phone" name="phone" id="agent_phone" pattern="[\w,./_=?-].*" maxlength="40" class="form-control" placeholder="Telefone" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f4, phone)" [field]="phone" msgError="Digite uma telefone">
+                                                            <input type="text" #phone="ngModel" [(ngModel)]="agent.phone" mask="(00)00000-0000" name="phone" id="agent_phone" maxlength="40" class="form-control" placeholder="Telefone" required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f4, phone)" msgError="Digite um telefone">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
@@ -519,11 +519,11 @@
                                                         <div class="form-group left" [ngClass]="applyCssError(f4, isPhoneOwner)">
                                                             <label class="control-label">Responsável do telefone</label> <br/>
                                                             <label class="radio-inline">                          
-                                                                <input type="radio" #isPhoneOwner="ngModel" name="isPhoneOwner" [(ngModel)]="user.person.agent.is_phone_owner" id="isPhoneOwner1" [value]="true" required>
+                                                                <input type="radio" #isPhoneOwner="ngModel" name="isPhoneOwner" [(ngModel)]="agent.is_phone_owner" id="isPhoneOwner1" [value]="true" required>
                                                                 Próprio
                                                             </label>
                                                             <label class="radio-inline"> 
-                                                                <input type="radio" #isPhoneOwner="ngModel" name="isPhoneOwner" [(ngModel)]="user.person.agent.is_phone_owner" id="isPhoneOwner2" [value]="false" required>
+                                                                <input type="radio" #isPhoneOwner="ngModel" name="isPhoneOwner" [(ngModel)]="agent.is_phone_owner" id="isPhoneOwner2" [value]="false" required>
                                                                 De outra pessoa(recados)
                                                             </label>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f4, isPhoneOwner)" [field]="isPhoneOwner" msgError="Selecione uma das alternativas">
@@ -535,7 +535,7 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group left" [ngClass]="applyCssError(f4, regionalName)">
                                                             <label class="control-label">Regional</label>
-                                                            <select class="form-control" #regionalName="ngModel" [(ngModel)]="user.person.agent.regional.id" (change)="getUnities()" name="community_regional" id="community_regional" required>
+                                                            <select class="form-control" #regionalName="ngModel" [(ngModel)]="agent.regional.id" (change)="getUnities()" name="community_regional" id="community_regional" required>
                                                                 <option [ngValue]="item.id" *ngFor="let item of regionais"> {{ item.name }} </option>
                                                             </select>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f4, regionalName)" [field]="regionalName" msgError="Selecione um regional">
@@ -545,7 +545,7 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group left" [ngClass]="applyCssError(f4, uc)">
                                                             <label class="control-label">UC</label>
-                                                            <select class="form-control" #uc="ngModel" [(ngModel)]="user.person.agent.unity.id" name="community_uc" id="community_uc" (change)="getCities()" required>
+                                                            <select class="form-control" #uc="ngModel" [(ngModel)]="agent.unity.id" name="community_uc" id="community_uc" (change)="getCities()" required>
                                                                     <option [ngValue]="item.id" *ngFor="let item of unities"> {{ item.name }} </option>
                                                                 </select>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f4, uc)" [field]="uc" msgError="Selecione uma unidade de conservação">
@@ -557,7 +557,7 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group left" [ngClass]="applyCssError(f4, country)">
                                                             <label class="control-label">Município</label>
-                                                            <select class="form-control" #country="ngModel" name="community_country" id="community_country" [(ngModel)]="user.person.agent.city.id" required>
+                                                            <select class="form-control" #country="ngModel" name="community_country" id="community_country" [(ngModel)]="agent.city.id" required>
                                                                 <option [ngValue]="item.id" *ngFor="let item of citiesOfActivity"> {{ item.name }} </option>
                                                             </select>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f4, country)" [field]="country" msgError="Digite um município de atuaçao">

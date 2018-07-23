@@ -24,12 +24,13 @@
                     <table id="example2" class="table">
                         <thead>
                             <tr>
+                                <th class="tbl-left">CÓDIGO
+                                    <span class="glyphicon"></span>
+                                </th>
                                 <th class="tbl-left">NOME
                                     <span class="glyphicon"></span>
                                 </th>
-                                <th class="tbl-left">COMUNIDADE
-                                    <span class="glyphicon"></span>
-                                </th>
+
                                 <th class="tbl-left">DATA DE NASCIMENTO
                                     <span class="glyphicon"></span>
                                 </th>
@@ -45,10 +46,10 @@
                         <tbody *ngIf="responsibleList.length !== 0 && hasdata">
                             <tr *ngFor="let item of responsibleList">
                                 <td class="tbl-left">
-                                    {{ item.name }}
+                                    {{ item.code }}
                                 </td>
                                 <td class="tbl-left">
-                                    {{ item.community.name }}
+                                    {{ item.name }}
                                 </td>
                                 <td class="tbl-left">
                                     {{ item.birth }}

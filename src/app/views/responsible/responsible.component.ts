@@ -81,7 +81,7 @@ export class ResponsibleComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.permissions.canActivate(['/responsaveis/registro']);
+    this.permissions.canActivate(['/familias/registro']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -97,7 +97,7 @@ export class ResponsibleComponent implements OnInit {
       this.isNewData = false;
       this.load();
     } else {
-      // this.route.navigate(['/responsaveis']);
+      // this.route.navigate(['/familias']);
     }
 
     this.dateDisable.setMinutes( this.dateDisable.getMinutes() + this.dateDisable.getTimezoneOffset() );

@@ -24,12 +24,13 @@ import { IMyDpOptions, IMyDate, IMyDateModel, IMyInputFieldChanged, MyDatePicker
 export class PregnantComponent implements OnInit {
 
   private responsible: Responsible = new Responsible();
+  private pregnant: Pregnant = new Pregnant();
   private subscription: Subscription;
   private communities: Community[] = new Array();
   private isNewData: boolean;
   private urlId: string;
   private infoTab: string;
-  private dataTab: string;
+  private pregnanciesTab: string;
   private servicesTab: string;
   private currentTab: number;
   private previousTab: string;
@@ -98,7 +99,7 @@ export class PregnantComponent implements OnInit {
       this.load();
     }  else {
       // this.loaderService.hide();
-      this.route.navigate(['/gestantes']);
+      // this.route.navigate(['/gestantes']);
     }
 
     this.dateDisable.setMinutes( this.dateDisable.getMinutes() + this.dateDisable.getTimezoneOffset() );
@@ -119,8 +120,7 @@ export class PregnantComponent implements OnInit {
     this.nextTab = '#tab_2';
 
     this.infoTab = './assets/img/pregnant/ic_section_info_enable.png';
-    this.dataTab = './assets/img/pregnant/ic_section_info_data_disable.png';
-    this.servicesTab = './assets/img/pregnant/ic_section_info_services_disable.png';
+    this.pregnanciesTab = './assets/img/pregnant/ic_section_pregnancies_disable.png';
 
     this.openSaveButtonTab1 = (<HTMLButtonElement>document.getElementById('btn_tab1'));
     this.openSaveButtonTab1.style.display = 'none';
@@ -128,8 +128,8 @@ export class PregnantComponent implements OnInit {
     this.openSaveButtonTab2 = (<HTMLButtonElement>document.getElementById('btn_tab2'));
     this.openSaveButtonTab2.style.display = 'none';
 
-    this.openSaveButtonTab3 = (<HTMLButtonElement>document.getElementById('btn_tab3'));
-    this.openSaveButtonTab3.style.display = 'none';
+    // this.openSaveButtonTab3 = (<HTMLButtonElement>document.getElementById('btn_tab3'));
+    // this.openSaveButtonTab3.style.display = 'none';
 
     (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
 
@@ -367,22 +367,14 @@ export class PregnantComponent implements OnInit {
         if (this.currentTab === 0) {
           (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
           this.infoTab = './assets/img/pregnant/ic_section_info_enable.png';
-          this.dataTab = './assets/img/pregnant/ic_section_info_data_disable.png';
-          this.servicesTab = './assets/img/pregnant/ic_section_info_services_disable.png';
+          this.pregnanciesTab = './assets/img/pregnant/ic_section_pregnancies_disable.png';
 
         }else if (this.currentTab === 1) {
           this.infoTab = './assets/img/pregnant/ic_section_info_disable.png';
-          this.dataTab = './assets/img/pregnant/ic_section_info_data_enable.png';
-          this.servicesTab = './assets/img/pregnant/ic_section_info_services_disable.png';
+          this.pregnanciesTab = './assets/img/pregnant/ic_section_pregnancies_enable.png';
           (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
           (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
-        }else {
-          (<HTMLButtonElement>document.getElementById('btn_next')).style.display = 'none';
-          this.infoTab = './assets/img/pregnant/ic_section_info_disable.png';
-          this.dataTab = './assets/img/pregnant/ic_section_info_data_disable.png';
-          this.servicesTab = './assets/img/pregnant/ic_section_info_services_enable.png';
-          this.next = 'Salvar';
-          }
+        }
       } else {
         if (t === 1) {
           this.nextTab = '#tab_1';
@@ -392,7 +384,19 @@ export class PregnantComponent implements OnInit {
           }
         }
       }
+  }
 
+  walk ( tab: number) {
+    switch (tab) {
+      case 0:
+      this.infoTab = './assets/img/pregnant/ic_section_info_enable.png';
+      this.pregnanciesTab = './assets/img/pregnant/ic_section_pregnancies_disable.png';
+      break;
+      case 1:
+      this.infoTab = './assets/img/pregnant/ic_section_info_disable.png';
+      this.pregnanciesTab = './assets/img/pregnant/ic_section_pregnancies_enable.png';
+      break;
+    }
   }
 
   verifyValidSubmitted(form, field) {

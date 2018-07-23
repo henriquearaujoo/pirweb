@@ -1,3 +1,4 @@
+import { PregnantService } from './../../../services/pregnant/pregnant.service';
 import { LoaderService } from './../../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../../helpers/permissions';
 import { PageService } from './../../../services/pagenate/page.service';
@@ -36,6 +37,7 @@ export class PregnantListComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private responsibleService: ResponsibleService,
+    private pregnantService: PregnantService,
     private communityService: CommunityService,
     private toastService: ToastService,
     private servicePage: PageService,
@@ -61,14 +63,14 @@ export class PregnantListComponent implements OnInit, OnDestroy {
     );
     this.hasdata = false;
     this.page = 0;
-    this.getMothers();
+    this.getPregnant();
     localStorage.removeItem('motherId');
   }
 
-  getMothers() {
+  getPregnant() {
     if ( this.filter.name !== '') { this.page = 0; }
     this.loaderService.show();
-    this.subscription = this.responsibleService.getMothers(this.filter.name, this.page).subscribe(
+    this.subscription = this.pregnantService.getPregnant(this.filter.name, this.page).subscribe(
       success => {
         this.paginate = success;
         this.responsibleList = this.paginate.content;
@@ -100,7 +102,7 @@ export class PregnantListComponent implements OnInit, OnDestroy {
 
   setPage(page: number) {
     this.page = page;
-    this.getMothers();
+    this.getPregnant();
   }
 
   ngOnDestroy() {

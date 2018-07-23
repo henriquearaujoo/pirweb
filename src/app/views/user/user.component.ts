@@ -44,6 +44,7 @@ export class UserComponent implements OnInit, OnDestroy {
   private profile: Profile = new Profile();
   private entity: Org;
   private person: Person;
+  private agent: Agent = new Agent();
   private first_name: string;
   private last_name: string;
   private hasdata: boolean;
@@ -88,7 +89,6 @@ export class UserComponent implements OnInit, OnDestroy {
   private isAgent: boolean;
   private isWhitespace: boolean;
   private onChange: boolean;
-  private agent: Agent = new Agent();
   private isTypeAgent: boolean;
   private password: string;
   private citiesOfActivity: any[] = new Array();
@@ -199,15 +199,19 @@ export class UserComponent implements OnInit, OnDestroy {
     if (isValid && this._isSave) {
       this.modalOpened = false;
       this.verifyType();
+      if (this.isTypeAgent) {
+        this.verifyDate();
+        if ( this.user.person.agent.latitude === null && this.user.person.agent.longitude == null) {
+          this.user.person.agent.latitude = 0;
+          this.user.person.agent.longitude = 0;
+        }
+      }
       this.user.profile_id = this.user.profile.id;
       this.user.address.city_id = this.user.address.city.id;
       this.user.profile.description = '';
       this.user.profile.updated_at = '';
       this.user.address.city.state.cities = [];
-      if ( this.user.person.agent.latitude === null && this.user.person.agent.longitude == null) {
-        this.user.person.agent.latitude = 0;
-        this.user.person.agent.longitude = 0;
-      }
+
       if (this.isNewData || this.user.id === undefined) {
         if (this.canCreate) {
           this.userService.createUser(this.user).subscribe(
@@ -313,6 +317,8 @@ export class UserComponent implements OnInit, OnDestroy {
           this.profile = elem;
           if (this.profile.type === 'AGENT') {
             this.isTypeAgent = true;
+            this.user.type = 'PFIS';
+            this.selectType();
             if (this.user.person.agent === undefined) {
               this.user.person.agent = new Agent();
             }
@@ -339,7 +345,7 @@ export class UserComponent implements OnInit, OnDestroy {
     const dateList = this.user.person.agent.birth.split('-');
     this.user.person.agent.birth = dateList[2] + '-' + dateList[1] + '-' + dateList[0];
     const d = new Date(this.user.person.agent.birth);
-    // console.log(d);
+    console.log(d);
     d.setMinutes( d.getMinutes() + d.getTimezoneOffset() );
     this.selDate = {year: d.getFullYear(),
                     month: d.getMonth() + 1,
@@ -354,8 +360,11 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   verifyDate() {
-    const date = this.selDate.day + '-' + this.selDate.month + '-' + this.selDate.year;
-    this.user.person.agent.birth = date;
+    const date = this.selDate.year + '-' + this.selDate.month + '-' + this.selDate.day;
+    const d = new Date(date);
+    const currentMonth = ('0' + (d.getMonth() + 1)).slice(-2);
+    const currentDay = ('0' + d.getDate()).slice(-2);
+    this.user.person.agent.birth = this.selDate.year + '-' + currentMonth + '-' + currentDay;
   }
 
   onInputFieldChanged(event: IMyInputFieldChanged) {
@@ -364,13 +373,13 @@ export class UserComponent implements OnInit, OnDestroy {
 
   getUnities() {
     this.regionais.filter( elem => {
-        if (elem.id === this.user.person.agent.regional.id) {
+        if (elem.id === this.agent.regional.id) {
           this.unities = elem.unities;
         }
       });
     if (this.unities !== undefined) {
       if (this.unities.length > 0) {
-        this.user.person.agent.unity = this.unities[0];
+        this.agent.unity = this.unities[0];
       }
     }
     this.getCities();
@@ -378,7 +387,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
   getCities() {
     this.unities.filter( elem => {
-      if (elem.id === this.user.person.agent.unity.id) {
+      if (elem.id === this.agent.unity.id) {
         this.citiesOfActivity = elem.cities;
       }
     });
@@ -399,7 +408,11 @@ export class UserComponent implements OnInit, OnDestroy {
         .then((result) => {
           if (result.value) {
             this._isSave = true;
-            this.openSaveButtonTab3.click();
+            if (this.isTypeAgent) {
+              this.openSaveButtonTab4.click();
+            } else {
+              this.openSaveButtonTab3.click();
+            }
           } else {
             this.router.navigate(['/usuarios']);
           }
@@ -409,7 +422,11 @@ export class UserComponent implements OnInit, OnDestroy {
         .then((result) => {
           if (result.value) {
             this._isSave = true;
-            this.openSaveButtonTab3.click();
+            if (this.isTypeAgent) {
+              this.openSaveButtonTab4.click();
+            } else {
+              this.openSaveButtonTab3.click();
+            }
           } else {
             this.router.navigate(['/agente-dashboard']);
           }
@@ -488,11 +505,15 @@ export class UserComponent implements OnInit, OnDestroy {
         this.person.cpf = this.person.cpf.split('.').join('');
         this.person.cpf = this.person.cpf.split('-').join('');
         this.user.person = this.person;
+        if (this.isTypeAgent) {
+          this.user.person.agent = this.agent;
+        } else {
+          delete this.user.person.agent;
+        }
         delete this.user.entity;
         this.type = 'PFIS';
         break;
       }
-
       case 'PJUR':
       {
         this.user.entity = this.entity;
@@ -542,7 +563,7 @@ export class UserComponent implements OnInit, OnDestroy {
     } else {
       const er  = this.error_list.toString();
       switch (er) {
-        case 'login.found': {
+        case 'login.violation': {
           console.log(er);
           this.toastService.toastErrorExists('LOGIN');
           break;
@@ -606,6 +627,15 @@ export class UserComponent implements OnInit, OnDestroy {
             this.person = this.user.person;
             if (this.user.profile.type === 'AGENT') {
               this.isTypeAgent = true;
+              this.agent = this.user.person.agent;
+              this.changeDate();
+              this.regionais.filter( elem => {
+                if (elem.id === this.agent.unity.regional.id) {
+                  this.agent.regional = elem;
+                }
+              });
+              this.unities = this.agent.regional.unities;
+              this.getCities();
             }
             this.show_pjur = false;
           } else {
@@ -630,6 +660,18 @@ export class UserComponent implements OnInit, OnDestroy {
       }
     );
 
+  }
+
+  alterData() {
+    // ALTER DATE
+    const dateList = this.user.person.agent.birth.split('-');
+    this.user.person.agent.birth = dateList[2] + '-' + dateList[1] + '-' + dateList[0];
+    const d = new Date(this.user.person.agent.birth);
+    d.setMinutes( d.getMinutes() + d.getTimezoneOffset() );
+    this.selDate = {year: d.getFullYear(),
+                    month: d.getMonth() + 1,
+                    day: d.getDate()};
+    this.selDate = this.selDate;
   }
 
    isActive(tab: boolean, t?: number,  p?: number) {

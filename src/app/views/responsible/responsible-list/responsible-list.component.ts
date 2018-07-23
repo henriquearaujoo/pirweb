@@ -46,7 +46,7 @@ export class ResponsibleListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.permissions.canActivate(['/responsaveis']);
+    this.permissions.canActivate(['/familias']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
