@@ -19,8 +19,8 @@ export class User {
     public dt_register: string;
     public address: Address = new Address();
     public community_id: string;
-    // public longitude: number;
-    // public latitude: number;
+    public longitude: number;
+    public latitude: number;
 
     public visits: Visit[] = new Array();
     constructor() { }
