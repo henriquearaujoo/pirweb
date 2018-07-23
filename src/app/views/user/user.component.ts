@@ -90,6 +90,7 @@ export class UserComponent implements OnInit, OnDestroy {
   private onChange: boolean;
   private agent: Agent = new Agent();
   private isTypeAgent: boolean;
+  private password: string;
   private citiesOfActivity: any[] = new Array();
   private regionais: Regional[] = new Array();
   private unities: Unity[] = new Array();
@@ -218,6 +219,7 @@ export class UserComponent implements OnInit, OnDestroy {
               }
             },
             error => {
+              this.user.password = this.password;
               // this.toastService.toastError();
               this.error_list = error;
               this.verifyError();
@@ -285,6 +287,7 @@ export class UserComponent implements OnInit, OnDestroy {
               }
             },
             error => {
+              this.user.password = this.password;
               this.error_list = error;
               this.verifyError();
             }
@@ -473,6 +476,7 @@ export class UserComponent implements OnInit, OnDestroy {
     if ( (this.user.password !== undefined) &&
         (this.user.password !== '') &&
         (this.user.password !== null) ) {
+      this.password = this.user.password;
       this.user.password = sha256(this.user.password);
     } else {
         this.user.password = undefined;

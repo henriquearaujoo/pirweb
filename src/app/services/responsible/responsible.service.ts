@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ResponsibleService extends RestService {
 
-  private apiurl = Constant.BASE_URL + 'responsibles/';
+  private apiurl = Constant.BASE_URL + 'family/';
   private size: number;
 
   constructor( http: Http) {

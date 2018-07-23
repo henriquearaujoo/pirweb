@@ -330,16 +330,16 @@
                                                         <div class="form-group" [ngClass]="applyCssError(f3, treatmentWaterDrink)">
                                                             <label class="control-label">A água utilizada para beber recebe algum tratamento?</label> <br/>
                                                             <label class="radio-inline">                          
-                                                              <input type="radio" #treatmentWaterDrink="ngModel" [(ngModel)]="responsible.drinking_water_treatment2" name="treatmentWaterDrink" id="treatmentWaterDrink" [value]="true" required>
+                                                              <input type="radio" #treatmentWaterDrink="ngModel" [(ngModel)]="responsible.has_water_treatment" name="treatmentWaterDrink" id="treatmentWaterDrink" [value]="true" required>
                                                               Sim
                                                             </label>
                                                             <label class="radio-inline">
-                                                              <input type="radio" #treatmentWaterDrink="ngModel" [(ngModel)]="responsible.drinking_water_treatment2" name="treatmentWaterDrink" id="treatmentWaterDrink" [value]="false" required>
+                                                              <input type="radio" #treatmentWaterDrink="ngModel" [(ngModel)]="responsible.has_water_treatment" name="treatmentWaterDrink" id="treatmentWaterDrink" [value]="false" required>
                                                               Não
                                                             </label>
-                                                            <div class="form-group" [ngClass]="applyCssError(f3, treatmentWater)" *ngIf="responsible.drinking_water_treatment2">
+                                                            <div class="form-group" [ngClass]="applyCssError(f3, treatmentWater)" *ngIf="responsible.has_water_treatment">
                                                                 <label class="control-label"> Qual?</label>
-                                                                <input class="form-control" #treatmentWater="ngModel" [(ngModel)]="responsible.drinking_water_treatment" name="treatmentWater" id="treatmentWater" placeholder="Especifique o tratamento" required>
+                                                                <input class="form-control" #treatmentWater="ngModel" [(ngModel)]="responsible.water_treatment_description" name="treatmentWater" id="treatmentWater" placeholder="Especifique o tratamento" required>
                                                                 <app-control-field-error [showError]="verifyValidSubmitted(f3, treatmentWater)" msgError="Especifique o tratamento">
                                                                 </app-control-field-error>
                                                             </div>

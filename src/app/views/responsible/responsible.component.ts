@@ -161,7 +161,7 @@ export class ResponsibleComponent implements OnInit {
       }
 
       delete this.responsible.children;
-      delete this.responsible.pregnancies;
+      // delete this.responsible.pregnancies;
 
       this.responsible.habitation_members_count = Number(this.responsible.habitation_members_count);
 
@@ -169,22 +169,22 @@ export class ResponsibleComponent implements OnInit {
         this.responsible.family_income = this.responsible.family_income_other;
       }
 
-      if ( !this.responsible.drinking_water_treatment2) {
-        this.responsible.drinking_water_treatment = 'Não';
-      }
+      // if ( !this.responsible.drinking_water_treatment2) {
+      //   this.responsible.drinking_water_treatment = 'Não';
+      // }
 
       this.responsible.community.city.state.cities = [];
-      if (this.responsible.agent_id == null) {
-        this.responsible.agent_id = undefined;
-      }
+      // if (this.responsible.agent_id == null) {
+      //   this.responsible.agent_id = undefined;
+      // }
 
-      if (this.responsible.mother == null) {
-        delete this.responsible.mother;
-      }
+      // if (this.responsible.mother == null) {
+      //   delete this.responsible.mother;
+      // }
 
-      if (!this.responsible.has_other_children) {
-        this.responsible.children_count = 0;
-      }
+      // if (!this.responsible.has_other_children) {
+      //   this.responsible.children_count = 0;
+      // }
 
       if (this.isNewData || this.responsible.id === undefined) {
         this.responsibleService.insert(this.responsible).subscribe(
@@ -221,12 +221,12 @@ export class ResponsibleComponent implements OnInit {
   onDateChanged(event: IMyDateModel) {
     this.selDate = event.date;
     const date = event.date.day + '-' + event.date.month + '-' + event.date.year;
-    this.responsible.birth = date;
+    // this.responsible.birth = date;
   }
 
   verifyDate() {
     const date = this.selDate.day + '-' + this.selDate.month + '-' + this.selDate.year;
-    this.responsible.birth = date;
+    // this.responsible.birth = date;
   }
 
   onInputFieldChanged(event: IMyInputFieldChanged) {
@@ -257,14 +257,14 @@ export class ResponsibleComponent implements OnInit {
   }
 
   alterData() {
-    const dateList = this.responsible.birth.split('-');
-    this.responsible.birth = dateList[2] + '-' + dateList[1] + '-' + dateList[0];
-    const d = new Date(this.responsible.birth);
-    d.setMinutes( d.getMinutes() + d.getTimezoneOffset() );
-    this.selDate = {year: d.getFullYear(),
-                    month: d.getMonth() + 1,
-                    day: d.getDate()};
-    this.selDate = this.selDate;
+    // const dateList = this.responsible.birth.split('-');
+    // this.responsible.birth = dateList[2] + '-' + dateList[1] + '-' + dateList[0];
+    // const d = new Date(this.responsible.birth);
+    // d.setMinutes( d.getMinutes() + d.getTimezoneOffset() );
+    // this.selDate = {year: d.getFullYear(),
+    //                 month: d.getMonth() + 1,
+    //                 day: d.getDate()};
+    // this.selDate = this.selDate;
 
     // VERIFY family_income
     for ( let i = 0; i < this.family_income.length; i++ ) {
@@ -278,13 +278,13 @@ export class ResponsibleComponent implements OnInit {
     }
 
     // VERIFY drinking_water_treatment
-    if ((this.responsible.drinking_water_treatment === 'Não') ||
-        (this.responsible.drinking_water_treatment === '')) {
-      this.responsible.drinking_water_treatment2 = false;
-      this.responsible.drinking_water_treatment = '';
-    } else {
-      this.responsible.drinking_water_treatment2 = true;
-    }
+    // if ((this.responsible.drinking_water_treatment === 'Não') ||
+    //     (this.responsible.drinking_water_treatment === '')) {
+    //   this.responsible.drinking_water_treatment2 = false;
+    //   this.responsible.drinking_water_treatment = '';
+    // } else {
+    //   this.responsible.drinking_water_treatment2 = true;
+    // }
   }
 
   getCommunities() {

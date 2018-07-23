@@ -217,9 +217,9 @@ export class ChildComponent implements OnInit {
 
   verifyNull() {
     if (this.child.mother !== undefined && this.child.mother !== null) {
-      if (this.child.mother.agent_id === null) {
-        this.child.mother.agent_id = undefined;
-      }
+      // if (this.child.mother.agent_id === null) {
+      //   this.child.mother.agent_id = undefined;
+      // }
       if (this.child.mother.community.city.state.cities === null) {
         this.child.mother.community.city.state.cities = [];
       }
@@ -237,12 +237,12 @@ export class ChildComponent implements OnInit {
       if (resp.community.city.state.cities === null) {
         resp.community.city.state.cities = [];
       }
-      if (resp.agent_id === null) {
-        resp.agent_id = undefined;
-      }
-      if (resp.mother === null) {
-        resp.mother = undefined;
-      }
+      // if (resp.agent_id === null) {
+      //   resp.agent_id = undefined;
+      // }
+      // if (resp.mother === null) {
+      //   resp.mother = undefined;
+      // }
     });
   }
 
