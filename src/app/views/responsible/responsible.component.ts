@@ -278,8 +278,7 @@ export class ResponsibleComponent implements OnInit {
     }
 
     // VERIFY drinking_water_treatment
-    // if ((this.responsible.drinking_water_treatment === 'Não') ||
-    //     (this.responsible.drinking_water_treatment === '')) {
+    // if (this.responsible.drinking_water_treatment) {
     //   this.responsible.drinking_water_treatment2 = false;
     //   this.responsible.drinking_water_treatment = '';
     // } else {

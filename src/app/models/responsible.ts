@@ -31,7 +31,7 @@ export class Responsible {
     // public agent_id: number;
     // public civil_state: string;
 
-    // public drinking_water_treatment2: boolean;
+    public drinking_water_treatment: boolean;
 
     // public pregnancies: any[] = new Array();
 
