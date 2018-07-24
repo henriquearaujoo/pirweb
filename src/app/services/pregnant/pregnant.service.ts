@@ -25,8 +25,8 @@ export class PregnantService extends RestService {
   }
 
 
-  public insert(mother: Pregnant): Observable<Pregnant> {
-    return this.post(this.apiurl, mother);
+  public insert(pregnant: Pregnant): Observable<Pregnant> {
+    return this.post(this.apiurl, pregnant);
   }
 
   public update(pregant: Pregnant): Observable<Pregnant> {

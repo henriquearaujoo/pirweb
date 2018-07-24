@@ -1,3 +1,4 @@
+import { Pregnant } from './../../../models/pregnant';
 import { PregnantService } from './../../../services/pregnant/pregnant.service';
 import { LoaderService } from './../../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../../helpers/permissions';
@@ -20,8 +21,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 export class PregnantListComponent implements OnInit, OnDestroy {
 
   private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
-  private responsible: Responsible = new Responsible();
-  private responsibleList: Responsible[] = new Array();
+  private pregnant: Pregnant = new Pregnant();
+  private pregnantList: Responsible[] = new Array();
   private mothers: Responsible[] = new Array();
   private paginate: Paginate = new Paginate();
   private subscription: Subscription;
@@ -36,9 +37,7 @@ export class PregnantListComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private responsibleService: ResponsibleService,
     private pregnantService: PregnantService,
-    private communityService: CommunityService,
     private toastService: ToastService,
     private servicePage: PageService,
     private permissions: Permissions,
@@ -73,7 +72,7 @@ export class PregnantListComponent implements OnInit, OnDestroy {
     this.subscription = this.pregnantService.getPregnant(this.filter.name, this.page).subscribe(
       success => {
         this.paginate = success;
-        this.responsibleList = this.paginate.content;
+        this.pregnantList = this.paginate.content;
         this.hasdata = true;
         setTimeout(() => {
           this.loaderService.hide();
@@ -86,18 +85,18 @@ export class PregnantListComponent implements OnInit, OnDestroy {
     );
   }
 
-  setMother(responsible: Responsible) {
-    localStorage.setItem('motherId', responsible.id);
+  setPregnant(pregnant: Pregnant) {
+    localStorage.setItem('pregnantId', pregnant.id);
     this.router.navigate(['/gestantes/registro']);
   }
 
-  toView(responsible: Responsible) {
-    localStorage.setItem('motherId', responsible.id);
+  toView(pregnant: Pregnant) {
+    localStorage.setItem('pregnantId', pregnant.id);
     this.router.navigate(['/gestantes/detalhes']);
   }
 
-  changeStatus(responsible: Responsible) {
-    this.responsible = responsible;
+  changeStatus(pregnant: Pregnant) {
+    this.pregnant = pregnant;
   }
 
   setPage(page: number) {

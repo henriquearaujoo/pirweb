@@ -1,3 +1,4 @@
+import { User } from './user';
 import { Child } from './child';
 import { Pregnant } from './pregnant';
 import { Community } from './community';
@@ -19,6 +20,8 @@ export class Responsible {
     public observations: string;
     public pregnant: Pregnant = new Pregnant();
     public water_treatment_description: string;
+    public agent_id: string;
+    public agent: User = new User();
     // public birth: string;
     // public in_social_program: boolean;
     // public live_with: string;

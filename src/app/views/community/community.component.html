@@ -104,13 +104,13 @@
                                                         <div class="form-group" [ngClass]="{ 'has-error': f1.submitted && waterSupply_list.length === 0 }">
                                                             <label class="control-label">Fornecimento de água</label> <br/>
                                                             <label class="checkbox-inline" *ngFor="let item of _waterSupply">                          
-                                    <input type="checkbox" name="waterSupply"
-                                      id="waterSupply"
-                                      [value]="item.type"
-                                      [checked]="item.checked"
-                                      (change)="verifyCheckbox(2, $event)" required>
-                                      {{ item.type }} 
-                                  </label>
+                                                                <input type="checkbox" name="waterSupply"
+                                                                id="waterSupply"
+                                                                [value]="item.type"
+                                                                [checked]="item.checked"
+                                                                (change)="verifyCheckbox(2, $event)" required>
+                                                                {{ item.type }} 
+                                                            </label>
                                                             <div *ngIf="f1.submitted && waterSupply_list.length === 0" class="help-block"> Escolha uma ou mais alternativas</div>
 
                                                             <!-- <select class="form-control"  #waterSupply="ngModel" name="waterSupply" [(ngModel)]="community.water_supply" id="waterSupply" required>

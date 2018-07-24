@@ -80,7 +80,7 @@ export class ChildDetailsComponent implements OnInit {
       success => {
         this.child = success;
         this.hasdata = true;
-        this.who_take_care = this.child.who_take_care.split(',');
+        // this.who_take_care = this.child.who_take_care.split(',');
         this.loaderService.hide();
         console.log(this.child);
         if (this.child === undefined) {

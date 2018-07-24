@@ -466,11 +466,9 @@
                                             <div class="box-body" *ngIf="isTypeAgent">
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <div class="form-group left" [ngClass]="applyCssError(f4, code)">
+                                                        <div class="form-group left">
                                                             <label class="control-label">Código do Agente</label>
-                                                            <input type="text" #code="ngModel" [(ngModel)]="agent.code" name="code" id="agent_code" pattern="[\w,./_=?-].*" maxlength="40" class="form-control" placeholder="Código do Agente" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f4, code)" [field]="code" msgError="Digite um código para o agente">
-                                                            </app-control-field-error>
+                                                            <input type="text" #code="ngModel" [(ngModel)]="agent.code" name="code" id="agent_code" pattern="[\w,./_=?-].*" maxlength="40" class="form-control" placeholder="Código do Agente" disabled>
                                                         </div>
                                                     </div>
                                                 </div>

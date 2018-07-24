@@ -38,7 +38,7 @@ export class ResponsibleService extends RestService {
     return this.get(Constant.BASE_URL + 'mothers/');
   }
 
-  public _getResponsible(filter?: any) {
+  public getAll() {
       return this.get(this.apiurl);
   }
 

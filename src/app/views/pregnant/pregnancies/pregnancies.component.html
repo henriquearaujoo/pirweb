@@ -1,0 +1,147 @@
+<div class="box box-primary">
+    <div class="box-body">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="control-label">DATA DE REGISTRO</label> <br/>
+                    <span class="form-control"> {{ pregnancy.registered_at | date: 'dd/MM/yyyy' }} </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="example2" class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-center">VISITA Nº</th>
+                            <th class="text-center">PERÍODO</th>
+                            <th class="text-center"> TEMA</th>
+                            <th class="text-center"> DATA</th>
+                        </tr>
+                    </thead>
+                    <div class="feedback" *ngIf="pregnancy.visits.length === 0">
+                        <i class="material-icons" style="font-size: 24px;">error_outline</i>
+                        <span class="feedback-message">Nenhum registro encontrado</span>
+                    </div>
+                    <tbody *ngIf="pregnancy.visits.length !== 0">
+                        <tr *ngFor="let item of pregnancy.visits">
+                            <td class="text-center">
+                                {{ item.number }}
+                            </td>
+                            <td class="text-center">
+                                <p class="limit-text">{{ item.chapter?.title }}</p>
+                            </td>
+                            <td class="text-center">
+                                <p class="limit-text"> {{ item.chapter?.subtitle }}</p>
+                            </td>
+                            <td class="text-center">
+                                <p class="limit-text"> {{ item.done_at | date: 'dd/MM/yyyy' }}</p>
+                                <!-- <a (click)="setVisit(item)" class="pointer" id="btn_details" data-toggle="modal" data-target="#modal-visit" title="Ver detalhes" *ngIf="item.name  !== 'Administrator'">
+                                    <i class="large material-icons">visibility</i>
+                                </a> -->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <button class="btn btn-default btn-block pull-right" (click)="toBack()" id="btn_return3"> Fechar</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 text-right">
+                <ul *ngIf="pager.pages && pager.pages.length" class="pagination stylepage">
+                    <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="setPage(1)">Primeiro</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="setPage(pager.currentPage - 1)">Anterior</a>
+                    </li>
+                    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                        <a (click)="setPage(page)">{{page}}</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="setPage(pager.currentPage + 1)">Próxima</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="setPage(pager.totalPages)">Último</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal VISIT -->
+<div class="modal fade" id="modal-visit">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" [ngStyle]="object">
+            <div class="modal-body" *ngIf="visit !== undefined">
+                <div class="row">
+                    <div class="col-md-4" style="padding-right: 0;">
+                        <div class="text-visit">
+                            VISITA
+                        </div>
+                        <div class="n-visit">
+                            Nº {{ visit.number }}
+                        </div>
+                    </div>
+                    <div class="col-md-8" style="padding-left: 0;">
+                        <div class="when-visit">
+                            {{ visit.chapter?.title }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group-data">
+                            <label class="label-control"> Tema: </label> {{ visit.chapter?.subtitle }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group-data">
+                            <label class="label-control"> Família: </label>
+                            <span *ngIf="visit.child !== undefined">
+                                {{ visit.child.name }}
+                            </span>
+                            <span *ngIf="visit.responsible !== undefined">
+                                {{ visit.responsible.name }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group-data">
+                            <label class="label-control"> Tipo: </label>
+                            <span>
+                                {{ visit.child !== undefined ? 'CRIANÇA' : 'GESTANTE' }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group-data">
+                            <label class="label-control"> Data: </label>
+                            <span> {{ visit.done_at | date:'dd-MM-yyyy' }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                <div class="modal-btn-confirm">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn_cancel">Fechar</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

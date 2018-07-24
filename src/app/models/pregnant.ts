@@ -1,5 +1,4 @@
 import { Agent } from './agent';
-import { Child } from './child';
 import { Responsible } from './responsible';
 
 export class Pregnant {
@@ -16,6 +15,5 @@ export class Pregnant {
     public phone_owner: boolean;
     public pregnancies: any[] = new Array();
     public agent: Agent = new Agent();
-    // public children: Child[] = Array();
-    // public responsible: Responsible;
+    // public family: Responsible = new Responsible();
 }

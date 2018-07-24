@@ -40,6 +40,10 @@ label {
     font-weight: normal;
 }
 
+input[type="radio"] {
+    cursor: pointer;
+}
+
 .form-group.has-error .form-control,
 .form-group.has-error .input-group-addon {
     border-color: #a94442;
@@ -181,7 +185,7 @@ section.content_user {
 }
 
 .nav-tabs-custom>.tab-content {
-    padding-top: 10px;
+    padding-top: 20px;
     padding-left: 25px;
     padding-right: 25px;
 }
@@ -200,22 +204,32 @@ input#waterDrink2 {
     width: 60%;
 }
 
-input[type="radio"] {
-    cursor: pointer;
-}
-
 label.lb-tab {
     position: absolute;
     color: white;
     font-size: 14px;
     text-align: center;
-    top: 8px;
+    top: 15px;
     left: 20px;
     right: 20px;
+    cursor: pointer!important;
 }
 
 label.lb-tab.service {
-    top: 25%;
+    top: 35%;
+}
+
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control,
+span.form-control {
+    background-color: #fbfbfb;
+    border: 0;
+}
+
+label.control-label {
+    font-weight: bold;
+    color: #999;
 }
 
 .nav-tabs-custom>.nav-tabs>li.active>a,
@@ -227,22 +241,52 @@ label.lb-tab.service {
     border-top: 0;
 }
 
-.form-group.save {
-    position: absolute;
-    top: 20px;
-    right: 1px;
+.nav-tabs-custom>.nav-tabs>li.active>a {
+    border: 0;
 }
 
-.row.footer {
-    padding-top: 20px;
-    padding-left: 10px;
+
+/* MODAL */
+
+.modal-body {
+    padding: 0;
 }
 
-label.checkbox {
-    padding-left: 25px;
+.modal-dialog.modal-lg {
+    max-width: 680px;
 }
 
-.feedback-spinner {
+.n-visit {
+    float: right;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 8px;
+    background-color: #0075BD;
+    color: #fff;
+    width: 76px;
+    border-right: 1px solid #fff;
+}
+
+.text-visit {
+    float: left;
+    font-size: 18px;
+    padding: 8px;
+    width: 65%;
+    background-color: #0075BD;
+    color: #fff;
+    text-align: center;
+}
+
+.when-visit {
+    text-align: center;
+    font-size: 18px;
+    background-color: #DFE8ED;
+    color: #224860;
+    padding: 8px;
+}
+
+.form-group-data {
+    padding: 10px;
     font-size: 14px;
-    padding-bottom: 15px;
+    color: #224860;
 }

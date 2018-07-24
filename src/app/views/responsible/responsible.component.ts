@@ -1,3 +1,6 @@
+import { User } from './../../models/user';
+import { Agent } from './../../models/agent';
+import { UserService } from './../../services/user/user.service';
 import { SweetAlert2Service } from './../../services/sweetalert/sweet-alert.2service';
 import { LoaderService } from './../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../helpers/permissions';
@@ -52,10 +55,16 @@ export class ResponsibleComponent implements OnInit {
   private selDate: IMyDate = {year: 0, month: 0, day: 0};
   private isValidDate: boolean;
   private income_participation: any[] = new Array();
+  private isCkeckboxValid: boolean;
 
   private family_income_other_count: number;
   private family_income: any[] = new Array();
   private otherChildren: any  = { has: null};
+  private family_income_list: any[] = new Array();
+  private isIcome_other: boolean;
+  private agents: User[] = new Array();
+  private hasCommunities: boolean;
+  private hasAgents: boolean;
 
   private canRead: boolean;
   private canUpdate: boolean;
@@ -66,6 +75,7 @@ export class ResponsibleComponent implements OnInit {
   constructor(
     private communityService: CommunityService,
     private responsibleService: ResponsibleService,
+    private userService: UserService,
     private toastService: ToastService,
     private modalService: ModalService,
     private sweetAlertService: SweetAlertService,
@@ -92,7 +102,7 @@ export class ResponsibleComponent implements OnInit {
     );
     /*check if is a new or update*/
     this.isNewData = true;
-    this.urlId = localStorage.getItem('responsibleId');
+    this.urlId = localStorage.getItem('familyId');
     if (this.urlId !== null && this.urlId !== '') {
       this.isNewData = false;
       this.load();
@@ -113,6 +123,7 @@ export class ResponsibleComponent implements OnInit {
   };
 
     this.getCommunities();
+    this.loadAgents();
     this.currentTab = 0;
     this.previousTab = '#tab_1';
     this.nextTab = '#tab_2';
@@ -142,49 +153,61 @@ export class ResponsibleComponent implements OnInit {
       'Trabalha e é a principal responsável pelo sustento da familia'
     ];
 
-    this.family_income = ['PESCA', 'FARINHA', 'CAÇA', 'ROÇADO', 'PROGRAMAS SOCIAIS', 'OUTRA'];
+    this.family_income = [
+      {
+        type: 'PESCA',
+        checked: null
+      },
+      {
+        type: 'FARINHA',
+        checked: null
+      },
+      {
+        type: 'CAÇA',
+        checked: null
+      },
+      {
+        type: 'ROÇADO',
+        checked: null
+      },
+      {
+        type: 'PROGRAMAS SOCIAIS',
+        checked: null
+      },
+      {
+        type: 'OUTRA',
+        checked: null
+      }
+    ];
     this.family_income_other_count = 0;
   }
 
   saveData(form1, fomr2, form3) {
     const isValid = form1 && fomr2 && form3;
 
+    console.log(this.responsible);
     if (isValid && this._isSave) {
       this.verifyDate();
+      this.updateOptions();
 
       for (let i = 0; i < this.communities.length; i++) {
         if ( this.responsible.community.id === this.communities[i].id) {
           this.responsible.community =  this.communities[i];
+          this.responsible.community_id = this.communities[i].id;
           this.responsible.community.city_id =  this.responsible.community.city.id;
           break;
         }
       }
 
       delete this.responsible.children;
-      // delete this.responsible.pregnancies;
-
       this.responsible.habitation_members_count = Number(this.responsible.habitation_members_count);
 
-      if ( this.responsible.family_income === 'outra') {
-        this.responsible.family_income = this.responsible.family_income_other;
-      }
-
-      // if ( !this.responsible.drinking_water_treatment2) {
-      //   this.responsible.drinking_water_treatment = 'Não';
-      // }
+      this.responsible.agent_id = this.responsible.agent.person.agent.id;
 
       this.responsible.community.city.state.cities = [];
-      // if (this.responsible.agent_id == null) {
-      //   this.responsible.agent_id = undefined;
-      // }
 
-      // if (this.responsible.mother == null) {
-      //   delete this.responsible.mother;
-      // }
-
-      // if (!this.responsible.has_other_children) {
-      //   this.responsible.children_count = 0;
-      // }
+      delete this.responsible.community;
+      delete this.responsible.pregnant;
 
       if (this.isNewData || this.responsible.id === undefined) {
         this.responsibleService.insert(this.responsible).subscribe(
@@ -203,7 +226,7 @@ export class ResponsibleComponent implements OnInit {
         this.responsibleService.update(this.responsible).subscribe(
           success => {
             console.log(success);
-            this.sweetAlertService.alertSuccessUpdate('/responsaveis');
+            this.sweetAlertService.alertSuccessUpdate('/familias');
           },
           error => {
             this.toastService.toastError();
@@ -214,6 +237,80 @@ export class ResponsibleComponent implements OnInit {
     } else {
       if (!isValid) {
         this.toastService.toastMsgError('Erro', 'Preencha todos os campos obrigatórios do formulário!');
+      }
+    }
+  }
+
+  loadAgents() {
+    this.userService.getAllAgents().subscribe(
+      s => {
+        this.agents = s;
+        this.hasAgents = true;
+      },
+      error => console.log(error)
+    );
+  }
+
+  updateOptions() {
+    let income = '';
+    if (this.family_income_list.length > 0) {
+      for (let i = 0; i < this.family_income_list.length; i++) {
+        if ( i === 0 ) {
+          income = this.family_income_list[i];
+        } else {
+          income = income + ',' + this.family_income_list[i];
+        }
+      }
+    } else {
+      income = '';
+    }
+
+    this.responsible.family_income = income;
+  }
+
+  verifyDataCheckbox() {
+    const icome = this.responsible.family_income;
+    this.family_income_list = icome.split(',');
+    if (this.responsible.family_income_other !== undefined &&
+        this.responsible.family_income_other !== '') {
+          this.isIcome_other = true;
+          // this.family_income_list.push(this.responsible.family_income_other);
+        }
+
+    for (let i = 0; i < this.family_income.length; i++) {
+      for (let j = 0; j < this.family_income_list.length; j++ ) {
+        if ( this.family_income[i].type === this.family_income_list[j]) {
+          this.family_income[i].checked = true;
+        }
+      }
+    }
+  }
+
+  verifyCheckbox(event) {
+    // * CHECKED * /
+    const value = event.target.value;
+    if (event.target.checked) {
+      if (value === 'OUTRA') {
+        this.isIcome_other = true;
+      }
+      this.family_income_list.push(value);
+
+      if (this.family_income_list.length === 0) {
+        this.isCkeckboxValid = false;
+      } else {
+        this.isCkeckboxValid = true;
+      }
+    } else {
+      if (value === 'OUTRA') {
+        this.isIcome_other = false;
+      }
+      const index = this.family_income_list.indexOf(value);
+      this.family_income_list.splice(index, 1);
+
+      if (this.family_income_list.length === 0) {
+        this.isCkeckboxValid = false;
+      } else {
+        this.isCkeckboxValid = true;
       }
     }
   }
@@ -238,6 +335,8 @@ export class ResponsibleComponent implements OnInit {
     this.responsibleService.load(this.urlId).subscribe(
       success => {
         this.responsible = success;
+        console.log(this.responsible);
+        this.verifyDataCheckbox();
         this.alterData();
         // if (this.responsible.children_count === 0) {
         //   this.otherChildren.has = false;
@@ -257,46 +356,38 @@ export class ResponsibleComponent implements OnInit {
   }
 
   alterData() {
-    // const dateList = this.responsible.birth.split('-');
-    // this.responsible.birth = dateList[2] + '-' + dateList[1] + '-' + dateList[0];
-    // const d = new Date(this.responsible.birth);
-    // d.setMinutes( d.getMinutes() + d.getTimezoneOffset() );
-    // this.selDate = {year: d.getFullYear(),
-    //                 month: d.getMonth() + 1,
-    //                 day: d.getDate()};
-    // this.selDate = this.selDate;
-
     // VERIFY family_income
-    for ( let i = 0; i < this.family_income.length; i++ ) {
-      if ( this.responsible.family_income === this.family_income[i]) {
-        this.family_income_other_count = 1;
-      }
-    }
-    if ( this.family_income_other_count !== 1 ) {
-      this.responsible.family_income_other = this.responsible.family_income;
-      this.responsible.family_income = 'Outra';
-    }
+    // for ( let i = 0; i < this.family_income.length; i++ ) {
+    //   if ( this.responsible.family_income === this.family_income[i]) {
+    //     this.family_income_other_count = 1;
+    //   }
+    // }
+    // if ( this.family_income_other_count !== 1 ) {
+    //   this.responsible.family_income_other = this.responsible.family_income;
+    //   this.responsible.family_income = 'Outra';
+    // }
 
     // VERIFY drinking_water_treatment
-    // if (this.responsible.drinking_water_treatment) {
-    //   this.responsible.drinking_water_treatment2 = false;
-    //   this.responsible.drinking_water_treatment = '';
-    // } else {
-    //   this.responsible.drinking_water_treatment2 = true;
-    // }
+    if ((this.responsible.water_treatment_description !== undefined) &&
+       (this.responsible.water_treatment_description !== '')) {
+      this.responsible.drinking_water_treatment = true;
+    } else {
+      this.responsible.drinking_water_treatment = false;
+    }
   }
 
   getCommunities() {
     this.communityService._getCommunities().subscribe(
       s => {
         this.communities = s;
+        this.hasCommunities = true;
       },
       error => console.log(error)
     );
   }
 
   openModal() {
-    this.modalService.modalCancel('/responsaveis');
+    this.modalService.modalCancel('/familias');
 
   }
 
@@ -308,7 +399,7 @@ export class ResponsibleComponent implements OnInit {
           this._isSave = true;
           this.openSaveButtonTab3.click();
         } else {
-          this.route.navigate(['/responsaveis']);
+          this.route.navigate(['/familias']);
         }
       });
     } else {

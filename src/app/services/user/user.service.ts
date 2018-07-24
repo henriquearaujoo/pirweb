@@ -39,6 +39,10 @@ export class UserService extends RestService {
     }
   }
 
+  public getAllAgents() {
+    return this.get(this.apiurl + 'users/agents/');
+  }
+
   public createUser(user: User) {
     return this.post(this.apiurl + 'users/', user);
   }
