@@ -206,8 +206,8 @@ export class ResponsibleComponent implements OnInit {
 
       this.responsible.community.city.state.cities = [];
 
-      delete this.responsible.community;
-      delete this.responsible.pregnant;
+      // delete this.responsible.community;
+      // delete this.responsible.pregnant;
 
       if (this.isNewData || this.responsible.id === undefined) {
         this.responsibleService.insert(this.responsible).subscribe(
@@ -225,6 +225,7 @@ export class ResponsibleComponent implements OnInit {
         // console.log(this.responsible);
         this.responsibleService.update(this.responsible).subscribe(
           success => {
+            this.responsible = success;
             console.log(success);
             this.sweetAlertService.alertSuccessUpdate('/familias');
           },
@@ -245,6 +246,7 @@ export class ResponsibleComponent implements OnInit {
     this.userService.getAllAgents().subscribe(
       s => {
         this.agents = s;
+        console.log(this.agents);
         this.hasAgents = true;
       },
       error => console.log(error)

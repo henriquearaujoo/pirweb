@@ -171,7 +171,7 @@ export class UserComponent implements OnInit, OnDestroy {
     this.accountTab = './assets/img/user/ic_account_enable.png';
     this.personalTab = './assets/img/user/ic_personal_disable.png';
     this.adressTab = './assets/img/user/ic_adress_disable.png';
-    this.agentTab = './assets/img/user/ic_dataTab_disable.png';
+    this.agentTab = './assets/img/user/section_info_agent_disable.png';
 
     this.enable_save = false;
     this.cont = 0;
@@ -343,7 +343,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
   changeDate() {
     const dateList = this.user.person.agent.birth.split('-');
-    this.user.person.agent.birth = dateList[2] + '-' + dateList[1] + '-' + dateList[0];
+    this.user.person.agent.birth = dateList[0] + '-' + dateList[1] + '-' + dateList[2];
     const d = new Date(this.user.person.agent.birth);
     console.log(d);
     d.setMinutes( d.getMinutes() + d.getTimezoneOffset() );
@@ -735,13 +735,13 @@ export class UserComponent implements OnInit, OnDestroy {
             this.accountTab = './assets/img/user/ic_account_enable.png';
             this.personalTab = './assets/img/user/ic_personal_disable.png';
             this.adressTab = './assets/img/user/ic_adress_disable.png';
-            this.agentTab = './assets/img/user/ic_dataTab_disable.png';
+            this.agentTab = './assets/img/user/section_info_agent_disable.png';
 
         }else if (this.currentTab === 1) {
             this.accountTab = './assets/img/user/ic_account_disable.png';
             this.personalTab = './assets/img/user/ic_personal_enable.png';
             this.adressTab = './assets/img/user/ic_adress_disable.png';
-            this.agentTab = './assets/img/user/ic_dataTab_disable.png';
+            this.agentTab = './assets/img/user/section_info_agent_disable.png';
             (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
             (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
         } else if (this.currentTab === 2) {
@@ -749,14 +749,14 @@ export class UserComponent implements OnInit, OnDestroy {
             this.accountTab = './assets/img/user/ic_account_disable.png';
             this.personalTab = './assets/img/user/ic_personal_disable.png';
             this.adressTab = './assets/img/user/ic_adress_enable.png';
-            this.agentTab = './assets/img/user/ic_dataTab_disable.png';
+            this.agentTab = './assets/img/user/section_info_agent_disable.png';
             this.next = 'Salvar';
         } else {
             (<HTMLButtonElement>document.getElementById('btn_next')).style.display = 'none';
             this.accountTab = './assets/img/user/ic_account_disable.png';
             this.personalTab = './assets/img/user/ic_personal_disable.png';
             this.adressTab = './assets/img/user/ic_adress_disable.png';
-            this.agentTab = './assets/img/user/ic_dataTab_enable.png';
+            this.agentTab = './assets/img/user/section_info_agent_enable.png';
             this.next = 'Salvar';
           }
       } else {

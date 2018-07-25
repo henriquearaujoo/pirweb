@@ -15,5 +15,5 @@ export class Pregnant {
     public phone_owner: boolean;
     public pregnancies: any[] = new Array();
     public agent: Agent = new Agent();
-    // public family: Responsible = new Responsible();
+    public family: Responsible = new Responsible();
 }

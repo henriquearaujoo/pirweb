@@ -89,17 +89,17 @@ export const MENU = [
         'hasChild': false,
         'parent': 6
     },
-    {
-        'id': 9,
-        'title': 'GRÁFICO DE DESEMPENHO',
-        'route': 'agente-desempenho',
-        'routes': ['/agente-desempenho'],
-        'read': false,
-        'iClass': 'fa fa-circle-o',
-        'category': 'child',
-        'hasChild': false,
-        'parent': 6
-    },
+    // {
+    //     'id': 9,
+    //     'title': 'GRÁFICO DE DESEMPENHO',
+    //     'route': 'agente-desempenho',
+    //     'routes': ['/agente-desempenho'],
+    //     'read': false,
+    //     'iClass': 'fa fa-circle-o',
+    //     'category': 'child',
+    //     'hasChild': false,
+    //     'parent': 6
+    // },
     {
         'id': 10,
         'title': 'MAPA DOS AGENTES',

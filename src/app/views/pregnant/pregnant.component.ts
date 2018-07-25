@@ -140,7 +140,7 @@ export class PregnantComponent extends PagenateComponent implements OnInit {
     if (isValid) {
       this.verifyDate();
       console.log(this.pregnant);
-      // this.pregnant.family_id = this.pregnant.family.id;
+      this.pregnant.family_id = this.pregnant.family.id;
 
       if (this.isNewData || this.pregnant.id === undefined) {
         this.pregnantService.insert(this.pregnant).subscribe(

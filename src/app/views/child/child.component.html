@@ -11,10 +11,14 @@
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
                 <li>
-                    <img src="{{ infoTab }}" />
+                    <a class="tab-pane active" (click)="walk(0)" href="#tab_1" data-toggle="tab">
+                        <img src="{{ infoTab }}" />
+                    </a>
                 </li>
                 <li>
-                    <img src="{{ socialTab }}" />
+                    <a class="tab-pane active" (click)="walk(1)" href="#tab_2" data-toggle="tab">
+                        <img src="{{ visitsTab }}" />
+                    </a>
                 </li>
             </ul>
             <div class="tab-content">
@@ -27,15 +31,33 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <form name="form" (ngSubmit)="save(1,f1.valid)" id="f_1" #f1="ngForm" novalidate>
+                                    <form name="form" (ngSubmit)="saveData(f1.valid)" id="f_1" #f1="ngForm" novalidate>
                                         <div class="box box-primary">
                                             <div class="box-body">
                                                 <div class="row">
-                                                    <div class="col-sm-12">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Código da criança</label>
+                                                            <input type="text" #codeChild="ngModel" name="code_child" pattern="[\w,./_=?-].*" maxlength="60" [(ngModel)]="child.code" id="code_child" class="form-control" placeholder="Código da criança" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
                                                         <div class="form-group" [ngClass]="applyCssError(f1, nameChild)">
                                                             <label class="control-label">Nome completo da criança</label>
                                                             <input type="text" #nameChild="ngModel" name="name_child" pattern="[\w,./_=?-].*" maxlength="60" [(ngModel)]="child.name" id="name_child" class="form-control" placeholder="Nome completo da criança" required>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f1, nameChild)" [field]="nameChild" msgError="Digite um nome para a criança">
+                                                            </app-control-field-error>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group" [ngClass]="applyCssError(f1, familyId)">
+                                                            <label class="control-label">Família</label>
+                                                            <select class="form-control" #familyId="ngModel" name="familyId" [(ngModel)]="child.family.id" id="family_id" required>
+                                                                <option [value]="item.id" *ngFor="let item of families"> {{ item.name }}</option>                                                                       
+                                                            </select>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, familyId)" msgError="Selecione uma família">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
@@ -60,7 +82,7 @@
                                                               <input type="radio" #gender="ngModel" name="gender" [(ngModel)]="child.gender" id="gender" value="MALE" required>
                                                               Masculino
                                                             </label>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, gender)" msgError="Escolha uma das alternativas">
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f1, gender)" msgError="Escolha uma das alternativas">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
@@ -83,7 +105,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
+                                                <!-- <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="form-group" [ngClass]="applyCssError(f1, familyId)">
                                                             <label class="control-label">Família</label>
@@ -94,7 +116,7 @@
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- <div class="content-control">
@@ -112,8 +134,8 @@
                                         </div> -->
                                         <div class="col-md-12">
                                             <div class="form-group save">
-                                                <button class="btn btn-primary btn-block" (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save" *ngIf="isNewData && canCreate">Cadastrar</button>
-                                                <button class="btn btn-primary btn-block" (click)="isSave()" name="submit" id="btn_save" [disabled]="!enable_save" *ngIf="!isNewData && canUpdate">Salvar</button>
+                                                <button class="btn btn-primary btn-block" (click)="isSave()" name="submit" id="btn_save" *ngIf="isNewData && canCreate">Cadastrar</button>
+                                                <button class="btn btn-primary btn-block" (click)="isSave()" name="submit" id="btn_save" *ngIf="!isNewData && canUpdate">Salvar</button>
                                             </div>
                                         </div>
                                     </form>

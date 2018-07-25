@@ -45,15 +45,15 @@
                                             <div class="box-body">
                                                 <div class="row">
                                                     <div class="col-sm-6">
-                                                        <div class="form-group" [ngClass]="applyCssError(f1, responsibleCommunity)" *ngIf="responsible.community !== undefined">
+                                                        <div class="form-group" [ngClass]="applyCssError(f1, responsibleCommunity)">
                                                             <label class="control-label">Comunidade</label>
-                                                            <select class="form-control" #responsibleCommunity="ngModel" name="responsibleCommunity" [(ngModel)]="responsible.community.id" id="responsible_community" required>
-                                                              <option [ngValue]="item.id" *ngFor="let item of communities"> {{ item.name }}</option>
+                                                            <select class="form-control" #responsibleCommunity="ngModel" name="responsibleCommunity" [(ngModel)]="responsible?.community.id" id="responsible_community" required>
+                                                              <option [value]="item.id" *ngFor="let item of communities"> {{ item.name }}</option>
                                                             </select>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f1, responsibleCommunity)" msgError="Selecione uma comunidade">
                                                             </app-control-field-error>
                                                         </div>
-                                                        <div class="feedback-spinner" *ngIf="!hasCommunities && communities.length === 0">
+                                                        <div class="feedback-spinner" *ngIf="!hasCommunities">
                                                             <i class="fa fa-spinner fa-pulse"></i>
                                                             <span class="feedback-message">Carregando comunidades...</span>
                                                         </div>
@@ -62,12 +62,12 @@
                                                         <div class="form-group" [ngClass]="applyCssError(f1, agent)">
                                                             <label class="control-label">Agente</label>
                                                             <select class="form-control" #agent="ngModel" name="agent" [(ngModel)]="responsible.agent?.person.agent.id" id="agent_id" required>
-                                                                  <option [ngValue]="item.person.agent.id" *ngFor="let item of agents"> {{ item.name }}</option>
-                                                                </select>
+                                                                <option [value]="item.person?.agent?.id" *ngFor="let item of agents"> {{ item.name }}</option>
+                                                            </select>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f1, agent)" msgError="Selecione um agente ">
                                                             </app-control-field-error>
                                                         </div>
-                                                        <div class="feedback-spinner" *ngIf="!hasAgents && agents.length === 0">
+                                                        <div class="feedback-spinner" *ngIf="!hasAgents">
                                                             <i class="fa fa-spinner fa-pulse"></i>
                                                             <span class="feedback-message">Carregando agentes...</span>
                                                         </div>

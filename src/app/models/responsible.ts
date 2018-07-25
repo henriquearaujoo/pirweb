@@ -18,7 +18,7 @@ export class Responsible {
     public has_sanitation: boolean;
     public has_water_treatment: boolean;
     public observations: string;
-    public pregnant: Pregnant = new Pregnant();
+    // public pregnant: Pregnant = new Pregnant();
     public water_treatment_description: string;
     public agent_id: string;
     public agent: User = new User();

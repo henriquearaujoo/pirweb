@@ -57,7 +57,7 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group" [ngClass]="applyCssError(f1, familyId)">
                                                             <label class="control-label">Família</label>
-                                                            <select class="form-control" #familyId="ngModel" name="familyId" [(ngModel)]="pregnant.family_id" id="family_id" required>
+                                                            <select class="form-control" #familyId="ngModel" name="familyId" [(ngModel)]="pregnant.family.id" id="family_id" required>
                                                                 <option [value]="item.id" *ngFor="let item of families"> {{ item.name }}</option>                                                                       
                                                             </select>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f1, familyId)" msgError="Selecione uma família">
@@ -104,11 +104,11 @@
                                                         <div class="form-group left" [ngClass]="applyCssError(f1, isPhoneOwner)">
                                                             <label class="control-label">Responsável do telefone</label> <br/>
                                                             <label class="radio-inline">                          
-                                                                <input type="radio" #isPhoneOwner="ngModel" name="isPhoneOwner" [(ngModel)]="pregnant.is_phone_owner" id="isPhoneOwner1" [value]="true" required>
+                                                                <input type="radio" #isPhoneOwner="ngModel" name="isPhoneOwner" [(ngModel)]="pregnant.phone_owner" id="isPhoneOwner1" [value]="true" required>
                                                                 Próprio
                                                             </label>
                                                             <label class="radio-inline"> 
-                                                                <input type="radio" #isPhoneOwner="ngModel" name="isPhoneOwner" [(ngModel)]="pregnant.is_phone_owner" id="isPhoneOwner2" [value]="false" required>
+                                                                <input type="radio" #isPhoneOwner="ngModel" name="isPhoneOwner" [(ngModel)]="pregnant.phone_owner" id="isPhoneOwner2" [value]="false" required>
                                                                 De outra pessoa(recados)
                                                             </label>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f1, isPhoneOwner)" [field]="isPhoneOwner" msgError="Selecione uma das alternativas">

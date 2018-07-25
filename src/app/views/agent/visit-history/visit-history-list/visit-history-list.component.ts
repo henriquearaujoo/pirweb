@@ -93,7 +93,7 @@ export class VisitHistoryListComponent implements OnInit {
     this.currentUser = localStorage.getItem('currentIdPir');
     if (this.idAgent !== undefined && this.idAgent !== null) {
       this.getVisits();
-      // this.load();
+      this.load();
     } else {
       this.idAgent = localStorage.getItem('currentIdPir');
       this.isAgent = true;
@@ -181,7 +181,11 @@ export class VisitHistoryListComponent implements OnInit {
   load() {
     this.userService.load(this.idAgent).subscribe(
       success => {
-        this.agent = success[0];
+        this.agent = success;
+        this.agentName = this.agent.name;
+        if (this.agentName !== '' && this.agentName !== undefined) {
+          this.isAgent = true;
+        }
         this.getVisits();
       },
       error => console.log(error)
