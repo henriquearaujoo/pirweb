@@ -155,8 +155,6 @@ export class PregnantComponent extends PagenateComponent implements OnInit {
           }
         );
       } else {
-        // delete this.responsible.mother.pregnancies;
-        // delete this.responsible.mother.responsible;
         this.pregnantService.update(this.pregnant).subscribe(
           success => {
             console.log('success: ', success);
@@ -177,13 +175,16 @@ export class PregnantComponent extends PagenateComponent implements OnInit {
 
   onDateChanged(event: IMyDateModel) {
     this.selDate = event.date;
-    const date = event.date.day + '-' + event.date.month + '-' + event.date.year;
-    // this.responsible.birth = date;
+    const date = event.date.year + '-' + event.date.month + '-' + event.date.day;
+    this.pregnant.birth = date;
   }
 
   verifyDate() {
-    const date = this.selDate.day + '-' + this.selDate.month + '-' + this.selDate.year;
-    // this.responsible.birth = date;
+    const date = this.selDate.year + '-' + this.selDate.month + '-' + this.selDate.day;
+    const d = new Date(date);
+    const currentMonth = ('0' + (d.getMonth() + 1)).slice(-2);
+    const currentDay = ('0' + d.getDate()).slice(-2);
+    this.pregnant.birth = this.selDate.year + '-' + currentMonth + '-' + currentDay;
   }
 
   onInputFieldChanged(event: IMyInputFieldChanged) {
@@ -196,16 +197,8 @@ export class PregnantComponent extends PagenateComponent implements OnInit {
       success => {
         this.pregnant = success;
         console.log(this.pregnant);
-        this.alterData();
+        this.changeData();
         this.loaderService.hide();
-        // if (this.responsible.children_count === 0) {
-        //   this.otherChildren.has = false;
-        // } else {
-        //   this.otherChildren.has = true;
-        // }
-        // if (this.responsible.mother === undefined) {
-        //   this.responsible.mother = new Pregnant();
-        // }
       },
       error => {
         this.loaderService.hide();
@@ -214,45 +207,17 @@ export class PregnantComponent extends PagenateComponent implements OnInit {
     );
   }
 
-  alterData() {
-    // ALTER DATE
-    // const dateList = this.pregnant.birth.split('-');
-    // this.pregnant.birth = dateList[2] + '-' + dateList[1] + '-' + dateList[0];
-    // const d = new Date(this.pregnant.birth);
-    // d.setMinutes( d.getMinutes() + d.getTimezoneOffset() );
-    // this.selDate = {year: d.getFullYear(),
-    //                 month: d.getMonth() + 1,
-    //                 day: d.getDate()};
-    // this.selDate = this.selDate;
-
-    // VERIFY family_income
-    // for ( let i = 0; i < this.family_income.length; i++ ) {
-    //   if ( this.responsible.family_income === this.family_income[i]) {
-    //     this.family_income_other_count = 1;
-    //   }
-    // }
-    // if ( this.family_income_other_count !== 1 ) {
-    //   this.responsible.family_income_other = this.responsible.family_income;
-    //   this.responsible.family_income = 'outra';
-    // }
-
-    // VERIFY drinking_water_treatment
-    // if ((this.responsible.drinking_water_treatment === 'Não') || (this.responsible.drinking_water_treatment === '')) {
-    //   this.responsible.drinking_water_treatment2 = false;
-    //   this.responsible.drinking_water_treatment = '';
-    // } else {
-    //   this.responsible.drinking_water_treatment2 = true;
-    // }
+  changeData() {
+    // CHANGE DATE
+    const dateList = this.pregnant.birth.split('-');
+    this.pregnant.birth = dateList[0] + '-' + dateList[1] + '-' + dateList[2];
+    const d = new Date(this.pregnant.birth);
+    d.setMinutes( d.getMinutes() + d.getTimezoneOffset() );
+    this.selDate = {year: d.getFullYear(),
+                    month: d.getMonth() + 1,
+                    day: d.getDate()};
+    this.selDate = this.selDate;
   }
-
-  // getCommunities() {
-  //   this.communityService._getCommunities().subscribe(
-  //     s => {
-  //       this.communities = s;
-  //     },
-  //     error => console.log(error)
-  //   );
-  // }
 
   openModal() {
     this.modalService.modalCancel('/gestantes');

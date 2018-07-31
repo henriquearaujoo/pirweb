@@ -84,7 +84,6 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group" [ngClass]="{ 'has-error': !isValidDate }">
                                                             <label class="control-label">Data de nascimento da gestante</label>
-
                                                             <my-date-picker name="dateBirth" [options]="myDatePickerOptions" id="dateBirth" [selDate]="selDate" (dateChanged)="onDateChanged($event)" (inputFieldChanged)="onInputFieldChanged($event)" required>
                                                             </my-date-picker>
                                                             <div *ngIf="!isValidDate" class="help-block"> Data de nascimento inválida</div>
@@ -165,12 +164,12 @@
                                 <div class="col-sm-12">
                                     <!-- <form name="form" (ngSubmit)="save(2,f2.valid)" #f2="ngForm" novalidate> -->
                                     <div class="box box-primary">
-                                        <div class="box-body">
+                                        <div class="box-body pregnant_1">
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <form name="form" #f3="ngForm" novalidate>
                                                         <div class="box box-primary">
-                                                            <div class="box-body">
+                                                            <div class="box-body pregnant_2">
                                                                 <table id="example2" class="table" *ngIf="!showPregnancy">
                                                                     <thead>
                                                                         <tr>
@@ -184,7 +183,7 @@
                                                                         <i class="material-icons" style="font-size: 24px;">error_outline</i>
                                                                         <span class="feedback-message">Nenhum registro encontrado</span>
                                                                     </div>
-                                                                    <tbody *ngIf="pregnant.pregnancies?.length !== 0 && hasdata">
+                                                                    <tbody *ngIf="pregnant.pregnancies?.length !== 0">
                                                                         <tr *ngFor="let item of pregnant.pregnancies">
                                                                             <td class="tbl-left">
                                                                                 {{ item.registered_at | date: 'dd/MM/yyyy' }}
@@ -221,53 +220,17 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <!-- <div class="col-md-3" *ngIf="!showPregnancy">
-                                                                    <div class="form-group">
-                                                                        <button class="btn btn-default btn-block" [routerLink]="['/responsaveis']" id="btn_return3"> Voltar</button>
-                                                                    </div>
-                                                                </div> -->
-                                                        <div class="col-md-3 col-md-offset-6">
-                                                        </div>
                                                     </form>
                                                 </div>
                                             </div>
 
                                         </div>
                                     </div>
-                                    <!-- <div class="content-control">
-                                        <div class="control">
-                                            <a href="{{previousTab}}" data-toggle="tab" (click)="isActive(false, 2, 0)" id="btn_previous">
-                                                <img src="./assets/img/global/ic_previous.png" />
-                                                <b>Anterior</b>
-                                            </a>
-                                            <a href="{{nextTab}}" data-toggle="tab" (click)="isActive(true, 2)" id="btn_next">
-                                                <b>Próximo</b>
-                                                <img src="./assets/img/global/ic_next.png" />
-                                            </a>
-                                            <button type="submit" id="btn_tab2"></button>
-                                        </div>
-                                    </div> -->
                                 </div>
                             </div>
                         </section>
                     </div>
                 </div>
-                <!-- /.tab-pane -->
-                <!-- <div class="row footer">
-                    <div class="col-md-12">
-                        <div class="form-group save">
-                            <button class="btn btn-primary btn-block" type="submit" (click)="isSave()" name="submit" id="btn_save" *ngIf="isNewData && canCreate">Cadastrar</button>
-                            <button class="btn btn-primary btn-block" type="submit" (click)="isSave()" name="submit" id="btn_save" *ngIf="!isNewData && canUpdate">Salvar</button>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <button type="button" class="btn btn-default btn-block" type="button" (click)="onCancel()" id="btn_return3">
-                                    <span *ngIf="isNewData">Cancelar</span>   <span *ngIf="!isNewData">Voltar</span> 
-                                </button>
-                        </div>
-                    </div>
-                </div> -->
 
             </div>
             <!-- /.tab-content -->

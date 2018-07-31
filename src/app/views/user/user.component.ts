@@ -90,6 +90,7 @@ export class UserComponent implements OnInit, OnDestroy {
   private isWhitespace: boolean;
   private onChange: boolean;
   private isTypeAgent: boolean;
+  private hasRegional: boolean;
   private password: string;
   private citiesOfActivity: any[] = new Array();
   private regionais: Regional[] = new Array();
@@ -150,14 +151,15 @@ export class UserComponent implements OnInit, OnDestroy {
     /*check if is a new or update*/
     this.isNewData = true;
     this.urlId = localStorage.getItem('userId');
-    this.getRegionais();
     if (this.urlId !== undefined && this.urlId !== '' && this.urlId !== null) {
       this.isNewData = false;
+      // this.getRegionais();
       this.loadUser();
     } else {
+      this.getRegionais();
       this.loaderService.hide();
     }
-    this.loadStates();
+    this.loadCities();
     this.loadProfiles();
     this.show_pjur = false;
     this.show_community = false;
@@ -319,6 +321,7 @@ export class UserComponent implements OnInit, OnDestroy {
             this.isTypeAgent = true;
             this.user.type = 'PFIS';
             this.selectType();
+            this.hasRegional = true;
             if (this.user.person.agent === undefined) {
               this.user.person.agent = new Agent();
             }
@@ -461,8 +464,8 @@ export class UserComponent implements OnInit, OnDestroy {
     );
   }
 
-  public loadCities(state_id: string) {
-    this.userService.getCities(state_id).subscribe(
+  public loadCities() {
+    this.userService.getCities().subscribe(
       success => {
         if (success == null) {
         }
@@ -489,7 +492,7 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   verifyType() {
-    this.user.name = this.first_name + ' ' + this.last_name;
+    // this.user.name = this.first_name + ' ' + this.last_name;
     if ( (this.user.password !== undefined) &&
         (this.user.password !== '') &&
         (this.user.password !== null) ) {
@@ -617,7 +620,6 @@ export class UserComponent implements OnInit, OnDestroy {
     this.userService.load(this.urlId).subscribe(
       success => {
         this.user = success;
-        console.log(this.user);
         if (this.user !== undefined) {
           this.first_name = this.user.name.split(' ')[0];
           this.last_name = this.user.name.substring(this.first_name.length + 1);
@@ -626,16 +628,25 @@ export class UserComponent implements OnInit, OnDestroy {
             this.person = new Person();
             this.person = this.user.person;
             if (this.user.profile.type === 'AGENT') {
-              this.isTypeAgent = true;
               this.agent = this.user.person.agent;
+              this.isTypeAgent = true;
               this.changeDate();
-              this.regionais.filter( elem => {
-                if (elem.id === this.agent.unity.regional.id) {
-                  this.agent.regional = elem;
+              this.regionalService.getAll().subscribe(
+                s => {
+                  this.regionais = s;
+                  this.regionais.filter( elem => {
+                    if (elem.id === this.agent.unity.regional.id) {
+                      this.agent.regional = elem;
+                      this.unities = this.agent.regional.unities;
+                      this.hasRegional = true;
+                      this.getCities();
+                    }
+                  });
+                },
+                error => {
+                  console.log(error);
                 }
-              });
-              this.unities = this.agent.regional.unities;
-              this.getCities();
+              );
             }
             this.show_pjur = false;
           } else {
@@ -644,7 +655,7 @@ export class UserComponent implements OnInit, OnDestroy {
             this.entity = this.user.entity;
             this.show_pjur = true;
           }
-          this.loadCities(this.user.address.city.state.id);
+          this.loadCities();
           this.loadProfiles();
           this.loaderService.hide();
         } else {

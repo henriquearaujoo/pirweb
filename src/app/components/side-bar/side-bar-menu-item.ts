@@ -1,5 +1,26 @@
 export const MENU = [
-
+    {
+        'id': 22,
+        'title': 'DASHBOARD',
+        'route': '',
+        'routes': ['/', '/dashboard'],
+        'read': false,
+        'iClass': 'fa fa-line-chart',
+        'category': 'parent',
+        'hasChild': true,
+        'parent': 0
+    },
+    {
+        'id': 23,
+        'title': 'REGISTRO',
+        'route': 'relatorios',
+        'routes': ['/relatorios'],
+        'read': false,
+        'iClass': 'fa fa-circle-o',
+        'category': 'child',
+        'hasChild': false,
+        'parent': 22
+    },
     {
         'id': 1,
         'title': 'USUÁRIO',
@@ -232,28 +253,6 @@ export const MENU = [
         'category': 'child',
         'hasChild': false,
         'parent': 19
-    },
-    {
-        'id': 22,
-        'title': 'RELATÓRIOS',
-        'route': '',
-        'routes': ['/', '/relatorios'],
-        'read': false,
-        'iClass': 'fa fa-line-chart',
-        'category': 'parent',
-        'hasChild': true,
-        'parent': 0
-    },
-    {
-        'id': 23,
-        'title': 'REGISTRO',
-        'route': 'relatorios',
-        'routes': ['/relatorios'],
-        'read': false,
-        'iClass': 'fa fa-circle-o',
-        'category': 'child',
-        'hasChild': false,
-        'parent': 22
-    },
+    }
 ];
 

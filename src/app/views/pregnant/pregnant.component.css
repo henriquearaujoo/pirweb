@@ -236,3 +236,11 @@ label.lb-tab.service {
     padding-top: 20px;
     padding-left: 10px;
 }
+
+.box-body.pregnant_1 {
+    padding: 15px;
+}
+
+.box-body.pregnant_2 {
+    padding: 0;
+}

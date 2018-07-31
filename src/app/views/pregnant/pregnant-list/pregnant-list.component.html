@@ -52,18 +52,18 @@
                                     {{ item.name }}
                                 </td>
                                 <td class="tbl-left">
-                                    {{ item.birth }}
+                                    {{ item.birth | date: 'dd/MM/yyyy' }}
                                 </td>
-                                <!-- <td class="tbl-right">
+                                <td class="tbl-right">
                                     <a (click)="toView(item)" id="btn_details" title="Ver detalhes">
                                         <i class="large material-icons">visibility</i>
                                     </a>
-                                </td> -->
-                                <td class="tbl-right">
+                                </td>
+                                <!-- <td class="tbl-right">
                                     <a id="btn_details" title="Ver detalhes" style="color: gray">
                                         <i class="large material-icons">visibility</i>
                                     </a>
-                                </td>
+                                </td> -->
                                 <td class="tbl-right">
                                     <a title="Editar" id="btn_edit" (click)="setPregnant(item)" *ngIf="canUpdate">
                                         <i class="fa fa-pencil fa-fw"></i>

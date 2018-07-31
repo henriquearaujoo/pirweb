@@ -69,9 +69,9 @@
                                                         <div class="form-group profile" [ngClass]="applyCssError(f1, profile)">
                                                             <label class="control-label">Perfil</label>
                                                             <select class="form-control" name="profile" id="user_profile" [(ngModel)]="user?.profile.id" (change)="changeProfile()" #profile="ngModel" required>
-                                                                    <!-- <option disabled> Perfil</option> -->
-                                                                    <option *ngFor="let p of profiles" [value]="p.id" >{{p.title}}</option>
-                                                                </select>
+                                                                <!-- <option disabled> Perfil</option> -->
+                                                                <option *ngFor="let p of profiles" [value]="p.id" >{{p.title}}</option>
+                                                            </select>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f1, profile)" msgError="Selecione um perfil">
                                                             </app-control-field-error>
                                                         </div>
@@ -83,9 +83,9 @@
                                                         <div class="form-group type" [ngClass]="!isTypeAgent ? applyCssError(f1, type) : ''">
                                                             <label class="control-label">Tipo de usuário</label>
                                                             <select class="form-control" name="type" id="user_type" [(ngModel)]="user.type" #type="ngModel" (change)="selectType()" [disabled]="isTypeAgent" required>
-                                                                    <!-- <option disabled >Tipo de Usuário</option> -->
-                                                                    <option *ngFor="let type of types" [value]="type.id">{{type.description}}</option>
-                                                                </select>
+                                                                <!-- <option disabled >Tipo de Usuário</option> -->
+                                                                <option *ngFor="let type of types" [value]="type.id">{{type.description}}</option>
+                                                            </select>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f1, type)" msgError="Selecione um tipo de usuário" *ngIf="!isTypeAgent">
                                                             </app-control-field-error>
                                                         </div>
@@ -207,19 +207,11 @@
                                         <div class="box box-primary">
                                             <div class="box-body">
                                                 <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group left" [ngClass]="applyCssError(f2, firstname)">
-                                                            <label class="control-label">Nome</label>
-                                                            <input type="text" #firstname="ngModel" [(ngModel)]="first_name" name="first_name" id="first_name" pattern="[\w,./_=?-].*" maxlength="30" class="form-control" placeholder="Nome" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, firstname)" [field]="firstname" msgError="Digite um nome">
-                                                            </app-control-field-error>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group" [ngClass]="applyCssError(f2, lastname)">
-                                                            <label class="control-label">Sobrenome</label>
-                                                            <input type="text" #lastname="ngModel" [(ngModel)]="last_name" name="last_name" id="last_name" pattern="[\w,./_=?-].*" maxlength="40" class="form-control" placeholder="Sobrenome" required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, lastname)" [field]="lastname" msgError="Digite um nome">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group left" [ngClass]="applyCssError(f2, fullName)">
+                                                            <label class="control-label">Nome completo</label>
+                                                            <input type="text" #fullName="ngModel" [(ngModel)]="user.name" name="full_name" id="full_name" pattern="[\w,./_=?-].*" maxlength="120" class="form-control" placeholder="Nome" required>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, fullName)" [field]="fullName" msgError="Digite um nome">
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
@@ -234,24 +226,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group left" [ngClass]="applyCssError(f2, rg)" *ngIf="!show_pjur">
-                                                            <label class="control-label">RG</label>
-                                                            <input type="text" [(ngModel)]="person.rg" #rg="ngModel" name="rg" id="user_rg" class="form-control" mask="000000000000000" placeholder="Inserir RG ..." required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, rg)" msgError="Digite um RG">
-                                                            </app-control-field-error>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group" [ngClass]="applyCssError(f2, emitter)" *ngIf="!show_pjur">
-                                                            <label class="control-label">Orgão Emissor</label>
-                                                            <input type="text" #emitter="ngModel" [(ngModel)]="person.emitter" name="rg_emitter" id="user_rgemitter" pattern="[\w,./_=?-].*" maxlength="15" class="form-control" placeholder="Inserir Orgão Emissor ..." required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, emitter)" [field]="emitter" msgError="Digite um Orgão Emissor">
-                                                            </app-control-field-error>
-                                                        </div>
-                                                    </div>
-                                                </div> -->
 
                                                 <div class="row">
                                                     <div class="col-sm-12">
@@ -390,19 +364,6 @@
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group left" [ngClass]="applyCssError(f3, state)">
-                                                            <label class="control-label">Estado</label>
-                                                            <select class="form-control" #state="ngModel" [(ngModel)]="user.address?.city?.state.id" name="state" id="user_state" (change)="loadCities($event.target.value)" required>
-                                                                            <!-- <option disabled> Estado </option> -->
-                                                                            <option *ngFor='let s of states' [value]='s.id'>{{s.name}}</option>
-                                                                            </select>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f3, state)" msgError="Selecione um estado">
-                                                            </app-control-field-error>
-                                                        </div>
-                                                    </div>
                                                     <div class="col-sm-6">
                                                         <div class="form-group" [ngClass]="applyCssError(f3, city)">
                                                             <label class="control-label">Cidade</label>
@@ -414,6 +375,30 @@
                                                             </app-control-field-error>
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="row">
+                                                    <!-- <div class="col-sm-6">
+                                                        <div class="form-group left" [ngClass]="applyCssError(f3, state)">
+                                                            <label class="control-label">Estado</label>
+                                                            <select class="form-control" #state="ngModel" [(ngModel)]="user.address?.city?.state.id" name="state" id="user_state" (change)="loadCities($event.target.value)" required>
+                                                                            
+                                                                            <option *ngFor='let s of states' [value]='s.id'>{{s.name}}</option>
+                                                                            </select>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f3, state)" msgError="Selecione um estado">
+                                                            </app-control-field-error>
+                                                        </div>
+                                                    </div> -->
+                                                    <!-- <div class="col-sm-6">
+                                                        <div class="form-group" [ngClass]="applyCssError(f3, city)">
+                                                            <label class="control-label">Cidade</label>
+                                                            <select class="form-control" #city="ngModel" name="city_id_fk" id="user_city" [(ngModel)]="user?.address?.city.id" required>
+                                                                      
+                                                                            <option *ngFor="let c of cities" [value]='c.id'>{{c.name}}</option>
+                                                                        </select>
+                                                            <app-control-field-error [showError]="verifyValidSubmitted(f3, city)" msgError="Selecione uma cidade">
+                                                            </app-control-field-error>
+                                                        </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -528,11 +513,11 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
+                                                <div class="row" *ngIf="hasRegional">
                                                     <div class="col-sm-6">
                                                         <div class="form-group left" [ngClass]="applyCssError(f4, regionalName)">
                                                             <label class="control-label">Regional</label>
-                                                            <select class="form-control" #regionalName="ngModel" [(ngModel)]="agent.regional.id" (change)="getUnities()" name="community_regional" id="community_regional" required>
+                                                            <select class="form-control" #regionalName="ngModel" [(ngModel)]="agent?.regional.id" (change)="getUnities()" name="community_regional" id="community_regional" required>
                                                                 <option [ngValue]="item.id" *ngFor="let item of regionais"> {{ item.name }} </option>
                                                             </select>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f4, regionalName)" [field]="regionalName" msgError="Selecione um regional">
@@ -543,8 +528,8 @@
                                                         <div class="form-group left" [ngClass]="applyCssError(f4, uc)">
                                                             <label class="control-label">UC</label>
                                                             <select class="form-control" #uc="ngModel" [(ngModel)]="agent.unity.id" name="community_uc" id="community_uc" (change)="getCities()" required>
-                                                                    <option [ngValue]="item.id" *ngFor="let item of unities"> {{ item.name }} </option>
-                                                                </select>
+                                                                <option [ngValue]="item.id" *ngFor="let item of unities"> {{ item.name }} </option>
+                                                            </select>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f4, uc)" [field]="uc" msgError="Selecione uma unidade de conservação">
                                                             </app-control-field-error>
                                                         </div>

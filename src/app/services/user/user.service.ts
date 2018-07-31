@@ -32,10 +32,10 @@ export class UserService extends RestService {
 
   public getAgents(filter?: any, page?: number) {
     if ( filter === undefined ) {
-      return this.get(this.apiurl + 'users/search/page/?size=' + this.size + '&page=' + page + '&profile.type=AGENT&sort=name,asc');
+      return this.get(this.apiurl + 'users/agents/search/page/?size=' + this.size + '&page=' + page + '&sort=name,asc');
     } else {
-      return this.get(this.apiurl + 'users/search/page/?size=' + this.size + '&page=' + page +
-      '&profile.type=AGENT&name=' + filter + '&sort=name,asc');
+      return this.get(this.apiurl + 'users/agents/search/page/?size=' + this.size + '&page=' + page +
+      '&name=' + filter + '&sort=name,asc');
     }
   }
 
@@ -88,10 +88,8 @@ export class UserService extends RestService {
     return this.get(this.apiurl + 'states/' + state_id + `/`);
   }
 
-  public getCities(state_id?: string) {
-    // if ( state_id === undefined ) {
-    //   return this.get(this.apiurl + 'states/');
-    // }
+  public getCities() {
+    const state_id = '336de5fc-0223-404e-8113-6d67f36f5b33';
     return this.get(this.apiurl + 'states/' + state_id );
   }
 

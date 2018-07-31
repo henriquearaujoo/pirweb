@@ -7,10 +7,10 @@ export const Constant = {
                 'http://10.10.2.181:8080/pir/rest/',
                 // 'http://10.10.3.146:8080/pir/rest/',
 
-            //    'http://samsung.institutoitn.com.br/pir-dev/rest/',
-            // 'http://10.10.3.148:8080/pir/rest/',
-            // 'http://192.168.0.5:8080/pir/rest/',
-    // BASE_URL : 'http://localhost:3000/',
+    //            'http://samsung.institutoitn.com.br/pirh/rest/',
+    //         // 'http://10.10.3.148:8080/pir/rest/',
+    //         // 'http://192.168.0.5:8080/pir/rest/',
+    // // BASE_URL : 'http://localhost:3000/',
     MEDIA_TYPE:
         {
             PICTURE_2D: 'PICTURE_2D',

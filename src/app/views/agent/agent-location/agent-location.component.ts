@@ -56,12 +56,11 @@ export class AgentLocationComponent implements OnInit {
       agent => {
         this.agent = agent;
         for (let i = 0; i < this.markers.length; i++) {
-          this.markers[i].lat = this.agent.latitude;
-          this.markers[i].lng = this.agent.longitude;
+          this.markers[i].lat = this.agent.person.agent.latitude;
+          this.markers[i].lng = this.agent.person.agent.longitude;
         }
       }
     );
-
   }
 
 }

@@ -118,7 +118,6 @@ export class VisitHistoryListComponent implements OnInit {
 
   getVisits() {
     if ( this.filter.name !== '') { this.page = 0; }
-    // if ( this.type_filter !== undefined ) {
       switch (this.type_filter) {
         case 1:
         this.loadVisits('number');
@@ -127,16 +126,12 @@ export class VisitHistoryListComponent implements OnInit {
         this.loadVisits('child.name');
         break;
         case 3:
-        this.loadVisits('responsible.name');
+        this.loadVisits('family.name');
         break;
-        // case 4:
-        // this.loadVisits('done_at');
-        // break;
         default:
         this.loadVisits('number');
         break;
       }
-    // }
   }
 
   loadVisits(type_filter) {
@@ -157,16 +152,6 @@ export class VisitHistoryListComponent implements OnInit {
           }
         }
         this.hasdata = true;
-        console.log(this.visits);
-        // this.visits.forEach( elem => {
-        //   this.chapterService.load(elem.chapter_id).subscribe(
-        //       ch => {
-        //         elem.chapter = ch;
-        //       },
-        //       error => console.log(error)
-        //     );
-        //   }
-        // );
         setTimeout(() => {
           this.loaderService.hide();
         }, 400);

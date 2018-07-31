@@ -63,7 +63,7 @@ export class ResponsibleDetailsComponent extends PagenateComponent implements On
       }
     );
      /*check if is a new or update*/
-     this.urlId = localStorage.getItem('responsibleId');
+     this.urlId = localStorage.getItem('familyId');
      if (this.urlId !== null && this.urlId !== '') {
        this.load();
      }
@@ -97,7 +97,6 @@ export class ResponsibleDetailsComponent extends PagenateComponent implements On
         this.hasdata = true;
         // this.pagedItems = this.responsible.pregnancies;
         // this.allItems = this.responsible.pregnancies;
-        this.setPage(1);
         console.log(this.responsible);
         this.loaderService.hide();
         if (this.responsible === undefined) {

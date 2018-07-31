@@ -32,6 +32,9 @@
                     <table id="example2" class="table">
                         <thead>
                             <tr>
+                                <th class="tbl-left">CÓDIGO DO AGENTE
+                                    <span class="glyphicon"></span>
+                                </th>
                                 <th class="tbl-left">NOME
                                     <span class="glyphicon"></span>
                                 </th>
@@ -49,6 +52,9 @@
 
                         <tbody *ngIf="agents.length !== 0">
                             <tr *ngFor="let item of agents">
+                                <td class="tbl-left">
+                                    {{ item.person?.agent?.code }}
+                                </td>
                                 <td class="tbl-left">
                                     {{ item.name }}
                                 </td>

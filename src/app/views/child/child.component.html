@@ -152,6 +152,53 @@
                                 <h5 class="box-title"> Visitas
                                 </h5>
                             </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <form name="form" #f3="ngForm" novalidate>
+                                        <div class="box box-primary">
+                                            <div class="box-body">
+                                                <table id="example2" class="table" *ngIf="child.visits">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-left">VISITA Nº</th>
+                                                            <th class="text-center"> PERÍODO</th>
+                                                            <th class="text-center"> TEMA</th>
+                                                            <th class="text-left"> DATA</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <div class="feedback" *ngIf="child.visits.length === 0">
+                                                        <i class="material-icons" style="font-size: 24px;">error_outline</i>
+                                                        <span class="feedback-message">Nenhum registro encontrado</span>
+                                                    </div>
+                                                    <tbody *ngIf="child.visits.length !== 0">
+                                                        <tr *ngFor="let item of child.visits">
+                                                            <td class="text-left">
+                                                                {{ item.number }}
+                                                            </td>
+                                                            <td class="text-left">
+                                                                <p class="limit-text">{{ item.chapter?.title }}</p>
+                                                            </td>
+                                                            <td class="text-left">
+                                                                <p class="limit-text"> {{ item.chapter?.subtitle }}</p>
+                                                            </td>
+                                                            <td class="text-left">
+                                                                {{ item.done_at | date: 'dd-MM-yyyy' }}
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-md-3">
+                                            <div class="form-group">
+                                                <button class="btn btn-default btn-block" [routerLink]="['/responsaveis']" id="btn_return3"> Voltar</button>
+                                            </div>
+                                        </div> -->
+                                        <div class="col-md-3 col-md-offset-6">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </section>
                     </div>
                 </div>
