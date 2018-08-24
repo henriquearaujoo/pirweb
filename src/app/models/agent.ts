@@ -4,7 +4,7 @@ import { City } from './city';
 
 export class Agent {
     public id: string;
-    public birth: string;
+    public birth: Date;
     public code: string;
     public gender: string;
     public is_phone_owner: boolean;

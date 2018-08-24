@@ -151,12 +151,12 @@ export class UserComponent implements OnInit, OnDestroy {
     /*check if is a new or update*/
     this.isNewData = true;
     this.urlId = localStorage.getItem('userId');
+    this.getRegionais();
     if (this.urlId !== undefined && this.urlId !== '' && this.urlId !== null) {
       this.isNewData = false;
       // this.getRegionais();
       this.loadUser();
     } else {
-      this.getRegionais();
       this.loaderService.hide();
     }
     this.loadCities();
@@ -345,8 +345,9 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   changeDate() {
-    const dateList = this.user.person.agent.birth.split('-');
-    this.user.person.agent.birth = dateList[0] + '-' + dateList[1] + '-' + dateList[2];
+    // const dateList = this.user.person.agent.birth.split('-');
+    const dateList = this.user.person.agent.birth;
+    // this.user.person.agent.birth = //dateList[0] + '-' + dateList[1] + '-' + dateList[2];
     const d = new Date(this.user.person.agent.birth);
     console.log(d);
     d.setMinutes( d.getMinutes() + d.getTimezoneOffset() );
@@ -359,7 +360,7 @@ export class UserComponent implements OnInit, OnDestroy {
   onDateChanged(event: IMyDateModel) {
     this.selDate = event.date;
     const date = event.date.day + '-' + event.date.month + '-' + event.date.year;
-    this.user.person.agent.birth = date;
+    this.user.person.agent.birth = new Date(date);
   }
 
   verifyDate() {
@@ -367,7 +368,7 @@ export class UserComponent implements OnInit, OnDestroy {
     const d = new Date(date);
     const currentMonth = ('0' + (d.getMonth() + 1)).slice(-2);
     const currentDay = ('0' + d.getDate()).slice(-2);
-    this.user.person.agent.birth = this.selDate.year + '-' + currentMonth + '-' + currentDay;
+    this.user.person.agent.birth = new Date(this.selDate.year + '-' + currentMonth + '-' + currentDay);
   }
 
   onInputFieldChanged(event: IMyInputFieldChanged) {
@@ -620,6 +621,7 @@ export class UserComponent implements OnInit, OnDestroy {
     this.userService.load(this.urlId).subscribe(
       success => {
         this.user = success;
+        console.log(success)
         if (this.user !== undefined) {
           this.first_name = this.user.name.split(' ')[0];
           this.last_name = this.user.name.substring(this.first_name.length + 1);
@@ -675,8 +677,8 @@ export class UserComponent implements OnInit, OnDestroy {
 
   alterData() {
     // ALTER DATE
-    const dateList = this.user.person.agent.birth.split('-');
-    this.user.person.agent.birth = dateList[2] + '-' + dateList[1] + '-' + dateList[0];
+    const dateList = this.user.person.agent.birth;
+    this.user.person.agent.birth = dateList;
     const d = new Date(this.user.person.agent.birth);
     d.setMinutes( d.getMinutes() + d.getTimezoneOffset() );
     this.selDate = {year: d.getFullYear(),
