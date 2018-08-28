@@ -5,6 +5,7 @@ import { Community } from './community';
 export class Responsible {
     public id: string;
     public name: string;
+    public birth: string;
     public community: Community = new Community();
     public children: Child[] = new Array();
     public community_id: string;

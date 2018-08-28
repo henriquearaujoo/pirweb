@@ -30,6 +30,7 @@ export class ResponsibleDetailsComponent extends PagenateComponent implements On
   private canCreate: boolean;
   private canDelete: boolean;
   private hasdata: boolean;
+  private selDate: string;
   private routeChild: boolean;
   private routeChildResponsible: boolean;
   private showPregnancy: boolean;
@@ -89,12 +90,18 @@ export class ResponsibleDetailsComponent extends PagenateComponent implements On
     );
   }
 
+  fixBirthDate(): void {
+    const brokeDate = this.responsible.birth.split('-');
+    this.selDate = `${brokeDate[2]}/${brokeDate[1]}/${brokeDate[0]}`;
+  }
+
   load() {
     this.loaderService.show();
     this.responsibleService.load(this.urlId).subscribe(
       success => {
         this.responsible = success;
         this.hasdata = true;
+        this.fixBirthDate();
         // this.pagedItems = this.responsible.pregnancies;
         // this.allItems = this.responsible.pregnancies;
         console.log(this.responsible);

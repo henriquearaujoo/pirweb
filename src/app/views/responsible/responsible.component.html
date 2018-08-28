@@ -1,7 +1,7 @@
 <simple-notifications></simple-notifications>
 <!-- <button data-toggle="modal" data-target="#modal-default" id="openModalButton">Open Modal</button> -->
 <!-- <button data-toggle="modal" data-target="#modal-cancel" id="openModalCancel">Open Modal</button> -->
-<div class="content_">
+<div class="content_"> 
     <div class="content-top">
         <div class="content_fa"> <i class="fa fa-users"></i> Família > Registro</div>
     </div>
@@ -74,12 +74,20 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-sm-12">
+                                                    <div class="col-sm-6">
                                                         <div class="form-group" [ngClass]="applyCssError(f1, nameResponsible)">
-                                                            <label class="control-label">Nome da Família</label>
+                                                            <label class="control-label">Nome Completo do(a) Responsável</label>
                                                             <input type="text" #nameResponsible="ngModel" name="name_responsible" pattern="[\w,./_=?-].*" maxlength="60" [(ngModel)]="responsible.name" id="name_responsible" class="form-control" placeholder="Nome completo do responsável" required>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f1, nameResponsible)" [field]="nameResponsible" msgError="Digite um nome para o responsável">
                                                             </app-control-field-error>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group" [ngClass]="{ 'has-error': !isValidDate }">
+                                                            <label class="control-label">Data de Nascimento</label>
+                                                            <my-date-picker name="birth" [options]="myDatePickerOptions" id="birth" [selDate]="selDate" (dateChanged)="onDateChanged($event)" (inputFieldChanged)="onInputFieldChanged($event)" required>
+                                                            </my-date-picker>
+                                                            <div *ngIf="!isValidDate" class="help-block"> Data de nascimento inválida</div>
                                                         </div>
                                                     </div>
                                                 </div>

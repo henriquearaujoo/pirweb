@@ -320,12 +320,18 @@ export class ResponsibleComponent implements OnInit {
   onDateChanged(event: IMyDateModel) {
     this.selDate = event.date;
     const date = event.date.day + '-' + event.date.month + '-' + event.date.year;
-    // this.responsible.birth = date;
+    this.responsible.birth = date;
+  }
+
+  loadBirthDate():  void {
+    const date: string = this.responsible.birth;
+    const brokeDate: string[] = date.split('-');
+    this.selDate = {day: parseInt(brokeDate[2], 10), month: parseInt(brokeDate[1], 10), year: parseInt(brokeDate[0], 10)};
   }
 
   verifyDate() {
     const date = this.selDate.day + '-' + this.selDate.month + '-' + this.selDate.year;
-    // this.responsible.birth = date;
+    this.responsible.birth = date;
   }
 
   onInputFieldChanged(event: IMyInputFieldChanged) {
@@ -340,6 +346,7 @@ export class ResponsibleComponent implements OnInit {
         console.log(this.responsible);
         this.verifyDataCheckbox();
         this.alterData();
+        this.loadBirthDate();
         // if (this.responsible.children_count === 0) {
         //   this.otherChildren.has = false;
         // } else {
