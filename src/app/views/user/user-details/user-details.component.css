@@ -263,3 +263,8 @@ section.content_user {
 .form-control[disabled], fieldset[disabled] .form-control {
     cursor: unset; 
 }
+
+.back {
+    margin-right: 857px;
+    margin-top: 10px;
+}

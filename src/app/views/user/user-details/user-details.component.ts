@@ -9,6 +9,7 @@ import { ProfileService } from '../../../services/profile/profile.service';
 import { Profile } from '../../../models/profile';
 import { ToastService } from '../../../services/toast-notification/toast.service';
 import { Address } from '../../../models/address';
+import { IMyDate } from 'mydatepicker';
 
 @Component({
   selector: 'app-user-details',
@@ -24,7 +25,7 @@ export class UserDetailsComponent implements OnInit {
   private cities: City[];
   private city_id: number;
   private state_id: string;
-  private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
+  private object: Object = { 'margin-top': (((window.screen.height) / 2) - 200) + 'px' };
   private urlId: string;
   private canRead: boolean;
   private canUpdate: boolean;
@@ -34,7 +35,11 @@ export class UserDetailsComponent implements OnInit {
   private accountTab: string;
   private personalTab: string;
   private adressTab: string;
+  private agentTab: string;
+  private selDate: String;
+
   @Input() isAgent: boolean;
+
 
   constructor(
     private userService: UserService,
@@ -42,7 +47,7 @@ export class UserDetailsComponent implements OnInit {
     private toastService: ToastService,
     private router: Router,
     private permissions: Permissions,
-    private loaderService: LoaderService ) {
+    private loaderService: LoaderService) {
     this.user = new User();
     this.canCreate = false;
     this.canUpdate = false;
@@ -73,11 +78,12 @@ export class UserDetailsComponent implements OnInit {
     this.accountTab = './assets/img/user/ic_account_enable.png';
     this.personalTab = './assets/img/user/ic_personal_disable.png';
     this.adressTab = './assets/img/user/ic_adress_disable.png';
+    this.agentTab = './assets/img/user/section_info_agent_disable.png';
   }
 
   verifyType() {
     if (this.user !== undefined) {
-      if (this.user.person !== undefined && this.user.person !== null ) {
+      if (this.user.person !== undefined && this.user.person !== null) {
         this.user.type = 'PFIS';
         this.show_pjur = false;
       } else {
@@ -96,12 +102,21 @@ export class UserDetailsComponent implements OnInit {
         setTimeout(() => {
           this.loaderService.hide();
         }, 400);
+        if (this.user.profile.title === 'Agente' && this.user.person.agent.code) {
+          this.isAgent = true;
+          this.fixBirthDate();
+        }
       },
       error => {
         this.loaderService.hide();
         console.log(error);
       }
     );
+  }
+
+  fixBirthDate(): void {
+    const brokeDate = this.user.person.agent.birth.toString().split('-');
+    this.selDate = `${brokeDate[2]}/${brokeDate[1]}/${brokeDate[0]}`;
   }
 
   editUser() {
@@ -135,11 +150,11 @@ export class UserDetailsComponent implements OnInit {
     this.user.profile.description = '';
     this.user.profile.updated_at = '';
     this.user.address.city.state.cities = [];
-    if ( this.user.latitude === null && this.user.longitude == null) {
+    if (this.user.latitude === null && this.user.longitude == null) {
       this.user.latitude = 0;
       this.user.longitude = 0;
     }
-    if (this.user.person !== null && this.user.person !== undefined ) {
+    if (this.user.person !== null && this.user.person !== undefined) {
       delete this.user.entity;
     } else {
       delete this.user.person;
@@ -148,23 +163,32 @@ export class UserDetailsComponent implements OnInit {
     this.user.password = undefined;
   }
 
-  walk ( tab: number) {
+  walk(tab: number) {
     switch (tab) {
       case 0:
-      this.accountTab = './assets/img/user/ic_account_enable.png';
-      this.personalTab = './assets/img/user/ic_personal_disable.png';
-      this.adressTab = './assets/img/user/ic_adress_disable.png';
-      break;
+        this.accountTab = './assets/img/user/ic_account_enable.png';
+        this.personalTab = './assets/img/user/ic_personal_disable.png';
+        this.adressTab = './assets/img/user/ic_adress_disable.png';
+        this.agentTab = './assets/img/user/section_info_agent_disable.png';
+        break;
       case 1:
-      this.accountTab = './assets/img/user/ic_account_disable.png';
-      this.personalTab = './assets/img/user/ic_personal_enable.png';
-      this.adressTab = './assets/img/user/ic_adress_disable.png';
-      break;
+        this.accountTab = './assets/img/user/ic_account_disable.png';
+        this.personalTab = './assets/img/user/ic_personal_enable.png';
+        this.adressTab = './assets/img/user/ic_adress_disable.png';
+        this.agentTab = './assets/img/user/section_info_agent_disable.png';
+        break;
       case 2:
-      this.accountTab = './assets/img/user/ic_account_disable.png';
-      this.personalTab = './assets/img/user/ic_personal_disable.png';
-      this.adressTab = './assets/img/user/ic_adress_enable.png';
-      break;
+        this.accountTab = './assets/img/user/ic_account_disable.png';
+        this.personalTab = './assets/img/user/ic_personal_disable.png';
+        this.adressTab = './assets/img/user/ic_adress_enable.png';
+        this.agentTab = './assets/img/user/section_info_agent_disable.png';
+        break;
+      case 3:
+        this.accountTab = './assets/img/user/ic_account_disable.png';
+        this.personalTab = './assets/img/user/ic_personal_disable.png';
+        this.adressTab = './assets/img/user/ic_adress_disable.png';
+        this.agentTab = './assets/img/user/section_info_agent_enable.png';
+        break;
     }
   }
 

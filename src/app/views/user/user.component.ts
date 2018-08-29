@@ -621,7 +621,7 @@ export class UserComponent implements OnInit, OnDestroy {
     this.userService.load(this.urlId).subscribe(
       success => {
         this.user = success;
-        console.log(success)
+        console.log(success);
         if (this.user !== undefined) {
           this.first_name = this.user.name.split(' ')[0];
           this.last_name = this.user.name.substring(this.first_name.length + 1);

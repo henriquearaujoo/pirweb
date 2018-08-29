@@ -30,13 +30,18 @@
                         <img src="{{adressTab}}" />
                     </a>
                 </li>
+                <li *ngIf="isAgent">
+                    <a class="tab-pane active" (click)="walk(3)" href="#tab_4" data-toggle="tab">
+                        <img src="{{agentTab}}" />
+                    </a>
+                </li>
                 <li class="edit">
-                    <button class="btn btn-default" data-toggle="modal" data-target="#modal-default" id="btn_delete" *ngIf="canDelete && !isAgent"> 
-                            <i [ngClass]="user.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off'" aria-hidden="true"></i>
-                        </button>
+                    <button class="btn btn-default" data-toggle="modal" data-target="#modal-default" id="btn_delete" *ngIf="canDelete && !isAgent">
+                        <i [ngClass]="user.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off'" aria-hidden="true"></i>
+                    </button>
                     <button class="btn btn-primary" title="Editar" id="btn_edit" (click)="editUser()" *ngIf="canUpdate">
-                            <i class="fa fa-pencil fa-fw"></i>
-                        </button>
+                        <i class="fa fa-pencil fa-fw"></i>
+                    </button>
                 </li>
             </ul>
             <div class="tab-content">
@@ -71,7 +76,8 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group type">
                                                             <label class="control-label">Tipo de usuário</label>
-                                                            <input type="text" name="type" class="form-control" value="{{ user.type === 'PFIS' ? 'Pessoa Física': 'Pessoa Jurídica'}}" disabled>
+                                                            <input type="text" name="type" class="form-control" value="{{ user.type === 'PFIS' ? 'Pessoa Física': 'Pessoa Jurídica'}}"
+                                                                disabled>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -288,7 +294,88 @@
                         </section>
                     </div>
                 </div>
-                <div class="row footer" *ngIf="!isAgent">
+
+                <div *ngIf="isAgent" class="tab-pane" id="tab_4">
+                    <div class="content">
+                        <section class="content">
+                            <div class="box-header_1 with-border">
+                                <h5 class="box-title"> Informações do Agente
+                                </h5>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group left">
+                                        <label class="control-label">Código do Agente</label>
+                                        <input type="text" name="code" class="form-control" [(ngModel)]="user.person.agent.code" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Data de nascimento</label>
+                                        <input type="text" name="birth" class="form-control" id="birth" [(ngModel)]="selDate" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Sexo</label> <br/>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="gender1" [checked]="user.person.agent.gender === 'FEMALE'" disabled>                                            Feminino
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="gender2" [checked]="user.person.agent.gender === 'MALE'" disabled>                                            Masculino
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group left">
+                                        <label class="control-label">Telefone</label>
+                                        <input type="text" [(ngModel)]="user.person.agent.phone" mask="(00)00000-0000" name="phone" class="form-control" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group left">
+                                        <label class="control-label">Responsável do telefone</label> <br/>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="isPhoneOwner" [checked]="user.person.agent.is_phone_owner" disabled>                                            Próprio
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="isPhoneOwner" [checked]="!user.person.agent.is_phone_owner" disabled>                                            De
+                                            outra pessoa(recados)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group left">
+                                        <label class="control-label">Regional</label>
+                                        <input type="text" [(ngModel)]="user.person.agent.unity.regional.name" name="regional" class="form-control" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group left">
+                                        <label class="control-label">UC</label>
+                                        <input type="text" [(ngModel)]="user.person.agent.unity.name" name="uc" class="form-control" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group left">
+                                        <label class="control-label">Município</label>
+                                        <input type="text" [(ngModel)]="user.person.agent.city.name" name="municipio" class="form-control" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="row footer back">
                     <button class="btn btn-default" (click)="back()" id="btn_return"> Voltar</button>
                 </div>
             </div>
@@ -443,8 +530,10 @@
                     <!-- <i class="material-icons" style="font-size: 60px;">error_outline</i> -->
                     <img class="icon" src="./assets/img/global/ic_action.png">
                 </div>
-                <h5 *ngIf="user.status"> Deseja realmente desativar o <span *ngIf="url === '/user-details'">usuário</span><span *ngIf="url !== '/user-details'">agente</span> <strong> {{ user.name | uppercase}} </strong> ?</h5>
-                <h5 *ngIf="!user.status"> Deseja realmente ativar o <span *ngIf="url === '/user-details'">usuário</span><span *ngIf="url !== '/user-details'">agente</span> <strong> {{ user.name | uppercase}} </strong> ?</h5>
+                <h5 *ngIf="user.status"> Deseja realmente desativar o <span *ngIf="url === '/user-details'">usuário</span><span
+                        *ngIf="url !== '/user-details'">agente</span> <strong> {{ user.name | uppercase}} </strong> ?</h5>
+                <h5 *ngIf="!user.status"> Deseja realmente ativar o <span *ngIf="url === '/user-details'">usuário</span><span
+                        *ngIf="url !== '/user-details'">agente</span> <strong> {{ user.name | uppercase}} </strong> ?</h5>
             </div>
             <div class="modal-footer_">
                 <div class="modal-btn-cancel">
