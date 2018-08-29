@@ -431,7 +431,7 @@
                                                     <img src="./assets/img/global/ic_previous.png" />
                                                     <b>Anterior</b>
                                                 </a>
-                                                <a href="{{nextTab}}" data-toggle="tab" (click)="isActive(true, 3)" id="btn_next">
+                                                <a *ngIf="isTypeAgent" href="{{nextTab}}" data-toggle="tab" (click)="isActive(true, 3)" id="btn_next">
                                                     <b>Próximo</b>
                                                     <img src="./assets/img/global/ic_next.png" />
                                                 </a>
