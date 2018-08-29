@@ -187,7 +187,6 @@ export class ResponsibleComponent implements OnInit {
 
     console.log(this.responsible);
     if (isValid && this._isSave) {
-      this.verifyDate();
       this.updateOptions();
 
       for (let i = 0; i < this.communities.length; i++) {
@@ -327,11 +326,6 @@ export class ResponsibleComponent implements OnInit {
     const date: string = this.responsible.birth;
     const brokeDate: string[] = date.split('-');
     this.selDate = {day: parseInt(brokeDate[2], 10), month: parseInt(brokeDate[1], 10), year: parseInt(brokeDate[0], 10)};
-  }
-
-  verifyDate() {
-    const date = this.selDate.day + '-' + this.selDate.month + '-' + this.selDate.year;
-    this.responsible.birth = date;
   }
 
   onInputFieldChanged(event: IMyInputFieldChanged) {

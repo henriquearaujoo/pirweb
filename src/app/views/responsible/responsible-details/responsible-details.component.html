@@ -65,10 +65,16 @@
                                                                 disabled>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-3">
                                                         <div class="form-group">
-                                                            <label class="control-label">Data de Nascimento</label>
+                                                            <label class="control-label">Dt. de Nascimento</label>
                                                             <input type="text" name="birth" class="form-control" id="birth" [(ngModel)]="selDate" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Genêro</label>
+                                                            <input type="text" name="gender" class="form-control" id="gender" [value]="translateGender(responsible.gender)" disabled>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -100,7 +106,7 @@
                                         <div class="box box-primary">
                                             <div class="box-body">
                                                 <div class="row">
-                                                    <div class="col-sm-4">
+                                                    <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label class="control-label">Há quantas crianças na família?</label>
                                                             <br/>
@@ -108,7 +114,7 @@
                                                         </div>
                                                     </div>
                                                     <div>
-                                                        <div class="col-sm-4">
+                                                        <div class="col-sm-6">
                                                             <div class="form-group">
                                                                 <label class="control-label">Tipo de moradia?</label>
                                                                 <span class="form-control" *ngIf="responsible.habitation_type === 'OWNED'"> Própria </span>
@@ -130,6 +136,21 @@
                                                         <div class="form-group">
                                                             <label class="control-label">Qual(is) a(s) principal(is) fonte(s) de renda da família? </label>
                                                             <input class="form-control" name="familyIncome" [(ngModel)]="responsible.family_income" id="familyIncome" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Participa de algum programa social? </label>
+                                                            <input class="form-control" name="familyIncomeOther" id="inSocialProgram" [value]="responsible.in_social_program ? 'Sim' : 'Não'" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6" *ngIf="responsible.family_income === 'OUTRA'">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Outra fonte de renda? </label>
+                                                            <input class="form-control" name="familyIncomeOther" [(ngModel)]="responsible.family_income_other" id="familyIncomeOther"
+                                                                disabled>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -200,7 +221,7 @@
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
-                                                            <label class="control-label">Observações gerais</label>
+                                                            <label class="control-label">Observações gerais (Tam. max 100)</label>
                                                             <br/>
                                                             <textarea class="form-control" rows="5" name="generalObservations" [(ngModel)]="responsible.observations" id="generalObservations"
                                                                 disabled></textarea>

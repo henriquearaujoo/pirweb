@@ -179,4 +179,12 @@ export class ResponsibleDetailsComponent extends PagenateComponent implements On
     }
   }
 
+  translateGender(gender: string): string {
+    if (gender) {
+      return gender === 'MALE' ? 'Masculino' : 'Feminino';
+    }
+
+    return 'Não informado';
+  }
+
 }
