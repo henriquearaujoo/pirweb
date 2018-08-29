@@ -28,6 +28,7 @@
     <div class="row">
 
         <div class="col-md-12">
+            <label class="control-label">Mídia:</label>
             <div class="panel panel-default">
                 <!-- <div class="panel-heading"><strong>Upload files</strong> <small> </small></div> -->
                 <div class="panel-body">
@@ -35,7 +36,6 @@
                     <div class="input-group image-preview">
                         <!-- <input placeholder="" type="text" class="form-control image-preview-filename" disabled="disabled"> -->
                         <div class="form-group">
-                            <label class="control-label">Mídia:</label>
                             <span class="input-group-btn">                                
                                 <div class="btn btn-default image-preview-input"> <span class="glyphicon glyphicon-folder-open"></span>
                             <span class="image-preview-input-title" *ngIf="!dragging">Selecione ou arraste e solte aqui</span>
@@ -43,7 +43,6 @@
                             <!-- <input type="file"  name="input-file-preview" /> -->
                             <input type="file" #fileInput name="input-file-preview" accept="{{ selectedType.accept }}" multiple (change)="onChange()" id="files" size="3" [disabled]="(isNewData || (selectedType === ''))" />
                         </div>
-                        <button type="submit" class="btn btn-labeled btn-default" [disabled]="(isNewData || (selectedType === ''))"> <span class="btn-label"><i class="glyphicon glyphicon-upload"></i> </span>Carregar</button>
                         </span>
                     </div>
                 </div>
@@ -72,6 +71,7 @@
                 </div>
             </div>
         </div>
+        <button type="submit" class="btn btn-labeled btn-info pull-right" [disabled]="(isNewData || (selectedType === ''))"> <span class="btn-label"><i class="glyphicon glyphicon-upload"></i> </span>Carregar</button>
     </div>
     </div>
 

@@ -14,11 +14,6 @@ false;" ondragover="return false;" ondrop="return false;" -->
                                     <app-upload-multimedia [isNewData]="isNewData" [(fileData)]="media" (uploaded)="uploadMedia($event)" disabled></app-upload-multimedia>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col">
-                                    <app-multimedia-gallery #gallery [datasource]="multimedias" (remove)="removeMultimedia($event)" *ngIf="hasData"></app-multimedia-gallery>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
