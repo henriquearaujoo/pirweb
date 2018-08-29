@@ -4,7 +4,8 @@
 <!-- AGENT LIST -->
 <div class="content_" *ngIf="!isAgent">
     <div class="content-top">
-        <div class="content_fa"> <img class="icon" src="./assets/img/global/ic_usuarios.png">Agente > Histórico de visitas</div>
+        <div class="content_fa">
+            <img class="icon" src="./assets/img/global/ic_usuarios.png">Agente > Histórico de visitas</div>
 
     </div>
     <section class="content">
@@ -23,10 +24,9 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div id="_filter" class="dataTables_filter">
-                            <label>
-                                <input type="text" class="form-control form-border"  [(ngModel)]="filter.name" #f="ngModel" 
-                                    mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" name="filter" id="filter" (keyup)="getAgents()" placeholder="Nome do agente">
-                            </label>
+                            <label for="filter"><strong>Filtro</strong></label>
+                            <input type="text" class="form-control form-border" [(ngModel)]="filter.name" #f="ngModel" mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20"
+                                name="filter" id="filter" (keyup)="getAgents()" placeholder="Nome do agente">
                         </div>
                     </div>
                 </div>

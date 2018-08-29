@@ -3,7 +3,8 @@
 <app-modal></app-modal>
 <div class="content_">
     <div class="content-top">
-        <div class="content_fa"> <img class="icon" src="./assets/img/global/ic_usuarios.png">Agente > Histórico de visitas</div>
+        <div class="content_fa">
+            <img class="icon" src="./assets/img/global/ic_usuarios.png">Agente > Histórico de visitas</div>
 
     </div>
     <section class="content">
@@ -29,10 +30,9 @@
                     </div>
                     <div class="col-sm-6">
                         <div id="_filter" class="dataTables_filter">
-                            <label>
-                            <input type="text" class="form-control form-border"  [(ngModel)]="filter.name" #f="ngModel" 
-                                mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" name="filter" id="filter" (keyup)="getAgents()" placeholder="Nome da família">
-                            </label>
+                            <label for="filter"><strong>Filtro</strong></label>
+                            <input type="text" class="form-control form-border" [(ngModel)]="filter.name" #f="ngModel" mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20"
+                                name="filter" id="filter" (keyup)="getAgents()" placeholder="Nome da família">
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,8 @@
                                     </span>
                                 </td>
                                 <td class="tbl-center">
-                                    <a id="btn_visit" (click)="setFamily(item.id)" [routerLink]="['/agente-visita/historico']" title="Ver hitórico de visitas" *ngIf="item.name  !== 'Administrator'">
+                                    <a id="btn_visit" (click)="setFamily(item.id)" [routerLink]="['/agente-visita/historico']" title="Ver hitórico de visitas"
+                                        *ngIf="item.name  !== 'Administrator'">
                                         <i class="large material-icons">history</i>
                                     </a>
                                 </td>
@@ -106,8 +107,10 @@
                     <img class="icon" src="./assets/img/global/ic_action.png">
                     <!-- <i class="material-icons" style="font-size: 60px;">error_outline</i> -->
                 </div>
-                <h5 *ngIf="agent.status"> Deseja realmente desativar o agente <strong> {{ agent.name | uppercase}} </strong> ?</h5>
-                <h5 *ngIf="!agent.status"> Deseja realmente ativar o agente <strong> {{ agent.name | uppercase}} </strong> ?</h5>
+                <h5 *ngIf="agent.status"> Deseja realmente desativar o agente
+                    <strong> {{ agent.name | uppercase}} </strong> ?</h5>
+                <h5 *ngIf="!agent.status"> Deseja realmente ativar o agente
+                    <strong> {{ agent.name | uppercase}} </strong> ?</h5>
             </div>
             <div class="modal-footer_">
                 <div class="modal-btn-cancel">
