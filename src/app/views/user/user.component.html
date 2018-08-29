@@ -256,8 +256,8 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group left" [ngClass]="applyCssError(f2, ie)" *ngIf="show_pjur">
                                                             <label class="control-label">Inscrição Estadual</label>
-                                                            <input type="text" #ie="ngModel" [(ngModel)]="entity.ie" name="ie" id="user_ie" pattern="[\w,./_=?-].*" class="form-control"
-                                                                placeholder="Inscrição Estadual" required>
+                                                            <input type="text" dropSpecialCharacters="true" mask="00.000.000-0" #ie="ngModel" [(ngModel)]="entity.ie" name="ie" id="user_ie"
+                                                                class="form-control" placeholder="Inscrição Estadual" required>
                                                             <app-control-field-error [showError]="verifyValidSubmitted(f2, ie)" [field]="ie" msgError="Digite uma inscrição estadual">
                                                             </app-control-field-error>
                                                         </div>
@@ -431,7 +431,7 @@
                                                     <img src="./assets/img/global/ic_previous.png" />
                                                     <b>Anterior</b>
                                                 </a>
-                                                <a href="{{nextTab}}" data-toggle="tab" (click)="isActive(true, 3)" id="btn_next">
+                                                <a *ngIf="isTypeAgent" href="{{nextTab}}" data-toggle="tab" (click)="isActive(true, 3)" id="btn_next">
                                                     <b>Próximo</b>
                                                     <img src="./assets/img/global/ic_next.png" />
                                                 </a>
