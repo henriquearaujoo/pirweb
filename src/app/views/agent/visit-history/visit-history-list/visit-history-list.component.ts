@@ -22,14 +22,14 @@ import { Visit } from '../../../../models/visit';
 })
 export class VisitHistoryListComponent implements OnInit {
 
-  private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
+  private object: Object = { 'margin-top': (((window.screen.height) / 2) - 200) + 'px' };
   private agents: User[] = new Array();
   private visits: any[] = new Array();
   hasdata: boolean;
   private agent: User = new User();
   private paginate: Paginate = new Paginate();
   @Output() page: number;
-  filter: any = {name: ''};
+  filter: any = { name: '' };
   private type_filter: any;
   private canRead: boolean;
   private canUpdate: boolean;
@@ -77,15 +77,15 @@ export class VisitHistoryListComponent implements OnInit {
     private router: Router,
     private permissions: Permissions,
     private loaderService: LoaderService) {
-      this.filter.name = '';
-      this.hasdata = false;
-      this.page = 0;
-      this.canCreate = false;
-      this.canUpdate = false;
-      this.canRead = false;
-      this.canDelete = false;
-      this.isAgent = false;
-     }
+    this.filter.name = '';
+    this.hasdata = false;
+    this.page = 0;
+    this.canCreate = false;
+    this.canUpdate = false;
+    this.canRead = false;
+    this.canDelete = false;
+    this.isAgent = false;
+  }
   ngOnInit() {
     this.hasdata = false;
     // this.familyId = localStorage.getItem('visitId');
@@ -117,26 +117,26 @@ export class VisitHistoryListComponent implements OnInit {
   }
 
   getVisits() {
-    if ( this.filter.name !== '') { this.page = 0; }
-      switch (this.type_filter) {
-        case 1:
+    if (this.filter.name !== '') { this.page = 0; }
+    switch (this.type_filter) {
+      case 1:
         this.loadVisits('number');
         break;
-        case 2:
+      case 2:
         this.loadVisits('child.name');
         break;
-        case 3:
+      case 3:
         this.loadVisits('family.name');
         break;
-        default:
+      default:
         this.loadVisits('number');
         break;
-      }
+    }
   }
 
   loadVisits(type_filter) {
     this.loaderService.show();
-    if ( this.filter.name === null) {
+    if (this.filter.name === null) {
       this.filter.name = '';
     }
     this.visitService.getVisits(this.idAgent, type_filter, this.filter.name, this.page).subscribe(
@@ -212,5 +212,9 @@ export class VisitHistoryListComponent implements OnInit {
         this.toastService.toastError();
       }
     );
+  }
+
+  back() {
+    this.router.navigate(['/agente-visita']);
   }
 }

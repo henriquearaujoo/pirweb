@@ -246,3 +246,10 @@ label.control-label {
 .nav-tabs-custom>.nav-tabs>li.active>a {
     border: 0;
 }
+
+.back {
+    bottom: 15px;
+    left: 25px;
+    position: absolute;
+    margin: 0;
+}

@@ -36,7 +36,7 @@
                     </a>
                 </li>
                 <li class="edit">
-                    <button class="btn btn-default" data-toggle="modal" data-target="#modal-default" id="btn_delete" *ngIf="canDelete && !isAgent">
+                    <button class="btn btn-default" data-toggle="modal" data-target="#modal-default" id="btn_delete" *ngIf="canDelete">
                         <i [ngClass]="user.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off'" aria-hidden="true"></i>
                     </button>
                     <button class="btn btn-primary" title="Editar" id="btn_edit" (click)="editUser()" *ngIf="canUpdate">
