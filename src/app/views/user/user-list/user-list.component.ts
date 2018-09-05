@@ -109,33 +109,7 @@ export class UserListComponent implements OnInit {
   }
 
   disableEnableUser() {
-    if (this.user.status === true) {
-      this.user.status = false;
-    } else {
-      this.user.status = true;
-    }
-    this.user.profile_id = this.user.profile.id;
-    this.user.address.city_id = this.user.address.city.id;
-    this.user.profile.description = '';
-    this.user.profile.updated_at = '';
-    this.user.address.city.state.cities = [];
-    this.user.password = undefined;
-    if ( this.user.latitude === null && this.user.longitude == null) {
-      this.user.latitude = 0;
-      this.user.longitude = 0;
-    }
-
-    delete this.user.visits;
-
-    if (this.user.entity === null) {
-      delete this.user.entity;
-    }
-
-    if (this.user.person === null) {
-      delete this.user.person;
-    }
-
-    this.userService.saveEditUser(this.user).subscribe(
+    this.userService.changeStatus(this.user).subscribe(
       s_org => {
         this.getUsers();
         this.toastService.toastSuccess();

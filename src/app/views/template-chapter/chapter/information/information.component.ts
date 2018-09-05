@@ -85,7 +85,6 @@ export class InformationComponent implements OnInit {
       this.lastVersion = 0;
     }
     this.validEditor = true;
-    console.log(this.fieldEditor);
   }
 
   getNextChapterNumber() {
@@ -205,7 +204,6 @@ export class InformationComponent implements OnInit {
 
   onKey(event, position) {
     this.fieldEditor[position] = event.text.trim();
-    console.log('position ' + position +  this.fieldEditor[position]);
     this.characters = (this.limit - event.editor.getLength()) + 1;
     if (event.editor.getLength() - 1 > this.limit) {
       event.editor.deleteText(this.limit, event.editor.getLength());

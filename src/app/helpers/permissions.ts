@@ -39,7 +39,6 @@ export class Permissions implements OnDestroy {
 
         if (profile !== undefined || profile !== null) {
             this.loaderService.show();
-            console.log(profile);
             this.authenticationService.getPermissions(profile).subscribe(
                 success_rules => {
                     this.rules = success_rules;

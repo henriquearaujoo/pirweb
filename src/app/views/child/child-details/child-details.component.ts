@@ -62,16 +62,18 @@ export class ChildDetailsComponent implements OnInit {
       this.load();
     }
 
-    if (localStorage.getItem('route') === 'rr') {
-      this.routeResp = true;
-    }
+    this.walk(0);
 
-    if (localStorage.getItem('route') === 'rcr') {
-      this.routeChildResponsible = true;
-      this.walk(2);
-    } else {
-      this.walk(0);
-    }
+    // if (localStorage.getItem('route') === 'rr') {
+    //   this.routeResp = true;
+    // }
+
+    // if (localStorage.getItem('route') === 'rcr') {
+    //   this.routeChildResponsible = true;
+    //   this.walk(2);
+    // } else {
+    //   this.walk(0);
+    // }
   }
 
   load() {
@@ -80,7 +82,7 @@ export class ChildDetailsComponent implements OnInit {
       success => {
         this.child = success;
         this.hasdata = true;
-        this.who_take_care = this.child.who_take_care.split(',');
+        // this.who_take_care = this.child.who_take_care.split(',');
         this.loaderService.hide();
         console.log(this.child);
         if (this.child === undefined) {
@@ -115,26 +117,10 @@ export class ChildDetailsComponent implements OnInit {
     switch (tab) {
       case 0:
       this.infoTab = './assets/img/child/ic_section_info_enable.png';
-      this.socialTab = './assets/img/child/ic_section_info_social_disable.png';
-      this.responsiblesTab = './assets/img/child/ic_section_resp_disable.png';
-      this.visitsTab = './assets/img/child/ic_section_children_disable.png';
+      this.visitsTab = './assets/img/child/ic_section_visits_disable.png';
       break;
       case 1:
       this.infoTab = './assets/img/child/ic_section_info_disable.png';
-      this.socialTab = './assets/img/child/ic_section_info_social_enable.png';
-      this.responsiblesTab = './assets/img/child/ic_section_resp_disable.png';
-      this.visitsTab = './assets/img/child/ic_section_children_disable.png';
-      break;
-      case 2:
-      this.infoTab = './assets/img/child/ic_section_info_disable.png';
-      this.socialTab = './assets/img/child/ic_section_info_social_disable.png';
-      this.responsiblesTab = './assets/img/child/ic_section_resp_enable.png';
-      this.visitsTab = './assets/img/child/ic_section_children_disable.png';
-      break;
-      case 3:
-      this.infoTab = './assets/img/child/ic_section_info_disable.png';
-      this.socialTab = './assets/img/child/ic_section_info_social_disable.png';
-      this.responsiblesTab = './assets/img/child/ic_section_resp_disable.png';
       this.visitsTab = './assets/img/child/ic_section_visits_enable.png';
       break;
     }

@@ -1,7 +1,8 @@
 <simple-notifications></simple-notifications>
 <div class="content_">
     <div class="content-top">
-        <div class="content_fa"> <i class="fa fa-user"></i> Família > Gestante > Detalhes</div>
+        <div class="content_fa">
+            <i class="fa fa-users"></i> Família > Gestante > Detalhes</div>
     </div>
 
     <section class="content_user">
@@ -13,20 +14,12 @@
             <ul class="nav nav-tabs">
                 <li>
                     <a class="tab-pane active" (click)="walk(0)" href="#tab_1" data-toggle="tab">
-                        <label class="lb-tab"> Informações Pessoais </label>
-                        <img src="{{ data1Tab }}" />
+                        <img src="{{ infoTab }}" />
                     </a>
                 </li>
                 <li>
                     <a class="tab-pane" (click)="walk(1)" href="#tab_2" data-toggle="tab">
-                        <label class="lb-tab"> Dados Socioeconômicos </label>
-                        <img src="{{ data2Tab }}" />
-                    </a>
-                </li>
-                <li>
-                    <a class="tab-pane" (click)="walk(2)" href="#tab_3" data-toggle="tab">
-                        <label class="lb-tab service"> Serviços </label>
-                        <img src="{{ data3Tab }}" />
+                        <img src="{{ pregnanciesTab }}" />
                     </a>
                 </li>
             </ul>
@@ -34,7 +27,7 @@
                 <div class="tab-pane active" id="tab_1">
                     <div class="content">
                         <section class="content">
-                            <div class="box-header with-border">
+                            <div class="box-header_1 with-border">
                                 <h5 class="box-title"> Informações Pessoais
                                 </h5>
                             </div>
@@ -44,25 +37,43 @@
                                         <div class="box box-primary">
                                             <div class="box-body">
                                                 <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <div class="form-group">
-                                                            <label class="control-label">Comunidade</label>
-                                                            <input type="text" class="form-control" #motherCommunity="ngModel" name="motherCommunity" [(ngModel)]="responsible.community.name" id="mother_community" disabled>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group left">
+                                                            <label class="control-label">Código da Gestante</label>
+                                                            <input type="text" #code="ngModel" [(ngModel)]="pregnant.code" name="code" id="pregnant_code" pattern="[\w,./_=?-].*" class="form-control"
+                                                                placeholder="Código da Gestante" disabled>
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 <div class="row">
-                                                    <div class="col-sm-9">
+                                                    <div class="col-sm-6">
                                                         <div class="form-group">
-                                                            <label class="control-label">Nome da gestante</label>
-                                                            <input type="text" #nameMother="ngModel" name="name_mother" [(ngModel)]="responsible.name" id="name_mother" class="form-control" disabled>
+                                                            <label class="control-label">Escolaridade</label>
+                                                            <input type="text" #scholarity="ngModel" [(ngModel)]="pregnant.scholarity" name="scholarity" id="scholarity" pattern="[\w,./_=?-].*"
+                                                                class="form-control" placeholder="Escolaridade" disabled>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-3">
+                                                    <div class="col-sm-6">
                                                         <div class="form-group">
-                                                            <label class="control-label">Gestante? </label> <br/>
-                                                            <span class="form-control"> {{ responsible.mother.is_pregnant ? 'Sim' : 'Não' }} </span>
+                                                            <label class="control-label">Raça/Cor/Etnia</label>
+                                                            <input type="text" #ethnicity="ngModel" [(ngModel)]="pregnant.ethnicity" name="ethnicity" id="ethnicity" pattern="[\w,./_=?-].*"
+                                                                class="form-control" placeholder="Raça/Cor/Etnia" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Nome da gestante</label>
+                                                            <input type="text" #nameMother="ngModel" name="name_mother" [(ngModel)]="pregnant.name" id="name_mother" class="form-control"
+                                                                disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Família</label>
+                                                            <input type="text" #familyId="ngModel" name="nameFamily" [(ngModel)]="pregnant.family.name" id="nameFamily" class="form-control"
+                                                                disabled>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -70,18 +81,41 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label class="control-label">Estado Civil</label>
-                                                            <span class="form-control" *ngIf="responsible.civil_state === 'MARRIED'"> Casada </span>
-                                                            <span class="form-control" *ngIf="responsible.civil_state === 'SINGLE'"> Solteira </span>
-                                                            <span class="form-control" *ngIf="responsible.civil_state === 'DIVORCED'"> Divorciada </span>
-                                                            <span class="form-control" *ngIf="responsible.civil_state === 'SEPARATED'"> Separada </span>
-                                                            <span class="form-control" *ngIf="responsible.civil_state === 'WIDOWED'"> Viúva </span>
-                                                            <span class="form-control" *ngIf="responsible.civil_state === 'UNDEFINED'"> Indefinido </span>
+                                                            <span class="form-control" *ngIf="pregnant.civil_state === 'MARRIED'"> Casada </span>
+                                                            <span class="form-control" *ngIf="pregnant.civil_state === 'SINGLE'"> Solteira </span>
+                                                            <span class="form-control" *ngIf="pregnant.civil_state === 'DIVORCED'"> Divorciada </span>
+                                                            <span class="form-control" *ngIf="pregnant.civil_state === 'SEPARATED'"> Separada </span>
+                                                            <span class="form-control" *ngIf="pregnant.civil_state === 'WIDOWED'"> Viúva </span>
+                                                            <span class="form-control" *ngIf="pregnant.civil_state === 'UNDEFINED'"> Indefinido </span>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label class="control-label">Data de nascimento da gestante</label>
-                                                            <span class="form-control"> {{ responsible.birth }} </span>
+                                                            <span class="form-control"> {{ pregnant.birth | date: 'dd/MM/yyyy' }} </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Telefone</label>
+                                                            <input class="form-control" name="phone_number" id="phone_number" mask="(00)00000-0000" [(ngModel)]="pregnant.phone_number"
+                                                                disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group left">
+                                                            <label class="control-label">Responsável do telefone</label>
+                                                            <br/>
+                                                            <label class="radio-inline">
+                                                                <input type="radio" #isPhoneOwner="ngModel" name="isPhoneOwner" [(ngModel)]="pregnant.phone_owner" id="isPhoneOwner1" [value]="true"
+                                                                    required> Próprio
+                                                            </label>
+                                                            <label class="radio-inline">
+                                                                <input type="radio" #isPhoneOwner="ngModel" name="isPhoneOwner" [(ngModel)]="pregnant.phone_owner" id="isPhoneOwner2" [value]="false"
+                                                                    required> De outra pessoa(recados)
+                                                            </label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -104,137 +138,78 @@
                 <div class="tab-pane" id="tab_2">
                     <div class="content">
                         <section class="content">
-                            <div class="box-header with-border">
-                                <h5 class="box-title"> Dados Socioeconômicos
+                            <div class="box-header_1 with-border">
+                                <h5 class="box-title"> Gestações
                                 </h5>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <form name="form" #f2="ngForm" novalidate>
-                                        <div class="box box-primary">
-                                            <div class="box-body">
-                                                <div class="row">
-                                                    <div class="col-sm-4">
-                                                        <div class="form-group">
-                                                            <label class="control-label">Participa de programas do governo?</label> <br/>
-                                                            <span class="form-control"> {{ responsible.in_social_program ? 'Sim' : 'Não'  }} </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <div class="form-group">
-                                                            <label class="control-label">Tem outros filhos?</label> <br/>
-                                                            <span class="form-control"> {{ responsible.children_count === 0 ? 'Não' : responsible.children_count  }} </span>
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <div class="col-sm-4">
-                                                            <div class="form-group">
-                                                                <label class="control-label">Tipo de moradia?</label>
-                                                                <span class="form-control" *ngIf="responsible.habitation_type === 'OWNED'"> Própria </span>
-                                                                <span class="form-control" *ngIf="responsible.habitation_type === 'LEASED'"> Alugada </span>
-                                                                <span class="form-control" *ngIf="responsible.habitation_type === 'CEDED'"> Cedida </span>
+                                    <!-- <form name="form" (ngSubmit)="save(2,f2.valid)" #f2="ngForm" novalidate> -->
+                                    <div class="box box-primary">
+                                        <div class="box-body">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <form name="form" #f3="ngForm" novalidate>
+                                                        <div class="box box-primary">
+                                                            <div class="box-body">
+                                                                <table id="example2" class="table" *ngIf="!showPregnancy">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th class="tbl-left">DATA DE REGISTRO DE GESTAÇÕES
+                                                                                <span class="glyphicon"></span>
+                                                                            </th>
+                                                                            <th class="text-right"> AÇÃO</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <div class="feedback" *ngIf="pregnant.pregnancies?.length === 0">
+                                                                        <i class="material-icons" style="font-size: 24px;">error_outline</i>
+                                                                        <span class="feedback-message">Nenhum registro encontrado</span>
+                                                                    </div>
+                                                                    <tbody *ngIf="pregnant.pregnancies?.length !== 0">
+                                                                        <tr *ngFor="let item of pregnant.pregnancies">
+                                                                            <td class="tbl-left">
+                                                                                {{ item.registered_at | date: 'dd/MM/yyyy' }}
+                                                                            </td>
+                                                                            <td class="text-right pointer">
+                                                                                <a (click)="toViewPregnancies(item)" id="btn_details" title="Ver detalhes">
+                                                                                    <i class="large material-icons">visibility</i>
+                                                                                </a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                                <app-pregnancies #pregnancies [pregnancy]="pregnancy" (showPregnancy)="toShowPregnancy($event)" *ngIf="showPregnancy"></app-pregnancies>
+                                                                <div class="row" *ngIf="!showPregnancy">
+                                                                    <div class="col-sm-12 text-right">
+                                                                        <ul *ngIf="pager.pages && pager.pages.length" class="pagination stylepage">
+                                                                            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                                                                <a (click)="setPage(1)">Primeiro</a>
+                                                                            </li>
+                                                                            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                                                                <a (click)="setPage(pager.currentPage - 1)">Anterior</a>
+                                                                            </li>
+                                                                            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                                                                <a (click)="setPage(page)">{{page}}</a>
+                                                                            </li>
+                                                                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                                                                <a (click)="setPage(pager.currentPage + 1)">Próxima</a>
+                                                                            </li>
+                                                                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                                                                <a (click)="setPage(pager.totalPages)">Último</a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label class="control-label">Com quem mora atualmente?</label>
-                                                            <input type="text" class="form-control" name="liveWith" [(ngModel)]="responsible.live_with" id="liveWith" disabled>
+                                                        <div class="col-md-3 col-md-offset-6">
                                                         </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label class="control-label">Quantas pessoas moram em sua casa (incluindo você)?</label>
-                                                            <input [type]="number" class="form-control" mask="0000000000" name="habitationMembersCount" id="habitationMembersCount" [(ngModel)]="responsible.habitation_members_count" disabled>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label class="control-label">Qual é a sua participação na vida econômica do seu grupo familiar? </label>
-                                                            <input type="text" class="form-control" name="incomeParticipation" [(ngModel)]="responsible.income_participation" id="incomeParticipation" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label class="control-label">Qual a principal fonte de renda da família? </label>
-                                                            <input class="form-control" name="familyIncome" [(ngModel)]="responsible.family_income" id="familyIncome" disabled>
-                                                        </div>
-                                                    </div>
+                                                    </form>
                                                 </div>
                                             </div>
+
                                         </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <button class="btn btn-default btn-block" [routerLink]="['/gestantes']" id="btn_return2"> Voltar</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                </div>
-                <!-- /.tab-pane -->
-                <div class="tab-pane" id="tab_3">
-                    <div class="content">
-                        <section class="content">
-                            <div class="box-header with-border">
-                                <h5 class="box-title"> Serviços
-                                </h5>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <form name="form" #f3="ngForm" novalidate>
-                                        <div class="box box-primary">
-                                            <div class="box-body">
-                                                <div class="row">
-                                                    <div class="col-sm-4">
-                                                        <div class="form-group">
-                                                            <label class="control-label">Há unidade básica na comunidade ou próximo de onde reside?</label> <br/>
-                                                            <span class="form-control"> {{ responsible.has_hospital_nearby ? 'Sim' : 'Não' }} </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <div class="form-group">
-                                                            <label class="control-label">Na comunidade há sanemaneto básico? </label> <br/>
-                                                            <span class="form-control"> {{ responsible.has_sanitation ? 'Sim' : 'Não' }} </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <div class="form-group">
-                                                            <label class="control-label">A água é encanada?</label> <br/>
-                                                            <span class="form-control"> {{ responsible.has_water_treatment ? 'Sim' : 'Não' }} </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <div class="form-group">
-                                                            <label class="control-label">A água utilizada para beber recebe algum tratamento?</label> <br/>
-                                                            <input class="form-control" [(ngModel)]="responsible.drinking_water_treatment" name="treatmentWater" id="treatmentWater" disabled>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <div class="form-group">
-                                                            <label class="control-label">Observações gerais</label> <br/>
-                                                            <textarea class="form-control" rows="5" name="generalObservations" [(ngModel)]="responsible.observations" id="generalObservations" disabled></textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <button class="btn btn-default btn-block" [routerLink]="['/gestantes']" id="btn_return3"> Voltar</button>
-                                            </div>
-                                        </div>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
                         </section>

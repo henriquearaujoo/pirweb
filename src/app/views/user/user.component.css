@@ -268,3 +268,13 @@ label.label-control {
     padding-top: 20px;
     padding-left: 10px;
 }
+
+label.lb-tab {
+    position: absolute;
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    top: 8px;
+    left: 20px;
+    right: 20px;
+}

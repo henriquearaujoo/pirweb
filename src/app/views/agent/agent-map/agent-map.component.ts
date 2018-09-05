@@ -45,14 +45,12 @@ export class AgentMapComponent implements OnInit {
         console.log(this.agents);
         for (let i = 0; i < this.agents.length; i++) {
           const mk = {
-            lat: this.agents[i].latitude,
-            lng: this.agents[i].longitude,
+            lat: this.agents[i].person.agent.latitude,
+            lng: this.agents[i].person.agent.longitude,
             label: '',
             draggable: false
           };
-          // this.markers[i].lat = this.agents[i].latitude;
-          // this.markers[i].lng = this.agents[i].longitude;
-          this.markers.push(mk);
+         this.markers.push(mk);
         }
         console.log(this.markers);
       },

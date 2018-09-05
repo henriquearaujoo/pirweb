@@ -29,7 +29,7 @@ export class ChildComponent implements OnInit {
   private isNewData: boolean;
   private urlId: string;
   private infoTab: string;
-  private socialTab: string;
+  private visitsTab: string;
   private currentTab: number;
   private previousTab: string;
   private nextTab: string;
@@ -38,7 +38,7 @@ export class ChildComponent implements OnInit {
   private enable_previous: boolean;
   private cont: number;
   private mothers: Responsible[] = new Array();
-  private responsible: Responsible[] = new Array();
+  private families: Responsible[] = new Array();
   private communities: Community[] = new Array();
 
   private isCkeckboxValid: boolean;
@@ -131,53 +131,54 @@ export class ChildComponent implements OnInit {
       this.isNewData = false;
       this.load();
     } else {
-      this.route.navigate(['/criancas']);
+      // this.route.navigate(['/criancas']);
     }
 
-    this.getMothers();
-    this.getResponsible();
-    this.getCommunities();
+    this.getFamilies();
+    // this.getResponsible();
+    // this.getCommunities();
     this.currentTab = 0;
     this.previousTab = '#tab_1';
     this.nextTab = '#tab_2';
 
     this.infoTab = './assets/img/child/ic_section_info_enable.png';
-    this.socialTab = './assets/img/child/ic_section_info_social_disable.png';
+    this.visitsTab = './assets/img/child/ic_section_visits_disable.png';
 
-    this.openSaveButtonTab1 = (<HTMLButtonElement>document.getElementById('btn_tab1'));
-    this.openSaveButtonTab1.style.display = 'none';
+    // this.openSaveButtonTab1 = (<HTMLButtonElement>document.getElementById('btn_tab1'));
+    // this.openSaveButtonTab1.style.display = 'none';
 
-    this.openSaveButtonTab2 = (<HTMLButtonElement>document.getElementById('btn_tab2'));
-    this.openSaveButtonTab2.style.display = 'none';
+    // this.openSaveButtonTab2 = (<HTMLButtonElement>document.getElementById('btn_tab2'));
+    // this.openSaveButtonTab2.style.display = 'none';
 
-    (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
+    // (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
 
     this.isValidDate = true;
     this.isCkeckboxValid = true;
   }
 
-  saveData(form1, fomr2) {
-    const isValid = form1 && fomr2;
+  saveData(isValid) {
+    // const isValid = form1 && fomr2;
     this.updateOptions();
 
     if (isValid && this._isSave) {
       this.verifyDate();
-      if ( this.child.mother !== undefined && this.child.mother !== null) {
-        if ( this.child.mother.id === undefined ) {
-          delete this.child.mother;
-        }
-      }
-      if (this.child.is_premature_born === false) {
-        this.child.born_week = 1;
-      }
-      if ( !this.child.has_education_diff) {
-        this.child.education_diff_specification = '';
-      }
-      this.child.born_week = Number(this.child.born_week);
-      // udated community
-      for (let i = 0; i < this.child.responsible.length; i++) {
-        this.child.responsible[i].community.city_id = this.child.responsible[i].community.city.id;
-      }
+      this.child.family_id = this.child.family.id;
+      // if ( this.child.mother !== undefined && this.child.mother !== null) {
+      //   if ( this.child.mother.id === undefined ) {
+      //     delete this.child.mother;
+      //   }
+      // }
+      // if (this.child.is_premature_born === false) {
+      //   this.child.born_week = 1;
+      // }
+      // if ( !this.child.has_education_diff) {
+      //   this.child.education_diff_specification = '';
+      // }
+      // this.child.born_week = Number(this.child.born_week);
+      // // udated community
+      // for (let i = 0; i < this.child.responsible.length; i++) {
+      //   this.child.responsible[i].community.city_id = this.child.responsible[i].community.city.id;
+      // }
 
       this.verifyNull();
       if (this.isNewData || this.child.id === undefined) {
@@ -216,34 +217,28 @@ export class ChildComponent implements OnInit {
   }
 
   verifyNull() {
-    if (this.child.mother !== undefined && this.child.mother !== null) {
-      if (this.child.mother.agent_id === null) {
-        this.child.mother.agent_id = undefined;
-      }
-      if (this.child.mother.community.city.state.cities === null) {
-        this.child.mother.community.city.state.cities = [];
-      }
-      if (this.child.mother.community.city_id === null) {
-        this.child.mother.community.city_id = undefined;
-      }
-      if ( (this.child.mother.community.city_id === undefined) || this.child.mother.community.city_id === null) {
-        this.child.mother.community.city_id = this.child.mother.community.city.id;
-      }
-    } else {
-      delete this.child.mother;
-    }
+    // if (this.child.mother !== undefined && this.child.mother !== null) {
+    //   // if (this.child.mother.agent_id === null) {
+    //   //   this.child.mother.agent_id = undefined;
+    //   // }
+    //   if (this.child.mother.community.city.state.cities === null) {
+    //     this.child.mother.community.city.state.cities = [];
+    //   }
+    //   if (this.child.mother.community.city_id === null) {
+    //     this.child.mother.community.city_id = undefined;
+    //   }
+    //   if ( (this.child.mother.community.city_id === undefined) || this.child.mother.community.city_id === null) {
+    //     this.child.mother.community.city_id = this.child.mother.community.city.id;
+    //   }
+    // } else {
+    //   delete this.child.mother;
+    // }
 
-    this.child.responsible.forEach( resp => {
-      if (resp.community.city.state.cities === null) {
-        resp.community.city.state.cities = [];
-      }
-      if (resp.agent_id === null) {
-        resp.agent_id = undefined;
-      }
-      if (resp.mother === null) {
-        resp.mother = undefined;
-      }
-    });
+    // this.child.responsible.forEach( resp => {
+    //   if (resp.community.city.state.cities === null) {
+    //     resp.community.city.state.cities = [];
+    //   }
+    // });
   }
 
   load() {
@@ -251,13 +246,13 @@ export class ChildComponent implements OnInit {
     this.childService.load(this.urlId).subscribe(
       success => {
         this.child = success;
-        // console.log(this.child);
-        this.verifyDataCheckbox();
+        console.log(this.child);
+        // this.verifyDataCheckbox();
         this.changeDate();
         this.loaderService.hide();
-        if (this.child.mother === undefined) {
-          this.child.mother = new Responsible();
-        }
+        // if (this.child.mother === undefined) {
+        //   this.child.mother = new Responsible();
+        // }
       },
       error => {
         this.loaderService.hide();
@@ -287,6 +282,15 @@ export class ChildComponent implements OnInit {
     );
   }
 
+  getFamilies() {
+    this.responsibleService.getAll().subscribe(
+      s => {
+        this.families = s;
+      },
+      error => console.log(error)
+    );
+  }
+
   getMothers() {
     this.subscription = this.responsibleService._getMothers().subscribe(
       success => {
@@ -294,18 +298,17 @@ export class ChildComponent implements OnInit {
       },
       error => console.log(error)
     );
-
   }
 
 
-  getResponsible() {
-    this.subscription = this.responsibleService._getResponsible().subscribe(
-      success => {
-        this.responsible = success;
-      },
-      error => console.log(error)
-    );
-  }
+  // getResponsible() {
+  //   this.subscription = this.responsibleService._getResponsible().subscribe(
+  //     success => {
+  //       this.responsible = success;
+  //     },
+  //     error => console.log(error)
+  //   );
+  // }
 
   onDateChanged(event: IMyDateModel) {
     this.selDate = event.date;
@@ -313,27 +316,35 @@ export class ChildComponent implements OnInit {
     this.child.birth = date;
   }
 
+  // verifyDate() {
+  //   const date = this.selDate.year + '-' + this.selDate.month + '-' + this.selDate.year;
+  //   this.child.birth = date;
+  // }
+
   verifyDate() {
-    const date = this.selDate.day + '-' + this.selDate.month + '-' + this.selDate.year;
-    this.child.birth = date;
+    const date = this.selDate.year + '-' + this.selDate.month + '-' + this.selDate.day;
+    const d = new Date(date);
+    const currentMonth = ('0' + (d.getMonth() + 1)).slice(-2);
+    const currentDay = ('0' + d.getDate()).slice(-2);
+    this.child.birth = this.selDate.year + '-' + currentMonth + '-' + currentDay;
   }
 
   onInputFieldChanged(event: IMyInputFieldChanged) {
     this.isValidDate = event.valid;
   }
 
-  verifyDataCheckbox() {
-    this.who_take_care = this.child.who_take_care;
-    this.who_take_care_list = this.who_take_care.split(',');
+  // verifyDataCheckbox() {
+  //   // this.who_take_care = this.child.who_take_care;
+  //   this.who_take_care_list = this.who_take_care.split(',');
 
-    for (let i = 0; i < this._who_take_care.length; i++) {
-      for (let j = 0; j < this.who_take_care_list.length; j++ ) {
-        if ( this._who_take_care[i].description === this.who_take_care_list[j]) {
-          this._who_take_care[i].checked = true;
-        }
-      }
-    }
-  }
+  //   for (let i = 0; i < this._who_take_care.length; i++) {
+  //     for (let j = 0; j < this.who_take_care_list.length; j++ ) {
+  //       if ( this._who_take_care[i].description === this.who_take_care_list[j]) {
+  //         this._who_take_care[i].checked = true;
+  //       }
+  //     }
+  //   }
+  // }
 
   updateOptions() {
     if (this.who_take_care_list.length > 0) {
@@ -348,7 +359,7 @@ export class ChildComponent implements OnInit {
       this.who_take_care = '';
     }
 
-    this.child.who_take_care = this.who_take_care;
+    // this.child.who_take_care = this.who_take_care;
   }
 
   verifyCheckbox(option, event) {
@@ -450,11 +461,11 @@ export class ChildComponent implements OnInit {
           (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
           (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
           this.infoTab = './assets/img/child/ic_section_info_enable.png';
-          this.socialTab = './assets/img/child/ic_section_info_social_disable.png';
+          this.visitsTab = './assets/img/child/ic_section_visits_disable.png';
 
         }else if (this.currentTab === 1) {
           this.infoTab = './assets/img/child/ic_section_info_disable.png';
-          this.socialTab = './assets/img/child/ic_section_info_social_enable.png';
+          this.visitsTab = './assets/img/child/ic_section_info_social_enable.png';
           (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
           (<HTMLButtonElement>document.getElementById('btn_next')).style.display = 'none';
         }
@@ -464,6 +475,19 @@ export class ChildComponent implements OnInit {
         }
       }
 
+  }
+
+  walk ( tab: number) {
+    switch (tab) {
+      case 0:
+      this.infoTab = './assets/img/pregnant/ic_section_info_enable.png';
+      this.visitsTab = './assets/img/child/ic_section_visits_disable.png';
+      break;
+      case 1:
+      this.infoTab = './assets/img/pregnant/ic_section_info_disable.png';
+      this.visitsTab = './assets/img/child/ic_section_visits_enable.png';
+      break;
+    }
   }
 
   verifyValidSubmitted(form, field) {

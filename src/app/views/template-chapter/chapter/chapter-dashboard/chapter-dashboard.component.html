@@ -14,7 +14,34 @@
         <form name="form" #f="ngForm" novalidate>
             <!-- Custom Tabs -->
             <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs">
+                <ul class="nav nav-tabs" *ngIf="chapter.id === undefined">
+                    <li>
+                        <a class="tab-pane active">
+                            <img src="{{informationTab}}" />
+                        </a>
+                    </li>
+                    <li>
+                        <a class="tab-pane">
+                            <img src="{{receptionTab}}" />
+                        </a>
+                    </li>
+                    <li>
+                        <a class="tab-pane">
+                            <img src="{{interventionTab}}" />
+                        </a>
+                    </li>
+                    <li>
+                        <a class="tab-pane">
+                            <img src="{{conclusionTab}}" />
+                        </a>
+                    </li>
+                    <li>
+                        <a class="tab-pane">
+                            <img src="{{multimediaTab}}" />
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav nav-tabs" *ngIf="chapter.id !== undefined">
                     <li>
                         <a class="tab-pane active" (click)="walk(0)" href="#tab_1" data-toggle="tab">
                             <img src="{{informationTab}}" />

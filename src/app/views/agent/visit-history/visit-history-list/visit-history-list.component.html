@@ -36,17 +36,20 @@
                                     </button>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a (click)="setFilter(1)">Número da Visita</a></li>
-                                        <li><a (click)="setFilter(2)"> Nome da Criança</a></li>
+                                        <li><a (click)="setFilter(2)"> Família</a></li>
                                         <!-- <li><a (click)="setFilter(3)">Nome da Responsável</a></li> -->
                                         <!-- <li><a (click)="setFilter(4)">Data da Visita</a></li> -->
                                     </ul>
                                 </div>
                                 <input type="text" class="form-control" placeholder="Selecione o filtro" readonly *ngIf="type_filter === undefined">
-                                <input type="number" class="form-control" [(ngModel)]="filter.name" mask="0000" maxlength="20" name="filter" id="filter" (keyup)="getVisits()" placeholder="Nº da visita" *ngIf="type_filter === 1">
+                                <input type="number" class="form-control" [(ngModel)]="filter.name" mask="0000" maxlength="20" name="filter" id="filter"
+                                    (keyup)="getVisits()" placeholder="Nº da visita" *ngIf="type_filter === 1">
 
-                                <input type="text" class="form-control" [(ngModel)]="filter.name" mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" name="filter" id="filter" (keyup)="getVisits()" placeholder="Nome da Criança" *ngIf="type_filter === 2">
+                                <input type="text" class="form-control" [(ngModel)]="filter.name" mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" name="filter"
+                                    id="filter" (keyup)="getVisits()" placeholder="Nome da Criança" *ngIf="type_filter === 2">
 
-                                <input type="text" class="form-control" [(ngModel)]="filter.name" mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" name="filter" id="filter" (keyup)="getVisits()" placeholder="Nome do Responsável" *ngIf="type_filter === 3">
+                                <input type="text" class="form-control" [(ngModel)]="filter.name" mask="SSSSSSSSSSSSSSSSSSSS" maxlength="20" name="filter"
+                                    id="filter" (keyup)="getVisits()" placeholder="Nome do Responsável" *ngIf="type_filter === 3">
 
                                 <!-- <input type="date" class="form-control" [(ngModel)]="filter.name" name="filter" id="filter" (keyup)="getVisits()" *ngIf="type_filter === 4"> -->
 
@@ -117,8 +120,8 @@
                     <app-paginate [paginate]="paginate" (eventPage)="setPage($event)"></app-paginate>
                 </div>
             </div>
-            <div class="row" *ngIf="!isAgent">
-                <div class="col-sm-12 back">
+            <div class="row">
+                <div class="col-sm-12">
                     <button class="btn btn-default" [routerLink]="['/agente-visita']"> Voltar</button>
                 </div>
             </div>

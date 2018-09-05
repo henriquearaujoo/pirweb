@@ -46,7 +46,7 @@ export class ResponsibleListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.permissions.canActivate(['/responsaveis']);
+    this.permissions.canActivate(['/familias']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -82,13 +82,13 @@ export class ResponsibleListComponent implements OnInit, OnDestroy {
   }
 
   setResponsible(responsible: Responsible) {
-    localStorage.setItem('responsibleId', responsible.id);
-    this.router.navigate(['/responsaveis/registro']);
+    localStorage.setItem('familyId', responsible.id);
+    this.router.navigate(['/familias/registro']);
   }
 
   toView(responsible: Responsible) {
-    localStorage.setItem('responsibleId', responsible.id);
-    this.router.navigate(['/responsaveis/detalhes']);
+    localStorage.setItem('familyId', responsible.id);
+    this.router.navigate(['/familias/detalhes']);
   }
 
   changeStatus(responsible: Responsible) {

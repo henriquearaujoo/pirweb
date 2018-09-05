@@ -8,7 +8,7 @@ import { RestService } from '../rest/rest.service';
 @Injectable()
 export class PregnantService extends RestService {
 
-  private apiurl = Constant.BASE_URL + 'responsibles/';
+  private apiurl = Constant.BASE_URL + 'pregnant/';
   private size: number;
 
   constructor( http: Http) {
@@ -16,17 +16,17 @@ export class PregnantService extends RestService {
     this.size = 10;
    }
 
-  public getMothers(filter?: any, page?: number) {
+  public getPregnant(filter?: any, page?: number) {
     if ( filter === undefined ) {
-      return this.get(this.apiurl + 'mother/search/page/?size=' + this.size + '&page=' + page);
+      return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page);
     } else {
-      return this.get(this.apiurl + 'mother/search/page/?size=' + this.size + '&page=' + page);
+      return this.get(this.apiurl + 'search/page/?size=' + this.size + '&page=' + page);
     }
   }
 
 
-  public insert(mother: Pregnant): Observable<Pregnant> {
-    return this.post(this.apiurl, mother);
+  public insert(pregnant: Pregnant): Observable<Pregnant> {
+    return this.post(this.apiurl, pregnant);
   }
 
   public update(pregant: Pregnant): Observable<Pregnant> {

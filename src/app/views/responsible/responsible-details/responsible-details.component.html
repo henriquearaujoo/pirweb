@@ -1,12 +1,13 @@
 <simple-notifications></simple-notifications>
 <div class="content_">
     <div class="content-top">
-        <div class="content_fa"> <i class="fa fa-users"></i> Família > Responsável > Detalhes</div>
+        <div class="content_fa">
+            <i class="fa fa-users"></i> Família > Registro > Detalhes</div>
     </div>
 
     <section class="content_user">
         <div class="content-header ">
-            <h5 class="content-title">RESPONSÁVEL</h5>
+            <h5 class="content-title">FAMÍLIA</h5>
         </div>
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
@@ -25,23 +26,13 @@
                         <img src="{{ servicesTab }}" />
                     </a>
                 </li>
-                <li *ngIf="responsible.gender !== 'MALE'">
-                    <a class="tab-pane" (click)="walk(3)" href="#tab_4" data-toggle="tab">
-                        <img src="{{ pregnanciesTab }}" />
-                    </a>
-                </li>
-                <li>
-                    <a class="tab-pane" (click)="walk(4)" href="#tab_5" data-toggle="tab">
-                        <img src="{{ childrenTab }}" />
-                    </a>
-                </li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane" [ngClass]="routeChild ? '' : 'active'" id="tab_1">
                     <div class="content">
                         <section class="content">
                             <div class="box-header_1 with-border">
-                                <h5 class="box-title"> Informações Pessoais
+                                <h5 class="box-title"> Informações da Família
                                 </h5>
                             </div>
                             <div class="row">
@@ -50,32 +41,40 @@
                                         <div class="box box-primary">
                                             <div class="box-body">
                                                 <div class="row">
-                                                    <div class="col-sm-12">
+                                                    <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label class="control-label">Comunidade</label>
-                                                            <input type="text" class="form-control" #motherCommunity="ngModel" name="motherCommunity" [(ngModel)]="responsible.community.name" id="mother_community" disabled>
+                                                            <input type="text" class="form-control" #motherCommunity="ngModel" name="motherCommunity" [(ngModel)]="responsible.community.name"
+                                                                id="mother_community" disabled>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-12">
+                                                    <div class="col-sm-6">
                                                         <div class="form-group">
-                                                            <label class="control-label">Nome do responsável</label>
-                                                            <input type="text" #nameMother="ngModel" name="name_mother" [(ngModel)]="responsible.name" id="name_mother" class="form-control" disabled>
+                                                            <label class="control-label">Agente</label>
+                                                            <input type="text" class="form-control" #agentName="ngModel" name="agentName" [(ngModel)]="responsible.agent.name" id="agentName"
+                                                                disabled>
+
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
-                                                            <label class="control-label">Data de nascimento do responsável</label>
-                                                            <span class="form-control"> {{ responsible.birth }} </span>
+                                                            <label class="control-label">Nome Completo do Responsável</label>
+                                                            <input type="text" #familyName="ngModel" name="familyName" [(ngModel)]="responsible.name" id="familyName" class="form-control"
+                                                                disabled>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-3">
                                                         <div class="form-group">
-                                                            <label class="control-label">Sexo</label> <br/>
-                                                            <span class="form-control"> {{ responsible.gender === 'FEMALE' ? 'Feminino' : 'Masculino' }} </span>
+                                                            <label class="control-label">Dt. de Nascimento</label>
+                                                            <input type="text" name="birth" class="form-control" id="birth" [(ngModel)]="selDate" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Genêro</label>
+                                                            <input type="text" name="gender" class="form-control" id="gender" [value]="translateGender(responsible.gender)" disabled>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -107,20 +106,15 @@
                                         <div class="box box-primary">
                                             <div class="box-body">
                                                 <div class="row">
-                                                    <div class="col-sm-4">
+                                                    <div class="col-sm-6">
                                                         <div class="form-group">
-                                                            <label class="control-label">Participa de programas do governo?</label> <br/>
-                                                            <span class="form-control"> {{ responsible.in_social_program ? 'Sim' : 'Não'  }} </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <div class="form-group">
-                                                            <label class="control-label">Há outras crianças na família?</label> <br/>
-                                                            <span class="form-control"> {{ responsible.has_other_children ? 'Sim' : 'Não' }}</span>
+                                                            <label class="control-label">Há quantas crianças na família?</label>
+                                                            <br/>
+                                                            <span class="form-control"> {{ responsible.children_count }}</span>
                                                         </div>
                                                     </div>
                                                     <div>
-                                                        <div class="col-sm-4">
+                                                        <div class="col-sm-6">
                                                             <div class="form-group">
                                                                 <label class="control-label">Tipo de moradia?</label>
                                                                 <span class="form-control" *ngIf="responsible.habitation_type === 'OWNED'"> Própria </span>
@@ -133,28 +127,29 @@
                                                 <div class="row">
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
-                                                            <label class="control-label">Com quem mora atualmente?</label>
-                                                            <input type="text" class="form-control" name="liveWith" [(ngModel)]="responsible.live_with" id="liveWith" disabled>
+                                                            <label class="control-label">Quantas pessoas moram em sua casa (incluindo você)?</label>
+                                                            <input [type]="number" class="form-control" mask="0000000000" name="habitationMembersCount" id="habitationMembersCount" [(ngModel)]="responsible.members_count" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
-                                                            <label class="control-label">Quantas pessoas moram em sua casa (incluindo você)?</label>
-                                                            <input [type]="number" class="form-control" mask="0000000000" name="habitationMembersCount" id="habitationMembersCount" [(ngModel)]="responsible.habitation_members_count" disabled>
+                                                            <label class="control-label">Qual(is) a(s) principal(is) fonte(s) de renda da família? </label>
+                                                            <input class="form-control" name="familyIncome" [(ngModel)]="responsible.family_income" id="familyIncome" disabled>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
-                                                            <label class="control-label">Qual é a sua participação na vida econômica do seu grupo familiar? </label>
-                                                            <input type="text" class="form-control" name="incomeParticipation" [(ngModel)]="responsible.income_participation" id="incomeParticipation" disabled>
+                                                            <label class="control-label">Participa de algum programa social? </label>
+                                                            <input class="form-control" name="familyIncomeOther" id="inSocialProgram" [value]="responsible.in_social_program ? 'Sim' : 'Não'" disabled>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-6" *ngIf="responsible.family_income === 'OUTRA'">
                                                         <div class="form-group">
-                                                            <label class="control-label">Qual a principal fonte de renda da família? </label>
-                                                            <input class="form-control" name="familyIncome" [(ngModel)]="responsible.family_income" id="familyIncome" disabled>
+                                                            <label class="control-label">Outra fonte de renda? </label>
+                                                            <input class="form-control" name="familyIncomeOther" [(ngModel)]="responsible.family_income_other" id="familyIncomeOther"
+                                                                disabled>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -187,36 +182,48 @@
                                                 <div class="row">
                                                     <div class="col-sm-4">
                                                         <div class="form-group">
-                                                            <label class="control-label">Há unidade básica na comunidade ou próximo de onde reside?</label> <br/>
+                                                            <label class="control-label">Há unidade básica na comunidade ou próximo de onde reside?</label>
+                                                            <br/>
                                                             <span class="form-control"> {{ responsible.has_hospital_nearby ? 'Sim' : 'Não' }} </span>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group">
-                                                            <label class="control-label">Na comunidade há sanemaneto básico? </label> <br/>
+                                                            <label class="control-label">Na comunidade há sanemaneto básico? </label>
+                                                            <br/>
                                                             <span class="form-control"> {{ responsible.has_sanitation ? 'Sim' : 'Não' }} </span>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group">
-                                                            <label class="control-label">A água é encanada?</label> <br/>
+                                                            <label class="control-label">A água é encanada?</label>
+                                                            <br/>
                                                             <span class="form-control"> {{ responsible.has_water_treatment ? 'Sim' : 'Não' }} </span>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <div class="form-group">
-                                                            <label class="control-label">A água utilizada para beber recebe algum tratamento?</label> <br/>
-                                                            <input class="form-control" [(ngModel)]="responsible.drinking_water_treatment" name="treatmentWater" id="treatmentWater" disabled>
+                                                        <div class="form-group" *ngIf="responsible.drinking_water_treatment">
+                                                            <label class="control-label">A água utilizada para beber recebe algum tratamento?</label>
+                                                            <br/>
+                                                            <span class="form-control"> Não</span>
+                                                        </div>
+                                                        <div class="form-group" *ngIf="!responsible.drinking_water_treatment">
+                                                            <label class="control-label">A água utilizada para beber recebe algum tratamento?</label>
+                                                            <br/>
+                                                            <input class="form-control" #treatmentWater="ngModel" [(ngModel)]="responsible.water_treatment_description" name="treatmentWater"
+                                                                id="treatmentWater" placeholder="Especifique o tratamento" disabled>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
-                                                            <label class="control-label">Observações gerais</label> <br/>
-                                                            <textarea class="form-control" rows="5" name="generalObservations" [(ngModel)]="responsible.observations" id="generalObservations" disabled></textarea>
+                                                            <label class="control-label">Observações gerais (Tam. max 100)</label>
+                                                            <br/>
+                                                            <textarea class="form-control" rows="5" name="generalObservations" [(ngModel)]="responsible.observations" id="generalObservations"
+                                                                disabled></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -235,147 +242,11 @@
                         </section>
                     </div>
                 </div>
-                <div class="tab-pane" id="tab_4">
-                    <div class="content">
-                        <section class="content">
-                            <div class="box-header_1 with-border">
-                                <h5 class="box-title"> Gestações
-                                </h5>
-                            </div>
-                            <!-- <div class="row">
-                                <div class="col-sm-12">
-                                    <div id="_filter" class="dataTables_filter">
-                                        <label> Filtro
-                                        <input type="text" class="form-control form-border " name="name" id="filter" 
-                                          [(ngModel)]="filter.name" mask="SSSSSSSSSSSSSSSSSSSS"  maxlength="20" placeholder="Data">
-                                        </label>
-                                    </div>
-                                </div>
-                            </div> -->
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <form name="form" #f3="ngForm" novalidate>
-                                        <div class="box box-primary">
-                                            <div class="box-body">
-                                                <table id="example2" class="table" *ngIf="!showPregnancy">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="tbl-left">DATA DE REGISTRO
-                                                                <span class="glyphicon"></span>
-                                                            </th>
-                                                            <th class="text-right"> AÇÃO</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <div class="feedback" *ngIf="responsible.pregnancies.length === 0">
-                                                        <i class="material-icons" style="font-size: 24px;">error_outline</i>
-                                                        <span class="feedback-message">Nenhum registro encontrado</span>
-                                                    </div>
-                                                    <tbody *ngIf="responsible.pregnancies.length !== 0 && hasdata">
-                                                        <tr *ngFor="let item of responsible.pregnancies">
-                                                            <td class="tbl-left">
-                                                                {{ item.registered_at | date: 'dd/MM/yyyy' }}
-                                                            </td>
-                                                            <td class="text-right pointer">
-                                                                <a (click)="toViewPregnancies(item)" id="btn_details" title="Ver detalhes">
-                                                                    <i class="large material-icons">visibility</i>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                <app-pregnancies #pregnancies [pregnancy]="pregnancy" (showPregnancy)="toShowPregnancy($event)" *ngIf="showPregnancy"></app-pregnancies>
-                                                <div class="row" *ngIf="!showPregnancy">
-                                                    <div class="col-sm-12 text-right">
-                                                        <ul *ngIf="pager.pages && pager.pages.length" class="pagination stylepage">
-                                                            <li [ngClass]="{disabled:pager.currentPage === 1}">
-                                                                <a (click)="setPage(1)">Primeiro</a>
-                                                            </li>
-                                                            <li [ngClass]="{disabled:pager.currentPage === 1}">
-                                                                <a (click)="setPage(pager.currentPage - 1)">Anterior</a>
-                                                            </li>
-                                                            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-                                                                <a (click)="setPage(page)">{{page}}</a>
-                                                            </li>
-                                                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-                                                                <a (click)="setPage(pager.currentPage + 1)">Próxima</a>
-                                                            </li>
-                                                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-                                                                <a (click)="setPage(pager.totalPages)">Último</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- <div class="col-md-3" *ngIf="!showPregnancy">
-                                            <div class="form-group">
-                                                <button class="btn btn-default btn-block" [routerLink]="['/responsaveis']" id="btn_return3"> Voltar</button>
-                                            </div>
-                                        </div> -->
-                                        <div class="col-md-3 col-md-offset-6">
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                </div>
-                <!-- /.tab-pane -->
-                <div class="tab-pane" [ngClass]="routeChild ? 'active' : ''" id="tab_5">
-                    <div class="content">
-                        <section class="content">
-                            <div class="box-header_1 with-border">
-                                <h5 class="box-title"> Crianças
-                                </h5>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <form name="form" #f3="ngForm" novalidate>
-                                        <div class="box box-primary">
-                                            <div class="box-body">
-                                                <table id="example2" class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="tbl-left">CRIANÇA
-                                                                <span class="glyphicon"></span>
-                                                            </th>
-                                                            <th class="text-center"> AÇÃO</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <div class="feedback" *ngIf="responsible.children.length === 0">
-                                                        <i class="material-icons" style="font-size: 24px;">error_outline</i>
-                                                        <span class="feedback-message">Nenhum registro encontrado</span>
-                                                    </div>
-                                                    <tbody *ngIf="responsible.children.length !== 0 && hasdata">
-                                                        <tr *ngFor="let item of responsible.children">
-                                                            <td class="tbl-left">
-                                                                {{ item.name }}
-                                                            </td>
-                                                            <td class="text-center pointer">
-                                                                <a (click)="toView(item)" id="btn_details" title="Ver detalhes">
-                                                                    <i class="large material-icons">visibility</i>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-md-offset-6">
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                </div>
-                <!-- /.tab-pane -->
             </div>
             <!-- /.tab-content -->
             <div class="col-md-3 action-back">
-                <div class="form-group">
-                    <button class="btn btn-default btn-block" [routerLink]="['/responsaveis']" id="btn_return3" *ngIf="!routeChildResponsible"> Voltar</button>
-                    <button class="btn btn-default btn-block" (click)="toBack()" [routerLink]="['/criancas/detalhes']" id="btn_return3" *ngIf="routeChildResponsible"> Voltar</button>
+                <div class="form-group back">
+                    <button class="btn btn-default btn-block" [routerLink]="['/familias']" id="btn_return3"> Voltar</button>
                 </div>
             </div>
         </div>

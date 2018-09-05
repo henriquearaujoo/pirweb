@@ -18,7 +18,7 @@
                             </div>
                             <div class="form-group" [ngClass]="applyCssError(f, extraForms)">
                                 <label class="control-label">Formulários</label>
-                                <input type="text" id="chapter_extraForms" name="chapter_extraForms" pattern="[\w,./_=?-].*" #extraForms="ngModel" maxlength="60" class="form-control" [(ngModel)]="chapter.extra_forms" value="{{chapter.extra_forms}}" placeholder="Inserir Formulários..."
+                                <input type="text" id="chapter_extraForms" name="chapter_extraForms" pattern="[\w,./_=?-].*" #extraForms="ngModel" maxlength="150" class="form-control" [(ngModel)]="chapter.extra_forms" value="{{chapter.extra_forms}}" placeholder="Inserir Formulários..."
                                     required>
                                 <app-control-field-error [showError]="verifyValidSubmitted(f, extraForms)" [field]="extraForms" msgError="Digite os formulários"></app-control-field-error>
                             </div>

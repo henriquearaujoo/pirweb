@@ -237,3 +237,12 @@ label.lb-tab.service {
     padding-top: 20px;
     padding-left: 10px;
 }
+
+label.checkbox {
+    padding-left: 25px;
+}
+
+.feedback-spinner {
+    font-size: 14px;
+    padding-bottom: 15px;
+}

@@ -30,6 +30,7 @@ export class ResponsibleDetailsComponent extends PagenateComponent implements On
   private canCreate: boolean;
   private canDelete: boolean;
   private hasdata: boolean;
+  private selDate: string;
   private routeChild: boolean;
   private routeChildResponsible: boolean;
   private showPregnancy: boolean;
@@ -63,7 +64,7 @@ export class ResponsibleDetailsComponent extends PagenateComponent implements On
       }
     );
      /*check if is a new or update*/
-     this.urlId = localStorage.getItem('responsibleId');
+     this.urlId = localStorage.getItem('familyId');
      if (this.urlId !== null && this.urlId !== '') {
        this.load();
      }
@@ -89,15 +90,20 @@ export class ResponsibleDetailsComponent extends PagenateComponent implements On
     );
   }
 
+  fixBirthDate(): void {
+    const brokeDate = this.responsible.birth.split('-');
+    this.selDate = `${brokeDate[2]}/${brokeDate[1]}/${brokeDate[0]}`;
+  }
+
   load() {
     this.loaderService.show();
     this.responsibleService.load(this.urlId).subscribe(
       success => {
         this.responsible = success;
         this.hasdata = true;
-        this.pagedItems = this.responsible.pregnancies;
-        this.allItems = this.responsible.pregnancies;
-        this.setPage(1);
+        this.fixBirthDate();
+        // this.pagedItems = this.responsible.pregnancies;
+        // this.allItems = this.responsible.pregnancies;
         console.log(this.responsible);
         this.loaderService.hide();
         if (this.responsible === undefined) {
@@ -171,6 +177,14 @@ export class ResponsibleDetailsComponent extends PagenateComponent implements On
       this.childrenTab = './assets/img/pregnant/ic_section_children_enable.png';
       break;
     }
+  }
+
+  translateGender(gender: string): string {
+    if (gender) {
+      return gender === 'MALE' ? 'Masculino' : 'Feminino';
+    }
+
+    return 'Não informado';
   }
 
 }

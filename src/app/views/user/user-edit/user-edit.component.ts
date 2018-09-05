@@ -245,18 +245,18 @@ export class UserEditComponent implements OnInit {
     );
   }
 
-  public loadCities(state_id?: string) {
-    this.userService.getCities(state_id).subscribe(
-      success => {
-        if (success == null) {
-          this.hasdata = false;
-        }
-        this.cities = success;
-        this.hasdata = true;
-      },
-      error => console.log(error)
-    );
-  }
+  // public loadCities(state_id?: string) {
+  //   this.userService.getCities(state_id).subscribe(
+  //     success => {
+  //       if (success == null) {
+  //         this.hasdata = false;
+  //       }
+  //       this.cities = success;
+  //       this.hasdata = true;
+  //     },
+  //     error => console.log(error)
+  //   );
+  // }
 
   getState() {
     // this.userService.getCity(this.city_id).subscribe(

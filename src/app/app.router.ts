@@ -49,7 +49,7 @@ const App_Router: Routes = [
           loadChildren: './views/profile/profile.module#ProfileModule'
         },
         {
-          path: 'responsaveis',
+          path: 'familias',
           loadChildren: './views/responsible/responsible.module#ResponsibleModule'
         },
         {

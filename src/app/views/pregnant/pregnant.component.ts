@@ -1,3 +1,5 @@
+import { PageService } from './../../services/pagenate/page.service';
+import { PagenateComponent } from './../../components/pagenate/pagenate.component';
 import { SweetAlert2Service } from './../../services/sweetalert/sweet-alert.2service';
 import { LoaderService } from './../../services/loader/loader.service';
 import { Router } from '@angular/router';
@@ -21,15 +23,17 @@ import { IMyDpOptions, IMyDate, IMyDateModel, IMyInputFieldChanged, MyDatePicker
   templateUrl: './pregnant.component.html',
   styleUrls: ['./pregnant.component.css']
 })
-export class PregnantComponent implements OnInit {
+export class PregnantComponent extends PagenateComponent implements OnInit {
 
   private responsible: Responsible = new Responsible();
+  private pregnant: Pregnant = new Pregnant();
   private subscription: Subscription;
   private communities: Community[] = new Array();
+  private families: Responsible[] = new Array();
   private isNewData: boolean;
   private urlId: string;
   private infoTab: string;
-  private dataTab: string;
+  private pregnanciesTab: string;
   private servicesTab: string;
   private currentTab: number;
   private previousTab: string;
@@ -46,9 +50,6 @@ export class PregnantComponent implements OnInit {
   private openSaveButtonTab2: HTMLButtonElement;
   private openSaveButtonTab3: HTMLButtonElement;
   private type: any;
-  private otherChildren: any  = { has: null};
-  private family_income_other_count: number;
-  private family_income: any[] = new Array();
 
   private canRead: boolean;
   private canUpdate: boolean;
@@ -61,19 +62,22 @@ export class PregnantComponent implements OnInit {
 
   private selDate: IMyDate = {year: 0, month: 0, day: 0};
   private isValidDate: boolean;
-  private income_participation: any[] = new Array();
+  private showPregnancy: boolean;
+  private pregnancy: any;
 
   constructor(
-    private communityService: CommunityService,
-    private responsibleService: ResponsibleService,
+    private reponsibleService: ResponsibleService,
+    private pregnantService: PregnantService,
     private toastService: ToastService,
     private modalService: ModalService,
     private sweetAlertService: SweetAlertService,
     private sweetAlert2Service: SweetAlert2Service,
     private permissions: Permissions,
     private loaderService: LoaderService,
-    private route: Router
+    private route: Router,
+    private servicePage: PageService
   ) {
+    super(servicePage);
       this.canCreate = false;
       this.canUpdate = false;
       this.canRead = false;
@@ -92,13 +96,13 @@ export class PregnantComponent implements OnInit {
     );
     /*check if is a new or update*/
     this.isNewData = true;
-    this.urlId = localStorage.getItem('motherId');
+    this.urlId = localStorage.getItem('pregnantId');
     if (this.urlId !== null && this.urlId !== '') {
       this.isNewData = false;
       this.load();
     }  else {
       // this.loaderService.hide();
-      this.route.navigate(['/gestantes']);
+      // this.route.navigate(['/gestantes']);
     }
 
     this.dateDisable.setMinutes( this.dateDisable.getMinutes() + this.dateDisable.getTimezoneOffset() );
@@ -113,76 +117,35 @@ export class PregnantComponent implements OnInit {
       disableSince: {year: this.dateDisable.getFullYear(), month: this.dateDisable.getMonth() + 1, day: this.dateDisable.getDate()}
     };
 
-    this.getCommunities();
+    this.getFamilies();
     this.currentTab = 0;
     this.previousTab = '#tab_1';
     this.nextTab = '#tab_2';
 
     this.infoTab = './assets/img/pregnant/ic_section_info_enable.png';
-    this.dataTab = './assets/img/pregnant/ic_section_info_data_disable.png';
-    this.servicesTab = './assets/img/pregnant/ic_section_info_services_disable.png';
+    this.pregnanciesTab = './assets/img/pregnant/ic_section_pregnancies_disable.png';
 
-    this.openSaveButtonTab1 = (<HTMLButtonElement>document.getElementById('btn_tab1'));
-    this.openSaveButtonTab1.style.display = 'none';
+    // this.openSaveButtonTab1 = (<HTMLButtonElement>document.getElementById('btn_tab1'));
+    // this.openSaveButtonTab1.style.display = 'none';
 
-    this.openSaveButtonTab2 = (<HTMLButtonElement>document.getElementById('btn_tab2'));
-    this.openSaveButtonTab2.style.display = 'none';
+    // this.openSaveButtonTab2 = (<HTMLButtonElement>document.getElementById('btn_tab2'));
+    // this.openSaveButtonTab2.style.display = 'none';
 
-    this.openSaveButtonTab3 = (<HTMLButtonElement>document.getElementById('btn_tab3'));
-    this.openSaveButtonTab3.style.display = 'none';
-
-    (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
+    // (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
 
     this.isValidDate = true;
-
-    this.income_participation = [
-      'Não trabalha e é sustentado pela familia',
-      'Trabalha e recebe ajuda financeira',
-      'Trabalha e é responsável pelo próprio sustento',
-      'Trabalha e contribui parcialmente em casa',
-      'Trabalha e é a principal responsável pelo sustento da familia'
-    ];
-
-    this.family_income = ['pesca', 'farinha', 'caça', 'roçado', 'outra'];
-    this.family_income_other_count = 0;
   }
 
-  saveData(form1, fomr2, form3) {
-    const isValid = form1 && fomr2 && form3;
-
-    if (isValid && this._isSave) {
+  saveData(isValid) {
+    if (isValid) {
       this.verifyDate();
-      for (let i = 0; i < this.communities.length; i++) {
-        if ( this.responsible.community.id === this.communities[i].id) {
-          this.responsible.community =  this.communities[i];
-          this.responsible.community.city_id =  this.responsible.community.city.id;
-          break;
-        }
-      }
-      this.responsible.habitation_members_count = Number(this.responsible.habitation_members_count);
-      this.responsible.children_count = Number(this.responsible.children_count);
+      console.log(this.pregnant);
+      this.pregnant.family_id = this.pregnant.family.id;
 
-      if (!this.otherChildren.has) {
-        this.responsible.children_count = 0;
-      }
-
-      if ( this.responsible.family_income === 'outra') {
-        this.responsible.family_income = this.responsible.family_income_other;
-      }
-
-      if ( !this.responsible.drinking_water_treatment2) {
-        this.responsible.drinking_water_treatment = 'Não';
-      }
-
-      this.responsible.community.city.state.cities = [];
-      if (this.responsible.agent_id == null) {
-        this.responsible.agent_id = undefined;
-      }
-
-      if (this.isNewData || this.responsible.id === undefined) {
-        this.responsibleService.insert(this.responsible).subscribe(
+      if (this.isNewData || this.pregnant.id === undefined) {
+        this.pregnantService.insert(this.pregnant).subscribe(
           success => {
-            this.responsible = success;
+            this.pregnant = success;
             this.isNewData  = false;
             this.toastService.toastMsg('Sucesso', 'Informações inseridas com sucesso');
           },
@@ -192,10 +155,7 @@ export class PregnantComponent implements OnInit {
           }
         );
       } else {
-        delete this.responsible.mother.pregnancies;
-        delete this.responsible.mother.responsible;
-        delete this.responsible.children;
-        this.responsibleService.update(this.responsible).subscribe(
+        this.pregnantService.update(this.pregnant).subscribe(
           success => {
             console.log('success: ', success);
             this.sweetAlertService.alertSuccessUpdate('/gestantes');
@@ -215,13 +175,16 @@ export class PregnantComponent implements OnInit {
 
   onDateChanged(event: IMyDateModel) {
     this.selDate = event.date;
-    const date = event.date.day + '-' + event.date.month + '-' + event.date.year;
-    this.responsible.birth = date;
+    const date = event.date.year + '-' + event.date.month + '-' + event.date.day;
+    this.pregnant.birth = date;
   }
 
   verifyDate() {
-    const date = this.selDate.day + '-' + this.selDate.month + '-' + this.selDate.year;
-    this.responsible.birth = date;
+    const date = this.selDate.year + '-' + this.selDate.month + '-' + this.selDate.day;
+    const d = new Date(date);
+    const currentMonth = ('0' + (d.getMonth() + 1)).slice(-2);
+    const currentDay = ('0' + d.getDate()).slice(-2);
+    this.pregnant.birth = this.selDate.year + '-' + currentMonth + '-' + currentDay;
   }
 
   onInputFieldChanged(event: IMyInputFieldChanged) {
@@ -230,19 +193,12 @@ export class PregnantComponent implements OnInit {
 
   load() {
     this.loaderService.show();
-    this.responsibleService.load(this.urlId).subscribe(
+    this.pregnantService.load(this.urlId).subscribe(
       success => {
-        this.responsible = success;
-        this.alterData();
+        this.pregnant = success;
+        console.log(this.pregnant);
+        this.changeData();
         this.loaderService.hide();
-        if (this.responsible.children_count === 0) {
-          this.otherChildren.has = false;
-        } else {
-          this.otherChildren.has = true;
-        }
-        if (this.responsible.mother === undefined) {
-          this.responsible.mother = new Pregnant();
-        }
       },
       error => {
         this.loaderService.hide();
@@ -251,44 +207,16 @@ export class PregnantComponent implements OnInit {
     );
   }
 
-  alterData() {
-    // ALTER DATE
-    const dateList = this.responsible.birth.split('-');
-    this.responsible.birth = dateList[2] + '-' + dateList[1] + '-' + dateList[0];
-    const d = new Date(this.responsible.birth);
+  changeData() {
+    // CHANGE DATE
+    const dateList = this.pregnant.birth.split('-');
+    this.pregnant.birth = dateList[0] + '-' + dateList[1] + '-' + dateList[2];
+    const d = new Date(this.pregnant.birth);
     d.setMinutes( d.getMinutes() + d.getTimezoneOffset() );
     this.selDate = {year: d.getFullYear(),
                     month: d.getMonth() + 1,
                     day: d.getDate()};
     this.selDate = this.selDate;
-
-    // VERIFY family_income
-    for ( let i = 0; i < this.family_income.length; i++ ) {
-      if ( this.responsible.family_income === this.family_income[i]) {
-        this.family_income_other_count = 1;
-      }
-    }
-    if ( this.family_income_other_count !== 1 ) {
-      this.responsible.family_income_other = this.responsible.family_income;
-      this.responsible.family_income = 'outra';
-    }
-
-    // VERIFY drinking_water_treatment
-    if ((this.responsible.drinking_water_treatment === 'Não') || (this.responsible.drinking_water_treatment === '')) {
-      this.responsible.drinking_water_treatment2 = false;
-      this.responsible.drinking_water_treatment = '';
-    } else {
-      this.responsible.drinking_water_treatment2 = true;
-    }
-  }
-
-  getCommunities() {
-    this.communityService._getCommunities().subscribe(
-      s => {
-        this.communities = s;
-      },
-      error => console.log(error)
-    );
   }
 
   openModal() {
@@ -312,6 +240,25 @@ export class PregnantComponent implements OnInit {
     }
   }
 
+  getFamilies() {
+    this.reponsibleService.getAll().subscribe(
+      s => {
+        this.families = s;
+      },
+      error => console.log(error)
+    );
+  }
+
+  toViewPregnancies(pregnancy) {
+    this.pregnancy = pregnancy;
+    this.showPregnancy = true;
+  }
+
+  toShowPregnancy(event) {
+    this.showPregnancy = event;
+  }
+
+
   save(tab: string, isValid: boolean) {
     this.isFormValid = isValid;
     this.tab = tab;
@@ -322,77 +269,81 @@ export class PregnantComponent implements OnInit {
     this._isSave = true;
   }
 
-   isActive(tab: boolean, t?: number,  p?: number) {
-    if ( p !== 0 ) {
-      if (t === 1) {
-        this.openSaveButtonTab1.click();
-      } else {
-        if ( t === 2) {
-          this.openSaveButtonTab2.click();
-        } else {
-          if (t === 3) {
-            this.isFormValid = true;
-          }
-        }
-      }
-    } else {
-      this.isFormValid = true;
+  //  isActive(tab: boolean, t?: number,  p?: number) {
+  //   if ( p !== 0 ) {
+  //     if (t === 1) {
+  //       this.openSaveButtonTab1.click();
+  //     } else {
+  //       if ( t === 2) {
+  //         this.openSaveButtonTab2.click();
+  //       } else {
+  //         if (t === 3) {
+  //           this.isFormValid = true;
+  //         }
+  //       }
+  //     }
+  //   } else {
+  //     this.isFormValid = true;
+  //   }
+
+
+  //   if ( this.isFormValid && this.isValidDate) {
+  //     this.isFormValid = false;
+  //     if (tab) {
+  //       if (this.currentTab === -1) {
+  //             this.currentTab = 0;
+  //       } else if (this.currentTab < 2) {
+  //             this.currentTab++;
+  //             this.cont++;
+  //         }
+  //     }else {
+  //       if (this.currentTab > 0) {
+  //             this.currentTab--;
+  //             this.cont--;
+  //           }
+  //     }
+  //       this.previousTab = '#tab_' + (this.currentTab + 1);
+  //       this.nextTab = '#tab_' + (this.currentTab + 1);
+
+  //       if (this.nextTab === '#tab_3') {
+  //         this.enable_save = true;
+  //       } else {
+  //         this.enable_save = false;
+  //       }
+
+  //       if (this.currentTab === 0) {
+  //         (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
+  //         this.infoTab = './assets/img/pregnant/ic_section_info_enable.png';
+  //         this.pregnanciesTab = './assets/img/pregnant/ic_section_pregnancies_disable.png';
+
+  //       }else if (this.currentTab === 1) {
+  //         this.infoTab = './assets/img/pregnant/ic_section_info_disable.png';
+  //         this.pregnanciesTab = './assets/img/pregnant/ic_section_pregnancies_enable.png';
+  //         (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
+  //         (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
+  //       }
+  //     } else {
+  //       if (t === 1) {
+  //         this.nextTab = '#tab_1';
+  //       } else {
+  //         if (t === 2) {
+  //           this.nextTab = '#tab_2';
+  //         }
+  //       }
+  //     }
+  // }
+
+  walk ( tab: number) {
+    switch (tab) {
+      case 0:
+      this.infoTab = './assets/img/pregnant/ic_section_info_enable.png';
+      this.pregnanciesTab = './assets/img/pregnant/ic_section_pregnancies_disable.png';
+      break;
+      case 1:
+      this.infoTab = './assets/img/pregnant/ic_section_info_disable.png';
+      this.pregnanciesTab = './assets/img/pregnant/ic_section_pregnancies_enable.png';
+      break;
     }
-
-
-    if ( this.isFormValid && this.isValidDate) {
-      this.isFormValid = false;
-      if (tab) {
-        if (this.currentTab === -1) {
-              this.currentTab = 0;
-        } else if (this.currentTab < 2) {
-              this.currentTab++;
-              this.cont++;
-          }
-      }else {
-        if (this.currentTab > 0) {
-              this.currentTab--;
-              this.cont--;
-            }
-      }
-        this.previousTab = '#tab_' + (this.currentTab + 1);
-        this.nextTab = '#tab_' + (this.currentTab + 1);
-
-        if (this.nextTab === '#tab_3') {
-          this.enable_save = true;
-        } else {
-          this.enable_save = false;
-        }
-
-        if (this.currentTab === 0) {
-          (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
-          this.infoTab = './assets/img/pregnant/ic_section_info_enable.png';
-          this.dataTab = './assets/img/pregnant/ic_section_info_data_disable.png';
-          this.servicesTab = './assets/img/pregnant/ic_section_info_services_disable.png';
-
-        }else if (this.currentTab === 1) {
-          this.infoTab = './assets/img/pregnant/ic_section_info_disable.png';
-          this.dataTab = './assets/img/pregnant/ic_section_info_data_enable.png';
-          this.servicesTab = './assets/img/pregnant/ic_section_info_services_disable.png';
-          (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
-          (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
-        }else {
-          (<HTMLButtonElement>document.getElementById('btn_next')).style.display = 'none';
-          this.infoTab = './assets/img/pregnant/ic_section_info_disable.png';
-          this.dataTab = './assets/img/pregnant/ic_section_info_data_disable.png';
-          this.servicesTab = './assets/img/pregnant/ic_section_info_services_enable.png';
-          this.next = 'Salvar';
-          }
-      } else {
-        if (t === 1) {
-          this.nextTab = '#tab_1';
-        } else {
-          if (t === 2) {
-            this.nextTab = '#tab_2';
-          }
-        }
-      }
-
   }
 
   verifyValidSubmitted(form, field) {

@@ -1,0 +1,74 @@
+<div class="box box-primary">
+    <div class="box-body">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="control-label">DATA DE REGISTRO</label> <br/>
+                    <span class="form-control"> {{ pregnancy.registered_at | date: 'dd/MM/yyyy' }} </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="example2" class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-center">VISITA Nº</th>
+                            <th class="text-center">PERÍODO</th>
+                            <th class="text-center"> TEMA</th>
+                            <th class="text-center"> DATA</th>
+                        </tr>
+                    </thead>
+                    <div class="feedback" *ngIf="pregnancy.visits.length === 0">
+                        <i class="material-icons" style="font-size: 24px;">error_outline</i>
+                        <span class="feedback-message">Nenhum registro encontrado</span>
+                    </div>
+                    <tbody *ngIf="pregnancy.visits.length !== 0">
+                        <tr *ngFor="let item of pregnancy.visits">
+                            <td class="text-center">
+                                {{ item.number }}
+                            </td>
+                            <td class="text-center">
+                                <p class="limit-text">{{ item.chapter?.title }}</p>
+                            </td>
+                            <td class="text-center">
+                                <p class="limit-text"> {{ item.chapter?.subtitle }}</p>
+                            </td>
+                            <td class="text-center">
+                                <p class="limit-text"> {{ item.done_at | date: 'dd/MM/yyyy' }}</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 text-right">
+                <ul *ngIf="pager.pages && pager.pages.length" class="pagination stylepage">
+                    <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="setPage(1)">Primeiro</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="setPage(pager.currentPage - 1)">Anterior</a>
+                    </li>
+                    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                        <a (click)="setPage(page)">{{page}}</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="setPage(pager.currentPage + 1)">Próxima</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="setPage(pager.totalPages)">Último</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <button class="btn btn-default btn-block pull-right" (click)="toBack()" id="btn_return3"> Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

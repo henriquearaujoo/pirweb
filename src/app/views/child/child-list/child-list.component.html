@@ -13,10 +13,9 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div id="_filter" class="dataTables_filter">
-                            <label>
+                            <label for="filter"><strong>Filtro</strong></label>
                             <input type="text" class="form-control form-border " name="name" id="filter" (keyup)="getChildren()" 
                               [(ngModel)]="filter.name"  mask="SSSSSSSSSSSSSSSSSSSS"  maxlength="20" placeholder="Nome da criança">
-                            </label>
                         </div>
                     </div>
                 </div>
@@ -48,7 +47,7 @@
                                     {{ item.name }}
                                 </td>
                                 <td class="tbl-left">
-                                    {{ item.birth }}
+                                    {{ item.birth | date: 'dd/MM/yyyy'}}
                                 </td>
                                 <td class="tbl-left">
                                     {{ item.gender === 'FEMALE' ? 'Feminino' : 'Masculino' }}
@@ -58,18 +57,16 @@
                                         <i class="large material-icons">visibility</i>
                                     </a>
                                 </td>
+                                <!-- <td class="tbl-right">
+                                    <a id="btn_details" title="Ver detalhes" style="color: gray">
+                                        <i class="large material-icons">visibility</i>
+                                    </a>
+                                </td> -->
                                 <td class="tbl-right">
                                     <a title="Editar" id="btn_edit" (click)="setChild(item)" *ngIf="canUpdate">
                                         <i class="fa fa-pencil fa-fw"></i>
                                     </a>
                                 </td>
-                                <!-- <td class="tbl-right">
-                  <a href="" [title]="item.status === true ? 'Desativar': 'Ativar'"
-                    data-toggle="modal" data-target="#modal-default"
-                    (click)="changeStatus(item)" id="btn_status">              
-                    <i [ngClass]="item.status === true ? 'fa fa-toggle-on': 'fa fa-toggle-off' "  aria-hidden="true"></i>
-                  </a>      
-              </td> -->
                             </tr>
                         </tbody>
                     </table>

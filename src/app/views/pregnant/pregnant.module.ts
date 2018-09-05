@@ -1,3 +1,4 @@
+import { PregnanciesComponent } from './../responsible/responsible-details/pregnancies/pregnancies.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { SharedModule } from './../../shared/shared.module';
 import { MyDatePickerModule } from 'mydatepicker';
@@ -25,7 +26,8 @@ import { PregnantRoutingModule } from './pregnant-routing.module';
   declarations: [
     PregnantListComponent,
     PregnantComponent,
-    PregnantDetailsComponent
+    PregnantDetailsComponent,
+    PregnanciesComponent
   ],
   exports: [
     PregnantListComponent,

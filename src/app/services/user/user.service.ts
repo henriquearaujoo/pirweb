@@ -32,11 +32,15 @@ export class UserService extends RestService {
 
   public getAgents(filter?: any, page?: number) {
     if ( filter === undefined ) {
-      return this.get(this.apiurl + 'users/search/page/?size=' + this.size + '&page=' + page + '&profile.type=AGENT&sort=name,asc');
+      return this.get(this.apiurl + 'users/agents/search/page/?size=' + this.size + '&page=' + page + '&sort=name,asc');
     } else {
-      return this.get(this.apiurl + 'users/search/page/?size=' + this.size + '&page=' + page +
-      '&profile.type=AGENT&name=' + filter + '&sort=name,asc');
+      return this.get(this.apiurl + 'users/agents/search/page/?size=' + this.size + '&page=' + page +
+      '&name=' + filter + '&sort=name,asc');
     }
+  }
+
+  public getAllAgents() {
+    return this.get(this.apiurl + 'users/agents/');
   }
 
   public createUser(user: User) {
@@ -54,6 +58,11 @@ export class UserService extends RestService {
   public saveEditUser(user: User): Observable<User> {
     const saveUserUrl = this.apiurl.concat('users/');
     return this.put(saveUserUrl, user);
+  }
+
+  public changeStatus(user: User): Observable<User> {
+    const changeStatusUrl = this.apiurl.concat('users/enable/' + user.id);
+    return this.put(changeStatusUrl, user);
   }
 
   public saveEditPerson(person: Person) {
@@ -79,10 +88,8 @@ export class UserService extends RestService {
     return this.get(this.apiurl + 'states/' + state_id + `/`);
   }
 
-  public getCities(state_id?: string) {
-    // if ( state_id === undefined ) {
-    //   return this.get(this.apiurl + 'states/');
-    // }
+  public getCities() {
+    const state_id = '336de5fc-0223-404e-8113-6d67f36f5b33';
     return this.get(this.apiurl + 'states/' + state_id );
   }
 

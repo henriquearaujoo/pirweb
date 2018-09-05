@@ -11,17 +11,17 @@ const routes: Routes = [
   {
     path: '',
     component: ResponsibleListComponent,
-    canActivate: [PageGuard]
+    // canActivate: [PageGuard]
   },
   {
     path: 'detalhes',
     component: ResponsibleDetailsComponent,
-    canActivate: [PageGuard]
+    // canActivate: [PageGuard]
   },
   {
     path: 'registro',
     component: ResponsibleComponent,
-    canActivate: [PageGuard]
+    // canActivate: [PageGuard]
   }
 ];
 

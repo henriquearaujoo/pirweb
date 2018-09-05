@@ -25,8 +25,7 @@ import { PregnanciesComponent } from './responsible-details/pregnancies/pregnanc
   declarations: [
     ResponsibleComponent,
     ResponsibleListComponent,
-    ResponsibleDetailsComponent,
-    PregnanciesComponent
+    ResponsibleDetailsComponent
   ],
   exports: [
     ResponsibleComponent,

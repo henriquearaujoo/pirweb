@@ -3,10 +3,10 @@
     <div *ngIf="markers">
         <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m.label, i)" [latitude]="m.lat" [longitude]="m.lng" [label]="m.label" [markerDraggable]="m.draggable" (dragEnd)="markerDragEnd(m, $event)">
             <div *ngIf="agents">
-                <agm-info-window *ngFor="let agent of agents">
-                    <i class="fa fa-user"></i> <label class="label-control">{{ agent.name }}</label> <br/>
-                    <i [ngClass]="agent.status === true ? 'fa fa-circle active_circle': 'fa fa-circle inactive_circle' " style="margin-top: 15px;" aria-hidden="true"></i>
-                    <label class="label-control"> {{ agent.status ? 'ATIVO' : 'INATIVO' }}</label>
+                <agm-info-window>
+                    <i class="fa fa-user"></i> <label class="label-control">{{ agents[i].name }}</label> <br/>
+                    <i [ngClass]="agents[i].status === true ? 'fa fa-circle active_circle': 'fa fa-circle inactive_circle' " style="margin-top: 15px;" aria-hidden="true"></i>
+                    <label class="label-control"> {{ agents[i].status ? 'ATIVO' : 'INATIVO' }}</label>
                 </agm-info-window>
             </div>
             <div *ngIf="agent">

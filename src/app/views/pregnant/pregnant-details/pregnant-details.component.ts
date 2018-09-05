@@ -1,3 +1,7 @@
+import { PregnantService } from './../../../services/pregnant/pregnant.service';
+import { PageService } from './../../../services/pagenate/page.service';
+import { PagenateComponent } from './../../../components/pagenate/pagenate.component';
+import { PregnanciesComponent } from './../pregnancies/pregnancies.component';
 import { LoaderService } from './../../../services/loader/loader.service';
 import { Permissions, RuleState } from './../../../helpers/permissions';
 import { CommunityService } from './../../../services/community/community.service';
@@ -11,24 +15,27 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './pregnant-details.component.html',
   styleUrls: ['./pregnant-details.component.css']
 })
-export class PregnantDetailsComponent implements OnInit {
+export class PregnantDetailsComponent  extends PagenateComponent implements OnInit {
 
-  private responsible: Responsible = new Responsible();
-  private data1Tab: string;
-  private data2Tab: string;
-  private data3Tab: string;
+  private pregnant: Pregnant = new Pregnant();
+  private infoTab: string;
+  private pregnanciesTab: string;
   private urlId: string;
   private canRead: boolean;
   private canUpdate: boolean;
   private canCreate: boolean;
   private canDelete: boolean;
+  private pregnancy: any;
+  private showPregnancy: boolean;
 
   constructor(
-    private responsibleService: ResponsibleService,
+    private pregnantService: PregnantService,
     private communityService: CommunityService,
     private loaderService: LoaderService,
-    private permissions: Permissions
+    private permissions: Permissions,
+    private servicePage: PageService
   ) {
+    super(servicePage);
     this.canCreate = false;
     this.canUpdate = false;
     this.canRead = false;
@@ -36,7 +43,7 @@ export class PregnantDetailsComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.permissions.canActivate(['/pregnant-list/details']);
+    this.permissions.canActivate(['/gestantes/detalhes']);
     this.permissions.permissionsState.subscribe(
       (rules: RuleState) => {
         this.canCreate = rules.canCreate;
@@ -45,24 +52,23 @@ export class PregnantDetailsComponent implements OnInit {
         this.canDelete = rules.canDelete;
       }
     );
-    this.urlId = localStorage.getItem('motherId');
+    this.urlId = localStorage.getItem('pregnantId');
     if (this.urlId !== null && this.urlId !== '') {
       this.load();
     }
-    this.data1Tab = './assets/img/pregnant/ic_data_enable.png';
-    this.data2Tab = './assets/img/pregnant/ic_data_disable.png';
-    this.data3Tab = './assets/img/pregnant/ic_data_disable.png';
+    this.walk(0);
   }
 
   load() {
     this.loaderService.show();
-    this.responsibleService.load(this.urlId).subscribe(
+    this.pregnantService.load(this.urlId).subscribe(
       success => {
-        this.responsible = success;
+        this.pregnant = success;
+        console.log(this.pregnant);
         this.loaderService.hide();
-        if (this.responsible.mother === undefined) {
-          this.responsible.mother = new Pregnant();
-        }
+        // if (this.responsible.mother === undefined) {
+        //   this.responsible.mother = new Pregnant();
+        // }
       },
       error => {
         this.loaderService.hide();
@@ -71,22 +77,24 @@ export class PregnantDetailsComponent implements OnInit {
     );
   }
 
+  toViewPregnancies(pregnancy) {
+    this.pregnancy = pregnancy;
+    this.showPregnancy = true;
+  }
+
+  toShowPregnancy(event) {
+    this.showPregnancy = event;
+  }
+
   walk ( tab: number) {
     switch (tab) {
       case 0:
-        this.data1Tab = './assets/img/pregnant/ic_data_enable.png';
-        this.data2Tab = './assets/img/pregnant/ic_data_disable.png';
-        this.data3Tab = './assets/img/pregnant/ic_data_disable.png';
+      this.infoTab = './assets/img/pregnant/ic_section_info_enable.png';
+      this.pregnanciesTab = './assets/img/pregnant/ic_section_pregnancies_disable.png';
       break;
       case 1:
-      this.data1Tab = './assets/img/pregnant/ic_data_disable.png';
-      this.data2Tab = './assets/img/pregnant/ic_data_enable.png';
-      this.data3Tab = './assets/img/pregnant/ic_data_disable.png';
-      break;
-      case 2:
-      this.data1Tab = './assets/img/pregnant/ic_data_disable.png';
-      this.data2Tab = './assets/img/pregnant/ic_data_disable.png';
-      this.data3Tab = './assets/img/pregnant/ic_data_enable.png';
+      this.infoTab = './assets/img/pregnant/ic_section_info_disable.png';
+      this.pregnanciesTab = './assets/img/pregnant/ic_section_pregnancies_enable.png';
       break;
     }
   }
