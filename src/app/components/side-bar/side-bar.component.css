@@ -8,6 +8,10 @@ a.pointer {
     cursor: pointer;
 }
 
+span.licences {
+    margin-left: 20px;
+}
+
 
 /******** Modal *********/
 
