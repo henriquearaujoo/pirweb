@@ -4,10 +4,11 @@
 
             <li class="treeview" [class.active]="isActive(item.routes)" *ngFor="let item of menu">
                 <a href="#" *ngIf="(item.category === 'parent') && item.read">
-                    <i class="{{ item.iClass }}"></i> <span class="sidebar-item">{{ item.title }}</span>
+                    <i class="{{ item.iClass }}"></i>
+                    <span class="sidebar-item">{{ item.title }}</span>
                     <span class="pull-right-container" *ngIf="item.hasChild">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
                 </a>
                 <ul class="treeview-menu">
                     <li [class.active]="isActive(sub.routes)" *ngFor="let sub of menu">
@@ -18,6 +19,12 @@
                     </li>
                 </ul>
             </li>
+            <li [class.active]="isActive(['/licences'])">
+                <a class="pointer" [routerLink]="['/licences']" >
+                    <i class="fa fa-book fa-2x"></i>
+                    <span class="licences">LINCEÇAS</span>
+                </a>
+            </li>
         </ul>
     </section>
     <section class="sidebar logout">
@@ -26,7 +33,8 @@
                 <a class="pointer" data-toggle="modal" data-target="#modal-logout">
                     <img style="height: 18px;" src="./assets/css/sidebar/ic_logout.png">
                     <span class="lb-logout">SAIR</span>
-                </a> <br/>
+                </a>
+                <br/>
             </div>
         </div>
         <div class="row">
@@ -46,7 +54,8 @@
                     <!-- <i class="material-icons" style="font-size: 60px;">error_outline</i> -->
                     <img class="icon" src="./assets/img/global/ic_action.png">
                 </div>
-                <h5> Deseja realmente <strong>SAIR</strong> ?</h5>
+                <h5> Deseja realmente
+                    <strong>SAIR</strong> ?</h5>
             </div>
             <div class="modal-footer" data-dismiss="modal">
                 <div class="modal-btn-cancel">
