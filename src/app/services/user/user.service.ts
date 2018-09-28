@@ -89,8 +89,8 @@ export class UserService extends RestService {
   }
 
   public getCities() {
-    const state_id = '336de5fc-0223-404e-8113-6d67f36f5b33';
-    return this.get(this.apiurl + 'states/' + state_id );
+    const state_id = 'AM';
+    return this.get(this.apiurl + 'states/find-uf/' + state_id );
   }
 
   public getCity(city_id?: number) {
