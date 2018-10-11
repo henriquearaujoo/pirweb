@@ -13,7 +13,6 @@ export class Responsible {
     public code: string;
     public family_income: string;
     public family_income_other: string;
-    public habitation_members_count: number;
     public habitation_type: string;
     public has_hospital_nearby: boolean;
     public has_sanitation: boolean;

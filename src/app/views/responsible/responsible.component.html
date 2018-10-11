@@ -189,16 +189,6 @@
                                                         </div>
                                                     </div> -->
                                                     <div class="col-sm-6">
-                                                        <div class="form-group" [ngClass]="applyCssError(f2, habitationMembersCount)">
-                                                            <label class="control-label">Quantas pessoas moram em sua casa (incluindo você)?</label>
-                                                            <input [type]="number" class="form-control" mask="000000000" #habitationMembersCount="ngModel" name="habitationMembersCount"
-                                                                id="habitationMembersCount" [(ngModel)]="responsible.habitation_members_count"
-                                                                required>
-                                                            <app-control-field-error [showError]="verifyValidSubmitted(f2, habitationMembersCount)" msgError="Digite quantas pessoas moram em sua casa">
-                                                            </app-control-field-error>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label class="control-label">Qual(is) a(s) principal(is) fonte(s) de renda da família?</label>
                                                             <br/>

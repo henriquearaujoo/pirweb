@@ -199,7 +199,6 @@ export class ResponsibleComponent implements OnInit {
       }
 
       delete this.responsible.children;
-      this.responsible.habitation_members_count = Number(this.responsible.habitation_members_count);
 
       this.responsible.agent_id = this.responsible.agent.person.agent.id;
 
@@ -318,7 +317,7 @@ export class ResponsibleComponent implements OnInit {
 
   onDateChanged(event: IMyDateModel) {
     this.selDate = event.date;
-    const date = event.date.day + '-' + event.date.month + '-' + event.date.year;
+    const date = event.date.year + '-' + event.date.month + '-' + event.date.day;
     this.responsible.birth = date;
   }
 
