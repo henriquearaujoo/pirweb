@@ -8,11 +8,11 @@
                     <label class="control-label">Tipo de Midia:</label>
                     <!-- <div class="row">
                         <div class="col-md-8"> -->
-                    <select class="dropdown" name="media_Type" #mediaType="ngModel" [disabled]="isNewData" data-toggle="tooltip" data-placement="right" [title]="isNewData ? 'Salve primeiro as informações do capítulo' : 'Escolha o tipo de mídia'" [(ngModel)]="_fileData.mediaType"
-                        (change)="clear()" required>       
-                            <option *ngFor="let item of type_file"
-                                [value]="item.type"> {{ item.name }} </option>
-                            </select>
+                    <select class="dropdown" name="media_Type" #mediaType="ngModel" [disabled]="isNewData" data-toggle="tooltip"
+                        data-placement="right" [title]="isNewData ? 'Salve primeiro as informações do capítulo' : 'Escolha o tipo de mídia'"
+                        [(ngModel)]="_fileData.mediaType" (change)="clear()" required>
+                        <option *ngFor="let item of type_file" [value]="item.type"> {{ item.name }} </option>
+                    </select>
                     <!-- </div>
                     </div> -->
                     <div *ngIf="!isNewData && !mediaType.valid" class="help-block"> Selecione o tipo de mídia</div>
@@ -21,7 +21,8 @@
         </div>
         <div class="col-md-6 ">
             <div class="info-select" *ngIf="selectedType !== ''">
-                Tamanho máximo do arquivo: {{ selectedType.size_show }} <br/> Extensões permitidas: {{ selectedType.types }} <br/>
+                Tamanho máximo do arquivo: {{ selectedType.size_show }} <br /> Extensões permitidas: {{
+                selectedType.types }} <br />
             </div>
         </div>
     </div>
@@ -36,43 +37,53 @@
                     <div class="input-group image-preview">
                         <!-- <input placeholder="" type="text" class="form-control image-preview-filename" disabled="disabled"> -->
                         <div class="form-group">
-                            <span class="input-group-btn">                                
+                            <span class="input-group-btn">
                                 <div class="btn btn-default image-preview-input"> <span class="glyphicon glyphicon-folder-open"></span>
-                            <span class="image-preview-input-title" *ngIf="!dragging">Selecione ou arraste e solte aqui</span>
-                            <span class="image-preview-input-title" *ngIf="dragging">Solte os arquivos aqui</span>
-                            <!-- <input type="file"  name="input-file-preview" /> -->
-                            <input type="file" #fileInput name="input-file-preview" accept="{{ selectedType.accept }}" multiple (change)="onChange()" id="files" size="3" [disabled]="(isNewData || (selectedType === ''))" />
-                        </div>
-                        </span>
-                    </div>
-                </div>
-                <br />
-                <div class="loading-file" *ngIf="loading">
-                    <i class="fa fa-spinner fa-pulse"></i> Carregando arquivos...
-                </div>
-                <div class="js-upload-finished">
-                    <h4 *ngIf="hasFile">Arquivos</h4>
-                    <div class="list-group text-center" [hidden]="hasFile">Nenhum arquivo selecionado até o momento</div>
-                    <div class="list-group" [hidden]="!hasFile">
-                        <div class="col col-sm-12">
-                            <a *ngFor="let file of files; let i = index;" style="float:left; margin:2px;" title="test">
-                                <div class="btn btn-default btn-sm btn-file ">
-                                    <i class="fa fa-times" aria-hidden="true" (click)="remove(i)"></i>
-                                    <!-- <span class="badge pull-right" onclick="remove()" (click)="remove(i)"> x </span> -->
-                                    <span>{{file.name}}</span>
+                                    <span class="image-preview-input-title" *ngIf="!dragging">Selecione ou arraste e
+                                        solte aqui</span>
+                                    <span class="image-preview-input-title" *ngIf="dragging">Solte os arquivos aqui</span>
+                                    <!-- <input type="file"  name="input-file-preview" /> -->
+                                    <input type="file" #fileInput name="input-file-preview" accept="{{ selectedType.accept }}"
+                                        multiple (change)="onChange()" id="files" size="3" [disabled]="(isNewData || (selectedType === ''))" />
                                 </div>
-                            </a>
+                            </span>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="loading-file" *ngIf="loading">
+                        <i class="fa fa-spinner fa-pulse"></i> Carregando arquivos...
+                    </div>
+                    <div class="js-upload-finished">
+                        <h4 *ngIf="hasFile">Arquivos</h4>
+                        <div class="list-group text-center" [hidden]="hasFile">Nenhum arquivo selecionado até o momento</div>
+                        <div class="list-group" [hidden]="!hasFile">
+                            <div class="col col-sm-12">
+                                <a *ngFor="let file of files; let i = index;" style="float:left; margin:2px;" title="test">
+                                    <div class="btn btn-default btn-sm btn-file ">
+                                        <i class="fa fa-times" aria-hidden="true" (click)="remove(i)"></i>
+                                        <!-- <span class="badge pull-right" onclick="remove()" (click)="remove(i)"> x </span> -->
+                                        <span>{{file.name}}</span>
+                                    </div>
+                                </a>
 
-                            <div class="sending-file" *ngIf="sending">
-                                <i class="fa fa-spinner fa-pulse" style="font-size: 22px;"></i> Enviando arquivos...
+                                <div class="sending-file" *ngIf="sending">
+                                    <i class="fa fa-spinner fa-pulse" style="font-size: 22px;"></i> Enviando
+                                    arquivos...
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <button type="submit" class="btn btn-labeled btn-info pull-right" [disabled]="(isNewData || (selectedType === ''))">
+                <span class="btn-label"><i class="glyphicon glyphicon-upload"></i> </span>Carregar</button>
+            <i *ngIf="sent" class="fa fa-check" aria-hidden="true"> <span>Arquivo(s) carregado(s)</span></i>
         </div>
-        <button type="submit" class="btn btn-labeled btn-info pull-right" [disabled]="(isNewData || (selectedType === ''))"> <span class="btn-label"><i class="glyphicon glyphicon-upload"></i> </span>Carregar</button>
     </div>
-    </div>
+    <!-- <div class="row">
+        <div class="col">
+            <app-multimedia-gallery #gallery [datasource]="multimedias" (remove)="removeMultimedia($event)"></app-multimedia-gallery>
+        </div>
+    </div> -->
 
 </form>

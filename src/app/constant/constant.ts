@@ -3,8 +3,8 @@ export const Constant = {
                localStorage.getItem('server') :
 
                 //  'http://localhost:3000/',
-                // 'http://fas-xquiz.dyndns-ip.com:10510/pir/rest/',
-                'http://localhost:8080/pir/rest/',
+                'http://fas-xquiz.dyndns-ip.com:10510/pir/rest/',
+                // 'http://localhost:8080/pir/rest/',
                 // 'http://fas-xquiz.dyndns-ip.com:10510/pir/rest/',
 
     //            'http://samsung.institutoitn.com.br/pirh/rest/',

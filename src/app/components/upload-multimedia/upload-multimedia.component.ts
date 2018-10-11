@@ -1,8 +1,6 @@
 import { ToastService } from './../../services/toast-notification/toast.service';
-import { error } from 'util';
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
 import { FileData } from '../../models/FileData';
-import { Constant } from '../../constant/constant';
 import { FileService } from '../../services/file/file.service';
 import { v4 as uuid } from 'uuid';
 import { Chapter } from '../../models/chapter';
@@ -28,6 +26,7 @@ export class UploadMultimediaComponent implements OnInit {
 
   private loading: boolean;
   private sending: boolean;
+  private sent: boolean;
   private dragging: boolean;
 
   @Input() canChangeType: any = true;
@@ -70,7 +69,7 @@ export class UploadMultimediaComponent implements OnInit {
         'accept': 'video/mp4',
         'types': 'MP4',
         'size_show': '50MB'
-        },
+      },
       {
         'name': 'PDF',
         'type': 'FILE',
@@ -78,7 +77,7 @@ export class UploadMultimediaComponent implements OnInit {
         'accept': 'application/pdf',
         'types': 'PDF',
         'size_show': '10MB'
-        }
+      }
     ];
 
   }
@@ -92,17 +91,18 @@ export class UploadMultimediaComponent implements OnInit {
     this.selectedType = '';
     this.loading = false;
     this.sending = false;
+    this.sent = false;
 
     window.addEventListener('dragover', e => {
       if (!this.isNewData && this.selectedType !== '') {
         this.dragging = true;
       }
-      if ((<Element>e.target).tagName  !== 'INPUT') {
+      if ((<Element>e.target).tagName !== 'INPUT') {
         e.preventDefault();
       }
     }, false);
     window.addEventListener('drop', e => {
-      if ((<Element>e.target).tagName  !== 'INPUT') {
+      if ((<Element>e.target).tagName !== 'INPUT') {
         e.preventDefault();
       }
       this.dragging = false;
@@ -115,28 +115,29 @@ export class UploadMultimediaComponent implements OnInit {
   }
 
   onChange(files) {
-   // this.loading = true;
+    // this.loading = true;
+    this.sent = false;
     const fi = this.fileInput.nativeElement;
     if (fi.files && fi.files.length > 0) {
-      for (let i = 0 ; i < fi.files.length ; i ++ ) {
+      for (let i = 0; i < fi.files.length; i++) {
         this.loading = true;
         const fileToUpload = fi.files[i];
-        if ( (this.selectedType.accept.includes(fileToUpload.type) && (fileToUpload.type !== '')) ) {
-          if ( fileToUpload.size <= this.selectedType.size) {
+        if ((this.selectedType.accept.includes(fileToUpload.type) && (fileToUpload.type !== ''))) {
+          if (fileToUpload.size <= this.selectedType.size) {
             this.files.push(fileToUpload);
             this.hasFile = true;
             this.loading = false;
           } else {
             this.toastService.toastMsgError('Erro', 'Não foi possível carregar o arquivo ' + fileToUpload.name +
-            '. Verifique o tamanho máximo permitido para o tipo de mídia selecionado');
+              '. Verifique o tamanho máximo permitido para o tipo de mídia selecionado');
             this.reset();
             this.loading = false;
           }
         } else {
           this.toastService.toastMsgError('Erro', 'Não foi possível carregar o arquivo ' + fileToUpload.name +
             '. Verifique as extensões permitidas para o tipo de mídia selecionado');
-            this.reset();
-            this.loading = false;
+          this.reset();
+          this.loading = false;
         }
       }
     }
@@ -154,45 +155,51 @@ export class UploadMultimediaComponent implements OnInit {
   }
 
   upload(): void {
+    let isSent2 = 0;
     this.sending = true;
     if (this._fileData && !this._fileData.mediaType) {
       return;
     }
 
-    if ( this.files.length > 0) {
+    if (this.files.length > 0) {
       if (this.files && this.files.length > 0) {
-        for (let i = 0 ; i < this.files.length ; i ++ ) {
+        isSent2 = 1;
+        for (let i = 0; i < this.files.length; i++) {
           const fileToUpload = this.files[i];
           this.fileService.upload(fileToUpload).subscribe(
-          res => {
-            this._fileData = JSON.parse(res.text());
+            res => {
+              this._fileData = JSON.parse(res.text());
 
-            this.files = [];
-            this.hasFile = false;
-            this.sending = false;
-            if (this.uploaded) {
-              this.uploaded.emit(this._fileData);
-              this.selectedType = '';
-              this.reset();
-              // this._fileData = null;
+              this.files = [];
+              this.hasFile = false;
+              this.sending = false;
+              if (this.uploaded) {
+                this.uploaded.emit(this._fileData);
+                this.selectedType = '';
+                this.reset();
+                // this._fileData = null;
+              }
+            }, error => {
+              isSent2 = 0;
+              console.log('ERROR UPLOAD:', error);
+              this.sending = false;
             }
-          }, error => {
-            console.log('ERROR UPLOAD:', error);
-            this.sending = false;
-          }
-        );
+          );
         }
       }
     } else {
       this.sending = false;
       this.toastService.toastMsgWarn('Atenção', 'Selecione um ou mais arquivos para upload!');
     }
+    if (isSent2 !== 0) {
+      this.sent = true;
+    }
   }
 
   loadInfo() {
-    if ( this.type_file !== undefined) {
-      for ( let i = 0; i < this.type_file.length; i++) {
-        if ( this.type_file[i].type === this._fileData.mediaType) {
+    if (this.type_file !== undefined) {
+      for (let i = 0; i < this.type_file.length; i++) {
+        if (this.type_file[i].type === this._fileData.mediaType) {
           this.selectedType = this.type_file[i];
         }
       }
