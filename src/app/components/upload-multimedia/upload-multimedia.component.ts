@@ -1,5 +1,5 @@
 import { ToastService } from './../../services/toast-notification/toast.service';
-import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, Input, AfterViewInit } from '@angular/core';
 import { FileData } from '../../models/FileData';
 import { FileService } from '../../services/file/file.service';
 import { v4 as uuid } from 'uuid';
@@ -14,7 +14,6 @@ export class UploadMultimediaComponent implements OnInit {
 
   private type_file: any[];
   private selectedType;
-  public chapter: Chapter = new Chapter();
 
   private files: any[] = new Array();
   private hasFile = false;
@@ -31,6 +30,8 @@ export class UploadMultimediaComponent implements OnInit {
 
   @Input() canChangeType: any = true;
   @Input() isNewData: boolean;
+  @Input() dataSource: any[] = [];
+  @Input() removes;
 
   @Input()
   set fileData(val: any) {
@@ -111,7 +112,6 @@ export class UploadMultimediaComponent implements OnInit {
     window.addEventListener('mouseup', e => {
       this.dragging = false;
     }, false);
-
   }
 
   onChange(files) {
@@ -142,6 +142,7 @@ export class UploadMultimediaComponent implements OnInit {
       }
     }
   }
+
   remove(file) {
     this.files.splice(file, 1);
     this.reset();

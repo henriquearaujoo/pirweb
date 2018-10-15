@@ -5,7 +5,7 @@ import { Component, OnInit, Input, ViewChild, ElementRef, HostListener, EventEmi
 import { Constant } from '../../constant/constant';
 import { PageService } from '../../services/pagenate/page.service';
 import { PagenateComponent } from '../pagenate/pagenate.component';
-import 'rxjs/Rx' ;
+import 'rxjs/Rx';
 import { saveAs } from 'filesaver.js-npm/FileSaver';
 
 declare function require(name: string): any;
@@ -17,27 +17,27 @@ declare function require(name: string): any;
 })
 export class MultimediaGalleryComponent implements OnInit, OnChanges, OnDestroy {
 
-  @Input() datasource: any[];
+  @Input() datasource: any[] = [];
   private selectedItem: any = '';
-  @Output() remove = new EventEmitter<any>();
+  @Output() removes = new EventEmitter<any>();
 
-   // array of all items to be paged
-   private allItems: any[];
-   private images: any[];
-   private videos: any[];
-   private files: any[];
+  // array of all items to be paged
+  private allItems: any[];
+  private images: any[];
+  private videos: any[];
+  private files: any[];
 
-   // pager object
-   pager: any = {};
+  // pager object
+  pager: any = {};
 
-   // paged items
-   pagedItems: any[];
+  // paged items
+  pagedItems: any[];
 
   constructor(
     private modalService: ModalService,
     private pagerService: PageService,
     private fileService: FileService) {
-     }
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.datasource) {
@@ -54,12 +54,13 @@ export class MultimediaGalleryComponent implements OnInit, OnChanges, OnDestroy 
 
   setSelectedItem(item: any) {
     this.selectedItem = item;
- }
+    console.log(this.selectedItem);
+  }
 
   downloadFile(item: any) {
     console.log(item);
     this.fileService.donwload(item.id).subscribe(
-      data =>  {
+      data => {
         console.log(data);
         const blob = new Blob([data], { type: 'application/pdf' });
         const url = window.URL.createObjectURL(blob);
@@ -68,7 +69,7 @@ export class MultimediaGalleryComponent implements OnInit, OnChanges, OnDestroy 
 
       },
       error => console.log('Error downloading the file.')
-      );
+    );
   }
 
   close() {
@@ -76,44 +77,45 @@ export class MultimediaGalleryComponent implements OnInit, OnChanges, OnDestroy 
     this.ngOnDestroy();
   }
 
- reload() {
-  for (let i = 0; i < this.datasource.length; i++) {
-    this.datasource[i].path = Constant.BASE_URL + 'file/download/' + this.datasource[i].id;
-   }
+  reload() {
+    // for (let i = 0; i < this.datasource.length; i++) {
+    //   this.datasource[i].path = Constant.BASE_URL + 'file/download/' + this.datasource[i].id;
+    //  }
   }
 
- removeMultimedia(item: any) {
-  this.remove.emit(item);
- }
+  removeMultimedia(item: any) {
+    console.log(item);
+    this.removes.emit(item);
+  }
 
- setPage(page: number) {
-  if (page < 1 || page > this.pager.totalPages) {
+  setPage(page: number) {
+    if (page < 1 || page > this.pager.totalPages) {
       return;
+    }
+    // get pager object from service
+    this.pager = this.pagerService.getPager(this.allItems.length, page);
+
+    // get current page of items
+    this.pagedItems = this.allItems.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
-  // get pager object from service
-  this.pager = this.pagerService.getPager(this.allItems.length, page);
 
-  // get current page of items
-  this.pagedItems = this.allItems.slice(this.pager.startIndex, this.pager.endIndex + 1);
-}
-
-setPageImages(page: number) {
-  if (page < 1 || page > this.pager.totalPages) {
+  setPageImages(page: number) {
+    if (page < 1 || page > this.pager.totalPages) {
       return;
-  }
-  // get pager object from service
-  this.pager = this.pagerService.getPager(this.images.length, page);
+    }
+    // get pager object from service
+    this.pager = this.pagerService.getPager(this.images.length, page);
 
-  // get current page of items
-  this.pagedItems = this.images.slice(this.pager.startIndex, this.pager.endIndex + 1);
-}
-
- navigate(forward) {
-  const index = this.datasource.indexOf(this.selectedItem) + (forward ? 1 : -1);
-  if (index >= 0 && index < this.datasource.length) {
-     this.selectedItem = this.datasource[index];
+    // get current page of items
+    this.pagedItems = this.images.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
-}
+
+  navigate(forward) {
+    const index = this.datasource.indexOf(this.selectedItem) + (forward ? 1 : -1);
+    if (index >= 0 && index < this.datasource.length) {
+      this.selectedItem = this.datasource[index];
+    }
+  }
   ngOnDestroy() {
     this.selectedItem = '';
   }

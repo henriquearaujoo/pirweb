@@ -17,7 +17,7 @@ import { Http, XHRBackend, RequestOptions, HttpModule, ConnectionBackend } from 
 import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
-import {ToastyModule} from 'ng2-toasty';
+import { ToastyModule } from 'ng2-toasty';
 
 import { CdkTableModule } from '@angular/cdk/table';
 import {
@@ -66,7 +66,7 @@ import { ReportFilterComponent } from './components/report-filter/report-filter.
 import { RegionalService } from './services/regional/regional.service';
 
 
-export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) {}
+export function httpFactory(backend: ConnectionBackend, defaultOptions: RequestOptions, router: Router) { }
 
 @NgModule({
   declarations: [

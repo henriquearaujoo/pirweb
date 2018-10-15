@@ -114,3 +114,7 @@ input#files {
     color: #23547e;
     font-weight: bold;
 }
+
+.listGallery {
+    margin-top: 20px;
+}

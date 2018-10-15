@@ -77,13 +77,13 @@
             </div>
             <button type="submit" class="btn btn-labeled btn-info pull-right" [disabled]="(isNewData || (selectedType === ''))">
                 <span class="btn-label"><i class="glyphicon glyphicon-upload"></i> </span>Carregar</button>
-            <i *ngIf="sent" class="fa fa-check" aria-hidden="true"> <span>Arquivo(s) carregado(s)</span></i>
+            <!-- <i *ngIf="sent" class="fa fa-check" aria-hidden="true"> <span>Arquivo(s) carregado(s)</span></i> -->
         </div>
     </div>
-    <!-- <div class="row">
+    <div class="row listGallery">
         <div class="col">
-            <app-multimedia-gallery #gallery [datasource]="multimedias" (remove)="removeMultimedia($event)"></app-multimedia-gallery>
+            <app-multimedia-gallery #gallery [datasource]="dataSource" (remove)="removeMultimedia($event)"></app-multimedia-gallery>
         </div>
-    </div> -->
+    </div>
 
 </form>

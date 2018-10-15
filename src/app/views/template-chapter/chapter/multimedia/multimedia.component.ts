@@ -33,7 +33,7 @@ export class MultimediaComponent implements OnInit {
   public isNewData: boolean;
   private openModalRemove: HTMLButtonElement;
   private item_remove: any;
-  private object: Object = { 'margin-top': (((window.screen.height) / 2 ) - 200) + 'px'};
+  private object: Object = { 'margin-top': (((window.screen.height) / 2) - 200) + 'px' };
   private canReload: boolean;
   @ViewChild('gallery') gallery: MultimediaGalleryComponent;
 
@@ -51,7 +51,7 @@ export class MultimediaComponent implements OnInit {
     this.canUpdate = false;
     this.canRead = false;
     this.canDelete = false;
-   }
+  }
 
   ngOnInit() {
     this.permissions.canActivate(['/capitulos/registro']);
@@ -70,7 +70,7 @@ export class MultimediaComponent implements OnInit {
 
   fileChanged(e: Event) {
     console.log(e);
-    }
+  }
 
   load(chapter) {
     this.chapterService.load(chapter).subscribe(
@@ -79,6 +79,9 @@ export class MultimediaComponent implements OnInit {
         this.isNewData = false;
         this.multimedias = this.chapter.medias;
         this.hasData = true;
+        console.log('this.multimedias');
+        console.log(this.multimedias);
+        console.log('this.multimedias');
       },
       e => {
         console.log('PirError:' + e);
@@ -91,29 +94,29 @@ export class MultimediaComponent implements OnInit {
       this.btn_cancel = false;
       return false;
     }
-      if (!this.isNewData) {
-        for (let i = 0; i < media.length; i++) {
-          this.chapter.medias.push(media[i]);
-        }
-
-        this.chapter.medias.forEach( elem => {
-          elem.media_type = undefined;
-          elem.storage_type = undefined;
-        });
-
-        this.chapter.thumbnails = [];
-        this.chapterService.update(this.chapter).subscribe(
-          s => {
-            this.toastService.toastSuccess();
-            this.chapter = s;
-            this.load(this.chapter.id);
-          },
-          e => {
-            console.log(e);
-            this.toastService.toastError();
-          }
-        );
+    if (!this.isNewData) {
+      for (let i = 0; i < media.length; i++) {
+        this.chapter.medias.push(media[i]);
       }
+
+      this.chapter.medias.forEach(elem => {
+        elem.media_type = undefined;
+        elem.storage_type = undefined;
+      });
+
+      this.chapter.thumbnails = [];
+      this.chapterService.update(this.chapter).subscribe(
+        s => {
+          this.toastService.toastSuccess();
+          this.chapter = s;
+          this.load(this.chapter.id);
+        },
+        e => {
+          console.log(e);
+          this.toastService.toastError();
+        }
+      );
+    }
   }
 
   removeMultimedia(item: any) {
