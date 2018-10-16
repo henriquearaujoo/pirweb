@@ -564,6 +564,11 @@ export class UserComponent implements OnInit, OnDestroy {
             this.toastService.toastErrorValid('RG');
             break;
           }
+          case 'email.found': {
+            console.log(er);
+            this.toastService.toastErrorExists('EMAIL');
+            break;
+          }
           default: {
             this.toastService.toastError();
             console.log(this.error_list);
@@ -589,7 +594,7 @@ export class UserComponent implements OnInit, OnDestroy {
           this.toastService.toastErrorExists('CNPJ');
           break;
         }
-        case 'email.found': {
+        case 'email.violation': {
           console.log(er);
           this.toastService.toastErrorExists('EMAIL');
           break;
