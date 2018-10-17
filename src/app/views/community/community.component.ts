@@ -102,11 +102,13 @@ export class CommunityComponent implements OnInit {
   public myDatePickerOptions: IMyDpOptions = {
     // other options...
     dateFormat: 'dd/mm/yyyy',
-    dayLabels: {su: 'Dom', mo: 'Seg', tu: 'Ter', we: 'Qua', th: 'Qui', fr: 'Sex', sa: 'Sab'},
-    monthLabels: { 1: 'Jan', 2: 'Fev', 3: 'Mar', 4: 'Abr', 5: 'Mai', 6: 'Jun', 7: 'Jul',
-                   8: 'Ago', 9: 'Set', 10: 'Out', 11: 'Nov', 12: 'Dez' },
+    dayLabels: { su: 'Dom', mo: 'Seg', tu: 'Ter', we: 'Qua', th: 'Qui', fr: 'Sex', sa: 'Sab' },
+    monthLabels: {
+      1: 'Jan', 2: 'Fev', 3: 'Mar', 4: 'Abr', 5: 'Mai', 6: 'Jun', 7: 'Jul',
+      8: 'Ago', 9: 'Set', 10: 'Out', 11: 'Nov', 12: 'Dez'
+    },
     todayBtnTxt: 'Hoje'
-};
+  };
 
   constructor(
     private communityService: CommunityService,
@@ -119,11 +121,11 @@ export class CommunityComponent implements OnInit {
     private loaderService: LoaderService,
     private route: Router
   ) {
-      this.canCreate = false;
-      this.canUpdate = false;
-      this.canRead = false;
-      this.canDelete = false;
-   }
+    this.canCreate = false;
+    this.canUpdate = false;
+    this.canRead = false;
+    this.canDelete = false;
+  }
 
   ngOnInit() {
     this.permissions.canActivate(['/comunidades/registro']);
@@ -195,14 +197,14 @@ export class CommunityComponent implements OnInit {
                 // this.cities = u.cities;
               }
             );
-            this.isNewData  = false;
+            this.isNewData = false;
             this.sweetAlertService.alertSuccess('/comunidades');
           },
           error => {
-            if ( error === 'community_name.found') {
+            if (error === 'community_name.found') {
               this.toastService.toastMsgWarn('Atenção', 'Comunidade já cadastrada!');
             } else {
-              this.toastService.toastError();
+              this.toastService.toastMsgWarn('Atenção', 'Comunidade já cadastrada!');
               console.log('save error:', error);
             }
           }
@@ -228,16 +230,16 @@ export class CommunityComponent implements OnInit {
             this.sweetAlertService.alertSuccessUpdate('/comunidades');
           },
           error => {
-            if ( error === 'community_name.found') {
+            if (error === 'community_name.found') {
               this.toastService.toastMsgWarn('Atenção', 'Não é possível editar comunidade com um nome já existente no mesmo município!');
             } else {
-              this.toastService.toastError();
+              this.toastService.toastMsgWarn('Atenção', 'Não é possível editar comunidade com um nome já existente no mesmo município!');
               console.log('update error:', error);
             }
           }
         );
       }
-    }  else {
+    } else {
       if (!isValid) {
         this.toastService.toastMsgError('Erro', 'Preencha todos os campos obrigatórios do formulário!');
       }
@@ -252,16 +254,16 @@ export class CommunityComponent implements OnInit {
     this.waterSupply_list = this.waterSupply.split(',');
 
     for (let i = 0; i < this._waterSupply.length; i++) {
-      for (let j = 0; j < this.waterSupply_list.length; j++ ) {
-        if ( this._waterSupply[i].type === this.waterSupply_list[j]) {
+      for (let j = 0; j < this.waterSupply_list.length; j++) {
+        if (this._waterSupply[i].type === this.waterSupply_list[j]) {
           this._waterSupply[i].checked = true;
         }
       }
     }
 
     for (let i = 0; i < this._culturalProducion.length; i++) {
-      for (let j = 0; j < this.culturalProduction_list.length; j++ ) {
-        if ( this._culturalProducion[i].type === this.culturalProduction_list[j]) {
+      for (let j = 0; j < this.culturalProduction_list.length; j++) {
+        if (this._culturalProducion[i].type === this.culturalProduction_list[j]) {
           this._culturalProducion[i].checked = true;
         }
       }
@@ -306,14 +308,14 @@ export class CommunityComponent implements OnInit {
   onCancel() {
     if (this.onChange) {
       this.sweetAlert2Service.alertToSave()
-      .then((result) => {
-        if (result.value) {
-          this._isSave = true;
-          this.openSaveButtonTab2.click();
-        } else {
-          this.route.navigate(['/comunidades']);
-        }
-      });
+        .then((result) => {
+          if (result.value) {
+            this._isSave = true;
+            this.openSaveButtonTab2.click();
+          } else {
+            this.route.navigate(['/comunidades']);
+          }
+        });
     } else {
       this.openModal();
     }
@@ -322,7 +324,7 @@ export class CommunityComponent implements OnInit {
   updateOptions() {
     if (this.culturalProduction_list.length > 0) {
       for (let i = 0; i < this.culturalProduction_list.length; i++) {
-        if ( i === 0 ) {
+        if (i === 0) {
           this.culturalProduction = this.culturalProduction_list[i];
         } else {
           this.culturalProduction = this.culturalProduction + ',' + this.culturalProduction_list[i];
@@ -332,9 +334,9 @@ export class CommunityComponent implements OnInit {
       this.culturalProduction = '';
     }
 
-    if (this.waterSupply_list.length > 0 ) {
+    if (this.waterSupply_list.length > 0) {
       for (let i = 0; i < this.waterSupply_list.length; i++) {
-        if ( i === 0 ) {
+        if (i === 0) {
           this.waterSupply = this.waterSupply_list[i];
         } else {
           this.waterSupply = this.waterSupply + ',' + this.waterSupply_list[i];
@@ -370,7 +372,7 @@ export class CommunityComponent implements OnInit {
           } else {
             this.isCkeckboxValid = true;
           }
-        break;
+          break;
       }
     } else {
       switch (option) {
@@ -383,7 +385,7 @@ export class CommunityComponent implements OnInit {
           } else {
             this.isCkeckboxValid = true;
           }
-        break;
+          break;
         case 2:
           this.index2 = this.waterSupply_list.indexOf(value);
           this.waterSupply_list.splice(this.index2, 1);
@@ -393,7 +395,7 @@ export class CommunityComponent implements OnInit {
           } else {
             this.isCkeckboxValid = true;
           }
-        break;
+          break;
       }
     }
   }
@@ -411,11 +413,11 @@ export class CommunityComponent implements OnInit {
   }
 
   getUnities() {
-    this.regionais.filter( elem => {
-        if (elem.id === this.community.regional.id) {
-          this.unities = elem.unities;
-        }
-      });
+    this.regionais.filter(elem => {
+      if (elem.id === this.community.regional.id) {
+        this.unities = elem.unities;
+      }
+    });
     if (this.unities !== undefined) {
       if (this.unities.length > 0) {
         this.community.unity = this.unities[0];
@@ -425,7 +427,7 @@ export class CommunityComponent implements OnInit {
   }
 
   getCities() {
-    this.unities.filter( elem => {
+    this.unities.filter(elem => {
       if (elem.id === this.community.unity.id) {
         this.cities = elem.cities;
       }
@@ -442,12 +444,12 @@ export class CommunityComponent implements OnInit {
     this._isSave = true;
   }
 
-   isActive(tab: boolean, t?: number,  p?: number) {
-    if ( p !== 0 ) {
+  isActive(tab: boolean, t?: number, p?: number) {
+    if (p !== 0) {
       if (t === 1) {
         this.openSaveButtonTab1.click();
       } else {
-        if ( t === 2) {
+        if (t === 2) {
           this.isFormValid = true;
         }
       }
@@ -456,46 +458,46 @@ export class CommunityComponent implements OnInit {
     }
 
 
-    if ( this.isFormValid && this.isCkeckboxValid) {
+    if (this.isFormValid && this.isCkeckboxValid) {
       this.isFormValid = false;
       if (tab) {
         if (this.currentTab === -1) {
-              this.currentTab = 0;
+          this.currentTab = 0;
         } else if (this.currentTab < 2) {
-              this.currentTab++;
-              this.cont++;
-          }
-      }else {
-        if (this.currentTab > 0) {
-              this.currentTab--;
-              this.cont--;
-            }
-      }
-        this.previousTab = '#tab_' + (this.currentTab + 1);
-        this.nextTab = '#tab_' + (this.currentTab + 1);
-
-        if (this.nextTab === '#tab_2') {
-          this.enable_save = true;
-        } else {
-          this.enable_save = false;
-        }
-
-        if (this.currentTab === 0) {
-          (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
-          this.sectionInfoTab = './assets/img/community/ic_section_info_enable.png';
-          this.sectionServicesTab = './assets/img/community/ic_section_services_disable.png';
-
-        }else if (this.currentTab === 1) {
-          this.sectionInfoTab = './assets/img/community/ic_section_info_disable.png';
-          this.sectionServicesTab = './assets/img/community/ic_section_services_enable.png';
-          (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
-          (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
+          this.currentTab++;
+          this.cont++;
         }
       } else {
-        if (t === 1) {
-          this.nextTab = '#tab_1';
+        if (this.currentTab > 0) {
+          this.currentTab--;
+          this.cont--;
         }
       }
+      this.previousTab = '#tab_' + (this.currentTab + 1);
+      this.nextTab = '#tab_' + (this.currentTab + 1);
+
+      if (this.nextTab === '#tab_2') {
+        this.enable_save = true;
+      } else {
+        this.enable_save = false;
+      }
+
+      if (this.currentTab === 0) {
+        (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = 'none';
+        this.sectionInfoTab = './assets/img/community/ic_section_info_enable.png';
+        this.sectionServicesTab = './assets/img/community/ic_section_services_disable.png';
+
+      } else if (this.currentTab === 1) {
+        this.sectionInfoTab = './assets/img/community/ic_section_info_disable.png';
+        this.sectionServicesTab = './assets/img/community/ic_section_services_enable.png';
+        (<HTMLButtonElement>document.getElementById('btn_next')).style.display = '';
+        (<HTMLButtonElement>document.getElementById('btn_previous')).style.display = '';
+      }
+    } else {
+      if (t === 1) {
+        this.nextTab = '#tab_1';
+      }
+    }
 
   }
 
