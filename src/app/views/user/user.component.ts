@@ -201,6 +201,7 @@ export class UserComponent implements OnInit, OnDestroy {
   saveData(form1, fomr2, form3) {
     const isValid = form1 && fomr2 && form3;
     if (isValid && this._isSave) {
+      this.loaderService.show();
       this.modalOpened = false;
       this.verifyType();
       if (this.isTypeAgent) {
@@ -225,8 +226,10 @@ export class UserComponent implements OnInit, OnDestroy {
               } else {
                 this.sweetAlertService.alertSuccess('/agente-dashboard');
               }
+              this.loaderService.hide();
             },
             error => {
+              this.loaderService.hide();
               this.user.password = this.password;
               // this.toastService.toastError();
               this.error_list = error;
@@ -235,8 +238,10 @@ export class UserComponent implements OnInit, OnDestroy {
           );
         } else {
           if (this.url === '/usuarios/registro') {
+            this.loaderService.hide();
             this.sweetAlertService.alertPermission('/usuarios');
           } else {
+            this.loaderService.hide();
             this.sweetAlertService.alertPermission('/agente-dashboard');
           }
         }
@@ -293,23 +298,28 @@ export class UserComponent implements OnInit, OnDestroy {
                   this.sweetAlertService.alertSuccessUpdate('/agente-dashboard');
                 }
               }
+              this.loaderService.hide();
             },
             error => {
               this.user.password = this.password;
               this.error_list = error;
               this.verifyError();
+              this.loaderService.hide();
             }
           );
         } else {
           if (this.url === '/usuarios/registro') {
             this.sweetAlertService.alertPermission('/usuarios');
+            this.loaderService.hide();
           } else {
             this.sweetAlertService.alertPermission('/agente-dashboard');
+            this.loaderService.hide();
           }
         }
       }
     } else {
       if (!isValid) {
+        this.loaderService.hide();
         this.toastService.toastMsgError('Erro', 'Preencha todos os campos obrigatórios do formulário!');
       }
     }
